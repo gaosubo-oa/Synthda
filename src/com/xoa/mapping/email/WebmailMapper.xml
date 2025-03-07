@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.email.WebmailMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.email.Webmail">
+        <id column="MAIL_ID" property="mailId" javaType="Integer"/>
+        <result column="EMAIL" property="email" javaType="String"/>
+        <result column="USER_ID" property="userId" javaType="String"/>
+        <result column="POP_SERVER" property="popServer" javaType="String"/>
+        <result column="SMTP_SERVER" property="smtpServer" javaType="String"/>
+        <result column="LOGIN_TYPE" property="loginType" javaType="String"/>
+        <result column="SMTP_PASS" property="smtpPass" javaType="String"/>
+        <result column="EMAIL_USER" property="emailUser" javaType="String"/>
+        <result column="EMAIL_PASS" property="emailPass" javaType="String"/>
+        <result column="POP3_PORT" property="pop3Port" javaType="Integer"/>
+        <result column="SMTP_PORT" property="smtpPort" javaType="Integer"/>
+        <result column="IS_DEFAULT" property="isDefault" javaType="String"/>
+        <result column="POP3_SSL" property="pop3Ssl" javaType="String"/>
+        <result column="SMTP_SSL" property="smtpSsl" javaType="String"/>
+        <result column="QUOTA_LIMIT" property="quotaLimit" javaType="Integer"/>
+        <result column="CHECK_FLAG" property="checkFlag" javaType="String"/>
+        <result column="PRIORITY" property="priority" javaType="String"/>
+        <result column="RECV_DEL" property="recvDel" javaType="String"/>
+        <result column="RECV_REMIND" property="recvRemind" javaType="String"/>
+        <result column="RECV_FW" property="recvFw" javaType="String"/>
+        <result column="CREATE_USER" property="createUser" javaType="String"/>
+        <result column="EMAIL_UID" property="emailUid" javaType="String"/>
+    </resultMap>
+
+    <!-- 新建外部邮箱 -->
+    <insert id="save" useGeneratedKeys="true" keyProperty="mailId" parameterType="com.xoa.model.email.Webmail">
+    INSERT INTO webmail
+    (EMAIL,USER_ID,POP_SERVER,SMTP_SERVER, LOGIN_TYPE, SMTP_PASS,EMAIL_USER,EMAIL_PASS,
+   POP3_PORT,SMTP_PORT,IS_DEFAULT,POP3_SSL,SMTP_SSL,QUOTA_LIMIT,CHECK_FLAG,PRIORITY,
+   RECV_DEL,RECV_REMIND,RECV_FW,CREATE_USER,EMAIL_UID)
+   VALUES
+   (#{email},#{userId},#{popServer},#{smtpServer},#{loginType},#{smtpPass},#{emailUser},#{emailPass},
+    #{pop3Port},#{smtpPort},#{isDefault},#{pop3Ssl},#{smtpSsl},#{quotaLimit},#{checkFlag},#{priority},
+    #{recvDel},#{recvRemind},#{recvFw},#{createUser},#{emailUid})
+  </insert>
+
+    <!-- 修改外部邮箱信息 -->
+    <update id="update" parameterType="com.xoa.model.email.Webmail" >
+        UPDATE webmail
+        <set>
+            <if test="email != null and email != ''">
+                EMAIL = #{email},
+            </if>
+            <if test="popServer != null and popServer != ''">
+                POP_SERVER = #{popServer},
+            </if>
+            <if test="smtpServer != null and smtpServer != ''">
+                SMTP_SERVER = #{smtpServer},
+            </if>
+            <if test="loginType != null and  loginType != ''">
+                LOGIN_TYPE = #{loginType},
+            </if>
+            <if test="smtpPass != null and smtpPass != ''">
+                SMTP_PASS = #{smtpPass},
+            </if>
+            <if test="emailUser != null and emailUser != ''">
+                EMAIL_USER = #{emailUser},
+            </if>
+            <if test="emailPass != null and emailPass != ''">
+                EMAIL_PASS = #{emailPass},
+            </if>
+            <if test="pop3Port != null and pop3Port != ''">
+                POP3_PORT = #{pop3Port},
+            </if>
+            <if test="smtpPort != null and smtpPort != ''">
+                SMTP_PORT = #{smtpPort},
+            </if>
+            <if test="isDefault != null and isDefault != ''">
+                IS_DEFAULT = #{isDefault},
+            </if>
+            <if test="pop3Ssl != null and pop3Ssl != ''">
+                POP3_SSL = #{pop3Ssl},
+            </if>
+            <if test="smtpSsl != null and smtpSsl != ''">
+                SMTP_SSL = #{smtpSsl},
+            </if>
+            <if test="quotaLimit != null and quotaLimit != ''">
+                QUOTA_LIMIT = #{quotaLimit},
+            </if>
+            <if test="checkFlag != null and checkFlag != ''">
+                CHECK_FLAG = #{checkFlag},
+            </if>
+            <if test="priority != null and priority != ''">
+                PRIORITY = #{priority},
+            </if>
+            <if test="recvDel != null and recvDel != ''">
+                RECV_DEL = #{recvDel},
+            </if>
+            <if test="recvRemind != null and recvRemind != ''">
+                RECV_REMIND = #{recvRemind},
+            </if>
+            <if test="recvFw != null and  recvFw != ''">
+                RECV_FW = #{recvFw},
+            </if>
+            <if test="createUser != null and createUser != ''">
+                CREATE_USER = #{createUser},
+            </if>
+            <if test="emailUid != null and  emailUid != ''">
+                EMAIL_UID = #{emailUid},
+            </if>
+            <if test="userId != null and userId != ''">
+                USER_ID = #{userId}
+            </if>
+        </set>
+      WHERE
+        MAIL_ID = #{mailId}
+    </update>
+
+    <!-- 删除外部邮箱关联 -->
+    <delete id="deleteWebMail" parameterType="Integer">
+        DELETE FROM webmail WHERE  MAIL_ID = #{mailId}
+    </delete>
+
+    <!-- 根据外部邮箱email_查询外部邮箱STMP/POP3的相关信息 -->
+    <select id="selectWebMail" resultMap="BaseResultMap">
+        SELECT
+        MAIL_ID,
+           EMAIL,USER_ID,POP_SERVER,SMTP_SERVER, LOGIN_TYPE, SMTP_PASS,EMAIL_USER,EMAIL_PASS,
+           POP3_PORT,SMTP_PORT,IS_DEFAULT,POP3_SSL,SMTP_SSL,QUOTA_LIMIT,CHECK_FLAG,PRIORITY,
+           RECV_DEL,RECV_REMIND,RECV_FW,CREATE_USER,EMAIL_UID
+        FROM
+            webmail
+        WHERE
+            EMAIL = #{email}
+    </select>
+
+    <!-- 外部邮箱信息展示 -->
+    <select id="selectUserWebMail" parameterType="java.lang.String"  resultMap="BaseResultMap">
+        SELECT
+        MAIL_ID,
+        EMAIL,USER_ID,POP_SERVER,SMTP_SERVER, LOGIN_TYPE, SMTP_PASS,EMAIL_USER,EMAIL_PASS,
+        POP3_PORT,SMTP_PORT,IS_DEFAULT,POP3_SSL,SMTP_SSL,QUOTA_LIMIT,CHECK_FLAG,PRIORITY,
+        RECV_DEL,RECV_REMIND,RECV_FW,CREATE_USER,EMAIL_UID
+        FROM
+        webmail
+        WHERE
+        USER_ID = #{userId}
+    </select>
+
+    <!-- 单条外部邮件详细查询 -->
+    <select id="selectOneWebMail" resultMap="BaseResultMap">
+        SELECT
+        MAIL_ID,
+        EMAIL,USER_ID,POP_SERVER,SMTP_SERVER, LOGIN_TYPE, SMTP_PASS,EMAIL_USER,EMAIL_PASS,
+        POP3_PORT,SMTP_PORT,IS_DEFAULT,POP3_SSL,SMTP_SSL,QUOTA_LIMIT,CHECK_FLAG,PRIORITY,
+        RECV_DEL,RECV_REMIND,RECV_FW,CREATE_USER,EMAIL_UID
+        FROM
+        webmail
+        WHERE
+        USER_ID = #{userId}
+        AND
+        MAIL_ID = #{mailId}
+    </select>
+
+</mapper>

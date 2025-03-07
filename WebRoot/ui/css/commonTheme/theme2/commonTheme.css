@@ -1,0 +1,291 @@
+/*邮件*/
+.page .page_left .write{
+    background: #f3f3f3;
+    /*box-shadow: inset 0 0 10px #d6d8dc;*/
+    box-shadow: none;
+    border-bottom: 1px solid #ccc;
+}
+.page .page_left .write .d_im{
+    background: #e94444;
+    border-radius: 4px;
+}
+.page .page_left .inbox_btn{
+    color: #777777;
+}
+.page .page_left{
+    background: #f3f3f3;
+    border-right: 1px solid #ccc;
+}
+.ul_showtwo{
+    background: #f3f3f3;
+    box-shadow:  0 1px 6px #d6d8dc;
+}
+.page .page_left .ul_show li a {
+    color: #777;
+}
+.on{
+    background-color: #f46161;
+    box-shadow: none;
+
+}
+.on>a{
+    color: #fff!important;
+}
+.divUlShow{
+    background: #f3f3f3;
+}
+.page .page_left .ul_show li:not(.on):hover{
+    background-color: #ffcece;
+}
+.page .page_left .setUp{
+    background-color: #e94444;
+}
+.head .one{
+    background:#dd2e2c ;
+}
+.main_left .BTN:hover{
+    background: #ffeaea;
+}
+.backing{
+    background: #ffeaea;
+}
+.up_page_right .up_header{
+    border-color: #ccc;
+}
+.main .main_left{
+   border-right: #ffcece 1px solid;;
+}
+.page .page_left .setUp a.aSeting:hover{
+    background-color: #dd2d2d;
+}
+.set_up_ul ul li:hover{
+    background-color:#dd2d2d;
+}
+.page .page_left .write{
+    height: 55px;
+}
+.up_page_right{
+    /*width: 82.8%;*/
+}
+.formfile{
+    background: #2b7fe0!important;
+    border-radius: 3px;
+}
+
+.new_excell_footer{
+    background-color: #dd2e2c;
+}
+.new_excell_main:hover{
+    border: 2px solid #dd2e2c;
+}
+.btn_sps{
+    background: #dd2e2c;
+    border-radius: 3px;
+    border: 1px solid #dd2e2c;
+}
+
+.new_liucheng{
+    background: #dd2e2c!important;
+}
+
+.new_excell_name{
+    border-left: 4px solid #dd2e2c;
+}
+.new_excell_name{
+    color: #dd2e2c;
+}
+.newsBtn{
+    background: #dd2e2c!important;
+}
+.one {
+    background: #dd2e2c!important;
+    border-radius: 3px;
+}
+.two{
+    border-radius: 3px;
+}
+
+.newChildFolder{
+    background: #dd2e2c!important;
+    border-radius: 3px;
+}
+
+.editFolder{
+    background: #dd2e2c!important;
+    border-radius: 3px;
+}
+.deleteFolder{
+    background: #dd2e2c!important;
+    border-radius: 3px;
+}
+.shareFolder{
+    background: #dd2e2c!important;
+    border-radius: 3px;
+}
+
+.seeClass{
+    background: #dd2e2c!important;
+    width: 100px;
+    margin-right: 30px;
+    border-radius: 3px;
+}
+.newClass{
+    background: #dd2e2c!important;
+    border-radius: 3px;
+}
+.newtory{
+    background: #dd2e2c!important;
+    border-radius: 3px;
+    color: #fff;
+    padding: 6px;
+    padding-left: 30px;
+}
+.tableDl dl{
+    border-top: 4px solid #dd2e2c;
+}
+
+
+.newLeave{
+    background: #dd2e2c!important;
+    border-radius: 3px;
+}
+.batchDelete{
+    background: #dd2e2c!important;
+    border-radius: 3px;
+}
+
+.newActivity{
+    background: #dd2e2c!important;
+    border-radius: 3px;
+}
+.new_xinjiano{
+    background: #dd2e2c!important;
+    border-radius: 3px;
+}
+
+/*系统管理*/
+#formSub .file{
+    background:#dd2e2c;
+    color:#fff;
+}
+.delete_data ,.btnTheme {
+    background: #dd2e2c!important;
+}
+.TableBlock .chuan{
+    background: #dd2e2c!important;
+}
+.head_rig .new_dept,.nav_box .head_rig .new_dept{
+    background-color: #dd2e2c!important;
+}
+.newBtn,#newClass{
+    background: #dd2e2c!important;
+}
+.hhhed{
+    text-align: center;
+    background-color: #dd2e2c;
+    color: #fff;
+    font-weight: normal;
+}
+.BigButton{
+    background: #dd2e2c;
+    color:#fff;
+}
+.formfile{
+    background: #dd2e2c!important;
+    border-radius: 3px;
+}
+
+.head-top ul .head-top-li.active {
+    background: #dd2e2c;
+    color: #fff;
+}
+.news.active span{
+    background: #dd2e2c;
+}
+
+.query .header{
+    background: #dd2e2c;
+}
+.btnsava {
+    padding: 5px 15px;
+    border-radius: 4px;
+    background: #dd2e2c!important;
+    color: #fff;
+}
+.btnarrs {
+    padding: 5px 15px;
+    background: #dd2e2c!important;
+    color: #fff!important;
+    border-radius: 4px;
+    margin-left: 5px;
+}
+.TableHeader{
+    background: #fff0f0;
+}
+
+/*积分规则设置*/
+.divBtn{
+    float: right;
+    width: 90px;
+    height: 28px;
+    background: #dd2e2c;
+    color: #fff;
+    font-size: 14px;
+    line-height: 28px;
+    margin-right: 4%;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+/*文件柜样式*/
+.three{
+    background: #dd2e2c;
+}
+.fore{
+    background: #dd2e2c;
+}
+.M-box3 .active{
+    background: #dd2e2c;
+    border: 1px solid #dd2e2c;
+}
+.boto{
+    background: #dd2e2c;
+}
+.selected{
+    background: #dd2e2c;
+}
+.hideDiv li:hover{
+    color:#ffffff;
+    background: #dd2e2c;
+}
+.head .two{
+    background: #dd2e2c;
+}
+.attach .start,.attach .cancle{
+    color:#ffffff;
+    background: #dd2e2c;
+}
+
+
+/*角色与权限*/
+.newJuese{
+    background: #dd2e2c;
+}
+
+/*CRM-销售工作台-浮动背景*/
+.crm_background_img{
+    background:url('../../../img/crm/bar_bg2.png');
+}
+
+.p2 span{
+    background-color: #dd2e2c!important;
+}
+#query{
+    background: #dd2e2c!important;
+}
+#u518_input{
+    background: #dd2e2c url(/img/taisousuo.png) no-repeat 17px 8px!important;
+}
+.check{
+    background: #dd2e2c!important;
+}

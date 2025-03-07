@@ -1,0 +1,228 @@
+/** {
+    margin: 0;
+    padding: 0;
+}*/
+
+a {
+    text-decoration: none;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: MiciosoftYaHei;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    overflow: hidden;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.container {
+    width: 100%;
+    /*height: 100%;*/
+    position: relative;
+}
+.container_lb{
+    width: 309px;
+    height: 155px;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+}
+.container_lb .list00{
+    position: absolute;
+    z-index: 1;
+    width: 1545px;
+    height: 155px;
+}
+.container_lb .list00 li{
+    width: 309px;
+    height: 155px;
+    float: left;
+    list-style: none;
+    /*background: url(../../img/lb_back.png) no-repeat;*/
+    /*background-size: 100% 100%;*/
+    position: relative;
+}
+.container_lb .list00 li .text-wz{
+    position: absolute;
+    left: 35px;
+    color: #000;
+    top: 10px;
+    font-size: 12px;
+    width: 244px;
+    font-weight: 500;
+    line-height: 22px;
+}
+.container_lb .zz{
+    width: 130px;
+    height: 20px;
+    position: absolute;
+    bottom: 5px;
+    right: 40px;
+    z-index: 2;
+}
+.container_lb .arrow{
+    color: #000;
+    font-size: 12px;
+    position: relative;
+    width: 50px;
+    float: left;
+    cursor: pointer;
+}
+.container .title {
+    display: block;
+    padding-left: 10px;
+    font-size: 22px;
+    height: 56px;
+
+    color: #fff;
+    line-height: 56px;
+    background: #3a90f2;
+}
+
+.container .title_nav {
+    height: 48px;
+    line-height: 48px;
+    border-bottom: 1px solid #2d6987;
+    padding-left: 10px;
+    background: #f9fbff;
+}
+.prev{
+    width: 10px;
+    height: 11px;
+    background: url(../../img/prev.png) no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    left: -14px;
+    top: 4px;
+}
+.next{
+    width: 10px;
+    height: 11px;
+    background: url(../../img/next.png) no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    left: 42px;
+    top: 3px;
+}
+.nav-left {
+    float: left;
+    font-size: 16px;
+    color: #1d1d1d;
+}
+.nav-right {
+    position: absolute;
+    right: 20px;
+    top: 21px;
+}
+.nav-right a {
+    font-size: 14px;
+    padding: 5px 8px;
+    margin-right: 5px;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.nav-right .updateForm {
+    background: url("../../img/btn_save_nor_04.png") no-repeat;
+    background-size: 100% 100%;
+    overflow: hidden;
+    color: #fff;
+}
+
+.nav-right .save_f {
+    background: url("../../img/btn_browse_nor_03.png") no-repeat;
+    background-size: 100% 100%;
+    color: #768797;
+    overflow: hidden;
+}
+
+#saveform {
+    width: 100%;
+    height: 100%;
+    position: relative;
+
+}
+.bgBack{
+    background: #add2f8;
+}
+
+#saveform .row {
+    float: right;
+    height: 100%;
+    width: 308px;
+    position: relative;
+    top: 0px;
+    right: 0;
+    border-left: 1px solid #cfcfcf;
+    background: #f5f7f8;
+
+}
+
+.nav-header {
+    height: 48px;
+    border-bottom: 1px solid #000;
+    padding: 0 6px;
+    margin-bottom: 22px;
+}
+
+.row .nav-list .nav-header div {
+    display: inline-block;
+    font-size: 18px;
+    padding: 12.5px 0px;
+    margin: 0px 10px -1px 10px;
+    color: #2f80d1;
+}
+
+.row .nav-list .nav-header .header_r {
+    font-weight: 500;
+    color: #919191;
+}
+
+.row .nav-list .nav-header .header_l {
+    border-bottom: 3px solid #2f80d1;
+}
+
+.row .nav-list > li > a {
+    display: block;
+    font-size: 14px;
+    color: #7e8f99;
+    text-align: left;
+    border: none;
+    height: 32px;
+    line-height: 32px;
+
+}
+
+.row .nav-list > li > a > img {
+    width: 18px;
+    height: 18px;
+    margin-right: 12px;
+    vertical-align: -4px;
+}
+
+.row .nav-list > li > a:hover {
+    background: #ccebff;
+}
+
+#saveform .span10 {
+    float: left;
+    height: 100%;
+    width: calc(100% - 30px);
+    margin-left: 10px;
+    margin-top: 20px;
+}
+

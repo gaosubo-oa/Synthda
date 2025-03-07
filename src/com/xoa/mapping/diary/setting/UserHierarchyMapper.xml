@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.diary.setting.UserHierarchyMapper" >
+    <resultMap id="BaseResultMap" type="com.xoa.model.diary.setting.UserHierarchy" >
+        <id column="ID" property="id"  javaType="integer" />
+        <result column="USER_ID" property="userId" javaType="string" />
+        <result column="USER_TOP_ID" property="userTopId" javaType="string" />
+        <result column="USER_BOTTOM_ID" property="userBottomId"  />
+        <result column="OPERATION_TIME" property="operationTime" javaType="integer" />
+        <result column="USER_UPDATE_ID" property="userUpdateId" javaType="string" />
+        <result column="XIAJI_USERS" property="xiajiUsers" javaType="string" />
+    </resultMap>
+
+    <select id="selectUserHierarchyByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+            *
+        FROM
+            user_hierarchy
+        WHERE
+            USER_ID = #{userId}
+    </select>
+
+    <update id="updateUserHierarchyById" parameterType="com.xoa.model.diary.setting.UserHierarchy">
+        UPDATE user_hierarchy
+        <set>
+            <if test="userTopId != null">
+                USER_TOP_ID = #{userTopId},
+            </if>
+            <if test="userBottomId != null">
+                USER_BOTTOM_ID = #{userBottomId},
+            </if>
+            <if test="operationTime != null">
+                OPERATION_TIME = #{operationTime},
+            </if>
+            <if test="userUpdateId != null">
+                USER_UPDATE_ID = #{userUpdateId},
+            </if>
+            <if test="xiajiUsers != null">
+                XIAJI_USERS = #{xiajiUsers},
+            </if>
+        </set>
+        WHERE
+            ID = #{id}
+    </update>
+
+    <insert id="addUserHierarchy" parameterType="com.xoa.model.diary.setting.UserHierarchy">
+        INSERT INTO user_hierarchy ( USER_ID, USER_TOP_ID, USER_BOTTOM_ID, OPERATION_TIME, USER_UPDATE_ID )
+        VALUES
+            ( #{userId}, #{userTopId}, #{userBottomId}, #{operationTime}, #{userUpdateId} )
+    </insert>
+
+    <update id="updateUserHierarchyByUserId" parameterType="com.xoa.model.diary.setting.UserHierarchy">
+        UPDATE user_hierarchy
+        <set>
+            <if test="userTopId != null">
+                USER_TOP_ID = #{userTopId},
+            </if>
+            <if test="userBottomId != null">
+                USER_BOTTOM_ID = #{userBottomId},
+            </if>
+            <if test="operationTime != null">
+                OPERATION_TIME = #{operationTime},
+            </if>
+            <if test="userUpdateId != null">
+                USER_UPDATE_ID = #{userUpdateId},
+            </if>
+            <if test="xiajiUsers != null">
+                XIAJI_USERS = #{xiajiUsers},
+            </if>
+        </set>
+        WHERE
+            USER_ID = #{userId}
+    </update>
+
+    <select id="selectUserHierarchyById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT
+            *
+        FROM
+            user_hierarchy
+        WHERE
+            ID = #{id}
+    </select>
+
+    <delete id="deleteUserHierarchyById" parameterType="java.lang.Integer">
+        DELETE
+        FROM
+            user_hierarchy
+        WHERE
+            ID = #{id}
+    </delete>
+
+    <select id="selectAllUserHierarchy" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+            *
+        FROM
+            user_hierarchy
+        <where>
+            <if test="userIdList != null and userIdList.size() > 0">
+                AND USER_ID IN
+                <foreach collection="userIdList" item="userId" open="(" separator="," close=")" index="index">
+                    #{userId}
+                </foreach>
+            </if>
+            <if test="userTopId != null and userTopId != ''">
+                AND USER_TOP_ID LIKE CONCAT ('%',#{userTopId},'%')
+            </if>
+            <if test="userBottomId != null and userBottomId != ''">
+                AND USER_BOTTOM_ID LIKE CONCAT ('%',#{userBottomId},'%')
+            </if>
+            <if test="id != null">
+                AND ID = #{id}
+            </if>
+        </where>
+    </select>
+</mapper>

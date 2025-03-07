@@ -1,0 +1,304 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video, input {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+    outline: 0;
+}
+a {
+    text-decoration: none;
+}
+li {
+    list-style: none;
+}
+.clearfix:after{
+    clear: both;
+    display: block;
+    content: '';
+}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+.pagediv{
+    margin: 0 auto;
+    width: 100%;
+    overflow-x: auto;
+}
+table{
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin:0;
+}
+table tr{
+    border:1px solid #c0c0c0;
+}
+.pagediv .page-bottom-inner-layer{
+    overflow-x: hidden;
+}
+.pagediv .page-top-inner-layer{
+    line-height: 50px;
+    padding-right: 20px;
+}
+.pagediv .page-top-inner-layer table th{
+    background: white;
+    line-height: 40px;
+    height: 100%;
+    border-bottom: 1px #dddddd solid;
+    font-size: 12pt;
+    color: #2F5C8F;
+    font-weight: bold;
+    border: 0px;
+    padding:10px;
+    box-sizing: border-box;
+}
+
+.pagediv .page-bottom-outer-layer .btna{
+    color: #2b7fe0;
+}
+.pagediv .page-bottom-outer-layer table td{
+    font-weight: normal;
+    overflow: hidden;
+    white-space: pre;
+    height: 40px;
+    padding:10px;
+    box-sizing: border-box;
+    text-overflow: ellipsis;
+    font-size: 10pt;
+    text-align: left;
+}
+.pagediv .page-bottom-outer-layer table td>div{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: pre;
+}
+
+.pagediv .page-bottom-outer-layer table tbody tr:hover {
+    background: #D3E7FA;
+}
+.pagediv .page-bottom-outer-layer table tbody tr:nth-child(even) {
+    background-color: #fff;
+}
+.pagediv .page-bottom-outer-layer table tbody tr:nth-child(odd) {
+    background-color: #F6F7F9;
+}
+.pagediv .page-bottom-outer-layer table tbody tr:nth-child(1) {
+    border-top:none;
+}
+.M-box3 .active {
+    margin: 0px 3px;
+    width: 29px;
+    height: 29px;
+    line-height: 29px;
+    background: #2b7fe0;
+    font-size: 12px;
+    border: 1px solid #2b7fe0;
+}
+.jump-ipt {
+    margin: 0 3px;
+    width: 29px;
+    height: 29px;
+    line-height: 29px;
+    font-size: 12px;
+    float: left;
+}
+.M-box3 a {
+    margin: 0 3px;
+    width: 29px;
+    height: 29px;
+    line-height: 29px;
+    font-size: 12px;
+    text-decoration: none;
+}
+input[type=text]{
+    border:1px solid #ccc;
+}
+.M-box3{
+    margin-top:15px;
+    float: right;
+}
+.M-box3 .next,.M-box3 .prev{
+    width: 50px !important;
+}
+/*红色*/
+.red{
+    color: red;
+}
+/*绿色*/
+.green{
+    color: green;
+}
+.blue{
+    color: rgb(0, 0, 255);
+}
+table tr td a {
+    color: #2b7fe0;
+}
+table tr td span{
+    color: #2b7fe0;
+}
+.navigation {
+    float: none;
+}
+#pageTbody tr:hover{
+    background: #D3E7FA;
+}
+.wenhao{
+    color: #2b7fe0;
+}
+.wenhao:hover{
+    color: #2f8ae3;
+}
+img {
+    border: 0;
+    vertical-align: middle;
+}
+.tree-node-selected {
+    background: #b6e0ff!important;
+}
+/*界面头部有img标签样式,结构如下*/
+/*<div class="head-top">*/
+    /*<div class="head-img">*/
+        /*<img src="/img/commonTheme/theme1/daibanfawen.png" alt="">*/
+    /*</div> */
+    /*<div class="div-title">*/
+        /*待办发文*/
+    /*</div> */
+/*</div>*/
+.head-top{
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 45px;
+    border-bottom: 1px solid #999;
+    background: #fff;
+    overflow: hidden;
+    z-index: 9999999;
+}
+.head-img{
+    float: left;
+    width: 23px;
+    height: 100%;
+    margin-left: 30px;
+}
+.head-img img {
+    width: 23px;
+    height: 23px;
+    margin-top: 11px;
+    vertical-align: middle;
+}
+.head-top .div-title {
+    float: left;
+    height: 45px;
+    line-height: 45px;
+    font-size: 22px;
+    margin-left: 10px;
+    color: #494d59;
+}
+
+/*界面头部切换不同类型,结构如下*/
+/*<div class="head-top">*/
+    /*<ul class="clearfix">*/
+        /*<li class="fl head-top-li active" data-id="0">文种</li> */
+        /*<li class="fl head-top-img">*/
+        /*<img src="/img/twoth.png" alt=""></li>
+        <li class="fl head-top-li" data-id="2">状态</li>
+     </ul>
+</div>*/
+iframe{
+    width: 100%;
+    height: 100%;
+}
+.head-top{
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 45px;
+    border-bottom: 1px solid #999;
+    background: #fff;
+    overflow: hidden;
+    z-index: 9999999;
+}
+.head-top ul {
+    padding-left: 10px;
+}
+.head-top ul .head-top-li {
+    height: 26px;
+    line-height: 26px;
+    margin: 10px 11px 0px 11px;
+    padding: 1px 20px;
+    font-size: 14px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.head-top ul .head-top-li.active {
+    background: #2F8AE3;
+    color: #fff;
+}
+.head-top ul .head-top-img{
+    margin-top: 5px;
+}
+
+
+
+/*新建按钮*/
+/*<span class="new_liucheng fr">*/
+/*<img  src="../../img/mywork/newbuildworjk.png" alt="">*/
+/*<span> 新建</span> </span>*/
+.new_liucheng{
+    cursor: pointer;
+    color: #fff;
+    border-radius: 6px;
+    padding:3px 12px;
+}
+.new_liucheng img{
+   vertical-align: middle;
+}
+.new_liucheng span{
+    vertical-align: middle;
+    font-size: 12pt;
+}
+
+/*附件样式*/
+.operationDiv{
+    position: absolute;
+    width: 150px;
+    border: #ccc 1px solid;
+    border-radius: 4px;
+    background-color: #ffffff;
+    z-index: 99;
+}
+.operation{
+    display: block;
+    /*width: 100%;*/
+    margin-left: 0px !important;
+    height: 28px;
+    padding-left: 10px;
+    background: #fff;
+    line-height: 28px;
+}
+.operation:hover{
+    background-color: #cae1f7;
+    color: #000000;
+}
+
+
+
+

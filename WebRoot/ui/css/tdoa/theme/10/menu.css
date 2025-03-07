@@ -1,0 +1,136 @@
+*{margin:0px;padding:0px;}
+A:link{color: #383838; TEXT-DECORATION: none;}
+A:visited {COLOR: #383838; TEXT-DECORATION: none}
+A:active {COLOR: #3333ff; TEXT-DECORATION: none}
+A:hover {COLOR: #ff0000; TEXT-DECORATION: none}
+
+.panel{ background: #fff; color:#383838;}
+
+ul {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+}
+
+img{
+   border:0px;
+   width:16px;
+   height:16px;
+}
+
+#menu{
+   background: #FFFFFF;
+}
+
+.U1 {
+   background: #FFFFFF;
+}
+
+.L1 a:link, .L1 a:visited{
+   color: #383838;
+   background:#ebebeb url("images/ar1.png") no-repeat right center;
+   font-size:9pt;
+   display: block;
+   text-decoration: none;
+   height: 25px;
+   border-bottom:1px #fff solid;
+}
+
+.L1 a:link span, .L1 a:visited span{
+  display: block;
+  height:25px;
+  line-height:25px;
+  padding-left:5px;
+  _padding:6px 0px 0px 5px;
+  cursor:pointer;
+   
+}
+.L1 a:hover{
+   color: #383838;
+   background: #5bd6ff url("images/ar1.png") no-repeat right center;
+}
+/*  一级菜单 active 效果  */
+.L1 a:link.active, .L1 a:hover.active, .L1 a:active.active, .L1 a:visited.active{
+   background: #5bd6ff url("images/arrow_d1.png") no-repeat right center;
+}
+.L1 a:link.active span, .L1 a:hover.active span, .L1 a:active.active span, .L1 a:visited.active span{
+   color: #383838;
+}
+
+/*  二三级菜单 效果  */
+.L21 a:link, .L21 a:visited, .L22 a:link, .L22 a:visited, .L3 a:link, .L3 a:visited{
+   color: #444659;
+   background:  none;
+   height: 25px;
+   font-size:9pt;
+   display: block;
+   text-decoration: none;
+   padding-left: 13px;
+}
+
+.L21 a:link span, .L21 a:visited span, .L22 a:link span, .L22 a:visited span, .L3 a:link span, .L3 a:visited span{
+  display:block;
+  height:25px;
+  line-height:25px;
+  padding-left:20px;
+  _padding:6px 0px 0px 20px;
+  padding-top:0px !important;
+  cursor:pointer;
+}
+
+/* 有三级菜单的二级菜单 */
+.L21 a:link, .L21 a:visited{
+   background:url("images/ar1.png") no-repeat 20px center;
+}
+.L21 a:hover{
+   background:#9ee7ff url("images/ar1.png") no-repeat 20px center;
+}
+.L21 a:link.active, .L21 a:hover.active, .L21 a:active.active, .L21 a:visited.active{
+   background:#9ee7ff url("images/arrow_d2.png") no-repeat 20px center;
+}
+.L21 a:hover span,
+.L21 a:link.active span, .L21 a:hover.active span, .L21 a:active.active span, .L21 a:visited.active span{
+   color: #383838;
+}
+
+/* 无三级菜单的二级菜单 */
+.L22 a:link, .L22 a:visited{
+   background:url("images/menu2_icon.png") no-repeat 20px center;
+}
+.L22 a:hover{
+   background:#9ee7ff url("images/menu2_icon.png") no-repeat 20px center;
+}
+.L22 a:link.active, .L22 a:hover.active, .L22 a:active.active, .L22 a:visited.active{
+   background:#9ee7ff url("images/menu2_icon_active.png") no-repeat 20px center;
+}
+
+/* 三级菜单 */
+.L3 a:link, .L3 a:visited{
+   background:url("images/menu2_icon.png") no-repeat 36px center;
+}
+.L3 a:link span, .L3 a:visited span{
+   padding-left:38px;
+}
+.L3 a:hover{
+   background:#c3f0ff url("images/menu2_icon.png") no-repeat 36px center;
+}
+.L3 a:link.active, .L3 a:hover.active, .L3 a:active.active, .L3 a:visited.active{
+   background:#c3f0ff url("images/menu2_icon_active.png") no-repeat 36px center;
+}
+
+.Ls a:link, .Ls a:visited, .Ls a:hover, .Ls a:active{
+   text-align:right;
+   padding-top:4px;
+   padding-right:4px;
+   height:20px;
+   font-size:9pt;
+   text-decoration: underline;
+   background:none;
+}
+.Ls a:hover, .Ls a:active{
+   background:#E2E5E6;
+}
+.setting:link, .setting:visited{
+   text-decoration: underline;
+   display:block;
+}

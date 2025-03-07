@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+	http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+	<display-name>xoa</display-name>
+	<welcome-file-list>
+		<!-- <welcome-fhrindex.jsp.jsp</welcome-file> -->
+		<welcome-file>/</welcome-file>
+	</welcome-file-list>
+	<session-config>
+		<session-timeout>1440</session-timeout>
+	</session-config>
+
+	<context-param>
+		<param-name>isLog4jContextSelectorNamed </param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>log4jContextName</param-name>
+		<param-value>appWithJndiSelector</param-value>
+	</context-param>
+	<context-param>
+		<param-name>log4jConfiguration</param-name>
+		<param-value>classpath:log4j2.xml</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:config/spring/springs-beans.xml</param-value>
+	</context-param>
+
+	<!--<filter>
+		<filter-name>springSessionRepositoryFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSessionRepositoryFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>-->
+
+	<listener>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>com.xoa.global.intercptor.CommonSessionListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<servlet>
+		<servlet-name>springMVC</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:config/spring/spring-mvc.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springMVC</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!--定义一个cxf的servlet-->
+	<servlet>
+		<servlet-name>CXFServlet</servlet-name>
+		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CXFServlet</servlet-name>
+		<url-pattern>/webservice/*</url-pattern>
+	</servlet-mapping>
+	<filter>
+		<filter-name>XssFilter</filter-name>
+		<filter-class>com.xoa.global.Xss.XssFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>XssFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/login/default/404.html</location>
+	</error-page>
+
+
+
+	<!--<filter>
+		<filter-name>DruidWebStatFilter</filter-name>
+		<filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+		<init-param>
+			&lt;!&ndash; 经常需要排除一些不必要的url，比如.js,/jslib/等等。配置在init-param中 &ndash;&gt;
+			<param-name>exclusions</param-name>
+			<param-value>*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*</param-value>
+		</init-param>
+		&lt;!&ndash; 缺省sessionStatMaxCount是1000个。你可以按需要进行配置 &ndash;&gt;
+		<init-param>
+			<param-name>sessionStatMaxCount</param-name>
+			<param-value>1000</param-value>
+		</init-param>
+		&lt;!&ndash; druid 0.2.7版本开始支持profile，配置profileEnable能够监控单个url调用的sql列表 &ndash;&gt;
+		<init-param>
+			<param-name>profileEnable</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>principalSessionName</param-name>
+			<param-value>users.username</param-value>
+		</init-param>
+		&lt;!&ndash; 你可以关闭session统计功能&ndash;&gt;
+		<init-param>
+			<param-name>sessionStatEnable</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>principalCookieName</param-name>
+			<param-value>USER_COOKIE</param-value>
+		</init-param>
+
+	</filter>
+	<filter-mapping>
+		<filter-name>DruidWebStatFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>DruidStatView</servlet-name>
+		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+		&lt;!&ndash;
+            deny优先于allow，如果在deny列表中，就算在allow列表中，也会被拒绝。
+            如果allow没有配置或者为空，则允许所有访问
+         &ndash;&gt;
+		<init-param>
+			<param-name>allow</param-name>
+			<param-value>128.242.127.1/24,127.0.0.1</param-value>
+		</init-param>
+		<init-param>
+			<param-name>deny</param-name>
+			<param-value>192.168.1.118</param-value>
+		</init-param>
+		&lt;!&ndash; 在StatViewSerlvet输出的html页面中，有一个功能是Reset All，执行这个操作之后，会导致所有计数器清零，重新计数 &ndash;&gt;
+		<span style="white-space:pre"> </span><init-param>
+		<span style="white-space:pre">    </span><param-name>resetEnable</param-name>
+		<span style="white-space:pre">    </span><param-value>false</param-value>
+		<span style="white-space:pre">    </span></init-param>
+		<span style="white-space:pre">    </span>&lt;!&ndash;  用户名和密码 &ndash;&gt;
+		<span style="white-space:pre">    </span><init-param>
+		<param-name>loginUsername</param-name>
+		<param-value>druid</param-value>
+	</init-param>
+		<init-param>
+			<param-name>loginPassword</param-name>
+			<param-value>druid</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DruidStatView</servlet-name>
+		<url-pattern>/druid/*</url-pattern>
+	</servlet-mapping>-->
+
+
+	<!--cas开始-->
+	<!--<listener>
+		&lt;!&ndash;该listener监听单点退出请求&ndash;&gt;
+		<listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
+	</listener>
+	<filter>
+		&lt;!&ndash;该filter处理单点退出&ndash;&gt;
+		<filter-name>CAS Single Sign Out Filter</filter-name>
+		<filter-class>
+			org.jasig.cas.client.session.SingleSignOutFilter
+		</filter-class>
+	</filter>
+	<filter>
+		&lt;!&ndash;该filter处理用户认证 &ndash;&gt;
+		<filter-name>CAS Authentication Filter</filter-name>
+		<filter-class>org.jasig.cas.client.authentication.AuthenticationFilter</filter-class>
+		<init-param>
+			&lt;!&ndash;casServerLoginUrl指定casServer应用的登陆地址&ndash;&gt;
+			<param-name>casServerLoginUrl</param-name>
+			<param-value>http://192.168.31.132:8081/login</param-value>
+		</init-param>
+		<init-param>
+			&lt;!&ndash;serverName指定本应用的地址，注意这里没有应用名&ndash;&gt;
+			<param-name>serverName</param-name>
+			<param-value>http://192.168.31.132:8084/xoaCas/login</param-value>
+		</init-param>
+		&lt;!&ndash; 主动放开的地址 &ndash;&gt;
+		<init-param>
+			<param-name>excludePaths</param-name>
+			<param-value>/js,js,/upload,upload,/upload?,/login,login,/email/outSendEmail,/email/outQueryById</param-value>
+		</init-param>
+	</filter>
+	<filter>
+		&lt;!&ndash;该filter处理登陆后的验证&ndash;&gt;
+		<filter-name>CAS Validation Filter</filter-name>
+		<filter-class>org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter</filter-class>
+		<init-param>
+			&lt;!&ndash; casServer应用的登陆地址&ndash;&gt;
+			<param-name>casServerUrlPrefix</param-name>
+			<param-value>http://192.168.31.132:8081/</param-value>
+		</init-param>
+		<init-param>
+			&lt;!&ndash;serverName指定本应用的地址&ndash;&gt;
+			<param-name>serverName</param-name>
+			<param-value>http://192.168.31.132:8084</param-value>
+		</init-param>
+		<init-param>
+			<param-name>redirectAfterValidation</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter>
+		&lt;!&ndash;该filter负责对request中的信息进行封装和处理 &ndash;&gt;
+		<filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
+		<filter-class>org.jasig.cas.client.util.HttpServletRequestWrapperFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CAS Single Sign Out Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Authentication Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS Validation Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CAS HttpServletRequest Wrapper Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>-->
+	<!--cas结束-->
+
+</web-app>

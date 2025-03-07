@@ -1,0 +1,119 @@
+html,body,.wrap{
+	width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Microsoft yahei';
+    overflow: hidden;
+    float:left;
+    clear:both;
+}
+ul,li{
+	list-style:none;
+}
+/* .tip_font{
+	font-size:15px;
+	color:#4f4f4f;
+}
+.connect{
+	width:98%;
+	height:100%;
+	margin:0 auto;
+	overflow: hidden;
+} */
+
+.li_li{
+	width:100%;
+	height:100%;
+}
+.cosp{
+	display:none;
+}
+.app_connect{
+	float: left;
+    width: 100%;
+   height:100%;
+   overflow-y: scroll;
+}
+.app_connect li{
+	cursor: pointer;
+}
+.app_head{
+	float: left;
+    clear: both;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid #ddd;
+}
+.tip_font{
+	display: inline-block;
+    width: 32%;
+    text-align: center;
+}
+.tips{
+	width:40%;
+	float:right;
+	display:inline-block;
+}
+.add_icon,.fresh_icon{
+	width:16px;
+	height:16px;
+	display:inline-block;
+	float: right;
+    position: relative;
+    top:7px;
+     cursor: pointer;
+}
+.add_icon{
+	background:url(../../img/spirit/menu/add_yy.png) center;
+	background-size: cover;
+    margin-right: 12px;
+}
+.fresh_icon{
+	background:url(../../img/spirit/menu/fresh.png) center;
+	background-size: cover;
+}
+.head_pic,.dianji{
+	position:relative;
+	display:inline-block;
+	height:20px;
+	width:20px;
+	margin:8px;
+}
+.yiji_title{
+	position: relative;
+	top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 30px;
+    line-height: 30px;
+    font-size:13px;
+}
+.appname{
+	display: inline-block;
+	width:calc(100% - 60px);
+    height: 36px;
+    line-height: 36px;
+    position: absolute;
+}
+/*.appname:hover{*/
+    /*background: #abd9fe;*/
+/*}*/
+.head_pic img{
+	position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+.before{
+	background:url(../../img/main_img/dbx-sq.png) no-repeat center;
+}
+.after{
+	background:url(../../img/main_img/dbx-dk.png) no-repeat center;
+}
+.erji,.sanji{
+	 display:none; 
+}

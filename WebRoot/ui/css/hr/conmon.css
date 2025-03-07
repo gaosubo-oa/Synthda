@@ -1,0 +1,34 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+}
+.TableBlock {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+.TableBlock tr{
+    border: 1px solid #c0c0c0;
+}
+.TableBlock tr th{
+    background-color: #3691DA;
+    color: #fff;
+    padding: 10px;
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+.TableBlock tr td{
+    border: 1px solid #c0c0c0;
+}
+.BigButton{
+    width: 70px;
+    height: 28px;
+    line-height: 28px;
+    background: url("../../img/hr/icon_query_2 .png") no-repeat;
+    cursor: pointer;
+}

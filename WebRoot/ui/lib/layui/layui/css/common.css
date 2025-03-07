@@ -1,0 +1,33 @@
+html{
+    background: #f2f2f2;
+    color: #666;
+}
+.mbox{
+    position: relative;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.layui-card-header{
+    border-bottom: 1px solid #ccc;
+}
+.deptinput{
+     display: inline-block;
+     width: 80%;
+ }
+.layui-btn .layui-icon{
+    margin-right: 0px;
+}
+.layui-table-click{
+    background-color: inherit;
+}
+
+.selectcell{
+    overflow: visible !important;
+}
+.bgs{
+    background-color: #F2F2F2;
+}
+.bg{
+    background-color: #F2F2F2;
+}

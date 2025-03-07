@@ -1,0 +1,900 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>列表控件</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <link rel="stylesheet" href="../formdesign/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="./css/ueditor/site.css">
+    <script type="text/javascript" src="../dialogs/internal.js"></script>
+    <script type="text/javascript" src="/js/xoajq/xoajq3.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery-migrate-3.4.0.js"></script>
+    <script type="text/javascript" src="../../../js/base/base.js"></script>
+    <link rel="stylesheet" href="leipi.style.css">
+    <script type="text/javascript">
+        function createElement(type, name)
+        {
+            var element = null;
+            try {
+                element = document.createElement('<'+type+' name="'+name+'">');
+            } catch (e) {}
+            if(element==null) {
+                element = document.createElement(type);
+                element.name = name;
+            }
+            return element;
+        }
+    </script>
+    <style type="text/css">
+        . {display: none;}
+        #col_def_table select{
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <table class="table table-bordered table-striped table-hover">
+        <tr>
+            <td>
+                <span class="languageText" language="workform_formItem_name">控件名称</span>
+                <span class="label label-important">*</span>
+            </td>
+            <td>
+                <input id="orgname" placeholder="必填项" type="text" class="languagePlaceHolder" language="workform_formItem_btx"/>
+            </td>
+            <input type="hidden" id="fielid" placeholder="必填项" class="languagePlaceHolder" language="workform_formItem_btx"></td>
+        </tr>
+        <tr  >
+            <td>数据来源</td>
+            <td>
+                <select id="dataFrom">
+                    <option value="inData"  class="languageText" language="workform_formItem_nbsj">内部数据</option>
+<!--                    <option value="outData">外部数据</option>-->
+                </select>
+                <div id="inData" style="display: inline-block">
+                    <select >
+                        <option value="" class="languageText" language="workform_formItem_xzsjly">选择数据来源</option>
+                        <optgroup label="系统" class="hide languageLabel" language="workform_formItem_xt" >
+                            <!--<option value="OFFICE_PRODUCTS">办公用品</option>-->
+                            <!--<option value="HR_STAFF_INFO">人员档案</option>-->
+                            <!--<option value="HR_STAFF_CONTRACT">合同信息</option>-->
+                        </optgroup>
+                        <optgroup label="自定义" class="languageLabel" language="workform_formItem_zdy">
+
+                        </optgroup>
+                    </select>
+                </div>
+                <div id="outData" style="display: none">
+                    <select>
+                        <option value="" class="languageText" language="workform_formItem_xzsjly">选择数据来源</option>
+                        <optgroup label="系统" class="languageLabel" language="workform_formItem_xt">
+                            <option value="OFFICE_PRODUCTS" class="languageText" language="workform_formItem_bgyp">办公用品</option>
+                            <option value="HR_STAFF_INFO" class="languageText" language="workform_formItem_rsda">人员档案</option>
+                            <option value="HR_STAFF_CONTRACT" class="languageText" language="workform_formItem_htxx">合同信息</option>
+                        </optgroup>
+                        <optgroup label="自定义" class="languageLabel" language="workform_formItem_zdy">
+
+                        </optgroup>
+                    </select>
+                </div>
+            </td>
+        </tr>
+        <tr  >
+            <td class="languageText" language="workform_formItem_gzblsmrxsdhs">工作办理时默认显示的行数：</td>
+            <td>
+                <div >
+                    <span>
+                        <input type="text" id="ctrl_default_cols" style="width:50px;" value="" class="cke_dialog_ui_input_text">
+                    </span>
+                </div>
+            </td>
+        </tr>
+        <tr class="hide">
+            <td><span class="languageText" language="workform_formItem_sfxjzb">是否新建子表：</span></td>
+            <td><select>
+                <!--<option value="inData">是</option>-->
+                <option value="outData" class="languageText" language="workform_formItem_no">否</option>
+            </select></td>
+        </tr>
+        <tr>
+        <th colspan="2"><span class="languageText" language="workform_formItem_kjys">控件样式</span> </th>
+    </tr>
+        <tr>
+            <td colspan="2">
+                <!--                宽：<input id="orgwidth" type="text" value="150" class="input-small span1"> px    -->
+                <span class="languageText" language="workform_formItem_font">字体</span>：<input id="orgfontsize" type="text" class="input-small span1" value="" placeholder="auto"> px
+                <br>
+                <div class="alert alert-danger languageText" language="workform_formItem_listingts">提示：若不设置字体大小，则列表控件的字体大小等于所在位置的单元格设置字体大小</div>
+            </td>
+        </tr>
+    </table>
+    <table width="100%" id="col_def_table">
+        <tr id="tr_header">
+            <td nowrap="" align="center" class="languageText" language="workform_formItem_xh">序号</td>
+            <td nowrap="" align="center" title="Tab键切换输入框" class="languageText languageTitle" languageTitle="workform_formItem_tabjqhsrk" language="workform_formItem_btmc">表头名称&nbsp;&nbsp;</td>
+            <td nowrap="" align="center" id="selectName" title="Tab键切换输入框" class="languageText languageTitle" languageTitle="workform_formItem_tabjqhsrk" language="workform_formItem_zdmc">字段名称</td>
+            <td nowrap="" align="center" title="Tab键切换输入框" class="languageText languageTitle" languageTitle="workform_formItem_tabjqhsrk" language="workform_formItem_lkd">列宽度</td>
+            <td nowrap="" align="center" title="Tab键切换输入框" class="languageText languageTitle" languageTitle="workform_formItem_tabjqhsrk" language="workform_formItem_lx">类型</td>
+            <td nowrap="" align="center" title="Tab键切换输入框" class="languageText languageTitle" languageTitle="workform_formItem_tabjqhsrk" language="workform_formItem_hj">合计</td>
+            <td nowrap="" align="center" title="Tab键切换输入框" class="languageText languageTitle" languageTitle="workform_formItem_tabjqhsrk" language="workform_formItem_jsgs">计算公式</td>
+            <td nowrap="" align="center" title="Tab键切换输入框" class="languageText languageTitle" languageTitle="workform_formItem_tabjqhsrk" language="workform_formItem_zdgzzjyywdhfg">值(多个值之间用英文逗号分隔)</td>
+        </tr>
+        <tbody class="tb">
+            <tr id="tr_1">
+                <td nowrap="" align="center">
+                    <a style="margin-left: -29px; margin-right: 12px;" title="删除" class="delete_row languageTitle" languageTitle="workform_formItem_delete" href="javascript:void(0)">
+                        <img src="/img/workflow/delete.png" />
+                    </a>
+                    <input type="hidden" id="row_delete_1" value="0" />
+                    <span >1</span>
+                </td>
+                <td nowrap="" align="center" title="不能包含特殊字符" class="languageTitle" languageTitle="workform_formItem_bnbhtszf">
+                    <input id="item_1" type="text" size="18" style="width:90%" class="lv_title" />
+                </td>
+                <td nowrap="" id="tdId_1" align="center" title="不能包含特殊字符">
+                    <input id="field_1" type="text" size="5" style="width:70%" class="lv_field" onkeyup="value=value.replace(/[^a-zA-Z0-9]/g,'')" onpaste="value=value.replace(/[^a-zA-Z0-9]/g,'')" oncontextmenu="value=value.replace(/[^a-zA-Z0-9]/g,'')" />
+                </td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <input id="size_1" type="text" size="5" style="width:70%" class="lv_size"  placeholder="px" />
+                </td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <select id="coltype_1" class="lv_coltype">
+                        <option value="text">单行输入框</option>
+                        <option value="textarea">多行输入框</option>
+                        <option value="select">下拉菜单</option>
+                        <option value="radio">单选框</option>
+                        <option value="checkbox">复选框</option>
+                        <option value="datetime">日期</option>
+                        <option value="dateAndTime">日期+时间</option>
+                    </select>
+                </td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <input id="sum_1" type="checkbox" class="lv_sum" /></td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <input id="cal_1" type="text" size="15" style="width:90%" class="lv_cal" /></td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <input id="colvalue_1" type="text" size="15" style="width:90%" class="lv_colvalue" /></td>
+            </tr>
+            <tr id="tr_2">
+                <td nowrap="" align="center">
+                    <a style="margin-left: -29px; margin-right: 12px;" title="删除" class="delete_row languageTitle" languageTitle="workform_formItem_delete" href="javascript:void(0)">
+                        <img src="/img/workflow/delete.png" />
+                    </a>
+                    <input type="hidden" id="row_delete_2" value="0" />
+                    <span >2</span>
+                </td>
+                <td nowrap="" align="center" title="不能包含特殊字符" class="languageTitle" languageTitle="workform_formItem_bnbhtszf">
+                    <input id="item_2" type="text" size="18" style="width:90%" class="lv_title" />
+                </td>
+                <td nowrap="" id="tdId_2" align="center" title="不能包含特殊字符">
+                    <input id="field_2" type="text" size="5" style="width:70%" class="lv_field" onkeyup="value=value.replace(/[^a-zA-Z0-9]/g,'')" onpaste="value=value.replace(/[^a-zA-Z0-9]/g,'')" oncontextmenu="value=value.replace(/[^a-zA-Z0-9]/g,'')" />
+                </td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <input id="size_2" type="text" size="5" style="width:70%" class="lv_size"  placeholder="px" />
+                </td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <select id="coltype_2" class="lv_coltype">
+                        <option value="text">单行输入框</option>
+                        <option value="textarea">多行输入框</option>
+                        <option value="select">下拉菜单</option>
+                        <option value="radio">单选框</option>
+                        <option value="checkbox">复选框</option>
+                        <option value="datetime">日期</option>
+                        <option value="dateAndTime">日期+时间</option>
+                    </select>
+                </td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <input id="sum_2" type="checkbox" class="lv_sum" /></td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <input id="cal_2" type="text" size="15" style="width:90%" class="lv_cal" /></td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <input id="colvalue_2" type="text" size="15" style="width:90%" class="lv_colvalue" /></td>
+            </tr>
+            <tr id="tr_3">
+                <td nowrap="" align="center">
+                    <a style="margin-left: -29px; margin-right: 12px;" title="删除" class="delete_row languageTitle" languageTitle="workform_formItem_delete" href="javascript:void(0)">
+                        <img src="/img/workflow/delete.png" />
+                    </a>
+                    <input type="hidden" id="row_delete_3" value="0" />
+                    <span >3</span>
+                </td>
+                <td nowrap="" align="center" title="不能包含特殊字符" class="languageTitle" languageTitle="workform_formItem_bnbhtszf">
+                    <input id="item_3" type="text" size="18" style="width:90%" class="lv_title" />
+                </td>
+                <td nowrap="" id="tdId_3" align="center" title="不能包含特殊字符">
+                    <input id="field_3" type="text" size="5" style="width:70%" class="lv_field" onkeyup="value=value.replace(/[^a-zA-Z0-9]/g,'')" onpaste="value=value.replace(/[^a-zA-Z0-9]/g,'')" oncontextmenu="value=value.replace(/[^a-zA-Z0-9]/g,'')" />
+                </td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <input id="size_3" type="text" size="5" style="width:70%" class="lv_size"  placeholder="px" />
+                </td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <select id="coltype_3" class="lv_coltype">
+                        <option value="text">单行输入框</option>
+                        <option value="textarea">多行输入框</option>
+                        <option value="select">下拉菜单</option>
+                        <option value="radio">单选框</option>
+                        <option value="checkbox">复选框</option>
+                        <option value="datetime">日期</option>
+                        <option value="dateAndTime">日期+时间</option>
+                    </select>
+                </td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <input id="sum_3" type="checkbox" class="lv_sum" /></td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <input id="cal_3" type="text" size="15" style="width:90%" class="lv_cal" /></td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <input id="colvalue_3" type="text" size="15" style="width:90%" class="lv_colvalue" /></td>
+            </tr>
+            <tr id="tr_4">
+                <td nowrap="" align="center">
+                    <a style="margin-left: -29px; margin-right: 12px;" title="删除" class="delete_row languageTitle" languageTitle="workform_formItem_delete" href="javascript:void(0)">
+                        <img src="/img/workflow/delete.png" />
+                    </a>
+                    <input type="hidden" id="row_delete_4" value="0" />
+                    <span >4</span>
+                </td>
+                <td nowrap="" align="center" title="不能包含特殊字符" class="languageTitle" languageTitle="workform_formItem_bnbhtszf">
+                    <input id="item_4" type="text" size="18" style="width:90%" class="lv_title" />
+                </td>
+                <td nowrap="" id="tdId_4" align="center" title="不能包含特殊字符">
+                    <input id="field_4" type="text" size="5" style="width:70%" class="lv_field" onkeyup="value=value.replace(/[^a-zA-Z0-9]/g,'')" onpaste="value=value.replace(/[^a-zA-Z0-9]/g,'')" oncontextmenu="value=value.replace(/[^a-zA-Z0-9]/g,'')" />
+                </td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <input id="size_4" type="text" size="5" style="width:70%" class="lv_size"  placeholder="px" />
+                </td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <select id="coltype_4" class="lv_coltype">
+                        <option value="text">单行输入框</option>
+                        <option value="textarea">多行输入框</option>
+                        <option value="select">下拉菜单</option>
+                        <option value="radio">单选框</option>
+                        <option value="checkbox">复选框</option>
+                        <option value="datetime">日期</option>
+                        <option value="dateAndTime">日期+时间</option>
+                    </select>
+                </td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <input id="sum_4" type="checkbox" class="lv_sum" /></td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <input id="cal_4" type="text" size="15" style="width:90%" class="lv_cal" /></td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <input id="colvalue_4" type="text" size="15" style="width:90%" class="lv_colvalue" /></td>
+            </tr>
+            <tr id="tr_5">
+                <td nowrap="" align="center">
+                    <a style="margin-left: -29px; margin-right: 12px;" title="删除" class="delete_row languageTitle" languageTitle="workform_formItem_delete" href="javascript:void(0)">
+                        <img src="/img/workflow/delete.png" />
+                    </a>
+                    <input type="hidden" id="row_delete_5" value="0" />
+                    <span >5</span>
+                </td>
+                <td nowrap="" align="center" title="不能包含特殊字符" class="languageTitle" languageTitle="workform_formItem_bnbhtszf">
+                    <input id="item_5" type="text" size="18" style="width:90%" class="lv_title" />
+                </td>
+                <td nowrap="" id="tdId_5" align="center" title="不能包含特殊字符">
+                    <input id="field_5" type="text" size="5" style="width:70%" class="lv_field" onkeyup="value=value.replace(/[^a-zA-Z0-9]/g,'')" onpaste="value=value.replace(/[^a-zA-Z0-9]/g,'')" oncontextmenu="value=value.replace(/[^a-zA-Z0-9]/g,'')" />
+                </td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <input id="size_5" type="text" size="5" style="width:70%" class="lv_size"  placeholder="px" />
+                </td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <select id="coltype_5" class="lv_coltype">
+                        <option value="text">单行输入框</option>
+                        <option value="textarea">多行输入框</option>
+                        <option value="select">下拉菜单</option>
+                        <option value="radio">单选框</option>
+                        <option value="checkbox">复选框</option>
+                        <option value="datetime">日期</option>
+                        <option value="dateAndTime">日期+时间</option>
+                    </select>
+                </td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <input id="sum_5" type="checkbox" class="lv_sum" /></td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <input id="cal_5" type="text" size="15" style="width:90%" class="lv_cal" /></td>
+                <td nowrap="" align="center" title="不能包含特殊字符">
+                    <input id="colvalue_5" type="text" size="15" style="width:90%" class="lv_colvalue" /></td>
+            </tr>
+            <tr>
+                <td><a id="btn_add" class="button cke_dialog_ui_button" href="javascript:void(0)" ><span class="button cke_dialog_ui_button">增加</span></a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<table style="display: none;" id="trTepl">
+    <tr>
+        <td nowrap="" align="center">
+            <a style="margin-left: -29px; margin-right: 12px;" title="删除" class="delete_row languageTitle" languageTitle="workform_formItem_delete" href="javascript:void(0)">
+                <img src="/img/workflow/delete.png" />
+            </a>
+            <input type="hidden" id="row_delete_6" value="0" />
+            <span >6</span>
+        </td>
+        <td nowrap="" align="center" title="不能包含特殊字符" class="languageTitle" languageTitle="workform_formItem_bnbhtszf">
+            <input id="item_6" type="text" size="18" style="width:90%" class="lv_title" />
+        </td>
+        <td nowrap="" id="tdId_6" align="center" title="不能包含特殊字符">
+            <input id="field_6" type="text" size="5" style="width:70%" class="lv_field" onkeyup="value=value.replace(/[^a-zA-Z0-9]/g,'')" onpaste="value=value.replace(/[^a-zA-Z0-9]/g,'')" oncontextmenu="value=value.replace(/[^a-zA-Z0-9]/g,'')" />
+        </td>
+        <td nowrap="" align="center" title="不能包含特殊字符">
+            <input id="size_6" type="text" size="5" style="width:70%" class="lv_size"  placeholder="px" />
+        </td>
+        <td nowrap="" align="center" title="不能包含特殊字符">
+            <select id="coltype_6" class="lv_coltype">
+                <option value="text">单行输入框</option>
+                <option value="textarea">多行输入框</option>
+                <option value="select">下拉菜单</option>
+                <option value="radio">单选框</option>
+                <option value="checkbox">复选框</option>
+                <option value="datetime">日期</option>
+                <option value="dateAndTime">日期+时间</option>
+            </select>
+        </td>
+        <td nowrap="" align="center" title="不能包含特殊字符">
+            <input id="sum_6" type="checkbox" class="lv_sum" /></td>
+        <td nowrap="" align="center" title="不能包含特殊字符">
+            <input id="cal_6" type="text" size="15" style="width:90%" class="lv_cal" /></td>
+        <td nowrap="" align="center" title="不能包含特殊字符">
+            <input id="colvalue_6" type="text" size="15" style="width:90%" class="lv_colvalue" /></td>
+    </tr>
+</table>
+<script>
+    if(getCookie("language") != 'zh_CN'){
+        $('title').text(workform_formItem.workform_formItem_listing);
+        var $languageText = $('.languageText');
+        var $languageHtml = $('.languageHtml');
+        var $languagePlaceHolder = $('.languagePlaceHolder');
+        var $languageLabel = $('.languageLabel');
+        var $languageTitle = $('.languageTitle');
+        for(var i = 0; i < $languageText.length; i++){
+            var language = $languageText.eq(i).attr('language');
+            $('*[language='+ language +']').text(workform_formItem[language]);
+        }
+        for(var i = 0; i < $languageHtml.length; i++){
+            var language = $languageHtml.eq(i).attr('language');
+            $('*[language='+ language +']').html(workform_formItem[language]);
+        }
+        for(var i = 0; i < $languagePlaceHolder.length; i++){
+            var language = $languagePlaceHolder.eq(i).attr('language');
+            $('*[language='+ language +']').prop('placeholder', workform_formItem[language]);
+        }
+        for(var i = 0; i < $languageLabel.length; i++){
+            var language = $languageLabel.eq(i).attr('language');
+            $('*[language='+ language +']').attr('label', workform_formItem[language]);
+        }
+        for(var i = 0; i < $languageTitle.length; i++){
+            var language = $languageTitle.eq(i).attr('language');
+            $('*[languageTitle='+ language +']').attr('title', workform_formItem[language]);
+        }
+    }
+
+</script>
+<script type="text/javascript">
+    var inDataObj = {};
+    var data_source = '';
+    var checkInDataFiledOption = '';
+    $.get('/TerpServerController/selectTerpServerByLike?pageUseFlag=false', {}, function(json){
+        if(json.flag&&json.obj){
+            var str = '';
+            for(var i = 0; i< json.obj.length; i++){
+                inDataObj[json.obj[i].dName] = {
+                    "dId": json.obj[i].dId,
+                    "dDesc": json.obj[i].dDesc
+                }
+                str += '<option value="'+ json.obj[i].dName +'">'+ json.obj[i].dDesc +'</option>'
+            }
+            $('#inData').find('optgroup').eq(1).html(str)
+        }
+        $(function () {
+            var dataid = $.getQueryString('dataid');
+            var dataNumber = parent.pluginId;
+            var oNode = null,thePlugins = 'listing';
+            if( UE.plugins[thePlugins].editdom ){
+                oNode = UE.plugins[thePlugins].editdom;
+                data_source = oNode.getAttribute('data_table')||'';
+                var gTitle = oNode.getAttribute('title').replace(/&quot;/g,"\"");
+                var default_cols = oNode.getAttribute('default_cols');
+                $G('orgname').value = gTitle;
+                $G('ctrl_default_cols').value = default_cols;
+                $('#inData select').val(data_source)
+                if(data_source != ''){
+                    var strHeaderHtml = '<td class="tableHeaderFiledCol" nowrap="" align="center" title="Tab键切换输入框">数据库字段</td><td class="tableHeaderFiledCol"  nowrap="" align="center" title="Tab键切换输入框">查询</td>'
+                    $('#tr_header').append(strHeaderHtml);
+                }
+                var lv_title = oNode.getAttribute('lv_title').split('`');
+                var lv_field = oNode.getAttribute('lv_field').split('`');
+                var lv_size = oNode.getAttribute('lv_size').split('`');
+                var lv_coltype = oNode.getAttribute('lv_coltype').split('`');
+                var lv_sum = oNode.getAttribute('lv_sum').split('`');
+                var lv_cal = oNode.getAttribute('lv_cal').split('`');
+                var lv_colvalue = oNode.getAttribute('lv_colvalue').split('`');
+                var orgfontsize = oNode.getAttribute('orgfontsize');
+                if(orgfontsize && orgfontsize != '' && orgfontsize != 'auto'){
+                    $G('orgfontsize').value = orgfontsize;
+                }
+                try{
+                    var data_field = oNode.getAttribute('data_field').split('`');
+                    var data_query = oNode.getAttribute('data_query').split('`');
+                    var inDataObjDId = inDataObj[data_source].dId||'';
+                }catch(e){
+                    var data_field = [];
+                    var data_query = [];
+                    var inDataObjDId = '';
+                }
+                if(inDataObjDId){
+                    $.ajaxSettings.async = false;
+                    $.get('/TerpServerController/findByDataSrcId', {
+                        dId: inDataObjDId
+                    }, function (json) {
+                        console.log(json)
+                        if(json.flag&&json.object){
+                            var listObj = json.object.list;
+                            if(workform_formItem){
+                                var workform_formItem_qxzsjkzd = workform_formItem.workform_formItem_qxzsjkzd;
+                            }else{
+                                var workform_formItem_qxzsjkzd = '请选择数据库字段';
+                            }
+                            var str = '<option value="">'+ workform_formItem_qxzsjkzd +'</option>';
+                            for(var i = 0; i < listObj.length; i++){
+                                var name = listObj[i].data3;
+                                var id = listObj[i].data1;
+                                str += '<option value="'+ id +'">'+ name +'</option>';
+                            }
+                            checkInDataFiledOption = str;
+                        }
+                    })
+                    $.ajaxSettings.async = true;
+                }
+                var tabletrHtml = "";
+                for(var i = 0; i < lv_title.length - 1; i++){
+                    if(workform_formItem){
+                        var workform_formItem_bnbhtszf = workform_formItem.workform_formItem_bnbhtszf;
+                        var workform_formItem_textInput = workform_formItem.workform_formItem_textInput;
+                        var workform_formItem_textarea = workform_formItem.workform_formItem_textarea;
+                        var workform_formItem_select = workform_formItem.workform_formItem_select;
+                        var workform_formItem_radio = workform_formItem.workform_formItem_radio;
+                        var workform_formItem_checkbox = workform_formItem.workform_formItem_checkbox;
+                        var workform_formItem_rq = workform_formItem.workform_formItem_rq;
+                        var workform_formItem_rqjsj = workform_formItem.workform_formItem_rqjsj;
+                    }else{
+                        var workform_formItem_bnbhtszf = '不能包含特殊字符';
+                        var workform_formItem_textInput = '单行输入框';
+                        var workform_formItem_textarea = '多行文本框';
+                        var workform_formItem_select = '下拉菜单';
+                        var workform_formItem_radio = '单选框';
+                        var workform_formItem_checkbox = '复选框';
+                        var workform_formItem_rq = '日期';
+                        var workform_formItem_rqjsj = '日期+时间';
+                    }
+                    tabletrHtml += '<tr id="tr_4"><td nowrap="" align="center"><a style="margin-left: -29px;margin-right: 12px;" title="删除" class="delete_row" href="javascript:void(0)"><img src="/img/workflow/delete.png" /></a><input type="hidden" id="row_delete_1" value="0" /> <span >'+(i+1)+'</span> </td>';
+                    tabletrHtml += ' <td nowrap="" align="center" title="'+ workform_formItem_bnbhtszf +'"><input id="item_'+(i+1)+'" type="text" size="18" value="'+lv_title[i]+'" style="width:90%" class="lv_title" /></td>';
+                    tabletrHtml += ' <td nowrap="" id="tdId_4" align="center" title="'+ workform_formItem_bnbhtszf +'"><input id="field_'+(i+1)+'" type="text" size="5" value="'+lv_field[i]+'" style="width:70%" class="lv_field"  /></td>';
+                    tabletrHtml += ' <td nowrap="" align="center" title="'+ workform_formItem_bnbhtszf +'"><input id="size_'+(i+1)+'" type="text" value="'+lv_size[i]+'" size="5" style="width:70%" class="lv_size"  placeholder="px" /> </td>';
+                    var optionStr = '';
+                    if(lv_coltype[i] == 'text'){
+                        optionStr += '<option selected value="text">'+ workform_formItem_textInput +'</option>';
+                    }else{
+                        optionStr += '<option  value="text">'+ workform_formItem_textInput +'</option>';
+                    }
+                    if(lv_coltype[i] == 'textarea'){
+                        optionStr += '<option selected value="textarea">'+ workform_formItem_textarea +'</option>';
+                    }else{
+                        optionStr += '<option value="textarea">'+ workform_formItem_textarea +'</option>';
+                    }
+                    if(lv_coltype[i] == 'select'){
+                        optionStr += '<option selected value="select">'+ workform_formItem_select +'</option>';
+                    }else{
+                        optionStr += '<option value="select">'+ workform_formItem_select +'</option>';
+                    }
+                    if(lv_coltype[i] == 'radio'){
+                        optionStr += '<option selected value="radio">'+ workform_formItem_radio +'</option>';
+                    }else{
+                        optionStr += '<option value="radio">'+ workform_formItem_radio +'</option>';
+                    }
+                    if(lv_coltype[i] == 'checkbox'){
+                        optionStr += '<option selected value="checkbox">'+ workform_formItem_checkbox +'</option>';
+                    }else{
+                        optionStr += '<option value="checkbox">'+ workform_formItem_checkbox +'</option>';
+                    }
+                    if(lv_coltype[i] == 'datetime'){
+                        optionStr += '<option selected value="datetime">'+ workform_formItem_rq +'</option>';
+                    }else{
+                        optionStr += '<option value="datetime">'+ workform_formItem_rq +'</option>';
+                    }
+                    if(lv_coltype[i] == 'dateAndTime'){
+                        optionStr += '<option selected value="dateAndTime">'+ workform_formItem_rqjsj +'</option>';
+                    }else{
+                        optionStr += '<option value="dateAndTime">'+ workform_formItem_rqjsj +'</option>';
+                    }
+
+                    tabletrHtml += '<td nowrap="" align="center" title="'+ workform_formItem_bnbhtszf +'"><select id="coltype_'+(i+1)+'" class="lv_coltype">'+optionStr+'</select></td>';
+
+                    if(lv_sum[i] == '1'){
+                        tabletrHtml += '<td nowrap="" align="center" title="'+ workform_formItem_bnbhtszf +'"><input id="sum_'+(i+1)+'" type="checkbox" checked="checked" class="lv_sum" /></td>';
+                    }else{
+                        tabletrHtml += '<td nowrap="" align="center" title="'+ workform_formItem_bnbhtszf +'"><input id="sum_'+(i+1)+'" type="checkbox" class="lv_sum" /></td>';
+                    }
+
+                    tabletrHtml += '<td nowrap="" align="center" title="'+ workform_formItem_bnbhtszf +'"><input id="cal_'+(i+1)+'" type="text" size="15" value="'+lv_cal[i]+'" style="width:90%" class="lv_cal" /></td>';
+
+                    tabletrHtml += '<td nowrap="" align="center" title="'+ workform_formItem_bnbhtszf +'"><input id="colvalue_'+(i+1)+'" type="text" value="'+lv_colvalue[i]+'" size="15" style="width:90%" class="lv_colvalue" /></td>'+ function(){
+                        if(data_source != ''){
+                            return '<td><select id="datafield_'+ (i+1) +'" class="dataFiledSelect">'+ checkInDataFiledOption +'</select></td>'+
+                                '<td><input type="checkbox" id="query_'+ (i+1) +'" class="dataFiledCheckbox"></td>';
+                        }else{
+                            return ''
+                        }
+                    }() +'</tr>';
+
+
+
+                }
+                tabletrHtml += '<tr><td><a id="btn_add" class="button cke_dialog_ui_button" href="javascript:void(0)" ><span class="button cke_dialog_ui_button">增加</span></a></td> </tr>'
+
+                $('#col_def_table .tb').html(tabletrHtml);
+                if(data_source != ''){
+                    data_field.forEach(function(v, i){
+                        var num = i + 1;
+                        $('#datafield_'+ num).val(v)
+                    })
+                    data_query.forEach(function(v, i){
+                        var num = i + 1;
+                        if(v == 1){
+                            $('#query_'+ num).attr('checked', true);
+                        }
+
+                    })
+                }
+            }
+
+            dialog.oncancel = function () {
+                if( UE.plugins[thePlugins].editdom ) {
+                    delete UE.plugins[thePlugins].editdom;
+                }
+            };
+            dialog.onok = function (){
+                if( $G('orgname').value == '') {
+                    if(workform_formItem){
+                        alert(workform_formItem.workform_formItem_qsrkjmc);
+                    }else{
+                        alert('请输入控件名称');
+                    }
+                    return false;
+                }
+                var gTitle=$G('orgname').value.replace(/\"/g,"&quot;"),gid = $G('fielid').value;
+                var $lv_title = $('#col_def_table .lv_title');
+                var $lv_name = $('#col_def_table .lv_name');
+                var $lv_size = $('#col_def_table .lv_size');
+                var $lv_coltype = $('#col_def_table .lv_coltype');
+                var $lv_sum = $('#col_def_table .lv_sum');
+                var $lv_cal = $('#col_def_table .lv_cal');
+                var $lv_colvalue = $('#col_def_table .lv_colvalue');
+                var _lv_field = $('#col_def_table .lv_field');
+                var default_cols = $('#ctrl_default_cols').val();
+                var orgfontsize = $('#orgfontsize').val();
+
+                var data_table = $('#inData select').val();
+                try{
+                    var data_tableId = inDataObj[data_table].dId||'';
+                }catch (e) {
+                    var data_tableId = '';
+                }
+                var $data_field = $('#col_def_table .dataFiledSelect');
+                var $data_query = $('#col_def_table .dataFiledCheckbox');
+                if(orgfontsize == ''){
+                    orgfontsize = 'auto';
+                }
+                var inDatachooseFlag = false;
+                if( !oNode ) {
+                    try {
+                        oNode = createElement('input','listing');
+                        oNode.setAttribute('title',gTitle);
+                        oNode.setAttribute('type','text');
+                        oNode.setAttribute('class', "form_item listing");
+                        oNode.setAttribute('data-type', "listing");
+                        oNode.setAttribute('name', 'DATA_' + dataNumber);
+                        oNode.setAttribute('id', 'DATA_' + dataNumber);
+                        oNode.setAttribute('default_cols', default_cols);
+                        oNode.setAttribute('orgfontsize', orgfontsize);
+                        oNode.setAttribute('datafrom', $('#dataFrom').val());
+
+                        oNode.setAttribute('data_table', data_table);
+                        oNode.setAttribute('data_tableId', data_tableId);
+
+                        if(_lv_field.length  > 0){
+                            var lv_field = '';
+                            _lv_field.each(function () {
+                                lv_field+=($(this).val()+'`');
+                            })
+                            oNode.setAttribute('lv_field',lv_field);
+                        }
+                        if($lv_title.length  > 0){
+                            var lv_title = '';
+                            $lv_title.each(function () {
+                                lv_title+=($(this).val()+'`');
+                            })
+                            console.log(lv_title)
+                            oNode.setAttribute('lv_title',lv_title);
+                        }
+                        if($lv_size.length  > 0){
+                            var lv_size = '';
+                            $lv_size.each(function () {
+                                lv_size+=(($(this).val() == ''?'70':$(this).val())+'`');
+                            })
+                            oNode.setAttribute('lv_size',lv_size);
+                        }
+                        if($lv_colvalue.length  > 0){
+                            var lv_colvalue = '';
+                            $lv_colvalue.each(function () {
+                                lv_colvalue+=($(this).val()+'`');
+                            })
+                            oNode.setAttribute('lv_colvalue',lv_colvalue);
+                        }
+                        if($lv_sum.length  > 0){
+                            var lv_sum = [];
+                            $lv_sum.each(function () {
+                                lv_sum.push($(this).prop('checked') ==  true ?1:0);
+                            });
+                            oNode.setAttribute('lv_sum',lv_sum.join('`'));
+                        }
+                        if($lv_coltype.length  > 0){
+                            var lv_coltype = '';
+                            $lv_coltype.each(function () {
+                                lv_coltype+=($(this).val()+'`');
+                            })
+                            oNode.setAttribute('lv_coltype',lv_coltype);
+                        }
+                        if($lv_cal.length  > 0){
+                            var lv_cal = '';
+                            $lv_cal.each(function () {
+                                lv_cal+=($(this).val()+'`');
+                            })
+                            oNode.setAttribute('lv_cal',lv_cal);
+                        }
+
+                        if($data_field.length  > 0){
+                            var data_field = '';
+                            var data_fld_name = '';
+                            $data_field.each(function () {
+                                data_field += ($(this).val()+'`');
+                                if(workform_formItem){
+                                    var workform_formItem_qxzsjkzd = workform_formItem.workform_formItem_qxzsjkzd;
+                                }else{
+                                    var workform_formItem_qxzsjkzd = '请选择数据库字段';
+                                }
+                                if($(this).find('option:checked').text() == workform_formItem_qxzsjkzd){
+                                    data_fld_name += ('' + '`');
+                                }else{
+                                    inDatachooseFlag = true;
+                                    data_fld_name += ($(this).find('option:checked').text() + '`');
+                                }
+                            })
+                            oNode.setAttribute('data_field', data_field);
+                            oNode.setAttribute('data_fld_name', data_fld_name);
+                        }
+                        if($data_query.length  > 0){
+                            var data_query = [];
+                            $data_query.each(function () {
+                                data_query.push($(this).prop('checked') ==  true ?1:0);
+                            });
+                            oNode.setAttribute('data_query', data_query.join('`'));
+                        }
+                        if(data_table != ''){
+                            if(!inDatachooseFlag){
+                                if(workform_formItem){
+                                    alert(workform_formItem.workform_formItem_qzsxzygsjkzd);
+                                }else{
+                                    alert('请至少选择一个数据库字段!');
+                                }
+                                return false;
+                            }
+                        }
+                        console.log(oNode.outerHTML);
+                        editor.execCommand('insertHtml',oNode.outerHTML);
+                        return true ;
+                    } catch ( e ) {
+                        try {
+                            editor.execCommand('error');
+                        } catch ( e ) {
+                            if(workform_formItem){
+                                alert(workform_formItem.workform_formItem_kjycqlxjszc);
+                            }else{
+                                alert('控件异常，请联系技术支持');
+                            }
+                        }
+                        return false;
+                    }
+                } else {
+                    oNode.setAttribute('title',gTitle);
+                    oNode.setAttribute('datafrom', $('#dataFrom').val());
+                    oNode.setAttribute('default_cols', default_cols);
+                    oNode.setAttribute('orgfontsize', orgfontsize);
+
+                    oNode.setAttribute('data_table', data_table);
+                    oNode.setAttribute('data_tableId', data_tableId);
+                    if(_lv_field.length  > 0){
+                        var lv_field = '';
+                        _lv_field.each(function () {
+                            lv_field+=($(this).val()+'`');
+                        })
+                        oNode.setAttribute('lv_field',lv_field);
+                    }
+                    if($lv_title.length  > 0){
+                        var lv_title = '';
+                        $lv_title.each(function () {
+                            lv_title+=($(this).val()+'`');
+                        })
+                        oNode.setAttribute('lv_title',lv_title);
+                    }
+                    if($lv_size.length  > 0){
+                        var lv_size = '';
+                        $lv_size.each(function () {
+                            lv_size+=(($(this).val() == ''?'70':$(this).val())+'`');
+                        })
+                        oNode.setAttribute('lv_size',lv_size);
+                    }
+                    if($lv_colvalue.length  > 0){
+                        var lv_colvalue = '';
+                        $lv_colvalue.each(function () {
+                            lv_colvalue+=($(this).val()+'`');
+                        })
+                        oNode.setAttribute('lv_colvalue',lv_colvalue);
+                    }
+                    if($lv_sum.length  > 0){
+                        var lv_sum = [];
+                        $lv_sum.each(function () {
+                            lv_sum.push($(this).prop('checked') ==  true ?1:0);
+                        });
+                        oNode.setAttribute('lv_sum',lv_sum.join('`'));
+                    }
+                    if($lv_coltype.length  > 0){
+                        var lv_coltype = '';
+                        $lv_coltype.each(function () {
+                            lv_coltype+=($(this).val()+'`');
+                        })
+                        oNode.setAttribute('lv_coltype',lv_coltype);
+                    }
+                    if($lv_cal.length  > 0){
+                        var lv_cal = '';
+                        $lv_cal.each(function () {
+                            lv_cal+=($(this).val()+'`');
+                        })
+                        oNode.setAttribute('lv_cal',lv_cal);
+                    }
+                    if($data_field.length  > 0){
+                        var data_field = '';
+                        var data_fld_name = '';
+                        $data_field.each(function () {
+                            data_field += ($(this).val()+'`');
+                            if(workform_formItem){
+                                var workform_formItem_qxzsjkzd = workform_formItem.workform_formItem_qxzsjkzd;
+                            }else{
+                                var workform_formItem_qxzsjkzd = '请选择数据库字段';
+                            }
+                            if($(this).find('option:checked').text() == workform_formItem_qxzsjkzd){
+                                data_fld_name += ('' + '`');
+                            }else{
+                                inDatachooseFlag = true;
+                                data_fld_name += ($(this).find('option:checked').text() + '`');
+                            }
+                        })
+                        oNode.setAttribute('data_field', data_field);
+                        oNode.setAttribute('data_fld_name', data_fld_name);
+                    }
+                    if($data_query.length  > 0){
+                        var data_query = [];
+                        $data_query.each(function () {
+                            data_query.push($(this).prop('checked') ==  true ?1:0);
+                        });
+                        oNode.setAttribute('data_query', data_query.join('`'));
+                    }
+                    if(data_table != ''){
+                        if(!inDatachooseFlag){
+                            if(workform_formItem){
+                                alert(workform_formItem.workform_formItem_qzsxzygsjkzd);
+                            }else{
+                                alert('请至少选择一个数据库字段!');
+                            }
+                            return false;
+                        }
+                    }
+                    console.log(oNode.outerHTML);
+                    delete UE.plugins[thePlugins].editdom;
+                    return true;
+                }
+            };
+            $('#col_def_table').on('click','#dataFrom',function () {
+                if($("#dataFrom").val() == "inData"){
+                    $('#inData').show();
+                    $('#outData').hide();
+                }else{
+                    $('#inData').hide();
+                    $('#outData').show();
+                }
+
+            });
+            $('#col_def_table').on('click','.delete_row',function () {
+                var $tbody = $(this).parents('.tb');
+                $(this).parent().parent().remove();
+                var $tr = $tbody.find('tr');
+                if ($tr.length > 2) {
+                    for (var i = 1; i < $tr.length; i++){
+                        $($tr[i-1]).find('.delete_row').siblings('span').text(i);
+                    }
+                }
+            });
+            $('#col_def_table').on('click','#btn_add',function () {
+                var num = $("#col_def_table tr").length - 1;
+                $('#trTepl #numId').html(num);
+                console.log($('#trTepl tbody').html())
+                var $html = $('#trTepl tbody').html();
+                if($('#inData select').val() != ''){
+                    var tdStr = '<td><select id="datafield_'+ num +'" class="dataFiledSelect">'+ checkInDataFiledOption +'</select></td>'+
+                        '<td><input type="checkbox" id="query_'+ num +'" class="dataFiledCheckbox"></td>';
+                    $('#trTepl tbody tr').append(tdStr)
+                    $html = $('#trTepl tbody').html();
+                    $('#trTepl tbody tr .dataFiledSelect').parent().remove();
+                    $('#trTepl tbody tr .dataFiledCheckbox').parent().remove();
+                }
+                $(this).parent().parent().before($html);
+            })
+
+            $('#inData select').on('change', function(){
+                console.log($(this).val())
+                if($(this).val() == ''){
+                    $('.tableHeaderFiledCol').remove();
+                    $('.dataFiledSelect').parent().remove();
+                    $('.dataFiledCheckbox').parent().remove();
+                }else{
+                    var inDataObjDId = inDataObj[$(this).val()].dId||'';
+                    if(inDataObjDId){
+                        $.get('/TerpServerController/findByDataSrcId', {
+                            dId: inDataObjDId
+                        }, function (json) {
+                            console.log(json)
+                            if(json.flag&&json.object){
+                                var listObj = json.object.list;
+                                if(workform_formItem){
+                                    var workform_formItem_qxzsjkzd = workform_formItem.workform_formItem_qxzsjkzd;
+                                }else{
+                                    var workform_formItem_qxzsjkzd = '请选择数据库字段';
+                                }
+                                var str = '<option value="">'+ workform_formItem_qxzsjkzd +'</option>';
+                                for(var i = 0; i < listObj.length; i++){
+                                    var name = listObj[i].data3;
+                                    var id = listObj[i].data1;
+                                    str += '<option value="'+ id +'">'+ name +'</option>';
+                                }
+                                checkInDataFiledOption = str;
+                                if(data_source == ''||$('.tableHeaderFiledCol').length == 0){
+                                    var strHeaderHtml = '<td class="tableHeaderFiledCol" nowrap="" align="center" title="Tab键切换输入框">数据库字段</td><td class="tableHeaderFiledCol"  nowrap="" align="center" title="Tab键切换输入框">查询</td>'
+                                    $('#tr_header').append(strHeaderHtml);
+                                    var $tr = $('#col_def_table .tb').find('tr');
+                                    for(var i = 0;i < $tr.length - 1; i++){
+                                        var tdStr = '<td><select id="datafield_'+ (i+1) +'" class="dataFiledSelect">'+ str +'</select></td>'+
+                                            '<td><input type="checkbox" id="query_'+ (i+1) +'" class="dataFiledCheckbox"></td>';
+                                        $tr.eq(i).append(tdStr)
+                                    }
+                                }else{
+                                    var $tr = $('#col_def_table .tb').find('tr');
+                                    for(var i = 0;i < $tr.length - 1; i++){
+                                        $tr.eq(i).find('.dataFiledSelect').parent().remove();
+                                        $tr.eq(i).find('.dataFiledCheckbox').parent().remove();
+                                        var tdStr = '<td><select id="datafield_'+ (i+1) +'" class="dataFiledSelect">'+ str +'</select></td>'+
+                                            '<td><input type="checkbox" id="query_'+ (i+1) +'" class="dataFiledCheckbox"></td>';
+                                        $tr.eq(i).append(tdStr)
+                                    }
+                                }
+                            }
+                        })
+                    }
+                }
+            })
+        });
+    })
+
+
+</script>
+</body>
+</html>

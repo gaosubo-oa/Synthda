@@ -1,0 +1,274 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>签章控件</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <!--<link rel="stylesheet" href="../../bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../css/ueditor/site.css">
+    <link rel="stylesheet" href="../themes/default/css/ueditor.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+    <script type="text/javascript" src="../dialogs/internal.js"></script>
+    <script type="text/javascript" src="/js/xoajq/xoajq3.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery-migrate-3.4.0.js"></script>
+    <script type="text/javascript" src="../../../js/base/base.js"></script>
+    <script type="text/javascript" src="../../../js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+
+    <!--&lt;!&ndash; 配置文件 &ndash;&gt;-->
+    <!--<script type="text/javascript" src="../ueditor.config.js"></script>-->
+    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash; 编辑器源码文件 &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+    <!--<script type="text/javascript" src="../ueditor.all.js"></script>-->
+    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash; 语言包文件 &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+    <!--<script type="text/javascript" src="../lang/zh-cn/zh-cn.js"></script>-->
+    <link rel="stylesheet" href="leipi.style.css">
+    <script type="text/javascript">
+        function createElement(type, name)
+        {
+            var element = null;
+            try {
+                element = document.createElement('<'+type+' name="'+name+'">');
+            } catch (e) {}
+            if(element==null) {
+                element = document.createElement(type);
+                element.name = name;
+            }
+            return element;
+        }
+    </script>
+    <style type="text/css">
+        .glyphicon-ok{color: #08cf87}
+        .span1{
+            top: -2px;
+            margin-left: 3px;
+            position: relative;
+            margin-right: 7px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="content">
+    <table class="table table-bordered table-striped table-hover">
+     <tr>
+        <th><span>控件名称</span><span style="background-color: #b94a48;padding: 0.1em 0.5em 0.1em;margin-left: 3px;" class="label label-important">*</span></th>
+        <th><span>电子印章</span></th>
+    </tr>
+    <tr>
+        <td style="width: 50%"><input id="orgname" class="form-control" placeholder="必填项" type="text"/> </td><input type="hidden" id="fielid" placeholder="必填项">
+        <td>
+            <!-- Single button -->
+            <select id="signList" name="signAttrList" class="selectpicker show-tick form-control"  data-live-search="false">
+
+
+            </select>
+        </td>
+
+    </tr>
+    <tr>
+        <th ><span>控件样式</span> </th>
+        <th ><span>使用方式</span> </th>
+    </tr>
+    <tr>
+        <td > 宽：<input id="orgwidth" class="form-control" placeholder="必填项" type="text" style="width: 53px;display: inline-block;" value="155"> px&nbsp;&nbsp;&nbsp;&nbsp;高：<input id="orgheight" class="form-control" placeholder="必填项" value="155" type="text" style="width: 53px;display: inline-block;"> px</td>
+        <td><input  id="isSeal" checked type="checkbox" style="margin-top:12px; "><span class="span1">盖章</span> <input id="isHandwriting" type="checkbox"><span class="span1">手写</span></td>
+    </tr>
+    <tr>
+        <th ><span>使用端</span> </th>
+        <th ><span>是否可移动</span> </th>
+    </tr>
+    <tr>
+        <td ><input checked id="isPc" type="checkbox" style="margin-top:12px; "><span class="span1">pc端</span> <input id="isApp" type="checkbox" checked><span class="span1">移动端</span></td>
+        <td>
+            <select id="isMoveable" name="signAttrList" class="selectpicker show-tick form-control"  data-live-search="false">
+                <option value="1">是</option>
+                <option value="0">否</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <th colspan = "2"><span>签章约束字段</span><span style="background-color: #b94a48;padding: 0.1em 0.5em 0.1em;margin-left: 3px;" class="label label-important">*</span></th>
+    </tr>
+    <tr>
+        <td colspan = "2">
+            <select id="signAttrList" name="signAttrList" class="selectpicker show-tick form-control" multiple data-live-search="false">
+
+            </select>
+        </td>
+    </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    var ueObj = UE.getEditor('formEditor');
+    var signListVal = '';
+    $(function () {
+        var eleBoj = $(ueObj.getContent());
+        var optionStr = '';
+        var dataid = $.getQueryString('dataid');
+        var dataNumber=parent.pluginId;
+
+        var oNode = null,thePlugins = 'kgsign';
+            if( UE.plugins[thePlugins].editdom ){
+                oNode = UE.plugins[thePlugins].editdom;
+                var gTitle=oNode.getAttribute('title').replace(/&quot;/g,"\"");
+                var signAttrList=oNode.getAttribute('signAttrList');
+                var gType = oNode.getAttribute('gType');
+                var gHeight = oNode.getAttribute('gHeight');
+                var gWidth = oNode.getAttribute('gWidth');
+
+                signListVal =oNode.getAttribute('signList');
+                var isMoveable = oNode.getAttribute('isMoveable');
+                var isPc = oNode.getAttribute('isPc')==1?true:false;
+                var isApp = oNode.getAttribute('isApp')==1?true:false;
+                var isSeal = oNode.getAttribute('isSeal')==1?true:false;
+                var isHandwriting = oNode.getAttribute('isHandwriting')==1?true:false;
+
+                $('#isPc').prop('checked',isPc);
+                $('#isApp').prop('checked',isApp);
+                $('#isSeal').prop('checked',isSeal);
+                $('#isHandwriting').prop('checked',isHandwriting);
+
+                $G('orgname').value = gTitle;
+                $G('orgheight').value = gHeight;
+                $G('orgwidth').value = gWidth;
+                //$('#signList').val(signListVal);
+                eleBoj.find(".form_item").each(function () {
+                    var that = $(this);
+                    if(signAttrList.indexOf(that.attr('name')) > -1){
+                        optionStr += ('<option selected value="'+that.attr('name')+'">'+that.attr('title')+'</option>')
+                    }else{
+                        optionStr += ('<option  value="'+that.attr('name')+'">'+that.attr('title')+'</option>')
+                    }
+                });
+
+            }else{
+                eleBoj.find(".form_item").each(function () {
+                    var that = $(this);
+                    optionStr += ('<option  value="'+that.attr('name')+'">'+that.attr('title')+'</option>')
+                });
+            }
+        $('#signAttrList').html(optionStr);
+        $.ajax({
+            type: "get",
+            async: false,
+            url: "/kg/getAllSignature",
+            dataType: 'JSON',
+            success: function (res) {
+                if(res.flag){
+                    var signListStr = ' <option value="0">不限制</option>';
+                    datas = res.datas;
+                    datas.forEach(function(v,i){
+                        if(v.signatureKgid == signListVal){
+                            signListStr += ('<option selected value="'+v.signatureKgid+'">'+v.signatureName+'</option>');
+                        }else{
+                            signListStr += ('<option  value="'+v.signatureKgid+'">'+v.signatureName+'</option>');
+                        }
+                    })
+                    $('#signList').html(signListStr);
+                    $('#signAttrList').selectpicker({
+                        'selectedText': 'cat',
+                        'noneSelectedText':'请选择约束字段',
+                        'tickIcon':'glyphicon-ok'
+                    });
+                }
+            }
+        });
+
+        dialog.oncancel = function () {
+            if( UE.plugins[thePlugins].editdom ) {
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+        dialog.onok = function (){
+            if( $G('orgname').value == '') {
+                alert('控件名称不能为空');
+                return false;
+            }
+            var gTitle=$G('orgname').value.replace(/\"/g,"&quot;");
+            var signList = $('#signList').val();
+            var isMoveable = $('#isMoveable').val();
+            var isPc = $('#isPc').is(':checked') == true?1:0;
+            var isApp = $('#isApp').is(':checked') == true?1:0;
+            var isSeal = $('#isSeal').is(':checked') == true?1:0;
+            var isHandwriting = $('#isHandwriting').is(':checked') == true?1:0;
+            var gHeight=$G('orgheight').value;
+            var gWidth=$G('orgwidth').value;
+            var signAttrList=$('#signAttrList').val()//约束字段
+
+            if(!signAttrList || signAttrList.length == 0 ) {
+                alert('签章约束字段不能为空');
+                return false;
+            }
+            signAttrList = signAttrList.join(',');
+            if( !oNode ) {
+                try {
+                    oNode = createElement('img');
+                    oNode.setAttribute('src','/img/workflow/form/kgsignarea.png');
+                    oNode.setAttribute('class', "form_item kgsign");
+                    oNode.setAttribute('data-type', "kgsign");
+                    oNode.setAttribute('title',gTitle);
+                    oNode.setAttribute('name','DATA_'+dataNumber);
+                    oNode.setAttribute('id','DATA_'+dataNumber);
+                    oNode.setAttribute('signAttrList',signAttrList);
+                    oNode.setAttribute('gHeight',gHeight);
+                    oNode.setAttribute('gWidth',gWidth);
+                    oNode.setAttribute('height',gHeight);
+                    oNode.setAttribute('width',gWidth);
+                    oNode.setAttribute('isMoveable',isMoveable);
+                    oNode.setAttribute('isPc',isPc);
+                    oNode.setAttribute('isApp',isApp);
+                    oNode.setAttribute('isSeal',isSeal);
+                    oNode.setAttribute('isHandwriting',isHandwriting);
+                    oNode.setAttribute('signList',signList);
+                    var StyleStr = "cursor: pointer; ";
+                    if(gHeight){
+                        StyleStr += ('height:'+gHeight+'px;');
+                    }
+                    if(gWidth){
+                        StyleStr += ('width:'+gWidth+'px;');
+                    }
+                    oNode.setAttribute('style', StyleStr);
+                    editor.execCommand('insertHtml',oNode.outerHTML);
+                    return true;
+                } catch ( e ) {
+                    try {
+                        editor.execCommand('error');
+                    } catch ( e ) {
+                        alert(控件异常);
+                    }
+                    return false;
+                }
+            } else {
+                oNode.setAttribute('title',gTitle);
+                oNode.setAttribute('gHeight',gHeight);
+                oNode.setAttribute('gWidth',gWidth);
+                oNode.setAttribute('signAttrList',signAttrList);
+                oNode.setAttribute('isMoveable',isMoveable);
+                oNode.setAttribute('isPc',isPc);
+                oNode.setAttribute('isApp',isApp);
+                oNode.setAttribute('isSeal',isSeal);
+                oNode.setAttribute('isHandwriting',isHandwriting);
+                oNode.setAttribute('signList',signList);
+                oNode.setAttribute('height',gHeight);
+                oNode.setAttribute('width',gWidth);
+
+//                if(gType == '1'){//电子签章
+//                    oNode.setAttribute('src','/img/workflow/form/electronicSignature.png');
+//                }else if(gType == '2'){//手写签章
+//                    oNode.setAttribute('src','/img/workflow/form/handwrittenSignature.png');
+//                }else{
+//                    oNode.setAttribute('src','/img/workflow/form/electronicSignature.png');
+//                }
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+    });
+</script>
+
+</body>
+</html>

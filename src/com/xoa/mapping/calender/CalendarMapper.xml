@@ -1,0 +1,987 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.calendar.CalendarMapper">
+  <resultMap id="BaseResultMap" type="com.xoa.model.calender.Calendar">
+    <result column="CAL_ID" jdbcType="INTEGER" property="calId" />
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="CAL_TIME" jdbcType="INTEGER" property="calTime" />
+    <result column="END_TIME" jdbcType="INTEGER" property="endTime" />
+    <result column="CAL_TYPE" jdbcType="CHAR" property="calType" />
+    <result column="CAL_LEVEL" jdbcType="CHAR" property="calLevel" />
+    <result column="MANAGER_ID" jdbcType="VARCHAR" property="managerId" />
+    <result column="OVER_STATUS" jdbcType="VARCHAR" property="overStatus" />
+    <result column="BEFORE_REMAIND" jdbcType="VARCHAR" property="beforeRemaind" />
+    <result column="ADD_TIME" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="ALLDAY" javaType="java.lang.Integer" property="allday" />
+    <result column="FROM_MODULE" javaType="java.lang.Integer" property="fromModule" />
+    <result column="URL" jdbcType="VARCHAR" property="url" />
+    <result column="M_ID" jdbcType="INTEGER" property="mId" />
+    <result column="res_id" jdbcType="INTEGER" property="resId" />
+    <result column="CONTENT" jdbcType="LONGVARCHAR" property="content" />
+    <result column="OWNER" jdbcType="LONGVARCHAR" property="owner" />
+    <result column="TAKER" jdbcType="LONGVARCHAR" property="taker" />
+
+    <result column="UID" jdbcType="INTEGER" property="uId" />
+    <result column="BYNAME" jdbcType="LONGVARCHAR" property="byName" />
+
+      <result column="USER_NAME" jdbcType="LONGVARCHAR" property="userName"/>
+      <result column="DEPT_FUNC" jdbcType="LONGVARCHAR" property="deptFunc"/>
+      <result column="DEPT_Id" jdbcType="INTEGER" property="deptId"/>
+      <result column="DEPT_NAME" jdbcType="LONGVARCHAR" property="deptName"/>
+      <result column="ISEDIT" javaType="boolean" property="isEdit"/>
+      <result column="CONTENT_SECRECY" jdbcType="VARCHAR" property="contentSecrecy"/>
+  </resultMap>
+
+  <sql id="Blob_Column_List">
+    CONTENT, OWNER, TAKER
+  </sql>
+  <update id="update" parameterType="com.xoa.model.calender.Calendar">
+  update  calendar
+   <set>
+      <if test="calTime != null">
+        CAL_TIME=#{calTime},
+      </if>
+      <if test="endTime != null">
+        END_TIME=#{endTime},
+      </if>
+      <if test="calType != null">
+        CAL_TYPE=#{calType},
+      </if>
+      <if test="calLevel != null">
+        CAL_LEVEL=#{calLevel},
+      </if>
+       <if test="content != null">
+        CONTENT=#{content},
+      </if>
+     <if test="owner != null">
+       OWNER=#{owner},
+     </if>
+     <if test="taker != null">
+       TAKER=#{taker},
+     </if>
+     <if test="overStatus != null">
+       OVER_STATUS=#{overStatus},
+     </if>
+     <if test="beforeRemaind != null">
+       BEFORE_REMAIND=#{beforeRemaind}
+     </if>
+      </set>
+      where CAL_ID=#{calId}
+  </update>
+  <select id="getschedule" parameterType="Map" resultMap="BaseResultMap">
+  select CAL_ID,CAL_LEVEL,CAL_TIME,END_TIME,CONTENT from calendar where USER_ID=#{userId} AND
+  (CAL_TIME&gt;=#{calTime} and CAL_TIME&lt;=#{endTime}
+  || END_TIME&gt;=#{calTime} and END_TIME&lt;=#{endTime})
+  </select>
+
+  <select id="getAllschedule" parameterType="Map" resultMap="BaseResultMap">
+    select CAL_ID,CAL_LEVEL,CAL_TIME,END_TIME,CONTENT from calendar where USER_ID=#{userId}
+  </select>
+
+  <select id="getAllscheduleinfo" parameterType="Map" resultMap="BaseResultMap">
+    SELECT
+	d.DEPT_ID,
+	d.DEPT_NAME,
+	d.DEPT_FUNC,
+	u.UID,
+	u.USER_ID,
+	u.USER_NAME,
+	u.BYNAME,
+	u.DEPT_ID,
+	c.*
+FROM
+	department AS d,
+	`user` AS u,
+	calendar AS c
+WHERE
+	d.DEPT_ID = u.DEPT_ID
+AND u.USER_ID = c.USER_ID
+AND d.DEPT_ID=#{deptId}
+  </select>
+  
+  <select id="getscheduleByDay" parameterType="Map" resultMap="BaseResultMap">
+  select CAL_ID,USER_ID,CAL_LEVEL,CAL_TIME,END_TIME,CONTENT,TAKER from calendar
+  where
+    (USER_ID=#{userId} or TAKER like concat('%,'#{userId},',%') or TAKER like concat(#{userId},',%')
+     OR  OWNER like concat('%,'#{userId},',%') or OWNER like concat(#{userId},',%'))
+  and
+    (CAL_TIME&gt;=#{calTime} and CAL_TIME&lt;=#{calTime}+86400
+  or
+    #{calTime}&gt;=CAL_TIME and #{calTime}&lt;=END_TIME)
+  </select>
+
+    <select id="getscheduleByDay" parameterType="Map" resultMap="BaseResultMap" databaseId="kingbase">
+        select CAL_ID,USER_ID,CAL_LEVEL,CAL_TIME,END_TIME,CONTENT,TAKER from calendar
+        where
+            (USER_ID=#{userId} or TAKER like concat('%,',#{userId}::VARCHAR,',%') or TAKER like concat(#{userId}::VARCHAR,',%')
+                OR  OWNER like concat('%,',#{userId}::VARCHAR,',%') or OWNER like concat(#{userId}::VARCHAR,',%'))
+          and
+            (CAL_TIME&gt;=#{calTime} and CAL_TIME&lt;=#{calTime}+86400
+                or
+             #{calTime}&gt;=CAL_TIME and #{calTime}&lt;=END_TIME)
+    </select>
+
+   <select id="getscheduleBycId" parameterType="Map" resultMap="BaseResultMap">
+  select CAL_ID,CAL_TYPE,CAL_LEVEL,CAL_TIME,END_TIME,CONTENT,TAKER,OWNER,USER_ID
+   from calendar
+   where
+   (
+       (
+            USER_ID=#{userId}
+            and
+            OVER_STATUS!='1'
+           <if test="calType != null and calType != ''">
+                and CAL_TYPE=#{calType}
+           </if>
+       )
+       or
+       (
+          USER_ID!=#{userId}
+           AND
+          (
+             (TAKER LIKE  concat('%,', #{userId}, ',%') OR  TAKER LIKE concat(#{userId}, ',%'))
+              OR
+              (OWNER LIKE  concat('%,', #{userId}, ',%') OR  OWNER LIKE concat(#{userId}, ',%'))
+          )
+       )
+    )
+   and
+  (
+    (CAL_TIME&lt;=#{starTime} and END_TIME&gt;=#{starTime})
+      or
+     (CAL_TIME&lt;=#{endTime} or END_TIME&gt;=#{endTime})
+     OR
+     (CAL_TIME&gt;=#{starTime} or END_TIME&lt;=#{endTime})
+  )
+ 	
+  </select>
+  <delete id="delete">
+  delete from calendar where CAL_ID=#{calId}
+  </delete>
+  <insert id="insert" parameterType="com.xoa.model.calender.Calendar">
+    insert into calendar (CAL_ID, USER_ID, CAL_TIME, 
+      END_TIME, CAL_TYPE, CAL_LEVEL, 
+      MANAGER_ID, OVER_STATUS, BEFORE_REMAIND, 
+      ADD_TIME, ALLDAY, FROM_MODULE, 
+      URL, M_ID, res_id, CONTENT, 
+      OWNER, TAKER)
+    values (#{calId,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{calTime,jdbcType=INTEGER}, 
+      #{endTime,jdbcType=INTEGER}, #{calType,jdbcType=CHAR}, #{calLevel,jdbcType=CHAR}, 
+      #{managerId,jdbcType=VARCHAR}, #{overStatus,jdbcType=VARCHAR}, #{beforeRemaind,jdbcType=VARCHAR}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{allday,jdbcType=TINYINT}, #{fromModule,jdbcType=TINYINT}, 
+      #{url,jdbcType=VARCHAR}, #{mId,jdbcType=INTEGER}, #{resId,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}, 
+      #{owner,jdbcType=LONGVARCHAR}, #{taker,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xoa.model.calender.Calendar" useGeneratedKeys="true" keyProperty="calId">
+      <selectKey order="AFTER" keyProperty="calId" resultType="int">
+          SELECT LAST_INSERT_ID()
+      </selectKey>
+    insert into calendar
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="calId != null">
+        CAL_ID,
+      </if>
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="calTime != null">
+        CAL_TIME,
+      </if>
+      <if test="endTime != null">
+        END_TIME,
+      </if>
+      <if test="calType != null">
+        CAL_TYPE,
+      </if>
+      <if test="calLevel != null">
+        CAL_LEVEL,
+      </if>
+      <if test="managerId != null">
+        MANAGER_ID,
+      </if>
+      <if test="overStatus != null">
+        OVER_STATUS,
+      </if>
+      <if test="beforeRemaind != null">
+        BEFORE_REMAIND,
+      </if>
+      <if test="addTime != null">
+        ADD_TIME,
+      </if>
+      <if test="allday != null">
+        ALLDAY,
+      </if>
+      <if test="fromModule != null">
+        FROM_MODULE,
+      </if>
+      <if test="url != null">
+        URL,
+      </if>
+      <if test="mId != null">
+        M_ID,
+      </if>
+      <if test="resId != null">
+        res_id,
+      </if>
+      <if test="content != null">
+        CONTENT,
+      </if>
+      <if test="owner != null">
+        OWNER,
+      </if>
+      <if test="taker != null">
+        TAKER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="calId != null">
+        #{calId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="calTime != null">
+        #{calTime,jdbcType=INTEGER},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=INTEGER},
+      </if>
+      <if test="calType != null">
+        #{calType,jdbcType=CHAR},
+      </if>
+      <if test="calLevel != null">
+        #{calLevel,jdbcType=CHAR},
+      </if>
+      <if test="managerId != null">
+        #{managerId,jdbcType=VARCHAR},
+      </if>
+      <if test="overStatus != null">
+        #{overStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeRemaind != null">
+        #{beforeRemaind,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="allday != null">
+        #{allday,jdbcType=TINYINT},
+      </if>
+      <if test="fromModule != null">
+        #{fromModule,jdbcType=TINYINT},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="mId != null">
+        #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="resId != null">
+        #{resId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="owner != null">
+        #{owner,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="taker != null">
+        #{taker,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+    <insert id="insertSelective" parameterType="com.xoa.model.calender.Calendar" databaseId="oracle">
+        <selectKey keyProperty="calId"  order="BEFORE" resultType="int">
+            select CALENDAR_CAL_ID_SEQ.nextval as calId from  dual
+        </selectKey>
+        insert into calendar
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="calId != null">
+                CAL_ID,
+            </if>
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="calTime != null">
+                CAL_TIME,
+            </if>
+            <if test="endTime != null">
+                END_TIME,
+            </if>
+            <if test="calType != null">
+                CAL_TYPE,
+            </if>
+            <if test="calLevel != null">
+                CAL_LEVEL,
+            </if>
+            <if test="managerId != null">
+                MANAGER_ID,
+            </if>
+            <if test="overStatus != null">
+                OVER_STATUS,
+            </if>
+            <if test="beforeRemaind != null">
+                BEFORE_REMAIND,
+            </if>
+            <if test="addTime != null">
+                ADD_TIME,
+            </if>
+            <if test="allday != null">
+                ALLDAY,
+            </if>
+            <if test="fromModule != null">
+                FROM_MODULE,
+            </if>
+            <if test="url != null">
+                URL,
+            </if>
+            <if test="mId != null">
+                M_ID,
+            </if>
+            <if test="resId != null">
+                res_id,
+            </if>
+            <if test="content != null">
+                "CONTENT",
+            </if>
+            <if test="owner != null">
+                "OWNER",
+            </if>
+            <if test="taker != null">
+                TAKER,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="calId != null">
+                #{calId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="calTime != null">
+                #{calTime,jdbcType=INTEGER},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=INTEGER},
+            </if>
+            <if test="calType != null">
+                #{calType,jdbcType=CHAR},
+            </if>
+            <if test="calLevel != null">
+                #{calLevel,jdbcType=CHAR},
+            </if>
+            <if test="managerId != null">
+                #{managerId,jdbcType=VARCHAR},
+            </if>
+            <if test="overStatus != null">
+                #{overStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="beforeRemaind != null">
+                #{beforeRemaind,jdbcType=VARCHAR},
+            </if>
+            <if test="addTime != null">
+                #{addTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="allday != null">
+                #{allday,jdbcType=TINYINT},
+            </if>
+            <if test="fromModule != null">
+                #{fromModule,jdbcType=TINYINT},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="mId != null">
+                #{mId,jdbcType=INTEGER},
+            </if>
+            <if test="resId != null">
+                #{resId,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="owner != null">
+                #{owner,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="taker != null">
+                #{taker,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.xoa.model.calender.Calendar" databaseId="kingbase" useGeneratedKeys="true" keyProperty="calId">
+        insert into calendar
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="calId != null">
+                CAL_ID,
+            </if>
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="calTime != null">
+                CAL_TIME,
+            </if>
+            <if test="endTime != null">
+                END_TIME,
+            </if>
+            <if test="calType != null">
+                CAL_TYPE,
+            </if>
+            <if test="calLevel != null">
+                CAL_LEVEL,
+            </if>
+            <if test="managerId != null">
+                MANAGER_ID,
+            </if>
+            <if test="overStatus != null">
+                OVER_STATUS,
+            </if>
+            <if test="beforeRemaind != null">
+                BEFORE_REMAIND,
+            </if>
+            <if test="addTime != null">
+                ADD_TIME,
+            </if>
+            <if test="allday != null">
+                ALLDAY,
+            </if>
+            <if test="fromModule != null">
+                FROM_MODULE,
+            </if>
+            <if test="url != null">
+                URL,
+            </if>
+            <if test="mId != null">
+                M_ID,
+            </if>
+            <if test="resId != null">
+                res_id,
+            </if>
+            <if test="content != null">
+                CONTENT,
+            </if>
+            <if test="owner != null">
+                OWNER,
+            </if>
+            <if test="taker != null">
+                TAKER
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="calId != null">
+                #{calId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="calTime != null">
+                #{calTime,jdbcType=INTEGER},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=INTEGER},
+            </if>
+            <if test="calType != null">
+                #{calType,jdbcType=CHAR},
+            </if>
+            <if test="calLevel != null">
+                #{calLevel,jdbcType=CHAR},
+            </if>
+            <if test="managerId != null">
+                #{managerId,jdbcType=VARCHAR},
+            </if>
+            <if test="overStatus != null">
+                #{overStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="beforeRemaind != null">
+                #{beforeRemaind,jdbcType=VARCHAR},
+            </if>
+            <if test="addTime != null">
+                #{addTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="allday != null">
+                #{allday,jdbcType=INTEGER},
+            </if>
+            <if test="fromModule != null">
+                #{fromModule,jdbcType=INTEGER},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="mId != null">
+                #{mId,jdbcType=INTEGER},
+            </if>
+            <if test="resId != null">
+                #{resId,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="owner != null">
+                #{owner,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="taker != null">
+                #{taker,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+        RETURNING CAL_ID
+    </insert>
+
+  <select id="getscheduleByUserId" parameterType="Map" resultMap="BaseResultMap" >
+    select *
+    from calendar
+    where
+    USER_ID=#{userId} and OVER_STATUS !='1'
+    AND
+    (
+        (#{startTime} &lt;= CAL_TIME and CAL_TIME &lt;= #{endTime})
+        OR
+        (#{startTime} &lt;= END_TIME and END_TIME &lt;= #{endTime})
+    )
+      <if test="calType != null and calType !=''">
+          AND  CAL_TYPE =#{calType}
+      </if>
+      <if test="calLevel !=null and calLevel!=''">
+          AND  CAL_LEVEL=#{calLevel}
+      </if>
+  </select>
+
+
+  <select id="getscheduleByTakerAndOwner" parameterType="Map" resultMap="BaseResultMap" >
+    select *
+    from calendar
+    where
+	USER_ID!=#{userId}
+	 AND
+	(
+       (TAKER LIKE  (concat('%,', #{userId}),',%') OR  TAKER LIKE concat(#{userId}, ',%'))
+		OR
+		(OWNER LIKE   (concat('%,', #{userId}),',%') OR  OWNER LIKE concat(#{userId}, ',%'))
+	)
+	AND
+     (
+        (#{startTime} &lt;= CAL_TIME and CAL_TIME &lt;= #{endTime})
+        OR
+        (#{startTime} &lt;= END_TIME and END_TIME &lt;= #{endTime})
+    )
+      <if test="calType != null and calType !=''">
+          AND  CAL_TYPE =#{calType}
+      </if>
+      <if test="calLevel !=null and calLevel!=''">
+          AND  CAL_LEVEL=#{calLevel}
+      </if>
+  </select>
+
+    <select id="getscheduleByTakerAndOwner" parameterType="Map" resultMap="BaseResultMap" databaseId="oracle">
+        select *
+        from calendar
+        where
+        USER_ID!=#{userId}
+        AND
+        (
+        (TAKER LIKE  concat(concat('%,', #{userId}),',%') OR  TAKER LIKE concat(#{userId}, ',%'))
+        OR
+        (OWNER LIKE  concat(concat('%,', #{userId}),',%') OR  OWNER LIKE concat(#{userId}, ',%'))
+        )
+        AND
+        (
+        (#{startTime} &lt;= CAL_TIME and CAL_TIME &lt;= #{endTime})
+        OR
+        (#{startTime} &lt;= END_TIME and END_TIME &lt;= #{endTime})
+        )
+        <if test="calType != null and calType !=''">
+            AND  CAL_TYPE =#{calType}
+        </if>
+        <if test="calLevel !=null and calLevel!=''">
+            AND  CAL_LEVEL=#{calLevel}
+        </if>
+    </select>
+
+
+  <select id="getscheduleByTakerAndOwnerDay" parameterType="Map" resultMap="BaseResultMap" >
+    select *
+    from calendar
+    where
+    USER_ID!=#{userId}
+    AND
+    (
+    (TAKER LIKE  concat('%,', #{userId}, ',%') OR  TAKER LIKE concat(#{userId}, ',%'))
+    OR
+    (OWNER LIKE  concat('%,', #{userId}, ',%') OR  OWNER LIKE concat(#{userId}, ',%'))
+    )
+    AND
+    (CAL_TIME &lt;=#{calTime} AND #{calTime} &lt;=END_TIME)
+  </select>
+
+
+  <select id="getscheduleByUserIdDay" parameterType="Map" resultMap="BaseResultMap" >
+    select *
+    from calendar
+    where
+    USER_ID=#{userId}
+    AND
+    (CAL_TIME &lt;=#{calTime} and #{calTime} &lt;=END_TIME)
+  </select>
+
+
+
+  <select id="getAllScheduleByUserId" parameterType="map" resultMap="BaseResultMap" >
+    select *
+    from calendar
+    where
+    USER_ID=#{userId}
+    and
+     OVER_STATUS!='1'
+      <if test="calType != null and calType !=''">
+          AND  CAL_TYPE =#{calType}
+      </if>
+      <if test="calLevel !=null and calLevel!=''">
+          AND  CAL_LEVEL=#{calLevel}
+      </if>
+  </select>
+
+    <select id="getAllScheduleByUserId" parameterType="map" resultMap="BaseResultMap" databaseId="oracle">
+        select *
+        from calendar
+        where
+        USER_ID=#{userId}
+        and
+        (OVER_STATUS!='1' or OVER_STATUS IS NULL)
+        <if test="calType != null and calType !=''">
+            AND  CAL_TYPE =#{calType}
+        </if>
+        <if test="calLevel !=null and calLevel!=''">
+            AND  CAL_LEVEL=#{calLevel}
+        </if>
+    </select>
+
+    <select id="getAllScheduleByUserId" parameterType="map" resultMap="BaseResultMap" databaseId="dm">
+        select *
+        from calendar
+        where
+        USER_ID=#{userId}
+        and
+        (OVER_STATUS!='1' or OVER_STATUS IS NULL)
+        <if test="calType != null and calType !=''">
+            AND  CAL_TYPE =#{calType}
+        </if>
+        <if test="calLevel !=null and calLevel!=''">
+            AND  CAL_LEVEL=#{calLevel}
+        </if>
+    </select>
+
+  <select id="getAllScheduleByTakerAndOwner" parameterType="Map" resultMap="BaseResultMap" >
+    select
+    *
+    ,
+    if( ( OWNER = #{userId} OR  OWNER LIKE concat(#{userId}, ',%') OR OWNER LIKE  concat('%,', #{userId}, ',%')  ) = '0','false','true') as ISEDIT
+      <if test="isShowSecret">
+          ,sca.CONTENT_SECRECY
+      </if>
+    from calendar
+      <if test="isShowSecret">
+      LEFT JOIN security_content_approval sca ON sca.MODULE_TABLE = 'calendar' AND sca.RECORD_ID = calendar.CAL_ID AND sca.OPERATION_TYPE = 0
+     </if>
+      where
+    (
+        ( TAKER LIKE  concat('%,', #{userId}, ',%') OR  TAKER LIKE concat(#{userId}, ',%') OR TAKER = 'ALL_USERID' OR TAKER = '')
+        OR
+        (OWNER LIKE  concat('%,', #{userId}, ',%') OR  OWNER LIKE concat(#{userId}, ',%') OR OWNER = '')
+        or USER_ID = #{userId}
+    )
+     <if test="calType != null and calType !=''">
+      AND  CAL_TYPE =#{calType}
+     </if>
+      <if test="calLevel !=null and calLevel!=''">
+          AND  CAL_LEVEL=#{calLevel}
+      </if>
+      <if test="isShowSecret">
+          AND ((((sca.APPROVAL_STATUS = 1
+            <if test="allKey == null or allKey == ''">
+             AND (USER_ID != #{userId} AND (OWNER LIKE concat('%,', #{userId} , ',%') OR TAKER LIKE concat('%,', #{userId} , ',%')))
+            </if>
+           )
+          <if test="scaOperationUserId != null">
+          OR (sca.APPROVAL_STATUS != '1' AND sca.OPERATION_USER_ID = #{scaOperationUserId})
+          </if>
+          )
+          AND sca.CONTENT_SECRECY in
+            <foreach item="security" collection="securityRestriction" open="(" separator="," close=")">
+                #{security}
+            </foreach>
+             ) OR calendar.USER_ID =#{scaOperationUserId})
+      </if>
+  </select>
+
+    <select id="getAllScheduleByTakerAndOwner" parameterType="Map" resultMap="BaseResultMap" databaseId="kingbase">
+        select
+        *
+        ,
+        if( ( OWNER = #{userId} OR  OWNER LIKE concat(#{userId}::VARCHAR , ',%') OR OWNER LIKE  concat('%,', #{userId}::VARCHAR , ',%')  ) = '0','false','true') as ISEDIT
+        <if test="isShowSecret">
+            ,sca.CONTENT_SECRECY
+        </if>
+        from calendar
+        <if test="isShowSecret">
+            LEFT JOIN security_content_approval sca ON sca.MODULE_TABLE = 'calendar' AND  sca.RECORD_ID = calendar.CAL_ID AND sca.OPERATION_TYPE = 0
+        </if>
+        where
+        (
+        ( TAKER LIKE  concat('%,', #{userId}::VARCHAR , ',%') OR  TAKER LIKE concat(#{userId}::VARCHAR , ',%') OR TAKER = 'ALL_USERID' OR TAKER = '')
+        OR
+        (OWNER LIKE  concat('%,', #{userId}::VARCHAR , ',%') OR  OWNER LIKE concat(#{userId}::VARCHAR , ',%') OR OWNER = '')
+        or USER_ID = #{userId}
+        )
+        <if test="calType != null and calType !=''">
+            AND  CAL_TYPE =#{calType}
+        </if>
+        <if test="calLevel !=null and calLevel!=''">
+            AND  CAL_LEVEL=#{calLevel}
+        </if>
+        <if test="isShowSecret">
+            AND ((((sca.APPROVAL_STATUS = 1
+            <if test="allKey == null or allKey == ''">
+             AND (USER_ID != #{userId} AND (OWNER LIKE concat('%,', #{userId}::VARCHAR , ',%') OR TAKER LIKE concat('%,', #{userId}::VARCHAR , ',%')))
+             </if>
+             )
+            <if test="scaOperationUserId != null">
+                OR (sca.APPROVAL_STATUS != '1' AND sca.OPERATION_USER_ID = #{scaOperationUserId})
+            </if>
+            )
+            AND sca.CONTENT_SECRECY in
+                <foreach item="security" collection="securityRestriction" open="(" separator="," close=")">
+                    #{security}
+                </foreach>
+                 ) OR calendar.USER_ID =#{scaOperationUserId})
+        </if>
+    </select>
+
+    <select id="getAllScheduleByTakerAndOwner" parameterType="Map" resultMap="BaseResultMap" databaseId="oracle" >
+        select *
+        from calendar
+        where
+        USER_ID!=#{userId}
+        AND
+        (
+        (TAKER LIKE  concat(concat('%,', #{userId}),',%') OR  TAKER LIKE concat(#{userId}, ',%'))
+        OR
+        (OWNER LIKE  concat(concat('%,', #{userId}),',%') OR  OWNER LIKE concat(#{userId}, ',%'))
+        )
+        <if test="calType != null and calType !=''">
+            AND  CAL_TYPE =#{calType}
+        </if>
+        <if test="calLevel !=null and calLevel!=''">
+            AND  CAL_LEVEL=#{calLevel}
+        </if>
+    </select>
+
+  <select id="getScheduleByUserIdAndType" resultMap="BaseResultMap" parameterType="String">
+    select *
+    from calendar
+    WHERE
+      USER_ID=#{userId}
+       AND
+      OVER_STATUS!='1'
+      AND
+      CAL_TYPE='1'
+  </select>
+
+    <select id="getScheduleByUserIdAndType" resultMap="BaseResultMap" parameterType="String" databaseId="oracle">
+        select *
+        from calendar
+        WHERE
+        USER_ID=#{userId}
+        AND
+        (OVER_STATUS!='1' or OVER_STATUS is NULL )
+        AND
+        CAL_TYPE='1'
+    </select>
+
+    <select id="getScheduleByUserIdAndType" resultMap="BaseResultMap" parameterType="String" databaseId="dm">
+        select *
+        from calendar
+        WHERE
+        USER_ID=#{userId}
+        AND
+        (OVER_STATUS!='1' or OVER_STATUS is NULL )
+        AND
+        CAL_TYPE='1'
+    </select>
+
+  <select id="getAllScheduleByAdmin" resultMap="BaseResultMap" parameterType="String">
+    select *
+    from calendar
+    WHERE
+    USER_ID!=#{userId}
+    AND
+    (
+    (TAKER LIKE  concat('%,', #{userId}, ',%') OR  TAKER LIKE concat(#{userId}, ',%'))
+    OR
+    (OWNER LIKE  concat('%,', #{userId}, ',%') OR  OWNER LIKE concat(#{userId}, ',%'))
+    )
+    AND
+    CAL_TYPE='1'
+</select>
+
+
+    <select id="getAllScheduleByAdmin" resultMap="BaseResultMap" parameterType="String" databaseId="oracle">
+        select *
+        from calendar
+        WHERE
+        USER_ID!=#{userId}
+        AND
+        (
+        (TAKER LIKE  concat('%,',concat( #{userId}, ',%')) OR  TAKER LIKE concat(#{userId}, ',%'))
+        OR
+        (OWNER LIKE  concat('%,',concat(#{userId}, ',%')) OR  OWNER LIKE concat(#{userId}, ',%'))
+        )
+        AND
+        CAL_TYPE='1'
+    </select>
+
+    <select id="getAllScheduleByAdmin" resultMap="BaseResultMap" parameterType="String" databaseId="dm">
+       select *
+        from calendar
+        WHERE
+        USER_ID!=#{userId}
+        AND
+        (
+        (TAKER LIKE  concat('%,',concat( #{userId}, ',%')) OR  TAKER LIKE concat(#{userId}, ',%'))
+        OR
+        (OWNER LIKE  concat('%,',concat(#{userId}, ',%')) OR  OWNER LIKE concat(#{userId}, ',%'))
+        )
+        AND
+        CAL_TYPE='1'
+    </select>
+
+  <select id="queryAllScheduleByTakerAndOwner" parameterType="Map" resultMap="BaseResultMap" >
+    select *
+    from calendar
+    WHERE
+    CAL_TYPE='1'
+    <if test="deptId!=null and deptId!='' and deptId!=0">
+     AND
+      (  USER_ID!=#{userId}
+         AND
+        (
+         (TAKER LIKE concat('%,', #{userId}, ',%') OR TAKER LIKE concat(#{userId}, ',%'))
+          OR
+         (OWNER LIKE concat('%,', #{userId}, ',%') OR OWNER LIKE concat(#{userId}, ',%'))
+        )
+      )
+    </if>
+    <if test="deptId!=null and deptId!='' and deptId!=0">
+        and #{userId} IN (SELECT USER_ID FROM  user  where dept_Id=#{deptId})
+    </if>
+  </select>
+
+    <select id="queryAllScheduleByTakerAndOwner" parameterType="Map" resultMap="BaseResultMap" databaseId="oracle">
+        select *
+        from calendar
+        WHERE
+        CAL_TYPE='1'
+        <if test="deptId!=null and deptId!='' and deptId!=0">
+            AND
+            (  USER_ID!=#{userId}
+            AND
+            (
+            (TAKER LIKE concat('%,',  concat(#{userId}, ',%')) OR TAKER LIKE concat(#{userId}, ',%'))
+            OR
+            (OWNER LIKE concat('%,', concat(#{userId}, ',%')) OR OWNER LIKE concat(#{userId}, ',%'))
+            )
+            )
+        </if>
+        <if test="deptId!=null and deptId!='' and deptId!=0">
+            and #{userId} IN (SELECT USER_ID FROM  "USER"  where dept_Id=#{deptId})
+        </if>
+    </select>
+
+    <select id="queryAllScheduleByTakerAndOwner" parameterType="Map" resultMap="BaseResultMap" databaseId="dm">
+        select *
+        from calendar
+        WHERE
+        CAL_TYPE='1'
+        <if test="deptId!=null and deptId!='' and deptId!=0">
+            AND
+            (  USER_ID!=#{userId}
+            AND
+            (
+            (TAKER LIKE concat('%,', concat(#{userId}, ',%')) OR TAKER LIKE concat(#{userId}, ',%'))
+            OR
+            (OWNER LIKE concat('%,',concat( #{userId}, ',%')) OR OWNER LIKE concat(#{userId}, ',%'))
+            )
+            )
+        </if>
+        <if test="deptId!=null and deptId!='' and deptId!=0">
+            and #{userId} IN (SELECT USER_ID FROM  "USER"  where dept_Id=#{deptId})
+        </if>
+    </select>
+
+  <select id="selCalendarById" parameterType="Integer" resultMap="BaseResultMap">
+    select DISTINCT calendar.*,sca.CONTENT_SECRECY
+    from calendar
+    LEFT JOIN security_content_approval sca ON sca.MODULE_TABLE = 'calendar' AND sca.RECORD_ID = calendar.CAL_ID AND sca.OPERATION_TYPE = 0
+    where
+    CAL_ID=#{calId}
+  </select>
+  <!--根据用户查询日程安排记录-->
+  <select id="rChSelect"  resultMap="BaseResultMap">
+           select *  from  calendar
+  </select>
+  
+  <select id="getscheduleBycIds" parameterType="map" resultMap="BaseResultMap">
+    select CAL_ID,CAL_TYPE,CAL_LEVEL,CAL_TIME,END_TIME,CONTENT,TAKER,OWNER
+   from calendar
+   where
+   (
+       (
+            USER_ID=#{userId}
+            and
+            OVER_STATUS!='1'
+       )
+       or
+       (
+          USER_ID!=#{userId}
+           AND
+          (
+             (TAKER LIKE  concat('%,', #{userId}, ',%') OR  TAKER LIKE concat(#{userId}, ',%'))
+              OR
+              (OWNER LIKE  concat('%,', #{userId}, ',%') OR  OWNER LIKE concat(#{userId}, ',%'))
+          )
+       )
+    )
+   and
+ (
+    (CAL_TIME&lt;=#{starTime} and END_TIME&gt;=#{starTime})
+      or
+     (CAL_TIME&lt;=#{endTime} or END_TIME&gt;=#{endTime})
+     OR
+     (CAL_TIME&gt;=#{starTime} or END_TIME&lt;=#{endTime})
+  )
+  </select>
+
+    <select id="selectBySubject" parameterType="Map" resultMap="BaseResultMap">
+        SELECT * from calendar
+        <where>
+            <if test="userId != null">
+                and (
+                USER_ID=#{userId}
+                or OWNER like concat('%',#{userId},',%')
+                or TAKER like concat('%',#{userId},',%')
+                )
+            </if>
+            <if test="subject != null and subject != ''">
+                AND (
+                 CONTENT like concat('%',#{subject},'%')
+                <if test="strs != null">
+                    <foreach collection="strs" item="str">
+                        or CONTENT like concat ('%',#{str},'%')
+                    </foreach>
+                </if>
+                )
+            </if>
+        </where>
+        order by CAL_ID desc
+    </select>
+
+</mapper>

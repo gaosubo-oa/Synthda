@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.officesupplies.OfficeInventoryMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.officesupplies.OfficeInventory" >
+    <id column="INVENTORY_ID" property="inventoryId" jdbcType="INTEGER" />
+    <result column="INVENTORY_NAME" property="inventoryName" jdbcType="VARCHAR" />
+    <result column="INVENTORY_DIMENSION" property="inventoryDimension" jdbcType="VARCHAR" />
+    <result column="INVENTORY_DATE" property="inventoryDate" jdbcType="DATE" />
+    <result column="INVENTORY_OPERATOR" property="inventoryOperator" jdbcType="VARCHAR" />
+
+    <result column="inventoryOperatorName" property="inventoryOperatorName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    INVENTORY_ID, INVENTORY_NAME, INVENTORY_DIMENSION, INVENTORY_DATE, INVENTORY_OPERATOR
+  </sql>
+
+  <select id="selectOfficeInventory" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select oi.*, u.USER_NAME inventoryOperatorName
+    from office_inventory oi
+    left join user u on oi.INVENTORY_OPERATOR = u.USER_ID
+    <where>
+      <if test="inventoryName != null and inventoryName != ''">
+        INVENTORY_NAME like concat('%',#{inventoryName},'%')
+      </if>
+    </where>
+    order by INVENTORY_ID desc
+  </select>
+
+  <insert id="addOfficeInventory" parameterType="com.xoa.model.officesupplies.OfficeInventory" useGeneratedKeys="true" keyProperty="inventoryId">
+    insert into office_inventory
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="inventoryName != null">
+        INVENTORY_NAME,
+      </if>
+      <if test="inventoryDimension != null">
+        INVENTORY_DIMENSION,
+      </if>
+      <if test="inventoryDate != null">
+        INVENTORY_DATE,
+      </if>
+      <if test="inventoryOperator != null">
+        INVENTORY_OPERATOR,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="inventoryName != null">
+        #{inventoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="inventoryDimension != null">
+        #{inventoryDimension,jdbcType=VARCHAR},
+      </if>
+      <if test="inventoryDate != null">
+        #{inventoryDate,jdbcType=DATE},
+      </if>
+      <if test="inventoryOperator != null">
+        #{inventoryOperator,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+</mapper>

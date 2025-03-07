@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.timedTask.TimedTaskRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.timedTask.TimedTaskRecord" >
+    <id column="TRE_ID" property="treId" jdbcType="INTEGER" />
+    <result column="TASK_ID" property="taskId" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="EXECUTION_BEGIN_TIME" property="executionBeginTime" jdbcType="TIMESTAMP" />
+    <result column="EXECUTION_END_TIME" property="executionEndTime" jdbcType="TIMESTAMP" />
+    <result column="RESULT" property="result" jdbcType="CHAR" />
+    <result column="RESULT_LOG" property="resultLog" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    TRE_ID, TASK_ID, USER_ID, EXECUTION_BEGIN_TIME,EXECUTION_END_TIME, RESULT,RESULT_LOG
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from timed_task_record
+    where TRE_ID = #{treId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from timed_task_record
+    where TRE_ID = #{treId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.xoa.model.timedTask.TimedTaskRecord" >
+    insert into timed_task_record (TRE_ID, TASK_ID, USER_ID, 
+      EXECUTION_BEGIN_TIME, EXECUTION_END_TIME,RESULT, RESULT_LOG
+      )
+    values (#{treId,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, 
+      #{executionBeginTime,jdbcType=TIMESTAMP},  #{executionEndTime,jdbcType=TIMESTAMP},#{result,jdbcType=CHAR}, #{resultLog,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.xoa.model.timedTask.TimedTaskRecord" useGeneratedKeys="true" keyProperty="treId" >
+    insert into timed_task_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      EXECUTION_BEGIN_TIME,
+      <if test="treId != null" >
+        TRE_ID,
+      </if>
+      <if test="taskId != null" >
+        TASK_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="executionEndTime != null" >
+        EXECUTION_END_TIME,
+      </if>
+      <if test="result != null" >
+        RESULT,
+      </if>
+      <if test="resultLog != null" >
+        RESULT_LOG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      now(),
+      <if test="treId != null" >
+        #{treId,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null" >
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="executionEndTime != null" >
+        #{executionEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=CHAR},
+      </if>
+      <if test="resultLog != null" >
+        #{resultLog,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.timedTask.TimedTaskRecord" >
+    update timed_task_record
+    <set >
+      <if test="taskId != null" >
+        TASK_ID = #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="executionEndTime != null" >
+        EXECUTION_END_TIME = #{executionEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="result != null" >
+        RESULT = #{result,jdbcType=CHAR},
+      </if>
+      <if test="resultLog != null" >
+        RESULT_LOG = #{resultLog,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where TRE_ID = #{treId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.xoa.model.timedTask.TimedTaskRecord" >
+    update timed_task_record
+    set TASK_ID = #{taskId,jdbcType=INTEGER},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      EXECUTION_BEGIN_TIME = #{executionBeginTime,jdbcType=TIMESTAMP},
+      EXECUTION_END_TIME = #{executionEndTime,jdbcType=TIMESTAMP},
+      RESULT = #{result,jdbcType=CHAR},
+      RESULT_LOG = #{resultLog,jdbcType=LONGVARCHAR}
+    where TRE_ID = #{treId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateResult">
+    UPDATE timed_task_record
+      SET RESULT = #{result}
+      WHERE
+      TRE_ID =(
+          SELECT ttr.TRE_ID
+          FROM(
+              SELECT MAX(TRE_ID) as TRE_ID
+              FROM timed_task_record
+              WHERE TASK_ID = #{taskId})ttr)
+    </update>
+
+  <update id="updateResultBytreId" >
+    update timed_task_record
+    set EXECUTION_END_TIME = now(),
+      RESULT = #{result,jdbcType=CHAR},
+      RESULT_LOG = #{resultLog,jdbcType=LONGVARCHAR}
+    where TRE_ID = #{treId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectTimedTaskTypeseLastOne" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" />
+    from timed_task_record
+    where 1=1
+    <if test="taskId !=null and taskId!=0">
+      AND TASK_ID=${taskId}
+    </if>
+    ORDER BY TRE_ID DESC
+    limit 0,1
+  </select>
+
+
+  <select id="selectByTaskId" resultMap="BaseResultMap" parameterType="map" >
+    select TRE_ID, TASK_ID, user.USER_ID, USER_NAME, EXECUTION_BEGIN_TIME,EXECUTION_END_TIME, RESULT,RESULT_LOG
+    from timed_task_record
+    left join user on user.USER_ID = timed_task_record.USER_ID
+    where TASK_ID = #{taskId,jdbcType=INTEGER}
+    ORDER BY TRE_ID DESC
+  </select>
+
+  <select id="selectByTaskId" resultMap="BaseResultMap" parameterType="map" databaseId="kingbase">
+    select t.TRE_ID, t.TASK_ID, u.USER_ID, u.USER_NAME, t.EXECUTION_BEGIN_TIME,t.EXECUTION_END_TIME, t.RESULT,t.RESULT_LOG
+    from timed_task_record t
+    left join "user" u on u.USER_ID = t.USER_ID
+    where t.TASK_ID = #{taskId}
+    ORDER BY t.TRE_ID DESC
+  </select>
+
+</mapper>

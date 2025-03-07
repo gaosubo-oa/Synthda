@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context-3.0.xsd
+         http://www.springframework.org/schema/tx
+         http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+         http://www.springframework.org/schema/task
+         http://www.springframework.org/schema/task/spring-task.xsd
+         http://www.springframework.org/schema/aop
+         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd"
+
+       default-lazy-init="true">
+
+    <context:annotation-config />
+    <context:component-scan base-package="com.xoa">
+
+    </context:component-scan>
+    <!--扫描注解 -->
+    <!-- 支持异步方法执行 -->
+    <!-- 缺省的异步任务线程池 -->
+    <task:annotation-driven executor="asyncExecutor" />
+    <task:executor id="asyncExecutor" pool-size="100-10000" queue-capacity="10" />
+    <context:property-placeholder location="classpath:redis.properties" file-encoding="UTF-8"  ignore-unresolvable="true" />
+    <context:property-placeholder  location="classpath:jdbc-sql.properties"/>
+
+
+
+    <!--</bean>-->
+    <bean id="xoa1001" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+        <property name="driverClassName" value="${driverClassName}"/>
+        <property name="url" value="${url1001}"/>
+        <property name="username" value="${uname1001}"/>
+        <property name="password" value="${password1001}"/>
+        <!-- 初始化连接大小 -->
+        <property name="initialSize" value="${initialSize}"/>
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxActive" value="${maxActive}"/>
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle" value="${minIdle}"/>
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait" value="${maxWait}"/>
+
+        <!-- <property name="poolPreparedStatements" value="true" /> <property name="maxPoolPreparedStatementPerConnectionSize" value="33" /> -->
+        <!-- 验证连接有效与否的SQL，不同的数据配置不同 -->
+        <property name="validationQuery" value="${validationQuery}"/>
+        <!-- 这里建议配置为TRUE，防止取到的连接不可用 -->
+        <property name="testOnBorrow" value="${testOnBorrow}"/>
+        <property name="testOnReturn" value="${testOnReturn}"/>
+        <property name="testWhileIdle" value="${testWhileIdle}"/>
+
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${timeBetweenEvictionRunsMillis}"/>
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${minEvictableIdleTimeMillis}"/>
+
+        <!-- 打开removeAbandoned功能，超过时间限制是否回收 -->
+        <property name="removeAbandoned" value="${removeAbandoned}"/>
+        <!-- 超时时间1800秒，也就是30分钟 -->
+        <property name="removeAbandonedTimeout" value="${removeAbandonedTimeout}"/>
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="${logAbandoned}"/>
+        <property name="filters" value="stat" />
+
+    </bean>
+
+    <bean id="dynDatasources" class="com.xoa.util.dataSource.DynamicDataSource">
+        <property name="targetDataSources">
+            <map key-type="java.lang.String">
+                <entry key="xoa1001" value-ref="xoa1001"/>
+            </map>
+        </property>
+        <!-- 默认为mysql -->
+        <property name="defaultTargetDataSource" ref="xoa1001"/>
+       <!-- <property name="defaultTargetDataSource" ref="xoaKB1001"/>-->
+    </bean>
+    <bean id="vendorProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="properties">
+            <props>
+                <prop key="SQLServer">sqlserver</prop>
+                <prop key="DB2">db2</prop>
+                <prop key="Oracle">oracle</prop>
+                <prop key="MySQL">mysql</prop>
+                <!-- 达梦数据库驱动标识 -->
+                <prop key="DM DBMS">dm</prop>
+                <prop key="Kingbase">kingbase</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="databaseIdProvider" class="org.apache.ibatis.mapping.VendorDatabaseIdProvider">
+        <property name="properties" ref="vendorProperties"/>
+    </bean>
+    <!-- 配置sql会话工厂：SqlSessionFactoryBean -->
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dynDatasources"/>
+        <property name="databaseIdProvider" ref="databaseIdProvider"/>
+        <property name="mapperLocations">
+            <list>
+                <value>classpath:com/xoa/mapping/**/*.xml</value>
+                <value>classpath:com/xoa/dev/**/mapping/*.xml</value>
+                <value>classpath:com/xoa/edu/**/mapping/*.xml</value>
+                <value>classpath:com/xoa/dev/fileCabinet/mapping/*.xml</value>
+                <value>classpath:com/xoa/humanResource/mapping/*.xml</value>
+                <value>classpath:com/xoa/lims/**/mapping/*.xml</value>
+                <value>classpath:com/xoa/jdyproject/**/mapping/*.xml</value>
+
+
+            </list>
+        </property>
+        <property name="configLocation" value="classpath:config/spring/mybatis-config.xml"/>
+    </bean>
+
+    <!--<bean id="myInspectDatasource" class="com.xoa.util.dataSource.MyInspectDatasource" />-->
+    <!--<aop:aspectj-autoproxy/>-->
+
+    <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.xoa.dao,com.xoa.dev.fileCabinet.dao,com.xoa.humanResource.dao,com.xoa.dev.**.dao,com.xoa.edu.**.dao,com.xoa.jdyproject.**.dao,com.xoa.biz.dao" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBean"/>
+    </bean>
+
+
+    <!--签到定时任务-->
+    <bean id="threadPoolTaskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="5"/>    <!--线程池维护线程的最小数量. -->
+        <property name="keepAliveSeconds" value="200"/> <!--空闲线程的存活时间. -->
+        <property name="maxPoolSize" value="10"/> <!--线程池维护线程的最大数量. -->
+        <property name="queueCapacity" value="60"/> <!-- 队列最大长度 >=mainExecutor.maxSize -->
+        <property name="rejectedExecutionHandler">
+            <bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy"/>
+        </property>
+    </bean>
+
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dynDatasources"/>
+    </bean>
+
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+
+
+
+    <!--<bean id="transactionManagert"-->
+    <!--class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+    <!--<property name="dataSource" ref="dynDatasources" />-->
+    <!--</bean>-->
+    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+    <!--begin签到定时任务-->
+    <!--<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init"
+          destroy-method="close">
+
+        &lt;!&ndash; 基本属性 url、user、password &ndash;&gt;
+        <property name="driverClassName" value="${driverClassName}" />
+
+        <property name="url" value="${url1001}" />
+        <property name="username" value="${uname1001}" />
+        <property name="password" value="${password1001}" />
+        &lt;!&ndash; 配置初始化大小、最小、最大 &ndash;&gt;
+        <property name="initialSize" value="1" />
+        <property name="minIdle" value="1" />
+        <property name="maxActive" value="20" />
+
+        &lt;!&ndash; 配置获取连接等待超时的时间 &ndash;&gt;
+        <property name="maxWait" value="60000" />
+
+        &lt;!&ndash; 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 &ndash;&gt;
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+
+        &lt;!&ndash; 配置一个连接在池中最小生存的时间，单位是毫秒 &ndash;&gt;
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+
+        &lt;!&ndash;
+            用来检测连接是否有效的sql，要求是一个查询语句。
+            如果validationQuery为null，testOnBorrow、testOnReturn、
+            testWhileIdle都不会其作用
+        &ndash;&gt;
+        <property name="validationQuery" value="SELECT 1 FROM DUAL" />
+
+        <property name="testWhileIdle" value="true" />
+        <property name="testOnBorrow" value="false" />
+        <property name="testOnReturn" value="false" />
+
+        &lt;!&ndash;
+            打开PSCache，并且指定每个连接上PSCache的大小
+            如果用Oracle，则把poolPreparedStatements配置为true，mysql可以配置为false
+        &ndash;&gt;
+        <property name="poolPreparedStatements" value="true" />
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+
+        &lt;!&ndash; 配置监控统计拦截的filters，去掉后监控界面sql无法统计 &ndash;&gt;
+        <property name="filters" value="stat,wall,log4j" />
+
+        &lt;!&ndash;
+            如果配置了proxyFilters，此配置可以不配置
+            druid.stat.mergeSql=true 合并执行的相同sql，避免因为参数不同而统计多条sql语句
+            druid.stat.slowSqlMillis=10000 用来配置SQL慢的标准，执行时间超过slowSqlMillis的就是慢
+
+        <property name="connectionProperties" value="druid.stat.mergeSql=true;druid.stat.slowSqlMillis=10000" />
+         &ndash;&gt;
+
+        &lt;!&ndash; 监控统计拦截的filters &ndash;&gt;
+        &lt;!&ndash; 并在filters属性中配置了log4j &ndash;&gt;
+        <property name="proxyFilters">
+            <list>
+                <ref bean="stat-filter" />
+                <ref bean="log-filter" />
+            </list>
+        </property>
+    </bean>-->
+
+    <!--   &lt;!&ndash; 慢SQL记录&ndash;&gt;
+       <bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+           <property name="mergeSql" value="true" />
+           <property name="slowSqlMillis" value="10000" />
+           <property name="logSlowSql" value="true" />
+       </bean>
+
+       <bean id="log-filter" class="com.alibaba.druid.filter.logging.Log4jFilter">
+           &lt;!&ndash; <property name="resultSetLogEnabled" value="false" /> &ndash;&gt;
+           &lt;!&ndash; <property name="statementExecutableSqlLogEnable" value="true" /> &ndash;&gt;
+       </bean>
+
+       &lt;!&ndash; 配置druid监控spring jdbc &ndash;&gt;
+       <bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor" />
+
+       <bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
+           <property name="patterns">
+               <list>
+                   <value>com.xoa.service.*</value>
+                   <value>com.xoa.dao.*</value>
+               </list>
+           </property>
+       </bean>
+
+       <aop:config proxy-target-class="true">
+           <aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut" />
+       </aop:config>-->
+    <!--end 签到定时任务-->
+
+    <!-- Spring session 的配置类 -->
+    <!--<bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="hostName" value="${redis.pool.host}"/>
+        <property name="port" value="${redis.pool.port}"/>
+        <property name="timeout" value="${redis.pool.timeout}"/>
+        <property name="password" value="${redis.pool.password}"/>
+    </bean>
+    &lt;!&ndash; 配置RedisTemplate &ndash;&gt;
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory"/>
+        &lt;!&ndash; 如果不配置Serializer，那么存储的时候只能使用String，如果用对象类型存储，那么会提示错误 can't cast to String！！！ &ndash;&gt;
+        <property name="keySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+        <property name="valueSerializer">
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
+        </property>
+        &lt;!&ndash;   开启事务  &ndash;&gt;
+        <property name="enableTransactionSupport" value="true"/>
+    </bean>
+    <bean id="redisHttpSessionConfiguration" class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration"/>-->
+
+</beans>

@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>签章控件(速卓)</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <!--<link rel="stylesheet" href="../../bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="../../../lib/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../css/ueditor/site.css">
+    <link rel="stylesheet" href="../themes/default/css/ueditor.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../../..//lib/bootstrap/bootstrap-select/css/bootstrap-select.min.css">
+
+    <script type="text/javascript" src="../dialogs/internal.js"></script>
+    <script type="text/javascript" src="/js/xoajq/xoajq3.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery-migrate-3.4.0.js"></script>
+    <script type="text/javascript" src="../../../js/base/base.js"></script>
+    <script type="text/javascript" src="../../../js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="../../..//lib/bootstrap/bootstrap-select/js/bootstrap-select.min.js"></script>
+
+    <!--&lt;!&ndash; 配置文件 &ndash;&gt;-->
+    <!--<script type="text/javascript" src="../ueditor.config.js"></script>-->
+    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash; 编辑器源码文件 &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+    <!--<script type="text/javascript" src="../ueditor.all.js"></script>-->
+    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash; 语言包文件 &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+    <!--<script type="text/javascript" src="../lang/zh-cn/zh-cn.js"></script>-->
+    <link rel="stylesheet" href="leipi.style.css">
+    <script type="text/javascript">
+        function createElement(type, name)
+        {
+            var element = null;
+            try {
+                element = document.createElement('<'+type+' name="'+name+'">');
+            } catch (e) {}
+            if(element==null) {
+                element = document.createElement(type);
+                element.name = name;
+            }
+            return element;
+        }
+    </script>
+    <style type="text/css">
+        .glyphicon-ok{color: #08cf87}
+        .span1{
+            top: -2px;
+            position: relative;
+            width: 60px;
+            display: inline-block;
+            height: 34px;
+            padding: 4px 6px;
+            font-size: 14px;
+            line-height: 20px;
+            color: #555555;
+            vertical-align: middle;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+            margin: 0;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+<div class="content">
+    <table class="table table-bordered table-striped table-hover">
+        <tr>
+            <th ><span class="languageText" language="workform_formItem_name">控件名称</span><span style="background-color: #b94a48;padding: 0.1em 0.5em 0.1em;margin-left: 3px;" class="label label-important">*</span></th>
+
+        </tr>
+        <tr>
+            <td style="width: 50%">
+                <input id="orgname" class="form-control languagePlaceHolder" language="workform_formItem_btx" placeholder="必填项" type="text"/>
+            </td>
+            <input type="hidden" id="fielid" placeholder="必填项" class="languagePlaceHolder" language="workform_formItem_btx">
+
+
+        </tr>
+        <tr>
+            <th>
+                <span class="languageText" language="workform_formItem_szqztpwh">设置签章图片的宽度和高度&nbsp;&nbsp;</span>
+                <span style="color: red;" class="languageText" language="workform_formItem_szqztpwhsm">(宽和高设置为auto的话，会根据图片分辨率默认加载)</span>
+            </th>
+        </tr>
+        <tr>
+            <td>
+                <input id="winWidth" type="text" placeholder="120" class="input-small span1 span2">
+                X
+                <input id="winHeight" type="text" placeholder="auto" class="input-small span1 span2">
+                px
+
+            </td>
+        </tr>
+        <tr>
+            <th ><span class="languageText" language="workform_formItem_yzsdzs">验证锁定字段(用,号分隔：)</span> </th>
+
+        </tr>
+        <tr>
+            <td >
+                <textarea name="" class="form-control" id="orglock" cols="30" rows="10" style="height: 100px;"></textarea>
+            </td>
+        </tr>
+
+    </table>
+</div>
+<script>
+    if(getCookie("language") != 'zh_CN'){
+        $('title').text(workform_formItem.workform_formItem_szsign);
+        var $languageText = $('.languageText');
+        var $languagePlaceHolder = $('.languagePlaceHolder');
+        for(var i = 0; i < $languageText.length; i++){
+            var language = $languageText.eq(i).attr('language');
+            $('*[language='+ language +']').text(workform_formItem[language]);
+        }
+        for(var i = 0; i < $languagePlaceHolder.length; i++){
+            var language = $languagePlaceHolder.eq(i).attr('language');
+            $('*[language='+ language +']').prop('placeholder', workform_formItem[language]);
+        }
+    }
+
+</script>
+<script type="text/javascript">
+    var ueObj = UE.getEditor('formEditor');
+    var signListVal = '';
+    $(function () {
+        var eleBoj = $(ueObj.getContent());
+        var optionStr = '';
+        var dataid = $.getQueryString('dataid');
+        var dataNumber=parent.pluginId;
+
+        var oNode = null,thePlugins = 'szsign';
+        if( UE.plugins[thePlugins].editdom ){
+            oNode = UE.plugins[thePlugins].editdom;
+            var gTitle=oNode.getAttribute('title').replace(/&quot;/g,"\"");
+            var signlock=oNode.getAttribute('locksign');
+            var gHeight = oNode.getAttribute('gHeight');
+            var gWidth = oNode.getAttribute('gWidth');
+            $G('orglock').value = signlock
+            $G('orgname').value = gTitle;
+            if(gHeight != 'auto'){
+                $G('winHeight').value = gHeight;
+            }
+            if(gWidth != 'auto'){
+                $G('winWidth').value = gWidth;
+            }
+        }
+
+        dialog.oncancel = function () {
+            if( UE.plugins[thePlugins].editdom ) {
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+        dialog.onok = function (){
+            if( $G('orgname').value == '') {
+                if(workform_formItem){
+                    alert(workform_formItem.workform_formItem_qsrkjmc);
+                }else{
+                    alert('请输入控件名称');
+                }
+                return false;
+            }
+            var gTitle=$G('orgname').value.replace(/\"/g,"&quot;");
+            var glock = $G('orglock').value.replace(/，/g, ',');
+            var gHeight = $G('winHeight').value;
+            var gWidth = $G('winWidth').value;
+            if(gWidth == ''){
+                gWidth = '120'
+            }
+            if(gHeight == ''){
+                gHeight = 'auto'
+            }
+
+            if( !oNode ) {
+                try {
+                    oNode = createElement('button');
+                    oNode.setAttribute('class', "form_item SmallButtonA szSign");
+                    oNode.setAttribute('data-type', "szsign");
+                    oNode.setAttribute('onclick', "szaddSeal($(this))");
+                    oNode.setAttribute('title',gTitle);
+                    oNode.setAttribute('name','DATA_'+dataNumber);
+                    oNode.setAttribute('id','DATA_'+dataNumber);
+                    oNode.setAttribute('locksign',glock);
+                    oNode.setAttribute('align','absMiddle');
+                    oNode.setAttribute('border','0');
+                    if(workform_formItem){
+                        var workform_formItem_gz = workform_formItem.workform_formItem_gz;
+                    }else{
+                        var workform_formItem_gz = '盖章';
+                    }
+                    oNode.innerText = workform_formItem_gz;
+                    oNode.setAttribute('gHeight',gHeight);
+                    oNode.setAttribute('gWidth',gWidth);
+                    editor.execCommand('insertHtml',oNode.outerHTML);
+                    return true;
+                } catch ( e ) {
+                    try {
+                        editor.execCommand('error');
+                    } catch ( e ) {
+                        if(workform_formItem){
+                            alert(workform_formItem.workform_formItem_kjycqlxjszc);
+                        }else{
+                            alert('控件异常，请联系技术支持');
+                        }
+                    }
+                    return false;
+                }
+            } else {
+                console.log(oNode)
+                oNode.setAttribute('class', "form_item SmallButtonA szSign");
+                oNode.setAttribute('data-type', "szsign");
+                oNode.setAttribute('onclick', "szaddSeal($(this))");
+                oNode.setAttribute('title',gTitle);
+                oNode.setAttribute('align','absMiddle');
+                oNode.setAttribute('border','0');
+                if(workform_formItem){
+                    var workform_formItem_gz = workform_formItem.workform_formItem_gz;
+                }else{
+                    var workform_formItem_gz = '盖章';
+                }
+                oNode.innerText = workform_formItem_gz;
+                oNode.setAttribute('locksign',glock);
+                oNode.setAttribute('gHeight',gHeight);
+                oNode.setAttribute('gWidth',gWidth);
+
+
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+    });
+</script>
+
+</body>
+</html>

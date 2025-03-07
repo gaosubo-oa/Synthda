@@ -1,0 +1,3801 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+<%@taglib prefix="mvc" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="fmt" uri="http://www.springframework.org/tags" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+%>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>分包合同变更</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <link rel="stylesheet" href="/lib/layui/layui/css/layui.css?20210319.1">
+    <link rel="stylesheet" href="/lib/layui/layui/css/eleTree.css">
+
+    <script type="text/javascript" src="/js/xoajq/xoajq1.js"></script>
+    <script type="text/javascript" src="/lib/layui/layui/layui.all_v2.5.js"></script>
+    <script type="text/javascript" src="/js/base/base.js"></script>
+    <script type="text/javascript" src="/lib/layui/layui/global.js?20201229.1"></script>
+    <script type="text/javascript" src="/lib/layui/layui/lay/mymodules/tableFilter.js"></script>
+    <script type="text/javascript" src="/lib/layui/layui/lay/mymodules/tableChild.js"></script>
+    <script type="text/javascript" src="/lib/layui/layui/lay/mymodules/tableMerge.js"></script>
+    <script type="text/javascript" src="/lib/jQuery-File-Upload-master/jquery-ui.js"></script>
+    <script type="text/javascript" src="/lib/jQuery-File-Upload-master/jquery.iframe-transport.js"></script>
+    <script type="text/javascript" src="/lib/jQuery-File-Upload-master/jquery.fileupload.js"></script>
+    <script type="text/javascript" src="/js/common/fileupload.js"></script>
+    <script type="text/javascript" src="/js/planbudget/common.js"></script>
+    <script src="../js/jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/js/planother/planotherUtil.js?22120210604.11"></script>
+
+    <style>
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+        }
+
+        /*伪元素是行内元素 正常浏览器清除浮动方法*/
+        .clearfix:after {
+            content: "";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+
+        .clearfix {
+            *zoom: 1; /*ie6清除浮动的方式 *号只有IE6-IE7执行，其他浏览器不执行*/
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 15px 0 10px;
+            box-sizing: border-box;
+        }
+
+        .wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 0 8px;
+            box-sizing: border-box;
+        }
+
+        /* region 左侧样式 */
+        .wrap_left {
+            position: relative;
+            float: left;
+            width: 230px;
+            height: 100%;
+            padding-right: 10px;
+            box-sizing: border-box;
+        }
+
+        .wrap_left h2 {
+            line-height: 35px;
+            text-align: center;
+        }
+
+        .wrap_left .left_form {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .left_form .layui-input {
+            height: 35px;
+            margin: 10px 0;
+            padding-right: 25px;
+        }
+
+        .tree_module {
+            position: absolute;
+            top: 90px;
+            right: 10px;
+            bottom: 0;
+            left: 0;
+            overflow: auto;
+            box-sizing: border-box;
+        }
+
+        .eleTree-node-content {
+            overflow: hidden;
+            word-break: break-all;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .search_icon {
+            position: absolute;
+            top: 10px;
+            right: 0;
+            height: 35px;
+            width: 25px;
+            padding-top: 8px;
+            text-align: center;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+
+        .search_icon:hover {
+            color: #0aa3e3;
+        }
+
+        /* endregion */
+
+        /* region 右侧样式 */
+        .wrap_right {
+            position: relative;
+            height: 100%;
+            margin-left: 230px;
+            overflow: auto;
+        }
+
+        .query_module .layui-input {
+            height: 35px;
+        }
+
+        /* region 图标样式 */
+        .icon_img {
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        .icon_img:hover {
+            color: #0aa3e3;
+        }
+
+        /* endregion */
+
+        /* endregion */
+
+        /* region 上传附件样式 */
+        .file_upload_box {
+            position: relative;
+            height: 22px;
+            overflow: hidden;
+        }
+
+        .open_file {
+            float: left;
+            position: relative;
+        }
+
+        .open_file input[type=file] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            opacity: 0;
+        }
+
+        .progress {
+            float: left;
+            width: 200px;
+            margin-left: 10px;
+            margin-top: 2px;
+        }
+
+        .bar {
+            width: 0%;
+            height: 18px;
+            background: green;
+        }
+
+        .bar_text {
+            float: left;
+            margin-left: 10px;
+        }
+
+        /* endregion */
+
+        .form_label {
+            float: none;
+            padding: 9px 0;
+            text-align: left;
+            width: auto;
+        }
+
+        .form_block {
+            margin: 0;
+        }
+
+        .field_required {
+            color: red;
+            font-size: 16px;
+        }
+
+        .refresh_no_btn {
+            display: none;
+            margin-left: 2%;
+            color: #00c4ff !important;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .layui-collapse .layui_col {
+            width: 20% !important;
+            padding: 0 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <input type="hidden" id="leftId" class="layui-input">
+    <div class="wrapper">
+        <div class="wrap_left">
+            <h2 style="text-align: center;line-height: 35px;">分包合同变更</h2>
+            <div class="left_form">
+                <div class="search_icon">
+                    <i class="layui-icon layui-icon-search"></i>
+                </div>
+                <input type="text" name="title" id="search_project" placeholder="项目名称" autocomplete="off"
+                       class="layui-input"/>
+            </div>
+            <div class="tree_module">
+                <div id="leftTree" class="eleTree" lay-filter="leftTree"></div>
+            </div>
+        </div>
+        <div class="wrap_right">
+            <div class="query_module layui-form layui-row" style="position: relative">
+                <div class="layui-col-xs2">
+                    <input type="text" name="contractName" placeholder="合同名称" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-col-xs2" style="margin-left: 15px;">
+                    <input type="text" name="contractMoney" placeholder="合同金额" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-col-xs2" style="margin-top: 3px;text-align: center">
+                    <button type="button" class="layui-btn layui-btn-sm searchData">查询</button>
+                    <button type="button" class="layui-btn layui-btn-sm">高级查询</button>
+                </div>
+                <div style="position: absolute;top: -1px;right: 10px;height: 35px;line-height: 35px;">
+                    <i class="layui-icon layui-icon-read icon_img" style="margin-right: 15px" text="知识库"></i>
+                    <i class="layui-icon layui-icon-survey icon_img" text="帮助"></i>
+                </div>
+            </div>
+            <div style="position: relative">
+                <div class="table_box" style="display: none">
+                    <table id="tableDemo" lay-filter="tableDemo"></table>
+                </div>
+                <div class="no_data" style="text-align: center;">
+                    <div class="no_data_img" style="margin-top:12%;">
+                        <img style="margin-top: 2%;" src="/img/noData.png">
+                    </div>
+                    <p style="text-align: center; font-size: 20px; font-weight: normal;">请选择左侧项目</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container" style="height: 30px;">
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="add">修编</button>
+        <button class="layui-btn layui-btn-sm" lay-event="edit">编辑</button>
+        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</button>
+        <button class="layui-btn layui-btn-sm" lay-event="dayin">打印模板</button>
+    </div>
+    <div style="position:absolute;top: 10px;right:60px;">
+        <button class="layui-btn layui-btn-sm" lay-event="submit" style="margin-left:10px;">提交审批</button>
+        <button class="layui-btn layui-btn-sm" lay-event="import" style="margin-left:10px;"><img
+                src="/img/planCheck/导入.png" style="width: 20px;height: 20px;margin-top: -4px;">导入
+        </button>
+        <button class="layui-btn layui-btn-sm" lay-event="export" style="margin-left:10px;"><img
+                src="/img/planCheck/导出.png" style="width: 20px;height: 20px;margin-top: -4px;">导出
+        </button>
+        <%--        <i class="layui-icon layui-icon-upload-circle iconImg" lay-event="import"  style="margin-left: 10px;font-size: 20px" title="导入"></i>
+                <i class="layui-icon layui-icon-export iconImg" lay-event="export" style="margin-left: 10px;font-size: 20px" title="导出"></i>--%>
+    </div>
+</script>
+
+<script type="text/html" id="toolbarDemoIn">
+    <div class="layui-btn-container" style="height: 30px;">
+        <button class="layui-btn layui-btn-sm addRow" lay-event="add">加行</button>
+    </div>
+</script>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删行</a>
+</script>
+
+<script type="text/html" id="detailBarDemo">
+    <a class="layui-btn  layui-btn-xs" lay-event="detail">查看详情</a>
+</script>
+
+<script type="text/html" id="plbMtlContrastBar">
+    <div class="layui-btn-container" style="height: 30px;">
+        <button class="layui-btn layui-btn-sm" lay-event="choosePlbMtlContrast">选择分包比价</button>
+    </div>
+</script>
+
+<script type="text/html" id="contTool">
+    <a class="layui-btn layui-btn-xs" lay-event="info">比价详情</a>
+</script>
+
+<script>
+
+    var materialDetailsTableData = [];
+    var paymentSettlementTableData = [];
+    var mtlSubpackageData = null;
+
+    var _dataa = null;
+
+    //取出cookie存储的查询值
+    $('.query_module [name]').each(function () {
+        var name=$(this).attr('name')
+        $('.query_module [name='+name+']').val($.cookie(name) || '')
+    })
+
+    $(document).on('click', '.userAdd', function () {
+        var chooseNum = $(this).attr('chooseNum') == 1 ? '?0' : ''
+        user_id = $(this).siblings('textarea').attr('id')
+        $.popWindow("/common/selectUser" + chooseNum);
+    });
+    //选人控件删除
+    $(document).on('click', '.userDel', function () {
+        var userId = $(this).siblings('textarea').attr('id')
+        $('#' + userId).val('')
+        $('#' + userId).attr('user_id', '')
+    });
+
+    var tipIndex = null;
+    $('.icon_img').hover(function () {
+        var tip = $(this).attr('text')
+        tipIndex = layer.tips(tip, this)
+    }, function () {
+        layer.close(tipIndex)
+    });
+
+    //明细表头
+    var detailCols = [
+        {field: 'customerUnit1', title: '分包商1单价', width: 150,hide: true, templet: function (d) {
+                return '<input type="number" name="customerUnit1" autocomplete="off"  class="layui-input customerUnitItem customerUnit1Item" style="height: 100%;" value="' + (d.customerUnit1 || '') + '">'
+            }},
+        {field: 'customerUnit2', title: '分包商2单价', width: 150,hide: true, templet: function (d) {
+                return '<input type="number" name="customerUnit2" autocomplete="off" class="layui-input customerUnitItem" style="height: 100%;" value="' + (d.customerUnit2 || '') + '">'
+            }},
+        {field: 'customerUnit3', title: '分包商3单价', width: 150,hide: true, templet: function (d) {
+                return '<input type="number" name="customerUnit3" autocomplete="off" class="layui-input customerUnitItem" style="height: 100%;" value="' + (d.customerUnit3 || '') + '">'
+            }},
+        {field: 'customerUnit4', title: '分包商4单价', width: 150,hide: true, templet: function (d) {
+                return '<input type="number" name="customerUnit4" autocomplete="off" class="layui-input customerUnitItem" style="height: 100%;" value="' + (d.customerUnit4 || '') + '">'
+            }},
+        {field: 'customerUnit5', title: '分包商5单价', width: 150,hide: true, templet: function (d) {
+                return '<input type="number" name="customerUnit5" autocomplete="off" class="layui-input customerUnitItem" style="height: 100%;" value="' + (d.customerUnit5 || '') + '">'
+            }},
+        {field: 'customerUnit6', title: '分包商6单价', width: 150,hide: true, templet: function (d) {return '<input type="number" name="customerUnit6" autocomplete="off" class="layui-input customerUnitItem" style="height: 100%;" value="' + (d.customerUnit6 || '') + '">'}},
+        {field: 'customerUnit7', title: '分包商7单价', width: 150,hide: true, templet: function (d) {
+                return '<input type="number" name="customerUnit7" autocomplete="off" class="layui-input customerUnitItem" style="height: 100%;" value="' + (d.customerUnit7 || '') + '">'
+            }},
+        {field: 'customerUnit8', title: '分包商8单价', width: 150,hide: true, templet: function (d) {return '<input type="number" name="customerUnit8" autocomplete="off" class="layui-input customerUnitItem" style="height: 100%;" value="' + (d.customerUnit8 || '') + '">'}},
+    ]
+
+    var dictionaryObj = {
+        CONTRACT_TYPE: {},
+        PAYMENT_METHOD: {},
+        CONTROL_TYPE:{},
+        CBS_UNIT:{},
+        INVOICE_TYPE:{},
+        COMPARE_TYPE:{},
+        MANAGE_ITEM_TYPE:{},
+        CONTRACT_CATEGORY:{}
+    }
+    var dictionaryStr = 'CONTRACT_TYPE,PAYMENT_METHOD,CONTROL_TYPE,CBS_UNIT,INVOICE_TYPE,COMPARE_TYPE,MANAGE_ITEM_TYPE,CONTRACT_CATEGORY';
+    $.get('/plbDictonary/selectDictionaryByDictNos', {plbDictNos: dictionaryStr}, function (res) {
+        if (res.flag) {
+            for (var dict in dictionaryObj) {
+                dictionaryObj[dict] = {object: {}, str: ''}
+                if (res.object[dict]) {
+                    res.object[dict].forEach(function (item) {
+                        dictionaryObj[dict]['object'][item.plbDictNo] = item.dictName;
+                        dictionaryObj[dict]['str'] += '<option value=' + item.plbDictNo + '>' + item.dictName + '</option>';
+                    });
+                }
+            }
+        }
+    });
+    var tableIns = null;
+    layui.use(['form', 'laydate', 'table', 'element', 'soulTable', 'eleTree', 'xmSelect'], function () {
+        var laydate = layui.laydate;
+        var form = layui.form;
+        var table = layui.table;
+        var element = layui.element;
+        var soulTable = layui.soulTable;
+        var eleTree = layui.eleTree;
+        var xmSelect = layui.xmSelect;
+
+        var materialsTable=null;
+
+
+        form.render();
+        //导出数据
+        var exportData = '';
+        //表格显示顺序
+        var colShowObj = {
+            changeDocumentNo: {field: 'changeDocumentNo', title: '合同变更编号', minWidth:140,sort: true, hide: false},
+            subcontractNo: {field: 'subcontractNo',minWidth:100, title: '合同编号', sort: true, hide: false},
+            contractName: {field: 'contractName',minWidth:100, title: '合同名称', sort: true, hide: false},
+            projName:{field:'projName',minWidth:100,title:'所属项目',sort:true,hide:false},
+            contractType: {field: 'contractType',minWidth:100, title: '合同类型', sort: true, hide: false, templet: function (d) {
+                    return dictionaryObj['CONTRACT_TYPE']['object'][d.contractType] || ''
+                }},
+            signDate: {
+                field: 'signDate', minWidth:140,title: '合同签订日期', sort: true, hide: false, templet: function (d) {
+                    return format(d.signDate);
+                }
+            },
+            contractAName: {field: 'contractAName',minWidth:80, title: '甲方', sort: true, hide: false},
+            customerName: {field: 'customerName',minWidth:80, title: '乙方', sort: true, hide: false},
+            contractMoney: {field: 'contractMoney',minWidth:100, title: '合同金额', sort: true, hide: false},
+            contractPeriod: {field: 'contractPeriod',minWidth:100, title: '合同有效期', sort: true, hide: false},
+            changeDate: {
+                field: 'changeDate', title: '合同变更日期',minWidth:140, sort: true, hide: false
+            },
+            currFlowUserName: {field: 'currFlowUserName', title: '当前处理人', sort: false, hide: false},
+            approvalStatus: {
+                field: 'approvalStatus', title: '审批状态', sort: true,minWidth:100, hide: false, templet: function (d) {
+                    var str = '';
+                    switch (d.approvalStatus) {
+                        case '0':
+                            str = '未提交';
+                            break;
+                        case '1':
+                            var flowStr = d.flowRun ? 'flowId="' + (d.flowRun.flowId || '') + '" runId="' + (d.flowRun.runId || '') + '"' : '';
+                            str = '<span class="preview_flow" style="color: orange;cursor: pointer;text-decoration: underline;" ' + flowStr + '>审批中</span>';
+                            break;
+                        case '2':
+                            var flowStr = d.flowRun ? 'flowId="' + (d.flowRun.flowId || '') + '" runId="' + (d.flowRun.runId || '') + '"' : '';
+                            str = '<span class="preview_flow" style="color: green;cursor: pointer;text-decoration: underline;" ' + flowStr + '>已审批</span>';
+                            break;
+                        case '3':
+                            var flowStr = d.flowRun ? 'flowId="' + (d.flowRun.flowId || '') + '" runId="' + (d.flowRun.runId || '') + '"' : '';
+                            str = '<span class="preview_flow" style="color: red;cursor: pointer;text-decoration: underline;" ' + flowStr + '>未批准</span>';
+                            break;
+                    }
+                    return str;
+                }
+            }
+        }
+
+        var TableUIObj = new TableUI('plb_mtl_subcontract');
+
+
+        // 初始化左侧项目
+        projectLeft();
+        // 节点点击事件
+        $(document).on('click', '.con_left ul li', function () {
+            $(this).addClass('select').siblings().removeClass('select');
+            var projId = $(this).attr('projId');
+            tableShow(projId);
+            $('#leftId').attr('projId', projId);
+        });
+        // 上方按钮显示
+        table.on('toolbar(tableDemo)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+            var dataTable=table.checkStatus(obj.config.id).data;
+            switch (obj.event) {
+                case 'add':
+                    if (!$('#leftId').attr('projId')) {
+                        layer.msg('请选择左侧项目！', {icon: 0, time: 2000});
+                        return false;
+                    }
+                    //newOrEdit(1);
+                    revision()
+                    break;
+                    break;
+                case 'edit':
+                    if (checkStatus.data.length != 1) {
+                        layer.msg('请选择一项！', {icon: 0});
+                        return false
+                    }
+                    if (checkStatus.data[0].approvalStatus!=0) {
+                        layer.msg('已提交不可编辑！', {icon: 0});
+                        return false
+                    }
+                    newOrEdit(1, checkStatus.data[0])
+                    break;
+                case 'del':
+                    if (!checkStatus.data.length) {
+                        layer.msg('请至少选择一项！', {icon: 0});
+                        return false
+                    }
+                    var subcontractId = ''
+                    var isFlay = false;
+                    checkStatus.data.forEach(function (v, i) {
+                        subcontractId += v.subcontractId + ','
+                        if(v.approvalStatus&&v.approvalStatus!='0'){
+                            isFlay = true
+                        }
+                    })
+                    if(isFlay){
+                        layer.msg('已提交不可删除！', {icon: 0});
+                        return false
+                    }
+
+                    layer.confirm('确定删除该条数据吗？', function (index) {
+                        $.post('/plbMtlSubcontract/delete', {subcontractIds: subcontractId}, function (res) {
+                            if (res.flag) {
+                                layer.msg('删除成功！', {icon: 1});
+                            } else {
+                                layer.msg('删除失败！', {icon: 0});
+                            }
+                            layer.close(index)
+                            tableIns.config.where._ = new Date().getTime();
+                            tableIns.reload()
+                        })
+                    });
+                    break;
+                case 'export':
+                    // window.location.href = '/plbMtlPlan/outCurrentPageData?mtlPlanIds=' + exportData
+                    break;
+                case 'submit': // 提交
+                    if (checkStatus.data.length != 1) {
+                        layer.msg('请选择一条需要提交的数据！', {icon: 0, time: 2000});
+                        return false;
+                    }
+                    if(checkStatus.data[0].approvalStatus&&checkStatus.data[0].approvalStatus != '0'){
+                        layer.msg('该数据已提交！', {icon: 0, time: 2000});
+                        return false;
+                    }
+                    layer.open({
+                        type: 1,
+                        title: '选择流程',
+                        area: ['70%', '80%'],
+                        btn: ['确定', '取消'],
+                        btnAlign: 'c',
+                        content: '<div style="padding: 10px"><table id="flowTable" lay-filter="flowTable"></table></div>',
+                        success: function () {
+                            $.get('/plbFlowSetting/getOwnFlowData', {plbDictNo: '28'}, function (res) {
+                                var flowData = []
+                                $.each(res.data.flowData, function (k, v) {
+                                    flowData.push({
+                                        flowId: k,
+                                        flowName: v
+                                    });
+                                });
+                                table.render({
+                                    elem: '#flowTable',
+                                    data: flowData,
+                                    cols: [[
+                                        {type: 'radio'},
+                                        {field: 'flowName', title: '流程名称'}
+                                    ]]
+                                })
+                            });
+                        },
+                        yes: function (index) {
+                            var loadIndex = layer.load();
+                            var checkStatus = table.checkStatus('flowTable');
+                            if (checkStatus.data.length > 0) {
+                                var flowData = checkStatus.data[0];
+                                var approvalData = table.checkStatus(obj.config.id).data[0]
+                                delete plbMtlSubcontractLists;
+                                delete plbMtlSubcontractOuts;
+                                delete plbMtlSubcontractPayList;
+                                approvalData.projectName=approvalData.projName==undefined?approvalData.projectName:approvalData.projName;
+                                approvalData.projectName=approvalData.projectName==undefined?approvalData.projName:approvalData.projectName;
+                                newWorkFlow(flowData.flowId, function (res) {
+                                    var submitData = {
+                                        subcontractId:approvalData.subcontractId,
+                                        runId: res.flowRun.runId
+                                        //approvalStatus:1
+                                    }
+                                    $.popWindow("/workflow/work/workform?opflag=1&flowId=" + flowData.flowId + '&type=new&flowStep=1&prcsId=1&runId=' + res.flowRun.runId, '<fmt:message code="newWork.th.Quick" />', '0', '0', '1150px', '700px');
+
+                                    $.ajax({
+                                        url: '/plbMtlSubcontract/update',
+                                        data: JSON.stringify(submitData),
+                                        dataType: 'json',
+                                        contentType: "application/json;charset=UTF-8",
+                                        type: 'post',
+                                        success: function (res) {
+                                            layer.close(loadIndex);
+                                            if (res.flag) {
+                                                layer.close(index);
+                                                layer.msg('提交成功!', {icon: 1});
+                                                tableIns.config.where._ = new Date().getTime();
+                                                tableIns.reload()
+                                            } else {
+                                                layer.msg(res.msg, {icon: 2});
+                                            }
+                                        }
+                                    });
+                                },approvalData);
+                            } else {
+                                layer.close(loadIndex);
+                                layer.msg('请选择一项！', {icon: 0});
+                            }
+                        }
+                    });
+                    break;
+                case 'dayin':
+                    if (checkStatus.data.length != 1) {
+                        layer.msg('请选择一条需要打印的数据！', {icon: 0, time: 2000});
+                        return false;
+                    }
+                    if(checkStatus.data[0].approvalStatus!=0){
+                        var index=layer.load();
+                        var runId=dataTable[0].runId;
+                        $.ajax({
+                            url:'/generateDocx/generateDocxByType?runId='+runId+'&type=subContract',
+                            success:function(res){
+                                if(res.flag){
+                                    layer.close(index);
+                                    if(res.obj.reportAttachmentList[0]==""||res.obj.reportAttachmentList==undefined){
+                                        layer.msg('查询失败请刷新重试！', {icon: 0, time: 2000});
+                                        return
+                                    }else{
+                                        console.log(res.obj)
+                                        var atturl=res.obj.reportAttachmentList[0].attUrl;
+                                        pdurlss(atturl)
+                                    }
+                                }else{
+                                    layer.close(index);
+                                }
+
+                            }
+                        })
+                    }else{
+                        layer.msg('未提交审批不可打印！', {icon: 0, time: 2000});
+                    }
+                    break;
+            }
+        });
+        table.on('tool(tableDemo)', function (obj) {
+            var data = obj.data;
+            var layEvent = obj.event;
+            if(layEvent === 'detail'){
+                newOrEdit(4,data)
+            }
+        });
+        // 监听排序事件
+        table.on('sort(tableDemo)', function (obj) {
+            var param = {
+                orderbyFields: obj.field,
+                orderbyUpdown: obj.type
+            }
+
+            TableUIObj.update(param, function () {
+                tableShow($('#leftId').attr('projId'))
+            })
+        });
+        // 内部加行按钮
+        table.on('toolbar(materialDetailsTable)', function (obj) {
+            switch (obj.event) {
+                case 'add':
+                    var wbsSelectTree = null;
+                    var cbsSelectTree = null;
+                    var rbsSelectTree =null;
+                    var _this = $(this);
+                    layer.open({
+                        type: 1,
+                        title: '管理目标选择',
+                        area: ['80%', '80%'],
+                        maxmin: true,
+                        btn: ['确定', '取消'],
+                        btnAlign: 'c',
+                        content: ['<div class="layui-form" id="objectives">' +
+                        //下拉选择
+                        '           <div class="layui-row" style="margin-top: 10px">' +
+                        // '               <div class="layui-col-xs2">' +
+                        // '                   <div class="layui-form-item">\n' +
+                        // '                       <label class="layui-form-label" style="width:85px">预算科目编号</label>\n' +
+                        // '                       <div class="layui-input-block" style="margin-left: 115px">\n' +
+                        // '                          <input type="text" name="itemNo"  autocomplete="off" class="layui-input">'+
+                        // '                       </div>\n' +
+                        // '                   </div>' +
+                        // '               </div>' +
+                        // '               <div class="layui-col-xs2">' +
+                        // '                   <div class="layui-form-item">\n' +
+                        // '                       <label class="layui-form-label" style="width:85px">预算科目名称</label>\n' +
+                        // '                       <div class="layui-input-block" style="margin-left: 115px">\n' +
+                        // '                          <input type="text" name="itemName"  autocomplete="off" class="layui-input">'+
+                        // '                       </div>\n' +
+                        // '                   </div>' +
+                        // '               </div>' +
+                        '               <div class="layui-col-xs3">' +
+                        '                   <div class="layui-form-item">\n' +
+                        '                       <label class="layui-form-label">WBS</label>\n' +
+                        '                       <div class="layui-input-block">\n' +
+                        '<div id="wbsSelectTree" class="xm-select-demo" style="width: 100%;"></div>' +
+                        '                       </div>\n' +
+                        '                   </div>' +
+                        '               </div>' +
+                        '               <div class="layui-col-xs3">' +
+                        '                   <div class="layui-form-item">\n' +
+                        '                       <label class="layui-form-label">RBS</label>\n' +
+                        '                       <div class="layui-input-block">\n' +
+                        '<div id="rbsSelectTree" class="xm-select-demo" style="width: 100%;"></div>' +
+                        '                       </div>\n' +
+                        '                   </div>' +
+                        '               </div>' ,
+                        '               <div class="layui-col-xs3">' +
+                        '                   <div class="layui-form-item">\n' +
+                        '                       <label class="layui-form-label">CBS</label>\n' +
+                        '                       <div class="layui-input-block">\n' +
+                        '<div id="cbsSelectTree" class="xm-select-demo" style="width: 100%;"></div>' +
+                        '                       </div>\n' +
+                        '                   </div>' +
+                        '               </div>' +
+                        '               <div class="layui-col-xs2">' +
+                        '<button class="layui-btn layui-btn-sm search_mtl" style="margin: 4px 0 0 10px;">搜索<i class="layui-icon layui-icon-search" style="margin: 0 0 0 3px;"></i></button>' +
+                        '               </div>' +
+                        '           </div>' +
+                        //表格数据
+                        '       <div style="padding: 10px">' +
+                        '           <table id="managementBudgetTable" lay-filter="managementBudgetTable"></table>' +
+                        '      </div>' +
+                        '</div>'].join(''),
+                        success: function () {
+                            // 获取WBS数据
+                            $.get('/plbProjWbs/getWbsTreeByProjId',{projId:$('#leftId').attr('projId')}, function (res) {
+                                wbsSelectTree = xmSelect.render({
+                                    el: '#wbsSelectTree',
+                                    content: '<div id="wbsTree" class="eleTree" lay-filter="wbsTree"></div>',
+                                    name: 'wbsName',
+                                    prop: {
+                                        name: 'wbsName',
+                                        value: 'id'
+                                    }
+                                });
+
+                                eleTree.render({
+                                    elem: '#wbsTree',
+                                    data: res.obj,
+                                    highlightCurrent: true,
+                                    showLine: true,
+                                    defaultExpandAll: false,
+                                    request: {
+                                        name: 'wbsName',
+                                        children: "child"
+                                    }
+                                });
+
+                                // 树节点点击事件
+                                eleTree.on("nodeClick(wbsTree)", function (d) {
+                                    var currentData = d.data.currentData;
+                                    var obj = {
+                                        wbsName: currentData.wbsName,
+                                        id: currentData.id
+                                    }
+                                    wbsSelectTree.setValue([obj]);
+                                });
+                            });
+
+                            // 获取CBS数据
+                            $.get('/plbCbsType/getAllList', function (res) {
+                                cbsSelectTree = xmSelect.render({
+                                    el: '#cbsSelectTree',
+                                    content: '<div id="cbsTree" class="eleTree" lay-filter="cbsTree"></div>',
+                                    name: 'cbsName',
+                                    prop: {
+                                        name: 'cbsName',
+                                        value: 'cbsId'
+                                    }
+                                });
+
+                                eleTree.render({
+                                    elem: '#cbsTree',
+                                    data: res.data,
+                                    highlightCurrent: true,
+                                    showLine: true,
+                                    defaultExpandAll: false,
+                                    request: {
+                                        name: 'cbsName',
+                                        children: "childList"
+                                    }
+                                });
+
+                                // 树节点点击事件
+                                eleTree.on("nodeClick(cbsTree)", function (d) {
+                                    var currentData = d.data.currentData;
+                                    var obj = {
+                                        cbsName: currentData.cbsName,
+                                        cbsId: currentData.cbsId
+                                    }
+                                    cbsSelectTree.setValue([obj]);
+                                });
+                            });
+                            //获取RBS数据
+                            rbsSelectTree = xmSelect.render({
+                                el: '#rbsSelectTree',
+                                content: '<input type="text" placeholder="请输入关键字进行搜索" autocomplete="off" class="layui-input eleTree-search rbsSearch" style="width: 80%;margin: 5px"><div id="rbsTree" class="eleTree" lay-filter="rbsTree"></div>',
+                                name: 'rbsName',
+                                prop: {
+                                    name: 'rbsName',
+                                    value: 'rbsId'
+                                }
+                            });
+                            rbsData();
+                            // 树节点点击事件
+                            eleTree.on("nodeClick(rbsTree)", function (d) {
+                                var currentData = d.data.currentData;
+                                var obj = {
+                                    rbsName: currentData.rbsName,
+                                    rbsId: currentData.rbsId
+                                }
+                                rbsSelectTree.setValue([obj]);
+                            });
+                            var searchTimerRBS = null
+                            $('.rbsSearch').on('input propertychange', function () {
+                                clearTimeout(searchTimerRBS)
+                                searchTimerRBS = null
+                                var val = $(this).val()
+                                searchTimerRBS = setTimeout(function () {
+                                    rbsData(val,'1')
+                                }, 300)
+                            });
+                            function rbsData(parentId,type){
+                                var obj = {};
+                                if(type == '1'){
+                                    obj.rbsName=parentId?parentId:'';
+                                }else {
+                                    obj.parentId=parentId?parentId:'0';
+                                }
+                                // 获取RBS数据
+                                $.get('/plbRbs/selectAll',obj, function (res) {
+                                    var rbsTreeData = res.data || [];
+
+                                    eleTree.render({
+                                        elem: '#rbsTree',
+                                        data: rbsTreeData,
+                                        highlightCurrent: true,
+                                        showLine: true,
+                                        defaultExpandAll: false,
+                                        accordion: true,
+                                        lazy: true,
+                                        request: {
+                                            name: 'rbsName',
+                                            children: "childList"
+                                        },
+                                        load: function (data, callback) {
+                                            $.post('/plbRbs/selectAll?parentId=' + data.rbsId, function (res) {
+                                                callback(res.data);//点击节点回调
+                                            })
+                                        }
+                                    });
+
+                                });
+                            }
+                            laodTable();
+
+                            $('.search_mtl').on('click', function(){
+                                var cbsId = cbsSelectTree.getValue('valueStr');
+                                var wbsId = wbsSelectTree.getValue('valueStr');
+                                var rbsId = rbsSelectTree.getValue('valueStr');
+                                // var itemNo = $('[name="itemNo"]').val();
+                                // var itemName =$('[name="itemName"]').val();
+
+                                laodTable(wbsId,rbsId,cbsId);
+                            });
+
+                            // 加载表格
+                            function laodTable(wbsId,rbsId,cbsId) {
+                                table.render({
+                                    elem: '#managementBudgetTable',
+                                    url: '/manageProject/getBudgetByProjId',
+                                    where: {
+                                        projId: $('#leftId').attr('projId'),
+                                        wbsId: wbsId || '',
+                                        cbsId: cbsId || '',
+                                        rbsId: rbsId || '',
+                                        // itemNo: itemNo || '',
+                                        // itemName: itemName || '',
+                                        rbsTyep:'subcontract'
+                                    },
+                                    page: true,
+                                    limit: 20,
+                                    request: {
+                                        limitName: 'pageSize'
+                                    },
+                                    response: {
+                                        statusName: 'flag',
+                                        statusCode: true,
+                                        msgName: 'msg',
+                                        countName: 'count',
+                                        dataName: 'data'
+                                    },
+                                    cols: [[
+                                        {type: 'checkbox'},
+                                        {
+                                            field: 'wbsName', title: 'WBS',minWidth:100, templet: function(d) {
+                                                var str = '';
+                                                if (d.plbProjWbs) {
+                                                    str = d.plbProjWbs.wbsName;
+                                                }
+                                                return str;
+                                            }
+                                        },
+                                        {
+                                            field: 'rbsName', title: 'RBS',minWidth:200, templet: function(d) {
+                                                var str = '';
+                                                if (d.plbRbs) {
+                                                    str = d.plbRbs.rbsLongName;
+                                                }
+                                                return str;
+                                            }
+                                        },
+                                        {
+                                            field: 'cbsName', title: 'CBS',minWidth:100, templet: function (d) {
+                                                var str = '';
+                                                if (d.plbCbsTypeWithBLOBs) {
+                                                    str = d.plbCbsTypeWithBLOBs.cbsName;
+                                                }
+                                                return str;
+                                            }
+                                        },
+                                        {
+                                            field: 'controlType', title: '控制类型', minWidth:120,templet: function (d) {
+                                                return dictionaryObj['CONTROL_TYPE']['object'][d.controlType] || '';
+                                            }
+                                        },
+                                        {
+                                            field: 'rbsUnit', title: '单位',minWidth:120, templet: function (d) {
+                                                var str = '';
+                                                if (d.plbRbs) {
+                                                    str = dictionaryObj['CBS_UNIT']['object'][d.plbRbs.rbsUnit] || '';
+                                                }
+                                                return str;
+                                            }
+                                        },
+                                        {field: 'manageTarNum', title: '管理目标数量',minWidth:120},
+                                        {field: 'manageTarPrice', title: '管理目标单价',minWidth:120},
+                                        {field: 'manageTarAmount', title: '管理目标金额',minWidth:120},
+                                        // {field: 'addupNeedAmount', title: '已提需求计划数量',minWidth:170},
+                                        // {field: 'monQuata', title: '',minWidth:170},
+                                        {field: 'accumulatedSignedContractAmount', title: '累计已签合同金额',minWidth:170},
+                                        //{field: 'addupNeedMoney', title: '累计已提需求计划金额',minWidth:170},
+                                        //{field: 'manageSurplusMoney', title: '管理目标金额余额',minWidth:150},
+                                    ]],
+                                    done:function(res){
+                                        _dataa=res.data;
+                                        if(materialDetailsTableData!=undefined&&materialDetailsTableData.length>0){
+                                            for(var i = 0 ; i <_dataa.length;i++){
+                                                for(var n = 0 ; n < materialDetailsTableData.length; n++){
+                                                    if(_dataa[i].projBudgetId == materialDetailsTableData[n].projBudgetId){
+                                                        $('.layui-table tr[data-index=' + i + '] input[type="checkbox"]').next(".layui-form-checkbox").click();
+                                                        //form.render('checkbox');
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        },
+                        yes: function (index) {
+
+
+                            materialDetailsTableData = []
+
+                            var checkStatus=[];
+                            /*$('#objectives .layui-table-body .laytable-cell-checkbox').each(function(index,item){
+                                if($(item).find('.layui-form-checked').length>0){
+                                    checkStatus.push(_dataa[index]);
+                                }
+                            })*/
+                            //遍历表格获取每行数据进行保存
+                            var $tr = $('.contract_list').find('.layui-table-main tr');
+                            $tr.each(function () {
+                                var oldDataObj = {
+                                    wbsName: $(this).find('[data-field="wbsName"] .layui-table-cell').text(),
+                                    wbsId: $(this).find('[name="contractPrice2"]').attr('wbsId')||'',
+                                    rbsName: $(this).find('[data-field="rbsName"] .layui-table-cell').text(),
+                                    rbsId: $(this).find('[name="contractPrice2"]').attr('rbsId')||'',
+                                    cbsName: $(this).find('[data-field="cbsName"] .layui-table-cell').text(),
+                                    cbsId: $(this).find('[name="contractPrice2"]').attr('cbsId')||'',
+                                    manageTarAmount: $(this).find('[data-field="manageTarAmount"] .layui-table-cell').text(),
+                                    accumulatedSignedContractAmount: $(this).find('[data-field="accumulatedSignedContractAmount"] .layui-table-cell').text(),
+                                    contractPrice: $(this).find('[data-field="contractPrice"] .layui-table-cell').text(),
+                                    contractOtherContent: $(this).find('[name="contractOtherContent"]').val(),
+                                    contractPrice2: $(this).find('[name="contractPrice2"]').val(),
+                                    changeContractPrice:$(this).find('[name="changeContractPrice"]').val(),
+                                    subcontractId: $(this).find('[name="contractPrice2"]').attr('subcontractId')?$(this).find('[name="contractPrice2"]').attr('subcontractId'):'',
+                                    subcontractOutId: $(this).find('[name="contractPrice2"]').attr('subcontractOutId')?$(this).find('[name="contractPrice2"]').attr('subcontractOutId'):'',
+                                    projBudgetId: $(this).find('[name="contractPrice2"]').attr('projBudgetId')?$(this).find('[name="contractPrice2"]').attr('projBudgetId'):'',
+                                    trnOutMoney:$(this).find('[data-field="trnOutMoney"] .layui-table-cell').text()||0,
+                                }
+                                materialDetailsTableData.push(oldDataObj);
+                            });
+
+
+                            var checkStatus = table.checkStatus('managementBudgetTable').data;
+
+                            if (checkStatus.length > 0) {
+                                for(var i=0;i<checkStatus.length;i++){
+                                    var newDataObj = {
+                                        projBudgetId:checkStatus[i].projBudgetId,
+                                        wbsName:checkStatus[i].plbProjWbs?checkStatus[i].plbProjWbs.wbsName:'',
+                                        wbsId:checkStatus[i].plbProjWbs?checkStatus[i].plbProjWbs.wbsId:'',
+                                        rbsName:checkStatus[i].plbRbs?checkStatus[i].plbRbs.rbsName:'',
+                                        rbsId:checkStatus[i].plbRbs?checkStatus[i].plbRbs.rbsId:'',
+                                        cbsName:checkStatus[i].plbCbsTypeWithBLOBs?checkStatus[i].plbCbsTypeWithBLOBs.cbsName:'',
+                                        cbsId:checkStatus[i].plbCbsTypeWithBLOBs?checkStatus[i].plbCbsTypeWithBLOBs.cbsId:'',
+                                        manageTarAmount:checkStatus[i].manageTarAmount,
+                                        accumulatedSignedContractAmount:checkStatus[i].accumulatedSignedContractAmount,
+                                        trnOutMoney:checkStatus[i].trnOutMoney,
+                                    }
+                                    //materialDetailsTableData.push(newDataObj);
+                                    if(materialDetailsTableData){
+                                        var _flag = true
+                                        for(var j=0;j<materialDetailsTableData.length;j++){
+                                            if(materialDetailsTableData[j].projBudgetId==checkStatus[i].projBudgetId){
+                                                _flag = false
+                                            }
+                                        }
+                                        if(_flag){
+                                            materialDetailsTableData.push(newDataObj);
+                                        }
+
+                                    }else{
+                                        materialDetailsTableData.push(newDataObj);
+                                    }
+                                }
+
+
+                                table.reload('materialDetailsTable', {
+                                    data: materialDetailsTableData
+                                });
+
+
+                                layer.close(index);
+                            } else {
+                                layer.msg('请选择一项！', {icon: 0, time: 2000});
+                            }
+                        }
+                    });
+                    break;
+            }
+        });
+        // 内部删行操作
+        table.on('tool(materialDetailsTable)', function (obj) {
+            var data = obj.data;
+            var layEvent = obj.event;
+            if (layEvent === 'del') {
+                obj.del();
+                if (data.subcontractOutId) {
+                    $.get('/plbMtlSubcontractOut/delete', {subcontractOutId: data.subcontractOutId}, function (res) {
+
+                    });
+                }
+                //遍历表格获取每行数据进行保存
+                var $tr = $('.contract_list').find('.layui-table-main tr');
+                var oldDataArr = [];
+                $tr.each(function () {
+                    var oldDataObj = {
+                        wbsName: $(this).find('[data-field="wbsName"] .layui-table-cell').text(),
+                        wbsId: $(this).find('[name="contractPrice2"]').attr('wbsId')||'',
+                        rbsName: $(this).find('[data-field="rbsName"] .layui-table-cell').text(),
+                        rbsId: $(this).find('[name="contractPrice2"]').attr('rbsId')||'',
+                        cbsName: $(this).find('[data-field="cbsName"] .layui-table-cell').text(),
+                        cbsId: $(this).find('[name="contractPrice2"]').attr('cbsId')||'',
+                        manageTarAmount: $(this).find('[data-field="manageTarAmount"] .layui-table-cell').text(),
+                        accumulatedSignedContractAmount: $(this).find('[data-field="accumulatedSignedContractAmount"] .layui-table-cell').text(),
+                        contractPrice: $(this).find('[data-field="contractPrice"] .layui-table-cell').text(),
+                        contractOtherContent: $(this).find('[name="contractOtherContent"]').val(),
+                        contractPrice2: $(this).find('[name="contractPrice2"]').val(),
+                        changeContractPrice:$(this).find('[name="changeContractPrice"]').val(),
+                        subcontractId: $(this).find('[name="contractPrice2"]').attr('subcontractId')?$(this).find('[name="contractPrice2"]').attr('subcontractId'):'',
+                        subcontractOutId: $(this).find('[name="contractPrice2"]').attr('subcontractOutId')?$(this).find('[name="contractPrice2"]').attr('subcontractOutId'):'',
+                        projBudgetId: $(this).find('[name="contractPrice2"]').attr('projBudgetId')?$(this).find('[name="contractPrice2"]').attr('projBudgetId'):'',
+                        trnOutMoney:$(this).find('[data-field="trnOutMoney"] .layui-table-cell').text()||0,
+                    }
+                    oldDataArr.push(oldDataObj);
+                });
+                table.reload('materialDetailsTable', {
+                    data: oldDataArr
+                });
+            }
+        });
+        // 内部-合同清单-上方按钮显示
+        table.on('toolbar(paymentSettlementTable)', function (obj) {
+            switch (obj.event) {
+                case 'add':
+                    //遍历表格获取每行数据进行保存
+                    var $tr = $('#paymentSettlementModule').find('.layui-table-main tr');
+                    var oldDataArr = [];
+                    $tr.each(function () {
+                        var oldDataObj = {
+                            subcontractId: $(this).find('input[name="subcontractContent"]').attr('subcontractId') || '',
+                            subcontractListId: $(this).find('input[name="subcontractContent"]').attr('subcontractListId') || '',
+                            projBudgetId: $(this).find('input[name="subcontractContent"]').attr('projBudgetId') || '',
+                            subcontractContent: $(this).find('input[name="subcontractContent"]').val(),
+                            subcontractUnit: $(this).find('input[name="subcontractUnit"]').val(),
+                            quantities: $(this).find('input[name="quantities"]').val(),
+                            comprehensiveUnitPrice: $(this).find('input[name="comprehensiveUnitPrice"]').val(),
+                            totalPrice: $(this).find('input[name="totalPrice"]').val()
+                        }
+                        oldDataArr.push(oldDataObj);
+                    });
+                    oldDataArr.push({});
+                    table.reload('paymentSettlementTable', {
+                        data: oldDataArr
+                    });
+                    break;
+            }
+        });
+        // 内部-合同清单-删行操作
+        table.on('tool(paymentSettlementTable)', function (obj) {
+            var data = obj.data;
+            var layEvent = obj.event;
+            var $tr = obj.tr;
+            if (layEvent === 'del') {
+                obj.del();
+                if (data.subcontractListId) {
+                    $.get('/plbMtlSubcontract/deleteContractList', {ids: data.subcontractListId}, function () {
+                    });
+                }
+                //遍历表格获取每行数据进行保存
+                var $trs = $('#paymentSettlementModule').find('.layui-table-main tr');
+                var oldDataArr = [];
+                $trs.each(function () {
+                    var oldDataObj = {
+                        subcontractId: $(this).find('input[name="subcontractContent"]').attr('subcontractId') || '',
+                        subcontractListId: $(this).find('input[name="subcontractContent"]').attr('subcontractListId') || '',
+                        projBudgetId: $(this).find('input[name="subcontractContent"]').attr('projBudgetId') || '',
+                        subcontractContent: $(this).find('input[name="subcontractContent"]').val(),
+                        subcontractUnit: $(this).find('input[name="subcontractUnit"]').val(),
+                        quantities: $(this).find('input[name="quantities"]').val(),
+                        comprehensiveUnitPrice: $(this).find('input[name="comprehensiveUnitPrice"]').val(),
+                        totalPrice: $(this).find('input[name="totalPrice"]').val()
+                    }
+                    oldDataArr.push(oldDataObj);
+                })
+                table.reload('paymentSettlementTable', {
+                    data: oldDataArr
+                });
+            }
+        });
+
+        //选择供应商比价
+        table.on('toolbar(plbMtlContrastTable)', function (obj) {
+            switch (obj.event) {
+                case 'choosePlbMtlContrast':
+                    layer.open({
+                        type: 1,
+                        title: '选择分包比价',
+                        area: ['100%', '100%'],
+                        maxmin: true,
+                        btn: ['确定', '取消'],
+                        btnAlign: 'c',
+                        content: ['<div class="layui-form" id="objectives">' +
+                        //下拉选择
+                        '           <div class="layui-row" style="margin-top: 10px">' +
+                        '               <div class="layui-col-xs2" style="padding-left: 10px;">\n' +
+                        '                    <input type="text" name="subpackageNo" placeholder="比价编号" autocomplete="off" class="layui-input">\n' +
+                        '                </div>\n' +
+                        '                <div class="layui-col-xs2" style="margin-top: 3px;margin-left: 10px;">\n' +
+                        '                    <button type="button" class="layui-btn layui-btn-sm search_mtl">查询</button>\n' +
+                        '                </div>' +
+                        '           </div>' +
+                        //表格数据
+                        '       <div style="padding: 10px">' +
+                        '           <table id="tableObj" lay-filter="tableObj"></table>' +
+                        '      </div>' +
+                        '</div>'].join(''),
+                        success: function () {
+
+                            laodTable();
+
+                            $('.search_mtl').on('click', function(){
+                                laodTable();
+                            });
+
+                            // 加载表格
+                            function laodTable() {
+                                var _where = {
+                                    projId: $('#leftId').attr('projId'),
+                                }
+                                if($('[name="subpackageNo"]').val()){
+                                    _where.subpackageNo = $('[name="subpackageNo"]').val()
+                                }
+                                _where.isContract="contract";
+                                _where.approvalStatus=2;
+                                table.render({
+                                    elem: '#tableObj',
+                                    url: '/plbMtlSubpackage/getDataByCondition',
+                                    where: _where,
+                                    page: true,
+                                    limit: 10,
+                                    request: {
+                                        limitName: 'pageSize'
+                                    },
+                                    response: {
+                                        statusName: 'flag',
+                                        statusCode: true,
+                                        msgName: 'msg',
+                                        countName: 'totleNum',
+                                        dataName: 'data'
+                                    },
+                                    cols: [[
+                                        {type: 'radio'},
+                                        {field: 'subpackageNo', title: '比价编号', sort: true, hide: false},
+                                        {field:'projName',title:'所属项目',sort:true,hide:false},
+                                        {field: 'priceComparison', title: '比价事项', hide: false},
+                                        {field: 'compareTime', title: '比价时间', sort: true, hide: false, templet: function (d) {
+                                                return format(d.compareTime);
+                                            }
+                                        },
+                                        {field: 'compareType', title: '比价方式', sort: true, hide: false, templet: function (d) {
+                                                return dictionaryObj['COMPARE_TYPE']['object'][d.compareType] || '';
+                                            }
+                                        },
+                                        /*{field: 'approvalStatus', title: '审批状态',width:150, sort: true, hide: false, templet: function (d) {
+                                                var str = '';
+                                                switch (d.approvalStatus) {
+                                                    case '0':
+                                                        str = '未提交';
+                                                        break;
+                                                    case '1':
+                                                        var flowStr = d.flowRun ? 'flowId="' + (d.flowRun.flowId || '') + '" runId="' + (d.flowRun.runId || '') + '"' : '';
+                                                        str = '<span class="preview_flow" style="color: orange;cursor: pointer;text-decoration: underline;" ' + flowStr + '>审批中</span>';
+                                                        break;
+                                                    case '2':
+                                                        var flowStr = d.flowRun ? 'flowId="' + (d.flowRun.flowId || '') + '" runId="' + (d.flowRun.runId || '') + '"' : '';
+                                                        str = '<span class="preview_flow" style="color: green;cursor: pointer;text-decoration: underline;" ' + flowStr + '>批准</span>';
+                                                        break;
+                                                    case '3':
+                                                        var flowStr = d.flowRun ? 'flowId="' + (d.flowRun.flowId || '') + '" runId="' + (d.flowRun.runId || '') + '"' : '';
+                                                        str = '<span class="preview_flow" style="color: red;cursor: pointer;text-decoration: underline;" ' + flowStr + '>不批准</span>';
+                                                        break;
+                                                }
+                                                return str;
+                                            }
+                                        },*/
+                                        {field: 'remark', title: '备注', hide: false},
+                                    ]],
+                                    done:function(res){
+                                        var _dataa2=res.data;
+                                        if(mtlSubpackageData){
+                                            for(var i = 0 ; i <_dataa2.length;i++){
+                                                if(_dataa2[i].subpackageId == mtlSubpackageData[0].subpackageId){
+                                                    $('.layui-table tr[data-index=' + i + '] input[type="radio"]').next(".layui-form-radio").click();
+                                                    //form.render('checkbox');
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                });
+                            }
+                        },
+                        yes: function (index) {
+
+                            var checkStatus = table.checkStatus('tableObj').data;
+                            if (checkStatus.length > 0) {
+                                mtlSubpackageData = checkStatus[0]
+
+                                $('#baseForm').attr('subpackageId',mtlSubpackageData.subpackageId)
+
+                                layer.close(index);
+
+                                table.reload('plbMtlContrastTable', {
+                                    data: [mtlSubpackageData]
+                                });
+                            } else {
+                                layer.msg('请选择一项！', {icon: 0});
+                            }
+                        }
+                    });
+                    break;
+            }
+        });
+
+        //比价详情
+        table.on('tool(plbMtlContrastTable)', function (obj) {
+            var data = obj.data;
+            var layEvent = obj.event;
+            if(layEvent === 'info'){
+                var projId = $('#leftId').attr('projId');
+                layer.open({
+                    type: 1,
+                    title: '比价详情',
+                    area: ['100%', '100%'],
+                    btn: ['确定'],
+                    maxmin: true,
+                    btnAlign: 'c',
+                    content: ['<div class="layui-collapse">',
+                        '<div class="layui-colla-item">',
+                        '<h2 class="layui-colla-title">分包比价详情</h2>',
+                        '<div class="layui-colla-content layui-show">',
+                        '<form class="layui-form" id="baseForm" lay-filter="baseForm">',
+                        /* region 第一行 */
+                        '<div class="layui-row">' +
+                        '<div class="layui-col-xs3" style="padding: 0 5px">' +
+                        '<div class="layui-form-item">' +
+                        '<label class="layui-form-label form_label">比价编号<span field="subpackageNo" class="field_required">*</span><a title="刷新编号" class="refresh_no_btn"><i class="layui-icon layui-icon-refresh"></i></a></label>' +
+                        '<div class="layui-input-block form_block">' +
+                        '<input type="text" name="subpackageNo" readonly autocomplete="off" style="background: #e7e7e7" class="layui-input">' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>',
+                        '<div class="layui-col-xs3" style="padding: 0 5px">' +
+                        '<div class="layui-form-item">' +
+                        '<label class="layui-form-label form_label">项目名称<span field="projectName" class="field_required">*</span></label>' +
+                        '<div class="layui-input-block form_block">' +
+                        '<input type="text" name="projectName" id="projectName" readonly autocomplete="off" class="layui-input projectName">' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>',
+                        '<div class="layui-col-xs3" style="padding: 0 5px">' +
+                        '<div class="layui-form-item">' +
+                        '<label class="layui-form-label form_label">比价事项<span field="priceComparison" class="field_required">*</span></label>' +
+                        '<div class="layui-input-block form_block">' +
+                        '<input type="text" name="priceComparison" autocomplete="off" class="layui-input">' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>',
+                        '<div class="layui-col-xs3" style="padding: 0 5px">' +
+                        '<div class="layui-form-item">' +
+                        '<label class="layui-form-label form_label">比价时间<span field="compareTime" class="field_required">*</span></label>' +
+                        '<div class="layui-input-block form_block">' +
+                        '<input type="text" readonly name="compareTime" id="compareTime" autocomplete="off" class="layui-input">' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>',
+                        '</div>',
+                        /* endregion */
+                        /* region 第二行 */
+                        '           <div class="layui-row">' +
+                        '               <div class="layui-col-xs3" style="padding: 0 5px">' +
+                        '                   <div class="layui-form-item">' +
+                        '                       <label class="layui-form-label form_label">比价方式<span field="compareType" class="field_required">*</span></label>' +
+                        '                       <div class="layui-input-block form_block">' +
+                        '                           <select name="compareType"></select>' +
+                        '                       </div>' +
+                        '                   </div>' +
+                        '               </div>',
+                        '               <div class="layui-col-xs3" style="padding: 0 5px;">' +
+                        '                   <div class="layui-form-item">\n' +
+                        '                       <label class="layui-form-label form_label">分包商1</label>\n' +
+                        '                       <div class="layui-input-block form_block">\n' +
+                        '                       <input type="text" name="customerId1" readonly style="cursor: pointer;background: #e7e7e7" autocomplete="off" class="layui-input chooseEquivalent">\n' +
+                        '                       </div>\n' +
+                        '                   </div>' +
+                        '               </div>' +
+                        '               <div class="layui-col-xs3" style="padding: 0 5px;">' +
+                        '                   <div class="layui-form-item">\n' +
+                        '                       <label class="layui-form-label form_label">分包商2</label>\n' +
+                        '                       <div class="layui-input-block form_block">\n' +
+                        '                       <input type="text" name="customerId2" readonly style="cursor: pointer;background: #e7e7e7" autocomplete="off" class="layui-input chooseEquivalent">\n' +
+                        '                       </div>\n' +
+                        '                   </div>' +
+                        '               </div>' +
+                        '               <div class="layui-col-xs3" style="padding: 0 5px;">' +
+                        '                   <div class="layui-form-item">\n' +
+                        '                       <label class="layui-form-label form_label">分包商3</label>\n' +
+                        '                       <div class="layui-input-block form_block">\n' +
+                        '                       <input type="text" name="customerId3" readonly style="cursor: pointer;background: #e7e7e7" autocomplete="off" class="layui-input chooseEquivalent">\n' +
+                        '                       </div>\n' +
+                        '                   </div>' +
+                        '               </div>' +
+
+                        '           </div>' +
+                        /* endregion */
+                        /* region 第二行 */
+                        '           <div class="layui-row">' +
+                        '               <div class="layui-col-xs3" style="padding: 0 5px;">' +
+                        '                   <div class="layui-form-item">\n' +
+                        '                       <label class="layui-form-label form_label">分包商4</label>\n' +
+                        '                       <div class="layui-input-block form_block">\n' +
+                        '                       <input type="text" name="customerId4" readonly style="cursor: pointer;background: #e7e7e7" autocomplete="off" class="layui-input chooseEquivalent">\n' +
+                        '                       </div>\n' +
+                        '                   </div>' +
+                        '               </div>' +
+                        '               <div class="layui-col-xs3" style="padding: 0 5px;">' +
+                        '                   <div class="layui-form-item">\n' +
+                        '                       <label class="layui-form-label form_label">分包商5</label>\n' +
+                        '                       <div class="layui-input-block form_block">\n' +
+                        '                       <input type="text" name="customerId5" readonly style="cursor: pointer;background: #e7e7e7" autocomplete="off" class="layui-input chooseEquivalent">\n' +
+                        '                       </div>\n' +
+                        '                   </div>' +
+                        '               </div>' +
+                        '               <div class="layui-col-xs3" style="padding: 0 5px;">' +
+                        '                   <div class="layui-form-item">\n' +
+                        '                       <label class="layui-form-label form_label">分包商6</label>\n' +
+                        '                       <div class="layui-input-block form_block">\n' +
+                        '                       <input type="text" name="customerId6" readonly style="cursor: pointer;background: #e7e7e7" autocomplete="off" class="layui-input chooseEquivalent">\n' +
+                        '                       </div>\n' +
+                        '                   </div>' +
+                        '               </div>' +
+                        '               <div class="layui-col-xs3" style="padding: 0 5px;">' +
+                        '                   <div class="layui-form-item">\n' +
+                        '                       <label class="layui-form-label form_label">分包商7</label>\n' +
+                        '                       <div class="layui-input-block form_block">\n' +
+                        '                       <input type="text" name="customerId7" readonly style="cursor: pointer;background: #e7e7e7" autocomplete="off" class="layui-input chooseEquivalent">\n' +
+                        '                       </div>\n' +
+                        '                   </div>' +
+                        '               </div>' +
+                        '           </div>' +
+                        /* endregion */
+                        /* region 第二行 */
+                        '<div class="layui-row">' +
+                        '<div class="layui-col-xs3" style="padding: 0 5px;">' +
+                        '    <div class="layui-form-item">\n' +
+                        '        <label class="layui-form-label form_label">分包商8</label>\n' +
+                        '        <div class="layui-input-block form_block">\n' +
+                        '        <input type="text" name="customerId8" readonly style="cursor: pointer;background: #e7e7e7" autocomplete="off" class="layui-input chooseEquivalent">\n' +
+                        '        </div>\n' +
+                        '    </div>' +
+                        '</div>' +
+                        '<div class="layui-col-xs3" style="padding: 0 5px">' +
+                        '<div class="layui-form-item">' +
+                        '<label class="layui-form-label form_label">备注</label>' +
+                        '<div class="layui-input-block form_block">' +
+                        '<input type="text" name="remark" autocomplete="off" class="layui-input">' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>',
+                        '</div>',
+                        /* endregion */
+                        '</form>',
+                        /* region 附件 */
+                        '<div class="layui-row">' +
+                        '<div class="layui-col-xs12" style="padding: 0 5px">' +
+                        '<div class="layui-form-item">' +
+                        '<label class="layui-form-label form_label">附件</label>' +
+                        '<div class="layui-input-block form_block">' +
+                        '<div class="file_module">' +
+                        '<div id="fileContent" class="file_content"></div>' +
+                        '<div class="file_upload_box">' +
+                        '<a href="javascript:;" class="open_file">' +
+                        '<img src="/img/mg11.png" style="margin: -3px 5px 0 0;"><span>添加附件</span>' +
+                        '<input type="file" multiple id="fileupload" data-url="/upload?module=planbudget" name="file">' +
+                        '</a>' +
+                        '<div class="progress">' +
+                        '<div class="bar"></div>\n' +
+                        '</div>' +
+                        '<div class="bar_text"></div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>',
+                        '</div>',
+                        /* endregion */
+                        '</div></div>',
+                        '<div class="layui-colla-item">',
+                        '<h2 class="layui-colla-title">分包比价明细</h2>',
+                        '<div class="layui-colla-content mtl_info_detail layui-show">',
+                        ' <button class="layui-btn layui-btn-sm" id="addRow">加行</button>'+
+                        '<table id="equipmentListTable" lay-filter="equipmentListTable"></table>',
+                        '</div></div>',
+                        '</div>'].join(''),
+                    success: function () {
+                        //回显项目名称
+                        getProjName('.projectName',(projId?projId:data.projId))
+
+                        fileuploadFn('#fileupload', $('#fileContent'));
+
+                        $('select[name="compareType"]').html(dictionaryObj['COMPARE_TYPE']['str']);
+
+                        // 初始化时间控件
+                        laydate.render({
+                            elem: '#compareTime',
+                            trigger: 'click',
+                            value: data ? format(data.compareTime) : ''
+                        });
+
+                        // 分包明细列表数据
+                        var materialDetailsTableData2 = []
+
+                        form.val("baseForm", data);
+                        //回显分包商信息
+                        $('[name="customerId1"]').val(data.customerName1)
+                        $('[name="customerId1"]').attr('customerId',data.customerId1)
+                        $('[name="customerId2"]').val(data.customerName2)
+                        $('[name="customerId2"]').attr('customerId',data.customerId2)
+                        $('[name="customerId3"]').val(data.customerName3)
+                        $('[name="customerId3"]').attr('customerId',data.customerId3)
+                        $('[name="customerId4"]').val(data.customerName4)
+                        $('[name="customerId4"]').attr('customerId',data.customerId4)
+                        $('[name="customerId5"]').val(data.customerName5)
+                        $('[name="customerId5"]').attr('customerId',data.customerId5)
+                        $('[name="customerId6"]').val(data.customerName6)
+                        $('[name="customerId6"]').attr('customerId',data.customerId6)
+                        $('[name="customerId7"]').val(data.customerName7)
+                        $('[name="customerId7"]').attr('customerId',data.customerId7)
+                        $('[name="customerId8"]').val(data.customerName8)
+                        $('[name="customerId8"]').attr('customerId',data.customerId8)
+                        materialDetailsTableData2=data.subpackageList || []
+                        //附件解析
+                        if (data.attachments && data.attachments.length > 0) {
+                            var fileArr = data.attachments;
+                            $('#fileContent').append(echoAttachment(fileArr));
+                        }
+
+                        //遍历分包商，判断分包商是否显示
+
+                        var colsArr=[]
+                        $('.chooseEquivalent').each(function () {
+                            if($(this).attr('customerId')){
+                                colsArr.push(false)
+                            }else{
+                                colsArr.push(true)
+                            }
+                        })
+                        //回显表格数据
+                        var showCols=[]
+                        detailCols.forEach(function (item,index) {
+                            item.hide=colsArr[index]
+                            showCols.push(item)
+                        })
+
+                        //$('.layui-layer-btn-c').hide()
+                        $('#baseForm [name="priceComparison"]').attr('disabled','true')
+                        $('#compareTime').attr('disabled','true')
+                        $('#baseForm [name="compareType"]').attr('disabled','true')
+                        $('.chooseEquivalent').attr('disabled','true')
+                        $('#baseForm [name="remark"]').attr('disabled','true')
+                        $('.file_upload_box').hide()
+                        $('.deImgs').hide()
+                        $('#addRow').hide()
+                        loadDetail(showCols,materialDetailsTableData2,4)
+
+                        table.render();
+
+                        element.render();
+
+
+                    },
+                    yes: function (index) {
+                        layer.close(index);
+                    }
+                });
+            }
+        })
+
+
+        // 监听筛选列
+        form.on('checkbox()', function (data) {
+            //判断监听的复选框是筛选列下的复选框
+            if ($(data.elem).attr('lay-filter') == 'LAY_TABLE_TOOL_COLS') {
+                setTimeout(function () {
+                    var $parent = $(data.elem).parent().parent()
+                    var arr = []
+                    $parent.find('input[type="checkbox"]').each(function () {
+                        var obj = {
+                            showFields: $(this).attr('name'),
+                            isShow: !$(this).prop('checked')
+                        }
+                        arr.push(obj)
+                    })
+                    var param = {showFields: JSON.stringify(arr)}
+                    TableUIObj.update(param)
+                }, 1000)
+            }
+        });
+
+        var searchTimer = null
+        $('#search_project').on('input propertychange', function () {
+            clearTimeout(searchTimer)
+            searchTimer = null
+            var val = $(this).val()
+            searchTimer = setTimeout(function () {
+                projectLeft(val)
+            }, 300)
+        });
+        $('.search_icon').on('click', function () {
+            projectLeft($('#search_project').val())
+        });
+
+        //左侧项目信息列表
+        function projectLeft(projectName) {
+            projectName = projectName ? projectName : ''
+            var loadingIndex = layer.load();
+            $.get('/plbOrg/treeListOrg', {projectName: projectName}, function (res) {
+                layer.close(loadingIndex);
+                if (res.flag) {
+                    eleTree.render({
+                        elem: '#leftTree',
+                        data: res.data,
+                        highlightCurrent: true,
+                        showLine: true,
+                        defaultExpandAll: false,
+                        request: {
+                            name: 'name',
+                            children: "plbProjList",
+                        }
+                    });
+                    TableUIObj.init(colShowObj,function () {
+                        // tableShow('')
+                    });
+                }
+            });
+        }
+
+        // 树节点点击事件
+        eleTree.on("nodeClick(leftTree)", function (d) {
+            var currentData = d.data.currentData;
+            if (currentData.projId) {
+                $('#leftId').attr('projId', currentData.projId);
+                $('.no_data').hide();
+                $('.table_box').show();
+                tableShow(currentData.projId);
+            } else {
+                $('.table_box').hide();
+                $('.no_data').show();
+            }
+        });
+
+        // 渲染表格
+        function tableShow(projId) {
+            var cols = [{checkbox: true}].concat(TableUIObj.cols)
+
+            cols.push({
+                fixed: 'right',
+                align: 'center',
+                toolbar: '#detailBarDemo',
+                title: '操作',
+                width: 100
+            })
+            tableIns = table.render({
+                elem: '#tableDemo',
+                url: '/plbMtlSubcontract/selectAll',
+                toolbar: '#toolbarDemo',
+                cols: [cols],
+                defaultToolbar: ['filter'],
+                height: 'full-80',
+                page: {
+                    limit: TableUIObj.onePageRecoeds,
+                    limits: [10, 20, 30, 40, 50]
+                },
+                where: {
+                    projId: projId,
+                    orderbyFields: upperFieldMatch(TableUIObj.orderbyFields),
+                    orderbyUpdown: TableUIObj.orderbyUpdown
+                },
+                autoSort: false,
+                parseData: function (res) { //res 即为原始返回的数据
+                    return {
+                        "code": 0, //解析接口状态
+                        //"msg": res.msg,//解析提示文本
+                        "data": res.obj, //解析数据列表
+                        "count": res.totleNum, //解析数据长度
+                    };
+                },
+                // request: {
+                //     limitName: 'pageSize' //每页数据量的参数名，默认：limit
+                // },
+                done: function (res) {
+                    //增加拖拽后回调函数
+                    soulTable.render(this, function () {
+                        TableUIObj.dragTable('tableDemo')
+                    })
+
+                    res.data.forEach(function (v) {
+                        exportData += v.mtlPlanId + ','
+                    })
+
+                    if (TableUIObj.onePageRecoeds != this.limit) {
+                        TableUIObj.update({onePageRecoeds: this.limit})
+                    }
+                },
+                initSort: {
+                    field: TableUIObj.orderbyFields,
+                    type: TableUIObj.orderbyUpdown
+                }
+            });
+        }
+
+        //修编
+        function revision() {
+            var projId = $('#leftId').attr('projId');
+            var cols=[
+                {type:'radio'},
+                {field: 'subcontractNo',minWidth:100, title: '合同编号', sort: true, hide: false},
+                {field: 'contractName',minWidth:100, title: '合同名称', sort: true, hide: false},
+                {field: 'contractAName',minWidth:80, title: '甲方', sort: true, hide: false},
+                {field: 'customerName',minWidth:80, title: '乙方', sort: true, hide: false},
+                {field: 'contractMoney',minWidth:100, title: '合同金额', sort: true, hide: false},
+                {field: 'contractType',minWidth:100, title: '合同类型', sort: true, hide: false, templet: function (d) {
+                        return dictionaryObj['CONTRACT_TYPE']['object'][d.contractType] || ''
+                    }},
+                {
+                    field: 'signDate', minWidth:140,title: '合同签订日期', sort: true, hide: false, templet: function (d) {
+                        return format(d.signDate);
+                    }
+                },
+                // {title: '操作', width: 100, align: 'center', toolbar: '#revisionBarDemo'}
+            ]
+            layer.open({
+                type: 1,
+                title: '修编',
+                btn: ['确定','取消'],
+                btnAlign: 'c',
+                area: ['90%', '80%'],
+                maxmin: true,
+                content: '<div class="wrap_right flow_Table" style="margin: 10px;">\n' +
+                    '<div class="query_module layui-form layui-row" style="position: relative">\n' +
+                    '<div class="layui-col-xs2" >\n' +
+                    '<input type="text" name="contractName" placeholder="合同名称" autocomplete="off" class="layui-input">\n' +
+                    '</div>\n' +
+                    '<div class="layui-col-xs2" style="margin-left: 15px;">\n' +
+                    '<input type="text" name="contractMoney" placeholder="合同金额" autocomplete="off" class="layui-input">\n' +
+                    '</div>\n' +
+                    '<div class="layui-col-xs2" style="margin-top: 3px;text-align: center">\n' +
+                    '<button type="button" class="layui-btn layui-btn-sm" id="searchBtn2">查询</button>\n' +
+                    '</div>\n' +
+                    '</div>\n' +
+                    '<div style="position: relative">\n' +
+                    '<div class="table_box">\n' +
+                    '<table id="flowTable" lay-filter="flowTable"></table>\n' +
+                    '</div>\n' +
+                    '</div>\n' +
+                    '</div>',
+                success: function () {
+                    var searchObj = {}
+                    searchObj.projId = $('#leftId').attr('projId') || '';
+                    searchObj.contractName = $('.flow_Table [name="contractName"]').val() || '';
+                    searchObj.contractMoney = $('.flow_Table [name="contractMoney"]').val() || '';
+
+                    table.render({
+                        elem: '#flowTable',
+                        url: '/plbMtlSubcontract/selectAll',
+                        cols: [cols],
+                        //height: 'full-220',
+                        page: {
+                            limits: [10, 20, 30, 40, 50]
+                        },
+                        where: searchObj,
+                        autoSort: false,
+                        // request: {
+                        //     limitName: 'pageSize'
+                        // },
+                        response: {
+                            statusName: 'flag',
+                            statusCode: true,
+                            msgName: 'msg',
+                            countName: 'totleNum',
+                            dataName: 'obj'
+                        }
+                    });
+                },
+                yes: function (index) {
+                    var checkStatus = table.checkStatus('flowTable');
+                    if (checkStatus.data.length > 0) {
+                        layer.close(index);
+                        newOrEdit(1, checkStatus.data[0]);
+                      /*  $.get('/plbMtlSubcontract/queryId', {subContractId: checkStatus.data[0].subContractId}, function (res) {
+                            if (res.flag) {
+                                newOrEdit(1, res.object);
+                            } else {
+                                layer.msg('获取数据失败!', {icon: 0});
+                            }
+                        });*/
+                    } else {
+                        layer.msg('请选择一项！', {icon: 0});
+                    }
+                }
+            })
+        }
+        // 查询
+        $('#searchBtn2').on('click', function () {
+            revision();
+        });
+
+        // 新建/编辑
+        function newOrEdit(type, data) {
+             materialDetailsTableData = [];
+             paymentSettlementTableData = [];
+             mtlSubpackageData = null;
+
+
+            var title = '';
+            var url = '';
+            var projId = $('#leftId').attr('projId');
+            if (type == '0') {
+                title = '新建分包合同变更';
+                url = '/plbMtlSubcontract/insert';
+            } else if (type == '1') {
+                title = '编辑分包合同变更';
+                url = '/plbMtlSubcontract/update';
+            }else if(type == '4'){
+                title = '查看详情'
+            }
+            layer.open({
+                type: 1,
+                title: title,
+                area: ['100%', '100%'],
+                btn: type != '4'?['保存',"提交", '取消']:['确定'],
+                maxmin: true,
+                btnAlign: 'c',
+                content: ['<div class="layui-collapse">\n',
+                    /* region 材料计划 */
+                    '  <div class="layui-colla-item">\n' +
+                    '    <h2 class="layui-colla-title">分包合同变更</h2>\n' +
+                    '    <div class="layui-colla-content layui-show plan_base_info">' +
+                    '       <form class="layui-form" id="baseForm" lay-filter="formTest">',
+                    /* region 第一行 */
+                    '           <div class="layui-row">' +
+                    '               <div class="layui-col-xs2 layui_col" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">\n' +
+                    '                       <label class="layui-form-label form_label">合同变更编号<span field="changeDocumentNo" class="field_required">*</span><a title="刷新编号" class="refresh_no_btn"><i class="layui-icon layui-icon-refresh"></i></a></label>\n' +
+                    '                       <div class="layui-input-block form_block">\n' +
+                    '                       <input type="text" name="changeDocumentNo" readonly autocomplete="off" class="layui-input testNull" style="cursor: pointer;background: #e7e7e7;"  title="合同变更编号">\n' +
+                    '                       </div>\n' +
+                    '                   </div>' +
+                    '               </div>' +
+                    '               <div class="layui-col-xs2 layui_col" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">\n' +
+                    '                       <label class="layui-form-label form_label">项目名称<span field="projectName" class="field_required">*</span></label>\n' +
+                    '                       <div class="layui-input-block form_block">\n' +
+                    '                       <input type="text" name="projectName" id="projectName" readonly style="cursor: pointer;background: #e7e7e7;"  autocomplete="off" class="layui-input">\n' +
+                    '                       </div>\n' +
+                    '                   </div>' +
+                    '               </div>' +
+                    '               <div class="layui-col-xs2 layui_col" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">\n' +
+                    '                       <label class="layui-form-label form_label">合同名称<span class="field_required">*</span></label>\n' +
+                    '                       <div class="layui-input-block form_block">\n' +
+                    '                       <input type="text" name="contractName" readonly style="cursor: pointer;background: #e7e7e7;" autocomplete="off" class="layui-input testNull" title="合同名称">\n' +
+                    '                       </div>\n' +
+                    '                   </div>' +
+                    '               </div>' +
+                    '               <div class="layui-col-xs2 layui_col" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">\n' +
+                    '                       <label class="layui-form-label form_label">合同编号<span class="field_required">*</span></label>\n' +
+                    '                       <div class="layui-input-block form_block">\n' +
+                    '                       <input type="text" name="subcontractNo" readonly autocomplete="off" style="cursor: pointer;background: #e7e7e7;"  class="layui-input testNull" title="合同名称">\n' +
+                    '                       </div>\n' +
+                    '                   </div>' +
+                    '               </div>' +
+                    '               <div class="layui-col-xs2 layui_col" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">\n' +
+                    '                       <label class="layui-form-label form_label">合同类型</label>\n' +
+                    '                       <div class="layui-input-block form_block">\n' +
+                    '                        <select disabled name="contractType"></select>' +
+                    '                       </div>\n' +
+                    '                   </div>' +
+                    '               </div>' +
+
+                    '           </div>',
+                    /* endregion */
+                    /* region 第二行 */
+                    '           <div class="layui-row">' +
+                    '               <div class="layui-col-xs2 layui_col" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">\n' +
+                    '                       <label class="layui-form-label form_label">甲方</label>\n' +
+                    '                       <div class="layui-input-block form_block">\n' +
+                    '                       <input type="text" name="contractA" readonly style="cursor: pointer;background: #e7e7e7" autocomplete="off" class="layui-input choose_Equivalent">\n' +
+                    '                       </div>\n' +
+                    '                   </div>' +
+                    '               </div>' +
+                    '               <div class="layui-col-xs2 layui_col" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">\n' +
+                    '                       <label class="layui-form-label form_label">乙方</label>\n' +
+                    '                       <div class="layui-input-block form_block">\n' +
+                    '                       <input type="text" name="customerId" readonly style="cursor: pointer;background: #e7e7e7" autocomplete="off" class="layui-input choose_Equivalent">\n' +
+                    '                       </div>\n' +
+                    '                   </div>' +
+                    '               </div>' +
+                    '               <div class="layui-col-xs2 layui_col" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">\n' +
+                    '                       <label class="layui-form-label form_label">含税合同金额<span class="field_required">*</span></label>\n' +
+                    '                       <div class="layui-input-block form_block">\n' +
+                    '                       <input type="number" name="contractMoney" readonly style="cursor: pointer;background: #e7e7e7;"  autocomplete="off" class="layui-input testNull chinese" title="含税合同金额">\n' +
+                    '                       </div>\n' +
+                    '                   </div>' +
+                    '               </div>' +
+                    '               <div class="layui-col-xs2 layui_col" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">\n' +
+                    '                       <label class="layui-form-label form_label">预付款</label>\n' +
+                    '                       <div class="layui-input-block form_block">\n' +
+                    '                       <input type="number" name="paymentPre" readonly autocomplete="off" style="cursor: pointer;background: #e7e7e7;"  class="layui-input chinese" title="预付款">\n' +
+                    '                       </div>\n' +
+                    '                   </div>' +
+                    '               </div>' +
+                    '               <div class="layui-col-xs2 layui_col" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">\n' +
+                    '                       <label class="layui-form-label form_label">税率</label>\n' +
+                    '                       <div class="layui-input-block form_block">\n' +
+                    '                           <select name="taxRate" disabled lay-filter="taxRate">' +
+                    '                               <option value=""></option>' +
+                    '                               <option value="0">0</option>' +
+                    '                               <option value="1">1</option>' +
+                    '                               <option value="3">3</option>' +
+                    '                               <option value="6">6</option>' +
+                    '                               <option value="9">9</option>' +
+                    '                               <option value="10">10</option>' +
+                    '                               <option value="13">13</option>' +
+                    '                           </select>' +
+                    '                       </div>\n' +
+                    '                   </div>' +
+                    '               </div>' +
+
+                    '           </div>',
+                    /* endregion */
+                    /* region 第三行 */
+                    '           <div class="layui-row">' +
+                    '               <div class="layui-col-xs2 layui_col" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">\n' +
+                    '                       <label class="layui-form-label form_label">不含税合同价</label>\n' +
+                    '                       <div class="layui-input-block form_block">\n' +
+                    '                       <input type="number" name="contractMoneyNotax" readonly style="cursor: pointer;background: #e7e7e7;"   autocomplete="off" class="layui-input chinese" title="不含税合同价">\n' +
+                    '                       </div>\n' +
+                    '                   </div>' +
+                    '               </div>' +
+                    '               <div class="layui-col-xs2 layui_col" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">\n' +
+                    '                       <label class="layui-form-label form_label">合同签订日期</label>\n' +
+                    '                       <div class="layui-input-block form_block">\n' +
+                    '                       <input type="text" readonly name="signDate" id="signDate" style="cursor: pointer;background: #e7e7e7;"  autocomplete="off" class="layui-input">\n' +
+                    '                       </div>\n' +
+                    '                   </div>' +
+                    '               </div>' +
+                    '               <div class="layui-col-xs2 layui_col" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">\n' +
+                    '                       <label class="layui-form-label form_label">合同有效期</label>\n' +
+                    '                       <div class="layui-input-block form_block">\n' +
+                    '                       <input type="text" name="contractPeriod" readonly autocomplete="off" style="cursor: pointer;background: #e7e7e7;"  class="layui-input" title="合同有效期">\n' +
+                    '                       </div>\n' +
+                    '                   </div>' +
+                    '               </div>' +
+                    '               <div class="layui-col-xs2 layui_col" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">\n' +
+                    '                       <label class="layui-form-label form_label">质保期</label>\n' +
+                    '                       <div class="layui-input-block form_block">\n' +
+                    '                       <input type="text" name="warrantyPeriod" readonly autocomplete="off" style="cursor: pointer;background: #e7e7e7;"  class="layui-input" title="质保期">\n' +
+                    '                       </div>\n' +
+                    '                   </div>' +
+                    '               </div>' +
+                    /*'               <div class="layui-col-xs4" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">\n' +
+                    '                       <label class="layui-form-label form_label">履约金比例</label>\n' +
+                    '                       <div class="layui-input-block form_block">\n' +
+                    '                       <input type="number" name="bondRatio" autocomplete="off" class="layui-input chinese" title="履约金比例">\n' +
+                    '                       </div>\n' +
+                    '                   </div>' +
+                    '               </div>' +
+                    '               <div class="layui-col-xs4" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">\n' +
+                    '                       <label class="layui-form-label form_label">质保金比例</label>\n' +
+                    '                       <div class="layui-input-block form_block">\n' +
+                    '                       <input type="number" name="warrantyRatio" autocomplete="off" class="layui-input chinese" title="质保金比例">\n' +
+                    '                       </div>\n' +
+                    '                   </div>' +
+                    '               </div>' +*/
+                    '               <div class="layui-col-xs2 layui_col" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">\n' +
+                    '                       <label class="layui-form-label form_label">质保金</label>\n' +
+                    '                       <div class="layui-input-block form_block">\n' +
+                    '                       <input type="number" name="warrantyCash" readonly autocomplete="off" style="cursor: pointer;background: #e7e7e7;"  class="layui-input chinese" title="质保金">\n' +
+                    '                       </div>\n' +
+                    '                   </div>' +
+                    '               </div>' +
+                    '               <div class="layui-col-xs2 layui_col" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">\n' +
+                    '                       <label class="layui-form-label form_label">发票类型</label>\n' +
+                    '                       <div class="layui-input-block form_block">\n' +
+                    '                        <select name="invoiceType" disabled id="invoiceType"></select>' +
+                    '                       </div>\n' +
+                    '                   </div>' +
+                    '               </div>' +
+                    '               <div class="layui-col-xs2 layui_col" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">\n' +
+                    '                       <label class="layui-form-label form_label">合同类别<span field="contractCategory" class="field_required">*</span></label>\n' +
+                    '                       <div class="layui-input-block form_block">\n' +
+                    '                        <select name="contractCategory" disabled><option value="">请选择</option></select>' +
+                    '                       </div>\n' +
+                    '                   </div>' +
+                    '               </div>' +
+                    '               <div class="layui-col-xs2 layui_col" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">' +
+                    '                       <label class="layui-form-label form_label">备注</label>' +
+                    '                       <div class="layui-input-block form_block">' +
+                    '                       <input type="text" name="remark" readonly style="cursor: pointer;background: #e7e7e7;"  autocomplete="off" class="layui-input">' +
+                    '                       </div>' +
+                    '                   </div>' +
+                    '               </div>' +
+                    '               <div class="layui-col-xs2 layui_col">' +
+                    '                   <div class="layui-form-item">' +
+                    '                       <label class="layui-form-label form_label">合同变更金额<span field="contractChangeMoney" class="field_required">*</span></label>' +
+                    '                       <div class="layui-input-block form_block">' +
+                    '                       <input type="text" name="contractChangeMoney" readonly style="cursor: pointer;background: #e7e7e7;"  autocomplete="off" class="layui-input input_floatNum">' +
+                    '                       </div>' +
+                    '                   </div>' +
+                    '               </div>',
+                    '               <div class="layui-col-xs2  layui_col">' +
+                    '                    <div class="layui-form-item">' +
+                    '                       <label class="layui-form-label form_label">合同变更依据</label>' +
+                    '                       <div class="layui-input-block form_block">' +
+                    '                        <input type="text" name="manageProjName" readonly autocomplete="off" class="layui-input click_one" style="width: 60%; padding-right: 25px;color: blue;background:#e7e7e7;cursor: pointer;float: left">' +
+                    '                       <a class="layui-btn chooseMtlPlanId2" style="width: 30%; float:right;">选择</a>' +
+                    '                       </div>' +
+                    '                   </div>' +
+                    '               </div>',
+                    '               <div class="layui-col-xs2  layui_col">' +
+                    '                   <div class="layui-form-item">' +
+                    '                       <label class="layui-form-label form_label">变更备注</label>' +
+                    '                       <div class="layui-input-block form_block">' +
+                    '                       <input type="text" name="changeMemo" autocomplete="off" class="layui-input">' +
+                    '                       </div>' +
+                    '                   </div>' +
+                    '               </div>',
+                    '           </div>',
+                    /* endregion */
+                    /* region 第四行 */
+                    '<div class="layui-row">' +
+                    '<div class="layui-col-xs2  layui_col">' +
+                    '<div class="layui-form-item">' +
+                    '<label class="layui-form-label form_label">合同变更日期</label>' +
+                    '<div class="layui-input-block form_block">' +
+                    '<input type="text" name="changeDate" autocomplete="off" class="layui-input">' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>',
+                    '</div>',
+                    /* endregion */
+                    /* region 第五行*/
+                    '           <div class="layui-row">' +
+                    '               <div class="layui-col-xs12" style="padding: 0 5px;">' +
+                    '                   <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief" style="margin: 0;">' +
+                    '                   <ul class="layui-tab-title">' +
+                    '                   <li class="layui-this">合同内容</li>' +
+                    '                   <li>合同范围</li>' +
+                    '                   <li>付款方式</li>' +
+                    '                   </ul>' +
+                    '                   <div class="layui-tab-content">' +
+                    '                   <div class="layui-tab-item layui-show contract_list">' +
+                    '                   <textarea name="contractContent" placeholder="请输入内容" class="layui-textarea"></textarea>' +
+                    '                   </div>' +
+                    '                   <div class="layui-tab-item contract_out">' +
+                    '                   <textarea name="contractScope" placeholder="请输入内容" class="layui-textarea"></textarea>' +
+                    '                   </div>' +
+                    '                   <div class="layui-tab-item">' +
+                    '                   <textarea name="paymentType" placeholder="请输入内容" class="layui-textarea"></textarea>' +
+                    '                   </div>' +
+                    '                   </div>' +
+                    '                   </div>' +
+                    '               </div>' +
+                    /*'               <div class="layui-col-xs4" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">\n' +
+                    '                       <label class="layui-form-label form_label">付款方式</label>\n' +
+                    '                       <div class="layui-input-block form_block">\n' +
+                    '                        <select name="paymentType"></select>' +
+                    '                       </div>\n' +
+                    '                   </div>' +
+                    '               </div>' +*/
+                    /*'               <div class="layui-col-xs4" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">\n' +
+                    '                       <label class="layui-form-label form_label">履约保证金</label>\n' +
+                    '                       <div class="layui-input-block form_block">\n' +
+                    '                       <input type="number" name="bondCash" autocomplete="off" class="layui-input  chinese" title="履约保证金">\n' +
+                    '                       </div>\n' +
+                    '                   </div>' +
+                    '               </div>' +*/
+                    '            </div>' +
+                    /* endregion */
+                    /* region 第六行 */
+                    '           <div class="layui-row">' +
+                    '               <div class="layui-col-xs12" style="padding: 0 5px;">' +
+                    '                   <div class="layui-form-item">\n' +
+                    '                       <label class="layui-form-label form_label">合同附件</label>' +
+                    '                       <div class="layui-input-block form_block">' +
+                    '<div class="file_module">' +
+                    '<div id="fileContent" class="file_content"></div>' +
+                    '<div class="file_upload_box">' +
+                    '<a href="javascript:;" class="open_file">' +
+                    '<img src="/img/mg11.png" style="margin: -3px 5px 0 0;"><span>添加附件</span>' +
+                    '<input type="file" multiple id="fileupload" data-url="/upload?module=planbudget" name="file">' +
+                    '</a>' +
+                    '<div class="progress">' +
+                    '<div class="bar"></div>\n' +
+                    '</div>' +
+                    '<div class="bar_text"></div>' +
+                    '</div>' +
+                    '</div>' +
+                    '                       </div>\n' +
+                    '                   </div>' +
+                    '               </div>' ,
+                    '<div class="layui-col-xs12">' +
+                    '<div class="layui-form-item">' +
+                    '<label class="layui-form-label form_label">合同变更附件<span field="attachmentId" class="field_required">*</span></label>' +
+                    '<div class="layui-input-block form_block">' +
+                    '<div class="file_module">' +
+                    '<div id="fileContent2" class="file_content"></div>' +
+                    '<div class="file_upload_box">' +
+                    '<a href="javascript:;" class="open_file">' +
+                    '<img src="/img/mg11.png" style="margin: -3px 5px 0 0;"><span>添加附件</span>' +
+                    '<input type="file" multiple id="fileupload2" data-url="/upload?module=planbudget" name="file">' +
+                    '</a>' +
+                    '<div class="progress">' +
+                    '<div class="bar"></div>\n' +
+                    '</div>' +
+                    '<div class="bar_text"></div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' ,
+                    '           </div>',
+                    /* endregion */
+                    '       </form>' +
+                    '    </div>\n' +
+                    '  </div>\n',
+                    /* endregion */
+                    /* region 合同明细 */
+                    '  <div class="layui-colla-item">\n' +
+                    '    <h2 class="layui-colla-title">明细</h2>\n' +
+                    '    <div class="layui-colla-content mtl_info layui-show">' +
+                    '<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief" style="margin: 0;">' +
+                    '<ul class="layui-tab-title">' +
+                    '<li class="layui-this">合同明细</li>' +
+                    '<li>合同清单</li>' +
+                    '</ul>' +
+                    '<div class="layui-tab-content">' +
+                    '<div class="layui-tab-item layui-show contract_list">' +
+                    '<div id="contractDetailsModule"><table id="materialDetailsTable" lay-filter="materialDetailsTable"></table></div>' +
+                    '</div>' +
+                    '<div class="layui-tab-item contract_out">' +
+                    '<div id="paymentSettlementModule"><table id="paymentSettlementTable" lay-filter="paymentSettlementTable"></table></div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    /*'       <div>' +
+                    '           <table id="materialDetailsTable" lay-filter="materialDetailsTable"></table>' +
+                    '      </div>' +*/
+                    '    </div>\n' +
+                    '  </div>\n',
+                    /* endregion */
+                    /* region 供应商比价 */
+                    '<div class="layui-colla-item"><h2 class="layui-colla-title">分包比价</h2>' +
+                    '<div class="layui-colla-content layui-show">',
+                    '<div><table id="plbMtlContrastTable" lay-filter="plbMtlContrastTable"></table>' +
+                    '</div>',
+                    '</div>' +
+                    '</div>',
+                    /* endregion */
+                    '</div>'].join(''),
+                success: function () {
+
+                    //回显项目名称
+                    getProjName('#projectName',(projId?projId:data.projId))
+                    //付款方式、合同类型
+                    $('[name="paymentType"]').html(dictionaryObj['PAYMENT_METHOD']['str'])
+                    $('[name="contractType"]').html(dictionaryObj['CONTRACT_TYPE']['str'])
+
+                    form.on('select(taxRate)', function(data){
+                        // console.log(data.value); //得到被选中的值
+                        if(data.value && $('#baseForm [name="contractMoney"]').val()){
+                            var taxRate=data.value * 0.01
+                            var contractMoney=$('#baseForm [name="contractMoney"]').val()
+                            $('#baseForm [name="contractMoneyNotax"]').val(keepTwoDecimalFull(contractMoney / (1+taxRate)))
+                        }
+                    });
+
+                    var optionStr = '<option value="">请选择</option>'
+                    optionStr += dictionaryObj.INVOICE_TYPE.str
+                    $('#invoiceType').append(optionStr)
+
+                    $('[name="contractCategory"]').append(dictionaryObj['CONTRACT_CATEGORY']['str'])
+
+                    // 合同附件
+                    fileuploadFn('#fileupload', $('#fileContent'));
+
+                    // 合同变更附件
+                    fileuploadFn('#fileupload2', $('#fileContent2'));
+
+                    laydate.render({
+                        elem: 'input[name="changeDate"]' //指定元素
+                        ,trigger: 'click' //采用click弹出
+                        ,format: 'yyyy-MM-dd'
+                        ,value: new Date()
+                    });
+
+                    //回显数据
+                    if (type == 1 || type == 4) {
+                        form.val("formTest", data);
+                        $('[name="contractA"]').val(data.contractAName || '')
+                        $('[name="contractA"]').attr('customerId',data.contractA || '')
+                        $('[name="customerId"]').val(data.customerName || '')
+                        $('[name="customerId"]').attr('customerId',data.customerId || '')
+
+                        //合同附件
+                        if (data.attachment && data.attachment.length > 0) {
+                            var fileArr = data.attachment;
+                            $('#fileContent').append(echoAttachment(fileArr));
+                        }
+                        $('#fileContent .deImgs').hide()
+                        $('#fileContent').next().hide()
+                        //合同变更附件
+                        if (data.changeAttachmentList && data.changeAttachmentList.length > 0) {
+                            var fileArr = data.changeAttachmentList;
+                            $('#fileContent2').append(echoAttachment(fileArr));
+                        }
+                        //合同明细
+                        materialDetailsTableData = data.plbMtlSubcontractOuts;
+                        // 合同清单
+                        paymentSettlementTableData = data.plbMtlSubcontractLists;
+                        //分包比价
+                        mtlSubpackageData = data.mtlSubpackage;
+
+
+                        //查看详情
+                        if(type==4){
+                            //$('.layui-layer-btn-c').hide()
+                            $('#baseForm input,select,textarea').attr('disabled', 'true')
+                            //$('[name="contractOtherContent"]').attr('disabled','true')
+                            $('.file_upload_box').hide()
+                            $('.deImgs').hide()
+
+                        }
+                    }else{
+                        // 获取自动编号
+                        getAutoNumber({autoNumber: 'plbMtlSubcontract'}, function(res) {
+                            $('input[name="documentNo"]', $('#baseForm')).val(res);
+                        });
+                        $('.refresh_no_btn').show().on('click', function() {
+                            getAutoNumber({autoNumber: 'plbMtlSubcontract'}, function(res) {
+                                $('input[name="documentNo"]', $('#baseForm')).val(res);
+                            });
+                        });
+                    }
+
+                    element.render();
+                    form.render();
+                    /*laydate.render({
+                        elem: '#signDate' //指定元素
+                        , trigger: 'click' //采用click弹出
+                        , value: data ? format(data.signDate) : ''
+                    });*/
+
+                    var cols=[
+                        {type: 'numbers', title: '操作'},
+                        {
+                            field: 'wbsName', title: 'WBS', minWidth: 200,
+                        },
+                        {
+                            field: 'rbsName', title: 'RBS', minWidth: 200,
+                        },
+                        {
+                            field: 'cbsName', title: 'CBS', minWidth: 200,
+                        },
+                        {
+                            field: 'manageTarAmount', title: '管理目标金额',minWidth:130,
+                        },
+                        {
+                            field: 'accumulatedSignedContractAmount', title: '累计已签合同金额',minWidth:160,
+                        },
+                        {
+                            field: 'trnOutMoney', title: '在途合同价',minWidth:120,
+                        },
+                        {
+                            field: 'contractPrice', title: '本次合同价',minWidth:120,
+                        },
+                        {
+                            field: 'contractOtherContent', title: '合同明细',minWidth:120,
+                        },
+                        {
+                            field: 'contractPrice2', title: '本次合同变更值',minWidth:140,
+                            templet: function (d) {
+                                return '<input type="number" '+(type==4 ? 'readonly' : '')+'  name="contractPrice2" subcontractId="'+(d.subcontractId||'')+'" subcontractOutId="'+(d.subcontractOutId||'')+'" projBudgetId="'+(d.projBudgetId||'')+'" cbsId="'+(d.cbsId || '')+'" wbsId="'+(d.wbsId || '')+'" rbsId="' + (d.rbsId || '') + '" class="layui-input contractPriceItem" style="height: 100%;" value="' + (d.contractPrice2 || 0)+ '">'
+                            }
+                        },
+                        {
+                            field: 'changeContractPrice', title: '变更后本次合同价',minWidth:160,
+                            templet: function (d) {
+                                return '<input type="number" name="changeContractPrice"   class="layui-input" autocomplete="off" readonly style="height: 100%;cursor: pointer;background: #e7e7e7;" value="' + (d.changeContractPrice || "") + '">'
+                            }
+                        }
+                    ]
+                    var colsPaymentSettlement=[
+                        {type: 'numbers', title: '序号'},
+                        {
+                            field: 'subcontractContent', title: '合同明细',minWidth:140,
+                            templet: function (d) {
+                                return '<input type="text" '+(type==4 ? 'readonly' : '')+' subcontractId="' + (d.subcontractId || '')+ '" subcontractListId="'+(d.subcontractListId||'')+'" projBudgetId="'+(d.projBudgetId||'')+'" name="subcontractContent" class="layui-input " style="height: 100%;" value="' + (d.subcontractContent || '')+ '">'
+                            }
+                        },
+                        {
+                            field: 'subcontractUnit', title: '单位',minWidth:100,
+                            templet: function (d) {
+                                return '<input type="text" '+(type==4 ? 'readonly' : '')+'  name="subcontractUnit" class="layui-input " style="height: 100%;" value="' + (d.subcontractUnit || '')+ '">'
+                            }
+                        },
+                        {
+                            field: 'quantities', title: '工程量',minWidth:140,
+                            templet: function (d) {
+                                return '<input type="text" '+(type==4 ? 'readonly' : '')+'   name="quantities" class="layui-input " style="height: 100%;" value="' + (d.quantities || '')+ '">'
+                            }
+                        },
+                        {
+                            field: 'comprehensiveUnitPrice', title: '综合单价',minWidth:100,
+                            templet: function (d) {
+                                return '<input type="text" '+(type==4 ? 'readonly' : '')+'   name="comprehensiveUnitPrice" class="layui-input " style="height: 100%;" value="' + (d.comprehensiveUnitPrice || '')+ '">'
+                            }
+                        },
+                        {
+                            field: 'totalPrice', title: '合价',minWidth:100,
+                            templet: function (d) {
+                                return '<input type="text" '+(type==4 ? 'readonly' : '')+'   name="totalPrice" class="layui-input " style="height: 100%;" value="' + (d.totalPrice || '')+ '">'
+                            }
+                        }
+                        /*{
+                            field: 'contractMoney', title: '约定付款金额', templet: function (d) {
+                                return '<input type="number" '+(type==4 ? 'readonly' : '')+' mtlSubcontractPayId="' + (d.mtlSubcontractPayId || '') + '" name="contractMoney" class="layui-input contractMoney" style="height: 100%;" value="' + (d.contractMoney || '') + '">'
+                            }
+                        },
+                        {
+                            field: 'contractRatio', title: '约定付款比例', templet: function (d) {
+                                return '<input type="number" '+(type==4 ? 'readonly' : '')+' name="contractRatio" class="layui-input contractRatio" style="height: 100%" value="' + (d.contractRatio || '') + '">'
+                            }
+                        },
+                        {
+                            field: 'paymentPeriod', title: '约定付款日期', templet: function (d) {
+                                return '<input type="text" name="paymentPeriod" '+(type==4 ? 'disabled' : 'readonly')+' class="layui-input paymentPeriod" style="height: 100%;" value="' + (d.paymentPeriod || '') + '">'
+                            }
+                        },
+                        {
+                            field: 'termOfPayment', title: '付款条件', templet: function (d) {
+                                return '<input type="text" '+(type==4 ? 'readonly' : '')+' name="termOfPayment" class="layui-input termOfPayment" style="height: 100%;" value="' + (d.termOfPayment || '') + '">'
+                            }
+                        },*/
+                    ]
+                    if(type!=4){
+                        cols.push({align: 'center', toolbar: '#barDemo', title: '操作', width: 100,fixed:'right'})
+                        colsPaymentSettlement.push({align: 'center', toolbar: '#barDemo', title: '操作', width: 100,fixed:'right'})
+                    }
+                    table.render({
+                        elem: '#materialDetailsTable',
+                        data: materialDetailsTableData||[],
+                        toolbar: '#toolbarDemoIn',
+                        defaultToolbar: [''],
+                        limit: 1000,
+                        cols: [cols],
+                        done:function (res) {
+                            materialDetailsTableData = res.data
+                            if(type==4){
+                                $('.addRow').hide()
+                            }
+                        }
+                    });
+                    table.render({
+                        elem: '#paymentSettlementTable',
+                        data: paymentSettlementTableData||[],
+                        toolbar: '#toolbarDemoIn',
+                        defaultToolbar: [''],
+                        limit: 1000,
+                        cols: [colsPaymentSettlement],
+                        done:function (res) {
+                            if(type==4){
+                                $('.addRow').hide()
+                            }
+                            var datas = res.data;
+                            $('.contract_out').find('.paymentPeriod').each(function (i, v) {
+                                laydate.render({
+                                    elem: v,
+                                    trigger: 'click',
+                                    value: datas[i].paymentPeriod || ''
+                                });
+                            });
+                        }
+                    });
+                    // 初始化供应商比价
+                    table.render({
+                        elem: '#plbMtlContrastTable',
+                        data: mtlSubpackageData?[mtlSubpackageData]:[],
+                        //toolbar: type==4?'':'#plbMtlContrastBar',
+                        defaultToolbar: [''],
+                        limit: 1000,
+                        cols: [[
+                            {type: 'numbers', title: '序号'},
+                            {field: 'subpackageNo', title: '比价编号'},
+                            {field: 'priceComparison', title: '比价事项'},
+                            {
+                                field: 'compareTime', title: '比价时间', templet: function (d) {
+                                    return format(d.compareTime);
+                                }
+                            },
+                            {
+                                field: 'compareType', title: '比价方式', templet: function (d) {
+                                    return dictionaryObj['COMPARE_TYPE']['object'][d.compareType] || '';
+                                }
+                            },
+                            {field: 'remark', title: '备注'},
+                            {align: 'center', toolbar: '#contTool', title: '操作',fixed:'right'}
+                        ]],
+                        done:function(res){
+                            mtlSubpackageData=res.data;
+                        }
+                    });
+
+                },
+                yes: function (index) {
+
+                    if(type!='4'){
+                        //必填项提示
+                        for (var i = 0; i < $('.testNull').length; i++) {
+                            if ($('.testNull').eq(i).val() == '') {
+                                layer.msg($('.testNull').eq(i).attr('title') + '为必填项！', {icon: 0});
+                                return false
+                            }
+                        }
+                        //提示输入框只能输入数字
+                        for(var a = 0;a < $('.chinese').length;a++) {
+                            if (isNaN($('.chinese').eq(a).val())) {
+                                layer.msg($('.chinese').eq(a).attr('title') + '中只能填写数字', {icon: 0});
+                                return false
+                            }
+                        }
+
+                        //管理目标金额-累计已签合同金额-在途合同金额-SUM（该WBS、CBS下变更合计）>=0 才能提交
+                        var requiredFlag = false;
+                        var $tr = $('.contract_list').find('.layui-table-main tr');
+
+                        var _arr = []
+
+                        $tr.each(function (index,element) {
+                            var _obj = {}
+                            //管理目标金额
+                            var _manageTarAmount = $(element).find('[data-field="manageTarAmount"] div').text()||0;
+                            //累计已签合同金额
+                            var _accumulatedSignedContractAmount = $(element).find('[data-field="accumulatedSignedContractAmount"] div').text()||0;
+                            //在途合同价
+                            var _trnOutMoney = $(element).find('[data-field="trnOutMoney"] div').text()||0;
+                            //本次合同变更值
+                            var _contractPrice2 = $(element).find('[name="contractPrice2"]').val()||0;
+
+                            var _projbudgetid = $(element).find('[name="contractPrice2"]').attr('projbudgetid')
+
+                            _obj.manageTarAmount=_manageTarAmount;
+                            _obj.accumulatedSignedContractAmount=_accumulatedSignedContractAmount;
+                            _obj.trnOutMoney=_trnOutMoney;
+                            _obj.contractPrice2=_contractPrice2;
+                            _obj.projbudgetid=_projbudgetid;
+
+                            _arr.push(_obj);
+
+
+                            /*if(sub(_manageTarAmount,_accumulatedSignedContractAmount)<_contractPrice){
+                                layer.msg('本次合同价加累计已签合同金额大于管理目标金额！', {icon: 0, time: 2000});
+                                requiredFlag = true;
+                                return false;
+                            }*/
+                        });
+                        //JS数组中对象ID相同对某值进行相加
+                        var temp = {};
+                        for (var i in _arr) {
+                            var key = _arr[i]['projbudgetid']; //判断依据
+                            if (temp[key]) {
+                                //temp[key]['projbudgetid'] = _arr[i]['projbudgetid'];
+                                //temp[key]['contractPrice2'] += Number(_arr[i]['contractPrice2']);//相加值
+                                temp[key]['contractPrice2'] =accAdd(temp[key]['contractPrice2'],Number(_arr[i]['contractPrice2']));//相加值
+                            } else {
+                                temp[key] = {};
+                                temp[key]['projbudgetid'] = _arr[i]['projbudgetid'];
+                                temp[key]['manageTarAmount'] = _arr[i]['manageTarAmount'];
+                                temp[key]['accumulatedSignedContractAmount'] = _arr[i]['accumulatedSignedContractAmount'];
+                                temp[key]['trnOutMoney'] = _arr[i]['trnOutMoney'];
+                                temp[key]['contractPrice2'] = Number(_arr[i]['contractPrice2']);
+                            }
+                        }
+                        var newArry = [];
+                        for (var k in temp) {
+                            newArry.push(temp[k]);
+                        }
+                        for (var j in newArry) {
+                            if(sub(sub(sub(newArry[j].manageTarAmount,newArry[j].accumulatedSignedContractAmount),newArry[j].trnOutMoney),newArry[j].contractPrice2)<0){
+                                layer.msg('管理目标金额-累计已签合同金额-在途签约合同金额-SUM（该WBS、CBS下变更合计）>=0！', {icon: 0, time: 2000});
+                                requiredFlag = true;
+                                return false;
+                            }
+                        }
+
+                        if (requiredFlag) {
+                            return false;
+                        }
+
+
+                        var loadIndex = layer.load();
+                        //分包合同变更数据
+                        var datas = $('#baseForm').serializeArray();
+                        var obj = {}
+                        datas.forEach(function (item) {
+                            obj[item.name] = item.value
+                        });
+
+                        obj.contractA=$('[name="contractA"]').attr('customerId')
+                        obj.customerId=$('[name="customerId"]').attr('customerId')
+
+                        // 附件
+                        var attachmentId = '';
+                        var attachmentName = '';
+                        for (var i = 0; i < $('#fileContent .dech').length; i++) {
+                            attachmentId += $('#fileContent .dech').eq(i).find('input').val();
+                            attachmentName += $('#fileContent a').eq(i).attr('name');
+                        }
+                        obj.attachmentId = attachmentId;
+                        obj.attachmentName = attachmentName;
+
+
+                        //合同明细数据
+                        var $tr = $('.contract_list').find('.layui-table-main tr');
+                        var materialDetailsArr = [];
+                        $tr.each(function () {
+                            var materialDetailsObj = {
+                                wbsName: $(this).find('[data-field="wbsName"] .layui-table-cell').text(),
+                                wbsId: $(this).find('[name="contractPrice2"]').attr('wbsId')||'',
+                                rbsName: $(this).find('[data-field="rbsName"] .layui-table-cell').text(),
+                                rbsId: $(this).find('[name="contractPrice2"]').attr('rbsId')||'',
+                                cbsName: $(this).find('[data-field="cbsName"] .layui-table-cell').text(),
+                                cbsId: $(this).find('[name="contractPrice2"]').attr('cbsId')||'',
+                                manageTarAmount: $(this).find('[data-field="manageTarAmount"] .layui-table-cell').text(),
+                                accumulatedSignedContractAmount: $(this).find('[data-field="accumulatedSignedContractAmount"] .layui-table-cell').text(),
+                                contractPrice: $(this).find('[data-field="contractPrice"] .layui-table-cell').text(),
+                                contractOtherContent: $(this).find('[name="contractOtherContent"]').val(),
+                                contractPrice2: retainDecimal($(this).find('[name="contractPrice2"]').val(),2),
+                                changeContractPrice:$(this).find('[name="changeContractPrice"]').val(),
+                                subcontractId: $(this).find('[name="contractPrice2"]').attr('subcontractId')?$(this).find('[name="contractPrice2"]').attr('subcontractId'):'',
+                                subcontractOutId: $(this).find('[name="contractPrice2"]').attr('subcontractOutId')?$(this).find('[name="contractPrice2"]').attr('subcontractOutId'):'',
+                                projBudgetId: $(this).find('[name="contractPrice2"]').attr('projBudgetId')?$(this).find('[name="contractPrice2"]').attr('projBudgetId'):'',
+                                trnOutMoney:$(this).find('[data-field="trnOutMoney"] .layui-table-cell').text()||0,
+                            }
+                            /*if ($(this).find('input[name="contractPrice"]').attr('subcontractOutId')) {
+                                materialDetailsObj.subcontractOutId = $(this).find('input[name="contractPrice"]').attr('subcontractOutId');
+                            }*/
+                            materialDetailsArr.push(materialDetailsObj);
+                        });
+                        obj.plbMtlSubcontractOuts = materialDetailsArr;
+
+                        // 合同清单数据
+                        var $tr2 = $('#paymentSettlementModule').find('.layui-table-main tr');
+                        var plbMtlContractOuts = [];
+                        $tr2.each(function () {
+                            var plbMtlContractObj = {
+                                subcontractId: $(this).find('input[name="subcontractContent"]').attr('subcontractId') || '',
+                                subcontractListId: $(this).find('input[name="subcontractContent"]').attr('subcontractListId') || '',
+                                projBudgetId: $(this).find('input[name="subcontractContent"]').attr('projBudgetId') || '',
+                                subcontractContent: $(this).find('input[name="subcontractContent"]').val(),
+                                subcontractUnit: $(this).find('input[name="subcontractUnit"]').val(),
+                                quantities: retainDecimal($(this).find('input[name="quantities"]').val(),3),
+                                comprehensiveUnitPrice: retainDecimal($(this).find('input[name="comprehensiveUnitPrice"]').val(),3),
+                                totalPrice: retainDecimal($(this).find('input[name="totalPrice"]').val(),2)
+                            }
+                            plbMtlContractOuts.push(plbMtlContractObj);
+                        });
+                        obj.plbMtlSubcontractLists = plbMtlContractOuts;
+
+                        if(mtlSubpackageData!=undefined&&mtlSubpackageData.length>0&&mtlSubpackageData[0].subpackageId!=undefined){
+                            obj.subpackageId = mtlSubpackageData[0].subpackageId;
+                        }
+                        //obj.subpackageid = $('#baseForm').attr('subpackageid')
+
+
+                        if (type == 1) {
+                            obj.subcontractId = data.subcontractId
+                        }else{
+                            obj.projId = parseInt(projId);
+                        }
+
+                        $.ajax({
+                            url: url,
+                            data: JSON.stringify(obj),
+                            dataType: 'json',
+                            contentType: "application/json;charset=UTF-8",
+                            type: 'post',
+                            success: function (res) {
+                                layer.close(loadIndex);
+                                if (res.flag) {
+                                    layer.msg('保存成功！', {icon: 1});
+                                    layer.close(index);
+                                    tableIns.config.where._ = new Date().getTime();
+                                    tableIns.reload();
+                                } else {
+                                    layer.msg('保存失败！', {icon: 2});
+                                }
+                            }
+                        });
+                    }else {
+                        layer.close(index);
+                    }
+                },
+                btn2: function (index) {
+                    //必填项提示
+                    for (var i = 0; i < $('.testNull').length; i++) {
+                        if ($('.testNull').eq(i).val() == '') {
+                            layer.msg($('.testNull').eq(i).attr('title') + '为必填项！', {icon: 0});
+                            return false
+                        }
+                    }
+                    //提示输入框只能输入数字
+                    for(var a = 0;a < $('.chinese').length;a++) {
+                        if (isNaN($('.chinese').eq(a).val())) {
+                            layer.msg($('.chinese').eq(a).attr('title') + '中只能填写数字', {icon: 0});
+                            return false
+                        }
+                    }
+
+                    //管理目标金额-累计已签合同金额-在途合同金额-SUM（该WBS、CBS下变更合计）>=0 才能提交
+                    var requiredFlag = false;
+                    var $tr = $('.contract_list').find('.layui-table-main tr');
+
+                    var _arr = []
+
+                    $tr.each(function (index,element) {
+                        var _obj = {}
+                        //管理目标金额
+                        var _manageTarAmount = $(element).find('[data-field="manageTarAmount"] div').text()||0;
+                        //累计已签合同金额
+                        var _accumulatedSignedContractAmount = $(element).find('[data-field="accumulatedSignedContractAmount"] div').text()||0;
+                        //在途合同价
+                        var _trnOutMoney = $(element).find('[data-field="trnOutMoney"] div').text()||0;
+                        //本次合同变更值
+                        var _contractPrice2 = $(element).find('[name="contractPrice2"]').val()||0;
+
+                        var _projbudgetid = $(element).find('[name="contractPrice2"]').attr('projbudgetid')
+
+                        _obj.manageTarAmount=_manageTarAmount;
+                        _obj.accumulatedSignedContractAmount=_accumulatedSignedContractAmount;
+                        _obj.trnOutMoney=_trnOutMoney;
+                        _obj.contractPrice2=_contractPrice2;
+                        _obj.projbudgetid=_projbudgetid;
+
+                        _arr.push(_obj);
+
+
+                        /*if(sub(_manageTarAmount,_accumulatedSignedContractAmount)<_contractPrice){
+                            layer.msg('本次合同价加累计已签合同金额大于管理目标金额！', {icon: 0, time: 2000});
+                            requiredFlag = true;
+                            return false;
+                        }*/
+                    });
+                    //JS数组中对象ID相同对某值进行相加
+                    var temp = {};
+                    for (var i in _arr) {
+                        var key = _arr[i]['projbudgetid']; //判断依据
+                        if (temp[key]) {
+                            //temp[key]['projbudgetid'] = _arr[i]['projbudgetid'];
+                            //temp[key]['contractPrice2'] += Number(_arr[i]['contractPrice2']);//相加值
+                            temp[key]['contractPrice2'] =accAdd(temp[key]['contractPrice2'],Number(_arr[i]['contractPrice2']));//相加值
+                        } else {
+                            temp[key] = {};
+                            temp[key]['projbudgetid'] = _arr[i]['projbudgetid'];
+                            temp[key]['manageTarAmount'] = _arr[i]['manageTarAmount'];
+                            temp[key]['accumulatedSignedContractAmount'] = _arr[i]['accumulatedSignedContractAmount'];
+                            temp[key]['trnOutMoney'] = _arr[i]['trnOutMoney'];
+                            temp[key]['contractPrice2'] = Number(_arr[i]['contractPrice2']);
+                        }
+                    }
+                    var newArry = [];
+                    for (var k in temp) {
+                        newArry.push(temp[k]);
+                    }
+                    for (var j in newArry) {
+                        if(sub(sub(sub(newArry[j].manageTarAmount,newArry[j].accumulatedSignedContractAmount),newArry[j].trnOutMoney),newArry[j].contractPrice2)<0){
+                            layer.msg('管理目标金额-累计已签合同金额-在途签约合同金额-SUM（该WBS、CBS下变更合计）>=0！', {icon: 0, time: 2000});
+                            requiredFlag = true;
+                            return false;
+                        }
+                    }
+                    if (requiredFlag) {
+                        return false;
+                    }
+
+
+                    var loadIndex = layer.load();
+                    //分包合同变更数据
+                    var datas = $('#baseForm').serializeArray();
+                    var obj = {}
+                    datas.forEach(function (item) {
+                        obj[item.name] = item.value
+                    });
+
+                    obj.contractA=$('[name="contractA"]').attr('customerId')
+                    obj.customerId=$('[name="customerId"]').attr('customerId')
+
+                    // 附件
+                    var attachmentId = '';
+                    var attachmentName = '';
+                    for (var i = 0; i < $('#fileContent .dech').length; i++) {
+                        attachmentId += $('#fileContent .dech').eq(i).find('input').val();
+                        attachmentName += $('#fileContent a').eq(i).attr('name');
+                    }
+                    obj.attachmentId = attachmentId;
+                    obj.attachmentName = attachmentName;
+
+                    //合同明细数据
+                    var $tr = $('.contract_list').find('.layui-table-main tr');
+                    var materialDetailsArr = [];
+                    $tr.each(function () {
+                        var materialDetailsObj = {
+                            wbsName: $(this).find('[data-field="wbsName"] .layui-table-cell').text(),
+                            wbsId: $(this).find('[name="contractPrice2"]').attr('wbsId')||'',
+                            rbsName: $(this).find('[data-field="rbsName"] .layui-table-cell').text(),
+                            rbsId: $(this).find('[name="contractPrice2"]').attr('rbsId')||'',
+                            cbsName: $(this).find('[data-field="cbsName"] .layui-table-cell').text(),
+                            cbsId: $(this).find('[name="contractPrice2"]').attr('cbsId')||'',
+                            manageTarAmount: $(this).find('[data-field="manageTarAmount"] .layui-table-cell').text(),
+                            accumulatedSignedContractAmount: $(this).find('[data-field="accumulatedSignedContractAmount"] .layui-table-cell').text(),
+                            contractPrice: $(this).find('[data-field="contractPrice"] .layui-table-cell').text(),
+                            contractOtherContent: $(this).find('[name="contractOtherContent"]').val(),
+                            contractPrice2: retainDecimal($(this).find('[name="contractPrice2"]').val(),2),
+                            changeContractPrice:$(this).find('[name="changeContractPrice"]').val(),
+                            subcontractId: $(this).find('[name="contractPrice2"]').attr('subcontractId')?$(this).find('[name="contractPrice2"]').attr('subcontractId'):'',
+                            subcontractOutId: $(this).find('[name="contractPrice2"]').attr('subcontractOutId')?$(this).find('[name="contractPrice2"]').attr('subcontractOutId'):'',
+                            projBudgetId: $(this).find('[name="contractPrice2"]').attr('projBudgetId')?$(this).find('[name="contractPrice2"]').attr('projBudgetId'):'',
+                            trnOutMoney:$(this).find('[data-field="trnOutMoney"] .layui-table-cell').text()||0,
+                        }
+                        /*if ($(this).find('input[name="contractPrice"]').attr('subcontractOutId')) {
+                            materialDetailsObj.subcontractOutId = $(this).find('input[name="contractPrice"]').attr('subcontractOutId');
+                        }*/
+                        materialDetailsArr.push(materialDetailsObj);
+                    });
+                    obj.plbMtlSubcontractOuts = materialDetailsArr;
+
+                    // 合同清单数据
+                    var $tr2 = $('#paymentSettlementModule').find('.layui-table-main tr');
+                    var plbMtlContractOuts = [];
+                    $tr2.each(function () {
+                        var plbMtlContractObj = {
+                            subcontractId: $(this).find('input[name="subcontractContent"]').attr('subcontractId') || '',
+                            subcontractListId: $(this).find('input[name="subcontractContent"]').attr('subcontractListId') || '',
+                            projBudgetId: $(this).find('input[name="subcontractContent"]').attr('projBudgetId') || '',
+                            subcontractContent: $(this).find('input[name="subcontractContent"]').val(),
+                            subcontractUnit: $(this).find('input[name="subcontractUnit"]').val(),
+                            quantities: $(this).find('input[name="quantities"]').val(),
+                            comprehensiveUnitPrice: $(this).find('input[name="comprehensiveUnitPrice"]').val(),
+                            totalPrice: $(this).find('input[name="totalPrice"]').val()
+                        }
+                        plbMtlContractOuts.push(plbMtlContractObj);
+                    });
+                    obj.plbMtlSubcontractPayList = plbMtlContractOuts;
+
+                    obj.subpackageid = $('#baseForm').attr('subpackageid')
+
+
+                    if (type == 1) {
+                        obj.subcontractId = data.subcontractId
+                    }else{
+                        obj.projId = parseInt(projId);
+                    }
+
+                    $.ajax({
+                        url: url,
+                        data: JSON.stringify(obj),
+                        dataType: 'json',
+                        contentType: "application/json;charset=UTF-8",
+                        type: 'post',
+                        success: function (res) {
+                            layer.close(loadIndex);
+                            if (res.flag) {
+                                //layer.msg('保存成功！', {icon: 1});
+                                //layer.close(index);
+
+                                layer.open({
+                                    type: 1,
+                                    title: '选择流程',
+                                    area: ['70%', '80%'],
+                                    btn: ['确定', '取消'],
+                                    btnAlign: 'c',
+                                    content: '<div style="padding: 10px"><table id="flowTable" lay-filter="flowTable"></table></div>',
+                                    success: function () {
+                                        $.get('/plbFlowSetting/getOwnFlowData', {plbDictNo: '28'}, function (res) {
+                                            var flowData = []
+                                            $.each(res.data.flowData, function (k, v) {
+                                                flowData.push({
+                                                    flowId: k,
+                                                    flowName: v
+                                                });
+                                            });
+                                            table.render({
+                                                elem: '#flowTable',
+                                                data: flowData,
+                                                cols: [[
+                                                    {type: 'radio'},
+                                                    {field: 'flowName', title: '流程名称'}
+                                                ]]
+                                            })
+                                        });
+                                    },
+                                    yes: function (index) {
+                                        var loadIndex = layer.load();
+                                        var checkStatus = table.checkStatus('flowTable');
+                                        if (checkStatus.data.length > 0) {
+                                            var flowData = checkStatus.data[0];
+                                            var approvalData = res.data;
+                                            approvalData.projectName=approvalData.projName==undefined?approvalData.projectName:approvalData.projName;
+                                            approvalData.projectName=approvalData.projectName==undefined?approvalData.projName:approvalData.projectName;
+                                            delete plbMtlSubcontractLists;
+                                            delete plbMtlSubcontractOuts;
+                                            delete plbMtlSubcontractPayList;
+                                            newWorkFlow(flowData.flowId, function (res) {
+                                                var submitData = {
+                                                    subcontractId:approvalData.subcontractId,
+                                                    runId: res.flowRun.runId
+                                                    //auditerStatus:1
+                                                }
+                                                $.popWindow("/workflow/work/workform?opflag=1&flowId=" + flowData.flowId + '&type=new&flowStep=1&prcsId=1&runId=' + res.flowRun.runId, '<fmt:message code="newWork.th.Quick" />', '0', '0', '1150px', '700px');
+
+                                                $.ajax({
+                                                    url: '/plbMtlSubcontract/update',
+                                                    data: JSON.stringify(submitData),
+                                                    dataType: 'json',
+                                                    contentType: "application/json;charset=UTF-8",
+                                                    type: 'post',
+                                                    success: function (res) {
+                                                        layer.close(loadIndex);
+                                                        if (res.flag) {
+                                                            layer.close(index);
+                                                            layer.msg('提交成功!', {icon: 1});
+                                                            tableIns.config.where._ = new Date().getTime();
+                                                            tableIns.reload();
+                                                        } else {
+                                                            layer.msg(res.msg, {icon: 2});
+                                                        }
+                                                    }
+                                                });
+                                            },approvalData);
+                                        } else {
+                                            layer.close(loadIndex);
+                                            layer.msg('请选择一项！', {icon: 0});
+                                        }
+                                    }
+                                });
+                            } else {
+                                layer.msg('保存失败！', {icon: 2});
+                            }
+                        }
+                    });
+                },
+
+            });
+        }
+
+        //选择经营立项
+        $(document).on('click','.chooseMtlPlanId2',function () {
+            var projId = $('#leftId').attr('projId');
+            var cols=[
+                {type:'radio'},
+                {field: 'manageProjNo', title: '立项编号', sort: true, hide: false},
+                {field:'projectName',title:'项目名称'},
+                {field:'manageProjName',title:'经营立项名称'},
+                {field: 'manageProjTypeName', title: '经营立项类型', sort: false, hide: false},
+                {field:'projectDate',title:'经营立项日期'},
+                // {title: '操作', width: 100, align: 'center', toolbar: '#revisionBarDemo'}
+            ]
+            layer.open({
+                type: 1,
+                title: '选择经营立项',
+                btn: ['确定','取消'],
+                btnAlign: 'c',
+                area: ['90%', '80%'],
+                maxmin: true,
+                content: '<div class="wrap_right flow_Table2" style="margin: 10px;">\n' +
+                    /*	'<div class="query_module layui-form layui-row" style="position: relative">\n' +
+                        '<div class="layui-col-xs2" >\n' +
+                        '<input type="text" name="contractName" placeholder="合同名称" autocomplete="off" class="layui-input">\n' +
+                        '</div>\n' +
+                        '<div class="layui-col-xs2" style="margin-left: 15px;">\n' +
+                        '<input type="text" name="customerName" placeholder="乙方" autocomplete="off" class="layui-input">\n' +
+                        '</div>\n' +
+                        '<div class="layui-col-xs2" style="margin-top: 3px;text-align: center">\n' +
+                        '<button type="button" class="layui-btn layui-btn-sm" id="searchBtn2">查询</button>\n' +
+                        '</div>\n' +
+                        '</div>\n' +*/
+                    '<div style="position: relative">\n' +
+                    '<div class="table_box">\n' +
+                    '<table id="flowTable2" lay-filter="flowTable2"></table>\n' +
+                    '</div>\n' +
+                    '</div>\n' +
+                    '</div>',
+                success: function () {
+
+                    table.render({
+                        elem: '#flowTable2',
+                        url: '/manageProject/select',
+                        cols: [cols],
+                        //height: 'full-220',
+                        page: {
+                            limits: [10, 20, 30, 40, 50]
+                        },
+                        where: {projectId:projId || ''},
+                        autoSort: false,
+                        request: {
+                            limitName: 'pageSize'
+                        },
+                    });
+                },
+                yes: function (index) {
+                    var checkStatus = table.checkStatus('flowTable2');
+                    if (checkStatus.data.length > 0) {
+                        $('.click_one').val(checkStatus.data[0].manageProjName).attr('manageProjId',checkStatus.data[0].manageProjId)
+                        layer.close(index);
+                    } else {
+                        layer.msg('请选择一项！', {icon: 0});
+                    }
+                }
+            })
+        });
+
+        //选择查看详情
+        $(document).on('click','.click_one',function () {
+            if(!($('.click_one').attr('manageProjId'))){
+                return false
+            }
+
+            var data=null
+
+            layer.open({
+                type: 1,
+                title: '查看详情',
+                area: ['100%', '100%'],
+                btn: ['确定'],
+                btnAlign: 'c',
+                content: ['<div class="layui-collapse layer_wrap">\n' +
+                <%--    /* region 立项项目基础信息 */--%>
+                '    <div class="layui-colla-item">\n' +
+                '        <h2 class="layui-colla-title">立项信息</h2>\n' +
+                '        <div class="layui-colla-content layui-show plan_base_info">\n' +
+                '            <form class="layui-form" id="base_Form" lay-filter="base_Form">\n' +
+                <%--                /* region 第一行 */--%>
+                '                <div class="layui-row">\n' +
+                '                    <div class="layui-col-xs4 layui_col" style="padding: 0 5px;">\n' +
+                '                        <div class="layui-form-item">\n' +
+                '                            <label class="layui-form-label form_label">单据号<span field="manageProjNo" class="field_required">*</span><a title="刷新编号" class="refresh_no_btn"><i class="layui-icon layui-icon-refresh"></i></a></label>\n' +
+                '                            <div class="layui-input-block form_block">\n' +
+                '                                <input type="text" readonly name="manageProjNo" autocomplete="off" class="layui-input">\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <div class="layui-col-xs4 layui_col" style="padding: 0 5px;">\n' +
+                '                        <div class="layui-form-item">\n' +
+                '                            <label class="layui-form-label form_label">项目名称<span field="projectName" class="field_required">*</span></label>\n' +
+                '                            <div class="layui-input-block form_block">\n' +
+                '                                <input type="text" id="projectName" name="projectName" autocomplete="off"  class="layui-input ">\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <div class="layui-col-xs4 layui_col" style="padding: 0 5px;">\n' +
+                '                        <div class="layui-form-item">\n' +
+                '                            <label class="layui-form-label form_label">经营立项名称<span field="manageProjName" class="field_required">*</span></label>\n' +
+                '                            <div class="layui-input-block form_block">\n' +
+                '                                <input type="text" name="manageProjName" autocomplete="off"  class="layui-input ">\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <div class="layui-col-xs4 layui_col" style="padding: 0 5px;">\n' +
+                '                        <div class="layui-form-item">\n' +
+                '                            <label class="layui-form-label form_label">经营立项类型<span field="manageProjType" class="field_required">*</span></label>\n' +
+                '                            <div class="layui-input-block form_block">\n' +
+                '                                <select name="manageProjType" id="manageProjType" lay-filter="test">\n' +
+                '                                </select>\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <div class="layui-col-xs4 layui_col" style="padding: 0 5px;">\n' +
+                '                        <div class="layui-form-item">\n' +
+                '                            <label class="layui-form-label form_label">经营目标选择</label>\n' +
+                '                            <div class="layui-input-block form_block">\n' +
+                '<i style="position: absolute;top: 8px;right: 5px;" class="layui-icon layui-icon-search"></i>  ' +
+                '                               <input type="text" name="itemType" id="itemType" placeholder="请选择经营目标" readonly autocomplete="off" class="layui-input" style="padding-right: 25px;background:#e7e7e7;cursor: pointer;">\n' +
+                '                               <input type="hidden" name="projBudgetId" id="projBudgetId" readonly autocomplete="off" class="layui-input" style="padding-right: 25px;background:#e7e7e7;cursor: pointer;">\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                </div>\n' +
+                <%--                /* endregion */--%>
+                <%--                /* region 第二行 */--%>
+                '                <div class="layui-row">\n' +
+                '                    <div class="layui-col-xs4 layui_col" style="padding: 0 5px;">\n' +
+                '                        <div class="layui-form-item">\n' +
+                '                            <label class="layui-form-label form_label">甲方是否已下达指令<span field="firstPartyOrderFlag" class="field_required">*</span></label>\n' +
+                '                            <div class="layui-input-block form_block">\n' +
+                '                                <select name="firstPartyOrderFlag" id="firstPartyOrderFlag">\n' +
+                '                                    <option value="">请选择</option>\n' +
+                '                                    <option value="0">是</option>\n' +
+                '                                    <option value="1">否</option>\n' +
+                '                                </select>\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <div class="layui-col-xs4 layui_col" style="padding: 0 5px;">\n' +
+                '                        <div class="layui-form-item">\n' +
+                '                            <label class="layui-form-label form_label">预计变更收入<span field="changeIncome" class="field_required">*</span></label>\n' +
+                '                            <div class="layui-input-block form_block">\n' +
+                '                                <input type="text" readonly name="changeIncome" autocomplete="off"  class="layui-input" style="background:#e7e7e7;">\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <div class="layui-col-xs4 layui_col" style="padding: 0 5px;">\n' +
+                '                        <div class="layui-form-item">\n' +
+                '                            <label class="layui-form-label form_label">实施成本<span field="implementationCost" class="field_required">*</span></label>\n' +
+                '                            <div class="layui-input-block form_block">\n' +
+                '                                <input type="text" readonly name="implementationCost" autocomplete="off" class="layui-input" style="background:#e7e7e7;">\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <div class="layui-col-xs4 layui_col" style="padding: 0 5px;">\n' +
+                '                        <div class="layui-form-item">\n' +
+                '                            <label class="layui-form-label form_label">预计利润<span field="estimatedProfit" class="field_required">*</span></label>\n' +
+                '                            <div class="layui-input-block form_block">\n' +
+                '                                <input type="text" readonly name="estimatedProfit" autocomplete="off" class="layui-input" style="background:#e7e7e7;">\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <div class="layui-col-xs4 layui_col" style="padding: 0 5px;">\n' +
+                '                        <div class="layui-form-item">\n' +
+                '                            <label class="layui-form-label form_label">经营立项日期<span field="projectDate" class="field_required">*</span></label>\n' +
+                '                            <div class="layui-input-block form_block">\n' +
+                '                                <input type="text" name="projectDate" id="projectDate" autocomplete="off"  class="layui-input ">\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                </div>\n' +
+                <%--                /* endregion */--%>
+                <%--                /* region 第三行 */--%>
+                // '                <div class="layui-row">\n' +
+                //
+                //
+                //
+                // '                </div>\n' +
+                <%--                /* endregion */--%>
+                <%--                /* region 第四行 */--%>
+                // '                <div class="layui-row">\n' +
+                /*'                    <div class="layui-col-xs4 layui_col" style="padding: 0 5px;display: none;">\n' +
+                '                        <div class="layui-form-item">\n' +
+                '                            <label class="layui-form-label form_label">变更单选择</label>\n' + //<span field="itemType2" class="field_required">*</span>
+                '                            <div class="layui-input-block form_block">\n' +
+                '                                <input type="text" name="itemType2" id="itemType2" autocomplete="off"  class="layui-input ">\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +*/
+
+                // '                </div>\n' +
+                <%--                /* endregion */--%>
+                <%--                /* region 第五行 */--%>
+                '                <div class="layui-row">\n' +
+                '                    <div class="layui-col-xs4 layui_col" style="padding: 0 5px;">\n' +
+                '                        <div class="layui-form-item">\n' +
+                '                            <label class="layui-form-label form_label">备注</label>\n' +
+                '                            <div class="layui-input-block form_block">\n' +
+                '                                <input name="memo"  class="layui-input">\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <div class="layui-col-xs4 layui_col" style="padding: 0 5px;">\n' +
+                '                        <div class="layui-form-item">\n' +
+                '                            <label class="layui-form-label form_label">填报人<span field="createUserName" class="field_required">*</span></label>\n' +
+                '                            <div class="layui-input-block form_block">\n' +
+                '                                <input type="text" readonly name="createUserName" autocomplete="off" class="layui-input" style="cursor: pointer;">\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <div class="layui-col-xs4 layui_col" style="padding: 0 5px;">\n' +
+                '                        <div class="layui-form-item">\n' +
+                '                            <label class="layui-form-label form_label">填报时间<span field="createTime" class="field_required">*</span></label>\n' +
+                '                            <div class="layui-input-block form_block">\n' +
+                '                                <input type="text" readonly name="createTime" autocomplete="off" class="layui-input" style="cursor: pointer;">\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                </div>\n' +
+                <%--                /* endregion */--%>
+                <%--                /* region 第六行 */--%>
+                '                <div class="layui-row">\n' +
+                '                    <div class="layui-col-xs6" style="padding: 0 5px;">\n' +
+                '                        <div class="layui-form-item">\n' +
+                '                            <label class="layui-form-label form_label">经营立项内容<span field="manageProjContent" class="field_required">*</span></label>\n' +
+                '                            <div class="layui-input-block form_block">\n' +
+                '                                <textarea name="manageProjContent" id="manageProjContent" placeholder="请输入立项内容" class="layui-textarea"></textarea>\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                </div>\n' +
+                <%--                /* endregion */--%>
+                <%--                /* region 第七行 */--%>
+                '                <div class="layui-row">\n' +
+                '                    <div class="layui-col-xs12" style="padding: 0 5px;">\n' +
+                '                        <div class="layui-form-item">\n' +
+                '                            <label class="layui-form-label form_label">附件</label>\n' +
+                '                            <div class="layui-input-block form_block">\n' +
+                '                                <div class="file_module">\n' +
+                '                                    <div id="fileContent" class="file_content"></div>\n' +
+                '                                    <div class="file_upload_box">\n' +
+                '                                        <a href="javascript:;" class="open_file">\n' +
+                '                                            <img src="/img/mg11.png" style="margin: -3px 5px 0 0;"><span>添加附件</span>\n' +
+                '                                            <input type="file" multiple id="fileupload" data-url="/upload?module=operateManage" name="file">\n' +
+                '                                        </a>\n' +
+                '                                        <div class="progress" id="progress">\n' +
+                '                                            <div class="bar"></div>\n' +
+                '                                        </div>\n' +
+                '                                        <div class="bar_text"></div>\n' +
+                '                                    </div>\n' +
+                '                                </div>\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                </div>\n' +
+                <%--                /* endregion */--%>
+                '            </form>\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                <%--    /* endregion */--%>
+                <%--    /* region 立项明细 */--%>
+                '    <div class="layui-colla-item">\n' +
+                '        <h2 class="layui-colla-title">立项明细</h2>\n' +
+                '        <div class="layui-colla-content mtl_info layui-show">\n' +
+                '            <div>\n' +
+                '                <table id="material_DetailsTable" lay-filter="material_DetailsTable"></table>\n' +
+                '            </div>\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                <%--    /* endregion */--%>
+                <%--    /* region 立项明细 */--%>
+                '    <div class="layui-colla-item">\n' +
+                '        <h2 class="layui-colla-title">变更单明细</h2>\n' +
+                '        <div class="layui-colla-content mtl_info2 layui-show">\n' +
+                '            <div>\n' +
+                '                <table id="material_DetailsTable2" lay-filter="material_DetailsTable2"></table>\n' +
+                '            </div>\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                <%--    /* endregion */--%>
+                '</div>'].join(''),
+                success: function () {
+                    $.ajax({
+                        url: '/manageProject/getById?registerId='+$('.click_one').attr('manageProjId'),
+                        dataType: 'json',
+                        contentType: "application/json;charset=UTF-8",
+                        type: 'post',
+                        async:false,
+                        success: function (res) {
+                            if (res.code==='0'||res.code===0) {
+                                data = res.obj
+                            } else {
+                                layer.msg('获取数据失败!', {icon: 0});
+                            }
+                        }
+                    });
+                    var material_DetailsTableData =[]
+                    var material_DetailsTableData2 =[]
+
+                    //回显数据
+                    if (data) {
+                        //经营立项类型
+                        var $select1 = $("#manageProjType");
+                        var optionStr = '<option value="">请选择</option>';
+                        var _str=dictionaryObj.MANAGE_ITEM_TYPE.str;
+                        if(_str!=undefined){
+                            optionStr += _str
+                        }
+                        $select1.html(optionStr);
+
+                        form.val("base_Form", data);
+                        //项目名称
+                        // getProjName('#projectName',data.projId)
+
+                        $('#itemType').val(data ? data.itemName : '');
+
+                        if (data.attachmentList && data.attachmentList.length > 0) {
+                            var fileArr = data.attachmentList;
+                            $('#fileContent').append(echoAttachment(fileArr));
+                        }
+
+                        material_DetailsTableData = data.manageInfoList;
+                        material_DetailsTableData2 = data.detailList;
+
+                        //查看详情
+                        $('#base_Form input,select,textarea').attr('disabled', 'true')
+                        $('#base_Form .file_upload_box').hide()
+                        $('#base_Form .deImgs').hide()
+
+                    }
+
+
+
+                    form.render();
+
+                    //立项明细
+                    var cols = [
+                        {type: 'numbers', title: '序号'},
+                        /*{
+                            field: 'projBudgetId', title: '目标选择',minWidth:100, templet: function (d) {
+                                return '<p name="projBudgetId" style="text-align: center"><i class="layui-icon layui-icon-add-circle chooseMaterials" style="font-size: 25px;cursor: pointer"></i></p>'
+                            }
+                        },*/
+                        {
+                            field: 'wbsId', title: 'WBS', minWidth: 230, templet: function (d) {
+                                return '<input type="text" readonly name="wbsId" wbsId="' + d.wbsId + '" projBudgetId="' + (d.projBudgetId || "") + '"  manageProjInfoId="' + (d.manageProjInfoId || "") + '" manageProjId="' + d.manageProjId + '" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.wbsName || '') + '">'
+                            }
+                        },
+                        {
+                            field: 'rbsId', title: 'RBS', minWidth: 230, templet: function (d) {
+                                return '<input type="text" readonly name="rbsId" rbsId="' + d.rbsId + '"  class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.rbsName || '') + '">'
+                            }
+                        },
+                        {
+                            field: 'cbsId', title: 'CBS', minWidth: 200, templet: function (d) {
+                                return '<input type="text" readonly name="cbsId" cbsId="' + d.cbsId + '" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.cbsName || '') + '">'
+                            }
+                        },
+                        {
+                            field: 'incomeTarNum', title: '收入目标数量', minWidth: 120, templet: function (d) {
+                                return '<input type="number" readonly name="incomeTarNum" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.incomeTarNum || 0) + '">'
+                            }
+                        },
+                        {
+                            field: 'incomeTarPrice', title: '收入目标单价', minWidth: 120, templet: function (d) {
+                                return '<input type="number" readonly name="incomeTarPrice" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.incomeTarPrice || 0) + '">'
+                            }
+                        },
+                        {
+                            field: 'incomeTarAmount', title: '收入目标金额', minWidth: 120, templet: function (d) {
+                                return '<input type="number" readonly name="incomeTarAmount" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.incomeTarAmount || 0) + '">'
+                            }
+                        },
+                        {
+                            field: 'optTarNum', title: '优化目标数量', minWidth: 120, templet: function (d) {
+                                return '<input type="number" readonly name="optTarNum" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.optTarNum || 0) + '">'
+                            }
+                        },
+                        {
+                            field: 'optTarPrice', title: '优化目标单价', minWidth: 120, templet: function (d) {
+                                return '<input type="number" readonly name="optTarPrice" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.optTarPrice || 0) + '">'
+                            }
+                        },
+                        {
+                            field: 'optTarAmount', title: '优化目标金额', minWidth: 120, templet: function (d) {
+                                return '<input type="number" readonly name="optTarAmount" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.optTarAmount || 0) + '">'
+                            }
+                        },
+                        {
+                            field: 'manageTarNum', title: '管理目标数量', minWidth: 120, templet: function (d) {
+                                return '<input type="number" readonly name="manageTarNum" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.manageTarNum || 0) + '">'
+                            }
+                        },
+                        {
+                            field: 'manageTarPrice', title: '管理目标单价', minWidth: 120, templet: function (d) {
+                                return '<input type="number" readonly name="manageTarPrice" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.manageTarPrice || 0) + '">'
+                            }
+                        },
+                        {
+                            field: 'manageTarAmount', title: '管理目标金额', minWidth: 120, templet: function (d) {
+                                return '<input type="number" readonly name="manageTarAmount" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.manageTarAmount || 0) + '">'
+                            }
+                        },
+                        {
+                            field: 'runTarNum', title: '经营目标收入金额', minWidth: 120, templet: function (d) {
+                                return '<input type="number" name="runTarNum" class="layui-input" style="height: 100%;" value="' + (d.runTarNum || '') + '">'
+                            }
+                        },
+                        {
+                            field: 'runTarPrice', title: '经营目标利润金额', minWidth: 120, templet: function (d) {
+                                return '<input type="number" name="runTarPrice" class="layui-input" style="height: 100%;" value="' + (d.runTarPrice || '') + '">'
+                            }
+                        },
+                        {
+                            field: 'runTarAmount', title: '经营目标金额', minWidth: 120, templet: function (d) {
+                                return '<input type="number" readonly name="runTarAmount" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.runTarAmount || '') + '">'
+                            }
+                        },
+                        {
+                            field: 'manTarOptNum', title: '经营目标优化数量', minWidth: 160, templet: function (d) {
+                                return '<input type="number" name="manTarOptNum" class="layui-input" style="height: 100%;" value="' + (d.manTarOptNum || '') + '">'
+                            }
+                        },
+                        {
+                            field: 'manTarOptAmount', title: '经营目标优化金额', minWidth: 160, templet: function (d) {
+                                return '<input type="number" name="manTarOptAmount" class="layui-input" style="height: 100%;" value="' + (d.manTarOptAmount || '') + '">'
+                            }
+                        },
+                        {
+                            field: 'aftManTarNum', title: '优化后经营目标收入金额', minWidth: 160, templet: function (d) {
+                                return '<input type="number" readonly name="aftManTarNum" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.aftManTarNum || 0) + '">'
+                            }
+                        },
+                        {
+                            field: 'aftManTarPrice', title: '优化后经营目标利润金额', minWidth: 160, templet: function (d) {
+                                return '<input type="number" readonly name="aftManTarPrice" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.aftManTarPrice || 0) + '">'
+                            }
+                        },
+                        {
+                            field: 'aftManTarAmount', title: '优化后经营目标金额', minWidth: 160, templet: function (d) {
+                                return '<input type="number" readonly name="aftManTarAmount" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.aftManTarAmount || 0) + '">'
+                            }
+                        },
+                        {
+                            field: 'adjIncomeTarNum', title: '调整后收入目标数量', minWidth: 160, templet: function (d) {
+                                return '<input type="number" readonly name="adjIncomeTarNum" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.adjIncomeTarNum || 0) + '">'
+                            }
+                        },
+                        {
+                            field: 'adjIncomeTarPrice', title: '调整后收入目标单价', minWidth: 160, templet: function (d) {
+                                return '<input type="number" readonly name="adjIncomeTarPrice" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.adjIncomeTarPrice || 0) + '">'
+                            }
+                        },
+                        {
+                            field: 'adjIncomeTarAmount', title: '调整后收入目标金额', minWidth: 160, templet: function (d) {
+                                return '<input type="number" readonly name="adjIncomeTarAmount" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.adjIncomeTarAmount || 0) + '">'
+                            }
+                        },
+                        {
+                            field: 'adjOptTarNum', title: '调整后优化目标数量', minWidth: 160, templet: function (d) {
+                                return '<input type="number" readonly name="adjOptTarNum" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.adjOptTarNum || 0) + '">'
+                            }
+                        },
+                        {
+                            field: 'adjOptTarPrice', title: '调整后优化目标单价', minWidth: 160, templet: function (d) {
+                                return '<input type="number" readonly name="adjOptTarPrice" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.adjOptTarPrice || 0) + '">'
+                            }
+                        },
+                        {
+                            field: 'adjOptTarAmount', title: '调整后优化目标数金额', minWidth: 160, templet: function (d) {
+                                return '<input type="number" readonly name="adjOptTarAmount" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.adjOptTarAmount || 0) + '">'
+                            }
+                        },
+                        {
+                            field: 'adjManTarNum', title: '调整后管理目标数量', minWidth: 160, templet: function (d) {
+                                return '<input type="number" readonly name="adjManTarNum" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.adjManTarNum || 0) + '">'
+                            }
+                        },
+                        {
+                            field: 'adjManTarPrice', title: '调整后管理目单价', minWidth: 160, templet: function (d) {
+                                return '<input type="number" readonly name="adjManTarPrice" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.adjManTarPrice || 0) + '">'
+                            }
+                        },
+                        {
+                            field: 'adjManTarAmount', title: '调整后管理目金额', minWidth: 160, templet: function (d) {
+                                return '<input type="number" readonly name="adjManTarAmount" class="layui-input" style="height: 100%;background: #e7e7e7;" value="' + (d.adjManTarAmount || 0) + '">'
+                            }
+                        }
+                    ]
+                    table.render({
+                        elem: '#material_DetailsTable',
+                        data: material_DetailsTableData,
+                        //toolbar: '#toolbarDemoIn',
+                        defaultToolbar: [''],
+                        limit: 1000,
+                        cols: [cols],
+                        done: function (obj) {
+
+                        }
+                    });
+
+                    //变更单明细表
+                    var cols2 = [
+                        {type: 'numbers', title: '序号'},
+                        {
+                            field: 'registerNo', title: '变更单编号', minWidth: 180, templet: function (d) {
+                                return '<input type="text" name="registerNo" readonly registerId="' + d.registerId + '" manageProjInfoId="' + (d.manageProjInfoId || "") + '" class="layui-input " style="height: 100%;" value="' + (d.registerNo || '') + '">'
+                            }
+                        },
+                        {
+                            field: 'registerName', title: '变更单名称', minWidth: 120, templet: function (d) {
+                                return '<input type="text" name="registerName" readonly class="layui-input " style="height: 100%;" value="' + (d.registerName || '') + '">'
+                            }
+                        },
+                        {
+                            field: 'registerCategory', title: '变更单类别', minWidth: 120, templet: function (d) {
+                                return '<input type="text" name="registerCategoryName" readonly registerCategory="' + d.registerCategory + '" class="layui-input " style="height: 100%;" value="' + (d.registerCategoryName || '') + '">'
+                            }
+                        },
+                        {
+                            field: 'registerType', title: '变更单类型', minWidth: 120, templet: function (d) {
+                                return '<input type="text" name="registerTypeName" readonly registerType="' + d.registerType + '" class="layui-input " style="height: 100%;" value="' + (d.registerTypeName || '') + '">'
+                            }
+                        },
+                        {
+                            field: 'constructionDrawingsNo', title: '施工图纸编号', minWidth: 140, templet: function (d) {
+                                return '<input type="text" name="constructionDrawingsNo" readonly class="layui-input " style="height: 100%;" value="' + (d.constructionDrawingsNo || '') + '">'
+                            }
+                        },
+                        {
+                            field: 'firstPartyOrderFlag', title: '甲方是否下达指令', minWidth: 180, templet: function (d) {
+                                if (d.firstPartyOrderFlag) {
+                                    if (d.firstPartyOrderFlag == '0') {
+                                        return '<span firstPartyOrderFlag="' + (d.firstPartyOrderFlag || '') + '">是</span>'
+                                    } else if (d.firstPartyOrderFlag == '1') {
+                                        return '<span firstPartyOrderFlag="' + (d.firstPartyOrderFlag || '') + '">否</span>'
+                                    }
+                                } else {
+                                    return ''
+                                }
+                            }
+                        },
+                        {
+                            field: 'registerDate', title: '变更日期', minWidth: 160, templet: function (d) {
+                                return '<input type="text" name="registerDate" readonly class="layui-input " style="height: 100%;" value="' + (d.registerDate || '') + '">'
+                            }
+                        }
+                    ]
+
+                    table.render({
+                        elem: '#material_DetailsTable2',
+                        data: material_DetailsTableData2,
+                        //toolbar: '#toolbarDemoIn2',
+                        defaultToolbar: [''],
+                        limit: 1000,
+                        cols: [cols2],
+                        done: function (obj) {
+
+                        }
+                    });
+                }
+            })
+        });
+
+
+
+        //点击查询
+        $('.searchData').click(function () {
+            var searchParams = {}
+            var $seachData = $('.query_module [name]')
+            $seachData.each(function () {
+                searchParams[$(this).attr('name')] = $(this).val() ? $(this).val().trim() : ''
+                // 将查询值保存至cookie中
+                $.cookie($(this).attr('name'), $(this).val(), {expires: 5, path: "/",});
+            })
+            tableIns.reload({
+                where: searchParams,
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            });
+        });
+
+        /*$(document).on('click', '.choose_Equivalent', function () {
+            var _this = $(this);
+            layer.open({
+                type: 1,
+                title: '选择分包商',
+                area: ['70%', '80%'],
+                maxmin: true,
+                btn: ['确定', '取消'],
+                btnAlign: 'c',
+                content: ['<div class="container">',
+                    '<div class="wrapper">',
+                    '<div class="wrap_left">' +
+                    '<div class="layui-form">' +
+                    '<select id="mtlTypeTree" lay-filter="mtlTypeTree"></select>' +
+                    '<div class="tree_module" style="top: 10px;">' +
+                    '<div id="chooseMtlTree" class="eleTree" lay-filter="chooseMtlTree"></div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>',
+                    '<div class="wrap_right">' +
+                    '<div class="mtl_table_box" style="display: none;">' +
+                    //查询
+                    '       <div class="layui-row inSearchContent">' +
+                    '             <div class="layui-col-xs4">\n' +
+                    '                  <input type="text" name="customerName" placeholder="客商单位名称" autocomplete="off" class="layui-input">\n' +
+                    '             </div>\n' +
+                    '             <div class="layui-col-xs2" style="margin-top: 3px;text-align: center">\n' +
+                    '                   <button type="button" class="layui-btn layui-btn-sm inSearchData">查询</button>\n' +
+                    '             </div>\n' +
+                    '       </div>'+
+                    '<table id="materialsTable" lay-filter="materialsTable"></table>' +
+                    '</div>' +
+                    '<div class="mtl_no_data" style="text-align: center;">' +
+                    '<div class="no_data_img">' +
+                    '<img style="margin-top: 12%;" src="/img/noData.png">' +
+                    '</div>' +
+                    '<p style="text-align: center; font-size: 20px; font-weight: normal;">请选择左侧材料</p>' +
+                    '</div>' +
+                    '</div>',
+                    '</div></div>'].join(''),
+                success: function () {
+                    // 树节点点击事件
+                    eleTree.on("nodeClick(chooseMtlTree)", function (d) {
+                        var currentData = d.data.currentData;
+                        if (currentData.typeNo) {
+                            $('.mtl_no_data').hide();
+                            $('.mtl_table_box').show();
+                            loadMtlTable(currentData.typeNo);
+                        } else {
+                            $('.mtl_table_box').hide();
+                            $('.mtl_no_data').show();
+                        }
+                    });
+
+                    loadMtlType();
+
+                    function loadMtlType(typeNo) {
+                        typeNo = typeNo ? typeNo : '';
+                        // 获取左侧树
+                        $.get('/PlbCustomerType/treeList', function (res) {
+                            if (res.flag) {
+                                eleTree.render({
+                                    elem: '#chooseMtlTree',
+                                    data: res.data,
+                                    highlightCurrent: true,
+                                    showLine: true,
+                                    defaultExpandAll: false,
+                                    request: {
+                                        name: "typeName", // 显示的内容
+                                        key: "typeNo", // 节点id
+                                        parentId: 'parentTypeId', // 节点父id
+                                        isLeaf: "isLeaf",// 是否有子节点
+                                        children: 'child',
+                                    }
+                                });
+                            }
+                        });
+                    }
+
+                    function loadMtlTable(typeNo) {
+                        materialsTable= table.render({
+                            elem: '#materialsTable',
+                            url: '/PlbCustomer/getDataByCondition',
+                            where: {
+                                merchantType:typeNo,
+                                useFlag: true
+                            },
+                            page: true, //开启分页
+                            limit: 50,
+                            height: 'full-180'
+                            , toolbar: '#toolbar'
+                            , defaultToolbar: ['']
+                            ,
+                            cols: [[ //表头
+                                {type: 'radio'}
+                                , {field: 'customerNo', title: '客商编号', sort: true, width: 200}
+                                , {field: 'customerName', title: '客商单位名称',}
+                                , {field: 'customerShortName', title: '客商单位简称',}
+                                , {field: 'customerOrgCode', title: '组织机构代码'}
+                                , {field: 'taxNumber', title: '税务登记号'}
+                                , {field: 'accountNumber', title: '开户行账户'}
+                            ]], parseData: function (res) {
+                                return {
+                                    "code": 0, //解析接口状态
+                                    "data": res.data,//解析数据列表
+                                    "count": res.totleNum, //解析数据长度
+                                };
+                            },
+                            request: {
+                                pageName: 'page' //页码的参数名称，默认：page
+                                , limitName: 'pageSize' //每页数据量的参数名，默认：limit
+                            },
+                        });
+                    }
+                },
+                yes: function (index) {
+                    var checkStatus = table.checkStatus('materialsTable');
+                    if (checkStatus.data.length > 0) {
+                        var mtlData = checkStatus.data[0];
+                        _this.val(mtlData.customerName);
+                        _this.attr('customerId',mtlData.customerId);
+
+
+                        layer.close(index);
+                    } else {
+                        layer.msg('请选择一项！', {icon: 0});
+                    }
+                }
+            });
+        });*/
+
+        //选择分包商内侧查询
+        $(document).on('click','.inSearchData',function () {
+            var searchParams = {}
+            var $seachData = $('.inSearchContent [name]')
+            $seachData.each(function () {
+                searchParams[$(this).attr('name')] = $(this).val() ? $(this).val().trim() : ''
+            })
+            materialsTable.reload({
+                where: searchParams,
+                page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            });
+        });
+
+        //数据列表点击审批状态查看流程功能
+        $(document).on('click', '.preview_flow', function() {
+            var flowId = $(this).attr('flowId'),
+                runId = $(this).attr('runId');
+            if (flowId && runId) {
+                $.popWindow("/workflow/work/workformPreView?flowId=" + flowId + '&flowStep=&prcsId=&runId=' + runId);
+            }
+        });
+
+        //监听本次合同变更值
+        $(document).on('input propertychange', '.contractPriceItem', function () {
+            var $tr = $('.contract_list').find('.layui-table-main tr');
+            var contractChangeMoney = 0
+            $tr.each(function () {
+                //本次合同价
+                var contractPrice= $(this).find('[data-field="contractPrice"] .layui-table-cell').text()||0
+                //本次合同变更值
+                var contractPrice2=$(this).find('input[name="contractPrice2"]').val()||0
+                //变更后本次合同价
+                var changeContractPrice=accAdd(contractPrice,contractPrice2)||0
+                $(this).find('input[name="changeContractPrice"]').val(retainDecimal(changeContractPrice,2))
+
+                contractChangeMoney=accAdd(contractChangeMoney,contractPrice2)
+            });
+            $('#baseForm [name="contractChangeMoney"] ').val(retainDecimal(contractChangeMoney,2))
+
+        });
+
+        //加载明细表
+        function loadDetail(showCols,materialDetailsTableData2,type){
+            showCols.push(
+                {field: 'chooseUnit', title: '选中分包商单价', width: 150,templet: function (d) {
+                        return '<input type="number" name="chooseUnit" '+(type ? 'readonly' : '')+' subpackageListId="'+(d.subpackageListId || '')+'" autocomplete="off" class="layui-input" style="height: 100%;" value="' + (d.chooseUnit || '') + '">'
+                    }},
+            )
+            if(!type){
+                showCols.push(
+                    {align: 'center', toolbar: '#barDemo', title: '操作',fixed:'right'}
+                )
+            }
+            table.render({
+                elem: '#equipmentListTable',
+                data: materialDetailsTableData2,
+                /*toolbar: '#toolbarDemoIn',
+                defaultToolbar: [''],*/
+                limit: 1000,
+                cols: [showCols],
+                done:function () {
+                    if(type){
+                        $('.customerUnitItem').attr('readonly','readonly')
+                    }
+                }
+            });
+        }
+    });
+
+
+
+    /*用来得到精确的加法结果
+            *说明：javascript的加法结果会有误差，在两个浮点数相加的时候会比较明显。这个函数返回较为精确的加法结果。
+            *调用：accAdd(arg1,arg2)
+            *返回值：arg1加上arg2的精确结果
+        */
+    function accAdd(arg1,arg2){
+        var r1,r2,m;
+        try{r1=arg1.toString().split(".")[1].length}catch(e){r1=0}
+        try{r2=arg2.toString().split(".")[1].length}catch(e){r2=0}
+        m=Math.pow(10,Math.max(r1,r2))
+        return (arg1*m+arg2*m)/m
+    }
+    //打印模板
+    function pdurlss(that,workNum) { //附件预览点击调取
+        var attrUrl=that.split('&FILESIZE')[0];
+        var url = attrUrl;
+        if(attrUrl != undefined&&attrUrl.indexOf('&ATTACHMENT_NAME=') > -1&&attrUrl.indexOf('isOld=1') == -1){
+            var atturl1 = attrUrl.split('&ATTACHMENT_NAME=')[0] + '&ATTACHMENT_NAME=';
+            var atturl2 = '';
+            if(attrUrl.split('&ATTACHMENT_NAME=')[1] != undefined&&attrUrl.split('&ATTACHMENT_NAME=')[1].indexOf('&') > -1){
+                for(var i=1;i<attrUrl.split('&ATTACHMENT_NAME=')[1].split('&').length;i++){
+                    atturl2 += '&' + attrUrl.split('&ATTACHMENT_NAME=')[1].split('&')[i];
+                }
+                url = atturl1 + atturl2;
+            }else{
+                url = atturl1;
+            }
+        }
+        var type = UrlGetRequest('?'+attrUrl)||'docx';
+        type = type.toLowerCase();
+        if(type == 'pdf'){
+            //$.popWindow('/common/pdfPreview?'+url.split('&COMPANY=')[0],'','0','0','1200px','600px');
+            $.popWindow("/common/PDFBrowser?"+url,PreviewPage,'0','0','1200px','600px');
+        }else if(type == 'png' || type == 'jpg' ||  type == 'txt'){
+            $.popWindow("/xs?"+url,PreviewPage,'0','0','1200px','600px');
+        }else if(type == 'doc'||type == 'docx'||type == 'xls'||type == 'xlsx'||type == 'ppt'||type == 'pptx'){
+            $.ajax({
+                type:'get',
+                url:'/syspara/selectTheSysPara?paraName=DOCUMENT_PREVIEW_OPEN',
+                dataType:'json',
+                success:function (res) {
+                    if(res.flag){
+                        documentPreviewOpen = res.object[0].paraValue;
+                        if(documentPreviewOpen == 1){
+                            $.ajax({
+                                type:'get',
+                                url:'/sysTasks/getOfficePreviewSetting',
+                                dataType:'json',
+                                success:function (res) {
+                                    if(res.flag){
+                                        var strOfficeApps = res.object.previewUrl;//在线预览服务地址
+
+                                        $.ajax({
+                                            url:'/onlyOfficeCode',
+                                            dataType: 'json',
+                                            type: 'post',
+                                            success:function(res){
+                                                if(res.flag){
+                                                    var code = res.obj;
+                                                    $.popWindow(strOfficeApps+'/op/view.aspx?src='+domains+'/onlyOfficeDownload'+ encodeURIComponent('?'+url + '&code='+ code),'','0','0','1200px','600px');
+                                                }
+                                            }
+                                        })
+                                    }
+                                }
+                            })
+                        }else if(documentPreviewOpen == 2){
+                            if(type == 'xls'||type == 'xlsx'){
+                                $.popWindow('/common/excelPreview?'+url.split('&COMPANY=')[0],'','0','0','1200px','600px');
+                            }else if(type == 'ppt'||type == 'pptx'){
+                                $.popWindow('/common/pptPreview?'+url.split('&COMPANY=')[0],'','0','0','1200px','600px');
+                            }else{
+                                $.popWindow('/common/officereader?'+url.split('&COMPANY=')[0],'','0','0','1200px','600px');
+                            }
+                        }else if(documentPreviewOpen == 3){
+                            $.popWindow("/wps/info?"+ url +"&permission=read",'','0','0','1200px','600px');
+                        }else if(documentPreviewOpen == 4){
+                            $.popWindow("/common/onlyoffice?"+ url +"&edit=false",'','0','0','1200px','600px');
+                        }
+                    }
+                }
+            })
+        } else{
+            $.ajax({
+                type:'get',
+                url:'/sysTasks/getOfficePreviewSetting',
+                dataType:'json',
+                success:function (res) {
+                    if(res.flag){
+                        var strOfficeApps = res.object.previewUrl;//在线预览服务地址
+                        if(strOfficeApps == ''){
+                            strOfficeApps = 'https://owa-box.vips100.com';
+                        }
+
+                        $.ajax({
+                            url:'/onlyOfficeCode',
+                            dataType: 'json',
+                            type: 'post',
+                            success:function(res){
+                                if(res.flag){
+                                    var code = res.obj;
+                                    $.popWindow(strOfficeApps+'/op/view.aspx?src='+domains+'/onlyOfficeDownload'+ encodeURIComponent('?'+url + '&code='+ code),'','0','0','1200px','600px');
+                                }
+                            }
+                        })
+
+
+                    }
+                }
+            })
+        }
+    }
+    /**
+     * 新建流程方法
+     * @param flowId
+     * @param approvalData
+     * @param cb
+     */
+    function newWorkFlow(flowId, cb,approvalData) {
+        $.ajax({
+            url: '/workflow/work/workfastAdd',
+            type: 'get',
+            dataType: 'json',
+            data: {
+                flowId: flowId,
+                prcsId: 1,
+                flowStep: 1,
+                runId: '',
+                preView: 0,
+                isBudgetFlow: true,
+                approvalData:JSON.stringify(approvalData),
+                isTabApproval:true,
+            },
+            async: false,//同步请求,这里使用ajax必须使用同步方式请求，因为浏览器认为这种打开在ajax后新页面是不安全的
+            success: function (res) {
+                if (res.flag == true) {
+                    var data = res.object;
+                    cb(data);
+                }
+            }
+        });
+    }
+    function openRold(){ //流程转交下一步后会调用此方法
+        //刷新表格
+        tableIns.config.where._ = new Date().getTime();
+        tableIns.reload();
+    }
+
+
+</script>
+</body>
+</html>

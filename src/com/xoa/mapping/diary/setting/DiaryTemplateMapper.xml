@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.diary.setting.DiaryTemplateMapper" >
+    <resultMap id="BaseResultMap" type="com.xoa.model.diary.setting.DiaryTemplate" >
+        <result column="TEMPLATE_ID" property="templateId" javaType="Integer" />
+        <result column="TEMPLATE_NAME" property="templateName" javaType="String" />
+        <result column="DIA_TYPE" property="diaType" javaType="String" />
+        <result column="USER_ID" property="userId" javaType="String" />
+        <result column="PRIV_ID" property="privId" javaType="String" />
+        <result column="DEPT_ID" property="deptId" javaType="String" />
+        <result column="CONTENT" property="content" jdbcType="BLOB" />
+        <result column="OPERATION_TIME" property="operationTime" javaType="Integer" />
+        <result column="USER_UPDATE_ID" property="userUpdateId" javaType="String" />
+    </resultMap>
+
+    <insert id="addDiaryTemplate" parameterType="com.xoa.model.diary.setting.DiaryTemplate">
+        INSERT INTO diary_template
+            (TEMPLATE_NAME, DIA_TYPE, USER_ID, PRIV_ID, DEPT_ID, CONTENT, OPERATION_TIME, USER_UPDATE_ID)
+        VALUES (#{templateName}, #{diaType}, #{userId}, #{privId}, #{deptId}, #{content}, #{operationTime}, #{userUpdateId})
+    </insert>
+
+    <delete id="deleteDiaryTemplateById" parameterType="java.lang.Integer">
+        DELETE
+        FROM
+            diary_template
+        WHERE
+            TEMPLATE_ID = #{templateId}
+    </delete>
+
+    <update id="updateDiaryTemplate" parameterType="com.xoa.model.diary.setting.DiaryTemplate">
+        UPDATE diary_template
+        <set>
+            <if test="templateName != null">
+                TEMPLATE_NAME = #{templateName},
+            </if>
+            <if test="diaType != null">
+                DIA_TYPE = #{diaType},
+            </if>
+            <if test="userId != null">
+                USER_ID = #{userId},
+            </if>
+            <if test="privId != null">
+                PRIV_ID = #{privId},
+            </if>
+            <if test="deptId != null">
+                DEPT_ID = #{deptId},
+            </if>
+            <if test="content == null">
+                CONTENT = NULL,
+            </if>
+            <if test="content != null">
+                CONTENT = #{content},
+            </if>
+            <if test="operationTime != null">
+                OPERATION_TIME = #{operationTime},
+            </if>
+            <if test="userUpdateId != null">
+                USER_UPDATE_ID = #{userUpdateId},
+            </if>
+        </set>
+        WHERE
+            TEMPLATE_ID = #{templateId}
+    </update>
+
+    <select id="selectAllDiaryTemplate" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+            *
+        FROM
+            diary_template
+        <where>
+            <if test="templateId != null">
+                AND TEMPLATE_ID = #{templateId}
+            </if>
+            <if test="diaType != null">
+                AND DIA_TYPE = #{diaType}
+            </if>
+            <if test="userId != null and privId != null and deptId != null">
+                AND (find_in_set(#{userId},USER_ID) or find_in_set(#{privId},PRIV_ID) or find_in_set(#{deptId},DEPT_ID))
+            </if>
+        </where>
+    </select>
+</mapper>

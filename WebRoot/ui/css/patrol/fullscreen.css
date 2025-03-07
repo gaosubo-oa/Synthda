@@ -1,0 +1,313 @@
+.main{
+    background:url("/img/grid/bgmainss.png") no-repeat;
+    width: 100%;
+    background-size: 100% 100%;
+    height: 100%;
+    padding:15px;
+    box-sizing: border-box;
+    -ms-behavior: url(/css/main/backgroundsize.min.htc);
+    behavior: url(/css/main/backgroundsize.min.htc);
+}
+html,body{
+    width: 100%;
+    height: 100%;
+}
+.main_top{
+    height: 65%;
+}
+.main_left{
+    width: 23%;
+    height: 96%;
+    float: left;
+}
+.bgtitle{
+    width: 100%;
+    height: 32%;
+    background: url("/img/grid/waikuangda.png") no-repeat;
+    -ms-behavior: url(/css/main/backgroundsize.min.htc);
+    behavior: url(/css/main/backgroundsize.min.htc);
+    background-size: 100% 100%;
+}
+.bgtitle li{
+    float: left;
+}
+.bgtitle .one{
+    font-size: 18pt;
+    color: #fff;
+    text-align: center;
+    padding-top: 7%;
+    text-align: center;
+    width: 100%;
+    letter-spacing: 2px;
+}
+.bgtitle li .bgactive{
+    background: url("/img/grid/dashijian.png") no-repeat;
+    -ms-behavior: url(/css/main/backgroundsize.min.htc);
+    behavior: url(/css/main/backgroundsize.min.htc);
+    width: 15%;
+    height: 40%;
+    line-height: 3;
+    font-size: 20pt;
+    font-weight: bold;
+    display: inline-block;
+    background-size: contain;
+}
+.videos{
+    margin-top: 3%;
+    height: 65%;
+}
+.videoTop{
+    width: 100%;
+    height: 47%;
+    background: url("/img/grid/bg_GridMap.png") no-repeat;
+    -ms-behavior: url(/css/main/backgroundsize.min.htc);
+    behavior: url(/css/main/backgroundsize.min.htc);
+    background-size: 100% 100%;
+}
+.videos li p{
+    width: 48%;
+    display: inline-block;
+    height: 50%;
+    background: url("/img/grid/bg_GridMap.png") no-repeat;
+    -ms-behavior: url(/css/main/backgroundsize.min.htc);
+    behavior: url(/css/main/backgroundsize.min.htc);
+    background-size: 100% 100%;
+
+}
+.main_right{
+    float: right;
+    /*height: 62.5%;*/
+    /*background: red;*/
+}
+.clearfix:after{
+    display: block;
+    clear: both;
+    content: '';
+}
+.main_bottom>div{
+    float: left;
+}
+.recentlyReported{
+    width: 32%;
+    background: url("/img/grid/dahaowaikuang.png") no-repeat;
+    background-size: 100% 100%;
+    height: 100%;
+    -ms-behavior: url(/css/main/backgroundsize.min.htc);
+    behavior: url(/css/main/backgroundsize.min.htc);
+}
+.inspectionrecords{
+    width: 20%;
+    margin-left: 2%;
+    background: url("/img/grid/waikuangzhong.png") no-repeat;
+    background-size: 100% 100%;
+    height: 100%;
+    -ms-behavior: url(/css/main/backgroundsize.min.htc);
+    behavior: url(/css/main/backgroundsize.min.htc);
+}
+.recentlyReported ul.title{
+    height:27px;
+    line-height: 27px;
+    margin-top: 2%;
+    margin-left: 4%;
+    border: 1px solid #4881b9;
+    width: 138px;
+    border-radius: 4px;
+}
+.recentlyReported ul.title li{
+    float: left;
+    color: #fff;
+    cursor: pointer;
+    padding:0px 6px;
+    letter-spacing: 2px;
+
+}
+.recentlyReported ul.title li.active{
+    background: #0e2f4c;
+}
+.recentlyReported .main_bottombody{
+    margin-left: 4%;
+    width: 90%;
+    margin-top:3%;
+    /*background: red;*/
+    height: 72%;
+    overflow: hidden;
+}
+.recentlyReported .main_bottombody li{
+    width: 100%;
+    height: 26px;
+    line-height: 26px;
+    border: 1px solid #4881b9;
+    box-sizing: border-box;
+    border-radius: 2px;
+    border-left: none;
+    margin-top: 2%;
+}
+.icon-time{
+    width: 71px;
+    display: inline-block;
+    height: 27px;
+    line-height: 27px;
+    background-size: 100% 100%;
+    background: url("/img/grid/xiaoshijianbeijing.png") no-repeat;
+    -ms-behavior: url(/css/main/backgroundsize.min.htc);
+    behavior: url(/css/main/backgroundsize.min.htc);
+    text-align: center;
+    color: #fff;
+    font-size: 11pt;
+    vertical-align: text-bottom;
+}
+.main_bottombodytext{
+    display: inline-block;
+    height: 27px;
+    line-height: 27px;
+    text-align: left;
+    width: 85%;
+    color: #999;
+    padding-right: 5%;
+    box-sizing: border-box;
+    vertical-align: text-bottom;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.inspectionrecords .inspectionrecordsMain{
+    width: 84%;
+    margin:0 auto;
+    height: 78%;
+    /*background: red;*/
+    margin-top: 12%;
+}
+.inspectionrecords .inspectionrecordsMain>li{
+
+    width: 100%;
+    height: 26%;
+    background: url("/img/grid/xiaokuang.png") no-repeat;
+    -ms-behavior: url(/css/main/backgroundsize.min.htc);
+    behavior: url(/css/main/backgroundsize.min.htc);
+    background-size: 100% 100%;
+}
+
+.inspectionrecords .inspectionrecordsMain li .absol{
+   float: left;
+    color: #efefef;
+   margin-left: 4%;
+    margin-top:1%;
+    font-size: 10pt;
+}
+.inspectionrecordsMain ul{
+    /*background: red;*/
+    /*width: 158px;*/
+    float: left;
+    /*margin-left: 16%;*/
+    margin-top: 5%;
+    height: 56%;
+    width: 64%;
+}
+.inspectionrecordsMain ul>li{
+    float: left;
+    height: 100%;
+}
+.inspectionrecordsMain ul>li span{
+    display: inline-block;
+    background: url("/img/grid/timeshijian.png") no-repeat;
+    background-size: 100% 100%;
+    -ms-behavior: url(/css/main/backgroundsize.min.htc);
+    behavior: url(/css/main/backgroundsize.min.htc);
+    /*width: 26px;*/
+    /*height: 38px;*/
+    margin-right: 1%;
+    /*line-height: 38px;*/
+    color: #fff;
+    text-align: center;
+    font-size: 16pt;
+    font-weight: bold;
+    padding: 4px;
+}
+.inspectionrecords {
+    position: relative;
+
+}
+.inspectionrecords>p{
+    position: absolute;
+    color: #0090e3;
+    top: 3%;
+    left: 5%;
+}
+.inspectionrecords .main_bottombody{
+    margin:0 auto;
+    width: 90%;
+    margin-top: 10%;
+     /*background: red;*/
+    height: 72%;
+    overflow: hidden;
+}
+.inspectionrecords .main_bottombody>li{
+    width: 100%;
+    height:40px;
+    line-height: 40px;
+    margin-top:15px;
+}
+.inspectionrecords .main_bottombody>li>div{
+    float: left;
+    width: 15%;
+}
+.inspectionrecords .main_bottombody>li>div img{
+    width: 40px;
+}
+.inspectionrecords .main_bottombody>li>ul{
+    float: left;
+    width: 85%;
+}
+.inspectionrecords .main_bottombody>li>ul li.top{
+    height: 20px;
+    line-height: 20px;
+}
+.inspectionrecords .main_bottombody>li>ul li.top span{
+    color: #efefef;
+    font-size: 12px;
+}
+.inspectionrecords .main_bottombody>li>ul li.top label{
+    color: yellowgreen;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+.inspectionrecords .main_bottombody>li>ul li.buttom{
+    height: 20px;
+    position: relative;
+}
+.inspectionrecords .main_bottombody>li>ul li.buttom span{
+    position: absolute;
+    height: 10px;
+    width: 100%;
+    background:#112b40 ;
+    top: 3px;
+    z-index: 100;
+}
+.inspectionrecords .main_bottombody>li>ul li.buttom label{
+    position: absolute;
+    height: 10px;
+    width: 40%;
+    background:#1e9de0 ;
+    top: 3px;
+    z-index: 110;
+}
+
+.chiclass{
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    background:blueviolet;
+    vertical-align: middle;
+    margin-right: 2px;
+}
+.citext{
+    margin-right: 5px;
+    height: 10px;
+    line-height: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    color: #efefef;
+    font-size: 12px;
+    letter-spacing: 2px;
+}

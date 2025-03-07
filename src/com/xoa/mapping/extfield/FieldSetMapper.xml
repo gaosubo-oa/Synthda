@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.extfield.FieldSetMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.extfield.FieldSet">
+        <result column="TAB_NAME" property="tabName" jdbcType="VARCHAR"/>
+        <result column="FIELD_NO" property="fieldNo" jdbcType="VARCHAR"/>
+        <result column="FIELD_NAME" property="fieldName" jdbcType="VARCHAR"/>
+        <result column="ORDER_NO" property="orderNo" jdbcType="INTEGER"/>
+        <result column="STYPE" property="stype" jdbcType="VARCHAR"/>
+        <result column="CODE_TYPE" property="codeType" jdbcType="VARCHAR"/>
+        <result column="TYPE_NAME" property="typeName" jdbcType="VARCHAR"/>
+        <result column="TYPE_VALUE" property="typeValue" jdbcType="VARCHAR"/>
+        <result column="TYPE_CODE" property="typeCode" jdbcType="VARCHAR"/>
+        <result column="IS_QUERY" property="isQuery" jdbcType="VARCHAR"/>
+        <result column="IS_GROUP" property="isGroup" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        TAB_NAME,
+        FIELD_NO,
+        FIELD_NAME,
+        ORDER_NO,
+        STYPE,
+        CODE_TYPE,
+        TYPE_NAME,
+        TYPE_VALUE,
+        TYPE_CODE,
+        IS_QUERY,
+        IS_GROUP
+    </sql>
+
+    <insert id="addFieldSet" parameterType="com.xoa.model.extfield.FieldSet">
+        INSERT INTO field_set
+        (
+            TAB_NAME, FIELD_NO, FIELD_NAME, ORDER_NO, STYPE, CODE_TYPE, TYPE_NAME, TYPE_VALUE, TYPE_CODE, IS_QUERY, IS_GROUP
+        )
+        VALUES
+        (
+            #{tabName}, #{fieldNo}, #{fieldName}, #{orderNo}, #{stype}, #{codeType}, #{typeName}, #{typeValue}, #{typeCode}, #{isQuery}, #{isGroup}
+        )
+    </insert>
+
+    <select id="selectMaxFieldNo" resultType="java.lang.String" parameterType="java.util.Map">
+        SELECT
+            max( FIELD_NO )
+        FROM
+            field_set
+        WHERE
+            TAB_NAME = #{tabName}
+            AND FIELD_NO LIKE CONCAT(#{fieldNo},'%')
+    </select>
+
+    <delete id="deleteFieldSet" parameterType="java.lang.String">
+        DELETE
+        FROM
+            field_set
+        WHERE
+            TAB_NAME = #{tabName}
+            AND FIELD_NO = #{fieldNo}
+    </delete>
+
+    <update id="updateFieldSet" parameterType="com.xoa.model.extfield.FieldSet">
+        UPDATE field_set
+        <set>
+            <if test="fieldName != null">
+                FIELD_NAME = #{fieldName},
+            </if>
+            <if test="orderNo != null">
+                ORDER_NO = #{orderNo},
+            </if>
+            <if test="stype != null">
+                STYPE = #{stype},
+            </if>
+            <if test="codeType != null">
+                CODE_TYPE = #{codeType},
+            </if>
+            <if test="typeName != null">
+                TYPE_NAME = #{typeName},
+            </if>
+            <if test="typeValue != null">
+                TYPE_VALUE = #{typeValue},
+            </if>
+            <if test="typeCode != null">
+                TYPE_CODE = #{typeCode},
+            </if>
+            <if test="isQuery != null">
+                IS_QUERY = #{isQuery},
+            </if>
+            <if test="isGroup != null">
+                IS_GROUP = #{isGroup}
+            </if>
+        </set>
+        WHERE FIELD_NO = #{fieldNo}
+    </update>
+
+    <select id="selectFieldSet" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        field_set
+        <where>
+            <if test="tabName != null and tabName != ''">
+                AND TAB_NAME = #{tabName}
+            </if>
+            <if test="fieldNo != null and fieldNo != ''">
+                AND FIELD_NO = #{fieldNo}
+            </if>
+        </where>
+        ORDER BY ORDER_NO
+    </select>
+
+    <select id="selectIsRepeatFieldName" resultType="java.lang.Integer" parameterType="java.util.Map">
+        SELECT
+            COUNT( * )
+        FROM
+            field_set
+        <where>
+            <if test="tabName != null and tabName != ''">
+                AND TAB_NAME = #{tabName}
+            </if>
+            <if test="fieldName != null and fieldName != ''">
+                AND FIELD_NAME = #{fieldName}
+            </if>
+            <if test="fieldNo != null and fieldNo != ''">
+                AND FIELD_NO != #{fieldNo}
+            </if>
+        </where>
+    </select>
+
+</mapper>

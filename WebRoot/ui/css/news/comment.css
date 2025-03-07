@@ -1,0 +1,225 @@
+@CHARSET "UTF-8";
+
+.clearfix:before, .clearfix:after {
+
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1; /*IE/7/6*/
+
+}
+.sumNumber {
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    width: 95%;
+    margin: 0 auto;
+    color: #999;
+}
+/*新建新闻查询 表格*/
+.total {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 95%;
+    margin: 0px auto 0px;
+}
+.total input {
+    padding:2px;
+    color:#000;
+}
+
+.total td {
+    color: #404060;
+    padding: 6px;
+    font: 14px "微软雅黑";
+}
+
+.total .td_w {
+    width: 25%;
+}
+.total .size_color {
+    font-size: 14px;
+    color: rgb(42, 88, 140);
+    font-weight: bold;
+    font-family:"微软雅黑"
+}
+
+.total tr td {
+    border: 1px solid #c0c0c0;
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+}
+.total td option {
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+}
+.total .query_title {
+    text-align: center;
+    background-color: #3691DA;
+    color:#fff;
+    /*border-radius: 5px 5px 0px 0px;*/
+    border-top:none;
+    border-left:none;
+    border-right:none;
+    font-size: 14px;
+    letter-spacing:3px;
+}
+
+.total .title_ {
+    width: 270px;
+}
+.total .release div {
+    float: left;
+}
+.total .release .date {
+    width: 117px;
+    height: 25px;
+    border:1px solid #c0c0c0;
+}
+.total .content_ {
+    width: 270px;
+    height: 25px;
+    border:1px solid #c0c0c0;
+}
+.total .clack_t div {
+    float: left;
+}
+.total .c_t {
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.total .c_time {
+    width: 80px;
+    height: 25px;
+    border:1px solid #c0c0c0;
+}
+.total .operation div {
+    display: inline-block;
+    float: left;
+}
+.total .operation input {
+    width: 16px;
+    float: left;
+    margin-top: 3px;
+}
+.total .operation1 {
+    margin-left: 6px;
+    margin-right: 10px;
+    margin-top: 0px;
+    border: 1px solid #c0c0c0;
+    background-color: #E1E1E1;
+    width: 200px;
+    height: 30px;
+    line-height: 30px;
+}
+.operation #personnel_nm {
+    width: 100px;
+    height: 19px;
+    margin-left: 7px;
+    margin-top: 0px;
+    float: right;
+}
+
+.total .table_b div {
+    display: inline-block;
+    float: left;
+    height:30px;
+    line-height:30px;
+    width:56px;
+    text-align: center;
+    margin-right:15px;
+    /*   border: 1px solid #c0c0c0;
+     border-radius: 5px;  */
+    background: rgb(24, 144, 255);
+    color: white;
+    border-radius: 5px;
+    cursor:pointer;
+    /*padding-left:20px;*/
+}
+.total .table_b .bt {
+    margin-left: 42%;
+    /*background: url(../../img/news/newPublish.png) no-repeat;*/
+}
+.total .table_b .exportNew{
+    padding-left:0px;
+    text-align: center;
+    width:111px;
+    background: url(../../img/news/newComment.png) no-repeat;
+}
+.total color_{
+    font-size: 14px;
+    color: #2a588c;
+    font-weight: bold;
+}
+.Rendering {
+    margin-bottom:50px;
+}
+.reply {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 95%;
+    margin: 10px auto 0px;
+}
+.reply td {
+    padding:5px;
+}
+.reply  .comment_title {
+    background-color: #3691DA;
+    color: #fff;
+    /*border-radius: 5px 5px 0px 0px;*/
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-size: 16px;
+     /*letter-spacing: 3px;*/
+}
+.comment_title  .title_left {
+    display: inline-block;
+    float:left;
+    font-size: 14px;
+}
+.comment_title  .title_right {
+    display: inline-block;
+    float:right;
+    font-size: 12px;
+
+}
+.reply .card {
+    background-color: #F3F3F3;
+}
+.card .comment_card {
+    display: inline-block;
+    float: left;
+    width:70%;
+}
+.card img {
+    overflow: hidden;
+    margin-left: 8%;
+}
+.reply_footer {
+    display: inline-block;
+    float: right;
+}
+.reply_footer div {
+    display: inline-block;
+    margin-left:20px;
+}
+.reply_footer .reply_img {
+    cursor:pointer;
+}
+.reply_footer .reply_img img {
+    margin-right: 4px;
+}
+.reply_footer .delete {
+    cursor:pointer;
+}
+.reply_footer  .number {
+    color:#999;
+}
+
+

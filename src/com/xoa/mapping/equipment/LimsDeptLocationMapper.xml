@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.equipment.LimsDeptLocationMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.equipment.LimsDeptLocation" >
+    <id column="POSITION_ID" property="id" jdbcType="INTEGER" />
+    <result column="DEPT_ID" property="deptId" jdbcType="INTEGER" />
+    <result column="POSITION_CODE" property="positionCode" jdbcType="VARCHAR" />
+    <result column="POSITION_PID" property="pid" jdbcType="INTEGER" />
+    <result column="POSITION_NAME" property="label" jdbcType="VARCHAR" />
+    <result column="LOCAT_SORT" property="locatSort" jdbcType="INTEGER" />
+    <result column="MEMO" property="memo" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    POSITION_ID, DEPT_ID, POSITION_CODE, POSITION_PID, POSITION_NAME, MEMO,LOCAT_SORT
+  </sql>
+
+  <select id="countSort" resultType="integer" parameterType="integer">
+    select count(POSITION_ID) from lims_dept_location where POSITION_PID=#{pid}
+  </select>
+
+  <select id="countChild" resultType="integer" parameterType="integer">
+    select COUNT(POSITION_ID)
+    from  lims_dept_location
+    where POSITION_PID=#{id}
+  </select>
+
+  <select id="sortList" parameterType="map" resultMap="BaseResultMap">
+    select
+        <include refid="Base_Column_List"/>
+    from  lims_dept_location
+    where LOCAT_SORT &gt;=#{sort}
+    and   POSITION_PID=#{pid}
+    ORDER BY
+    LOCAT_SORT ASC
+  </select>
+
+  <!-- 查询结算场地的父类场地，这个是需要有两个条件，一个是结算组织deptId 一个是pid=0 -->
+  <select id="findParentLocation" resultMap="BaseResultMap" parameterType="integer">
+    select
+    <include refid="Base_Column_List"/>
+    from lims_dept_location
+    where DEPT_ID=#{deptId}
+    and POSITION_PID=0
+    ORDER BY
+    LOCAT_SORT ASC
+  </select>
+
+  <!--查询父类下的子类场地，需要传过来父类亲id -->
+  <select id="findChildLocation" resultMap="BaseResultMap" parameterType="integer">
+    select
+    <include refid="Base_Column_List"/>
+    from lims_dept_location
+    where POSITION_PID=#{pid}
+    ORDER BY
+    LOCAT_SORT ASC
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from lims_dept_location
+    where POSITION_ID = #{id,jdbcType=INTEGER}
+  </select>
+
+
+
+  <!--    List<LimsDeptLocation> findLocationName(Integer deptId, String positionName);  -->
+  <select id="findLocationName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    from lims_dept_location
+    where DEPT_ID=#{deptId}
+    and POSITION_NAME like CONCAT('%',#{positionName},'%')
+    ORDER BY LOCAT_SORT ASC
+  </select>
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lims_dept_location
+    where POSITION_ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xoa.model.equipment.LimsDeptLocation" >
+    insert into lims_dept_location (POSITION_ID, DEPT_ID, POSITION_CODE, 
+      POSITION_PID, POSITION_NAME, MEMO,LOCAT_SORT
+      )
+    values (#{id,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER}, #{positionCode,jdbcType=VARCHAR},
+      #{pid,jdbcType=INTEGER}, #{label,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR},
+      #{locatSort,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xoa.model.equipment.LimsDeptLocation" >
+    insert into lims_dept_location
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        POSITION_ID,
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID,
+      </if>
+      <if test="positionCode != null">
+        POSITION_CODE,
+      </if>
+      <if test="pid != null">
+        POSITION_PID,
+      </if>
+      <if test="label != null">
+        POSITION_NAME,
+      </if>
+      <if test="memo != null">
+        MEMO,
+      </if>
+      <if test="locatSort != null">
+        LOCAT_SORT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null">
+        #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="positionCode != null">
+        #{positionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null">
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="label != null">
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="locatSort != null">
+        #{locatSort,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.equipment.LimsDeptLocation" >
+    update lims_dept_location
+    <set>
+      <if test="deptId != null">
+        DEPT_ID = #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="positionCode != null" >
+        POSITION_CODE = #{positionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        POSITION_PID = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="label != null" >
+        POSITION_NAME = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null" >
+        MEMO = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="locatSort != null" >
+        LOCAT_SORT = #{locatSort,jdbcType=INTEGER},
+      </if>
+    </set>
+    where POSITION_ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xoa.model.equipment.LimsDeptLocation" >
+    update lims_dept_location
+    set DEPT_ID = #{deptId,jdbcType=INTEGER},
+      POSITION_CODE = #{positionCode,jdbcType=VARCHAR},
+      POSITION_PID = #{pid,jdbcType=INTEGER},
+      POSITION_NAME = #{label,jdbcType=VARCHAR},
+      MEMO = #{memo,jdbcType=VARCHAR},
+      LOCAT_SORT = #{locatSort,jdbcType=VARCHAR}
+    where POSITION_ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAllLocation" resultMap="BaseResultMap">
+    SELECT POSITION_ID,POSITION_NAME FROM lims_dept_location
+  </select>
+
+</mapper>

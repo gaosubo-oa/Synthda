@@ -1,0 +1,261 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+	font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+	position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+	overflow: auto;
+}
+.backOkBtn{
+	background-image: url(../../img/confirm.png);
+	width: 70px;
+	height: 28px;
+}
+a{
+	text-decoration: none;
+	color: #2B7FE0;
+}
+ul{
+	list-style: none;
+}
+.content{
+	width: 100%;
+	height: 100%;
+	background-color: #f5f7f8;
+}
+.content .left{
+	width: 23%;
+	float: left;
+	height: 100%;
+	overflow-y: auto;  
+    overflow-x: hidden;
+	min-width: 285px;
+    border-right: #ccc 1px solid;
+	border-left: #ccc 1px solid;
+}
+.content .header{
+	width: 100%;
+	height: 45px;
+	border-bottom: #999 1px solid;
+	border-right: #999 1px solid;
+	border-left: #ccc 1px solid;
+	overflow: hidden;
+	position: fixed;
+	top: 0;
+	background: #f5f7f8;
+}
+.content .divP{
+	float: left;
+	height: 45px;
+	line-height: 45px;
+	font-size: 22px;
+	margin-left: 12px;
+	color:#494d59;
+}
+.div_Img{
+	float: left;
+	width: 23px;
+	height: 100%;
+	margin-left: 30px;
+}
+.div_Img img{
+	width: 23px;
+	height: 23px;
+	margin-top: 13px;
+}
+.content .left .collect{
+	width: 100%;
+	margin-top: 46px;
+}
+.content .left .collect .divUP{
+	width: 100%;
+	overflow: hidden;
+}
+.content .left .collect .spanUP{
+	display: block;
+	width: 100%;
+	padding-left: 30px;
+	font-size: 14px;
+	height: 40px;
+	line-height: 40px;
+	border-bottom: #ddd 1px solid;
+	cursor: pointer;
+}
+.content .left .collect .liUp:first-of-type{
+	border-top: #ddd 1px solid;
+}
+.content .left .collect .liUp:hover{
+	background-color: #add2f8;
+}
+.left table{
+	width: 99%;
+	margin:0 auto;
+	font-size: 11pt;
+}
+.left table tr{
+	border: 1px solid #c0c0c0;
+}
+.left table tr td{
+	padding: 5px;
+	border-right: 1px solid #c0c0c0;
+}
+.left table tr td span.margspan{
+	margin-right: 5px;
+}
+.one_logo{
+	display: inline-block;
+	width: 18px;
+	line-height: 20px;
+	margin-right: 5px;
+}
+.left table tr td a:first-of-type{
+	margin-left: 8px;
+}
+.left table tr td a{
+	margin-right: 8px;
+}
+.content .right{
+	float: left;
+	width: 70%;
+	height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+.tab{
+	margin-top: 70px;
+}
+.right .tab table{
+    width: 40%;
+	min-width: 465px;
+    margin:20px auto;
+    font-size: 14px;
+
+}
+.right .tab tr{
+    border: 1px solid #c0c0c0;
+}
+.right .tab table tr td{
+    padding: 5px;
+    border-right: 1px solid #c0c0c0;
+}
+.right .tab table tr td a{
+    margin-left: 10px;
+}
+.right .tab table tr td input[type="text"]{
+    width: 200px;
+    height: 22px;
+    border: none;
+    outline: none;
+    border: #ccc 1px solid;
+    margin-right: 5px;
+    padding-left: 3px;
+}
+.div_btn{
+	width: 200px;
+	margin: 5px auto;
+	text-align: center;
+}
+.div_btn input{
+	padding: 0 6px;
+	border-radius: 5px;
+	border-width:1px;
+    border-style:solid;
+    background-color: #eee;
+    cursor: pointer;
+    margin-left: 5px;
+    line-height: 28px;
+}
+.backCanBtn{
+	background-image: url(../../img/sys/return.png);
+	width: 70px;
+	height: 28px;
+}
+.childBtn{
+	width: 118px;
+	margin: 5px auto;
+}
+#childBtn{
+	width:118px;
+	height: 28px;
+	line-height: 28px;
+	background: url("../../img/sys/bt_addfiles_03.png");
+	cursor: pointer;
+}
+/*.childBtn input#childBtn{*/
+	/*padding: 0 6px;*/
+	/*border-radius: 5px;*/
+	/*border-width:1px;*/
+    /*border-style:solid;*/
+    /*background-color: #eee;*/
+    /*cursor: pointer;*/
+    /*margin-left: 5px;*/
+    /*line-height: 23px;*/
+/*}*/
+.childrenBtn{
+	width: 53px;
+	margin: 5px auto;
+}
+.childrenBtn input#childrenBtn{
+	padding: 0 6px;
+	border-radius: 5px;
+	border-width:1px;
+    border-style:solid;
+    background-color: #eee;
+    cursor: pointer;
+    margin-left: 5px;
+    line-height: 23px;
+}
+#passwSure{
+	padding: 0 6px;
+	border-radius: 5px;
+	border-width: 1px;
+	border-style: solid;
+	background-color: #eee;
+	cursor: pointer;
+	margin-left: 45%;
+	line-height: 23px;
+}
+.oneTd{
+	text-align: center;
+	color: #2F5C8F;
+	padding: 5px;
+}
+
+
+
+
+.liUp{
+	background: url(../../img/sys/icon_rightarrow_03.png) no-repeat 75% center;
+}
+.liDown{
+	background: url(../../img/sys/icon_downarrow_03.png) no-repeat 75% center;
+}
+.on{
+	background-color: #add2f8;
+}
+
+/*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+.left::-webkit-scrollbar{
+	width: 2px;
+	height: 16px;
+	background-color: #f5f5f5;
+}
+/*定义滚动条的轨道，内阴影及圆角*/
+.left::-webkit-scrollbar-track{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	border-radius: 10px;
+	background-color: #f5f5f5;
+}
+/*定义滑块，内阴影及圆角*/
+.left::-webkit-scrollbar-thumb{
+	/*width: 10px;*/
+	height: 20px;
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}

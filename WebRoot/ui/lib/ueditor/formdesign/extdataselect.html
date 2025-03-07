@@ -1,0 +1,305 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>外部数据选择控件</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <link rel="stylesheet" href="/lib/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../css/ueditor/site.css">
+    <link rel="stylesheet" href="../themes/default/css/ueditor.css">
+    <link rel="stylesheet" href="/lib/bootstrap/bootstrap-select/css/bootstrap-select.min.css">
+    <script type="text/javascript" src="../dialogs/internal.js"></script>
+    <script type="text/javascript" src="/js/xoajq/xoajq3.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery-migrate-3.4.0.js"></script>
+    <script type="text/javascript" src="../../../js/base/base.js"></script>
+    <script type="text/javascript" src="../../../js/bootstrap/bootstrap.min.js"></script>
+    <script src="/lib/bootstrap/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <link rel="stylesheet" href="leipi.style.css">
+    <script type="text/javascript">
+        function createElement(type, name)
+        {
+            var element = null;
+            try {
+                element = document.createElement('<'+type+' name="'+name+'">');
+            } catch (e) {}
+            if(element==null) {
+                element = document.createElement(type);
+                element.name = name;
+            }
+            return element;
+        }
+    </script>
+    <style>
+        .table-bordered th, .table-bordered td{
+            border: none;
+        }
+        .TableList th{
+            text-align: center;
+        }
+        .TableList td{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <div class="content">
+        <table class="table table-bordered table-striped table-hover">
+            <tr>
+                <th colspan="2"><span class="languageText" language="workform_formItem_name">控件名称</span><span style="background-color: #b94a48;padding: 0.1em 0.5em 0.1em;margin-left: 3px;" class="label label-important">*</span></th>
+            </tr>
+            <tr>
+                <td  colspan="2">
+                    <input id="orgname" class="form-control languagePlaceHolder" placeholder="必填项" type="text" language="workform_formItem_btx"/>
+                </td>
+            </tr>
+           <!-- <tr>
+                <th colspan="2"><span>映射变量</span></th>
+            </tr>
+            <tr>
+                <td  colspan="2">
+                    <select id="isMoveable" name="signAttrList" class="selectpicker show-tick form-control"  data-live-search="false">
+                        <option value="0">自动创建变量</option>
+                    </select>
+                </td>
+            </tr>-->
+            <tr>
+                <th colspan="2"><span class="languageText" language="workform_formItem_sjly">数据来源</span></th>
+            </tr>
+            <tr>
+                <td  colspan="2">
+                    <div style="display: flex">
+                        <div><input type="text" id="dataSrcName" class="form-control"  value="" style="width:280px;" readonly=""></div>
+                        <div style="display: flex">
+                            <div style="margin-top: 4px; margin-left: 10px;"> <a id="btn_select" onclick="selectDataSrc()" class="button cke_dialog_ui_button" href="javascript:void(0)" ><span class="button cke_dialog_ui_button languageText" language="workform_formItem_choose">选择</span></a></div>
+                            <div style="margin-top: 4px; margin-left: 10px;"> <a id="btn_clear" onclick="Clear()" class="button cke_dialog_ui_button" href="javascript:void(0)" ><span class="button cke_dialog_ui_button languageText" language="workform_formItem_clear">清空</span></a></div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <!--表格-->
+                    <table class="table table-bordered table-striped table-hover TableList" width="100%" >
+                        <thead>
+                        <tr class="TableHeader">
+                            <th class="languageText" language="workform_formItem_sjkzd">数据库字段</th>
+                            <th class="languageText" language="workform_formItem_sjxslmc">数据显示列名称</th>
+                            <th class="languageText" language="workform_formItem_yskjmc">映射控件名称</th>
+                            <th style="white-space:nowrap;" class="languageText" language="workform_formItem_zwcxzd">做为查询字段</th>
+                        </tr>
+                        </thead>
+                        <tbody id="mapTable" _datasrc="" _datafield="" _datafieldname="" _itemtitle="" _isquery="">
+
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script>
+    if(getCookie("language") != 'zh_CN'){
+        $('title').text(workform_formItem.workform_formItem_extdataselect);
+        var $languageText = $('.languageText');
+        var $languagePlaceHolder = $('.languagePlaceHolder');
+        for(var i = 0; i < $languageText.length; i++){
+            var language = $languageText.eq(i).attr('language');
+            $('*[language='+ language +']').text(workform_formItem[language]);
+        }
+        for(var i = 0; i < $languagePlaceHolder.length; i++){
+            var language = $languagePlaceHolder.eq(i).attr('language');
+            $('*[language='+ language +']').prop('placeholder', workform_formItem[language]);
+        }
+    }
+
+</script>
+<script type="text/javascript">
+    $(function () {
+        var oNode = null,
+            thePlugins = 'extdataselect';
+        var dataNumber=parent.pluginId;
+
+        if( UE.plugins[thePlugins].editdom ) {
+            oNode = UE.plugins[thePlugins].editdom;
+            var gTitle=oNode.getAttribute('title').replace(/&quot;/g,"\""),
+                data_table_name=oNode.getAttribute('data_table_name'),
+                data_db_id=oNode.getAttribute('data_db_id'),
+                terpid=oNode.getAttribute('terpid'),
+
+                data_fld_name=oNode.getAttribute('data_fld_name').split(','),
+                data_control=oNode.getAttribute('data_control').split(','),
+                data_querys=oNode.getAttribute('data_querys').split(','),
+                data_field=oNode.getAttribute('data_field').split(',');
+
+            gTitle = gTitle==null ? '' : gTitle;
+
+            $G('orgname').value = gTitle;
+            $G('dataSrcName').value = data_table_name;
+            $('#dataSrcName').attr("data_db_id",data_db_id);
+            $('#dataSrcName').attr("terpid",terpid);
+            Assignment(data_field,data_fld_name,data_control,data_querys);  //表格
+        }
+
+        dialog.oncancel = function () {
+            if( UE.plugins[thePlugins].editdom ) {
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+
+        dialog.onok = function (){
+            if ( $G('orgname').value == '' ) {
+                if(workform_formItem){
+                    alert(workform_formItem.workform_formItem_qsrkjmc);
+                }else{
+                    alert('请输入控件名称');
+                }
+                return false;
+            }
+            if($G('dataSrcName').value == ''){
+                if(workform_formItem){
+                    alert(workform_formItem.workform_formItem_sjlybnwk);
+                }else{
+                    alert('数据来源不能为空');
+                }
+                return false;
+            }
+
+            var gTitle=$G('orgname').value.replace(/\"/g,"&quot;"),
+                gFontSize=$G('dataSrcName').value,
+                data_db_id=$('#dataSrcName').attr('data_db_id'),
+                terpid=$('#dataSrcName').attr('terpid'),
+                data_field='', //字段
+                data_fld_name='', //列名称
+                data_control='', //控件名
+                data_querys=''; //是否是查询字段
+
+            $('#mapTable tr').each(function(index,item){
+                var td0=$(this).find('td').eq(0).text(); //字段
+                var td1=$(this).find('td').eq(1).find('input').val(); //列名称
+                var td2=$(this).find('td').eq(2).find('input').val(); //控件名称
+                var td3=$(this).find('td').eq(3).find('input:checked').length; //是否是查询字段 ， 0非 1是
+                data_field+=td0+',';
+                data_fld_name+=td1+',';
+                data_control+=td2+',';
+                data_querys+=td3+',';
+            });
+
+            if(!oNode) {
+                try {
+                    var html = '<button ';
+                    html += ' name =  "' + 'DATA_'+dataNumber + '"';
+                    html += ' id =  "' + 'DATA_'+dataNumber + '"';
+                    html += ' class = "' + 'form_item extdataselect' + '"';
+                    html += ' data-type = "' + 'extdataselect' + '"';
+                    html += ' title = "' + gTitle + '"';
+                    html += ' readonly = "readonly"';
+                    html +=' data_table_name="'+gFontSize+'"';
+                    html +=' data_db_id="'+data_db_id+'"';
+                    html +=' data_field="'+data_field+'"';
+                    html +=' data_fld_name="'+data_fld_name+'"';
+                    html +=' data_control="'+data_control+'"';
+                    html +=' data_querys="'+data_querys+'"';
+                    html +=' terpid="'+terpid+'"';
+                    html +=' datafld="SYS_EXTDATASELECT"';
+                    html += '>'+gTitle+'</button>';
+                    html = $(html);
+                    html.attr("style","height:auto; width:auto;");
+
+                    editor.execCommand('insertHtml',html.prop("outerHTML"));
+                    return true;
+                } catch ( e ) {
+                    try {
+                        editor.execCommand('error');
+                    } catch ( e ) {
+                        if(workform_formItem){
+                            alert(workform_formItem.workform_formItem_kjycqlxjszc);
+                        }else{
+                            alert('控件异常，请联系技术支持');
+                        }
+                    }
+                    return false;
+                }
+            } else {
+                oNode.setAttribute('title',gTitle);
+                oNode.setAttribute('data_field',data_field);
+                oNode.setAttribute('data_fld_name',data_fld_name);
+                oNode.setAttribute('data_control',data_control);
+                oNode.setAttribute('data_querys',data_querys);
+                oNode.setAttribute('data_table_name',$G('dataSrcName').value);
+                oNode.setAttribute('data_db_id',data_db_id);
+                oNode.setAttribute('terpid',terpid);
+                oNode.innerText=gTitle;
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+
+    });
+
+    //编辑追加表格
+    function  Assignment(data_field,data_fld_name,data_control,data_querys){
+        for(var i=0;data_field.length>i;i++){
+            if (data_field[i]!=''){
+                var tr='  <tr>\n' +
+                    '  <td>'+data_field[i]+'</td>\n' +
+                    '  <td><input class="form-control" type="text" value="'+data_fld_name[i]+'"/></td>\n' +
+                    '  <td><input class="form-control" type="text" value="'+data_control[i]+'"/></td>\n' +
+                    '  <td>' +
+                    '<input '+dataquerys(data_querys[i])+' type="checkbox"/>' +
+                    '<span>查询</span></td>\n' +
+                    '</tr>';
+                $('#mapTable').append(tr);
+            }
+        }
+    }
+
+    function dataquerys(data_querys) {
+        if(data_querys==="1"){
+            return "checked";
+        }
+    }
+
+    //清空
+    function Clear() {
+        $('#dataSrcName').val('');
+        $('#mapTable').html('');
+    }
+
+    //添加表格
+    function addtable(label,Schema,id) {
+        $.get('/TerpServerController/findTableField',
+            {
+                tableName:label,
+                tableSchema:Schema,
+                id:id
+            },function(res){
+            var data=res.obj;
+            $('#mapTable').html("");
+            $('#dataSrcName').attr("data_db_id",Schema); //库
+            for(var i=0;data.length>i;i++){
+                var tr='  <tr>\n' +
+                    '  <td>'+ function() {
+                        if (data[i].COLUMN_NAME!=undefined){
+                            return data[i].COLUMN_NAME;
+                        }else {
+                            return data[i].name;
+                        }
+                }()+
+                    '</td>\n' +
+                    '  <td><input class="form-control" type="text" value="'+ data[i].COLUMN_COMMENT +'"/></td>\n' +
+                    '  <td><input class="form-control" type="text"/></td>\n' +
+                    '  <td><input type="checkbox"/><span>查询</span></td>\n' +
+                    '</tr>';
+                $('#mapTable').append(tr);
+            }
+        });
+    }
+
+    //选择数据源
+    function selectDataSrc() {
+        window.open("/TerpServerController/dataSelectTree","","width=300,height=400");
+    }
+
+</script>
+</body>
+</html>

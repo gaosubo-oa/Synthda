@@ -1,0 +1,23 @@
+textarea:focus { outline: none;box-shadow: none;}
+.div_tou{height: 40px;}
+.div_bq{ position: absolute;left: 30px;top: 20px;height:30px}
+.div_xj{float: right;}
+.new_butt{position: absolute;top: 18px;right: 10px}
+.new_butt img{margin:0 5px;cursor:pointer;margin:0 10px}
+.content{width: 90%;margin:20px auto;}
+.new_content{color:#000;overflow-y:auto;outline:none;height: 250px;width: 90%;margin: 80px auto;display: block;font-size: 11pt;border:0px solid;box-shadow: none; resize:none;}
+.new_con{display:none;background-color:#3fabf8;border-radius:5px;width: 450px;height: 350px;position: fixed;left: 0;right: 0;bottom: 0;top:26%;margin: 0 auto;}
+.btn_9{display: none;}
+.yuan{position: relative; color:#fff;  padding:10px;  -moz-border-radius: 15px;-webkit-border-radius: 15px;   /* Webkit browsers */border-radius:15px; /* W3C syntax */}
+.yuan p{margin-top:20px}
+.modal_cols{float: left;width: 30px;height: 50px;margin: 5px 5px; border-radius:5px;cursor:pointer}
+.modal_bbb{width: 240px;height: 60px;position: fixed;right:0;top: 10%;left: 0;margin:0 auto}
+.btn_sps{position:absolute;right: 20px;top: 20px;}
+.contents{height: 118px;word-wrap: break-word;word-break: normal;text-overflow:ellipsis;overflow:hidden;color:#000;  font-size: 11pt;  width: 186px;  margin: 0 auto; resize:none;border:0px solid;box-shadow: none;}
+.jzgd{text-align: center;width:100%;height:28px;overflow: hidden;display:none;    font-size: 20px;    position: absolute;    bottom: 0;    font-weight: bold;}
+.modal-backdrop, .modal-backdrop.fade.in{opacity:0.5}
+.span_bj{border-radius: 15px;cursor:pointer ;position: absolute;width: 100%;height: 100%;left: 0;top: 0;margin-left: 0px;}
+.span_remove{cursor:pointer ;position: absolute;right:8px;top:10px;display:none;height:24px;width:24px}
+.div_title{width:100%;height:30px;position: absolute;top:0;left:0}
+.title_time{margin-top: -20px;display: block;}
+.title_hms{  display: block;margin-left: 10px;font-size: 13px;margin-top: -4px;}

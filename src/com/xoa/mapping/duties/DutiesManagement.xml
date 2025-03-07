@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.duties.DutiesManagementMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.duties.UserPost">
+        <result column="POST_ID" property="postId" />
+        <result column="POST_NAME" property="postName" />
+        <result column="TYPE" property="type" />
+        <result column="LEVEL" property="level" />
+        <result column="POST_NO" property="postNo" />
+        <result column="DEPT_ID" property="deptId" />
+        <result column="DUTY" property="duty" />
+        <result column="DESCRIPTION" property="description" />
+        <result column="ATTACHMENT_ID" property="attachmentId" />
+        <result column="ATTACHMENT_NAME" property="attachmentName" />
+    </resultMap>
+    <select id="selectUserPostList" parameterType="com.xoa.model.duties.UserPost" resultMap="BaseResultMap">
+        SELECT
+        POST_ID,
+        POST_NAME,
+        TYPE,
+        LEVEL,
+        POST_NO,
+        DEPT_ID,
+        DUTY,
+        DESCRIPTION,
+        ATTACHMENT_ID,
+        ATTACHMENT_NAME
+        FROM user_post ORDER BY POST_NO ASC
+    </select>
+    <select id="selectUserPostList" parameterType="com.xoa.model.duties.UserPost" resultMap="BaseResultMap" databaseId="oracle">
+        SELECT
+        POST_ID,
+        POST_NAME,
+        "TYPE",
+        "LEVEL",
+        POST_NO,
+        DEPT_ID,
+        DUTY,
+        DESCRIPTION,
+        ATTACHMENT_ID,
+        ATTACHMENT_NAME
+        FROM user_post ORDER BY POST_NO ASC
+    </select>
+    <select id="selectUserPostList" parameterType="com.xoa.model.duties.UserPost" resultMap="BaseResultMap" databaseId="dm">
+        SELECT
+        POST_ID,
+        POST_NAME,
+        "TYPE",
+        "LEVEL",
+        POST_NO,
+        DEPT_ID,
+        DUTY,
+        DESCRIPTION,
+        ATTACHMENT_ID,
+        ATTACHMENT_NAME
+        FROM user_post ORDER BY POST_NO ASC
+    </select>
+
+    <select id="selectUserPostList" parameterType="com.xoa.model.duties.UserPost" resultMap="BaseResultMap" databaseId="kingbase">
+        SELECT
+        POST_ID,
+        POST_NAME,
+        "TYPE",
+        "LEVEL",
+        POST_NO,
+        DEPT_ID,
+        DUTY,
+        DESCRIPTION,
+        ATTACHMENT_ID,
+        ATTACHMENT_NAME
+        FROM user_post ORDER BY POST_NO ASC
+    </select>
+
+
+    <!--修改-->
+    <update id="updateUserPost" parameterType="com.xoa.model.duties.UserPost" >
+        UPDATE user_post
+        <set>
+            <if test="postId != null" >
+                POST_ID = #{postId},
+            </if>
+            <if test="postName != null" >
+                POST_NAME = #{postName},
+            </if>
+            <if test="type != null" >
+                TYPE = #{type},
+            </if>
+            <if test="level != null" >
+                LEVEL = #{level},
+            </if>
+            <if test="postNo != null" >
+                POST_NO = #{postNo},
+            </if>
+            <if test="deptId != null" >
+                DEPT_ID = #{deptId},
+            </if>
+            <if test="duty != null" >
+                DUTY = #{duty},
+            </if>
+            <if test="description != null" >
+                DESCRIPTION = #{description},
+            </if>
+            <if test="attachmentId != null" >
+                ATTACHMENT_ID = #{attachmentId},
+            </if>
+            <if test="attachmentName != null" >
+                ATTACHMENT_NAME = #{attachmentName},
+            </if>
+        </set>
+        WHERE POST_ID = #{postId}
+    </update>
+    <!--通过 JOB_ID删除-->
+    <delete id="deleteUserPost" parameterType="java.lang.Integer">
+        delete from user_post
+        where POST_ID = #{postId,jdbcType=INTEGER}
+    </delete>
+    <insert id="addUserPost"  parameterType="com.xoa.model.duties.UserPost">
+        INSERT  INTO user_post(POST_ID,POST_NAME,TYPE,
+        LEVEL,POST_NO,DEPT_ID,DUTY,DESCRIPTION,
+        ATTACHMENT_ID,ATTACHMENT_NAME)
+        VALUES (#{postId,jdbcType=INTEGER},#{postName,jdbcType=VARCHAR},
+        #{type,jdbcType=INTEGER},#{level,jdbcType=VARCHAR},
+        #{postNo,jdbcType=VARCHAR},#{deptId,jdbcType=INTEGER},
+        #{duty,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+        #{attachmentId,jdbcType=VARCHAR},#{attachmentName,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <insert id="addUserPost"  parameterType="com.xoa.model.duties.UserPost" databaseId="kingbase">
+        INSERT  INTO user_post(POST_NAME,TYPE,
+        "LEVEL",POST_NO,DEPT_ID,DUTY,DESCRIPTION,
+        ATTACHMENT_ID,ATTACHMENT_NAME)
+        VALUES (#{postName,jdbcType=VARCHAR},
+        #{type,jdbcType=INTEGER},#{level,jdbcType=VARCHAR},
+        #{postNo,jdbcType=VARCHAR},#{deptId,jdbcType=INTEGER},
+        #{duty,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+        #{attachmentId,jdbcType=VARCHAR},#{attachmentName,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <insert id="addUserPost"  parameterType="com.xoa.model.duties.UserPost" databaseId="oracle">
+        <selectKey keyProperty="postId" order="BEFORE" resultType="int">
+            select USER_POST_POST_ID_SEQ.nextval AS postId FROM  dual
+        </selectKey>
+        INSERT  INTO user_post(POST_ID,POST_NAME,"TYPE",
+        "LEVEL",POST_NO,DEPT_ID,DUTY,DESCRIPTION,
+        ATTACHMENT_ID,ATTACHMENT_NAME)
+        VALUES (#{postId,jdbcType=INTEGER},#{postName,jdbcType=VARCHAR},
+        #{type,jdbcType=INTEGER},#{level,jdbcType=VARCHAR},
+        #{postNo,jdbcType=VARCHAR},#{deptId,jdbcType=INTEGER},
+        #{duty,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR},
+        #{attachmentId,jdbcType=VARCHAR},#{attachmentName,jdbcType=VARCHAR}
+        )
+    </insert>
+    <!--通过jobId获取信息-->
+    <select id="getUserPostId" parameterType="com.xoa.model.duties.UserPost"  resultMap="BaseResultMap" >
+        SELECT
+        POST_ID,
+        POST_NAME,
+        TYPE,
+        LEVEL,
+        POST_NO,
+        DEPT_ID,
+        DUTY,
+        DESCRIPTION,
+        ATTACHMENT_ID,
+        ATTACHMENT_NAME
+        FROM user_post WHERE  POST_ID=#{postId}
+    </select>
+
+    <select id="getUserPostId" parameterType="com.xoa.model.duties.UserPost"  resultMap="BaseResultMap" databaseId="kingbase" >
+        SELECT
+        POST_ID,
+        POST_NAME,
+        "TYPE",
+        "LEVEL",
+        POST_NO,
+        DEPT_ID,
+        DUTY,
+        DESCRIPTION,
+        ATTACHMENT_ID,
+        ATTACHMENT_NAME
+        FROM "user_post" WHERE  POST_ID=#{postId}
+    </select>
+
+    <select id="getUserPostByPostName" parameterType="java.lang.String"  resultMap="BaseResultMap" >
+        SELECT
+        POST_ID,
+        POST_NAME,
+        TYPE,
+        LEVEL,
+        POST_NO,
+        DEPT_ID,
+        DUTY,
+        DESCRIPTION,
+        ATTACHMENT_ID,
+        ATTACHMENT_NAME
+        FROM user_post WHERE  POST_NAME=#{postName}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,258 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+body{
+	font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+	position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+a{
+	text-decoration: none;
+	color: #2B7FE0;
+}
+ul{list-style: none;}
+.content{
+	width: 100%;
+
+}
+.content .headDiv{
+	position: fixed;
+
+	width: 100%;
+	height: 45px;
+	border-bottom: #999 1px solid;
+	overflow: hidden;
+}
+/*.content .divP{
+	display: block;
+	height: 50px;
+	line-height: 50px;
+	font-size: 20px;
+	margin-left: 30px;
+}*/
+.divP{
+	float: left;
+	height: 45px;
+	line-height: 45px;
+	font-size: 22px;
+	margin-left: 10px;
+	color:#494d59;
+}
+.div_Img{
+	float: left;
+	width: 23px;
+	height: 100%;
+	margin-left: 30px;
+}
+.div_Img img{
+	width: 23px;
+	height: 23px;
+	margin-top: 11px;
+}
+.content .left{
+	position: fixed;
+	top: 46px;
+	width: 19.9%;
+	float: left;
+	height: 100%;
+	overflow-y: auto;  
+    overflow-x: hidden;
+    border-right: #ccc 1px solid;
+}
+.content .left .collect{
+	width: 100%;
+	height: 750px;
+}
+
+
+.content .left .collect .divUP{
+	width: 100%;
+	overflow: hidden;
+}
+.content .left .collect .spanUP{
+	display: block;
+	padding-left: 30px;
+	font-size: 13pt;
+	height: 40px;
+	line-height: 40px;
+	border-bottom: #ddd 1px solid;
+	cursor: pointer;
+}
+#downChild li>span{
+	font-size: 12pt;
+}
+.pickCompany a{
+	font-size: 12pt;
+}
+.content .left .collect .liUp:first-of-type{
+	border-top: #ddd 1px solid;
+}
+.content .left .collect .liUp:hover{
+	background-color: #add2f8;
+}
+
+#ULDown span{
+	display: block;
+	width: 100%;
+	padding: 8px 0;
+}
+#ULDown span a{
+	font-size: 14px;
+}
+#ULDown span:hover{
+	background-color: #add2f8;
+}
+
+
+.content .right{
+	margin-top: 46px;
+	float: right;
+	width: 80%;
+	font-size: 14px;
+	display: none;
+	overflow-y:auto;
+}
+.content .right .header{
+	width: 100%;
+	height: 41px;
+	line-height: 41px;
+	border-bottom: #eee 1px solid;
+}
+.content .right .USER{
+	margin-left: 10px;
+	font-size: 16px;
+}
+.content .right .title{
+	margin-top: 5px;
+}
+.content .rightMain{
+	width: 80%;
+	height: 100%;
+	float: right;
+	font-size: 14px;
+	overflow-y:auto;
+	margin-top: 46px;
+}
+.content .rightMain iframe{
+	width: 100%;
+	overflow-y:auto;
+	height: 100%;
+}
+.explain{
+	margin-left: 15px;
+	color: #999999;
+}
+#btn{
+	display: inline-block;
+	margin-left: 70%;
+	cursor: pointer;
+	width: 85px;
+	height:32px;
+	line-height: 32px;
+	font-size: 14px;
+	background-color: #2f80d1;
+	outline: none;
+	border: #ccc 1px solid;
+	color: #fff;
+	border-radius: 5px;
+}
+.tab{
+	width: 100%;
+	margin-top: 13px;
+}
+.tab table{
+	width: 99%;
+	font-size: 14px;
+	margin: 0 auto;
+}
+.tab table tr{
+	border: 1px solid #c0c0c0;
+	/*cursor: pointer;*/
+}
+
+.tab table tr th{
+	color: #2F5C8F;
+	font-weight: bold;
+	font-size: 13pt;
+}
+.tab table tr:nth-child(odd){
+	background-color: #fff;
+}
+.tab table tr:nth-child(even){
+	background-color: #F6F7F9;
+}
+.tab table tr.userData:hover{
+	background-color: #c5e9fb;
+}
+.tab table tr th,.tab table tr td{
+	padding:10px;
+}
+.tab table tr th,.tab table tr td{
+	text-align: center;
+}
+.tab table a{
+	text-decoration: none;
+	text-align: left;
+	display: inline-block;
+	color:#2B7FE0;
+}
+.bottom {
+	width: 99%;
+	margin: 0 auto;
+    border: 1px solid #c0c0c0;
+    margin-top:10px;
+    background-color: #fff;
+}
+.clearfix:after{
+	content:'';
+	display: block;
+	clear: both;
+}
+.bottom div {
+    display: inline-block;
+    float: left;
+    margin-left: 30px;
+    margin-top: 5px;
+	margin-bottom: 5px;
+	background: none;
+}
+.bottom .boto a{
+	font-size: 14px;
+	display: block;
+	border: #ccc 1px solid;
+	padding: 2px 4px;
+	border-radius: 3px;
+}
+
+.liUp{
+	background: url(../../img/sys/icon_rightarrow_03.png) no-repeat 75% center;
+}
+.liDown{
+	background: url(../../img/sys/icon_downarrow_03.png) no-repeat 75% center;
+}
+.on{background-color: #add2f8;}
+.bgColor{background: #c5e9fb !important;}
+/*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+::-webkit-scrollbar{
+	width: 8px;
+	height: 6px;
+	background-color: #f5f5f5;
+}
+/*定义滚动条的轨道，内阴影及圆角*/
+::-webkit-scrollbar-track{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	border-radius: 10px;
+	background-color: #f5f5f5;
+}
+/*定义滑块，内阴影及圆角*/
+::-webkit-scrollbar-thumb{
+	/*width: 10px;*/
+	height: 20px;
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}

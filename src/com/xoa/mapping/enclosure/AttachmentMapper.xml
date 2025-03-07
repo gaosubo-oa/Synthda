@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.enclosure.AttachmentMapper">
+  <resultMap id="BaseResultMap" type="com.xoa.model.enclosure.Attachment">
+    <id column="AID" jdbcType="INTEGER" property="aid" />
+    <result column="POSITION" javaType="java.lang.Integer" property="position" />
+    <result column="MODULE" javaType="java.lang.Integer" property="module" />
+    <result column="YM" jdbcType="CHAR" property="ym" />
+    <result column="ATTACH_ID" jdbcType="VARCHAR" property="attachId" />
+    <result column="ATTACH_FILE" jdbcType="VARCHAR" property="attachFile" />
+    <result column="ATTACH_NAME" jdbcType="VARCHAR" property="attachName" />
+    <result column="ATTACH_SIGN" jdbcType="BIGINT" property="attachSign" />
+    <result column="DEL_FLAG" javaType="java.lang.Integer" property="delFlag" />
+    <result column="SIZE" jdbcType="VARCHAR" property="size" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    AID, POSITION, MODULE, YM, ATTACH_ID, ATTACH_FILE, ATTACH_NAME, ATTACH_SIGN, DEL_FLAG,SIZE
+  </sql>
+
+  <sql id="Base_Column_List" databaseId="oracle">
+    AID, POSITION, MODULE, YM, ATTACH_ID, ATTACH_FILE, ATTACH_NAME, ATTACH_SIGN, DEL_FLAG,"SIZE"
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from attachment
+    where AID = #{aid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="findByAttachId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from attachment
+
+    where  AID = #{aid}
+  </select>
+
+  <select id="findByAttachId1" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from attachment
+    where ATTACH_ID =  #{attachId}
+  </select>
+
+
+  <select id="findByAttachId" parameterType="java.lang.Integer" resultMap="BaseResultMap" databaseId="oracle">
+    select
+    <include refid="Base_Column_List" />
+    from attachment
+    where ATTACH_ID = #{attachId,jdbcType=VARCHAR}
+  </select>
+  <select id="findByLast"  resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from attachment
+    where aid = (SELECT max(aid) FROM attachment);
+  </select>
+
+
+  <select id="findByLast"  resultMap="BaseResultMap" databaseId="oracle">
+      select
+      AID, POSITION, MODULE, YM, ATTACH_ID, ATTACH_FILE, ATTACH_NAME, ATTACH_SIGN, DEL_FLAG,"SIZE"
+      from attachment
+      where aid = (SELECT max(aid) FROM attachment);
+  </select>
+
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from attachment
+    where AID = #{aid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xoa.model.enclosure.Attachment">
+    insert into attachment (AID, POSITION, MODULE, 
+      YM, ATTACH_ID, ATTACH_FILE, 
+      ATTACH_NAME, ATTACH_SIGN, DEL_FLAG
+      )
+    values (#{aid,jdbcType=INTEGER}, #{position,jdbcType=TINYINT}, #{module,jdbcType=TINYINT}, 
+      #{ym,jdbcType=CHAR}, #{attachId,jdbcType=VARCHAR}, #{attachFile,jdbcType=VARCHAR},
+      #{attachName,jdbcType=VARCHAR}, #{attachSign,jdbcType=BIGINT}, #{delFlag,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xoa.model.enclosure.Attachment"  >
+    <selectKey order="AFTER" keyProperty="aid" resultType="int">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into attachment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="aid != null">
+        AID,
+      </if>
+      <if test="position != null">
+        POSITION,
+      </if>
+      <if test="module != null">
+        MODULE,
+      </if>
+      <if test="ym != null">
+        YM,
+      </if>
+      <if test="attachId != null">
+        ATTACH_ID,
+      </if>
+      <if test="attachFile != null">
+        ATTACH_FILE,
+      </if>
+      <if test="attachName != null">
+        ATTACH_NAME,
+      </if>
+      <if test="attachSign != null">
+        ATTACH_SIGN,
+      </if>
+      <if test="delFlag != null">
+        DEL_FLAG,
+      </if>
+      <if test="size != null">
+        SIZE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="aid != null">
+        #{aid},
+      </if>
+      <if test="position != null">
+        #{position},
+      </if>
+      <if test="module != null">
+        #{module},
+      </if>
+      <if test="ym != null">
+        #{ym},
+      </if>
+      <if test="attachId != null">
+        #{attachId},
+      </if>
+      <if test="attachFile != null">
+        #{attachFile},
+      </if>
+      <if test="attachName != null">
+        #{attachName},
+      </if>
+      <if test="attachSign != null">
+        #{attachSign},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag},
+      </if>
+      <if test="size != null">
+        #{size},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.xoa.model.enclosure.Attachment" databaseId="kingbase" useGeneratedKeys="true" keyProperty="aid">
+    insert into attachment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="aid != null">
+        AID,
+      </if>
+      <if test="position != null">
+        POSITION,
+      </if>
+      <if test="module != null">
+        MODULE,
+      </if>
+      <if test="ym != null">
+        YM,
+      </if>
+      <if test="attachId != null">
+        ATTACH_ID,
+      </if>
+      <if test="attachFile != null">
+        ATTACH_FILE,
+      </if>
+      <if test="attachName != null">
+        ATTACH_NAME,
+      </if>
+      <if test="attachSign != null">
+        ATTACH_SIGN,
+      </if>
+      <if test="delFlag != null">
+        DEL_FLAG,
+      </if>
+      <if test="size != null">
+        SIZE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="aid != null">
+        #{aid},
+      </if>
+      <if test="position != null">
+        #{position},
+      </if>
+      <if test="module != null">
+        #{module},
+      </if>
+      <if test="ym != null">
+        #{ym},
+      </if>
+      <if test="attachId != null">
+        #{attachId},
+      </if>
+      <if test="attachFile != null">
+        #{attachFile},
+      </if>
+      <if test="attachName != null">
+        #{attachName},
+      </if>
+      <if test="attachSign != null">
+        #{attachSign},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag},
+      </if>
+      <if test="size != null">
+        #{size},
+      </if>
+    </trim>
+    RETURNING AID
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.xoa.model.enclosure.Attachment"  databaseId="oracle">
+    <selectKey order="BEFORE" keyProperty="aid" resultType="int">
+      select ATTENMENT_A_ID_SEQ.nextval as aid from  dual
+    </selectKey>
+    insert into attachment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="aid != null">
+        AID,
+      </if>
+      <if test="position != null">
+        POSITION,
+      </if>
+      <if test="module != null">
+        MODULE,
+      </if>
+      <if test="ym != null">
+        YM,
+      </if>
+      <if test="attachId != null">
+        ATTACH_ID,
+      </if>
+      <if test="attachFile != null">
+        ATTACH_FILE,
+      </if>
+      <if test="attachName != null">
+        ATTACH_NAME,
+      </if>
+      <if test="attachSign != null">
+        ATTACH_SIGN,
+      </if>
+      <if test="delFlag != null">
+        DEL_FLAG,
+      </if>
+      <if test="size != null">
+        "SIZE",
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="aid != null">
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=TINYINT},
+      </if>
+      <if test="module != null">
+        #{module,jdbcType=TINYINT},
+      </if>
+      <if test="ym != null">
+        #{ym,jdbcType=CHAR},
+      </if>
+      <if test="attachId != null">
+        #{attachId,jdbcType=INTEGER},
+      </if>
+      <if test="attachFile != null">
+        #{attachFile,jdbcType=VARCHAR},
+      </if>
+      <if test="attachName != null">
+        #{attachName,jdbcType=VARCHAR},
+      </if>
+      <if test="attachSign != null">
+        #{attachSign,jdbcType=BIGINT},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=TINYINT},
+      </if>
+      <if test="size != null">
+        #{size},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.enclosure.Attachment">
+    update attachment
+    <set>
+      <if test="position != null">
+        POSITION = #{position,jdbcType=TINYINT},
+      </if>
+      <if test="module != null">
+        MODULE = #{module,jdbcType=TINYINT},
+      </if>
+      <if test="ym != null">
+        YM = #{ym,jdbcType=CHAR},
+      </if>
+      <if test="attachId != null">
+        ATTACH_ID = #{attachId,jdbcType=VARCHAR},
+      </if>
+      <if test="attachFile != null">
+        ATTACH_FILE = #{attachFile,jdbcType=VARCHAR},
+      </if>
+      <if test="attachName != null">
+        ATTACH_NAME = #{attachName,jdbcType=VARCHAR},
+      </if>
+      <if test="attachSign != null">
+        ATTACH_SIGN = #{attachSign,jdbcType=BIGINT},
+      </if>
+      <if test="delFlag != null">
+        DEL_FLAG = #{delFlag,jdbcType=TINYINT},
+      </if>
+      <if test="size != null">
+        SIZE = #{size},
+      </if>
+    </set>
+    where AID = #{aid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xoa.model.enclosure.Attachment">
+    update attachment
+    set POSITION = #{position,jdbcType=TINYINT},
+      MODULE = #{module,jdbcType=TINYINT},
+      YM = #{ym,jdbcType=CHAR},
+      ATTACH_ID = #{attachId,jdbcType=VARCHAR},
+      ATTACH_FILE = #{attachFile,jdbcType=VARCHAR},
+      ATTACH_NAME = #{attachName,jdbcType=VARCHAR},
+      ATTACH_SIGN = #{attachSign,jdbcType=BIGINT},
+      DEL_FLAG = #{delFlag,jdbcType=TINYINT}
+    where AID = #{aid,jdbcType=INTEGER}
+  </update>
+
+  <!--    Integer viewDetailsByRunId(@Param("runId") Integer runId,
+                               @Param("userId") Integer userId);-->
+  <select id="viewDetailsByRunId" resultType="Integer">
+     SELECT fr.flow_id FROM flow_run_prcs frp,flow_run fr
+     WHERE frp.RUN_ID=fr.run_id and frp.RUN_ID=#{runId} AND frp.USER_ID=#{userId} limit 1
+  </select>
+  <!--    I Integer viewDetailsByUser(Users user,Integer runId);-->
+  <select id="viewDetailsByUser" resultType="Integer">
+      SELECT FLOW_ID FROM flow_priv fp
+      WHERE FLOW_ID=(SELECT FLOW_ID FROM flow_run WHERE RUN_ID=#{runId}) AND
+      fp.PRIV_TYPE=1 AND
+      (
+      (fp.user LIKE CONCAT("%,",#{user.userId},",%") OR fp.user LIKE CONCAT(#{user.userId},",%"))
+      OR
+      (fp.DEPT LIKE CONCAT("%,",#{user.deptId},",%") OR fp.DEPT LIKE CONCAT(#{user.deptId},",%"))
+      OR
+      (fp.ROLE LIKE CONCAT("%,",#{user.userPriv},",%") OR fp.ROLE LIKE CONCAT(#{user.userPriv},",%"))
+      )
+      LIMIT 1
+  </select>
+
+
+  <delete id="delete" parameterType="com.xoa.model.enclosure.Attachment">
+    delete from attachment
+    where AID = #{aid} and  ATTACH_ID = #{attachId} and  ATTACH_NAME = #{attachName}
+  </delete>
+  <update id="update" >
+    update attachment set ATTACH_ID =#{attachid},MODULE = #{2,jdbcType=TINYINT} where AID = #{id}
+  </update>
+  <select id="selectAttachment"  resultMap="BaseResultMap">
+    select
+    size
+    from attachment
+    where SIZE !=''
+  </select>
+
+  <select id="selectByAttachment" resultMap="BaseResultMap">
+    select attachment.* from attachment
+    WHERE ATTACH_ID in
+    <foreach close=")" collection="attachids" item="id" open="(" separator=",">
+      #{id}
+    </foreach>
+  </select>
+  
+  <select id="selectBySearch" resultMap="BaseResultMap" >
+    select * from attachment
+    where
+    <if test="aid != null">
+      and aid = #{aid,jdbcType=INTEGER}
+    </if>
+    <if test="module != null">
+      and `MODULE` = #{module,jdbcType=TINYINT}
+    </if>
+    <if test="ym != null">
+      and YM = #{ym,jdbcType=CHAR}
+    </if>
+    <if test="attachId != null">
+      and ATTACH_ID = #{attachId,jdbcType=INTEGER}
+    </if>
+    <if test="attachName != null">
+      and ATTACH_NAME =  #{attachName,jdbcType=VARCHAR}
+    </if>
+
+  </select>
+
+
+  <select id="selectOneBySearch" resultMap="BaseResultMap" >
+    select * from attachment
+    <where>
+      <if test="aid != null">
+        and aid = #{aid,jdbcType=INTEGER}
+      </if>
+      <if test="module != null">
+        and `MODULE` = #{module,jdbcType=TINYINT}
+      </if>
+      <if test="ym != null">
+        and YM = #{ym,jdbcType=CHAR}
+      </if>
+      <if test="attachId != null">
+        and ATTACH_ID = #{attachId,jdbcType=INTEGER}
+      </if>
+      <if test="attachName != null">
+        and ATTACH_NAME =  #{attachName,jdbcType=VARCHAR}
+      </if>
+    </where>
+    limit 1
+  </select>
+
+  <select id="selectByAids" resultMap="BaseResultMap">
+    select attachment.* from attachment
+    WHERE aid in
+    <foreach close=")" collection="aids" item="id" open="(" separator=",">
+      #{id}
+    </foreach>
+  </select>
+</mapper>

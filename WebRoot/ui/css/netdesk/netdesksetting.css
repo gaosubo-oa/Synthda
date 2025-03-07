@@ -1,0 +1,285 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Microsoft YaHei";
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    border: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+input {
+    outline-style: none;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    overflow: hidden;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+.netdiskPar .netdisk{
+    width: 96%;
+    font-size: 16px;
+    border: 1px solid #e5e5e5;
+    margin: 12px auto;
+}
+.netdisk caption {
+    /*text-align: right;*/
+    margin-bottom: 8px;
+}
+.netdisk .share_t{
+    float: left;
+    font-size: 22px;
+    color: #494d59;
+    margin-bottom: 8px;
+
+}
+.netdisk .newtory{
+    float: right;
+    border: 1px solid #e5e5e5;
+    padding: 3px 5px;
+    border-radius: 4px;
+    background: #fafafa;
+    font-size: 14px;
+    color: #333;
+}
+.netdisk .save_a{
+    color: #1687cb;
+}
+.netdisk tr td{
+    text-align: center;
+}
+.netdisk tr th{
+    background: #fff;
+    line-height: 40px;
+    font-size: 13pt;
+    color: #2F5C8F;
+}
+
+.con{
+    display: none;
+}
+/*弹窗*/
+/*.newpop{*/
+    /*margin: 0 auto;*/
+    /*width: 600px;*/
+/*}*/
+.newpop .list_group{
+    margin: 20px 0;
+}
+.list_group .file_path{
+    padding-left: 120px;
+}
+.list_group .toryList{
+    display: inline-block;
+    margin-right: 20px;
+    width: 100px;
+    height: 26px;
+}
+.list_group .save_w{
+    width: 200px;
+    height: 28px;
+}
+.list_group .defaultSort{
+    width: 130px;
+}
+.list_group .Ascend{
+    width: 61px;
+    margin-left: 6px;
+}
+.layui-layer .layui-layer-title{
+    background:  #2b7fe0;
+}
+/*权限设置*/
+.power_t{
+    height: 42px;
+    line-height: 42px;
+    padding-left: 34px;
+    border-bottom: 1px solid #9E9E9E;
+}
+.power_t>li{
+    float: left;
+}
+ .power_list{
+    display: inline-block;
+    font-size: 14px;
+    width: 96px;
+    text-align: center;
+    border-radius: 20px;
+    color: #666;
+    height: 32px;
+    line-height: 32px;
+
+}
+.power_bg{
+    background-color: #2F8AE3;
+    color: #fff;
+}
+
+.power_t img{
+   padding: 0 20px;
+}
+.power_des{
+    height: 30px;
+    line-height: 30px;
+
+}
+.power_stage{
+    padding-left:32px;
+}
+table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.th {
+    background-color: #fff;
+    font-size: 15px;
+    color: #2F5C8F;
+    font-weight: bold;
+    border: 0px;
+}
+.tr_td tr:nth-child(odd) {
+    background-color: #F6F7F9;
+}
+.tr_td tbody tr:hover {
+    background-color: #D3E7FA;
+}
+.tr_td tbody tr{
+    text-align: center;
+}
+textarea{
+    /*margin-left: 13%;*/
+    min-width: 300px;
+    min-height: 65px;
+    width: 80%;
+    resize: none;
+    border-radius: 4px;
+}
+td a{
+    color: #2F8AE3;
+    vertical-align: top;
+}
+tr {
+    border: 1px solid #c0c0c0;
+}
+.import {
+    width: 70px;
+    height: 28px;
+    font-size: 13px !important;
+    cursor: pointer;
+    background-repeat: no-repeat;
+    background-image: url(../../img/sys/confirm.png);
+    /*padding-left: 25px;*/
+    border: none;
+    padding-left: 15px;
+}
+.tr_td tr:nth-child(even) {
+    background-color: #fff;
+}
+.divtable{
+    width:90%;
+    margin:0 auto;
+}
+.power_des .power_ex{
+    font-size: 16px;
+  padding-left: 20px;
+}
+.power_body{
+    margin: 20px 0 20px 100px;
+}
+.title_label{
+    float: left;
+}
+.title_label .title_r{
+    vertical-align: -64px;
+    margin-right: 30px;
+    font-size: 18px;
+}
+.power_text .sendsave{
+    width: 320px;
+    height: 120px;
+}
+.title_label .title_no{
+   vertical-align: -28px;
+}
+.title_label .title_no_t{
+    vertical-align: -18px;
+    margin-right: 78px;
+}
+.power_text .saveno{
+    width: 252px;
+    height: 42px;
+}
+.check_con .check_p{
+    margin-right: 10px;
+    font-size: 14px;
+}
+.check_con .add_mar{
+    font-size: 14px;
+    margin-right: 10px;
+}
+/*.check_con input[type="radio"]{*/
+    /*width: 18px;*/
+    /*height: 18px;*/
+/*}*/
+.power_but .bigButton{
+    margin: 0 auto;
+    background-color: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    height: 24px;
+    line-height: 14px;
+    padding: 4px 10px;
+    font-size: 14px;
+    color: #333;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+}
+.power_but{
+    margin-left: 246px;
+}
+.item{
+    display: none;
+}
+.newTable{
+    width:247px;
+    height:85px;
+    padding-right:15px;
+}
+.tableTop{
+    width: 100%;
+    height: 46px;
+    line-height: 21px;
+    font-size: 16px;
+    font-weight:bold;
+    color: #111;
+}
+.share_t {
+    float: left;
+    font-size: 22px;
+    color: #494d59;
+    margin-bottom: 8px;
+    margin-left: 1%;
+}
+
+

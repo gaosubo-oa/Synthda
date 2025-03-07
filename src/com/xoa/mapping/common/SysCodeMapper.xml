@@ -1,0 +1,847 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.common.SysCodeMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.common.SysCode">
+        <id column="CODE_ID" property="codeId" javaType="int"/>
+        <result column="CODE_NO" property="codeNo" javaType="string"/>
+        <result column="CODE_NAME" property="codeName" javaType="string"/>
+        <result column="CODE_NAME1" property="codeName1" javaType="string"/>
+        <result column="CODE_NAME2" property="codeName2" javaType="string"/>
+        <result column="CODE_NAME3" property="codeName3" javaType="string"/>
+        <result column="CODE_NAME4" property="codeName4" javaType="string"/>
+        <result column="CODE_ORDER" property="codeOrder" javaType="string"/>
+        <result column="PARENT_NO" property="parentNo" javaType="string"/>
+        <result column="CODE_FLAG" property="codeFlag" javaType="string"/>
+        <result column="CODE_EXT" property="codeExt" javaType="string"/>
+        <result column="IS_CAN" property="isCan" javaType="string"/>
+        <result column="IS_REMIND" property="isRemind" javaType="string"/>
+        <result column="IS_IPHONE" property="isIphone" javaType="string"/>
+    </resultMap>
+    <select id="getSysCode" parameterType="string" resultMap="BaseResultMap">
+    select  s.CODE_NAME,s.CODE_NAME1,s.CODE_ID,s.CODE_NO,s.CODE_EXT,s.CODE_FLAG,s.CODE_ORDER  from sys_code s WHERE s.PARENT_NO=#{parentNo} order by CODE_ORDER ASC
+  </select>
+
+    <select id="getAllSysCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select  s.CODE_NAME,CODE_NAME1,CODE_NAME2,CODE_NAME3,CODE_NAME4,s.CODE_ID,s.CODE_NO,s.CODE_EXT,s.CODE_FLAG,s.CODE_ORDER from sys_code s where PARENT_NO='' order by CODE_ORDER ASC
+  </select>
+
+    <select id="getAllSysCode" parameterType="java.lang.String" resultMap="BaseResultMap" databaseId="oracle">
+        select  s.CODE_NAME,CODE_NAME1,CODE_NAME2,CODE_NAME3,CODE_NAME4,s.CODE_ID,s.CODE_NO,s.CODE_EXT,s.CODE_FLAG,s.CODE_ORDER from sys_code s where PARENT_NO IS NULL order by CODE_ORDER ASC
+    </select>
+
+    <select id="getAllSysCode" parameterType="java.lang.String" resultMap="BaseResultMap" databaseId="dm">
+        select  s.CODE_NAME,CODE_NAME1,CODE_NAME2,CODE_NAME3,CODE_NAME4,s.CODE_ID,s.CODE_NO,s.CODE_EXT,s.CODE_FLAG,s.CODE_ORDER from sys_code s where PARENT_NO IS NULL order by CODE_ORDER ASC
+    </select>
+
+    <select id="getCode" resultMap="BaseResultMap">
+  select * from sys_code where PARENT_NO=#{codeNo} order by CODE_ORDER ASC
+  </select>
+    <delete id="delete" parameterType="com.xoa.model.common.SysCode">
+  delete from sys_code where CODE_ID=#{codeId} or PARENT_NO=#{codeNo} and CODE_FLAG=1
+  </delete>
+    <update id="update" parameterType="com.xoa.model.common.SysCode">
+        update sys_code
+        <set>
+            <if test="codeNo != null">
+                CODE_NO= #{codeNo},
+            </if>
+            <if test="codeName != null">
+                CODE_NAME = #{codeName},
+            </if>
+            <if test="codeName1 != null">
+                CODE_NAME1 = #{codeName1},
+            </if>
+            <if test="codeName2 != null">
+                CODE_NAME2 = #{codeName2},
+            </if>
+            <if test="codeName3 != null">
+                CODE_NAME3 = #{codeName3},
+            </if>
+            <if test="codeName4 != null">
+                CODE_NAME4 = #{codeName4},
+            </if>
+            <if test="codeName5 != null">
+                CODE_NAME5 = #{codeName5},
+            </if>
+            <if test="codeName6 != null">
+                CODE_NAME6 = #{codeName6},
+            </if>
+            <if test="codeOrder != null">
+                CODE_ORDER = #{codeOrder},
+            </if>
+            <if test="parentNo !=null">
+                PARENT_NO =#{parentNo},
+            </if>
+            <if test="isCan !=null">
+                IS_CAN =#{isCan},
+            </if>
+            <if test="isRemind !=null">
+                IS_REMIND =#{isRemind},
+            </if>
+            <if test="isIphone !=null">
+                IS_IPHONE =#{isIphone}
+            </if>
+        </set>
+        where CODE_ID = #{codeId}
+
+    </update>
+    <select id="getLogType" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select s.CODE_ID, s.CODE_NO, s.CODE_NAME, s.CODE_NAME1, s.PARENT_NO from sys_code s WHERE s.PARENT_NO='SYS_LOG' ORDER BY s.CODE_ORDER ASC;
+    </select>
+    <select id="getLogType" parameterType="java.lang.String" resultMap="BaseResultMap" databaseId="oracle">
+        select s.CODE_ID, s.CODE_NO, s.CODE_NAME, s.CODE_NAME1, s.PARENT_NO from sys_code s WHERE s.PARENT_NO='SYS_LOG' ORDER BY s.CODE_ORDER ASC
+    </select>
+    <select id="getLogType" parameterType="java.lang.String" resultMap="BaseResultMap" databaseId="dm">
+        select s.CODE_ID, s.CODE_NO, s.CODE_NAME, s.CODE_NAME1, s.PARENT_NO from sys_code s WHERE s.PARENT_NO='SYS_LOG' ORDER BY s.CODE_ORDER ASC
+    </select>
+    <select id="getLogNameByNo" parameterType="java.lang.String" resultType="java.lang.String">
+        select s.CODE_NAME FROM sys_code s WHERE s.CODE_NO = #{codeNo} AND s.PARENT_NO = 'SYS_LOG';
+    </select>
+    <select id="getLogNameByNo" parameterType="java.lang.String" resultType="java.lang.String" databaseId="oracle">
+        select s.CODE_NAME FROM sys_code s WHERE s.CODE_NO = #{codeNo} AND s.PARENT_NO = 'SYS_LOG'
+    </select>
+    <select id="getLogNameByNo" parameterType="java.lang.String" resultType="java.lang.String" databaseId="dm">
+        select s.CODE_NAME FROM sys_code s WHERE s.CODE_NO = #{codeNo} AND s.PARENT_NO = 'SYS_LOG'
+    </select>
+    <select id="getNotifyNameByNo" parameterType="java.lang.String" resultType="java.lang.String">
+        select s.CODE_NAME FROM sys_code s WHERE s.CODE_NO = #{codeNo} AND s.PARENT_NO = 'NOTIFY'
+    </select>
+    <select id="getNewsNameByNo" parameterType="java.lang.String" resultType="java.lang.String">
+        select s.CODE_NAME FROM sys_code s WHERE s.CODE_NO = #{codeNo} AND s.PARENT_NO = 'NEWS'
+    </select>
+
+
+    <insert id="addSysMainCode" parameterType="com.xoa.model.common.SysCode">
+        insert into sys_code
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="codeId != null">
+               CODE_ID,
+            </if>
+            <if test="codeNo != null">
+                CODE_NO,
+            </if>
+            <if test="codeName != null">
+                CODE_NAME,
+            </if>
+            <if test="codeName1 != null">
+                CODE_NAME1,
+            </if>
+            <if test="codeName2 != null">
+                CODE_NAME2,
+            </if>
+            <if test="codeName3 != null">
+                CODE_NAME3,
+            </if>
+            <if test="codeName4 != null">
+                CODE_NAME4,
+            </if>
+            <if test="codeName5 != null">
+                CODE_NAME5,
+            </if>
+            <if test="codeName6 != null">
+                CODE_NAME6,
+            </if>
+            <if test="codeOrder != null">
+                CODE_ORDER,
+            </if>
+            <if test="parentNo != null">
+                PARENT_NO,
+            </if>
+            <if test="codeFlag != null">
+                CODE_FLAG,
+            </if>
+            <if test="codeExt != null">
+                CODE_EXT,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="codeId != null">
+               #{codeId,jdbcType=INTEGER},
+            </if>
+            <if test="codeNo != null">
+                #{codeNo,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName != null">
+                #{codeName,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName1 != null">
+                #{codeName1,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName2 != null">
+                #{codeName2,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName3 != null">
+                #{codeName3,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName4 != null">
+                #{codeName4,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName5 != null">
+                #{codeName5,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName6 != null">
+                #{codeName6,jdbcType=VARCHAR},
+            </if>
+            <if test="codeOrder != null">
+                #{codeOrder,jdbcType=VARCHAR},
+            </if>
+            <if test="parentNo != null">
+                #{parentNo,jdbcType=VARCHAR},
+            </if>
+            <if test="codeFlag != null">
+                #{codeFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="codeExt != null">
+                #{codeExt,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="addSysMainCode" parameterType="com.xoa.model.common.SysCode" databaseId="oracle">
+        insert into sys_code(CODE_ID,
+        <trim  suffix=")" suffixOverrides=",">
+            <!--<if test="codeId != null">-->
+                <!--CODE_ID,-->
+            <!--</if>-->
+            <if test="codeNo != null">
+                CODE_NO,
+            </if>
+            <if test="codeName != null">
+                CODE_NAME,
+            </if>
+            <if test="codeName1 != null">
+                CODE_NAME1,
+            </if>
+            <if test="codeName2 != null">
+                CODE_NAME2,
+            </if>
+            <if test="codeName3 != null">
+                CODE_NAME3,
+            </if>
+            <if test="codeName4 != null">
+                CODE_NAME4,
+            </if>
+            <if test="codeName5 != null">
+                CODE_NAME5,
+            </if>
+            <if test="codeName6 != null">
+                CODE_NAME6,
+            </if>
+            <if test="codeOrder != null">
+                CODE_ORDER,
+            </if>
+            <if test="parentNo != null">
+                PARENT_NO,
+            </if>
+            <if test="codeFlag != null">
+                CODE_FLAG,
+            </if>
+            <if test="codeExt != null">
+                CODE_EXT,
+            </if>
+        </trim>
+        values (SYS_CODE_CODE_ID_SEQ.NEXTVAL,
+        <trim suffix=")" suffixOverrides=",">
+            <!--<if test="codeId != null">-->
+                <!--#{codeId,jdbcType=INTEGER},-->
+            <!--</if>-->
+            <if test="codeNo != null">
+                #{codeNo,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName != null">
+                #{codeName,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName1 != null">
+                #{codeName1,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName2 != null">
+                #{codeName2,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName3 != null">
+                #{codeName3,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName4 != null">
+                #{codeName4,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName5 != null">
+                #{codeName5,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName6 != null">
+                #{codeName6,jdbcType=VARCHAR},
+            </if>
+            <if test="codeOrder != null">
+                #{codeOrder,jdbcType=VARCHAR},
+            </if>
+            <if test="parentNo != null">
+                #{parentNo,jdbcType=VARCHAR},
+            </if>
+            <if test="codeFlag != null">
+                #{codeFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="codeExt != null">
+                #{codeExt,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="addSysMainCode" parameterType="com.xoa.model.common.SysCode" databaseId="dm">
+        insert into sys_code(CODE_ID,
+        <trim  suffix=")" suffixOverrides=",">
+            <!--<if test="codeId != null">-->
+            <!--CODE_ID,-->
+            <!--</if>-->
+            <if test="codeNo != null">
+                CODE_NO,
+            </if>
+            <if test="codeName != null">
+                CODE_NAME,
+            </if>
+            <if test="codeName1 != null">
+                CODE_NAME1,
+            </if>
+            <if test="codeName2 != null">
+                CODE_NAME2,
+            </if>
+            <if test="codeName3 != null">
+                CODE_NAME3,
+            </if>
+            <if test="codeName4 != null">
+                CODE_NAME4,
+            </if>
+            <if test="codeName5 != null">
+                CODE_NAME5,
+            </if>
+            <if test="codeName6 != null">
+                CODE_NAME6,
+            </if>
+            <if test="codeOrder != null">
+                CODE_ORDER,
+            </if>
+            <if test="parentNo != null">
+                PARENT_NO,
+            </if>
+            <if test="codeFlag != null">
+                CODE_FLAG,
+            </if>
+            <if test="codeExt != null">
+                CODE_EXT,
+            </if>
+        </trim>
+        values (SYS_CODE_CODE_ID_SEQ.NEXTVAL,
+        <trim suffix=")" suffixOverrides=",">
+            <!--<if test="codeId != null">-->
+            <!--#{codeId,jdbcType=INTEGER},-->
+            <!--</if>-->
+            <if test="codeNo != null">
+                #{codeNo,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName != null">
+                #{codeName,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName1 != null">
+                #{codeName1,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName2 != null">
+                #{codeName2,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName3 != null">
+                #{codeName3,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName4 != null">
+                #{codeName4,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName5 != null">
+                #{codeName5,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName6 != null">
+                #{codeName6,jdbcType=VARCHAR},
+            </if>
+            <if test="codeOrder != null">
+                #{codeOrder,jdbcType=VARCHAR},
+            </if>
+            <if test="parentNo != null">
+                #{parentNo,jdbcType=VARCHAR},
+            </if>
+            <if test="codeFlag != null">
+                #{codeFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="codeExt != null">
+                #{codeExt,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="isSysCodeOrderExits" parameterType="com.xoa.model.common.SysCode" resultMap="BaseResultMap">
+        select s.CODE_ID  from sys_code s WHERE s.CODE_ORDER = #{codeOrder};
+    </select>
+    <select id="getCodeByCodeNo" parameterType="com.xoa.model.common.SysCode" resultMap="BaseResultMap">
+        select *  from sys_code s WHERE s.CODE_NO = #{codeNo};
+    </select>
+    <select id="isChildCodeOrderExits" parameterType="com.xoa.model.common.SysCode" resultMap="BaseResultMap">
+                select s.CODE_ID  from sys_code s WHERE s.CODE_ORDER = #{codeOrder} AND s.PARENT_NO = #{parentNo}
+    </select>
+
+
+    <select id="isChildCodeNoExits" parameterType="com.xoa.model.common.SysCode" resultMap="BaseResultMap">
+        select s.CODE_ID, s.CODE_NO  from sys_code s WHERE s.PARENT_NO =#{parentNo} AND s.CODE_NO=#{codeNo}
+    </select>
+    <select id="isSysCodeNoExits" parameterType="com.xoa.model.common.SysCode" resultMap="BaseResultMap">
+    select s.CODE_ID from sys_code s WHERE  s.CODE_NO=#{codeNo} AND s.PARENT_NO = ''
+    </select>
+    <select id="iseditSysCodeNoExits" parameterType="com.xoa.model.common.SysCode" resultMap="BaseResultMap">
+        select s.CODE_ID from sys_code s WHERE  s.CODE_NO=#{codeNo} AND s.PARENT_NO = ''
+    </select>
+    <insert id="addSysChildCode" parameterType="com.xoa.model.common.SysCode" useGeneratedKeys="true" keyProperty="codeId">
+        <selectKey order="AFTER" keyProperty="codeId" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into sys_code
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="codeId != null">
+                CODE_ID,
+            </if>
+            <if test="codeNo != null">
+                CODE_NO,
+            </if>
+            <if test="codeName != null">
+                CODE_NAME,
+            </if>
+            <if test="codeName1 != null">
+                CODE_NAME1,
+            </if>
+            <if test="codeName2 != null">
+                CODE_NAME2,
+            </if>
+            <if test="codeName3 != null">
+                CODE_NAME3,
+            </if>
+            <if test="codeName4 != null">
+                CODE_NAME4,
+            </if>
+            <if test="codeName5 != null">
+                CODE_NAME5,
+            </if>
+            <if test="codeName6 != null">
+                CODE_NAME6,
+            </if>
+            <if test="codeOrder != null">
+                CODE_ORDER,
+            </if>
+            <if test="parentNo != null">
+                PARENT_NO,
+            </if>
+            <if test="codeFlag != null">
+                CODE_FLAG,
+            </if>
+            <if test="codeExt != null">
+                CODE_EXT,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="codeId != null">
+                #{codeId,jdbcType=INTEGER},
+            </if>
+            <if test="codeNo != null">
+                #{codeNo,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName != null">
+                #{codeName,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName1 != null">
+                #{codeName1,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName2 != null">
+                #{codeName2,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName3 != null">
+                #{codeName3,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName4 != null">
+                #{codeName4,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName5 != null">
+                #{codeName5,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName6 != null">
+                #{codeName6,jdbcType=VARCHAR},
+            </if>
+            <if test="codeOrder != null">
+                #{codeOrder,jdbcType=VARCHAR},
+            </if>
+            <if test="parentNo != null">
+                #{parentNo,jdbcType=VARCHAR},
+            </if>
+            <if test="codeFlag != null">
+                #{codeFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="codeExt != null">
+                #{codeExt,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="addSysChildCode" parameterType="com.xoa.model.common.SysCode" databaseId="oracle">
+        insert into sys_code(CODE_ID,
+        <trim  suffix=")" suffixOverrides=",">
+            <if test="codeNo != null">
+                CODE_NO,
+            </if>
+            <if test="codeName != null">
+                CODE_NAME,
+            </if>
+            <if test="codeName1 != null">
+                CODE_NAME1,
+            </if>
+            <if test="codeName2 != null">
+                CODE_NAME2,
+            </if>
+            <if test="codeName3 != null">
+                CODE_NAME3,
+            </if>
+            <if test="codeName4 != null">
+                CODE_NAME4,
+            </if>
+            <if test="codeName5 != null">
+                CODE_NAME5,
+            </if>
+            <if test="codeName6 != null">
+                CODE_NAME6,
+            </if>
+            <if test="codeOrder != null">
+                CODE_ORDER,
+            </if>
+            <if test="parentNo != null">
+                PARENT_NO,
+            </if>
+            <if test="codeFlag != null">
+                CODE_FLAG,
+            </if>
+            <if test="codeExt != null">
+                CODE_EXT,
+            </if>
+        </trim>
+        values (SYS_CODE_CODE_ID_SEQ.NEXTVAL,
+        <trim  suffix=")" suffixOverrides=",">
+            <if test="codeNo != null">
+                #{codeNo,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName != null">
+                #{codeName,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName1 != null">
+                #{codeName1,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName2 != null">
+                #{codeName2,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName3 != null">
+                #{codeName3,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName4 != null">
+                #{codeName4,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName5 != null">
+                #{codeName5,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName6 != null">
+                #{codeName6,jdbcType=VARCHAR},
+            </if>
+            <if test="codeOrder != null">
+                #{codeOrder,jdbcType=VARCHAR},
+            </if>
+            <if test="parentNo != null">
+                #{parentNo,jdbcType=VARCHAR},
+            </if>
+            <if test="codeFlag != null">
+                #{codeFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="codeExt != null">
+                #{codeExt,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="addSysChildCode" parameterType="com.xoa.model.common.SysCode" databaseId="dm">
+        insert into sys_code(CODE_ID,
+        <trim  suffix=")" suffixOverrides=",">
+            <if test="codeNo != null">
+                CODE_NO,
+            </if>
+            <if test="codeName != null">
+                CODE_NAME,
+            </if>
+            <if test="codeName1 != null">
+                CODE_NAME1,
+            </if>
+            <if test="codeName2 != null">
+                CODE_NAME2,
+            </if>
+            <if test="codeName3 != null">
+                CODE_NAME3,
+            </if>
+            <if test="codeName4 != null">
+                CODE_NAME4,
+            </if>
+            <if test="codeName5 != null">
+                CODE_NAME5,
+            </if>
+            <if test="codeName6 != null">
+                CODE_NAME6,
+            </if>
+            <if test="codeOrder != null">
+                CODE_ORDER,
+            </if>
+            <if test="parentNo != null">
+                PARENT_NO,
+            </if>
+            <if test="codeFlag != null">
+                CODE_FLAG,
+            </if>
+            <if test="codeExt != null">
+                CODE_EXT,
+            </if>
+        </trim>
+        values (SYS_CODE_CODE_ID_SEQ.NEXTVAL,
+        <trim  suffix=")" suffixOverrides=",">
+            <if test="codeNo != null">
+                #{codeNo,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName != null">
+                #{codeName,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName1 != null">
+                #{codeName1,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName2 != null">
+                #{codeName2,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName3 != null">
+                #{codeName3,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName4 != null">
+                #{codeName4,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName5 != null">
+                #{codeName5,jdbcType=VARCHAR},
+            </if>
+            <if test="codeName6 != null">
+                #{codeName6,jdbcType=VARCHAR},
+            </if>
+            <if test="codeOrder != null">
+                #{codeOrder,jdbcType=VARCHAR},
+            </if>
+            <if test="parentNo != null">
+                #{parentNo,jdbcType=VARCHAR},
+            </if>
+            <if test="codeFlag != null">
+                #{codeFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="codeExt != null">
+                #{codeExt,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+
+    <select id="getCodeByCodeId" parameterType="java.lang.Integer" resultType="java.lang.String">
+        select s.PARENT_NO FROM sys_code s WHERE s.CODE_ID = #{codeId};
+    </select>
+    <select id="getCodeByCodeId" parameterType="java.lang.Integer" resultType="java.lang.String" databaseId="oracle">
+        select s.PARENT_NO FROM sys_code s WHERE s.CODE_ID = #{codeId}
+    </select>
+    <select id="getCodeByCodeId" parameterType="java.lang.Integer" resultType="java.lang.String" databaseId="dm">
+        select s.PARENT_NO FROM sys_code s WHERE s.CODE_ID = #{codeId}
+    </select>
+
+    <select id="getCodeByCodeIds" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select s.* from sys_code s WHERE s.CODE_ID = #{codeId};
+    </select>
+
+    <delete id="deleteChild" parameterType="com.xoa.model.common.SysCode">
+        delete from sys_code where CODE_ID=#{codeId} AND CODE_NO=#{codeNo} and CODE_FLAG=1
+    </delete>
+    <delete id="deleteErrCode" parameterType="java.lang.Integer">
+        DELETE  FROM  sys_code WHERE CODE_ID=#{CodeId} and CODE_FLAG=1
+    </delete>
+    <select id="getMainCode" resultMap="BaseResultMap">
+        select * FROM sys_code s WHERE s.PARENT_NO = '';
+    </select>
+    <select id="getMainCode" resultMap="BaseResultMap" databaseId="oracle">
+        select * FROM sys_code s WHERE s.PARENT_NO IS NULL
+    </select>
+    <select id="getMainCode" resultMap="BaseResultMap" databaseId="dm">
+        select * FROM sys_code s WHERE s.PARENT_NO IS NULL
+    </select>
+    <select id="getChildCode" resultMap="BaseResultMap">
+        select * FROM sys_code s WHERE s.PARENT_NO = #{codeNo};
+    </select>
+    <select id="getChildCode" resultMap="BaseResultMap" databaseId="oracle">
+        select * FROM sys_code s WHERE s.PARENT_NO = #{codeNo}
+    </select>
+    <select id="getChildCode" resultMap="BaseResultMap" databaseId="dm">
+        select * FROM sys_code s WHERE s.PARENT_NO = #{codeNo}
+    </select>
+    <select id="getAllCode" resultMap="BaseResultMap">
+        select * FROM sys_code;
+    </select>
+    <select id="getAllCode" resultMap="BaseResultMap" databaseId="oracle">
+        select * FROM sys_code
+    </select>
+    <select id="getAllCode" resultMap="BaseResultMap" databaseId="dm">
+        select * FROM sys_code
+    </select>
+    <select id="getSingleCode" resultMap="BaseResultMap" >
+        select * from sys_code where code_no = #{codeNo} and parent_no = #{parentNo}
+    </select>
+    <select id="getCodeNoByNameAndParentNo" resultMap="BaseResultMap"  parameterType="com.xoa.model.common.SysCode">
+      select * from sys_code where CODE_NAME = #{codeName} and parent_no = #{parentNo}
+    </select>
+
+    <select id="getNotifyType" resultMap="BaseResultMap">
+        select CODE_ID,CODE_NO,CODE_NAME,CODE_NAME1,CODE_NAME2
+        from sys_code
+        where PARENT_NO = 'NOTIFY'
+    </select>
+
+    <select id="getCodeName" parameterType="Integer" resultType="String">
+        select CODE_NAME FROM SYS_CODE WHERE CODE_ID = #{codeId}
+    </select>
+
+    <select id="getCodeId" parameterType="String" resultType="Integer">
+        select CODE_ID FROM SYS_CODE WHERE CODE_NAME = #{codeName}
+    </select>
+
+
+    <select id="getCodeRemind" resultMap="BaseResultMap">
+        select CODE_ID,CODE_NO,CODE_NAME,CODE_NAME1,CODE_NAME2,CODE_NAME3,CODE_NAME4,PARENT_NO,IS_CAN,IS_REMIND,IS_IPHONE
+        from sys_code
+        where PARENT_NO = 'SMS_REMIND'
+        order by ABS(CODE_NO)
+    </select>
+
+    <select id="getCodeRemind" resultMap="BaseResultMap" databaseId="kingbase">
+        select CODE_ID,CODE_NO,CODE_NAME,CODE_NAME1,CODE_NAME2,CODE_NAME3,CODE_NAME4,PARENT_NO,IS_CAN,IS_REMIND,IS_IPHONE
+        from sys_code
+        where PARENT_NO = 'SMS_REMIND'
+        order by CODE_NO
+    </select>
+
+    <select id="getSmsIsRemind" resultMap="BaseResultMap">
+        select CODE_ID,CODE_NO,CODE_NAME,IS_CAN,IS_REMIND,IS_IPHONE
+        from sys_code
+        where PARENT_NO = 'SMS_REMIND'
+        AND CODE_NO= #{codeNo}
+    </select>
+
+    <select id="selectById" resultMap="BaseResultMap">
+       SELECT CODE_NAME from sys_code
+        WHERE CODE_ID= #{codeId}
+    </select>
+
+    <select id="selectMaxNoCode" resultType="string">
+        SELECT code_no
+        from sys_code WHERE code_id = (
+            SELECT max(code_id) FROM sys_code
+            WHERE parent_no = #{parentNo}
+            )
+    </select>
+
+    <update id="editServerVersion" parameterType="java.util.Map">
+        <foreach collection="versionMap.entrySet()" index="key" item="value" separator=";">
+            update sys_para
+            <set>
+                <if test="value!=null">
+                    PARA_VALUE = #{value}
+                </if>
+            </set>
+            where  PARA_NAME = #{key}
+        </foreach>
+    </update>
+
+    <delete id="deleteMinToMax" >
+        delete from sys_code where code_id &gt;= ${minId} and code_id &lt;= ${maxId}
+    </delete>
+    <select id="getByName" resultMap="BaseResultMap" >
+        select * from sys_code where code_Name = #{codeName} and parent_no = #{parentNo}
+    </select>
+    <select id="selectBT" resultMap="BaseResultMap">
+        select * FROM sys_code s WHERE   s.CODE_NO  in ('appearance','bazaar','livelihood','zoology','protection')
+    </select>
+
+    <select id="getLeaderBox" parameterType="map" resultMap="BaseResultMap">
+    select CODE_NAME from sys_code
+  </select>
+<!--  设备模块 -->
+    <select id="selectCodeTypeName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    sys_code.*
+    from
+    sys_code
+    where
+    CODE_NO = #{codeNo}
+  </select>
+
+    <select id="selectAllCommonCode" resultMap="BaseResultMap"> /*已修改*/
+    SELECT CODE_NAME,CODE_NO FROM sys_code WHERE CODE_NO= #{parentTyepNo,jdbcType=VARCHAR}
+  </select>
+
+    <select id="selectByCommonCode" resultMap="BaseResultMap">
+    SELECT CODE_NAME,CODE_NO FROM sys_code WHERE PARENT_NO= #{parentNo,jdbcType=VARCHAR}
+  </select>
+
+
+    <select id="searchList" parameterType="map" resultMap="BaseResultMap">
+        select
+        sys_code.*
+        from sys_code
+        where 1=1
+        <if test="type != null and ''!=type">
+            AND CODE_NAME LIKE CONCAT('%',#{type},'%')
+        </if>
+        <if test="parent != null and ''!=parent">
+            AND PARENT_NO ='0'
+        </if>
+        <if test="name != null and ''!=name">
+            AND CODE_NAME LIKE CONCAT('%',#{name},'%')
+        </if>
+        order by CODE_ORDER asc
+    </select>
+
+    <!--模糊查询 -->
+    <select id="searchLike" resultMap="BaseResultMap" >
+    select CODE_ID,CODE_NO,CODE_NAME,PARENT_NO
+    from sys_code
+    where CODE_NAME LIKE concat('%',#{codeName},'%')
+  </select>
+    <select id="selectLike" resultMap="BaseResultMap"  parameterType="java.lang.String" >
+    select *
+    from sys_code
+    where CODE_NAME LIKE concat('%',#{codeName},'%') and PARENT_NO=''
+     order by CODE_ORDER asc
+  </select>
+    <select id="getSysCodeDesc" resultMap="BaseResultMap" parameterType="string">
+        select * from sys_code where PARENT_NO=#{codeNo} order by CODE_ID DESC
+    </select>
+
+    <select id="getCodesByMap" parameterType="map" resultMap="BaseResultMap">
+        select
+        sys_code.*
+        from sys_code
+        <where>
+            <if test="parentNo != null and ''!=parentNo">
+                AND PARENT_NO = #{parentNo}
+            </if>
+            <if test="codeName != null and ''!=codeName">
+                AND CODE_NAME LIKE CONCAT('%',#{codeName},'%')
+            </if>
+        </where>
+        order by CODE_ORDER asc
+    </select>
+    <select id="getcodeByCOdeIdSByParm" resultMap="BaseResultMap">
+          select s.* from sys_code s WHERE s.CODE_ID = #{codeId} and s.PARENT_NO = #{parentNo}
+    </select>
+    <select id="getcodebyparentNo" resultMap="BaseResultMap">
+         select  CODE_NO,CODE_NAME,CODE_ORDER from sys_code where PARENT_NO = #{parentNo}  order by CODE_ORDER asc
+    </select>
+    <select id="selectcodeName" resultType="java.lang.String">
+        select CODE_NAME from sys_code where PARENT_NO = 'CONTENT_SECRECY' and CODE_NO = #{contentSecrecy}
+    </select>
+</mapper>

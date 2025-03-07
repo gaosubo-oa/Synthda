@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>阅文意见控件</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+    <link rel="stylesheet" href="../formdesign/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../../../css/ueditor/site.css">
+    <script type="text/javascript" src="../dialogs/internal.js"></script>
+    <script type="text/javascript" src="/js/xoajq/xoajq3.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery-migrate-3.4.0.js"></script>
+    <script type="text/javascript" src="../../../js/base/base.js"></script>
+    <script type="text/javascript">
+        function createElement(type, name)
+        {
+            var element = null;
+            try {
+                element = document.createElement('<'+type+' name="'+name+'">');
+            } catch (e) {}
+            if(element==null) {
+                element = document.createElement(type);
+                element.name = name;
+            }
+            return element;
+        }
+    </script>
+</head>
+<body>
+<div class="content">
+    <table class="table table-bordered table-striped table-hover">
+        <tr>
+            <th colspan="2">
+                <span class="languageText" language="workform_formItem_name">控件名称</span>
+                <span class="label label-important">*</span>
+            </th>
+        </tr>
+        <tr>
+            <td  colspan="2">
+                <input id="orgname" type="text" placeholder="必填项" class="languagePlaceHolder" language="workform_formItem_btx"/>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="2"><span class="languageText" language="workform_formItem_sx">属性</span></th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="languageText" language="workform_formItem_width">宽</span> <input id="orgwidth" type="text" value="200" class="input-small span1" placeholder="auto"/> px
+                &nbsp;&nbsp;
+                <span class="languageText" language="workform_formItem_height">高</span> <input id="orgheight" type="text" value="50" class="input-small span1" placeholder="auto"/> px
+                &nbsp;&nbsp;
+                <span class="languageText" language="workform_formItem_font">字体</span> <input id="orgfontsize" type="text" value="" class="input-small span1" placeholder="auto"/> px
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+    if(getCookie("language") != 'zh_CN'){
+        $('title').text(workform_formItem.workform_formItem_readcomments);
+        var $languageText = $('.languageText');
+        var $languageHtml = $('.languageHtml');
+        var $languagePlaceHolder = $('.languagePlaceHolder');
+        for(var i = 0; i < $languageText.length; i++){
+            var language = $languageText.eq(i).attr('language');
+            $('*[language='+ language +']').text(workform_formItem[language]);
+        }
+        for(var i = 0; i < $languageHtml.length; i++){
+            var language = $languageHtml.eq(i).attr('language');
+            $('*[language='+ language +']').html(workform_formItem[language]);
+        }
+        for(var i = 0; i < $languagePlaceHolder.length; i++){
+            var language = $languagePlaceHolder.eq(i).attr('language');
+            $('*[language='+ language +']').prop('placeholder', workform_formItem[language]);
+        }
+    }
+
+</script>
+<script type="text/javascript">
+    $(function () {
+        var oNode = null,thePlugins = 'readcomments';
+        var dataid = $.getQueryString('dataid');
+        var dataNumber=parent.pluginId;
+        if( UE.plugins[thePlugins].editdom ) {
+            oNode = UE.plugins[thePlugins].editdom;
+            var gTitle=oNode.getAttribute('title').replace(/&quot;/g,"\""),
+                gFontSize=oNode.getAttribute('orgfontsize'),
+                gWidth=oNode.getAttribute('orgwidth'),
+                gHeight=oNode.getAttribute('orgheight');
+
+            gTitle = gTitle==null ? '' : gTitle;
+
+            $G('orgname').value    = gTitle;
+            $G('orgwidth').value = gWidth;
+            $G('orgheight').value = gHeight;
+            $G('orgfontsize').value = gFontSize;
+        }
+        dialog.oncancel = function () {
+            if( UE.plugins[thePlugins].editdom ) {
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+        dialog.onok = function (){
+            if ( $G('orgname').value == '' ) {
+                if(workform_formItem){
+                    alert(workform_formItem.workform_formItem_qsrkjmc);
+                }else{
+                    alert('请输入控件名称');
+                }
+                return false;
+            }
+            var gTitle=$G('orgname').value.replace(/\"/g,"&quot;"),
+                gWidth=$G('orgwidth').value,
+                gFontSize=$G('orgfontsize').value,
+                gHeight=$G('orgheight').value;
+            if( !oNode ) {
+                try {
+                    var html = '<textarea ';
+                    html += ' name =  "' + 'DATA_'+dataNumber + '"';
+                    html += ' id =  "' + 'DATA_'+dataNumber + '"';
+                    html += ' class = "' + 'form_item readcomments' + '"';
+                    html += ' data-type = "' + 'readcomments' + '"';
+                    html += ' title = "' + gTitle + '"';
+                    html += ' readonly = "readonly"';
+
+                    if( gFontSize != '' ) {
+                        html += ' orgfontsize = "' + gFontSize + '"';
+                    } else {
+                        html += ' orgfontsize = ""';
+                    }
+                    if( gWidth != '' ) {
+                        html += ' orgwidth = "' + gWidth + '"';
+                    } else {
+                        html += ' orgwidth = ""';
+                    }
+                    if(gHeight != '') {
+                        html += ' orgheight = "' + gHeight + '"';
+                    } else {
+                        html += ' orgheight = ""';
+                    }
+                    html += '></textarea>';
+                    html = $(html);
+                    html.attr("style","resize: none;cursor: pointer;"+'height:'+gHeight+'px;width:'+gWidth+'px;font-size:'+gFontSize+'px;');
+                    editor.execCommand('insertHtml',html.prop("outerHTML"));
+                    return true;
+                } catch ( e ) {
+                    try {
+                        editor.execCommand('error');
+                    } catch ( e ) {
+                        if(workform_formItem){
+                            alert(workform_formItem.workform_formItem_kjycqlxjszc);
+                        }else{
+                            alert('控件异常，请联系技术支持');
+                        }
+                    }
+                    return false;
+                }
+            } else {
+
+
+                oNode.setAttribute('class', "form_item readcomments");
+                oNode.setAttribute('data-type', "readcomments");
+                oNode.setAttribute('style', "cursor: pointer;");
+                oNode.setAttribute('title',gTitle);
+
+                oNode.setAttribute('readonly','readonly');
+                if (gHeight != '') {
+                    oNode.style.height = gHeight + 'px';
+                }
+                if (gWidth != '') {
+                    oNode.style.width = gWidth + 'px';
+                }
+                if (gFontSize != '') {
+                    oNode.style.fontSize = gFontSize + 'px';
+                }
+                oNode.setAttribute('orgwidth',gWidth);
+                oNode.setAttribute('orgheight',gHeight);
+                oNode.setAttribute('orgfontsize',gFontSize);
+               // editor.execCommand('insertHtml',oNode.outerHTML);
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+
+    });
+
+</script>
+</body>
+</html>

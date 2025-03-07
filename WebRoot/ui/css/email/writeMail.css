@@ -1,0 +1,179 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+/*html, body {*/
+	/*position: relative;*/
+	/*top: 0;*/
+	/*left: 0;*/
+	/*width: 100%;*/
+	/*height: 100%;*/
+	/*background: #fff;*/
+	/*font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;*/
+/*}*/
+/*table{*/
+	/*table-layout: fixed;*/
+	/*margin: 0 auto;*/
+	/*font-size: 14px;*/
+	/*border-color: #eee;*/
+/*}*/
+table tr.Attachment td{
+	padding:6px 0;
+}
+table{
+    table-layout: fixed;
+    margin:0 auto;
+}
+table tr td:first-of-type{
+	padding-left:10px;
+}
+.inPole{
+	font-size: 14px;
+}
+textarea{
+	/*min-width: 70%;*/
+	min-height: 50px;
+	margin: 5px 5px;
+}
+.inPole a{
+	display: inline-block;
+	padding: 3px 5px;
+	text-decoration: none;
+}
+ .add_img .addImg{
+	display: inline-block;
+	width: 20px;
+	height: 10px;
+	overflow: hidden;
+	position: relative;
+}
+ .add_img .addImg img{
+	height: 100%;
+}
+ .add_img .addImg .addIcon{
+	position: absolute;
+	top: 0;left: 0;
+}
+ .add_img .addImg .clearIcon{
+	position: absolute;
+	top: 0;
+	left: -20px;
+}
+ .add_img a{
+	color: #207BD6;
+}
+ /*.add_img a.clear,*/
+ /*.add_img a.clearCC,*/
+ /*.add_img a.clearBCC{*/
+	/*color: #aaa;*/
+/*}*/
+ .add_img:hover a{
+	text-decoration: underline;
+}
+ .add_img:hover .clear{
+	color: #207BD6;
+}
+.clearCC:hover{
+	color: #207BD6 !important;
+}
+.clearBCC:hover{
+	color: #207BD6 !important;
+}
+ .add_img:hover .clearIcon{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.addPepl{
+	font-size: 14px;
+	position: relative;
+}
+.addPepl a{
+	color: #207BD6;
+	text-decoration: none;
+	margin-left: 10px;
+}
+.addPepl .outside{
+	display: inline-block;
+	padding: 3px 10px;
+	border-radius: 5px;
+	background-color: #555;
+	margin-bottom: 5px;
+	color: #fff;
+	margin-left: 5px;
+}
+.addPepl .day{
+	display: inline-block;
+	border: #999 1px solid;
+	width: 120px;
+	position: absolute;
+	top: 0;
+	left: 150px;
+	background-color: #fff;
+	display: none;
+}
+.addPepl .day ul{
+	list-style: none;
+}
+.addPepl .day ul li{
+	line-height: 20px;
+}
+.addPepl .day ul li:hover{
+	color: #fff;
+	background-color: #207BD6;
+}
+
+.input_txt{
+	outline: none;
+	width: 30%;
+	height: 30px;
+	margin: 5px 5px;
+}
+.import{
+	font-size: 14px;
+	padding: 3px 8px;
+	border: #999 1px solid;
+	border-radius: 5px;
+}
+.Color{
+	color: #207BD6;
+}
+.Color a{
+	text-decoration: none;
+	color: #207BD6;
+}
+.sendReady input{
+	margin: 10px 0 10px 20px;
+}
+.div_btn{
+	width: 280px;
+	margin: 5px auto;
+	overflow: hidden;
+}
+.div_btn .sureBtn{
+	float: left;
+	margin-right: 20px;
+	width: 103px;
+	height: 37px;
+	background: url("../../img/icon_sendNow.png") no-repeat;
+	background-size:100% 100%;
+	line-height: 37px;
+	cursor: pointer;
+}
+.div_btn .saveBtn{
+	float: left;
+	width: 140px;
+	height: 37px;
+	background: url("../../img/icon_saved.png") no-repeat;
+	background-size:100% 100%;
+	line-height: 37px;
+	cursor: pointer;
+}
+.files{
+	padding: 5px;
+}
+tr.Attachment td a{
+	display: inline-block;
+	text-decoration: none;
+	margin: 0 5px;
+}

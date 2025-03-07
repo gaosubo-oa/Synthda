@@ -1,0 +1,705 @@
+@font-face {
+  font-family: electronicFont;
+  src: url(/img/planCheck/operationsCockpit_ZDJ/DS-DIGIT.TTF);
+}
+.wrapper {
+  position: relative;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  min-width: auto;
+  width: 1920px;
+  min-height: auto;
+  height: 1080px;
+  transform-origin: 0px 0px;
+}
+.wrapper .button_group {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  height: 80px;
+  cursor: pointer;
+  z-index: 2;
+}
+.wrapper .group_left {
+  left: 20px;
+}
+.wrapper .group_right {
+  right: 20px;
+}
+.wrapper .button_group button {
+  padding: 5px 10px;
+  font-size: 20px;
+  color: #fff;
+  border-radius: 4px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.wrapper .button_group button:hover {
+  background-color: #0098e0;
+}
+.wrapper .button_group .active {
+  background-color: #00468e;
+}
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  transition: 0.3s;
+}
+.container .header {
+  position: relative;
+  height: 100px;
+  background-repeat: no-repeat;
+}
+.container .header .header_title {
+  font-size: 42px;
+  color: #fff;
+  text-align: center;
+  line-height: 80px;
+  font-family: '华文楷体';
+}
+.container .content {
+  position: relative;
+  display: flex;
+  justify-content: space-around;
+  height: 980px;
+  padding: 5px 10px;
+  overflow: hidden;
+}
+.container .content .column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 27.27272727%;
+  min-width: 27.27272727%;
+  max-width: 27.27272727%;
+  overflow: hidden;
+}
+.container .content .column:nth-child(2) {
+  width: 45.45454545%;
+  min-width: 45.45454545%;
+  max-width: 45.45454545%;
+  padding: 0 20px 17px;
+  overflow: hidden;
+}
+.container .content .panel {
+  position: relative;
+  height: 32.5%;
+  border: 1px solid rgba(25, 186, 139, 0.17);
+  background: rgba(255, 255, 255, 0.04) url(/img/planCheck/operationsCockpit_ZDJ/panel_bg.png);
+  padding: 10px;
+}
+.container .content .panel:before {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid #02a6b5;
+  border-left: 2px solid #02a6b5;
+}
+.container .content .panel:after {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid #02a6b5;
+  border-right: 2px solid #02a6b5;
+}
+.container .content .panel .panel_title {
+  position: absolute;
+  top: 20%;
+  right: 10px;
+  width: 1em;
+  font-size: 14px;
+  color: #fff;
+  z-index: 1;
+}
+.container .content .panel .panel_footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+.container .content .panel .panel_footer:before {
+  position: absolute;
+  bottom: -2px;
+  left: -2px;
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-bottom: 2px solid #02a6b5;
+  border-left: 2px solid #02a6b5;
+}
+.container .content .panel .panel_footer:after {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-bottom: 2px solid #02a6b5;
+  border-right: 2px solid #02a6b5;
+}
+.container .content .chart {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.container .content .box_wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.container .content .map_content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.container .content .map_content .btn_group {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 40px;
+}
+.container .content .map_content .btn_group .btn_box {
+  width: 155px;
+  height: 31px;
+  background-size: 100% 100%;
+  text-align: center;
+}
+.container .content .map_content .btn_group .btn_box button {
+  padding: 0 26px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background: #00468e;
+  color: #fff;
+  line-height: 31px;
+  cursor: pointer;
+}
+.container .content .map_content .btn_group .active button {
+  background-color: #0098e0;
+}
+.container .content .map_content .dashboard {
+  display: flex;
+  justify-content: space-around;
+  height: 313px;
+  padding: 5px 10px;
+}
+.container .content .map_content .dashboard .dashboard_item {
+  width: 33.33333333%;
+  min-width: 33.33333333%;
+  max-width: 33.33333333%;
+}
+.container .content .map_content .map {
+  position: relative;
+  flex: 1;
+}
+.container .content .map_content .map .map_table {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 10px 5px;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 600;
+  font-family: '新宋体';
+}
+.container .content .map_content .map .map_table p {
+  padding: 2px 5px;
+  font-size: 14px;
+  color: #fff;
+}
+.container .content .map_content .map .map_table p:nth-child(2) {
+  color: #0f0;
+}
+.container .content .map_content .map .map_table p:nth-child(3) {
+  color: #f00;
+}
+.container .content .table_box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+.container .content .table_box .table_header {
+  height: 44px;
+}
+.container .content .table_box .table_header .table_li {
+  line-height: 20px;
+  color: #02a6b5;
+  font-size: 16px;
+}
+.container .content .table_box .table_body {
+  display: none;
+  overflow: hidden;
+}
+.container .content .table_box .table_li {
+  display: flex;
+  justify-content: space-around;
+  line-height: 22px;
+  padding: 10px 5px;
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+  *zoom: 1;
+  /*ie6清除浮动的方式 *号只有IE6-IE7执行，其他浏览器不执行*/
+}
+.container .content .table_box .table_li::after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.container .content .table_box .table_li .li_item {
+  width: 20%;
+  padding: 2px 10px;
+}
+.container .content .table_box .table_li .li_item .item_con {
+  width: 100%;
+  word-break: break-all;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+#wrapOne {
+  background: url(/img/planCheck/operationsCockpit_ZDJ/bg.jpg);
+  opacity: 1;
+  z-index: 1;
+}
+#wrapOne .header {
+  background: url(/img/planCheck/operationsCockpit_ZDJ/head_bg.png) no-repeat top center;
+  background-size: 100% 100%;
+}
+#wrapOne .set_btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 16px;
+  height: 16px;
+  background: url(/img/planCheck/operationsCockpit_ZDJ/setting.png);
+  background-size: cover;
+  font-size: 12px;
+  color: #fff;
+  z-index: 2;
+  cursor: pointer;
+}
+#wrapTwo {
+  opacity: 0;
+  z-index: 0;
+  background-color: #001d24;
+}
+#wrapTwo .header {
+  background-image: url("/img/planCheck/operationsCockpit_ZDJ/theme_2/title.png");
+  background-size: auto;
+  background-position: center -90px;
+}
+#wrapTwo .box_wrap {
+  background-image: url("/img/planCheck/operationsCockpit_ZDJ/theme_2/box.png");
+}
+#wrapTwo .box_wrap .box_con {
+  height: 33.33333333%;
+  padding: 5px;
+}
+#wrapTwo .box_wrap .box_con h4 {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  font-style: normal;
+  font-family: 微软雅黑;
+  color: #f8f8f8;
+}
+#wrapTwo .box_wrap .box_con p {
+  font-size: 40px;
+  text-align: center;
+  color: #33d000;
+}
+#wrapThree {
+  opacity: 0;
+  z-index: 0;
+  background-image: url("/img/planCheck/operationsCockpit_ZDJ/theme_3/bg.png");
+}
+#wrapThree .header {
+  background-image: url("/img/planCheck/operationsCockpit_ZDJ/theme_3/title.png");
+  background-size: auto;
+  background-position: center 50px;
+}
+#wrapThree .content .panel {
+  height: 49%;
+}
+#wrapThree .box_wrap {
+  background-image: url("/img/planCheck/operationsCockpit_ZDJ/theme_3/box.png");
+}
+#wrapThree .box_wrap .box_con {
+  height: 50%;
+  padding: 5px;
+}
+#wrapThree .box_wrap .box_con h4 {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  font-style: normal;
+  font-family: 微软雅黑;
+  color: #f8f8f8;
+  margin-top: 20px;
+}
+#wrapThree .box_wrap .box_con p {
+  margin-top: 16px;
+  font-size: 40px;
+  text-align: center;
+  color: #33d000;
+}
+#wrapFour {
+  background: url(/img/planCheck/operationsCockpit_ZDJ/bg.jpg);
+  opacity: 0;
+  z-index: 0;
+}
+#wrapFour .header {
+  background: url(/img/planCheck/operationsCockpit_ZDJ/head_bg.png) no-repeat top center;
+  background-size: 100% 100%;
+}
+.dialog_module {
+  position: fixed;
+  z-index: 9999999;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.dialog_module .dialog_mask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+.dialog_module .dialog_box {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  top: 50%;
+  left: 50%;
+  margin: 0 auto;
+  transform: translate(-50%, -50%);
+  background-color: rgba(100, 151, 216, 0.29);
+}
+.dialog_module .dialog_box .dialog_content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 40px 30px;
+  background-color: rgba(100, 151, 216, 0.29);
+}
+.dialog_module .dialog_box .dialog_content * {
+  color: #fff !important;
+  font-size: 16px;
+  font-weight: 400;
+  font-weight: normal;
+  letter-spacing: 2px;
+}
+.dialog_module .dialog_box .dialog_content .dialog_header {
+  *zoom: 1;
+  /*ie6清除浮动的方式 *号只有IE6-IE7执行，其他浏览器不执行*/
+}
+.dialog_module .dialog_box .dialog_content .dialog_header:after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.dialog_module .dialog_box .dialog_content .dialog_header .dialog_title {
+  float: left;
+  color: #fff;
+  line-height: 1.42858;
+  font-weight: normal;
+  font-size: 26px;
+}
+.dialog_module .dialog_box .dialog_content .dialog_header .close_dialog_btn {
+  float: right;
+  height: 30px;
+  width: 30px;
+  background: url(/img/planCheck/operationsCockpit_ZDJ/x.png);
+  background-size: cover;
+  cursor: pointer;
+  transition: all 0.2s;
+  overflow: hidden;
+}
+.dialog_module .dialog_box .dialog_content .dialog_header .close_dialog_btn:hover {
+  transform: rotateZ(180deg);
+}
+.dialog_module .dialog_box .dialog_content .dialog_body {
+  position: absolute;
+  top: 80px;
+  left: 30px;
+  right: 30px;
+  bottom: 74px;
+  padding: 5px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.dialog_module .dialog_box .dialog_content .dialog_footer {
+  position: absolute;
+  bottom: 40px;
+  right: 30px;
+  left: 30px;
+  text-align: right;
+}
+.dialog_module .dialog_box .dialog_content .dialog_footer button {
+  color: #fff;
+  margin: 0 5px;
+  padding: 2px 10px;
+  line-height: 1.42858;
+  font-weight: normal;
+  font-size: 20px;
+  background: rgba(100, 151, 216, 0.8);
+  cursor: pointer;
+}
+.Parent-loading {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #0b173b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 1s cubic-bezier(0.83, 0.01, 0.75, 0.71);
+}
+.loding-animation-holder {
+  width: 100px;
+  height: 100px;
+  transform: rotate(45deg);
+  position: relative;
+}
+.loading-animator {
+  width: 50%;
+  height: 50%;
+  float: left;
+  border-radius: 50%;
+  background: #c4b422e3;
+  transform: rotate(0deg);
+  position: relative;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  opacity: 1;
+}
+.loading-animator:nth-child(1) {
+  transform-origin: bottom right;
+  -webkit-animation: loading 3s cubic-bezier(0.46, -0.1, 0.2, 1.5) infinite;
+  -ms-animation: loading 3s cubic-bezier(0.46, -0.1, 0.2, 1.5) infinite;
+  animation: loading 3s cubic-bezier(0.46, -0.1, 0.2, 1.5) infinite;
+}
+.loading-animator:nth-child(2) {
+  transform-origin: bottom left;
+  -webkit-animation: loading 3s 0.3s cubic-bezier(0.46, -0.1, 0.2, 1.5) infinite;
+  -ms-animation: loading 3s 0.3s cubic-bezier(0.46, -0.1, 0.2, 1.5) infinite;
+  animation: loading 3s 0.3s cubic-bezier(0.46, -0.1, 0.2, 1.5) infinite;
+}
+.loading-animator:nth-child(4) {
+  transform-origin: top left;
+  -webkit-animation: loading 3s 0.4s cubic-bezier(0.46, -0.1, 0.2, 1.5) infinite;
+  -ms-animation: loading 3s 0.4s cubic-bezier(0.46, -0.1, 0.2, 1.5) infinite;
+  animation: loading 3s 0.4s cubic-bezier(0.46, -0.1, 0.2, 1.5) infinite;
+}
+.loading-animator:nth-child(3) {
+  transform-origin: top right;
+  -webkit-animation: loading 3s 0.5s cubic-bezier(0.46, -0.1, 0.2, 1.5) infinite;
+  -ms-animation: loading 3s 0.5s cubic-bezier(0.46, -0.1, 0.2, 1.5) infinite;
+  animation: loading 3s 0.5s cubic-bezier(0.46, -0.1, 0.2, 1.5) infinite;
+}
+@-webkit-keyframes loading {
+  0% {
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+  25% {
+    transform: rotate(90deg);
+    opacity: 0;
+  }
+  35% {
+    transform: rotate(-90deg);
+    opacity: 0;
+  }
+  65% {
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+}
+@-ms-keyframes loading {
+  0% {
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+  25% {
+    transform: rotate(90deg);
+    opacity: 0;
+  }
+  35% {
+    transform: rotate(-90deg);
+    opacity: 0;
+  }
+  65% {
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+}
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+  25% {
+    transform: rotate(90deg);
+    opacity: 0;
+  }
+  35% {
+    transform: rotate(-90deg);
+    opacity: 0;
+  }
+  65% {
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+}
+.middle-circle {
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  top: 47.5px;
+  left: 47.5px;
+  border-radius: 100%;
+  border: 1px solid #000;
+  background: #FFEB3B;
+}
+.Parent-loading .lod h1 {
+  color: #fff;
+  margin-left: 60px;
+  font-family: fantasy;
+  font-weight: normal;
+}
+.Parent-loading .lod span {
+  color: #fff;
+  margin-left: 80px;
+  font-size: 14px;
+}
+.div_con {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  /*修改滚动条样式*/
+}
+.div_con *::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.div_con *::-webkit-scrollbar-track {
+  background: #efefef;
+  border-radius: 2px;
+}
+.div_con *::-webkit-scrollbar-thumb {
+  background: #bfbfbf;
+  border-radius: 5px;
+}
+.div_con *::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+.div_con .div_box {
+  position: relative;
+  width: 45%;
+  height: 100%;
+  padding: 30px 20px 10px 40px;
+  overflow: hidden;
+}
+.div_con .scroll_div {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.div_con ul {
+  width: 100%;
+}
+.div_con ul li {
+  position: relative;
+  padding: 5px 10px;
+  line-height: 26px;
+  height: 36px;
+}
+.div_con ul li .check_item {
+  top: 9px;
+  left: 10px;
+}
+.div_con ul li .li_text {
+  height: 100%;
+  width: 100%;
+  padding-left: 25px;
+}
+.div_con ul .li_show {
+  display: block;
+}
+.div_con ul .li_hide {
+  display: none;
+}
+.div_con .check_box {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+.div_con .check_box i {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  background: url(/img/planCheck/operationsCockpit_ZDJ/unchecked.png);
+  background-size: cover;
+}
+.div_con .checked_item i,
+.div_con .checked_all i {
+  background: url(/img/planCheck/operationsCockpit_ZDJ/checked.png);
+  background-size: cover;
+}
+.div_con .box_title {
+  position: absolute;
+  top: 0;
+  left: 50px;
+  height: 24px;
+  line-height: 24px;
+  padding-left: 25px;
+}
+.div_con .box_title span {
+  margin-left: 20px;
+}
+.div_con .box_title .check_all {
+  top: 3px;
+  left: 0;
+}

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.attend.AttendSetMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.attend.AttendSet">
+        <id column="SID" property="sid" jdbcType="INTEGER"/>
+        <result column="USER_ID" property="userId" jdbcType="VARCHAR"/>
+        <result column="UID" property="uid" jdbcType="INTEGER"/>
+        <result column="ATTEND_TYPE" property="attendType" jdbcType="CHAR"/>
+        <result column="TITLE" property="title" jdbcType="VARCHAR"/>
+        <result column="ATIME1_SET" property="atime1Set" jdbcType="VARCHAR"/>
+        <result column="ATIME1" property="atime1" jdbcType="VARCHAR"/>
+        <result column="ATIME2_SET" property="atime2Set" jdbcType="VARCHAR"/>
+        <result column="ATIME2" property="atime2" jdbcType="VARCHAR"/>
+        <result column="ATIME3_SET" property="atime3Set" jdbcType="VARCHAR"/>
+        <result column="ATIME3" property="atime3" jdbcType="VARCHAR"/>
+        <result column="ATIME4_SET" property="atime4Set" jdbcType="VARCHAR"/>
+        <result column="ATIME4" property="atime4" jdbcType="VARCHAR"/>
+        <result column="ATIME5_SET" property="atime5Set" jdbcType="VARCHAR"/>
+        <result column="ATIME5" property="atime5" jdbcType="VARCHAR"/>
+        <result column="ATIME6_SET" property="atime6Set" jdbcType="VARCHAR"/>
+        <result column="ATIME6" property="atime6" jdbcType="VARCHAR"/>
+        <result column="WORKTIME_F" property="worktimeF" jdbcType="VARCHAR"/>
+        <result column="WORKTIME_B" property="worktimeB" jdbcType="VARCHAR"/>
+        <result column="WORKAFTER_F" property="workafterF" jdbcType="VARCHAR"/>
+        <result column="WORKAFTER_B" property="workafterB" jdbcType="VARCHAR"/>
+        <result column="WORK_START" property="workStart" jdbcType="VARCHAR"/>
+        <result column="WORK_END" property="workEnd" jdbcType="VARCHAR"/>
+        <result column="WORK_HOURS" property="workHours" jdbcType="INTEGER"/>
+        <result column="LOCATION_ON" property="locationOn" jdbcType="CHAR"/>
+        <result column="LOCATION" property="location" jdbcType="VARCHAR"/>
+        <result column="RANGES" property="ranges" jdbcType="VARCHAR"/>
+        <result column="WIFI_ON" property="wifiOn" jdbcType="CHAR"/>
+        <result column="WIFI_ADDR" property="wifiAddr" jdbcType="VARCHAR"/>
+        <result column="WIFI_NAME" property="wifiName" jdbcType="VARCHAR"/>
+        <result column="IP_ON" property="ipOn" jdbcType="CHAR"/>
+        <result column="IP_PARAGRAPH" property="ipParagraph" jdbcType="VARCHAR"/>
+        <result column="IS_OUT" property="isOut" jdbcType="CHAR"/>
+        <result column="IS_OVERTIME" property="isOvertime" jdbcType="CHAR"/>
+        <result column="IS_DUTY" property="isDuty" jdbcType="CHAR"/>
+        <result column="IS_TRIP" property="isTrip" jdbcType="CHAR"/>
+        <result column="IS_LEAVE" property="isLeave" jdbcType="CHAR"/>
+        <result column="IS_GO" property="isGo" jdbcType="CHAR"/>
+        <result column="WORKDATE" property="workdate" jdbcType="VARCHAR"/>
+        <result column="FACE_RECOG" property="faceRecog" jdbcType="VARCHAR"/>
+        <result column="ATIME7_SET" property="atime7Set" jdbcType="VARCHAR"/>
+        <result column="ATIME7" property="atime7" jdbcType="VARCHAR"/>
+        <result column="ATIME8_SET" property="atime8Set" jdbcType="VARCHAR"/>
+        <result column="ATIME8" property="atime8" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectAttendSetSid" resultMap="BaseResultMap">
+        SELECT * FROM attend_set
+        WHERE SID = #{sid}
+  </select>
+    <insert id="addAttendSet" parameterType="com.xoa.model.attend.AttendSet">
+     insert into attend_set (SID, UID, ATTEND_TYPE,TITLE,
+     ATIME1_SET, ATIME1, ATIME2_SET,
+     ATIME2, ATIME3_SET, ATIME3,
+     ATIME4_SET, ATIME4, ATIME5_SET,
+     ATIME5, ATIME6_SET, ATIME6,
+     ATIME7_SET, ATIME7,ATIME8_SET, ATIME8,
+     WORKTIME_F, WORKTIME_B, WORKAFTER_F,
+     WORKAFTER_B,WORK_START,WORK_END, WORK_HOURS,LOCATION, RANGES,
+     IP_ON,IP_PARAGRAPH,
+     IS_OUT,IS_OVERTIME,IS_DUTY, IS_TRIP,IS_LEAVE,IS_GO,LOCATION_ON, WIFI_ON, WIFI_ADDR,
+     WIFI_NAME, WORKDATE ,FACE_RECOG)
+     values (#{sid}, #{uid},#{attendType}, #{title},
+     #{atime1Set}, #{atime1}, #{atime2Set},
+     #{atime2}, #{atime3Set}, #{atime3},
+     #{atime4Set}, #{atime4}, #{atime5Set},
+     #{atime5}, #{atime6Set}, #{atime6},
+     #{atime7Set}, #{atime7},#{atime8Set}, #{atime8},
+     #{worktimeF}, #{worktimeB}, #{workafterF},
+     #{workafterB}, #{workStart}, #{workEnd},#{workHours},#{location}, #{ranges},
+     #{ipOn},#{ipParagraph},
+     #{isOut},#{isOvertime},#{isDuty},#{isGo},#{isLeave},#{isTrip}, #{locationOn}, #{wifiOn}, #{wifiAddr},
+     #{wifiName}, #{workdate},#{faceRecog})
+   </insert>
+
+   <insert id="addAttendSet" parameterType="com.xoa.model.attend.AttendSet" databaseId="kingbase">
+     insert into attend_set (UID, ATTEND_TYPE,TITLE,
+     ATIME1_SET, ATIME1, ATIME2_SET,
+     ATIME2, ATIME3_SET, ATIME3,
+     ATIME4_SET, ATIME4, ATIME5_SET,
+     ATIME5, ATIME6_SET, ATIME6,
+     ATIME7_SET, ATIME7,ATIME8_SET, ATIME8,
+     WORKTIME_F, WORKTIME_B, WORKAFTER_F,
+     WORKAFTER_B,WORK_START,WORK_END, WORK_HOURS,LOCATION, RANGES,
+     IP_ON,IP_PARAGRAPH,
+     IS_OUT,IS_OVERTIME,IS_DUTY, IS_TRIP,IS_LEAVE,IS_GO,LOCATION_ON, WIFI_ON, WIFI_ADDR,
+     WIFI_NAME, WORKDATE ,FACE_RECOG)
+     values (#{uid},#{attendType}, #{title},
+     #{atime1Set}, #{atime1}, #{atime2Set},
+     #{atime2}, #{atime3Set}, #{atime3},
+     #{atime4Set}, #{atime4}, #{atime5Set},
+     #{atime5}, #{atime6Set}, #{atime6},
+     #{atime7Set}, #{atime7},#{atime8Set}, #{atime8},
+     #{worktimeF}, #{worktimeB}, #{workafterF},
+     #{workafterB}, #{workStart}, #{workEnd},#{workHours},#{location}, #{ranges},
+     #{ipOn},#{ipParagraph},
+     #{isOut},#{isOvertime},#{isDuty},#{isGo},#{isLeave},#{isTrip}, #{locationOn}, #{wifiOn}, #{wifiAddr},
+     #{wifiName}, #{workdate},#{faceRecog})
+   </insert>
+
+    <update id="updateAttendSet" parameterType="com.xoa.model.attend.AttendSet">
+        update attend_set
+        <set>
+            <if test="uid != null">
+                UID = #{uid},
+            </if>
+            <if test="attendType != null">
+                ATTEND_TYPE = #{attendType},
+            </if>
+            <if test="title != null">
+                TITLE = #{title},
+            </if>
+            <if test="atime1Set != null">
+                ATIME1_SET = #{atime1Set},
+            </if>
+            <if test="atime1 != null">
+                ATIME1 = #{atime1},
+            </if>
+            <if test="atime2Set != null">
+                ATIME2_SET = #{atime2Set},
+            </if>
+            <if test="atime2 != null">
+                ATIME2 = #{atime2},
+            </if>
+            <if test="atime3Set != null">
+                ATIME3_SET = #{atime3Set},
+            </if>
+            <if test="atime3 != null">
+                ATIME3 = #{atime3},
+            </if>
+            <if test="atime4Set != null">
+                ATIME4_SET = #{atime4Set},
+            </if>
+            <if test="atime4 != null">
+                ATIME4 = #{atime4},
+            </if>
+            <if test="atime5Set != null">
+                ATIME5_SET = #{atime5Set},
+            </if>
+            <if test="atime5 != null">
+                ATIME5 = #{atime5},
+            </if>
+            <if test="atime6Set != null">
+                ATIME6_SET = #{atime6Set},
+            </if>
+            <if test="atime6 != null">
+                ATIME6 = #{atime6},
+            </if>
+            <if test="worktimeF != null">
+                WORKTIME_F = #{worktimeF},
+            </if>
+            <if test="worktimeB != null">
+                WORKTIME_B = #{worktimeB},
+            </if>
+            <if test="workafterF != null">
+                WORKAFTER_F = #{workafterF},
+            </if>
+            <if test="workafterB != null">
+                WORKAFTER_B = #{workafterB},
+            </if>
+            <if test="workStart != null">
+                WORK_START = #{workStart},
+            </if>
+            <if test="workEnd != null">
+                WORK_END = #{workEnd},
+            </if>
+            <if test="workHours != null">
+                WORK_HOURS = #{workHours},
+            </if>
+            <if test="location != null">
+                LOCATION = #{location},
+            </if>
+            <if test="ranges != null">
+                RANGES = #{ranges},
+            </if>
+            <if test="isOut != null">
+                IS_OUT = #{isOut},
+            </if>
+            <if test="isOvertime != null">
+                IS_OVERTIME = #{isOvertime},
+            </if>
+            <if test="isDuty != null">
+                IS_DUTY = #{isDuty},
+            </if>
+            <if test="isTrip != null">
+                IS_TRIP = #{isTrip},
+            </if>
+            <if test="isLeave != null">
+                IS_LEAVE = #{isLeave},
+            </if>
+            <if test="isGo != null">
+                IS_GO = #{isGo},
+            </if>
+            <if test="locationOn != null">
+                LOCATION_ON = #{locationOn},
+            </if>
+            <if test="wifiOn != null">
+                WIFI_ON = #{wifiOn},
+            </if>
+            <if test="wifiAddr != null">
+                WIFI_ADDR = #{wifiAddr},
+            </if>
+            <if test="wifiName != null">
+                WIFI_NAME = #{wifiName},
+            </if>
+            <if test="ipOn != null">
+                IP_ON = #{ipOn},
+            </if>
+            <if test="ipParagraph != null">
+                IP_PARAGRAPH = #{ipParagraph},
+            </if>
+            <if test="workdate != null">
+                WORKDATE = #{workdate},
+            </if>
+            <if test="faceRecog != null">
+                FACE_RECOG = #{faceRecog},
+            </if>
+            <if test="atime7Set != null">
+                ATIME7_SET = #{atime7Set},
+            </if>
+            <if test="atime7 != null">
+                ATIME7 = #{atime7},
+            </if>
+            <if test="atime8Set != null">
+                ATIME8_SET = #{atime8Set},
+            </if>
+            <if test="atime8 != null">
+                ATIME8 = #{atime8},
+            </if>
+        </set>
+        where SID = #{sid}
+    </update>
+
+    <select id="selectAttendSet" resultMap="BaseResultMap">
+    SELECT  * from attend_set
+  </select>
+
+    <delete id="delAttendSet">
+    delete from attend_set
+	where SID=${sid}
+   </delete>
+
+    <select id="queryAttendSetuId" resultMap="BaseResultMap">
+    SELECT  * from attend_set WHERE UID= #{uid}
+  </select>
+
+    <select id="getAttendSetByName" parameterType="String" resultType="integer">
+    select count(0) from attend_set where TITLE=#{title}
+    </select>
+
+</mapper>

@@ -1,0 +1,223 @@
+.new_excell_footer{
+    background-color: #2b7fe0;
+}
+.new_excell_main:hover{
+    border: 2px solid #2b7fe0;
+}
+.btn_sps{
+    background: #2b7fe0;
+    border-radius: 3px;
+    border: 1px solid #2b7fe0;
+}
+.hhhed{
+    text-align: center;
+    background-color: #2b7fe0;
+    color: #fff;
+    font-weight: normal;
+}
+.btnarr a{
+    background: #2f8ae3!important;
+}
+.new_liucheng{
+    background: #2b7fe0!important;
+}
+.M-box3 a:hover {
+    background: #2b7fe0;
+}
+.new_excell_name{
+    border-left: 4px solid #2b7fe0;
+}
+.new_excell_name{
+    color: #2b7fe0;
+}
+.mobile_btn {
+    color: #2b7fe0;
+}
+.mobile_btn:hover{
+    color: #0873ef;
+}
+.newsBtn{
+    background: #2b7fe0!important;
+}
+.one {
+    background: #2b7fe0!important;
+    border-radius: 3px;
+}
+.two{
+
+    border-radius: 3px;
+}
+.four{
+    background: #2b7fe0!important;
+}
+.newChildFolder{
+    background: #2b7fe0!important;
+    border-radius: 3px;
+}
+
+.editFolder{
+    background: #2b7fe0!important;
+    border-radius: 3px;
+}
+.deleteFolder{
+    background: #2b7fe0!important;
+    border-radius: 3px;
+}
+.shareFolder{
+    background: #2b7fe0!important;
+    border-radius: 3px;
+}
+
+.seeClass{
+    background: #2b7fe0!important;
+    width: 100px;
+    margin-right: 30px;
+    border-radius: 3px;
+}
+.newClass{
+    background: #2b7fe0!important;
+    border-radius: 3px;
+}
+.newtory{
+    background: #2b7fe0!important;
+    border-radius: 3px;
+    color: #fff;
+    padding: 6px;
+    padding-left: 30px;
+}
+.tableDl dl{
+    border-top: 4px solid #2b7fe0;
+}
+
+
+.newLeave{
+    background: #2b7fe0!important;
+    border-radius: 3px;
+}
+.batchDelete{
+    background: #2b7fe0!important;
+    border-radius: 3px;
+}
+
+.newActivity{
+    background: #2b7fe0!important;
+    border-radius: 3px;
+}
+.new_xinjiano{
+    background: #2b7fe0!important;
+    border-radius: 3px;
+}
+
+/*系统管理*/
+#formSub .file{
+    background:#2b7fe0;
+    color:#fff;
+}
+.delete_data ,.btnTheme {
+    background: #2b7fe0!important;
+}
+.TableBlock .chuan{
+    background: #2b7fe0!important;
+}
+.head_rig .new_dept,.nav_box .head_rig .new_dept{
+    background-color: #2b7fe0!important;
+}
+.newBtn,#newClass{
+    background: #2b7fe0!important;
+}
+.BigButton{
+    background: #2b7fe0;
+    color:#fff;
+}
+.formfile{
+    background: #2b7fe0!important;
+    border-radius: 3px;
+}
+.head-top ul .head-top-li.active {
+    background: #2F8AE3;
+    color: #fff;
+}
+.TableHeader{
+    background: #e8f4fc;
+}
+
+.btnsava {
+    padding: 5px 15px;
+    border-radius: 4px;
+    background: #2F8AE3!important;
+    color: #fff;
+}
+
+/*积分规则设置*/
+.divBtn{
+    float: right;
+    width: 90px;
+    height: 28px;
+    background: #2b7fe0;
+    color: #fff;
+    font-size: 14px;
+    line-height: 28px;
+    margin-right: 4%;
+    margin-top: 8px;
+    cursor: pointer;
+}
+.head .fore {
+    background: #2b7fe0;
+}
+/*文件柜样式*/
+.three{
+    background: #2b7fe0;
+}
+.fore{
+    background: #2b7fe0;
+}
+.M-box3 .active{
+    background: #2b7fe0;
+    border: 1px solid #2b7fe0;
+}
+.boto{
+    background: #2b7fe0;
+}
+.selected{
+    background: #2b7fe0;
+}
+.hideDiv li:hover{
+    color:#ffffff;
+    background: #2b7fe0;
+}
+.head .two{
+    background: #2b7fe0;
+}
+.attach .start,.attach .cancle{
+    color:#ffffff;
+    background: #2b7fe0;
+}
+
+
+
+/*角色与权限*/
+.newJuese{
+    background: #2b7fe0;
+}
+/*CRM-销售工作台-浮动背景*/
+.crm_background_img{
+    background:url('../../../img/crm/bar_bg.png') no-repeat;
+}
+.p2 span{
+    background-color: #2b7fe0!important;
+}
+#query{
+    background: #2b7fe0!important;
+}
+#u518_input{
+    background: #2b7fe0 url(/img/taisousuo.png) no-repeat 17px 8px!important;
+}
+.check{
+    background: #2b7fe0!important;
+}
+.leftTitle {
+    background: #00529e;
+}
+.d_im div{
+    background: #00529e;
+}

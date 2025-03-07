@@ -1,0 +1,134 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+html {
+    height:100%;
+    overflow-x: hidden;
+}
+body {
+    height:100%;
+}
+.cabinet_left {
+    width: 260px;
+    float: left;
+    overflow: auto ;
+    height: 100%;
+    background-color: #F0F4F7;
+    border:1px solid #d9d9d9;
+}
+.cabinet_right {
+    width:79%;
+    height:100%;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 0px;
+}
+.cabinet_info{
+    /*width:75.85%;*/
+    height:100%;
+    float: right;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.w{
+    width: 100%;
+ }
+.marouto{
+    width: 98%;
+    margin: 0 auto;
+}
+.bottom{
+    width: 98%;
+}
+.noData{
+    width: 100%;
+}
+.noData .bgImg{
+    width: 360px;
+    height: 150px;
+    margin: 100px auto;
+    background-color: #357ece;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px #2F5C8F;
+    overflow: hidden;
+}
+.noData .bgImg .IMG{
+    float: left;
+    width: 75px;
+    height: 75px;
+    margin-top: 37px;
+    margin-left: 30px;
+}
+.noData .bgImg .IMG img{
+    width: 100%;
+}
+.noData .bgImg .TXT{
+    float: left;
+    color: #fff;
+    font-size: 20px;
+    margin-top: 60px;
+    margin-left: 20px;
+}
+/*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+.cabinet_left ::-webkit-scrollbar{
+    width: 4px;
+    height: 16px;
+    background-color: #f5f5f5;
+}
+/*定义滚动条的轨道，内阴影及圆角*/
+.cabinet_left ::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    border-radius: 10px;
+    background-color: #f5f5f5;
+}
+/*定义滑块，内阴影及圆角*/
+.cabinet_left ::-webkit-scrollbar-thumb{
+    /*width: 10px;*/
+    height: 20px;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+.div_Img{
+    float: left;
+    width: 23px;
+    height: 100%;
+    margin-left: 10px;
+}
+.div_Img img{
+    width: 23px;
+    height: 23px;
+    margin-top: 11px;
+}
+.divP{
+    float: left;
+    height: 40px;
+    line-height: 44px;
+    font-size: 11pt;
+    margin-left: 10px;
+    color:#494d59;
+}
+
+input {border: none;outline: none;display: inline-block;background: #fff;}
+.ss{margin-top:9px;position: relative;}
+.ss a{font-size: 11pt;display: block;font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;letter-spacing: 1px;position: absolute;left: 25px;top: 0px;color: #fff;}
+.one{width:100px;height: 28px;background: url("../../img/file/cabinet01.png") no-repeat;}
+.one a{height: 28px;  line-height: 28px;}
+.two{width:140px;height: 28px;background: url("../../img/file/cabinet02.png") no-repeat;}
+.two a{height: 28px;  line-height: 28px;}
+.three{width: 90px;height: 28px;border-radius: 3px;}
+.three a{height: 28px;  line-height: 26px;color:#ffffff;left:30px;}
+.four{width: 120px;height: 28px;border-radius: 3px;}
+.four a{height: 28px;  line-height: 26px;color:#ffffff;}
+#file_Tachr tr td:last-of-type a{display:block;width:40px;height:22px;line-height:22px;}
+.boto{margin-top: 6px;width: 70px;height:28px;border-radius: 3px;line-height: 28px;text-align: center;font-size: 11pt;}
+.boto a{display:inline-block;width: 70px;height:28px;position: relative;color:#ffffff;}
+
+.TITLE{margin-left: 10px;color: #1772c0;}
+.attach{margin: 20px 0;padding: 10px;border:#ccc 1px solid;}
+.remind,.share,.inPole{margin-top: 5px;}
+.divBtn{margin-top: 10px;width: 100%;overflow: hidden;}
+.start,.cancle{float: left;width: 50px;padding: 5px;border-radius: 5px;color:#000;margin-left: 10px;cursor: pointer;}
+.floderOperation{width: 98%;margin: 0 auto;}
+.bgColor{background: #c5e9fb;color: #000000;}

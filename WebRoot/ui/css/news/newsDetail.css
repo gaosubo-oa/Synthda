@@ -1,0 +1,124 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+    width: 100%;
+}
+
+/* .detailsContent{width: 100%;overflow: hidden;background-color: #f6f7f9;} */
+.detailsContent {
+    width: 100%;
+    overflow: hidden;
+}
+
+.detailsContent .title {
+    width: 100%;
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+    color: #2a588c;
+    font-size: 25px;
+    font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.infor {
+    width: 100%;
+    overflow: hidden;
+    height: 40px;
+    background-color: #d3e7fa;
+}
+
+.infor ul {
+    list-style: none;
+    overflow: hidden;
+    float: right;
+    margin-top: 10px;
+}
+
+.infor ul li {
+    float: left;
+    margin-right: 20px;
+    font-size: 14px;
+}
+
+.infor ul li span {
+    font-size: 14px;
+}
+
+.divContent {
+    width: 100%;
+}
+
+.divContent .divTxt {
+    margin: 20px 20px;
+}
+
+.divContent .divTxt p {
+    font-size: 14px;
+    color: #444;
+    line-height: 25px;
+}
+
+.divContent .keyWord {
+    margin: 0 0 10px 50px;
+}
+
+.divContent .keyWord span {
+    margin-right: 10px;
+    color: #2b7fe0;
+}
+
+.btnImg {
+    width: 100%;
+}
+
+.btnImg .margin {
+    width: 370px;
+    margin: 20px auto;
+}
+
+.btnImg .margin a {
+    margin-right: 20px;
+}
+
+.spanbreak {
+    width: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.font_ {
+    font-weight: bold;
+    font-size: 16px;
+    margin-left: 20px;
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+}
+
+.img_ {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.button_query {
+    color: #FFF;
+    font-size: 16px;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    background-color: rgb(0, 162, 212);
+    margin-top: 5%;
+    display: inline-block;
+    text-align: center;
+    border-radius: 3px;
+    text-decoration: none;
+    position: absolute;
+    right: 45%;
+    bottom: 50px;
+}

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.worldnews.NewsCommentMapper">
+	<resultMap id="BaseResultMap" type="com.xoa.model.worldnews.NewsComment">
+		<id column="COMMENT_ID" property="comment_id" javaType="int" />
+		<result column="PARENT_ID" property="parent_id" javaType="int" />
+		<result column="NEWS_ID" property="news_id" javaType="int" />
+		<result column="USER_ID" property="user_id" javaType="String" />
+		<result column="NICK_NAME" property="nick_name" javaType="String" />
+		<result column="CONTENT" property="content" javaType="String" />
+		<result column="RE_TIME" property="re_time" javaType="Date" />
+		<association property="originalnewsComment" column="parent_id" javaType="com.xoa.model.worldnews.NewsComment">
+			<result column="content_2" property="content" javaType="String" />
+		</association>
+	</resultMap>
+	
+	<insert id="addNewsComment" parameterType="com.xoa.model.worldnews.NewsComment">
+		INSERT INTO news_comment
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="parent_id != null">
+				PARENT_ID,
+			</if>
+			<if test="news_id != null">
+				NEWS_ID,
+			</if>
+			<if test="user_id != null">
+				USER_ID,
+			</if>
+			<if test="nick_name != null">
+				NICK_NAME,
+			</if>
+			<if test="content != null">
+				CONTENT,
+			</if>
+			<if test="re_time != null">
+				RE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="parent_id != null">
+				#{parent_id},
+			</if>
+			<if test="news_id != null">
+				#{news_id},
+			</if>
+			<if test="user_id != null">
+				#{user_id},
+			</if>
+			<if test="nick_name != null">
+				#{nick_name},
+			</if>
+			<if test="content != null">
+				#{content},
+			</if>
+			<if test="re_time != null">
+				#{re_time},
+			</if>
+		</trim>
+	</insert>
+	<insert id="addNewsComment" parameterType="com.xoa.model.worldnews.NewsComment"  useGeneratedKeys="true" keyProperty="comment_id" databaseId="oracle">
+		<selectKey keyProperty="comment_id"  order="BEFORE" resultType="int">
+			select NEWS_COMMENT_COMMENT_ID_SEQ.nextval as comment_id from  dual
+		</selectKey>
+		INSERT INTO news_comment
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			COMMENT_ID,
+			<if test="parent_id != null">
+				PARENT_ID,
+			</if>
+			<if test="news_id != null">
+				NEWS_ID,
+			</if>
+			<if test="user_id != null">
+				USER_ID,
+			</if>
+			<if test="nick_name != null and nick_name != '' ">
+				NICK_NAME,
+			</if>
+			<if test="content != null">
+				CONTENT,
+			</if>
+			<if test="re_time != null">
+				RE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			    #{comment_id},
+		  	<if test="parent_id != null">
+				#{parent_id},
+			</if>
+			<if test="news_id != null">
+				#{news_id},
+			</if>
+			<if test="user_id != null">
+				#{user_id},
+			</if>
+			<if test="nick_name != null and nick_name != ''">
+				#{nick_name},
+			</if>
+			<if test="content != null">
+				#{content},
+			</if>
+			<if test="re_time != null">
+				#{re_time},
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="addNewsComment" parameterType="com.xoa.model.worldnews.NewsComment"  useGeneratedKeys="true" keyProperty="comment_id" databaseId="dm">
+		<selectKey keyProperty="comment_id"  order="BEFORE" resultType="int">
+			SELECT IDENT_CURRENT('NEWS_COMMENT');
+		</selectKey>
+		INSERT INTO news_comment
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="parent_id != null">
+				PARENT_ID,
+			</if>
+			<if test="news_id != null">
+				NEWS_ID,
+			</if>
+			<if test="user_id != null">
+				USER_ID,
+			</if>
+			<if test="nick_name != null and nick_name != '' ">
+				NICK_NAME,
+			</if>
+			<if test="content != null">
+				"CONTENT",
+			</if>
+			<if test="re_time != null">
+				RE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="parent_id != null">
+				#{parent_id},
+			</if>
+			<if test="news_id != null">
+				#{news_id},
+			</if>
+			<if test="user_id != null">
+				#{user_id},
+			</if>
+			<if test="nick_name != null and nick_name != ''">
+				#{nick_name},
+			</if>
+			<if test="content != null">
+				#{content},
+			</if>
+			<if test="re_time != null">
+				#{re_time},
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="addNewsComment" parameterType="com.xoa.model.worldnews.NewsComment"  useGeneratedKeys="true" keyProperty="comment_id" databaseId="kingbase">
+		<selectKey keyProperty="comment_id"  order="BEFORE" resultType="int">
+			select NEWS_COMMENT_COMMENT_ID_SEQ.nextval as comment_id from  dual
+		</selectKey>
+		INSERT INTO news_comment
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="parent_id != null">
+				PARENT_ID,
+			</if>
+			<if test="news_id != null">
+				NEWS_ID,
+			</if>
+			<if test="user_id != null">
+				USER_ID,
+			</if>
+			<if test="nick_name != null and nick_name != '' ">
+				NICK_NAME,
+			</if>
+			<if test="content != null">
+				"CONTENT",
+			</if>
+			<if test="re_time != null">
+				RE_TIME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="parent_id != null">
+				#{parent_id},
+			</if>
+			<if test="news_id != null">
+				#{news_id},
+			</if>
+			<if test="user_id != null">
+				#{user_id},
+			</if>
+			<if test="nick_name != null and nick_name != ''">
+				#{nick_name},
+			</if>
+			<if test="content != null">
+				#{content},
+			</if>
+			<if test="re_time != null">
+				#{re_time},
+			</if>
+		</trim>
+	</insert>
+
+	<select id="getNewsCommentInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
+SELECT n1.*,n2.CONTENT as content_2 FROM news_comment n1 LEFT JOIN news_comment n2 ON n1.PARENT_ID=n2.COMMENT_ID  WHERE n1.NEWS_ID=#{news_id} ORDER BY n1.RE_TIME DESC 
+
+</select>
+	<select id="getCount" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+		SELECT  count(*) FROM  news_comment WHERE PARENT_ID=#{parent_id}
+	</select>
+	
+	<delete id="deleteComment" parameterType="java.lang.Integer">
+		DELETE FROM news_comment WHERE COMMENT_ID =#{comment_id}
+	</delete>
+	<select id="getCommentByparentId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT * FROM news_comment WHERE PARENT_ID=#{COMMENT_ID}
+	</select>
+	<delete id="deleteRelateComment" parameterType="java.lang.Integer">
+    DELETE FROM news_comment WHERE PARENT_ID =#{comment_id};
+	</delete>
+
+	<select id="getNewsCount" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+		SELECT  count(*) FROM  news_comment WHERE NEWS_ID=#{news_id}
+	</select>
+	
+	<select id="selectOldnewsComment" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT * FROM news_comment WHERE COMMENT_ID=#{parent_id}
+	</select>
+	<select id="getNewsCommentById" resultMap="BaseResultMap" >
+		 SELECT * FROM news_comment WHERE COMMENT_ID=#{comment_id}
+	</select>
+
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.common.SyslogMapper">
+	<resultMap id="BaseResultMap" type="com.xoa.model.common.Syslog">
+		<id column="LOG_ID" property="logId" javaType="int" />
+		<result column="USER_ID" property="userId" javaType="string" />
+		<result column="TIME" property="time" javaType="Date" />
+		<result column="IP" property="ip" javaType="string" />
+		<result column="TYPE" property="type" javaType="int" />
+		<result column="REMARK" property="remark" javaType="string" />
+		<result column="CLIENT_TYPE" property="clientType" javaType="int" />
+		<result column="CLIENT_VERSION" property="clientVersion" javaType="string" />
+	</resultMap>
+
+	<insert id="save" parameterType="com.xoa.model.common.Syslog">
+		insert into sys_log (USER_ID,TIME,IP,TYPE,
+				REMARK,CLIENT_TYPE,CLIENT_VERSION
+		) values
+		(#{userId},#{time},#{ip},#{type},
+				#{remark},#{clientType},#{clientVersion}
+		)
+	</insert>
+
+
+
+<!--lr改，添加俩个字段：客户端类型和版本号-->
+	<insert id="save2" parameterType="com.xoa.model.common.Syslog">
+		insert into sys_log
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="userId!=null and userId!=''">
+				USER_ID,
+			</if>
+			<if test="time!=null ">
+				TIME,
+			</if>
+			<if test="ip!=null and ip!=''">
+				IP,
+			</if>
+			<if test="type!=null and type!=''">
+				TYPE,
+			</if>
+			<if test="remark!=null and remark!=''">
+				REMARK,
+			</if>
+			<if test="clientType!=null and clientType!=''">
+				CLIENT_TYPE,
+			</if>
+			<if test="clientVersion!=null and clientVersion!=''">
+				CLIENT_VERSION
+			</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+
+			<if test="userId != null and userId!=''" >
+				#{userId},
+			</if>
+			<if test="time != null " >
+				#{time},
+			</if>
+			<if test="ip != null and ip!=''" >
+				#{ip},
+			</if>
+			<if test="type != null and type!=''" >
+				#{type},
+			</if>
+			<if test="remark != null and remark!=''" >
+				#{remark},
+			</if>
+			<if test="clientType!=null and clientType!=''">
+				#{clientType},
+			</if>
+			<if test="clientVersion!=null and clientVersion!=''">
+				#{clientVersion}
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="save" useGeneratedKeys="true" keyProperty="logId" parameterType="com.xoa.model.common.Syslog"  databaseId="oracle">
+		<selectKey keyProperty="logId"  order="BEFORE" resultType="int">
+			select SYS_LOG_LOG_ID_SEQ.nextval as logId from  dual
+		</selectKey>
+		insert into sys_log (LOG_ID,USER_ID,"TIME",IP,"TYPE",
+		REMARK,CLIENT_TYPE,CLIENT_VERSION
+		) values
+		(#{logId},#{userId},#{time},#{ip},#{type},
+		#{remark},#{clientType},#{clientVersion}
+		)
+	</insert>
+
+	<insert id="save" parameterType="com.xoa.model.common.Syslog" databaseId="dm">
+		insert into sys_log (USER_ID,TIME,IP,TYPE,
+		REMARK,CLIENT_TYPE,CLIENT_VERSION
+		) values
+		(#{userId},#{time},#{ip},#{type},
+		#{remark},#{clientType},#{clientVersion}
+		)
+	</insert>
+</mapper>

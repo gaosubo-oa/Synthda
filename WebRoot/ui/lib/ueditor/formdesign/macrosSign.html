@@ -1,0 +1,355 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>宏标记</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+    <link rel="stylesheet" href="../formdesign/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../../../css/ueditor/site.css">
+    <script type="text/javascript" src="../dialogs/internal.js"></script>
+    <script type="text/javascript" src="/js/xoajq/xoajq3.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery-migrate-3.4.0.js"></script>
+    <script type="text/javascript" src="../../../js/base/base.js"></script>
+    <script type="text/javascript">
+        function createElement(type, name)
+        {
+            var element = null;
+            try {
+                element = document.createElement('<'+type+' name="'+name+'">');
+            } catch (e) {}
+            if(element==null) {
+                element = document.createElement(type);
+                element.name = name;
+            }
+            return element;
+        }
+    </script>
+</head>
+<body>
+<div class="content">
+    <table class="table table-bordered table-striped table-hover">
+        <tbody id='itemAttr'>
+        <tr>
+            <th><span class="languageText" language="workform_formItem_name">控件名称</span><span class="label label-important">*</span></th>
+            <th><span class="languageText" language="workform_formItem_lx">类型</span></th>
+        </tr>
+        <tr>
+            <td>
+                <input id="orgname" type="text" placeholder="必填项" class="languagePlaceHolder" language="workform_formItem_btx"/>
+            </td>
+            <td>
+                <select  id="datafld" class="">
+                        <option value="SYS_FLOW_FORMNAME" class="languageText" language="workform_formItem_bdmc">表单名称</option>
+                        <option value="SYS_FLOW_FLOWNAME" class="languageText" language="workform_formItem_lcmc">流程名称</option>
+                        <option value="SYS_FLOW_STARTTIME" class="languageText" language="workform_formItem_lckssj">流程开始时间</option>
+                        <option value="SYS_FLOW_ENDTIME" class="languageText" language="workform_formItem_lcjssj">流程结束时间</option>
+                        <option value="SYS_FLOW_RUNID" class="languageText" language="workform_formItem_lsh">流水号</option>
+                        <option value="SYS_FLOW_BEGINNAME" class="languageText" language="workform_formItem_lcfqrxm">流程发起人姓名</option>
+                        <option value="SYS_FLOW_BEGINID" class="languageText" language="workform_formItem_lcfqrid">流程发起人ID</option>
+                        <option value="SYS_FLOW_SIGNTEXT" class="languageText" language="workform_formItem_hqyj">会签意见</option>
+                        <option value="SYS_FLOW_CHILDFLOW" class="languageText" language="workform_formItem_zlc">子流程</option>
+                        <option value="SYS_FLOW_EXPLAINFILE" class="languageText" language="workform_formItem_lcsmfj">流程说明附件</option>
+                        <option value="SYS_FLOW_PUBLICFILE" class="languageText" language="workform_formItem_ggfjqfj">公共附件区附件</option>
+                        <option value="SYS_FLOW_CONNECTFLOW" class="languageText" language="workform_formItem_gllc">关联流程</option>
+                        <option value="SYS_NEWS" class="languageText" language="workform_formItem_xwshnr">新闻审核内容</option>
+                        <option value="SYS_MODULE_PAGE" class="languageText" language="workform_formItem_xtnymyy">系统内页面引用</option>
+                </select>
+            </td>
+        </tr>
+        <tr class="step" style="display: none">
+            <td>
+                <select  id="stepType" class="">
+                    <option value="FLOW_PRCS" class="languageText" language="workform_formItem_hqyjsjbz">会签意见设计步骤</option>
+                    <option value="PRCS_ID" class="languageText" language="workform_formItem_hqyjshijibz">会签意见实际步骤</option>
+                </select>
+            </td>
+            <td>
+                <input id="stepValue" type="text" placeholder="步骤数" class="languagePlaceHolder" language="workform_formItem_bzstep"/>
+            </td>
+        </tr>
+        <!--是否显示会签人姓名和时间-->
+        <tr class="countersigners" style="display: none;">
+            <td>
+                <span class="languageText" language="workform_formItem_sfxshqrxmhsj">是否显示会签人姓名和时间</span>
+            </td>
+            <td>
+                <label class="radio" style="display: inline-block;"><input type="radio" id="isyes" name="checked" style="margin: 4px 3px 0 0;" value="1" checked><span class="languageText" language="workform_formItem_yes">是</span></label>
+                <label class="radio" style="display: inline-block; margin-left: 15px;"><input type="radio" id="isno" name="checked"  style="margin: 4px 3px 0 0;" value="0"><span class="languageText" language="workform_formItem_no">否</span></label>
+            </td>
+        </tr>
+        <tr class="explain_file" style="display: none">
+            <td class="languageText" language="workform_formItem_xh">
+                序号
+            </td>
+            <td>
+                <input id="explainFile" type="text" placeholder=""/>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="2"><span class="languageText" language="workform_formItem_kjys">控件样式</span></th>
+            <!--<th><span>可见性</span></th>-->
+        </tr>
+        <tr>
+            <td colspan="2">
+                <span class="languageText" language="workform_formItem_width">宽</span> <input id="orgwidth" type="text" value="150" class="input-small span1" placeholder="auto"/> px
+                &nbsp;&nbsp;
+                <span class="languageText" language="workform_formItem_height">高</span> <input id="orgheight" type="text" value="30" class="input-small span1" placeholder="auto"/> px
+                &nbsp;&nbsp;
+                <span class="languageText" language="workform_formItem_ztdx">字体大小</span> <input id="orgfontsize" type="text" value="" class="input-small span1" placeholder="auto"/> px
+
+            </td>
+            <!--<td>-->
+                <!--<label class="checkbox"> <input id="orghide" type="checkbox"> 隐藏 </label>-->
+            <!--</td>-->
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+<script>
+    if(getCookie("language") != 'zh_CN'){
+        $('title').text(workform_formItem.workform_formItem_macrosSign);
+        var $languageText = $('.languageText');
+        var $languagePlaceHolder = $('.languagePlaceHolder');
+        for(var i = 0; i < $languageText.length; i++){
+            var language = $languageText.eq(i).attr('language');
+            $('*[language='+ language +']').text(workform_formItem[language]);
+        }
+        for(var i = 0; i < $languagePlaceHolder.length; i++){
+            var language = $languagePlaceHolder.eq(i).attr('language');
+            $('*[language='+ language +']').prop('placeholder', workform_formItem[language]);
+        }
+    }
+
+</script>
+<script type="text/javascript">
+    $('#datafld').change(function(){
+//        console.log($G('datafld').value)
+        if($G('datafld').value == 'SYS_FLOW_SIGNTEXT'){
+            $('.step').show();
+            $('.countersigners').show();
+        }else{
+            $('.step').hide();
+            $('.countersigners').hide();
+        }
+        if($G('datafld').value == 'SYS_FLOW_EXPLAINFILE') {
+            $('.explain_file').show();
+        } else {
+            $('.explain_file').hide();
+        }
+    })
+
+    $(function () {
+
+        var oNode = null,thePlugins = 'macrossign';
+        var dataid = $.getQueryString('dataid');
+        var dataNumber=parent.pluginId;
+//        console.log(UE.plugins[thePlugins].editdom )
+        if( UE.plugins[thePlugins].editdom ) {
+            oNode = UE.plugins[thePlugins].editdom;
+
+            var gTitle=oNode.getAttribute('title').replace(/&quot;/g,"\""),
+                gHeight=oNode.getAttribute('orgheight'),
+                gFontSize=oNode.getAttribute('orgfontsize'),
+                gWidth=oNode.getAttribute('orgwidth'),
+                gType=oNode.getAttribute('datafld');
+            var gStepType="",gStepValue="";
+            if(oNode.getAttribute('stepType')==undefined||oNode.getAttribute('stepValue')==undefined){
+                gStepType="";gStepValue="";
+            }else{
+                gStepType = oNode.getAttribute('stepType');
+                gStepValue = oNode.getAttribute('stepValue');
+            }
+            var gExplainFile = '';
+            if(oNode.getAttribute('explainFile')==undefined){
+                gExplainFile = '';
+            }else{
+                gExplainFile = oNode.getAttribute('explainFile');
+            }
+
+            if(gType == 'SYS_FLOW_SIGNTEXT'){
+                $('.step').show();
+                $('.countersigners').show();
+            }else{
+                $('.step').hide();
+                $('.countersigners').hide();
+            }
+
+            if(gType == 'SYS_FLOW_EXPLAINFILE') {
+                $('.explain_file').show();
+            } else {
+                $('.explain_file').hide();
+            }
+
+            gTitle = gTitle==null ? '' : gTitle;
+            $G('orgname').value = gTitle;
+//            if(oNode.getAttribute('orghide')=='1'){
+//                $G('orghide').checked = true;
+//            }
+            $G('orgname').value    = gTitle;
+            $G('datafld').value    = gType;
+            $G('orgwidth').value = gWidth;
+            $G('orgfontsize').value = gFontSize;
+            $G('orgheight').value = gHeight;
+            $G('stepType').value = gStepType;
+            $G('stepValue').value = gStepValue;
+            $G('stepValue').value = gStepValue;
+            $G('explainFile').value = gExplainFile;
+
+            //编辑回显    $G选择id的属性
+            var checked = oNode.getAttribute('checked');
+            checked ? $G('isno').checked = true : $G('isyes').checked = true;
+        }
+
+
+        dialog.oncancel = function () {
+            if( UE.plugins[thePlugins].editdom ) {
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+        //点击确定的方法
+        dialog.onok = function (){
+            if ( $G('orgname').value == '' ) {
+                if(workform_formItem){
+                    alert(workform_formItem.workform_formItem_qsrkjmc);
+                }else{
+                    alert('请输入控件名称');
+                }
+                return false;
+            }
+            var gTitle=$G('orgname').value.replace(/\"/g,"&quot;"),gFontSize=$G('orgfontsize').value,gWidth=$G('orgwidth').value,gType=$G('datafld').value,gHeight=$G('orgheight').value;
+            var gStepType="" ;var gStepValue="";
+            if($('.step').css('display')=='none'){
+                gStepType="";
+                gStepValue=""
+            }else{
+                gStepType=$G('stepType').value;
+                gStepValue=$G('stepValue').value;
+            }
+
+            var gExplainFile = '';
+            if($('.explain_file').css('display')=='none'){
+                gExplainFile = '';
+            }else{
+                gExplainFile = $G('explainFile').value;
+            }
+
+            var selectInp = '';
+            if($('.countersigners').css('display')=='none'){
+                selectInp = ''
+            }else{
+                selectInp = $('[name="checked"]:checked').val();
+            }
+            if( !oNode ) {
+                try {
+                    /*
+                     if ( $G('datafld').value.indexOf('sys_list')>0 ) {
+                     oNode = document.createElement("select");
+                     var objOption = new Option('{macros}', '');
+                     oNode.options[oNode.options.length] = objOption;
+                     } else {
+                     //input
+                     }*/
+                    oNode = createElement('input','leipiNewField');
+                    oNode.setAttribute('type','text');
+                    oNode.setAttribute('value','{macros}');
+                    oNode.setAttribute('class', "macrossign  form_item ");
+                    oNode.setAttribute('data-type', "macrossign");
+                    oNode.setAttribute('title',gTitle);
+                    oNode.setAttribute('name','DATA_'+dataNumber);
+                    oNode.setAttribute('id','DATA_'+dataNumber);
+                    oNode.setAttribute('datafld',gType);
+                    oNode.setAttribute('stepType',gStepType);
+                    oNode.setAttribute('stepValue',gStepValue);
+                    oNode.setAttribute('explainFile',gExplainFile);
+                    oNode.setAttribute('explainFile',gExplainFile);
+
+//                    if( $G('orghide').checked ) {
+//                        oNode.setAttribute('orghide', '1' ) ;
+//                    } else {
+//                        oNode.setAttribute('orghide', '0' ) ;
+//                    }
+                    if( gFontSize != '' ) {
+                        oNode.style.fontSize = gFontSize + 'px';
+                        oNode.setAttribute('orgfontsize',gFontSize );
+                    }
+                    if( gWidth != '' ) {
+                        oNode.style.width = gWidth + 'px';
+                        oNode.setAttribute('orgwidth',gWidth );
+                    }
+                    if( gHeight != '' ) {
+                        oNode.style.height = gHeight + 'px';
+                        oNode.setAttribute('orgheight',gHeight );
+                    }
+                    if ($G('isno').checked) {
+                        oNode.setAttribute('checked','checked');
+                        oNode.setAttribute('selectInp', selectInp);
+                    } else {
+                        oNode.checked = false;
+                        oNode.setAttribute('selectInp', selectInp);
+                    }
+                    editor.execCommand('insertHtml',oNode.outerHTML);
+                    return true;
+                } catch ( e ) {
+                    try {
+                        editor.execCommand('error');
+                    } catch ( e ) {
+                        if(workform_formItem){
+                            alert(workform_formItem.workform_formItem_kjycqlxjszc);
+                        }else{
+                            alert('控件异常，请联系技术支持');
+                        }
+                    }
+                    return false;
+                }
+            } else {
+
+                oNode.setAttribute('type','text');
+                oNode.setAttribute('value','{macros}');
+                oNode.setAttribute('class', "macrossign  form_item ");
+                oNode.setAttribute('data-type', "macrossign");
+                oNode.setAttribute('title',gTitle);
+                oNode.setAttribute('datafld',gType);
+                oNode.setAttribute('stepType',gStepType);
+                oNode.setAttribute('stepValue',gStepValue);
+                oNode.setAttribute('explainFile',gExplainFile);
+
+//                if( $G('orghide').checked ) {
+//                    oNode.setAttribute('orghide', '1' ) ;
+//                } else {
+//                    oNode.setAttribute('orghide', '0' ) ;
+//                }
+                if( gFontSize != '' ) {
+                    oNode.style.fontSize = gFontSize + 'px';
+                    oNode.setAttribute('orgfontsize',gFontSize );
+                }else{
+                    oNode.setAttribute('orgfontsize', '');
+                }
+                if( gWidth != '' ) {
+                    oNode.style.width = gWidth + 'px';
+                    oNode.setAttribute('orgwidth',gWidth );
+                }else{
+                    oNode.setAttribute('orgwidth', '');
+                }
+                if( gHeight != '' ) {
+                    oNode.style.height = gHeight + 'px';
+                    oNode.setAttribute('orgheight',gHeight );
+                }else{
+                    oNode.setAttribute('orgheight', '');
+                }
+                if ($G('isno').checked) {
+                    oNode.setAttribute('checked','checked');
+                    oNode.setAttribute('selectInp', selectInp);
+                } else {
+                    oNode.removeAttribute('checked');
+                    oNode.setAttribute('selectInp', selectInp);
+                }
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+
+    });
+
+</script>
+</body>
+</html>

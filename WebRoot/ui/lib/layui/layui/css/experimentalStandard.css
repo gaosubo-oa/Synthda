@@ -1,0 +1,166 @@
+body,html{
+    height: 100%;
+}
+.main-row{
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+.side-col{
+    width: 10%;
+    height: 100%;
+    padding-right: 2px;
+}
+
+.panel {
+    position: relative;
+    height: 100%;
+    /*margin-bottom: 20px;*/
+    background-color: #fff;
+    border: 1px solid transparent;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05), 0 2px 6px 0 rgba(0,0,0,.045);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05), 0 2px 6px 0 rgba(0,0,0,.045);
+}
+.panel-title {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    cursor: pointer;
+}
+
+.main-col{
+    width: 90%;
+    height: 100%;
+    background: #fff;
+}
+
+.row-module + .row-module {
+    margin-top: 5px;
+}
+
+.layui-nav{
+    padding: 0 10px;
+}
+.layui-nav .layui-nav-item {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 45px;
+}
+.col-module{
+    min-width: 200px;
+}
+.col-shorts {
+    width: 110px;
+}
+.table-form>tbody>tr>td, .table-form>tbody>tr>th, .table-form>tfoot>tr>td, .table-form>thead>tr>th {
+    padding: 7px;
+    vertical-align: middle;
+    border-bottom: none;
+}
+.table td, .table th {
+    padding: 8px 10px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-bottom: 1px solid #cbd0db;
+    -webkit-transition: background .2s cubic-bezier(.175,.885,.32,1);
+    -o-transition: background .2s cubic-bezier(.175,.885,.32,1);
+    transition: background .2s cubic-bezier(.175,.885,.32,1);
+}
+.layui-form-checkbox[lay-skin=primary]{
+    padding-left: 0px;
+
+}
+.text-middle img{
+    width: 21px;
+    margin-bottom: 4px;
+}
+.col-actions {
+    width: 88px;
+    padding-left: 5px;
+}
+.iptbox{
+    display: flex;
+    margin: 10px 0;
+}
+.longs{
+    width: 400px;
+}
+.shorts{
+    width: 150px;
+}
+.pnul{
+    width: 60px;
+}
+.btnls{
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+}
+.rtfix{
+    overflow-y: auto;
+}
+.move{
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 18px;
+}
+
+
+.layui-btn-group{
+    padding: 5px;
+}
+
+.mainf{
+    width: 50%;
+    padding: 2px;
+    height: 100%;
+    overflow-y: auto;
+}
+.layui-elem-quote{
+    padding: 8px 15px;
+}
+
+.layui-form-checkbox[lay-skin=primary] i {
+    width: 14px;
+    height: 14px;
+}
+.maincont{
+    width: 100%;
+    display: flex;
+}
+
+.xxdetail td{
+    padding:9px 5px;
+}
+.layui-table tbody tr:hover{
+    background-color: transparent;
+}
+.noder{
+    border: none;
+    color: #666;
+    cursor: default;
+}
+.rtdetail_2{
+    width: 80%;
+    margin: 0 auto;
+}
+.level2,.level3{
+    display: none;
+}
+#deleteButton{
+    width: 70px;
+    background-color: #ff5722;
+}
+.layui-table #beiview td, .layui-table th {
+    padding: 9px 4px;
+    font-size: 13px;
+}
+.layui-table #ytdview td, .layui-table th {
+    padding: 9px 4px;
+    font-size: 13px;
+}
+.navtit{
+    display: none;
+}

@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.modulePriv.ModulePrivMapper" >
+
+    <resultMap id="ModulePrivResultMap" type="com.xoa.model.modulePriv.ModulePriv">
+        <id column="UID" property="uid" javaType="java.lang.Integer"/>
+        <result column="MODULE_ID" property="moduleId" javaType="java.lang.Integer"/>
+        <result column="DEPT_PRIV" property="deptPriv" javaType="string"/>
+        <result column="ROLE_PRIV" property="rolePriv" javaType="string"/>
+        <result column="DEPT_ID" property="deptId" javaType="string"/>
+        <result column="PRIV_ID" property="privId" javaType="string"/>
+        <result column="USER_ID" property="userId" javaType="string"/>
+    </resultMap>
+    <insert id="addModulePriv" parameterType="com.xoa.model.modulePriv.ModulePriv" >
+        INSERT into MODULE_PRIV
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                UID,
+            </if>
+            <if test="moduleId != null">
+                module_Id,
+            </if>
+            <if test="deptPriv != null">
+                DEPT_PRIV,
+            </if>
+            <if test="rolePriv != null">
+                ROLE_PRIV,
+            </if>
+            <if test="deptId != null">
+                DEPT_ID,
+            </if>
+            <if test="privId != null">
+                PRIV_ID,
+            </if>
+            <if test="userId != null">
+                USER_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="moduleId != null">
+                #{moduleId},
+            </if>
+            <if test="deptPriv != null">
+                #{deptPriv},
+            </if>
+            <if test="rolePriv != null">
+                #{rolePriv},
+            </if>
+            <if test="deptId != null">
+                #{deptId},
+            </if>
+            <if test="privId != null">
+                #{privId},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+        </trim>
+    </insert>
+
+
+    <insert id="addModulePriv" parameterType="com.xoa.model.modulePriv.ModulePriv" databaseId="kingbase" >
+        INSERT into MODULE_PRIV
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                "UID",
+            </if>
+            <if test="moduleId != null">
+                module_Id,
+            </if>
+            <if test="deptPriv != null">
+                DEPT_PRIV,
+            </if>
+            <if test="rolePriv != null">
+                ROLE_PRIV,
+            </if>
+            <if test="deptId != null">
+                DEPT_ID,
+            </if>
+            <if test="privId != null">
+                PRIV_ID,
+            </if>
+            <if test="userId != null">
+                USER_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="moduleId != null">
+                #{moduleId},
+            </if>
+            <if test="deptPriv != null">
+                #{deptPriv},
+            </if>
+            <if test="rolePriv != null">
+                #{rolePriv},
+            </if>
+            <if test="deptId != null">
+                #{deptId},
+            </if>
+            <if test="privId != null">
+                #{privId},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+        </trim>
+    </insert>
+
+
+    <update id="updateModulePriv" parameterType="com.xoa.model.modulePriv.ModulePriv" >
+        update MODULE_PRIV
+        <set>
+            <if test="deptPriv!=null">
+                DEPT_PRIV = #{deptPriv},
+            </if>
+            <if test="rolePriv!=null">
+                ROLE_PRIV = #{rolePriv},
+            </if>
+            <if test="deptId!=null">
+                DEPT_ID =#{deptId},
+            </if>
+            <if test="privId!=null">
+                PRIV_ID = #{privId},
+            </if>
+            <if test="userId != null">
+                USER_ID = #{userId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where UID = #{uid,jdbcType=INTEGER} and module_Id = #{moduleId}
+    </update>
+
+    <update id="updateModulePriv" parameterType="com.xoa.model.modulePriv.ModulePriv" databaseId="kingbase" >
+        update MODULE_PRIV
+        <set>
+            <if test="deptPriv!=null">
+                DEPT_PRIV = #{deptPriv},
+            </if>
+            <if test="rolePriv!=null">
+                ROLE_PRIV = #{rolePriv},
+            </if>
+            <if test="deptId!=null">
+                DEPT_ID =#{deptId},
+            </if>
+            <if test="privId!=null">
+                PRIV_ID = #{privId},
+            </if>
+            <if test="userId != null">
+                USER_ID = #{userId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where "UID" = #{uid,jdbcType=INTEGER}  and module_Id = #{moduleId}
+    </update>
+
+    <delete id="deleteModulePrivs" >
+        DELETE FROM Module_priv WHERE module_Id = #{moduleId} and UID in
+        <foreach item="uid" collection="uids" open="(" separator="," close=")">
+            #{uid}
+        </foreach>
+    </delete>
+
+    <delete id="deleteModulePriv" >
+        DELETE FROM Module_priv WHERE module_Id = #{moduleId} and UID =#{uid};
+    </delete>
+
+    <select id="getModulePrivSingle" resultMap="ModulePrivResultMap" >
+        select * from module_priv where uid = #{uid} and module_id = #{moduleId}
+        limit 1
+    </select>
+
+    <select id="getDeptNameByIds" resultType="com.xoa.model.department.Department" >
+        SELECT DEPT_NAME as deptName,DEPT_ID as deptId from department
+        WHERE dept_id in
+        <foreach item="deptId" collection="array" open="(" separator="," close=")">
+            <if test="deptId!=null and deptId != '' ">
+                #{deptId}
+            </if>
+        </foreach>
+    </select>
+
+    <select id="getPrivNameByIds" resultType="com.xoa.model.users.UserPriv" >
+        SELECT PRIV_NAME as privName from user_priv
+        WHERE user_priv in
+        <foreach item="userPriv" collection="array" open="(" separator="," close=")">
+            <if test="userPriv!=null and userPriv != '' ">
+                #{userPriv}
+            </if>
+        </foreach>
+    </select>
+    <select id="getPrivNameById" resultType="java.lang.String" >
+        SELECT PRIV_NAME as privName from user_priv
+        WHERE user_priv = #{s}
+    </select>
+    <select id="getPrivNameByIds" resultType="com.xoa.model.users.UserPriv" databaseId="oracle">
+        SELECT PRIV_NAME as privName from user_priv
+        WHERE user_priv in
+        <foreach item="userPriv" collection="array" open="(" separator="," close=")">
+            <if test="userPriv!=null and userPriv != '' ">
+                #{userPriv}
+            </if>
+        </foreach>
+    </select>
+    <select id="getPrivNameByIds" resultType="com.xoa.model.users.UserPriv" databaseId="dm">
+        SELECT PRIV_NAME as privName from "user_priv" up
+        WHERE up.user_priv in
+        <foreach item="userPriv" collection="array" open="(" separator="," close=")">
+            <if test="userPriv!=null and userPriv != '' ">
+                #{userPriv}
+            </if>
+        </foreach>
+    </select>
+
+    <delete id="deleteModulePrivByUids" parameterType="string">
+        DELETE FROM module_priv WHERE UID in
+        <foreach item="uids" collection="array" open="(" separator="," close=")">
+            #{uids}
+        </foreach>
+    </delete>
+
+    <select id="selectWhiteListNameByUid" resultType="com.xoa.model.modulePriv.ModulePriv">
+        set @USER_ID=(select USER_ID from module_priv where UID = #{uid} limit 1);
+        set @USER_ID=(SELECT LEFT(@USER_ID,LENGTH(@USER_ID)-1));
+
+        set @PRIV_ID=(select PRIV_ID from module_priv where UID = #{uid} limit 1);
+        set @PRIV_ID=(SELECT LEFT(@PRIV_ID,LENGTH(@PRIV_ID)-1));
+
+        set @DEPT_ID=(select DEPT_ID from module_priv where UID = #{uid} limit 1);
+        set @DEPT_ID=(SELECT LEFT(@DEPT_ID,LENGTH(@DEPT_ID)-1));
+
+        SELECT
+        (select GROUP_CONCAT(USER_NAME) from user where USER_ID in
+        (SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(@USER_ID,',',help_topic_id+1),',',-1) AS num
+        FROM mysql.help_topic
+        WHERE help_topic_id &lt; LENGTH(@USER_ID) - LENGTH(REPLACE(@USER_ID,',',''))+1))
+        as userName,
+        (select GROUP_CONCAT(PRIV_NAME) from user_priv where USER_PRIV in
+        (SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(@PRIV_ID,',',help_topic_id+1),',',-1) AS num
+        FROM mysql.help_topic
+        WHERE help_topic_id &lt; LENGTH(@PRIV_ID) - LENGTH(REPLACE(@PRIV_ID,',',''))+1))
+        as privName,
+        (select GROUP_CONCAT(DEPT_NAME) from department where DEPT_ID in
+        (SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(@DEPT_ID,',',help_topic_id+1),',',-1) AS num
+        FROM mysql.help_topic
+        WHERE help_topic_id &lt; LENGTH(@DEPT_ID) - LENGTH(REPLACE(@DEPT_ID,',',''))+1))
+        as deptName
+    </select>
+
+</mapper>

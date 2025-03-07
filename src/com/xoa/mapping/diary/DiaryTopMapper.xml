@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.diary.DiaryTopMapper" >
+  <resultMap id="DiaryTopMap" type="com.xoa.model.diary.DiaryTop" >
+    <result column="TOP_ID" property="topId"  javaType="integer" />
+    <result column="DIA_CATE" property="diaCate" javaType="integer" />
+    <result column="DIA_ID" property="diaId" javaType="integer" />
+    <result column="USER_ID" property="userId" javaType="string" />
+  </resultMap>
+    <resultMap id="DiaryMap" type="com.xoa.model.diary.DiaryModel" >
+        <result column="DIA_ID" property="diaId"  javaType="integer" />
+        <result column="USER_ID" property="userId" javaType="string" />
+        <result column="userName" property="userName" javaType="string" />
+        <result column="DIA_DATE" property="diaDate" javaType="string" />
+        <result column="DIA_TIME" property="diaTime" javaType="string" />
+        <result column="DIA_TYPE" property="diaType" javaType="string" />
+        <result column="SUBJECT" property="subject" javaType="string" />
+        <result column="LAST_COMMENT_TIME" property="lastCommentTime" javaType="string" />
+        <result column="TO_ALL" property="toAll" javaType="integer" />
+        <result column="CRM_DIARY" property="crmDiary" javaType="integer" />
+        <result column="CONTENT" property="content" javaType="string" />
+        <result column="ATTACHMENT_ID" property="attachmentId" javaType="string" />
+        <result column="ATTACHMENT_NAME" property="attachmentName" javaType="string" />
+        <result column="TO_ID" property="toId" javaType="string" />
+        <result column="COMPRESS_CONTENT" property="compressContent" javaType="String" />
+        <result column="READERS" property="readers" javaType="string" />
+        <result column="photo" property="photo" javaType="string" />
+        <result column="avatar" property="avatar" javaType="string" />
+        <association javaType="com.xoa.model.diary.DiaryTop" property="diaryTop">
+            <id column="TOP_ID" property="topId"  javaType="integer" />
+            <result column="DIA_CATE" property="diaCate" javaType="integer" />
+        </association>
+    </resultMap>
+    <insert id="insertDiaryTop" parameterType="com.xoa.model.diary.DiaryTop">
+        insert into diary_top(DIA_CATE,DIA_ID,USER_ID) VALUES (#{diaCate},#{diaId},#{userId})
+    </insert>
+
+    <insert id="insertDiaryTop" parameterType="com.xoa.model.diary.DiaryTop" databaseId="oracle">
+        <selectKey keyProperty="topId"  order="BEFORE" resultType="int">
+            select DIARY_TOP_TOP_ID_SEQ.nextval as topId from  dual
+        </selectKey>
+        insert into diary_top(TOP_ID,DIA_CATE,DIA_ID,USER_ID) VALUES (#{topId},#{diaCate},#{diaId},#{userId})
+    </insert>
+
+    <insert id="insertDiaryTop" parameterType="com.xoa.model.diary.DiaryTop" databaseId="dm">
+        <selectKey keyProperty="topId"  order="BEFORE" resultType="int">
+            select DIARY_TOP_TOP_ID_SEQ.nextval as topId from  dual
+        </selectKey>
+        insert into diary_top(TOP_ID,DIA_CATE,DIA_ID,USER_ID) VALUES (#{topId},#{diaCate},#{diaId},#{userId})
+    </insert>
+
+        <update id="updUserIdByDiaId" parameterType="com.xoa.model.diary.DiaryTop">
+            update diary_top SET USER_ID=#{userId} WHERE DIA_ID=#{diaId}
+        </update>
+
+        <select id="getDiaryTopByDiaId" resultMap="DiaryTopMap" parameterType="String">
+            SELECT TOP_ID,DIA_CATE,DIA_ID,USER_ID from diary_top where DIA_ID=#{diaId}
+        </select>
+
+    <delete id="delDiaryTopByDiaId" parameterType="String">
+          DELETE  FROM diary_top WHERE DIA_ID=#{diaId}
+     </delete>
+
+
+    <select id="getOrderDiary" resultMap="DiaryMap" parameterType="String">
+           SELECT d.*,t.TOP_ID,t.DIA_CATE
+           from diary as d
+           LEFT JOIN (select * from diary_top where USER_ID like concat('%,',#{userId},',%')  or USER_ID like concat(#{userId},'%') or USER_ID like concat('%,',#{userId}) ) as t
+           on d.DIA_ID=t.DIA_ID
+           ORDER by  t.TOP_ID desc
+    </select>
+
+    <select id="getOrderDiary" resultMap="DiaryMap" parameterType="String" databaseId="oracle">
+        SELECT d.*,t.TOP_ID,t.DIA_CATE
+        from diary  d
+        LEFT JOIN (select * from diary_top where USER_ID like concat('%,',concat(#{userId},',%'))  or USER_ID like concat(#{userId},'%') or USER_ID like concat('%,',#{userId}) )  t
+        on d.DIA_ID=t.DIA_ID
+        ORDER by  t.TOP_ID desc
+    </select>
+
+    <select id="getOrderDiary" resultMap="DiaryMap" parameterType="String" databaseId="dm">
+        SELECT d.*,t.TOP_ID,t.DIA_CATE
+        from diary  d
+        LEFT JOIN (select * from diary_top where USER_ID like concat('%,',concat(#{userId},',%'))  or USER_ID like concat(#{userId},'%') or USER_ID like concat('%,',#{userId}) )  t
+        on d.DIA_ID=t.DIA_ID
+        ORDER by  t.TOP_ID desc
+    </select>
+</mapper>

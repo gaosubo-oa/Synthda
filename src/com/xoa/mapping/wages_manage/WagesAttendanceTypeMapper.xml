@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.wages_manage.WagesAttendanceTypeMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.wages_manage.WagesAttendanceType">
+        <id column="ATTEND_TYPE_ID" jdbcType="INTEGER" property="attendTypeId"/>
+        <result column="USER_ID" jdbcType="VARCHAR" property="userId"/>
+        <result column="USER_NAME" jdbcType="VARCHAR" property="userName"/>
+        <result column="ID_NUMBER" jdbcType="INTEGER" property="idNumber"/>
+        <result column="THE_YEAR" jdbcType="VARCHAR" property="theYear"/>
+        <result column="THE_MONTH" jdbcType="VARCHAR" property="theMonth"/>
+        <result column="JOB_MANAGE_ID" jdbcType="INTEGER" property="jobManageId"/>
+        <result column="JOB_RATIO" jdbcType="DECIMAL" property="jobRatio"/>
+        <result column="SALARY_TYPEA" jdbcType="DECIMAL" property="salaryTypea"/>
+        <result column="SALARY_TYPEB" jdbcType="DECIMAL" property="salaryTypeb"/>
+        <result column="SALARY_TYPEC" jdbcType="DECIMAL" property="salaryTypec"/>
+        <result column="SALARY_TYPED" jdbcType="DECIMAL" property="salaryTyped"/>
+        <result column="SALARY_TYPEE" jdbcType="DECIMAL" property="salaryTypee"/>
+        <result column="SALARY_TYPEF" jdbcType="DECIMAL" property="salaryTypef"/>
+        <result column="ATTEND_TYPE1" jdbcType="VARCHAR" property="attendType1"/>
+        <result column="ATTEND_TYPE2" jdbcType="VARCHAR" property="attendType2"/>
+        <result column="ATTEND_TYPE3" jdbcType="VARCHAR" property="attendType3"/>
+        <result column="ATTEND_TYPE4" jdbcType="VARCHAR" property="attendType4"/>
+        <result column="ATTEND_TYPE5" jdbcType="VARCHAR" property="attendType5"/>
+        <result column="ATTEND_TYPE6" jdbcType="VARCHAR" property="attendType6"/>
+        <result column="ATTEND_TYPE7" jdbcType="VARCHAR" property="attendType7"/>
+        <result column="ATTEND_TYPE8" jdbcType="VARCHAR" property="attendType8"/>
+        <result column="ATTEND_TYPE9" jdbcType="VARCHAR" property="attendType9"/>
+        <result column="ATTEND_TYPE10" jdbcType="VARCHAR" property="attendType10"/>
+        <result column="ATTEND_TYPE11" jdbcType="VARCHAR" property="attendType11"/>
+        <result column="ATTEND_TYPE12" jdbcType="VARCHAR" property="attendType12"/>
+        <result column="ATTEND_TYPE13" jdbcType="VARCHAR" property="attendType13"/>
+        <result column="ATTEND_TYPE14" jdbcType="VARCHAR" property="attendType14"/>
+        <result column="ATTEND_TYPE15" jdbcType="VARCHAR" property="attendType15"/>
+        <result column="ATTEND_TYPE16" jdbcType="VARCHAR" property="attendType16"/>
+        <result column="ATTEND_TYPE17" jdbcType="VARCHAR" property="attendType17"/>
+        <result column="ATTEND_TYPE18" jdbcType="VARCHAR" property="attendType18"/>
+        <result column="ATTEND_TYPE19" jdbcType="VARCHAR" property="attendType19"/>
+        <result column="ATTEND_TYPE20" jdbcType="VARCHAR" property="attendType20"/>
+        <result column="ATTEND_TYPE21" jdbcType="VARCHAR" property="attendType21"/>
+        <result column="ATTEND_TYPE22" jdbcType="VARCHAR" property="attendType22"/>
+        <result column="ATTEND_TYPE23" jdbcType="VARCHAR" property="attendType23"/>
+        <result column="ATTEND_TYPE24" jdbcType="VARCHAR" property="attendType24"/>
+        <result column="ATTEND_TYPE25" jdbcType="VARCHAR" property="attendType25"/>
+        <result column="ATTEND_TYPE26" jdbcType="VARCHAR" property="attendType26"/>
+        <result column="ATTEND_TYPE27" jdbcType="VARCHAR" property="attendType27"/>
+        <result column="ATTEND_TYPE28" jdbcType="VARCHAR" property="attendType28"/>
+        <result column="ATTEND_TYPE29" jdbcType="VARCHAR" property="attendType29"/>
+        <result column="ATTEND_TYPE30" jdbcType="VARCHAR" property="attendType30"/>
+        <result column="ATTEND_TYPE31" jdbcType="VARCHAR" property="attendType31"/>
+        <result column="CONFIRM_STATUS" jdbcType="CHAR" property="confirmStatus"/>
+        <result column="REMARKS" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+
+    <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select *
+        from wages_attendance_type
+        <where>
+            <if test="theYear != null and theYear != ''">
+                and THE_YEAR = #{theYear}
+            </if>
+            <if test="theMonth != null and theMonth != ''">
+                and THE_MONTH = #{theMonth}
+            </if>
+            <if test="confirmStatus != null and confirmStatus != ''">
+                and CONFIRM_STATUS = #{confirmStatus}
+            </if>
+            <if test="userId != null and userId != ''">
+                and USER_ID = #{userId}
+            </if>
+            <if test="userName != null and userName != ''">
+                and USER_NAME = #{userName}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateConfirm" parameterType="java.lang.Integer">
+        update wages_attendance_type
+        set CONFIRM_STATUS = 1
+        where ATTEND_TYPE_ID = #{attendTypeId}
+    </update>
+
+
+    <insert id="insert" parameterType="com.xoa.model.wages_manage.WagesAttendanceType" useGeneratedKeys="true">
+        <selectKey keyProperty="attendTypeId" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into wages_attendance_type(USER_ID, USER_NAME, ID_NUMBER, THE_YEAR, THE_MONTH, JOB_MANAGE_ID,
+                                          JOB_RATIO, ATTEND_TYPE1, ATTEND_TYPE2, ATTEND_TYPE3, ATTEND_TYPE4, ATTEND_TYPE5,
+                                          ATTEND_TYPE6, ATTEND_TYPE7, ATTEND_TYPE8, ATTEND_TYPE9, ATTEND_TYPE10, ATTEND_TYPE11,
+                                          ATTEND_TYPE12, ATTEND_TYPE13, ATTEND_TYPE14,
+                                          ATTEND_TYPE15,
+                                          ATTEND_TYPE16,
+                                          ATTEND_TYPE17,
+                                          ATTEND_TYPE18,
+                                          ATTEND_TYPE19,
+                                          ATTEND_TYPE20,
+                                          ATTEND_TYPE21,
+                                          ATTEND_TYPE22,
+                                          ATTEND_TYPE23,
+                                          ATTEND_TYPE24,
+                                          ATTEND_TYPE25,
+                                          ATTEND_TYPE26,
+                                          ATTEND_TYPE27,
+                                          ATTEND_TYPE28,
+                                          ATTEND_TYPE29,
+                                          ATTEND_TYPE30,
+                                          ATTEND_TYPE31,
+                                          CONFIRM_STATUS,
+                                          REMARKS)
+        values (#{userId},
+                #{userName},
+                #{idNumber},
+                #{theYear},
+                #{theMonth},
+                #{jobManageId},
+                #{jobRatio},
+                #{attendType1},
+                #{attendType2},
+                #{attendType3},
+                #{attendType4},
+                #{attendType5},
+                #{attendType6},
+                #{attendType7},
+                #{attendType8},
+                #{attendType9},
+                #{attendType10},
+                #{attendType11},
+                #{attendType12},
+                #{attendType13},
+                #{attendType14},
+                #{attendType15},
+                #{attendType16},
+                #{attendType17},
+                #{attendType18},
+                #{attendType19},
+                #{attendType20},
+                #{attendType21},
+                #{attendType22},
+                #{attendType23},
+                #{attendType24},
+                #{attendType25},
+                #{attendType26},
+                #{attendType27},
+                #{attendType28},
+                #{attendType29},
+                #{attendType30},
+                #{attendType31},
+                #{confirmStatus},
+                #{remarks})
+    </insert>
+
+    <insert id="insertAll" parameterType="java.util.List">
+        insert into wages_attendance_type(
+        ATTEND_TYPE_ID,
+        USER_ID,
+        USER_NAME,
+        ID_NUMBER,
+        THE_YEAR,
+        THE_MONTH,
+        JOB_MANAGE_ID,
+        JOB_RATIO,
+        ATTEND_TYPE1,
+        ATTEND_TYPE2,
+        ATTEND_TYPE3,
+        ATTEND_TYPE4,
+        ATTEND_TYPE5,
+        ATTEND_TYPE6,
+        ATTEND_TYPE7,
+        ATTEND_TYPE8,
+        ATTEND_TYPE9,
+        ATTEND_TYPE10,
+        ATTEND_TYPE11,
+        ATTEND_TYPE12,
+        ATTEND_TYPE13,
+        ATTEND_TYPE14,
+        ATTEND_TYPE15,
+        ATTEND_TYPE16,
+        ATTEND_TYPE17,
+        ATTEND_TYPE18,
+        ATTEND_TYPE19,
+        ATTEND_TYPE20,
+        ATTEND_TYPE21,
+        ATTEND_TYPE22,
+        ATTEND_TYPE23,
+        ATTEND_TYPE24,
+        ATTEND_TYPE25,
+        ATTEND_TYPE26,
+        ATTEND_TYPE27,
+        ATTEND_TYPE28,
+        ATTEND_TYPE29,
+        ATTEND_TYPE30,
+        ATTEND_TYPE31,
+        CONFIRM_STATUS,
+        REMARKS
+        )
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{attendTypeId},
+            #{userId},
+            #{userName},
+            #{idNumber},
+            #{theYear},
+            #{theMonth},
+            #{jobManageId},
+            #{jobRatio},
+            #{attendType1},
+            #{attendType2},
+            #{attendType3},
+            #{attendType4},
+            #{attendType5},
+            #{attendType6},
+            #{attendType7},
+            #{attendType8},
+            #{attendType9},
+            #{attendType10},
+            #{attendType11},
+            #{attendType12},
+            #{attendType13},
+            #{attendType14},
+            #{attendType15},
+            #{attendType16},
+            #{attendType17},
+            #{attendType18},
+            #{attendType19},
+            #{attendType20},
+            #{attendType21},
+            #{attendType22},
+            #{attendType23},
+            #{attendType24},
+            #{attendType25},
+            #{attendType26},
+            #{attendType27},
+            #{attendType28},
+            #{attendType29},
+            #{attendType30},
+            #{attendType31},
+            #{confirmStatus},
+            #{remarks}
+            )
+        </foreach>
+    </insert>
+
+    <select id="selectAllAttendanceDate" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select a.*
+        from wages_attendance_type as  a
+        <if test="ct1 != null or ct2 != null">
+            inner join (select *  ,count(1) as ct
+            from wages_attendance_type
+            <where>
+                <if test="theYear != null and theYear != ''">
+                    and THE_YEAR = #{theYear}
+                </if>
+                <if test="theMonth != null and theMonth != ''">
+                    and THE_MONTH = #{theMonth}
+                </if>
+            </where>
+            <if test="ct1 != null and ct1 != ''">
+                GROUP BY USER_ID HAVING ct = 1
+            </if>
+            <if test="ct2 != null and ct2 != ''">
+                GROUP BY USER_ID HAVING ct &gt; 1
+            </if>
+            ORDER BY USER_NAME
+            ) as b on a.ID_NUMBER = b.ID_NUMBER
+        </if>
+        <where>
+            <if test="theYear != null and theYear != ''">
+                and a.THE_YEAR = #{theYear}
+            </if>
+            <if test="theMonth != null and theMonth != ''">
+                and a.THE_MONTH = #{theMonth}
+            </if>
+            <if test="userName != null and userName != ''">
+                and a.USER_NAME LIKE CONCAT('%', #{userName}, '%')
+            </if>
+            <if test="userId != null and userId != ''">
+                and a.USER_ID = #{userId}
+            </if>
+            <if test="jobMangeId != null and jobMangeId != ''">
+                and a.JOB_MANAGE_ID = #{jobMangeId}
+            </if>
+            <if test="attendTypeId != null and attendTypeId != ''">
+                and a.ATTEND_TYPE_ID = #{attendTypeId}
+            </if>
+        </where>
+        ORDER BY a.USER_NAME
+    </select>
+    <select id="selectAllYear" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select *
+        from wages_attendance_type
+        <where>
+            <if test="!theYear1.equals(theYear2)">
+                <if test="theMonth1 != null and theMonth2 != null">
+                    and ( (THE_YEAR= #{theYear1} and ((THE_MONTH+0) between  (#{theMonth1}+0) and 12))
+                    or ((THE_YEAR+0) &gt; (#{theYear1}+0) and (THE_YEAR+0)  &lt; (#{theYear2}+0))
+                    or (THE_YEAR= #{theYear2} and ((THE_MONTH+0) between 1 and (#{theMonth2}+0))))
+                </if>
+            </if>
+            <if test="theYear1.equals(theYear2)">
+                <if test="theMonth1 != null and theMonth2 != null">
+                    and THE_YEAR= #{theYear1} and (THE_MONTH+0) between  (#{theMonth1}+0) and (#{theMonth2}+0)
+                </if>
+            </if>
+            <if test="userName != null and userName != ''">
+                and USER_NAME LIKE CONCAT('%', #{userName}, '%')
+            </if>
+            <if test="userId != null and userId != ''">
+                and USER_ID = #{userId}
+            </if>
+            <if test="jobMangeId != null and jobMangeId != ''">
+                and JOB_MANAGE_ID = #{jobMangeId}
+            </if>
+            <if test="attendTypeId != null and attendTypeId != ''">
+                and ATTEND_TYPE_ID = #{attendTypeId}
+            </if>
+        </where>
+        ORDER BY THE_YEAR,THE_MONTH,USER_NAME
+    </select>
+    <select id="selectOneByAttendTypeId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select *
+        from wages_attendance_type
+        <where>
+            <if test="attendTypeId != null and attendTypeId != ''">
+                and ATTEND_TYPE_ID = #{attendTypeId}
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteAttendanceType" parameterType="java.lang.Integer">
+        delete from wages_attendance_type
+        where ATTEND_TYPE_ID = #{attendTypeId}
+    </delete>
+
+    <update id="updateAttendanceType" parameterType="com.xoa.model.wages_manage.WagesAttendanceType">
+        update wages_attendance_type
+        <set>
+            <if test="userId != null and userId != ''">
+                USER_ID = #{userId},
+            </if>
+            <if test="userName != null and userName != ''">
+                USER_NAME = #{userName},
+            </if>
+            <if test="idNumber != null and idNumber != ''">
+                ID_NUMBER = #{idNumber},
+            </if>
+            <if test="theYear != null and theYear != ''">
+                THE_YEAR = #{theYear},
+            </if>
+            <if test="theMonth != null and theMonth != ''">
+                THE_MONTH = #{theMonth},
+            </if>
+            <if test="jobManageId != null and jobManageId != ''">
+                JOB_MANAGE_ID = #{jobManageId},
+            </if>
+            <if test="jobRatio != null">
+                JOB_RATIO = #{jobRatio},
+            </if>
+
+                SALARY_TYPEA = #{salaryTypea},
+
+
+                SALARY_TYPEB = #{salaryTypeb},
+
+
+                SALARY_TYPEC = #{salaryTypec},
+
+
+                SALARY_TYPED = #{salaryTyped},
+
+
+                 SALARY_TYPEE = #{salaryTypee},
+
+                SALARY_TYPEF = #{salaryTypef},
+
+                ATTEND_TYPE1 = #{attendType1},
+                ATTEND_TYPE2 = #{attendType2},
+                ATTEND_TYPE3 = #{attendType3},
+                ATTEND_TYPE4 = #{attendType4},
+                ATTEND_TYPE5 = #{attendType5},
+                ATTEND_TYPE6 = #{attendType6},
+                ATTEND_TYPE7 = #{attendType7},
+                ATTEND_TYPE8 = #{attendType8},
+                ATTEND_TYPE9 = #{attendType9},
+                ATTEND_TYPE10 = #{attendType10},
+                ATTEND_TYPE11 = #{attendType11},
+                ATTEND_TYPE12 = #{attendType12},
+                ATTEND_TYPE13 = #{attendType13},
+                ATTEND_TYPE14 = #{attendType14},
+                ATTEND_TYPE15 = #{attendType15},
+                ATTEND_TYPE16 = #{attendType16},
+                ATTEND_TYPE17 = #{attendType17},
+                ATTEND_TYPE18 = #{attendType18},
+                ATTEND_TYPE19 = #{attendType19},
+                ATTEND_TYPE20 = #{attendType20},
+                ATTEND_TYPE21 = #{attendType21},
+                ATTEND_TYPE22 = #{attendType22},
+                ATTEND_TYPE23 = #{attendType23},
+                ATTEND_TYPE24 = #{attendType24},
+                ATTEND_TYPE25 = #{attendType25},
+                ATTEND_TYPE26 = #{attendType26},
+                ATTEND_TYPE27 = #{attendType27},
+                ATTEND_TYPE28 = #{attendType28},
+                ATTEND_TYPE29 = #{attendType29},
+                ATTEND_TYPE30 = #{attendType30},
+                ATTEND_TYPE31 = #{attendType31},
+            <if test="confirmStatus != null and confirmStatus != ''">
+                CONFIRM_STATUS = #{confirmStatus},
+            </if>
+            <if test="remarks != null and remarks != ''">
+                REMARKS = #{remarks}
+            </if>
+        </set>
+        where ATTEND_TYPE_ID = #{attendTypeId}
+    </update>
+
+    <insert id="insertSelective" parameterType="com.xoa.model.wages_manage.WagesAttendanceType" useGeneratedKeys="true">
+        <selectKey keyProperty="attendTypeId" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated by MyBatis Generator, do not modify.
+        -->
+        insert into wages_attendance_type
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="userId != null" >
+                USER_ID,
+            </if>
+            <if test="userName != null" >
+                USER_NAME,
+            </if>
+            <if test="idNumber != null" >
+                ID_NUMBER,
+            </if>
+            <if test="theYear != null" >
+                THE_YEAR,
+            </if>
+            <if test="theMonth != null" >
+                THE_MONTH,
+            </if>
+            <if test="jobManageId != null" >
+                JOB_MANAGE_ID,
+            </if>
+            <if test="jobRatio != null" >
+                JOB_RATIO,
+            </if>
+            <if test="salaryTypea != null">
+                SALARY_TYPEA,
+            </if>
+            <if test="salaryTypeb != null">
+                SALARY_TYPEB,
+            </if>
+            <if test="salaryTypec != null">
+                SALARY_TYPEC,
+            </if>
+            <if test="salaryTyped != null">
+                SALARY_TYPED,
+            </if>
+            <if test="salaryTypee != null">
+                SALARY_TYPEE,
+            </if>
+            <if test="salaryTypef != null">
+                SALARY_TYPEF,
+            </if>
+                ATTEND_TYPE1,
+                ATTEND_TYPE2,
+                ATTEND_TYPE3,
+                ATTEND_TYPE4,
+                ATTEND_TYPE5,
+                ATTEND_TYPE6,
+                ATTEND_TYPE7,
+                ATTEND_TYPE8,
+                ATTEND_TYPE9,
+                ATTEND_TYPE10,
+                ATTEND_TYPE11,
+                ATTEND_TYPE12,
+                ATTEND_TYPE13,
+                ATTEND_TYPE14,
+                ATTEND_TYPE15,
+                ATTEND_TYPE16,
+                ATTEND_TYPE17,
+                ATTEND_TYPE18,
+                ATTEND_TYPE19,
+                ATTEND_TYPE20,
+                ATTEND_TYPE21,
+                ATTEND_TYPE22,
+                ATTEND_TYPE23,
+                ATTEND_TYPE24,
+                ATTEND_TYPE25,
+                ATTEND_TYPE26,
+                ATTEND_TYPE27,
+                ATTEND_TYPE28,
+                ATTEND_TYPE29,
+                ATTEND_TYPE30,
+                ATTEND_TYPE31,
+            <if test="confirmStatus != null" >
+                CONFIRM_STATUS,
+            </if>
+            <if test="remarks != null" >
+                REMARKS,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="userId != null" >
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null" >
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="idNumber != null" >
+                #{idNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="theYear != null" >
+                #{theYear,jdbcType=VARCHAR},
+            </if>
+            <if test="theMonth != null" >
+                #{theMonth,jdbcType=VARCHAR},
+            </if>
+            <if test="jobManageId != null" >
+                #{jobManageId,jdbcType=INTEGER},
+            </if>
+            <if test="jobRatio != null" >
+                #{jobRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="salaryTypea != null">
+                #{salaryTypea,jdbcType=DECIMAL},
+            </if>
+            <if test="salaryTypeb != null">
+                #{salaryTypeb,jdbcType=DECIMAL},
+            </if>
+            <if test="salaryTypec != null">
+                #{salaryTypec,jdbcType=DECIMAL},
+            </if>
+            <if test="salaryTyped != null">
+                #{salaryTyped,jdbcType=DECIMAL},
+            </if>
+            <if test="salaryTypee != null">
+                #{salaryTypee,jdbcType=DECIMAL},
+            </if>
+            <if test="salaryTypef != null">
+                #{salaryTypef,jdbcType=DECIMAL},
+            </if>
+                #{attendType1,jdbcType=VARCHAR},
+                #{attendType2,jdbcType=VARCHAR},
+                #{attendType3,jdbcType=VARCHAR},
+                #{attendType4,jdbcType=VARCHAR},
+                #{attendType5,jdbcType=VARCHAR},
+                #{attendType6,jdbcType=VARCHAR},
+                #{attendType7,jdbcType=VARCHAR},
+                #{attendType8,jdbcType=VARCHAR},
+                #{attendType9,jdbcType=VARCHAR},
+                #{attendType10,jdbcType=VARCHAR},
+                #{attendType11,jdbcType=VARCHAR},
+                #{attendType12,jdbcType=VARCHAR},
+                #{attendType13,jdbcType=VARCHAR},
+                #{attendType14,jdbcType=VARCHAR},
+                #{attendType15,jdbcType=VARCHAR},
+                #{attendType16,jdbcType=VARCHAR},
+                #{attendType17,jdbcType=VARCHAR},
+                #{attendType18,jdbcType=VARCHAR},
+                #{attendType19,jdbcType=VARCHAR},
+                #{attendType20,jdbcType=VARCHAR},
+                #{attendType21,jdbcType=VARCHAR},
+                #{attendType22,jdbcType=VARCHAR},
+                #{attendType23,jdbcType=VARCHAR},
+                #{attendType24,jdbcType=VARCHAR},
+                #{attendType25,jdbcType=VARCHAR},
+                #{attendType26,jdbcType=VARCHAR},
+                #{attendType27,jdbcType=VARCHAR},
+                #{attendType28,jdbcType=VARCHAR},
+                #{attendType29,jdbcType=VARCHAR},
+                #{attendType30,jdbcType=VARCHAR},
+                #{attendType31,jdbcType=VARCHAR},
+            <if test="confirmStatus != null" >
+                #{confirmStatus,jdbcType=CHAR},
+            </if>
+            <if test="remarks != null" >
+                #{remarks,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <delete id="deleteByDate" parameterType="java.lang.String">
+        delete from wages_attendance_type
+        where THE_YEAR = #{theYear} and  THE_MONTH = #{theMonth}
+    </delete>
+</mapper>

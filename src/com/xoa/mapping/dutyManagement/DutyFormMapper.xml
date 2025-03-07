@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.dutyManagement.DutyFormMapper">
+  <resultMap id="BaseResultMap" type="com.xoa.model.dutyManagement.DutyForm">
+    <result column="DUTY_ID" javaType="int" property="dutyId" />
+    <result column="FORM_ID" javaType="string" property="formId" />
+    <result column="FORM_DEPT" javaType="int" property="formDept" />
+    <result column="START_TIME" javaType="string" property="startTime" />
+    <result column="END_TIME" javaType="string" property="endTime" />
+    <result column="WEEK" javaType="string" property="week" />
+    <result column="DATE_TIME" javaType="string" property="dateTime" />
+    <result column="LEADER_CLASS" javaType="string" property="leaderClass" />
+    <result column="DAY_CLASS" javaType="string" property="dayClass" />
+    <result column="NIGHT_CLASS" javaType="string" property="nightClass" />
+    <result column="CHANCE_CLASS" javaType="string" property="chanceClass" />
+    <result column="SECRETARY" javaType="string" property="secretary" />
+    <result column="DRIVE_CLASS" javaType="string" property="driveClass" />
+    <result column="TO_ID" javaType="string" property="toId" />
+    <result column="PRIV_ID" javaType="string" property="privId" />
+    <result column="USER_ID" javaType="string" property="userId" />
+    <result column="ATTACHMENT_ID" javaType="string" property="attachmentId" />
+    <result column="ATTACHMENT_NAME" javaType="string" property="attachmentName" />
+
+    <result column="URL" javaType="string" property="url" />
+    <result column="CONTENT" javaType="string" property="content" />
+    <result column="SENDTIME" javaType="string" property="sendTime" />
+    <result column="SENDNAME" javaType="string" property="sendName" />
+
+  </resultMap>
+
+
+<insert id="addDutyFormManagement" parameterType="com.xoa.model.dutyManagement.DutyForm">
+  <selectKey order="AFTER" keyProperty="dutyId" resultType="int">
+    SELECT LAST_INSERT_ID()
+  </selectKey>
+     insert into duty_form
+  <trim prefix="(" suffix=")" suffixOverrides=",">
+    <if test="formId != null">
+      FORM_ID,
+    </if>
+    <if test="formDept != null">
+      FORM_DEPT,
+    </if>
+    <if test="startTime != null">
+      START_TIME,
+    </if>
+    <if test="endTime != null">
+      END_TIME,
+    </if>
+    <if test="week != null">
+      WEEK,
+    </if>
+    <if test="dateTime != null">
+      DATE_TIME,
+    </if>
+    <if test="leaderClass != null">
+      LEADER_CLASS,
+    </if>
+    <if test="dayClass != null">
+      DAY_CLASS,
+    </if>
+    <if test="nightClass != null">
+      NIGHT_CLASS,
+    </if>
+    <if test="chanceClass != null">
+      CHANCE_CLASS,
+    </if>
+    <if test="secretary != null">
+      SECRETARY,
+    </if>
+    <if test="driveClass != null">
+      DRIVE_CLASS,
+    </if>
+    <if test="toId != null">
+      TO_ID,
+    </if>
+    <if test="privId != null">
+      PRIV_ID,
+    </if>
+    <if test="userId != null">
+      USER_ID,
+    </if>
+    <if test="attachmentId != null">
+      ATTACHMENT_ID,
+    </if>
+    <if test="attachmentName != null">
+      ATTACHMENT_NAME,
+    </if>
+    <if test="deptYj != null">
+      DEPT_YJ,
+    </if>
+  </trim>
+  <trim prefix="values (" suffix=")" suffixOverrides=",">
+    <if test="formId != null">
+      #{formId},
+    </if>
+    <if test="formDept != null">
+      #{formDept},
+    </if>
+    <if test="startTime != null">
+      #{startTime},
+    </if>
+    <if test="endTime != null">
+      #{endTime},
+    </if>
+    <if test="week != null">
+      #{week},
+    </if>
+    <if test="dateTime != null">
+      #{dateTime},
+    </if>
+    <if test="leaderClass != null">
+      #{leaderClass},
+    </if>
+    <if test="dayClass != null">
+      #{dayClass},
+    </if>
+    <if test="nightClass != null">
+      #{nightClass},
+    </if>
+    <if test="chanceClass != null">
+      #{chanceClass},
+    </if>
+    <if test="secretary != null">
+      #{secretary},
+    </if>
+    <if test="driveClass != null">
+      #{driveClass},
+    </if>
+    <if test="toId != null">
+      #{toId},
+    </if>
+    <if test="privId != null">
+      #{privId},
+    </if>
+    <if test="userId != null">
+      #{userId},
+    </if>
+    <if test="attachmentId != null">
+      #{attachmentId},
+    </if>
+    <if test="attachmentName != null">
+      #{attachmentName},
+    </if>
+    <if test="deptYj != null">
+      #{deptYj},
+    </if>
+  </trim>
+</insert>
+
+<insert id="addDutyFormManagement" parameterType="com.xoa.model.dutyManagement.DutyForm" databaseId="kingbase" useGeneratedKeys="true" keyProperty="formId">
+     insert into duty_form
+  <trim prefix="(" suffix=")" suffixOverrides=",">
+    <if test="formId != null">
+      FORM_ID,
+    </if>
+    <if test="formDept != null">
+      FORM_DEPT,
+    </if>
+    <if test="startTime != null">
+      START_TIME,
+    </if>
+    <if test="endTime != null">
+      END_TIME,
+    </if>
+    <if test="week != null">
+      WEEK,
+    </if>
+    <if test="dateTime != null">
+      DATE_TIME,
+    </if>
+    <if test="leaderClass != null">
+      LEADER_CLASS,
+    </if>
+    <if test="dayClass != null">
+      DAY_CLASS,
+    </if>
+    <if test="nightClass != null">
+      NIGHT_CLASS,
+    </if>
+    <if test="chanceClass != null">
+      CHANCE_CLASS,
+    </if>
+    <if test="secretary != null">
+      SECRETARY,
+    </if>
+    <if test="driveClass != null">
+      DRIVE_CLASS,
+    </if>
+    <if test="toId != null">
+      TO_ID,
+    </if>
+    <if test="privId != null">
+      PRIV_ID,
+    </if>
+    <if test="userId != null">
+      USER_ID,
+    </if>
+    <if test="attachmentId != null">
+      ATTACHMENT_ID,
+    </if>
+    <if test="attachmentName != null">
+      ATTACHMENT_NAME,
+    </if>
+    <if test="deptYj != null">
+      DEPT_YJ,
+    </if>
+  </trim>
+  <trim prefix="values (" suffix=")" suffixOverrides=",">
+    <if test="formId != null">
+      #{formId},
+    </if>
+    <if test="formDept != null">
+      #{formDept},
+    </if>
+    <if test="startTime != null">
+      #{startTime},
+    </if>
+    <if test="endTime != null">
+      #{endTime},
+    </if>
+    <if test="week != null">
+      #{week},
+    </if>
+    <if test="dateTime != null">
+      #{dateTime},
+    </if>
+    <if test="leaderClass != null">
+      #{leaderClass},
+    </if>
+    <if test="dayClass != null">
+      #{dayClass},
+    </if>
+    <if test="nightClass != null">
+      #{nightClass},
+    </if>
+    <if test="chanceClass != null">
+      #{chanceClass},
+    </if>
+    <if test="secretary != null">
+      #{secretary},
+    </if>
+    <if test="driveClass != null">
+      #{driveClass},
+    </if>
+    <if test="toId != null">
+      #{toId},
+    </if>
+    <if test="privId != null">
+      #{privId},
+    </if>
+    <if test="userId != null">
+      #{userId},
+    </if>
+    <if test="attachmentId != null">
+      #{attachmentId},
+    </if>
+    <if test="attachmentName != null">
+      #{attachmentName},
+    </if>
+    <if test="deptYj != null">
+      #{deptYj},
+    </if>
+  </trim>
+</insert>
+
+<select id="getDutyFormManagement" parameterType="Map" resultMap="BaseResultMap">
+    select * from duty_form
+</select>
+ <select id="getDutyFormManagementListByUserId" parameterType="Map" resultMap="BaseResultMap">
+    select * from duty_form
+    <where>
+        <if test="formId!='' and formId!=null">
+           FORM_ID=#{formId}
+        </if>
+    </where>
+</select>
+<select id="getDutyFormById" parameterType="Integer" resultMap="BaseResultMap">
+    select * from duty_form where DUTY_ID = #{dutyId}
+</select>
+<delete id="delDutyFormById" parameterType="Integer">
+    delete from duty_form where DUTY_ID = #{dutyId}
+</delete>
+<update id="updDutyFormById" parameterType="com.xoa.model.dutyManagement.DutyForm">
+  update duty_form
+  <set>
+    <if test="formId != null">
+      FORM_ID =#{formId},
+    </if>
+    <if test="formDept != null">
+      FORM_DEPT  =#{formDept},
+    </if>
+    <if test="startTime != null">
+      START_TIME =#{startTime},
+    </if>
+    <if test="endTime != null">
+      END_TIME=#{endTime},
+    </if>
+    <if test="week != null">
+      WEEK=#{week},
+    </if>
+    <if test="dateTime != null">
+      DATE_TIME=#{dateTime},
+    </if>
+    <if test="leaderClass != null">
+      LEADER_CLASS=#{leaderClass},
+    </if>
+    <if test="dayClass != null">
+      DAY_CLASS=#{dayClass},
+    </if>
+    <if test="nightClass != null">
+      NIGHT_CLASS=#{nightClass},
+    </if>
+    <if test="chanceClass != null">
+      CHANCE_CLASS=#{chanceClass},
+    </if>
+    <if test="secretary != null">
+      SECRETARY=#{secretary},
+    </if>
+    <if test="driveClass != null">
+      DRIVE_CLASS=#{driveClass},
+    </if>
+    <if test="toId != null">
+      TO_ID=#{toId},
+    </if>
+    <if test="privId != null">
+      PRIV_ID=#{privId},
+    </if>
+    <if test="userId != null">
+      USER_ID=#{userId},
+    </if>
+    <if test="attachmentId != null">
+      ATTACHMENT_ID=#{attachmentId},
+    </if>
+    <if test="attachmentName != null">
+      ATTACHMENT_NAME=#{attachmentName},
+    </if>
+  </set>
+  where DUTY_ID = #{dutyId}
+</update>
+  <delete id="delDutyFormAll" >
+    delete from duty_form
+  </delete>
+  <delete id="delDutyFormByDutyIds" parameterType="string">
+    delete from duty_form
+    where DUTY_ID in
+    <foreach item="dutyIds" collection="array" open="(" separator="," close=")">
+      #{dutyIds}
+    </foreach>
+  </delete>
+  <select id="getDutyFormManagementAll" parameterType="Map" resultMap="BaseResultMap">
+    select * from duty_form
+</select>
+  <select id="getDutyFormManagementByAllId" parameterType="Map" resultMap="BaseResultMap">
+    select * from duty_form
+    where
+    <if test="ids!='' and ids !=null">
+      DUTY_ID in
+      <foreach collection="ids" item="ids" index="index" open="(" separator="," close=")">
+        #{ids}
+      </foreach>
+    </if>
+
+</select>
+  <select id="getDutyFormManagementByAll" parameterType="Map" resultType="Integer">
+    select count(*) from (
+    select * from duty_form
+    where
+    <if test="ids!='' and ids !=null">
+    DUTY_ID in
+    <foreach collection="ids" item="ids" index="index" open="(" separator="," close=")">
+      #{ids}
+    </foreach>
+    </if>
+    ) a
+
+  </select>
+
+  <select id="getUserPrivById" parameterType="Integer" resultType="String">
+      select PRIV_NAME from user_priv where USER_PRIV = #{privId}
+  </select>
+  <select id="getUserById" parameterType="Integer" resultType="String">
+      select USER_NAME from user where USER_ID =  #{userId}
+  </select>
+
+
+  <select id="getDutyFormRemind" parameterType="Map" resultMap="BaseResultMap">
+    select sb.CONTENT as CONTENT,sb.REMIND_URL as URL,u.USER_NAME as SENDNAME , FROM_UNIXTIME(sb.SEND_TIME,'%Y-%m-%d %H:%i')  as  SENDTIME  from sms s
+    left join  sms_body sb  on s.BODY_ID = sb.BODY_ID
+    inner join user u on sb.FROM_ID = u.USER_ID
+    <where>
+      sb.SMS_TYPE = "3" and s.REMIND_FLAG="1"
+      <if test="userId!='' and userId!=null">
+        and s.TO_ID = #{userId}
+      </if>
+    </where>
+  </select>
+
+  <select id="getSmsBodyBodyId" parameterType="String" resultType="Integer">
+      select BODY_ID from sms_body where REMIND_URL =#{url}
+  </select>
+  <update id="updSmsByUserIdAndBodyId" parameterType="map">
+    update sms set REMIND_FLAG='0' where BODY_ID=#{bodyId} and TO_ID=#{userId}
+  </update>
+  <select id="getdutyformList" parameterType="java.util.Map" resultMap="BaseResultMap">
+  select DUTY_ID,START_TIME,END_TIME,ATTACHMENT_ID,ATTACHMENT_NAME,DEPT_YJ,TO_ID,PRIV_ID,USER_ID from duty_form
+  <where>
+    <if test="deptList!=null and deptList!=''">
+      DEPT_YJ IN
+        <foreach collection="deptList" item="item" separator="," open="(" close=")">
+           #{item}
+        </foreach>
+    </if>
+  </where>
+  order by START_TIME DESC
+  </select>
+
+  <select id="getCountdutyformList" parameterType="java.util.Map" resultType="java.lang.Integer">
+    select count(*) from duty_form
+    <where>
+      <if test="deptList!=null and deptList!=''">
+        DEPT_YJ IN
+        <foreach collection="deptList" item="item" separator="," open="(" close=")">
+          #{item}
+        </foreach>
+      </if>
+    </where>
+  </select>
+</mapper>

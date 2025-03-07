@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>星级评分2.0</title>
+    <script src="/js/xoajq/xoajq1.js"></script>
+    <script src="js/star.js"></script>
+</head>
+<style>
+*{
+    margin:0;
+    padding: 0;
+}
+body{
+  background:#ddd;
+}
+h2{text-align: center;}
+  .rating{
+    position:relative;
+    width:240px;
+    height: 45px;
+    background:url(images/icon.png) repeat-x;
+    margin:20px;
+  } 
+ 
+  .rating-disply{
+    width:48px;
+    height:45px;
+    background-position:0 -45px;
+    background:url(images/icon.png) repeat-x 0 -44px;
+
+  }
+  .rating-mask{
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+  }
+  .rating-item{
+    list-style: none;
+    float: left;
+    width:48px;
+    height:45px;
+    cursor:pointer;
+  }
+  
+</style>
+<body>
+击后禁止再选
+<div class="rating" id = "rating"></div>
+击后还可再选
+<div class="rating" id = "rating2"></div>
+  
+   <div class="rating" id = "rating3"></div>
+ 
+ <script>
+   //调用
+   $('#rating').star({
+      modus:'entire', //点亮模式
+      total:6, //几颗星
+      num:3, //默认点亮个数
+      readOnly:false,//是否只读
+      chosen:function(count,total){ //点击后禁止再选
+        $('#rating').star('unbindEvent');
+      }
+     
+   })
+   
+    $('#rating2').star({
+      modus:'entire', //点亮模式
+      total:5, //几颗星
+      num:0, //默认点亮个数
+      readOnly:false,//是否只读
+     
+     
+   })
+	
+	 $('#rating3').star({
+      modus:'entire', //点亮模式
+      total:10, //几颗星
+      num:1, //默认点亮个数
+      readOnly:false,//是否只读
+      chosen:function(count,total){ //点击后禁止再选
+        $('#rating').star('unbindEvent');
+      }
+     
+   })
+   
+   
+ </script>
+</body>
+</html>

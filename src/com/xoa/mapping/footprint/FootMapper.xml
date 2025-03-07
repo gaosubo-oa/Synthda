@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.footprint.FootPrintMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.footprint.Foot">
+        <id column="ID" property="id" jdbcType="INTEGER"/>
+        <result column="UID" property="uid" jdbcType="INTEGER"/>
+        <result column="CREATE_TIME" property="createTime" jdbcType="INTEGER"/>
+        <result column="LOCATION" property="location" jdbcType="VARCHAR"/>
+        <result column="LNG" property="lng" jdbcType="VARCHAR"/>
+        <result column="LAT" property="lat" jdbcType="VARCHAR"/>
+        <result column="IS_NEW" property="isNew" javaType="java.lang.Integer"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="INTEGER"/>
+        <result column="USER_NAME" property="users.userName" jdbcType="VARCHAR"/>
+        <result column="DEPT_NAME" property="department.deptName" jdbcType="VARCHAR"/>
+        <result column="DEPT_ID" property="department.deptId" jdbcType="INTEGER"/>
+        <result column="AVATAR" property="users.avatar" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <insert id="addFootPrint" parameterType="com.xoa.model.footprint.Foot" keyProperty="id" useGeneratedKeys="true">
+
+        insert into foot
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                UID,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="location != null">
+                LOCATION,
+            </if>
+            <if test="lng != null">
+                LNG,
+            </if>
+            <if test="lat != null">
+                LAT,
+            </if>
+            <if test="isNew != null">
+                IS_NEW,
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+
+            <if test="uid != null">
+                #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=INTEGER},
+            </if>
+            <if test="location != null">
+                #{location,jdbcType=VARCHAR},
+            </if>
+            <if test="lng != null">
+                #{lng,jdbcType=VARCHAR},
+            </if>
+            <if test="lat != null">
+                #{lat,jdbcType=VARCHAR},
+            </if>
+            <if test="isNew != null">
+                #{isNew,jdbcType=BIT},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=INTEGER},
+            </if>
+        </trim>
+
+
+    </insert>
+
+
+    <select id="getFootPrintByDepId" parameterType="hashMap" resultMap="BaseResultMap">
+        select u.AVATAR, u.USER_NAME, u.UID, d.DEPT_ID, d.DEPT_NAME, f.ID, f.UID, f.CREATE_TIME, f.LOCATION, f.LNG, f.LAT, f.IS_NEW, f.UPDATE_TIME
+        from foot f, department d, user u
+        WHERE
+        f.UID = u.UID AND u.DEPT_ID = #{deptId} AND u.DEPT_ID = d.DEPT_ID ORDER BY f.CREATE_TIME DESC  limit #{currentpage}, 10
+
+    </select>
+    <select id="getWebFootPrintByDepId" parameterType="map" resultMap="BaseResultMap">
+        select u.AVATAR, u.USER_NAME, u.UID, d.DEPT_ID, d.DEPT_NAME, f.ID, f.CREATE_TIME, f.LOCATION, f.LNG, f.LAT, f.IS_NEW, f.UPDATE_TIME
+        from foot f, department d, user u
+        WHERE
+        f.UID = u.UID AND u.DEPT_ID = #{deptId} AND u.DEPT_ID = d.DEPT_ID
+        <if test="time!=null and time!=''">
+            and f.CREATE_TIME &gt;= #{beginTime} and f.CREATE_TIME &lt;= #{endTime}
+        </if>
+        <if test="detail ==0">
+            GROUP BY f.UID
+        </if>
+        ORDER BY f.CREATE_TIME DESC
+    </select>
+
+    <select id="getWebFootPrintByDepId" parameterType="map" resultMap="BaseResultMap" databaseId="oracle">
+        select u.AVATAR, u.USER_NAME, u."UID", d.DEPT_ID, d.DEPT_NAME, f.ID, f.CREATE_TIME, f.LOCATION, f.LNG, f.LAT, f.IS_NEW, f.UPDATE_TIME
+        from foot f, department d, "USER" u
+        WHERE
+        f."UID" = u."UID" AND u.DEPT_ID = #{deptId} AND u.DEPT_ID = d.DEPT_ID
+        <if test="time!=null and time!=''">
+            and f.CREATE_TIME &gt;= #{beginTime} and f.CREATE_TIME &lt;= #{endTime}
+        </if>
+        ORDER BY f.CREATE_TIME DESC
+    </select>
+
+    <select id="getWebFootPrintByDepId" parameterType="map" resultMap="BaseResultMap" databaseId="dm">
+        select u.AVATAR, u.USER_NAME, u."UID", d.DEPT_ID, d.DEPT_NAME, f.ID, f.CREATE_TIME, f.LOCATION, f.LNG, f.LAT, f.IS_NEW, f.UPDATE_TIME
+        from foot f, department d, "USER" u
+        WHERE
+        f."UID" = u."UID" AND u.DEPT_ID = #{deptId} AND u.DEPT_ID = d.DEPT_ID
+        <if test="time!=null and time!=''">
+            and f.CREATE_TIME &gt;= #{beginTime} and f.CREATE_TIME &lt;= #{endTime}
+        </if>
+        ORDER BY f.CREATE_TIME DESC
+    </select>
+
+    <select id="getFootPrintByUid" parameterType="hashMap" resultMap="BaseResultMap">
+        select u.AVATAR, u.USER_NAME, u.UID, d.DEPT_ID, d.DEPT_NAME, f.ID, f.UID, f.CREATE_TIME, f.LOCATION, f.LNG, f.LAT, f.IS_NEW, f.UPDATE_TIME
+         from foot f, user u, department d
+         WHERE
+          f.UID = #{uid} AND u.DEPT_ID = d.DEPT_ID AND f.UID = u.UID ORDER BY f.CREATE_TIME DESC  limit #{currentpage}, 10
+    </select>
+
+    <select id="getWebFootPrintByUid" parameterType="map" resultMap="BaseResultMap">
+        select u.AVATAR, u.USER_NAME, u.UID, d.DEPT_ID, d.DEPT_NAME, f.ID, f.CREATE_TIME, f.LOCATION, f.LNG, f.LAT, f.IS_NEW, f.UPDATE_TIME
+        from foot f, user u, department d
+        WHERE
+        f.UID = #{uid} AND u.DEPT_ID = d.DEPT_ID AND f.UID = u.UID
+        <if test="time!=null and time!=''">
+            and f.CREATE_TIME &gt;= #{beginTime} and f.CREATE_TIME &lt;= #{endTime}
+        </if>
+        ORDER BY f.CREATE_TIME DESC
+    </select>
+
+    <select id="getWebFootPrintByUid" parameterType="map" resultMap="BaseResultMap" databaseId="oracle">
+        select u.AVATAR, u.USER_NAME, u."UID", d.DEPT_ID, d.DEPT_NAME, f.ID, f.CREATE_TIME, f.LOCATION, f.LNG, f.LAT, f.IS_NEW, f.UPDATE_TIME
+        from foot f, "USER" u, department d
+        WHERE
+        f."UID" = #{uid} AND u.DEPT_ID = d.DEPT_ID AND f."UID" = u."UID"
+        <if test="time!=null and time!=''">
+            and f.CREATE_TIME &gt;= #{beginTime} and f.CREATE_TIME &lt;= #{endTime}
+        </if>
+        ORDER BY f.CREATE_TIME DESC
+    </select>
+    <select id="getWebFootPrintByUid" parameterType="map" resultMap="BaseResultMap" databaseId="dm">
+        select u.AVATAR, u.USER_NAME, u."UID", d.DEPT_ID, d.DEPT_NAME, f.ID, f.CREATE_TIME, f.LOCATION, f.LNG, f.LAT, f.IS_NEW, f.UPDATE_TIME
+        from foot f, "USER" u, department d
+        WHERE
+        f."UID" = #{uid} AND u.DEPT_ID = d.DEPT_ID AND f."UID" = u."UID"
+        <if test="time!=null and time!=''">
+            and f.CREATE_TIME &gt;= #{beginTime} and f.CREATE_TIME &lt;= #{endTime}
+        </if>
+        ORDER BY f.CREATE_TIME DESC
+    </select>
+
+    <select id="getAllFootPrint" resultMap="BaseResultMap">
+        select u.AVATAR, u.USER_NAME, u.UID, d.DEPT_ID, d.DEPT_NAME, f.ID, f.UID, f.CREATE_TIME, f.LOCATION, f.LNG, f.LAT, f.IS_NEW, f.UPDATE_TIME
+        FROM foot f, user u, department d
+         WHERE  f.UID = u.UID AND u.DEPT_ID = d.DEPT_ID ORDER BY f.CREATE_TIME DESC  limit #{currentpage}, 10;
+    </select>
+
+    <select id="getWebAllFootPrint"  parameterType="map" resultMap="BaseResultMap">
+    select u.AVATAR, u.USER_NAME, u.UID, d.DEPT_ID, d.DEPT_NAME, f.ID,  f.CREATE_TIME, f.LOCATION, f.LNG, f.LAT, f.IS_NEW, f.UPDATE_TIME
+    FROM foot f, user u, department d
+    WHERE  f.UID = u.UID AND u.DEPT_ID = d.DEPT_ID
+    <if test="time!=null and time!=''">
+        and f.CREATE_TIME &gt;= #{beginTime} and f.CREATE_TIME &lt;= #{endTime}
+    </if>
+    <if test="detail ==0">
+        GROUP BY f.UID
+    </if>
+    ORDER BY f.CREATE_TIME DESC
+</select>
+
+    <select id="getWebAllFootPrint"  parameterType="map" resultMap="BaseResultMap" databaseId="oracle">
+        select u.AVATAR, u.USER_NAME, u."UID", d.DEPT_ID, d.DEPT_NAME, f.ID,  f.CREATE_TIME, f.LOCATION, f.LNG, f.LAT, f.IS_NEW, f.UPDATE_TIME
+        FROM foot f, "USER" u, department d
+        WHERE  f."UID" = u."UID" AND u.DEPT_ID = d.DEPT_ID
+        <if test="time!=null and time!=''">
+            and f.CREATE_TIME &gt;= #{beginTime} and f.CREATE_TIME &lt;= #{endTime}
+        </if>
+        ORDER BY f.CREATE_TIME DESC
+    </select>
+
+    <select id="getWebAllFootPrint"  parameterType="map" resultMap="BaseResultMap" databaseId="dm">
+        select u.AVATAR, u.USER_NAME, u."UID", d.DEPT_ID, d.DEPT_NAME, f.ID,  f.CREATE_TIME, f.LOCATION, f.LNG, f.LAT, f.IS_NEW, f.UPDATE_TIME
+        FROM foot f, "USER" u, department d
+        WHERE  f."UID" = u."UID" AND u.DEPT_ID = d.DEPT_ID
+        <if test="time!=null and time!=''">
+            and f.CREATE_TIME &gt;= #{beginTime} and f.CREATE_TIME &lt;= #{endTime}
+        </if>
+
+        ORDER BY f.CREATE_TIME DESC
+    </select>
+
+    <select id="getUserDayFootPrint" resultMap="BaseResultMap">
+        select u.AVATAR, u.USER_NAME, u.UID, d.DEPT_ID, d.DEPT_NAME, f.ID, f.UID, f.CREATE_TIME, f.LOCATION, f.LNG, f.LAT, f.IS_NEW, f.UPDATE_TIME
+        FROM foot f, user u, department d
+         WHERE
+          f.UID = u.UID AND u.DEPT_ID = d.DEPT_ID AND u.UID = #{uid} AND
+          f.CREATE_TIME > #{startDay} AND  #{endDay} > f.CREATE_TIME
+    </select>
+
+    <select id="getDeptFootPrintByCondition" parameterType="hashMap" resultMap="BaseResultMap">
+  select u.AVATAR, u.USER_NAME, u.UID, d.DEPT_ID, d.DEPT_NAME, f.ID, f.UID, f.CREATE_TIME, f.LOCATION, f.LNG, f.LAT, f.IS_NEW, f.UPDATE_TIME
+        from foot f, department d, user u
+        WHERE
+        (f.UID = u.UID AND u.DEPT_ID = #{deptId} AND u.DEPT_ID = d.DEPT_ID)
+        AND
+        (u.USER_NAME LIKE #{condition} OR d.DEPT_NAME LIKE #{condition})
+           limit #{currentpage}, 10;
+    </select>
+
+    <!-- 未测试，所有备份
+      <select id="getDeptFootPrintByCondition" parameterType="hashMap" resultMap="BaseResultMap">
+            select u.AVATAR, u.USER_NAME, u.UID, d.DEPT_ID, d.DEPT_NAME, f.ID, f.UID, f.CREATE_TIME, f.LOCATION, f.LNG, f.LAT, f.IS_NEW, f.UPDATE_TIME
+            from foot f, department d, user u
+            WHERE
+            (f.UID = u.UID AND u.DEPT_ID = #{deptId} AND u.DEPT_ID = d.DEPT_ID)
+            AND
+            (u.USER_NAME LIKE concat("%", #{condition}, "%") OR d.DEPT_NAME LIKE concat("%", #{condition}, "%"))
+            limit #{currentpage}, 10;
+        </select>-->
+
+
+    <select id="getAllFootPrintByCondition" parameterType="hashMap" resultMap="BaseResultMap">
+       select u.AVATAR, u.USER_NAME, u.UID, d.DEPT_ID, d.DEPT_NAME, f.ID, f.UID, f.CREATE_TIME, f.LOCATION, f.LNG, f.LAT, f.IS_NEW, f.UPDATE_TIME
+        FROM foot f, user u, department d
+         WHERE
+          f.UID = u.UID AND u.DEPT_ID = d.DEPT_ID AND
+          (u.USER_NAME LIKE #{condition} OR d.DEPT_NAME like #{condition})
+          limit #{currentpage}, 10;
+    </select>
+    <select id="getDeptFootPrintByTime" parameterType="hashMap" resultMap="BaseResultMap">
+       select u.AVATAR, u.USER_NAME, u.UID, d.DEPT_ID, d.DEPT_NAME, f.ID, f.UID, f.CREATE_TIME, f.LOCATION, f.LNG, f.LAT, f.IS_NEW, f.UPDATE_TIME
+        from foot f, department d, user u
+        WHERE
+        f.UID = u.UID AND u.DEPT_ID = #{deptId} AND u.DEPT_ID = d.DEPT_ID AND
+        f.CREATE_TIME > #{dayStartSecond} AND #{dayEndSecond} > f.CREATE_TIME
+         limit #{currentpage}, 10;
+    </select>
+
+    <select id="getFootPrintByUidTime" parameterType="hashMap" resultMap="BaseResultMap">
+         select u.AVATAR, u.USER_NAME, u.UID, d.DEPT_ID, d.DEPT_NAME, f.ID, f.UID, f.CREATE_TIME, f.LOCATION, f.LNG, f.LAT, f.IS_NEW, f.UPDATE_TIME
+         from foot f, user u, department d
+         WHERE
+          f.UID = #{uid} AND u.DEPT_ID = d.DEPT_ID AND f.UID = u.UID AND
+            f.CREATE_TIME > #{dayStartSecond} AND #{dayEndSecond} > f.CREATE_TIME
+         ORDER BY  f.CREATE_TIME DESC
+          limit #{currentpage}, 10;
+    </select>
+
+    <select id="getAllFootPrintByTime" parameterType="hashMap" resultMap="BaseResultMap">
+        select u.AVATAR, u.USER_NAME, u.UID, d.DEPT_ID, d.DEPT_NAME, f.ID, f.UID, f.CREATE_TIME, f.LOCATION, f.LNG, f.LAT, f.IS_NEW, f.UPDATE_TIME
+        FROM foot f, user u, department d
+         WHERE  f.UID = u.UID AND u.DEPT_ID = d.DEPT_ID AND
+         f.CREATE_TIME > #{dayStartSecond} AND #{dayEndSecond} > f.CREATE_TIME
+         limit #{currentpage}, 10;
+
+    </select>
+
+    <select id="getTheDayFootPrint" parameterType="hashMap" resultMap="BaseResultMap">
+  select u.AVATAR, u.USER_NAME, u.UID, d.DEPT_ID, d.DEPT_NAME, f.ID, f.UID, f.CREATE_TIME, f.LOCATION, f.LNG, f.LAT, f.IS_NEW, f.UPDATE_TIME
+         from foot f, user u, department d
+         WHERE
+          f.UID = #{uid} AND u.DEPT_ID = d.DEPT_ID AND f.UID = u.UID AND
+          f.CREATE_TIME > #{start} AND #{end} > f.CREATE_TIME
+
+    </select>
+
+    <update id="editFootByTime" parameterType="com.xoa.model.footprint.Foot">
+update foot set
+     UPDATE_TIME=#{time} where UID = #{uid} and ID=#{id}
+
+    </update>
+
+    <select id="queryById" resultMap="BaseResultMap">
+        SELECT  * FROM foot WHERE  ID=#{id}
+    </select>
+
+</mapper>

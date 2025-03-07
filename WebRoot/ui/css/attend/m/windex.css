@@ -1,0 +1,96 @@
+html,body{
+	overflow: hidden;
+}
+.mui-content{
+		position: relative;
+		height:100%;
+		background: #fff;
+	}
+	.bottomBtn{
+    	position: absolute;
+	  	bottom: 0;
+    	margin-bottom: 10px;
+	    width: 100%;
+    }
+	.buttonStyletest{
+		background: #dd524d;
+		color: #fff;	
+		}
+	.buttonStyle{
+	
+		width:80%;
+		margin-left:10%;				
+		height:36px;				
+		}
+	.dateShow{
+		color:#333333;
+		font-size:1.5rem;
+		margin-bottom:2%;
+	}
+	.qdlx{
+		font-size:1rem;
+		color:#999999
+	}
+	.currentTime{
+		text-align: center;
+		max-height:75px;
+	}
+	.mui-card-content-inner {
+	    position: relative;
+	    margin: 10px;
+	    padding: 5px;
+	    border: 1px solid #e5e5e5;
+	    height: calc(65% - 145px);
+	    overflow: auto;
+	}
+	.mui-btn-danger{
+		color: #fff;
+		border: 1px solid #dd524d;
+		background-color: #dd524d;
+		width: 52px;
+		height: 27px;
+		line-height: 15px;
+	}
+	.mui-bar{
+		background-color: #ffffff !important;
+	}
+	.mui-bar .mui-btn-link{
+		color:#000000 !important;
+	}
+	.mui-title{
+		color:#000000 !important;
+		font-size:17px;
+	}
+	input.mui-btn-danger {
+    	color: #fff;
+       border: 1px solid #51aba2;
+    	background-color: #51aba2;
+    	width: 52px;
+    	height: 27px;
+    	line-height: 15px;
+    	font-family: "Microsoft yahei";
+    }
+    input.mui-btn-primary{
+    	color: #fff;
+	    border: 1px solid #007aff;
+	    background-color: #007aff;
+    }
+   .mui-table-view-cell{
+   		padding: 10px 0;
+   }
+   .mui-media-body{
+   		font-size: 15px;
+   }
+   .qdaddress{
+   		display: inline-block;
+	    font-size: 0.8em;
+	    margin-left: 10px;
+	    width: calc(100% - 130px);
+	    line-height:1.25 ;
+   }
+   .qdtime{
+   		float: right;
+   }
+  #waiqin_ul .mui-table-view-cell{
+   border-bottom: 1px solid #f4f4f4;
+   }

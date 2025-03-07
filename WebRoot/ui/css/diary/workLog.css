@@ -1,0 +1,629 @@
+@CHARSET "UTF-8";
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1; /*IE/7/6*/
+
+}
+/*头部*/
+.head .headli2_1 {
+    width: 90px;
+    display: inline-block;
+    text-align: center;
+    margin-top: 3%;
+}
+
+.headLog {
+    height: 45px;
+    line-height: 45px;
+    /*margin-bottom: 1%;*/
+    /*border: 1px solid red;*/
+}
+.headLog img {
+    display: inline-block;
+    float: left;
+    width: 25px;
+    height: 24px;
+    margin-top: 1%;
+    margin-left: 20px;
+}
+.headLog div {
+    display: inline-block;
+    float: left;
+    margin-left: 1%;
+    font-size: 22px;
+    color: rgb(73, 77, 89);
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+}
+/*内容部分*/
+.span3 {
+    display: inline-block;
+    float: left;
+    width: 250px;
+    margin-left: 20px;
+    margin-top: 3.5%;
+}
+.diary-main-panel {
+    border: 1px solid #dbdbdb;
+    background: #fff;
+    margin-bottom: 15px;
+}
+.writeLog {
+    text-align: center;
+    font-size: 18px;
+    height: 30px;
+    line-height: 30px;
+    color: #fff;
+    background-color: #F6A036;
+    margin-bottom: 5%;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+}
+.diary-user-name {
+    border-bottom: 1px solid #dbdbdb;
+    margin: 0;
+    /*background: #39C;*/
+    color:#2B7FE0;
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+    font-size: 14px;
+    padding-left: 15px;
+    height:40px;
+    line-height:40px;
+}
+.diary-types-box {
+    list-style: none;
+    margin: 0;
+    border-bottom: 1px solid #dbdbdb;
+}
+.diary-types-box li:first-child {
+    border: none;
+}
+.diary-types-counter {
+    margin-top: 10px;
+    color: #39C;
+    font-size: 20px;
+    display: block;
+    text-align: center;
+}
+.diary-types-title {
+    margin: 8px;
+    font-size: 13px;
+    text-align: center;
+}
+.diary-types-box li {
+    cursor: pointer;
+    display: inline-block;
+    float: left;
+    border-left: 1px solid #dbdbdb;
+    width:33%;
+}
+/*高级搜索*/
+#diary-search-box {
+    position: relative;
+    border-top: 1px solid #dbdbdb;
+    padding: 2px 10px;
+}
+#diary-search-box form {
+    margin: 0;
+}
+.form-search .search_ {
+    height: 25px;
+    line-height:25px;
+}
+.icon-search {
+    display: inline-block;
+    float: left;
+    width: 18px;
+    height: 18px;
+    background: url(../../img/workLog/search.png?2019101711.52) no-repeat;
+    margin-top: 1%;
+    /*border: 1px solid red;*/
+
+}
+.icon-chevron-down {
+    display: inline-block;
+    float: right;
+    width: 14px;
+    height: 10px;
+    background: url(../../img/workLog/downLarge.png?2019101711.53) no-repeat;
+    margin-top: 7px;
+    cursor:pointer;
+    /*border: 1px solid red;*/
+}
+.icon-chevron-up {
+    display: inline-block;
+    float: right;
+    width: 14px;
+    height: 10px;
+    background: url(../../img/workLog/upLarge.png?2019101712.54) no-repeat;
+    margin-top: 7px;
+    cursor:pointer;
+    /*border: 1px solid red;*/
+}
+
+.diary-adv-search-box.on {
+    display: inline-block;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+.control-group {
+    display: inline-block;
+    margin-bottom: 10px;
+    /*border:1px solid red;*/
+    height:92px;
+    width:100%;
+}
+.control-group2 {
+    height:65px;
+}
+.control-group3 {
+    height:40px;
+}
+.controls  textarea.inText{
+    display: inline-block;
+    float: left;
+    border: 1px solid #d9d9d9;
+    width: 134px;
+    height: 55px;
+    color: #999999;
+    padding-left: 3px;
+    text-align: left;
+    font-size: 12px;
+}
+.controls  div{
+    display: inline-block;
+    float: left;
+    font-size: 14px;
+    color: #207bd6;
+    margin-left: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+.pull-right {
+    float: right;
+    margin-top: 1%;
+}
+.pull-right img {
+    width: 36px;
+    height: 22px;
+    margin-top: 2%;
+    margin-right: 3px;
+    cursor:pointer;
+}
+
+.controls input {
+    width:30%;
+    border-radius: 3px;
+    margin-top: 1%;
+    float: left;
+}
+.controls .zhi {
+    float: left;
+    display: inline-block;
+    width: 25px;
+    text-align: center;
+    margin-top: 8px;
+    margin-left:0px;
+    color:#000;
+}
+
+.control-label  .date {
+    font-size: 16px;
+    font-weight: bold;
+    height: 28px;
+    line-height: 28px;
+    /*border: 1px solid red;*/
+    display: inline-block;
+}
+.button_ {
+    color: #000;
+    font-size: 12px;
+    width: 39px;
+    height: 30px;
+    line-height: 27px;
+    border-radius: 3px;
+    margin-top: 5%;
+    padding-left: 31px;
+    display: inline-block;
+    text-decoration: none;
+    /*border: 1px solid red;*/
+    background: url(../../img/workLog/newExport.png) no-repeat;
+}
+.button_query {
+    margin-right:8%;
+    background: url(../../img/workLog/new_query.png) no-repeat;
+}
+select {
+    width: 155px;
+    /* height: 25px; */
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #c0c0c0;
+    border-radius: 3px;
+    margin-top: 1%;
+}
+/*内容部分右侧*/
+.content_right {
+    display: inline-block;
+    float: left;
+    /*border:1px solid red;*/
+    width:64%;
+    margin-left:2.5%;
+}
+.content_right  .button_news {
+    display: block;
+    float: right;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+.content_right  .button_news .btn {
+    display: inline-block;
+    width: 100px;
+    height: 32px;
+    float: left;
+    color: #333;
+    background: url(../../img/workLog/btn__normal.png) no-repeat;
+    margin: 0px 0px;
+}
+.content_right  .button_news  .active {
+    background: url(../../img/workLog/btn_selected.png) no-repeat;
+    background-size:100%;
+    color:#fff;
+}
+.content_right  .details {
+    padding: 0px 30px 30px;
+    border: 1px solid #ddd;
+    /* height: 800px; */
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+.tianErNiu1 {
+    padding-top:18px;
+}
+
+.details_modular {
+    /*height:166px;*/
+    border-bottom:1px solid #ddd;
+}
+/*.modular_user {*/
+    /*display: inline-block;*/
+    /*float: left;*/
+    /*!* border: 1px solid blue; *!*/
+    /*width: 68px;*/
+    /*height: 68px;*/
+    /*!*margin-top: 2%;*!*/
+    /*border-radius: 50%;*/
+    /*box-shadow: 0 1px 2px #b0b3b6;*/
+    /*!*background: url(../../img/workLog/portrait3.png) no-repeat;*!*/
+    /*background-size:100% 100%;*/
+/*}*/
+.modular_info {
+    display: inline-block;
+    float: right;
+    width: 87%;
+    height: 100%;
+    /*border: 1px solid blue;*/
+    position: relative;
+}
+.modular_info h3{
+    color:#2B7FE0;
+    height: 40px;
+    line-height: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+    display: inline-block;
+    cursor: pointer;
+
+}
+.modular_info p {
+    line-height: 30px;
+    font-size: 13px;
+    color: #000;
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+    margin-bottom: 36px;
+}
+.modular_title {
+    /*hieght:30px;*/
+    line-height:30px;
+}
+.modular_info .modular_name {
+    display: inline-block;
+    float: left;
+    font-size: 13px;
+    color: #b4b4b4;
+}
+
+.modular_info .modular_name li{
+    display: inline-block;
+    float: left;
+    padding-right: 10px;
+}
+.modular_info .modular_name li a{
+    color:#000;
+    text-decoration: none;
+}
+.modular_info .modular_name li a:hover{
+    text-decoration: underline;
+}
+.modular_info .modular_time {
+    display: inline-block;
+    float: right;
+}
+.modular_footer {
+    display: inline-block;
+    float: right;
+    position: absolute;
+    right: 0px;
+    bottom: 0;
+    /* margin-top: 10px; */
+    margin-bottom: 10px;
+}
+.modular_footer li {
+    display: inline-block;
+    float: left;
+    padding-left: 10px;
+}
+.modular_footer li a{
+    color: #b4b4b4;
+    text-decoration: none;
+}
+.modular_footer li a:hover{
+    color: #1687cb;
+    text-decoration: underline;
+
+}
+
+.font_color{
+    color: #1687cb !important;
+    text-decoration: underline !important;
+}
+/*评论*/
+.feed-ext-body {
+    border: 1px solid #ddd;
+    border-top: 0;
+    padding: 5px;
+    padding: 5px;
+}
+.feed-ext-add-comment {
+    padding: 5px 13px;
+    position: relative;
+}
+.feed-ext-add-comment form {
+    margin-bottom: 33px;
+}
+.feed-ext-add-comment .feed-submit-cmt-context {
+    width: 100%;
+    height: 85px;
+    margin-bottom: 0px;
+}
+.feed-ext-add-comment .feed-submit-cmt-btn {
+    vertical-align: top;
+    float: right;
+    margin-top: 3px;
+}
+.btn-primary {
+    border: 1px solid #3079ed;
+    color: #fff;
+    background-color: #4b8cf7;
+}
+.btn {
+    position: relative;
+    padding: 4px 12px;
+    margin: 0;
+    /*text-shadow: 0 1px 0 #fff;*/
+    white-space: nowrap;
+    font-family: Simsun, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
+    /*border-radius: 3px;*/
+}
+.feed-ext-add-comment .feed-ext-comment-sms-op, .feed-ext-add-comment .feed-ext-comment-sms-advcomment {
+    margin-top: 10px;
+    float: left;
+}
+comment-sms-op label, .feed-ext-comment-sms-advcomment label {
+    display: inline;
+    vertical-align: middle;
+    display: inline-block;
+    color:#000;
+}
+label.sms-remind-label {
+    margin-right: 10px;
+    display: inline-block;
+    color:#000;
+}
+label.sms-remind-label input {
+    line-height: 20px;
+
+}
+
+/*新建日志*/
+.newlogHeade {
+    height: 70px;
+    line-height: 70px;
+}
+.newlogHeade img {
+    margin-top:2.5%;
+}
+.newLog_left {
+    display: inline-block;
+    float: left;
+    width:100%;
+}
+.newLog_right {
+    display: inline-block;
+    float: left;
+    width:15%;
+}
+.diary-info-list {
+    padding: 10px;
+    border: 1px solid #c0c0c0;
+    background: #fafafa;
+    border-left: 0px;
+    /* height: 555px; */
+}
+.row-fluid {
+    width: 100%;
+}
+.input-medium {
+    width: 150px;
+    border-radius: 3px;
+}
+.diary-hr {
+    height: 1px;
+    border: 0px;
+    border-bottom: 1px solid #DBDBDB;
+}
+hr {
+    margin: 20px 0;
+
+}
+.sms-remind-labe_ {
+    display: inline-block;
+}
+.foot_log {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.btnLog {
+    display: inline-block;
+    margin: 0 auto;
+}
+.btnLog div {
+    display: inline-block;
+    float: left;
+    width: 78px;
+    height: 38px;
+    line-height: 35px;
+    margin-right: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    border-radius: 3px;
+    background: url(../../img/newReturn.png) no-repeat;
+    padding-left: 19px;
+    font-size:14px;
+}
+.btnLog .btn_ok {
+    background: url(../../img/save.png) no-repeat;
+}
+.btn_return {
+    background-color: #c6c6c6;
+}
+.step2 {
+    margin-left: 10px;
+    display: inline-block;
+    float: left;
+    width: 83%;
+}
+.ry {
+    display: inline-block;
+    margin-bottom: 10px;
+    /* border: 1px solid red; */
+    height: 92px;
+    /* width: 100%; */
+    margin-top: 37px;
+    margin-left: 35px;
+}
+
+
+/*日志列表样式*/
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+}
+a{
+    text-decoration: none;
+}
+.outMain{
+    width: 100%;
+    margin: 20px auto;
+}
+.out_header,.comEara{
+    width: 94%;
+    margin: 0px auto;
+}
+.out_header .div_img,.out_header .div_title{
+    float: left;
+}
+.out_header .div_img{
+    width: 12%;
+    margin-top: 15px;
+}
+.out_header .div_title{
+    width: 88%;
+}
+.div_title p{
+    font-size: 14px;
+    margin-top: 15px;
+}
+.div_title p span{
+    margin-right: 10px;
+}
+.p_title{
+    color: #2B7FE0;
+    font-size: 18px !important;
+    font-weight: bold;
+    cursor: pointer;
+}
+.div_fun{
+    width: 100%;
+    height: 40px;
+    border-bottom: #ccc 1px solid;
+    line-height: 40px;
+}
+.div_btn{
+    float: right;
+}
+.div_btn a{
+    font-size: 14px;
+    margin-left: 10px;
+    color: #1772c0;
+}
+textarea{
+    width: 84%;
+    min-height: 120px;
+}
+.comEara{
+    border: #ccc 1px solid;
+}
+.div_con{
+    margin: 10px;
+}
+.check{
+    margin-bottom: 15px;
+}
+.check input{
+    margin-left: 10px;
+    float: none;
+}
+.check span{
+    font-size: 14px;
+}
+.submint{
+    position: absolute;
+    margin-left: 50px;
+    padding: 4px 12px;
+    border: 1px solid #3079ed;
+    color: #fff;
+    background-color: #4b8cf7;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 3px;
+    cursor: pointer;
+}
+

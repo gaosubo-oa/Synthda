@@ -1,0 +1,45 @@
+
+html,body,div,a,span,input,table,tr,td,tbody,thead{
+	margin: 0;
+	padding: 0;
+}
+body{
+	font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+}
+table tr:nth-child(even) {
+	background-color: #fff;
+}
+table  tr:nth-child(odd) {
+	background-color: #F6F7F9;
+}
+a{
+	text-decoration: none;
+	color: #0066cc;
+	margin: 0 5px;
+}
+.content{
+	width: 100%;
+}
+.header{
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+}
+.header .title{
+	font-size: 20px;
+}
+table{
+	width: 95%;
+	margin: 0 auto;
+	border-collapse:collapse;
+}
+table tr{
+	border: #ccc 1px solid;
+}
+th{
+	color: #2F5C8F;
+}
+table tr td,th{
+	padding: 8px;
+	text-align: center;
+}

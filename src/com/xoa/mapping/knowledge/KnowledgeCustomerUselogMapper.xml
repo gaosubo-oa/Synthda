@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.knowledge.KnowledgeCustomerUselogMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.knowledge.KnowledgeCustomerUselog" >
+    <id column="LOG_ID" property="logId" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="DOCFILE_ID" property="docfileId" jdbcType="INTEGER" />
+    <result column="DOCFILE_NO" property="docfileNo" jdbcType="VARCHAR" />
+    <result column="DOCFILE_NAME" property="docfileName" jdbcType="VARCHAR" />
+    <result column="USE_TYPE" property="useType" jdbcType="CHAR" />
+    <result column="USE_TIME" property="useTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    LOG_ID, USER_ID, DOCFILE_ID, DOCFILE_NO,DOCFILE_NAME, USE_TYPE, USE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from knowledge_customer_uselog
+    where LOG_ID = #{logId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from knowledge_customer_uselog
+    where LOG_ID = #{logId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xoa.model.knowledge.KnowledgeCustomerUselog" >
+    insert into knowledge_customer_uselog (LOG_ID, USER_ID, DOCFILE_ID,DOCFILE_NO,
+      DOCFILE_NAME, USE_TYPE, USE_TIME
+      )
+    values (#{logId,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{docfileId,jdbcType=INTEGER},#{docfileNo,jdbcType=VARCHAR},
+      #{docfileName,jdbcType=VARCHAR}, #{useType,jdbcType=CHAR}, #{useTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xoa.model.knowledge.KnowledgeCustomerUselog" >
+    insert into knowledge_customer_uselog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        LOG_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="docfileId != null" >
+        DOCFILE_ID,
+      </if>
+      <if test="docfileNo != null" >
+        DOCFILE_NO,
+      </if>
+      <if test="docfileName != null" >
+        DOCFILE_NAME,
+      </if>
+      <if test="useType != null" >
+        USE_TYPE,
+      </if>
+      <if test="useTime != null" >
+        USE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="docfileId != null" >
+        #{docfileId,jdbcType=INTEGER},
+      </if>
+      <if test="docfileNo != null" >
+        #{docfileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="docfileName != null" >
+        #{docfileName,jdbcType=VARCHAR},
+      </if>
+      <if test="useType != null" >
+        #{useType,jdbcType=CHAR},
+      </if>
+      <if test="useTime != null" >
+        #{useTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.knowledge.KnowledgeCustomerUselog" >
+    update knowledge_customer_uselog
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="docfileId != null" >
+        DOCFILE_ID = #{docfileId,jdbcType=INTEGER},
+      </if>
+      <if test="docfileNo != null" >
+        DOCFILE_NO = #{docfileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="docfileName != null" >
+        DOCFILE_NAME = #{docfileName,jdbcType=VARCHAR},
+      </if>
+      <if test="useType != null" >
+        USE_TYPE = #{useType,jdbcType=CHAR},
+      </if>
+      <if test="useTime != null" >
+        USE_TIME = #{useTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where LOG_ID = #{logId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xoa.model.knowledge.KnowledgeCustomerUselog" >
+    update knowledge_customer_uselog
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      DOCFILE_ID = #{docfileId,jdbcType=INTEGER},
+      DOCFILE_NO = #{docfileNo,jdbcType=VARCHAR},
+      DOCFILE_NAME = #{docfileName,jdbcType=VARCHAR},
+      USE_TYPE = #{useType,jdbcType=CHAR},
+      USE_TIME = #{useTime,jdbcType=TIMESTAMP}
+    where LOG_ID = #{logId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectByUserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from knowledge_customer_uselog
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </select>
+</mapper>

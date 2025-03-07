@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.voteItem.VoteItemMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.xoa.model.voteItem.VoteItem">
+		<id column="ITEM_ID" property="itemId" />
+		<result column="VOTE_ID" property="voteId" />
+		<result column="ITEM_NAME" property="itemName" />
+		<result column="VOTE_COUNT" property="voteCount" />
+		<result column="VOTE_USER" property="voteUser" />
+		<result column="ANONYMOUS" property="anonymous" />
+		<result column="VOTE_REASON" property="voteReason" />
+		<result column="ATTACHMENT_ID" property="attachmentId" />
+		<result column="ATTACHMENT_NAME" property="attachmentName" />
+	</resultMap>
+<insert id="addVoteItem" parameterType="com.xoa.model.voteItem.VoteItem">
+	<selectKey order="AFTER" keyProperty="itemId" resultType="int">
+		SELECT LAST_INSERT_ID()
+	</selectKey>
+	INSERT INTO vote_item
+	<trim prefix="(" suffix=")" suffixOverrides="," >
+		<if test="voteId != null" >
+			VOTE_ID,
+		</if>
+		<if test="itemName != null" >
+			ITEM_NAME,
+		</if>
+		<if test="voteCount != null" >
+			VOTE_COUNT,
+		</if>
+		<if test="voteUser != null" >
+			VOTE_USER,
+		</if>
+		<if test="anonymous != null" >
+			ANONYMOUS,
+		</if>
+		<if test="attachmentId != null" >
+			ATTACHMENT_ID,
+		</if>
+		<if test="attachmentName != null" >
+			ATTACHMENT_NAME,
+		</if>
+	</trim>
+	<trim prefix="values (" suffix=")" suffixOverrides="," >
+		<if test="voteId != null" >
+			#{voteId},
+		</if>
+		<if test="itemName != null" >
+			#{itemName},
+		</if>
+		<if test="voteCount != null" >
+			#{voteCount},
+		</if>
+		<if test="voteUser != null" >
+			#{voteUser},
+		</if>
+		<if test="anonymous != null" >
+			#{anonymous},
+		</if>
+		<if test="attachmentId != null" >
+			#{attachmentId},
+		</if>
+		<if test="attachmentName != null" >
+			#{attachmentName},
+		</if>
+	</trim>
+</insert>
+
+	<insert id="addVoteItem" parameterType="com.xoa.model.voteItem.VoteItem" databaseId="kingbase">
+		INSERT INTO vote_item
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="voteId != null" >
+				VOTE_ID,
+			</if>
+			<if test="itemName != null" >
+				ITEM_NAME,
+			</if>
+			<if test="voteCount != null" >
+				VOTE_COUNT,
+			</if>
+			<if test="voteUser != null" >
+				VOTE_USER,
+			</if>
+			<if test="anonymous != null" >
+				ANONYMOUS,
+			</if>
+			<if test="attachmentId != null" >
+				ATTACHMENT_ID,
+			</if>
+			<if test="attachmentName != null" >
+				ATTACHMENT_NAME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="voteId != null" >
+				#{voteId},
+			</if>
+			<if test="itemName != null" >
+				#{itemName},
+			</if>
+			<if test="voteCount != null" >
+				#{voteCount},
+			</if>
+			<if test="voteUser != null" >
+				#{voteUser},
+			</if>
+			<if test="anonymous != null" >
+				#{anonymous},
+			</if>
+			<if test="attachmentId != null" >
+				#{attachmentId},
+			</if>
+			<if test="attachmentName != null" >
+				#{attachmentName},
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="addVoteItem" parameterType="com.xoa.model.voteItem.VoteItem" useGeneratedKeys="true" keyProperty="sid" databaseId="oracle">
+
+		<selectKey order="BEFORE" keyProperty="itemId" resultType="int">
+			SELECT VOTE_ITEM_ITEM_ID_SEQ.nextval as itemId from dual
+		</selectKey>
+		INSERT INTO VOTE_ITEM
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			ITEM_ID,
+			<if test="voteId != null" >
+				VOTE_ID,
+			</if>
+			<if test="itemName != null" >
+				ITEM_NAME,
+			</if>
+			<if test="voteCount != null" >
+				VOTE_COUNT,
+			</if>
+			<if test="voteUser != null" >
+				VOTE_USER,
+			</if>
+			<if test="attachmentId != null" >
+				ATTACHMENT_ID,
+			</if>
+			<if test="attachmentName != null" >
+				ATTACHMENT_NAME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			#{itemId},
+			<if test="voteId != null" >
+				#{voteId},
+			</if>
+			<if test="itemName != null" >
+				#{itemName},
+			</if>
+			<if test="voteCount != null" >
+				#{voteCount},
+			</if>
+			<if test="voteUser != null" >
+				#{voteUser},
+			</if>
+			<if test="attachmentId != null" >
+				#{attachmentId},
+			</if>
+			<if test="attachmentName != null" >
+				#{attachmentName},
+			</if>
+		</trim>
+	</insert>
+	<insert id="addVoteItem" parameterType="com.xoa.model.voteItem.VoteItem" useGeneratedKeys="true" keyProperty="sid" databaseId="dm">
+
+		<selectKey order="BEFORE" keyProperty="itemId" resultType="int">
+			SELECT VOTE_ITEM_ITEM_ID_SEQ.nextval as itemId from dual
+		</selectKey>
+		INSERT INTO VOTE_ITEM
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			ITEM_ID,
+			<if test="voteId != null" >
+				VOTE_ID,
+			</if>
+			<if test="itemName != null" >
+				ITEM_NAME,
+			</if>
+			<if test="voteCount != null" >
+				VOTE_COUNT,
+			</if>
+			<if test="voteUser != null" >
+				VOTE_USER,
+			</if>
+			<if test="attachmentId != null" >
+				ATTACHMENT_ID,
+			</if>
+			<if test="attachmentName != null" >
+				ATTACHMENT_NAME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			#{itemId},
+			<if test="voteId != null" >
+				#{voteId},
+			</if>
+			<if test="itemName != null" >
+				#{itemName},
+			</if>
+			<if test="voteCount != null" >
+				#{voteCount},
+			</if>
+			<if test="voteUser != null" >
+				#{voteUser},
+			</if>
+			<if test="attachmentId != null" >
+				#{attachmentId},
+			</if>
+			<if test="attachmentName != null" >
+				#{attachmentName},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateVoteItem" parameterType="com.xoa.model.voteItem.VoteItem">
+		UPDATE  vote_item
+		<set>
+			<if test="itemName != null" >
+				ITEM_NAME = #{itemName},
+			</if>
+			<if test="voteCount != null" >
+				VOTE_COUNT = #{voteCount},
+			</if>
+			<if test="voteUser != null" >
+				VOTE_USER = #{voteUser},
+			</if>
+			<if test="attachmentId != null" >
+				ATTACHMENT_ID=#{attachmentId},
+			</if>
+			<if test="attachmentName != null" >
+				ATTACHMENT_NAME=#{attachmentName},
+			</if>
+		</set>
+		WHERE ITEM_ID = #{itemId}
+	</update>
+	<update id="updateVoteCount" parameterType="com.xoa.model.voteItem.VoteItem">
+		UPDATE  vote_item
+		<set>
+			<if test="voteCount != null" >
+				VOTE_COUNT = #{voteCount},
+			</if>
+		</set>
+		WHERE ITEM_ID = #{itemId}
+	</update>
+	<delete id="deleteByItemId" parameterType="Integer">
+		DELETE FROM vote_item WHERE ITEM_ID = #{itemId}
+	</delete>
+	<select id="getVoteItemList" parameterType="Integer" resultMap="BaseResultMap">
+		SELECT
+			*
+		FROM
+			vote_item
+		WHERE
+		VOTE_ID = #{voteId}
+	</select>
+
+	<select id="getVoteItem" parameterType="Integer" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM
+		vote_item
+		WHERE
+		ITEM_ID = #{itemId}
+	</select>
+
+
+	<select id="getOneVoteItem" parameterType="com.xoa.model.voteItem.VoteItem" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM
+		vote_item
+		WHERE
+		VOTE_ID = #{voteId} and ITEM_NAME = #{itemName}
+	</select>
+	<select id="getOneVoteItem" parameterType="com.xoa.model.voteItem.VoteItem" resultMap="BaseResultMap" databaseId="oracle">
+		SELECT
+		*
+		FROM
+		vote_item
+		WHERE
+		VOTE_ID = #{voteId} and to_char(ITEM_NAME) = #{itemName}
+	</select>
+	<select id="getOneVoteItem" parameterType="com.xoa.model.voteItem.VoteItem" resultMap="BaseResultMap" databaseId="dm">
+		SELECT
+		*
+		FROM
+		vote_item
+		WHERE
+		VOTE_ID = #{voteId} and to_char(ITEM_NAME) = #{itemName}
+	</select>
+
+	<update id="updateVote" parameterType="com.xoa.model.voteItem.VoteItem">
+		UPDATE  vote_item
+		<trim prefix="set" suffixOverrides=",">
+			<if test="voteCount != null" >
+				VOTE_COUNT = #{voteCount},
+			</if>
+			<if test="voteUser != null" >
+				VOTE_USER = #{voteUser},
+			</if>
+			<if test="anonymous != null" >
+				ANONYMOUS = #{anonymous},
+			</if>
+			<if test="voteReason != null" >
+				VOTE_REASON = #{voteReason},
+			</if>
+			<if test="itemName != null" >
+				ITEM_NAME = #{itemName},
+			</if>
+			<if test="attachmentId != null" >
+				ATTACHMENT_ID=#{attachmentId},
+			</if>
+			<if test="attachmentName != null" >
+				ATTACHMENT_NAME=#{attachmentName},
+			</if>
+		</trim>
+		WHERE ITEM_ID = #{itemId}
+	</update>
+<select id="selectVoteEndTime" resultMap="BaseResultMap">
+	SELECT
+	*
+	FROM
+	vote_title vote
+	WHERE
+	vote.END_DATE &lt; #{dateTime} AND vote.END_DATE is NOT NULL
+</select>
+	<select id="selVoteCountSum" parameterType="int" resultType="java.lang.Integer" >
+		SELECT SUM(VOTE_COUNT) from vote_item where vote_id = #{voteId}
+	</select>
+
+    <delete id="deleteByVoteId">
+        delete from vote_item where VOTE_ID in
+        <foreach collection="array" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        </delete>
+</mapper>

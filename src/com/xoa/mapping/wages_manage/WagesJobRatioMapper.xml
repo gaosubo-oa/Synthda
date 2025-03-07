@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.wages_manage.WagesJobRatioMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.wages_manage.WagesJobRatio">
+        <id column="JOB_RATIO_ID" jdbcType="INTEGER" property="jobRatioId"/>
+        <result column="ATTEND_TYPE_ID" jdbcType="INTEGER" property="attendTypeId"/>
+        <result column="SALARY_RATIO1" jdbcType="DECIMAL" property="salaryRatio1"/>
+        <result column="SALARY_RATIO2" jdbcType="DECIMAL" property="salaryRatio2"/>
+        <result column="SALARY_RATIO3" jdbcType="DECIMAL" property="salaryRatio3"/>
+        <result column="SALARY_RATIO4" jdbcType="DECIMAL" property="salaryRatio4"/>
+        <result column="SALARY_RATIO5" jdbcType="DECIMAL" property="salaryRatio5"/>
+        <result column="SALARY_RATIO6" jdbcType="DECIMAL" property="salaryRatio6"/>
+        <result column="SALARY_RATIO7" jdbcType="DECIMAL" property="salaryRatio7"/>
+        <result column="SALARY_RATIO8" jdbcType="DECIMAL" property="salaryRatio8"/>
+        <result column="SALARY_RATIO9" jdbcType="DECIMAL" property="salaryRatio9"/>
+        <result column="SALARY_RATIO10" jdbcType="DECIMAL" property="salaryRatio10"/>
+        <result column="SALARY_RATIO11" jdbcType="DECIMAL" property="salaryRatio11"/>
+        <result column="SALARY_RATIO12" jdbcType="DECIMAL" property="salaryRatio12"/>
+        <result column="SALARY_RATIO13" jdbcType="DECIMAL" property="salaryRatio13"/>
+        <result column="SALARY_RATIO14" jdbcType="DECIMAL" property="salaryRatio14"/>
+        <result column="SALARY_RATIO15" jdbcType="DECIMAL" property="salaryRatio15"/>
+        <result column="SALARY_RATIO16" jdbcType="DECIMAL" property="salaryRatio16"/>
+        <result column="SALARY_RATIO17" jdbcType="DECIMAL" property="salaryRatio17"/>
+        <result column="SALARY_RATIO18" jdbcType="DECIMAL" property="salaryRatio18"/>
+        <result column="SALARY_RATIO19" jdbcType="DECIMAL" property="salaryRatio19"/>
+        <result column="SALARY_RATIO20" jdbcType="DECIMAL" property="salaryRatio20"/>
+        <result column="SALARY_RATIO21" jdbcType="DECIMAL" property="salaryRatio21"/>
+        <result column="SALARY_RATIO22" jdbcType="DECIMAL" property="salaryRatio22"/>
+        <result column="SALARY_RATIO23" jdbcType="DECIMAL" property="salaryRatio23"/>
+        <result column="SALARY_RATIO24" jdbcType="DECIMAL" property="salaryRatio24"/>
+        <result column="SALARY_RATIO25" jdbcType="DECIMAL" property="salaryRatio25"/>
+        <result column="SALARY_RATIO26" jdbcType="DECIMAL" property="salaryRatio26"/>
+        <result column="SALARY_RATIO27" jdbcType="DECIMAL" property="salaryRatio27"/>
+        <result column="SALARY_RATIO28" jdbcType="DECIMAL" property="salaryRatio28"/>
+        <result column="SALARY_RATIO29" jdbcType="DECIMAL" property="salaryRatio29"/>
+        <result column="SALARY_RATIO30" jdbcType="DECIMAL" property="salaryRatio30"/>
+        <result column="SALARY_RATIO31" jdbcType="DECIMAL" property="salaryRatio31"/>
+    </resultMap>
+
+    <insert id="addJobRatio" parameterType="com.xoa.model.wages_manage.WagesJobRatio">
+        insert into wages_job_ratio(ATTEND_TYPE_ID, SALARY_RATIO1, SALARY_RATIO2, SALARY_RATIO3, SALARY_RATIO4,
+                                    SALARY_RATIO5,
+                                    SALARY_RATIO6, SALARY_RATIO7, SALARY_RATIO8, SALARY_RATIO9, SALARY_RATIO10,
+                                    SALARY_RATIO11,
+                                    SALARY_RATIO12, SALARY_RATIO13, SALARY_RATIO14, SALARY_RATIO15, SALARY_RATIO16,
+                                    SALARY_RATIO17,
+                                    SALARY_RATIO18, SALARY_RATIO19, SALARY_RATIO20, SALARY_RATIO21, SALARY_RATIO22,
+                                    SALARY_RATIO23,
+                                    SALARY_RATIO24, SALARY_RATIO25, SALARY_RATIO26, SALARY_RATIO27, SALARY_RATIO28,
+                                    SALARY_RATIO29,
+                                    SALARY_RATIO30, SALARY_RATIO31)
+        values (#{attendTypeId}, #{salaryRatio1}, #{salaryRatio2}, #{salaryRatio3}, #{salaryRatio4}, #{salaryRatio5},
+                #{salaryRatio6}, #{salaryRatio7}, #{salaryRatio8},
+                #{salaryRatio9}, #{salaryRatio10}, #{salaryRatio11}, #{salaryRatio12}, #{salaryRatio13},
+                #{salaryRatio14},
+                #{salaryRatio15}, #{salaryRatio16}, #{salaryRatio17}, #{salaryRatio18}, #{salaryRatio19},
+                #{salaryRatio20},
+                #{salaryRatio21}, #{salaryRatio22}, #{salaryRatio23},
+                #{salaryRatio24}, #{salaryRatio25}, #{salaryRatio26}, #{salaryRatio27}, #{salaryRatio28},
+                #{salaryRatio29},
+                #{salaryRatio30}, #{salaryRatio31})
+    </insert>
+
+    <delete id="deleteJobRatio" parameterType="java.lang.Integer">
+        delete
+        from wages_job_ratio
+        where JOB_RATIO_ID = #{jobRatioId}
+    </delete>
+
+    <update id="updateJobRatio" parameterType="com.xoa.model.wages_manage.WagesJobRatio">
+        update wages_job_ratio
+        <set>
+            <if test="attendTypeId != null and attendTypeId != ''">
+                ATTEND_TYPE_ID = #{attendTypeId},
+            </if>
+            SALARY_RATIO1 = #{salaryRatio1},
+            SALARY_RATIO2 = #{salaryRatio2},
+            SALARY_RATIO3 = #{salaryRatio3},
+            SALARY_RATIO4 = #{salaryRatio4},
+            SALARY_RATIO5 = #{salaryRatio5},
+            SALARY_RATIO6 = #{salaryRatio6},
+            SALARY_RATIO7 = #{salaryRatio7},
+            SALARY_RATIO8 = #{salaryRatio8},
+            SALARY_RATIO9 = #{salaryRatio9},
+            SALARY_RATIO10 = #{salaryRatio10},
+            SALARY_RATIO11 = #{salaryRatio11},
+            SALARY_RATIO12 = #{salaryRatio12},
+            SALARY_RATIO13 = #{salaryRatio13},
+            SALARY_RATIO14 = #{salaryRatio14},
+            SALARY_RATIO15 = #{salaryRatio15},
+            SALARY_RATIO16 = #{salaryRatio16},
+            SALARY_RATIO17 = #{salaryRatio17},
+            SALARY_RATIO18 = #{salaryRatio18},
+            SALARY_RATIO19 = #{salaryRatio19},
+            SALARY_RATIO20 = #{salaryRatio20},
+            SALARY_RATIO21 = #{salaryRatio21},
+            SALARY_RATIO22 = #{salaryRatio22},
+            SALARY_RATIO23 = #{salaryRatio23},
+            SALARY_RATIO24 = #{salaryRatio24},
+            SALARY_RATIO25 = #{salaryRatio25},
+            SALARY_RATIO26 = #{salaryRatio26},
+            SALARY_RATIO27 = #{salaryRatio27},
+            SALARY_RATIO28 = #{salaryRatio28},
+            SALARY_RATIO29 = #{salaryRatio29},
+            SALARY_RATIO30 = #{salaryRatio30},
+            SALARY_RATIO31 = #{salaryRatio31}
+        </set>
+        where JOB_RATIO_ID = #{jobRatioId}
+    </update>
+
+    <select id="selectAllJobRatio" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select *
+        from wages_job_ratio
+    </select>
+
+    <select id="selectRatioByAttendTypeId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select *
+        from wages_job_ratio
+        where ATTEND_TYPE_ID = #{attendTypeId}
+    </select>
+
+    <delete id="deleteJobRatioByAttendanceTypeId" parameterType="java.lang.Integer">
+        delete from wages_job_ratio
+        where ATTEND_TYPE_ID = #{attendTypeId}
+    </delete>
+</mapper>

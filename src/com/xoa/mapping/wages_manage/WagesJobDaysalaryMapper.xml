@@ -1,0 +1,954 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.wages_manage.WagesJobDaysalaryMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.wages_manage.WagesJobDaysalary">
+        <id column="DAYSALARY_ID" jdbcType="INTEGER" property="daysalaryId"/>
+        <result column="ATTEND_TYPE_ID" jdbcType="INTEGER" property="attendTypeId"/>
+        <result column="PER_DIEM1" jdbcType="DECIMAL" property="perDiem1"/>
+        <result column="PER_DIEM2" jdbcType="DECIMAL" property="perDiem2"/>
+        <result column="PER_DIEM3" jdbcType="DECIMAL" property="perDiem3"/>
+        <result column="PER_DIEM4" jdbcType="DECIMAL" property="perDiem4"/>
+        <result column="PER_DIEM5" jdbcType="DECIMAL" property="perDiem5"/>
+        <result column="PER_DIEM6" jdbcType="DECIMAL" property="perDiem6"/>
+        <result column="PER_DIEM7" jdbcType="DECIMAL" property="perDiem7"/>
+        <result column="PER_DIEM8" jdbcType="DECIMAL" property="perDiem8"/>
+        <result column="PER_DIEM9" jdbcType="DECIMAL" property="perDiem9"/>
+        <result column="PER_DIEM10" jdbcType="DECIMAL" property="perDiem10"/>
+        <result column="PER_DIEM11" jdbcType="DECIMAL" property="perDiem11"/>
+        <result column="PER_DIEM12" jdbcType="DECIMAL" property="perDiem12"/>
+        <result column="PER_DIEM13" jdbcType="DECIMAL" property="perDiem13"/>
+        <result column="PER_DIEM14" jdbcType="DECIMAL" property="perDiem14"/>
+        <result column="PER_DIEM15" jdbcType="DECIMAL" property="perDiem15"/>
+        <result column="PER_DIEM16" jdbcType="DECIMAL" property="perDiem16"/>
+        <result column="PER_DIEM17" jdbcType="DECIMAL" property="perDiem17"/>
+        <result column="PER_DIEM18" jdbcType="DECIMAL" property="perDiem18"/>
+        <result column="PER_DIEM19" jdbcType="DECIMAL" property="perDiem19"/>
+        <result column="PER_DIEM20" jdbcType="DECIMAL" property="perDiem20"/>
+        <result column="PER_DIEM21" jdbcType="DECIMAL" property="perDiem21"/>
+        <result column="PER_DIEM22" jdbcType="DECIMAL" property="perDiem22"/>
+        <result column="PER_DIEM23" jdbcType="DECIMAL" property="perDiem23"/>
+        <result column="PER_DIEM24" jdbcType="DECIMAL" property="perDiem24"/>
+        <result column="PER_DIEM25" jdbcType="DECIMAL" property="perDiem25"/>
+        <result column="PER_DIEM26" jdbcType="DECIMAL" property="perDiem26"/>
+        <result column="PER_DIEM27" jdbcType="DECIMAL" property="perDiem27"/>
+        <result column="PER_DIEM28" jdbcType="DECIMAL" property="perDiem28"/>
+        <result column="PER_DIEM29" jdbcType="DECIMAL" property="perDiem29"/>
+        <result column="PER_DIEM30" jdbcType="DECIMAL" property="perDiem30"/>
+        <result column="PER_DIEM31" jdbcType="DECIMAL" property="perDiem31"/>
+    </resultMap>
+
+    <insert id="addJobDaysalary" parameterType="com.xoa.model.wages_manage.WagesJobDaysalary">
+        insert into wages_job_daysalary(ATTEND_TYPE_ID, PER_DIEM1, PER_DIEM2, PER_DIEM3, PER_DIEM4,
+                                         PER_DIEM5,
+                                         PER_DIEM6, PER_DIEM7, PER_DIEM8, PER_DIEM9, PER_DIEM10,
+                                         PER_DIEM11,
+                                         PER_DIEM12, PER_DIEM13, PER_DIEM14, PER_DIEM15, PER_DIEM16,
+                                         PER_DIEM17,
+                                         PER_DIEM18, PER_DIEM19, PER_DIEM20, PER_DIEM21, PER_DIEM22,
+                                         PER_DIEM23,
+                                         PER_DIEM24, PER_DIEM25, PER_DIEM26, PER_DIEM27, PER_DIEM28,
+                                         PER_DIEM29,
+                                         PER_DIEM30, PER_DIEM31)
+        values (#{attendTypeId}, #{perDiem1}, #{perDiem2}, #{perDiem3}, #{perDiem4}, #{perDiem5},
+                #{perDiem6}, #{perDiem7}, #{perDiem8},
+                #{perDiem9}, #{perDiem10}, #{perDiem11}, #{perDiem12}, #{perDiem13}, #{perDiem14},
+                #{perDiem15}, #{perDiem16}, #{perDiem17}, #{perDiem18}, #{perDiem19}, #{perDiem20},
+                #{perDiem21}, #{perDiem22}, #{perDiem23},
+                #{perDiem24}, #{perDiem25}, #{perDiem26}, #{perDiem27}, #{perDiem28}, #{perDiem29},
+                #{perDiem30}, #{perDiem31})
+    </insert>
+    
+    <delete id="deleteJobDaysalary" parameterType="java.lang.Integer">
+        delete from wages_job_daysalary where DAYSALARY_ID = #{daysalaryId}
+    </delete>
+
+    <update id="updateJobDaysalary" parameterType="com.xoa.model.wages_manage.WagesJobDaysalary">
+        update wages_job_daysalary
+        <set>
+            <if test="attendTypeId != null and attendTypeId != ''">
+                ATTEND_TYPE_ID = #{attendTypeId},
+            </if>
+            <if test="perDiem1 != null">
+                PER_DIEM1 = #{perDiem1},
+            </if>
+            <if test="perDiem2 != null">
+                PER_DIEM2 = #{perDiem2},
+            </if>
+            <if test="perDiem3 != null">
+                PER_DIEM3 = #{perDiem3},
+            </if>
+            <if test="perDiem4 != null">
+                PER_DIEM4 = #{perDiem4},
+            </if>
+            <if test="perDiem5 != null">
+                PER_DIEM5 = #{perDiem5},
+            </if>
+            <if test="perDiem6 != null">
+                PER_DIEM6 = #{perDiem6},
+            </if>
+            <if test="perDiem7 != null">
+                PER_DIEM7 = #{perDiem7},
+            </if>
+            <if test="perDiem8 != null">
+                PER_DIEM8 = #{perDiem8},
+            </if>
+            <if test="perDiem9 != null">
+                PER_DIEM9 = #{perDiem9},
+            </if>
+            <if test="perDiem10 != null">
+                PER_DIEM10 = #{perDiem10},
+            </if>
+            <if test="perDiem11 != null">
+                PER_DIEM11 = #{perDiem11},
+            </if>
+            <if test="perDiem12 != null">
+                PER_DIEM12 = #{perDiem12},
+            </if>
+            <if test="perDiem13 != null">
+                PER_DIEM13 = #{perDiem13},
+            </if>
+            <if test="perDiem14 != null">
+                PER_DIEM14 = #{perDiem14},
+            </if>
+            <if test="perDiem15 != null">
+                PER_DIEM15 = #{perDiem15},
+            </if>
+            <if test="perDiem16 != null">
+                PER_DIEM16 = #{perDiem16},
+            </if>
+            <if test="perDiem17 != null">
+                PER_DIEM17 = #{perDiem17},
+            </if>
+            <if test="perDiem18 != null">
+                PER_DIEM18 = #{perDiem18},
+            </if>
+            <if test="perDiem19 != null">
+                PER_DIEM19 = #{perDiem19},
+            </if>
+            <if test="perDiem20 != null">
+                PER_DIEM20 = #{perDiem20},
+            </if>
+            <if test="perDiem21 != null">
+                PER_DIEM21 = #{perDiem21},
+            </if>
+            <if test="perDiem22 != null">
+                PER_DIEM22 = #{perDiem22},
+            </if>
+            <if test="perDiem23 != null">
+                PER_DIEM23 = #{perDiem23},
+            </if>
+            <if test="perDiem24 != null">
+                PER_DIEM24 = #{perDiem24},
+            </if>
+            <if test="perDiem25 != null">
+                PER_DIEM25 = #{perDiem25},
+            </if>
+            <if test="perDiem26 != null">
+                PER_DIEM26 = #{perDiem26},
+            </if>
+            <if test="perDiem27 != null">
+                PER_DIEM27 = #{perDiem27},
+            </if>
+            <if test="perDiem28 != null">
+                PER_DIEM28 = #{perDiem28},
+            </if>
+            <if test="perDiem29 != null">
+                PER_DIEM29 = #{perDiem29},
+            </if>
+            <if test="perDiem30 != null">
+                PER_DIEM30 = #{perDiem30},
+            </if>
+            <if test="perDiem31 != null">
+                PER_DIEM31 = #{perDiem31}
+            </if>
+        </set>
+        where DAYSALARY_ID = #{daysalaryId}
+    </update>
+
+    <select id="selectAllJobDaysalary" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select *
+        from wages_job_daysalary
+    </select>
+
+    <select id="selectDaysalaryByAttendTypeId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select *
+        from wages_job_daysalary
+        <where>
+            <if test="attendTypeId != null and attendTypeId != ''">
+                and ATTEND_TYPE_ID = #{attendTypeId}
+            </if>
+        </where>
+    </select>
+
+    <sql id="Example_Where_Clause" >
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated by MyBatis Generator, do not modify.
+        -->
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause" >
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated by MyBatis Generator, do not modify.
+        -->
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List" >
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated by MyBatis Generator, do not modify.
+        -->
+        DAYSALARY_ID, ATTEND_TYPE_ID, PER_DIEM1, PER_DIEM2, PER_DIEM3, PER_DIEM4, PER_DIEM5,
+        PER_DIEM6, PER_DIEM7, PER_DIEM8, PER_DIEM9, PER_DIEM10, PER_DIEM11, PER_DIEM12, PER_DIEM13,
+        PER_DIEM14, PER_DIEM15, PER_DIEM16, PER_DIEM17, PER_DIEM18, PER_DIEM19, PER_DIEM20,
+        PER_DIEM21, PER_DIEM22, PER_DIEM23, PER_DIEM24, PER_DIEM25, PER_DIEM26, PER_DIEM27,
+        PER_DIEM28, PER_DIEM29, PER_DIEM30, PER_DIEM31
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xoa.model.wages_manage.WagesJobDaysalaryExample" >
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated by MyBatis Generator, do not modify.
+        -->
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from wages_job_daysalary
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated by MyBatis Generator, do not modify.
+        -->
+        select
+        <include refid="Base_Column_List" />
+        from wages_job_daysalary
+        where DAYSALARY_ID = #{daysalaryId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated by MyBatis Generator, do not modify.
+        -->
+        delete from wages_job_daysalary
+        where DAYSALARY_ID = #{daysalaryId,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.xoa.model.wages_manage.WagesJobDaysalaryExample" >
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated by MyBatis Generator, do not modify.
+        -->
+        delete from wages_job_daysalary
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.xoa.model.wages_manage.WagesJobDaysalary" >
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated by MyBatis Generator, do not modify.
+        -->
+        insert into wages_job_daysalary (DAYSALARY_ID, ATTEND_TYPE_ID, PER_DIEM1,
+        PER_DIEM2, PER_DIEM3, PER_DIEM4,
+        PER_DIEM5, PER_DIEM6, PER_DIEM7,
+        PER_DIEM8, PER_DIEM9, PER_DIEM10,
+        PER_DIEM11, PER_DIEM12, PER_DIEM13,
+        PER_DIEM14, PER_DIEM15, PER_DIEM16,
+        PER_DIEM17, PER_DIEM18, PER_DIEM19,
+        PER_DIEM20, PER_DIEM21, PER_DIEM22,
+        PER_DIEM23, PER_DIEM24, PER_DIEM25,
+        PER_DIEM26, PER_DIEM27, PER_DIEM28,
+        PER_DIEM29, PER_DIEM30, PER_DIEM31
+        )
+        values (#{daysalaryId,jdbcType=INTEGER}, #{attendTypeId,jdbcType=INTEGER}, #{perDiem1,jdbcType=DECIMAL},
+        #{perDiem2,jdbcType=DECIMAL}, #{perDiem3,jdbcType=DECIMAL}, #{perDiem4,jdbcType=DECIMAL},
+        #{perDiem5,jdbcType=DECIMAL}, #{perDiem6,jdbcType=DECIMAL}, #{perDiem7,jdbcType=DECIMAL},
+        #{perDiem8,jdbcType=DECIMAL}, #{perDiem9,jdbcType=DECIMAL}, #{perDiem10,jdbcType=DECIMAL},
+        #{perDiem11,jdbcType=DECIMAL}, #{perDiem12,jdbcType=DECIMAL}, #{perDiem13,jdbcType=DECIMAL},
+        #{perDiem14,jdbcType=DECIMAL}, #{perDiem15,jdbcType=DECIMAL}, #{perDiem16,jdbcType=DECIMAL},
+        #{perDiem17,jdbcType=DECIMAL}, #{perDiem18,jdbcType=DECIMAL}, #{perDiem19,jdbcType=DECIMAL},
+        #{perDiem20,jdbcType=DECIMAL}, #{perDiem21,jdbcType=DECIMAL}, #{perDiem22,jdbcType=DECIMAL},
+        #{perDiem23,jdbcType=DECIMAL}, #{perDiem24,jdbcType=DECIMAL}, #{perDiem25,jdbcType=DECIMAL},
+        #{perDiem26,jdbcType=DECIMAL}, #{perDiem27,jdbcType=DECIMAL}, #{perDiem28,jdbcType=DECIMAL},
+        #{perDiem29,jdbcType=DECIMAL}, #{perDiem30,jdbcType=DECIMAL}, #{perDiem31,jdbcType=DECIMAL}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.xoa.model.wages_manage.WagesJobDaysalary" >
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated by MyBatis Generator, do not modify.
+        -->
+        insert into wages_job_daysalary
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="daysalaryId != null" >
+                DAYSALARY_ID,
+            </if>
+            <if test="attendTypeId != null" >
+                ATTEND_TYPE_ID,
+            </if>
+            <if test="perDiem1 != null" >
+                PER_DIEM1,
+            </if>
+            <if test="perDiem2 != null" >
+                PER_DIEM2,
+            </if>
+            <if test="perDiem3 != null" >
+                PER_DIEM3,
+            </if>
+            <if test="perDiem4 != null" >
+                PER_DIEM4,
+            </if>
+            <if test="perDiem5 != null" >
+                PER_DIEM5,
+            </if>
+            <if test="perDiem6 != null" >
+                PER_DIEM6,
+            </if>
+            <if test="perDiem7 != null" >
+                PER_DIEM7,
+            </if>
+            <if test="perDiem8 != null" >
+                PER_DIEM8,
+            </if>
+            <if test="perDiem9 != null" >
+                PER_DIEM9,
+            </if>
+            <if test="perDiem10 != null" >
+                PER_DIEM10,
+            </if>
+            <if test="perDiem11 != null" >
+                PER_DIEM11,
+            </if>
+            <if test="perDiem12 != null" >
+                PER_DIEM12,
+            </if>
+            <if test="perDiem13 != null" >
+                PER_DIEM13,
+            </if>
+            <if test="perDiem14 != null" >
+                PER_DIEM14,
+            </if>
+            <if test="perDiem15 != null" >
+                PER_DIEM15,
+            </if>
+            <if test="perDiem16 != null" >
+                PER_DIEM16,
+            </if>
+            <if test="perDiem17 != null" >
+                PER_DIEM17,
+            </if>
+            <if test="perDiem18 != null" >
+                PER_DIEM18,
+            </if>
+            <if test="perDiem19 != null" >
+                PER_DIEM19,
+            </if>
+            <if test="perDiem20 != null" >
+                PER_DIEM20,
+            </if>
+            <if test="perDiem21 != null" >
+                PER_DIEM21,
+            </if>
+            <if test="perDiem22 != null" >
+                PER_DIEM22,
+            </if>
+            <if test="perDiem23 != null" >
+                PER_DIEM23,
+            </if>
+            <if test="perDiem24 != null" >
+                PER_DIEM24,
+            </if>
+            <if test="perDiem25 != null" >
+                PER_DIEM25,
+            </if>
+            <if test="perDiem26 != null" >
+                PER_DIEM26,
+            </if>
+            <if test="perDiem27 != null" >
+                PER_DIEM27,
+            </if>
+            <if test="perDiem28 != null" >
+                PER_DIEM28,
+            </if>
+            <if test="perDiem29 != null" >
+                PER_DIEM29,
+            </if>
+            <if test="perDiem30 != null" >
+                PER_DIEM30,
+            </if>
+            <if test="perDiem31 != null" >
+                PER_DIEM31,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="daysalaryId != null" >
+                #{daysalaryId,jdbcType=INTEGER},
+            </if>
+            <if test="attendTypeId != null" >
+                #{attendTypeId,jdbcType=INTEGER},
+            </if>
+            <if test="perDiem1 != null" >
+                #{perDiem1,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem2 != null" >
+                #{perDiem2,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem3 != null" >
+                #{perDiem3,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem4 != null" >
+                #{perDiem4,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem5 != null" >
+                #{perDiem5,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem6 != null" >
+                #{perDiem6,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem7 != null" >
+                #{perDiem7,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem8 != null" >
+                #{perDiem8,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem9 != null" >
+                #{perDiem9,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem10 != null" >
+                #{perDiem10,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem11 != null" >
+                #{perDiem11,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem12 != null" >
+                #{perDiem12,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem13 != null" >
+                #{perDiem13,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem14 != null" >
+                #{perDiem14,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem15 != null" >
+                #{perDiem15,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem16 != null" >
+                #{perDiem16,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem17 != null" >
+                #{perDiem17,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem18 != null" >
+                #{perDiem18,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem19 != null" >
+                #{perDiem19,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem20 != null" >
+                #{perDiem20,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem21 != null" >
+                #{perDiem21,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem22 != null" >
+                #{perDiem22,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem23 != null" >
+                #{perDiem23,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem24 != null" >
+                #{perDiem24,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem25 != null" >
+                #{perDiem25,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem26 != null" >
+                #{perDiem26,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem27 != null" >
+                #{perDiem27,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem28 != null" >
+                #{perDiem28,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem29 != null" >
+                #{perDiem29,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem30 != null" >
+                #{perDiem30,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem31 != null" >
+                #{perDiem31,jdbcType=DECIMAL},
+            </if>
+        </trim>
+            ON DUPLICATE KEY UPDATE ATTEND_TYPE_ID = #{attendTypeId,jdbcType=INTEGER}
+        <if test="perDiem1 != null" >
+            ,PER_DIEM1 = #{perDiem1,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem2 != null" >
+            ,PER_DIEM2 = #{perDiem2,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem3 != null" >
+            ,PER_DIEM3 = #{perDiem3,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem4 != null" >
+            ,PER_DIEM4 = #{perDiem4,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem5 != null" >
+            ,PER_DIEM5 = #{perDiem5,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem6 != null" >
+            ,PER_DIEM6 = #{perDiem6,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem7 != null" >
+            ,PER_DIEM7 = #{perDiem7,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem8 != null" >
+            ,PER_DIEM8 = #{perDiem8,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem9 != null" >
+            ,PER_DIEM9 = #{perDiem9,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem10 != null" >
+            ,PER_DIEM10 = #{perDiem10,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem11 != null" >
+            ,PER_DIEM11 = #{perDiem11,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem12 != null" >
+            ,PER_DIEM12 = #{perDiem12,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem13 != null" >
+            ,PER_DIEM13 = #{perDiem13,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem14 != null" >
+            ,PER_DIEM14 = #{perDiem14,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem15 != null" >
+            ,PER_DIEM15 = #{perDiem15,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem16 != null" >
+            ,PER_DIEM16 = #{perDiem16,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem17 != null" >
+            ,PER_DIEM17 = #{perDiem17,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem18 != null" >
+            ,PER_DIEM18 = #{perDiem18,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem19 != null" >
+            ,PER_DIEM19 = #{perDiem19,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem20 != null" >
+            ,PER_DIEM20 = #{perDiem20,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem21 != null" >
+            ,PER_DIEM21 = #{perDiem21,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem22 != null" >
+            ,PER_DIEM22 = #{perDiem22,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem23 != null" >
+            ,PER_DIEM23 = #{perDiem23,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem24 != null" >
+            ,PER_DIEM24 = #{perDiem24,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem25 != null" >
+            ,PER_DIEM25 = #{perDiem25,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem26 != null" >
+            ,PER_DIEM26 = #{perDiem26,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem27 != null" >
+            ,PER_DIEM27 = #{perDiem27,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem28 != null" >
+            ,PER_DIEM28 = #{perDiem28,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem29 != null" >
+            ,PER_DIEM29 = #{perDiem29,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem30 != null" >
+            ,PER_DIEM30 = #{perDiem30,jdbcType=DECIMAL}
+        </if>
+        <if test="perDiem31 != null" >
+            ,PER_DIEM31 = #{perDiem31,jdbcType=DECIMAL}
+        </if>
+    </insert>
+    <select id="countByExample" parameterType="com.xoa.model.wages_manage.WagesJobDaysalaryExample" resultType="java.lang.Integer" >
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated by MyBatis Generator, do not modify.
+        -->
+        select count(*) from wages_job_daysalary
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated by MyBatis Generator, do not modify.
+        -->
+        update wages_job_daysalary
+        <set >
+            <if test="record.daysalaryId != null" >
+                DAYSALARY_ID = #{record.daysalaryId,jdbcType=INTEGER},
+            </if>
+            <if test="record.attendTypeId != null" >
+                ATTEND_TYPE_ID = #{record.attendTypeId,jdbcType=INTEGER},
+            </if>
+            <if test="record.perDiem1 != null" >
+                PER_DIEM1 = #{record.perDiem1,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem2 != null" >
+                PER_DIEM2 = #{record.perDiem2,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem3 != null" >
+                PER_DIEM3 = #{record.perDiem3,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem4 != null" >
+                PER_DIEM4 = #{record.perDiem4,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem5 != null" >
+                PER_DIEM5 = #{record.perDiem5,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem6 != null" >
+                PER_DIEM6 = #{record.perDiem6,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem7 != null" >
+                PER_DIEM7 = #{record.perDiem7,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem8 != null" >
+                PER_DIEM8 = #{record.perDiem8,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem9 != null" >
+                PER_DIEM9 = #{record.perDiem9,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem10 != null" >
+                PER_DIEM10 = #{record.perDiem10,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem11 != null" >
+                PER_DIEM11 = #{record.perDiem11,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem12 != null" >
+                PER_DIEM12 = #{record.perDiem12,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem13 != null" >
+                PER_DIEM13 = #{record.perDiem13,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem14 != null" >
+                PER_DIEM14 = #{record.perDiem14,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem15 != null" >
+                PER_DIEM15 = #{record.perDiem15,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem16 != null" >
+                PER_DIEM16 = #{record.perDiem16,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem17 != null" >
+                PER_DIEM17 = #{record.perDiem17,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem18 != null" >
+                PER_DIEM18 = #{record.perDiem18,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem19 != null" >
+                PER_DIEM19 = #{record.perDiem19,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem20 != null" >
+                PER_DIEM20 = #{record.perDiem20,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem21 != null" >
+                PER_DIEM21 = #{record.perDiem21,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem22 != null" >
+                PER_DIEM22 = #{record.perDiem22,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem23 != null" >
+                PER_DIEM23 = #{record.perDiem23,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem24 != null" >
+                PER_DIEM24 = #{record.perDiem24,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem25 != null" >
+                PER_DIEM25 = #{record.perDiem25,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem26 != null" >
+                PER_DIEM26 = #{record.perDiem26,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem27 != null" >
+                PER_DIEM27 = #{record.perDiem27,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem28 != null" >
+                PER_DIEM28 = #{record.perDiem28,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem29 != null" >
+                PER_DIEM29 = #{record.perDiem29,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem30 != null" >
+                PER_DIEM30 = #{record.perDiem30,jdbcType=DECIMAL},
+            </if>
+            <if test="record.perDiem31 != null" >
+                PER_DIEM31 = #{record.perDiem31,jdbcType=DECIMAL},
+            </if>
+        </set>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map" >
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated by MyBatis Generator, do not modify.
+        -->
+        update wages_job_daysalary
+        set DAYSALARY_ID = #{record.daysalaryId,jdbcType=INTEGER},
+        ATTEND_TYPE_ID = #{record.attendTypeId,jdbcType=INTEGER},
+        PER_DIEM1 = #{record.perDiem1,jdbcType=DECIMAL},
+        PER_DIEM2 = #{record.perDiem2,jdbcType=DECIMAL},
+        PER_DIEM3 = #{record.perDiem3,jdbcType=DECIMAL},
+        PER_DIEM4 = #{record.perDiem4,jdbcType=DECIMAL},
+        PER_DIEM5 = #{record.perDiem5,jdbcType=DECIMAL},
+        PER_DIEM6 = #{record.perDiem6,jdbcType=DECIMAL},
+        PER_DIEM7 = #{record.perDiem7,jdbcType=DECIMAL},
+        PER_DIEM8 = #{record.perDiem8,jdbcType=DECIMAL},
+        PER_DIEM9 = #{record.perDiem9,jdbcType=DECIMAL},
+        PER_DIEM10 = #{record.perDiem10,jdbcType=DECIMAL},
+        PER_DIEM11 = #{record.perDiem11,jdbcType=DECIMAL},
+        PER_DIEM12 = #{record.perDiem12,jdbcType=DECIMAL},
+        PER_DIEM13 = #{record.perDiem13,jdbcType=DECIMAL},
+        PER_DIEM14 = #{record.perDiem14,jdbcType=DECIMAL},
+        PER_DIEM15 = #{record.perDiem15,jdbcType=DECIMAL},
+        PER_DIEM16 = #{record.perDiem16,jdbcType=DECIMAL},
+        PER_DIEM17 = #{record.perDiem17,jdbcType=DECIMAL},
+        PER_DIEM18 = #{record.perDiem18,jdbcType=DECIMAL},
+        PER_DIEM19 = #{record.perDiem19,jdbcType=DECIMAL},
+        PER_DIEM20 = #{record.perDiem20,jdbcType=DECIMAL},
+        PER_DIEM21 = #{record.perDiem21,jdbcType=DECIMAL},
+        PER_DIEM22 = #{record.perDiem22,jdbcType=DECIMAL},
+        PER_DIEM23 = #{record.perDiem23,jdbcType=DECIMAL},
+        PER_DIEM24 = #{record.perDiem24,jdbcType=DECIMAL},
+        PER_DIEM25 = #{record.perDiem25,jdbcType=DECIMAL},
+        PER_DIEM26 = #{record.perDiem26,jdbcType=DECIMAL},
+        PER_DIEM27 = #{record.perDiem27,jdbcType=DECIMAL},
+        PER_DIEM28 = #{record.perDiem28,jdbcType=DECIMAL},
+        PER_DIEM29 = #{record.perDiem29,jdbcType=DECIMAL},
+        PER_DIEM30 = #{record.perDiem30,jdbcType=DECIMAL},
+        PER_DIEM31 = #{record.perDiem31,jdbcType=DECIMAL}
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.wages_manage.WagesJobDaysalary" >
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated by MyBatis Generator, do not modify.
+        -->
+        update wages_job_daysalary
+        <set >
+            <if test="attendTypeId != null" >
+                ATTEND_TYPE_ID = #{attendTypeId,jdbcType=INTEGER},
+            </if>
+            <if test="perDiem1 != null" >
+                PER_DIEM1 = #{perDiem1,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem2 != null" >
+                PER_DIEM2 = #{perDiem2,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem3 != null" >
+                PER_DIEM3 = #{perDiem3,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem4 != null" >
+                PER_DIEM4 = #{perDiem4,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem5 != null" >
+                PER_DIEM5 = #{perDiem5,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem6 != null" >
+                PER_DIEM6 = #{perDiem6,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem7 != null" >
+                PER_DIEM7 = #{perDiem7,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem8 != null" >
+                PER_DIEM8 = #{perDiem8,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem9 != null" >
+                PER_DIEM9 = #{perDiem9,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem10 != null" >
+                PER_DIEM10 = #{perDiem10,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem11 != null" >
+                PER_DIEM11 = #{perDiem11,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem12 != null" >
+                PER_DIEM12 = #{perDiem12,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem13 != null" >
+                PER_DIEM13 = #{perDiem13,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem14 != null" >
+                PER_DIEM14 = #{perDiem14,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem15 != null" >
+                PER_DIEM15 = #{perDiem15,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem16 != null" >
+                PER_DIEM16 = #{perDiem16,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem17 != null" >
+                PER_DIEM17 = #{perDiem17,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem18 != null" >
+                PER_DIEM18 = #{perDiem18,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem19 != null" >
+                PER_DIEM19 = #{perDiem19,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem20 != null" >
+                PER_DIEM20 = #{perDiem20,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem21 != null" >
+                PER_DIEM21 = #{perDiem21,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem22 != null" >
+                PER_DIEM22 = #{perDiem22,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem23 != null" >
+                PER_DIEM23 = #{perDiem23,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem24 != null" >
+                PER_DIEM24 = #{perDiem24,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem25 != null" >
+                PER_DIEM25 = #{perDiem25,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem26 != null" >
+                PER_DIEM26 = #{perDiem26,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem27 != null" >
+                PER_DIEM27 = #{perDiem27,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem28 != null" >
+                PER_DIEM28 = #{perDiem28,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem29 != null" >
+                PER_DIEM29 = #{perDiem29,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem30 != null" >
+                PER_DIEM30 = #{perDiem30,jdbcType=DECIMAL},
+            </if>
+            <if test="perDiem31 != null" >
+                PER_DIEM31 = #{perDiem31,jdbcType=DECIMAL},
+            </if>
+        </set>
+        where DAYSALARY_ID = #{daysalaryId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xoa.model.wages_manage.WagesJobDaysalary" >
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated by MyBatis Generator, do not modify.
+        -->
+        update wages_job_daysalary
+        set ATTEND_TYPE_ID = #{attendTypeId,jdbcType=INTEGER},
+        PER_DIEM1 = #{perDiem1,jdbcType=DECIMAL},
+        PER_DIEM2 = #{perDiem2,jdbcType=DECIMAL},
+        PER_DIEM3 = #{perDiem3,jdbcType=DECIMAL},
+        PER_DIEM4 = #{perDiem4,jdbcType=DECIMAL},
+        PER_DIEM5 = #{perDiem5,jdbcType=DECIMAL},
+        PER_DIEM6 = #{perDiem6,jdbcType=DECIMAL},
+        PER_DIEM7 = #{perDiem7,jdbcType=DECIMAL},
+        PER_DIEM8 = #{perDiem8,jdbcType=DECIMAL},
+        PER_DIEM9 = #{perDiem9,jdbcType=DECIMAL},
+        PER_DIEM10 = #{perDiem10,jdbcType=DECIMAL},
+        PER_DIEM11 = #{perDiem11,jdbcType=DECIMAL},
+        PER_DIEM12 = #{perDiem12,jdbcType=DECIMAL},
+        PER_DIEM13 = #{perDiem13,jdbcType=DECIMAL},
+        PER_DIEM14 = #{perDiem14,jdbcType=DECIMAL},
+        PER_DIEM15 = #{perDiem15,jdbcType=DECIMAL},
+        PER_DIEM16 = #{perDiem16,jdbcType=DECIMAL},
+        PER_DIEM17 = #{perDiem17,jdbcType=DECIMAL},
+        PER_DIEM18 = #{perDiem18,jdbcType=DECIMAL},
+        PER_DIEM19 = #{perDiem19,jdbcType=DECIMAL},
+        PER_DIEM20 = #{perDiem20,jdbcType=DECIMAL},
+        PER_DIEM21 = #{perDiem21,jdbcType=DECIMAL},
+        PER_DIEM22 = #{perDiem22,jdbcType=DECIMAL},
+        PER_DIEM23 = #{perDiem23,jdbcType=DECIMAL},
+        PER_DIEM24 = #{perDiem24,jdbcType=DECIMAL},
+        PER_DIEM25 = #{perDiem25,jdbcType=DECIMAL},
+        PER_DIEM26 = #{perDiem26,jdbcType=DECIMAL},
+        PER_DIEM27 = #{perDiem27,jdbcType=DECIMAL},
+        PER_DIEM28 = #{perDiem28,jdbcType=DECIMAL},
+        PER_DIEM29 = #{perDiem29,jdbcType=DECIMAL},
+        PER_DIEM30 = #{perDiem30,jdbcType=DECIMAL},
+        PER_DIEM31 = #{perDiem31,jdbcType=DECIMAL}
+        where DAYSALARY_ID = #{daysalaryId,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteJobDaysalaryByAttendanceTypeId" parameterType="java.lang.Integer">
+        delete from wages_job_daysalary
+        where ATTEND_TYPE_ID = #{attendTypeId}
+    </delete>
+</mapper>

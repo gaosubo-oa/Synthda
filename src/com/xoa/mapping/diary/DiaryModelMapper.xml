@@ -1,0 +1,3919 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.diary.DiaryModelMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.diary.DiaryModel">
+        <id column="DIA_ID" property="diaId" javaType="integer"/>
+        <result column="USER_ID" property="userId" javaType="string"/>
+        <result column="userName" property="userName" javaType="string"/>
+        <result column="uid" property="uid"/>
+        <result column="DIA_DATE" property="diaDate" javaType="string"/>
+        <result column="DIA_TIME" property="diaTime" javaType="string"/>
+        <result column="DIA_TYPE" property="diaType" javaType="string"/>
+        <result column="SUBJECT" property="subject" javaType="string"/>
+        <result column="LAST_COMMENT_TIME" property="lastCommentTime" javaType="string"/>
+        <result column="TO_ALL" property="toAll" javaType="integer"/>
+        <result column="CRM_DIARY" property="crmDiary" javaType="integer"/>
+        <result column="CONTENT" property="content" javaType="string"/>
+        <result column="ATTACHMENT_ID" property="attachmentId" javaType="string"/>
+        <result column="ATTACHMENT_NAME" property="attachmentName" javaType="string"/>
+        <result column="TO_ID" property="toId" javaType="string"/>
+        <result column="COMPRESS_CONTENT" property="compressContent" javaType="String"/>
+        <result column="READERS" property="readers" javaType="string"/>
+        <result column="photo" property="photo" javaType="string"/>
+        <result column="avatar" property="avatar" javaType="string"/>
+        <result column="sex" property="sex" javaType="string"/>
+        <result column="SHARE_ALL" property="shareAll" javaType="integer"/>
+        <result column="USER_TOP_ID" property="userTopId" javaType="string"/>
+        <result column="SFLAG" property="sFlag" javaType="string"/>
+        <result column="ALLOW_COMMENT" property="allowComment" javaType="integer"/>
+        <result column="reported" property="reported" javaType="integer"/>
+        <result column="notReported" property="notReported" javaType="integer"/>
+        <result column="allDiaryNumber" property="allDiaryNumber" javaType="integer"/>
+        <result column="myDiaryNumber" property="myDiaryNumber" javaType="integer"/>
+        <result column="othersDiaryNumber" property="othersDiaryNumber" javaType="integer"/>
+        <result column="commenter" property="commenter" javaType="string"/>
+        <result column="DEPT_NAME" property="deptName" javaType="string"/>
+        <result column="CONTENT_SECRECY" property="contentSecrecy" javaType="string"/>
+
+        <association javaType="com.xoa.model.diary.DiaryTop" property="diaryTop">
+            <id column="TOP_ID" property="topId" javaType="integer"/>
+            <result column="DIA_CATE" property="diaCate" javaType="integer"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="BaseResultMap2" type="com.xoa.model.diary.DiaryModel">
+        <id column="DIA_ID" property="diaId" javaType="integer"/>
+        <result column="USER_ID" property="userId" javaType="string"/>
+        <result column="userName" property="userName" javaType="string"/>
+        <result column="uid" property="uid"/>
+        <result column="DIA_DATE" property="diaDate" javaType="string"/>
+        <result column="DIA_TIME" property="diaTime" javaType="string"/>
+        <result column="DIA_TYPE" property="diaType" javaType="string"/>
+        <result column="SUBJECT" property="subject" javaType="string"/>
+        <result column="LAST_COMMENT_TIME" property="lastCommentTime" javaType="string"/>
+        <result column="TO_ALL" property="toAll" javaType="integer"/>
+        <result column="CRM_DIARY" property="crmDiary" javaType="integer"/>
+        <result column="CONTENT" property="content" javaType="string"/>
+        <result column="ATTACHMENT_ID" property="attachmentId" javaType="string"/>
+        <result column="ATTACHMENT_NAME" property="attachmentName" javaType="string"/>
+        <result column="TO_ID" property="toId" javaType="string"/>
+        <result column="COMPRESS_CONTENT" property="compressContent" javaType="String"/>
+        <result column="READERS" property="readers" javaType="string"/>
+        <result column="photo" property="photo" javaType="string"/>
+        <result column="avatar" property="avatar" javaType="string"/>
+        <result column="sex" property="sex" javaType="string"/>
+        <result column="deptId" property="deptId" javaType="integer"/>
+        <result column="userPrivName" property="userPrivName" javaType="string"/>
+        <result column="SHARE_ALL" property="shareAll" javaType="integer"/>
+        <result column="SEND_REMIND" property="sendRemind" javaType="integer"/>
+        <result column="USER_TOP_ID" property="userTopId" javaType="string"/>
+        <result column="SFLAG" property="sFlag" javaType="string"/>
+        <result column="ALLOW_COMMENT" property="allowComment" javaType="integer"/>
+        <result column="reported" property="reported" javaType="integer"/>
+        <result column="notReported" property="notReported" javaType="integer"/>
+        <result column="allDiaryNumber" property="allDiaryNumber" javaType="integer"/>
+        <result column="myDiaryNumber" property="myDiaryNumber" javaType="integer"/>
+        <result column="othersDiaryNumber" property="othersDiaryNumber" javaType="integer"/>
+        <result column="commenter" property="commenter" javaType="string"/>
+        <result column="CONTENT_SECRECY" property="contentSecrecy" javaType="string"/>
+        <association javaType="com.xoa.model.diary.DiaryTop" property="diaryTop">
+            <id column="TOP_ID" property="topId" javaType="integer"/>
+            <result column="DIA_CATE" property="diaCate" javaType="integer"/>
+        </association>
+    </resultMap>
+    <sql id="diaryList">
+        d
+        .
+        DIA_ID
+        ,u.USER_NAME as userName,u.PHOTO as photo,u.AVATAR as avatar,u.SEX as sex,d.USER_ID,d.DIA_DATE,if(d.DIA_TIME='0000-00-00 00:00:00','',d.DIA_TIME) as DIA_TIME,d.DIA_TYPE,d.SUBJECT,if(d.LAST_COMMENT_TIME='0000-00-00 00:00:00','',d.LAST_COMMENT_TIME) as LAST_COMMENT_TIME,d.TO_ALL,d.CRM_DIARY,d.CONTENT, d.ATTACHMENT_ID,d.ATTACHMENT_NAME, d.TO_ID,d.READERS, d.USER_TOP_ID, d.SFLAG, d.ALLOW_COMMENT, u.UID as uid
+    </sql>
+
+    <sql id="diaryList_KB">
+        d
+        .
+        DIA_ID
+        ,u.USER_NAME as userName,u.PHOTO as photo,u.AVATAR as avatar,u.SEX as sex,d.USER_ID,d.DIA_DATE,if(d.DIA_TIME=to_date('0000-00-00 00:00:00','yyyy-mm-dd hh24:mi:ss'),'',d.DIA_TIME) as DIA_TIME,d.DIA_TYPE,d.SUBJECT,if(d.LAST_COMMENT_TIME=to_date('0000-00-00 00:00:00','yyyy-mm-dd hh24:mi:ss'),'',d.LAST_COMMENT_TIME) as LAST_COMMENT_TIME,d.TO_ALL,d.CRM_DIARY,d.CONTENT, d.ATTACHMENT_ID,d.ATTACHMENT_NAME, d.TO_ID,d.READERS, d.USER_TOP_ID, d.SFLAG, d.ALLOW_COMMENT, u.UID as uid
+    </sql>
+
+    <sql id="diaryList2">
+        d
+        .
+        DIA_ID
+        ,u.USER_NAME as userName,u.PHOTO as photo,u.AVATAR as avatar,u.SEX as sex,u.DEPT_ID as deptId,u.USER_PRIV_NAME as userPrivName,d.USER_ID,d.DIA_DATE,if(d.DIA_TIME='0000-00-00 00:00:00','',d.DIA_TIME) as DIA_TIME,d.DIA_TYPE,d.SUBJECT,if(d.LAST_COMMENT_TIME='0000-00-00 00:00:00','',d.LAST_COMMENT_TIME) as LAST_COMMENT_TIME,d.TO_ALL,d.CRM_DIARY,d.CONTENT, d.ATTACHMENT_ID,d.ATTACHMENT_NAME, d.TO_ID,d.READERS, d.USER_TOP_ID, d.SFLAG, d.ALLOW_COMMENT, u.UID as uid
+    </sql>
+
+    <sql id="diaryList2_KB">
+        d
+        .
+        DIA_ID
+        ,u.USER_NAME as userName,u.PHOTO as photo,u.AVATAR as avatar,u.SEX as sex,u.DEPT_ID as deptId,u.USER_PRIV_NAME as userPrivName,d.USER_ID,d.DIA_DATE,if(d.DIA_TIME=to_date('0000-00-00 00:00:00','yyyy-mm-dd hh24:mi:ss'),'',d.DIA_TIME) as DIA_TIME,d.DIA_TYPE,d.SUBJECT,if(d.LAST_COMMENT_TIME=to_date('0000-00-00 00:00:00','yyyy-mm-dd hh24:mi:ss'),'',d.LAST_COMMENT_TIME) as LAST_COMMENT_TIME,d.TO_ALL,d.CRM_DIARY,d.CONTENT, d.ATTACHMENT_ID,d.ATTACHMENT_NAME, d.TO_ID,d.READERS, d.USER_TOP_ID, d.SFLAG, d.ALLOW_COMMENT, u.UID as uid
+    </sql>
+
+    <sql id="diaryList" databaseId="oracle">
+        d
+        .
+        DIA_ID
+        ,
+		u.USER_NAME  userName,
+		u.PHOTO  photo,
+		u.AVATAR  avatar,
+		u.SEX  sex,
+		d.USER_ID,
+		d.DIA_DATE,
+	    d.DIA_TIME,
+		d.DIA_TYPE,
+		d.SUBJECT,
+        d.LAST_COMMENT_TIME,
+		d.TO_ALL,
+		d.CRM_DIARY,
+		d.CONTENT,
+		d.ATTACHMENT_ID,
+		d.ATTACHMENT_NAME,
+		d.TO_ID,
+		d.READERS,
+		u."UID" "UID"
+    </sql>
+
+    <sql id="diaryList2" databaseId="oracle">
+        d
+        .
+        DIA_ID
+        ,
+        u.USER_NAME  userName,
+        u.PHOTO  photo,
+        u.AVATAR  avatar,
+        u.SEX  sex,
+        u.DEPT_ID,
+        u.USER_PRIV_NAME,
+        d.USER_ID,
+        d.DIA_DATE,
+        d.DIA_TIME,
+        d.DIA_TYPE,
+        d.SUBJECT,
+        d.LAST_COMMENT_TIME,
+        d.TO_ALL,
+        d.CRM_DIARY,
+        d.CONTENT,
+        d.ATTACHMENT_ID,
+        d.ATTACHMENT_NAME,
+        d.TO_ID,
+        d.READERS,
+        u."UID" "UID"
+    </sql>
+
+    <sql id="diaryList" databaseId="dm">
+        d
+        .
+        DIA_ID
+        ,
+		u.USER_NAME  userName,
+		u.PHOTO  photo,
+		u.AVATAR  avatar,
+		u.SEX  sex,
+		d.USER_ID,
+		d.DIA_DATE,
+        d.DIA_TIME,
+		d.DIA_TYPE,
+		d.SUBJECT,
+        d.LAST_COMMENT_TIME,
+		d.TO_ALL,
+		d.CRM_DIARY,
+		d.CONTENT,
+		d.ATTACHMENT_ID,
+		d.ATTACHMENT_NAME,
+		d.TO_ID,
+		d.READERS,
+		u."UID"  "UID"
+    </sql>
+
+    <sql id="diaryList2" databaseId="dm">
+        d
+        .
+        DIA_ID
+        ,
+        u.USER_NAME  userName,
+        u.PHOTO  photo,
+        u.AVATAR  avatar,
+        u.SEX  sex,
+        u.DEPT_ID,
+        u.USER_PRIV_NAME,
+        d.USER_ID,
+        d.DIA_DATE,
+        d.DIA_TIME,
+        d.DIA_TYPE,
+        d.SUBJECT,
+        d.LAST_COMMENT_TIME,
+        d.TO_ALL,
+        d.CRM_DIARY,
+        d.CONTENT,
+        d.ATTACHMENT_ID,
+        d.ATTACHMENT_NAME,
+        d.TO_ID,
+        d.READERS,
+        u."UID"  "UID"
+    </sql>
+    <sql id="diaryAllList">
+        USER_ID
+        ,DIA_DATE,DIA_TIME,DIA_TYPE,SUBJECT,LAST_COMMENT_TIME,TO_ALL,CRM_DIARY,CONTENT, ATTACHMENT_ID, ATTACHMENT_NAME, TO_ID, COMPRESS_CONTENT, READERS,SHARE_ALL ,SEND_REMIND, USER_TOP_ID, SFLAG, ALLOW_COMMENT
+    </sql>
+    <sql id="diaryAllList" databaseId="oracle">
+        USER_ID
+        ,DIA_DATE,DIA_TIME,DIA_TYPE,SUBJECT,LAST_COMMENT_TIME,TO_ALL,CRM_DIARY,"CONTENT", ATTACHMENT_ID, ATTACHMENT_NAME, TO_ID, COMPRESS_CONTENT, READERS,SHARE_ALL ,SEND_REMIND, USER_TOP_ID, SFLAG, ALLOW_COMMENT
+    </sql>
+    <insert id="saveDiary" parameterType="com.xoa.model.diary.DiaryModel" useGeneratedKeys="true" keyProperty="diaId">
+        <selectKey order="AFTER" keyProperty="diaId" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into diary (<include refid="diaryAllList"/>)
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId == null or userId == ''">
+                '',
+            </if>
+            <if test="userId != null and userId !=''">
+                #{userId},
+            </if>
+            <if test="diaDate == null or diaDate == ''">
+                '0000-00-00',
+            </if>
+            <if test="diaDate != null and diaDate !=''">
+                #{diaDate},
+            </if>
+            <if test="diaTime == null or diaTime == ''">
+                '0000-00-00 00:00:00',
+            </if>
+            <if test="diaTime != null and diaTime !=''">
+                #{diaTime},
+            </if>
+            <if test="diaType == null or diaType == ''">
+                '',
+            </if>
+            <if test="diaType != null and diaType !=''">
+                #{diaType},
+            </if>
+
+            <if test="subject == null or subject == ''">
+                '',
+            </if>
+            <if test="subject != null and subject !=''">
+                #{subject},
+            </if>
+
+            <if test="lastCommentTime == null or lastCommentTime == ''">
+                '0000-00-00 00:00:00',
+            </if>
+            <if test="lastCommentTime != null and lastCommentTime !=''">
+                #{lastCommentTime},
+            </if>
+
+            <if test="toAll == null">
+                0,
+            </if>
+            <if test="toAll != null">
+                #{toAll},
+            </if>
+            <if test="crmDiary == null">
+                0,
+            </if>
+            <if test="crmDiary != null">
+                #{crmDiary},
+            </if>
+            <if test="content == null or content == ''">
+                '',
+            </if>
+            <if test="content != null and content !=''">
+                #{content},
+            </if>
+
+            <if test="attachmentId == null or attachmentId == ''">
+                '',
+            </if>
+            <if test="attachmentId != null and attachmentId !=''">
+                #{attachmentId},
+            </if>
+
+            <if test="attachmentName == null or attachmentName == ''">
+                '',
+            </if>
+            <if test="attachmentName != null and attachmentName !=''">
+                #{attachmentName},
+            </if>
+
+            <if test="toId == null or toId == ''">
+                '',
+            </if>
+            <if test="toId != null and toId !=''">
+                #{toId},
+            </if>
+
+            <if test="compressContent == null or compressContent == ''">
+                '',
+            </if>
+            <if test="compressContent != null and compressContent !=''">
+                #{compressContent},
+            </if>
+            <if test="readers == null or readers == ''">
+                '',
+            </if>
+            <if test="readers != null and readers !=''">
+                #{readers},
+            </if>
+
+            <if test="shareAll == null">
+                0,
+            </if>
+            <if test="shareAll != null">
+                #{shareAll},
+            </if>
+            <if test="sendRemind == null">
+                0,
+            </if>
+            <if test="sendRemind != null">
+                #{sendRemind},
+            </if>
+            <if test="userTopId == null">
+                '',
+            </if>
+            <if test="userTopId != null">
+                #{userTopId},
+            </if>
+            <if test="sFlag == null">
+                '1',
+            </if>
+            <if test="sFlag != null">
+                #{sFlag},
+            </if>
+            <if test="allowComment == null">
+                1,
+            </if>
+            <if test="allowComment != null">
+                #{allowComment},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectShareName" resultMap="BaseResultMap">
+        SELECT TO_ID
+        from diary
+        WHERE SHARE_ALL = '1'
+          AND USER_ID = #{userId}
+        ORDER BY DIA_ID DESC
+    </select>
+
+    <insert id="saveDiary" parameterType="com.xoa.model.diary.DiaryModel" databaseId="oracle">
+        <selectKey keyProperty="diaId" order="BEFORE" resultType="int">
+            select DIARY_DIA_ID_SEQ.nextval as diaId from dual
+        </selectKey>
+        insert into diary (
+        DIA_ID,
+        <trim suffixOverrides=",">
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="diaDate !=null and diaDate!=''">
+                DIA_DATE,
+            </if>
+            <if test="diaTime !=null and diaTime != ''">
+                DIA_TIME,
+            </if>
+            <if test="subject != null">
+                SUBJECT,
+            </if>
+            <if test="lastCommentTime != null and lastCommentTime !=''">
+                LAST_COMMENT_TIME,
+            </if>
+            TO_ALL,
+            CRM_DIARY,
+            <if test="content != null">
+                "CONTENT",
+            </if>
+            <if test="attachmentId != null">
+                ATTACHMENT_ID,
+            </if>
+            <if test="attachmentName != null">
+                ATTACHMENT_NAME,
+            </if>
+            <if test="toId != null">
+                TO_ID,
+            </if>
+            <if test="compressContent != null">
+                COMPRESS_CONTENT,
+            </if>
+            <if test="readers != null">
+                READERS,
+            </if>
+        </trim>
+        )
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{diaId},
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="diaDate !=null and diaDate!=''">
+                to_date(#{diaDate},'yyyy-mm-dd'),
+            </if>
+            <if test="diaTime !=null and diaTime != ''">
+                to_date(#{diaTime},'yyyy-mm-dd hh24:mi:ss'),
+            </if>
+            <if test="subject != null">
+                #{subject},
+            </if>
+            <if test="lastCommentTime != null and lastCommentTime !=''">
+                to_date(#{lastCommentTime},'yyyy-mm-dd hh24:mi:ss'),
+            </if>
+            <if test="toAll == null">
+                0,
+            </if>
+            <if test="toAll != null">
+                #{toAll},
+            </if>
+            <if test="crmDiary == null">
+                0,
+            </if>
+            <if test="crmDiary != null">
+                #{crmDiary},
+            </if>
+            <if test="content != null">
+                #{content},
+            </if>
+            <if test="attachmentId != null">
+                #{attachmentId},
+            </if>
+            <if test="attachmentName != null">
+                #{attachmentName},
+            </if>
+            <if test="toId != null">
+                #{toId},
+            </if>
+            <if test="compressContent != null">
+                #{compressContent},
+            </if>
+            <if test="readers != null">
+                #{readers},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="saveDiary" parameterType="com.xoa.model.diary.DiaryModel" databaseId="dm">
+        <selectKey keyProperty="diaId" order="BEFORE" resultType="int">
+            select DIARY_DIA_ID_SEQ.nextval as diaId from dual
+        </selectKey>
+        insert into diary (
+        DIA_ID,
+        <if test="userId != null">
+            USER_ID,
+        </if>
+        <if test="diaDate !=null and diaDate!=''">
+            DIA_DATE,
+        </if>
+        <if test="diaTime !=null and diaTime != ''">
+            DIA_TIME,
+        </if>
+        <if test="subject != null">
+            SUBJECT,
+        </if>
+        <if test="lastCommentTime != null and lastCommentTime !=''">
+            LAST_COMMENT_TIME,
+        </if>
+        TO_ALL,
+        CRM_DIARY,
+        <if test="content != null">
+            CONTENT,
+        </if>
+        <if test="attachmentId != null">
+            ATTACHMENT_ID,
+        </if>
+        <if test="attachmentName != null">
+            ATTACHMENT_NAME,
+        </if>
+        <if test="toId != null">
+            TO_ID,
+        </if>
+        <if test="compressContent != null">
+            COMPRESS_CONTENT,
+        </if>
+        <if test="readers != null">
+            READERS,
+        </if>
+        )
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{diaId},
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="diaDate !=null and diaDate!=''">
+                to_date(#{diaDate},'yyyy-mm-dd'),
+            </if>
+            <if test="diaTime !=null and diaTime != ''">
+                to_date(#{diaTime},'yyyy-mm-dd hh24:mi:ss'),
+            </if>
+            <if test="subject != null">
+                #{subject},
+            </if>
+            <if test="lastCommentTime != null and lastCommentTime !=''">
+                to_date(#{lastCommentTime},'yyyy-mm-dd hh24:mi:ss'),
+            </if>
+            <if test="toAll == null">
+                0,
+            </if>
+            <if test="toAll != null">
+                #{toAll},
+            </if>
+            <if test="crmDiary == null">
+                0,
+            </if>
+            <if test="crmDiary != null">
+                #{crmDiary},
+            </if>
+            <if test="content != null">
+                #{content},
+            </if>
+            <if test="attachmentId != null">
+                #{attachmentId},
+            </if>
+            <if test="attachmentName != null">
+                #{attachmentName},
+            </if>
+            <if test="toId != null">
+                #{toId},
+            </if>
+            <if test="compressContent != null">
+                #{compressContent},
+            </if>
+            <if test="readers != null">
+                #{readers},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="saveDiary" parameterType="com.xoa.model.diary.DiaryModel" useGeneratedKeys="true" keyProperty="diaId"
+            databaseId="kingbase">
+        insert into diary (<include refid="diaryAllList"/>)
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId == null or userId == ''">
+                '',
+            </if>
+            <if test="userId != null and userId !=''">
+                #{userId},
+            </if>
+            <if test="diaDate == null or diaDate == ''">
+                '0000-00-00',
+            </if>
+            <if test="diaDate != null and diaDate !=''">
+                #{diaDate},
+            </if>
+            <if test="diaTime == null or diaTime == ''">
+                to_timestamp('0000-00-00 00:00:00'),
+            </if>
+            <if test="diaTime != null and diaTime !=''">
+                #{diaTime},
+            </if>
+            <if test="diaType == null or diaType == ''">
+                '',
+            </if>
+            <if test="diaType != null and diaType !=''">
+                #{diaType},
+            </if>
+
+            <if test="subject == null or subject == ''">
+                '',
+            </if>
+            <if test="subject != null and subject !=''">
+                #{subject},
+            </if>
+
+            <if test="lastCommentTime == null or lastCommentTime == ''">
+                to_timestamp('0000-00-00 00:00:00'),
+            </if>
+            <if test="lastCommentTime != null and lastCommentTime !=''">
+                #{lastCommentTime},
+            </if>
+
+            <if test="toAll == null">
+                0,
+            </if>
+            <if test="toAll != null">
+                #{toAll},
+            </if>
+            <if test="crmDiary == null">
+                0,
+            </if>
+            <if test="crmDiary != null">
+                #{crmDiary},
+            </if>
+            <if test="content == null or content == ''">
+                '',
+            </if>
+            <if test="content != null and content !=''">
+                #{content},
+            </if>
+
+            <if test="attachmentId == null or attachmentId == ''">
+                '',
+            </if>
+            <if test="attachmentId != null and attachmentId !=''">
+                #{attachmentId},
+            </if>
+
+            <if test="attachmentName == null or attachmentName == ''">
+                '',
+            </if>
+            <if test="attachmentName != null and attachmentName !=''">
+                #{attachmentName},
+            </if>
+
+            <if test="toId == null or toId == ''">
+                '',
+            </if>
+            <if test="toId != null and toId !=''">
+                #{toId},
+            </if>
+
+            <if test="compressContent == null or compressContent == ''">
+                '',
+            </if>
+            <if test="compressContent != null and compressContent !=''">
+                #{compressContent},
+            </if>
+            <if test="readers == null or readers == ''">
+                '',
+            </if>
+            <if test="readers != null and readers !=''">
+                #{readers},
+            </if>
+
+            <if test="shareAll == null">
+                0,
+            </if>
+            <if test="shareAll != null">
+                #{shareAll},
+            </if>
+            <if test="sendRemind == null">
+                0,
+            </if>
+            <if test="sendRemind != null">
+                #{sendRemind},
+            </if>
+            <if test="userTopId == null">
+                '',
+            </if>
+            <if test="userTopId != null">
+                #{userTopId},
+            </if>
+            <if test="sFlag == null">
+                '1',
+            </if>
+            <if test="sFlag != null">
+                #{sFlag},
+            </if>
+            <if test="allowComment == null">
+                1,
+            </if>
+            <if test="allowComment != null">
+                #{allowComment},
+            </if>
+        </trim>
+        RETURNING DIA_ID
+    </insert>
+
+    <update id="updateDiary" parameterType="com.xoa.model.diary.DiaryModel">
+        update diary
+        <set>
+            <if test="userId != null">
+                USER_ID=#{userId},
+            </if>
+            <if test="diaDate != null">
+                DIA_DATE=#{diaDate},
+            </if>
+            <if test="diaTime != null and diaTime != ''">
+                DIA_TIME=#{diaTime},
+            </if>
+            <if test="subject != null">
+                SUBJECT=#{subject},
+            </if>
+            <if test="lastCommentTime != null and lastCommentTime != ''">
+                LAST_COMMENT_TIME=#{lastCommentTime},
+            </if>
+            <if test="toAll != null">
+                TO_ALL= #{toAll},
+            </if>
+            <if test="crmDiary != null">
+                CRM_DIARY=#{crmDiary},
+            </if>
+            <if test="diaType != null">
+                DIA_TYPE=#{diaType},
+            </if>
+            <if test="content != null">
+                CONTENT=#{content},
+            </if>
+            <if test="attachmentId != null">
+                ATTACHMENT_ID=#{attachmentId},
+            </if>
+            <if test="attachmentName != null">
+                ATTACHMENT_NAME=#{attachmentName},
+            </if>
+            <if test="toId != null">
+                TO_ID= #{toId},
+            </if>
+            <if test="readers != null">
+                READERS=#{readers},
+            </if>
+            <if test="userTopId != null and userTopId != ''">
+                USER_TOP_ID=#{userTopId},
+            </if>
+            <if test="sFlag != null and sFlag != ''">
+                SFLAG=#{sFlag},
+            </if>
+            <if test="allowComment != null">
+                ALLOW_COMMENT=#{allowComment},
+            </if>
+        </set>
+        where DIA_ID = #{diaId}
+    </update>
+
+    <update id="updateDiary" parameterType="com.xoa.model.diary.DiaryModel" databaseId="oracle">
+        update diary
+        <set>
+            <if test="userId != null">
+                USER_ID=#{userId},
+            </if>
+            <if test="diaDate != null">
+                DIA_DATE= to_date(#{diaDate},'yyyy-mm-dd'),
+            </if>
+            <if test="diaTime != null and diaTime != ''">
+                DIA_TIME=to_date(#{diaTime},'yyyy-mm-dd hh24:mi:ss'),
+            </if>
+            <if test="subject != null">
+                SUBJECT=#{subject},
+            </if>
+            <if test="lastCommentTime != null and lastCommentTime != ''">
+                LAST_COMMENT_TIME=to_date(#{lastCommentTime},'yyyy-mm-dd hh24:mi:ss'),
+            </if>
+            <if test="toAll != null">
+                TO_ALL= #{toAll},
+            </if>
+            <if test="crmDiary != null">
+                CRM_DIARY=#{crmDiary},
+            </if>
+            <if test="diaType != null">
+                DIA_TYPE=#{diaType},
+            </if>
+            <if test="content != null">
+                CONTENT=#{content},
+            </if>
+            <if test="attachmentId != null">
+                ATTACHMENT_ID=#{attachmentId},
+            </if>
+            <if test="attachmentName != null">
+                ATTACHMENT_NAME=#{attachmentName},
+            </if>
+            <if test="toId != null">
+                TO_ID= #{toId},
+            </if>
+            <if test="readers != null">
+                READERS=#{readers},
+            </if>
+            <if test="userTopId != null and userTopId != ''">
+                USER_TOP_ID=#{userTopId},
+            </if>
+            <if test="sFlag != null and sFlag != ''">
+                SFLAG=#{sFlag},
+            </if>
+            <if test="allowComment != null">
+                ALLOW_COMMENT=#{allowComment},
+            </if>
+        </set>
+        where DIA_ID = #{diaId}
+    </update>
+
+    <update id="updateDiary" parameterType="com.xoa.model.diary.DiaryModel" databaseId="dm">
+        update diary
+        <set>
+            <if test="userId != null">
+                USER_ID=#{userId},
+            </if>
+            <if test="diaDate != null">
+                DIA_DATE= to_date(#{diaDate},'yyyy-mm-dd'),
+            </if>
+            <if test="diaTime != null and diaTime != ''">
+                DIA_TIME=to_date(#{diaTime},'yyyy-mm-dd hh24:mi:ss'),
+            </if>
+            <if test="subject != null">
+                SUBJECT=#{subject},
+            </if>
+            <if test="lastCommentTime != null and lastCommentTime != ''">
+                LAST_COMMENT_TIME=to_date(#{lastCommentTime},'yyyy-mm-dd hh24:mi:ss'),
+            </if>
+            <if test="toAll != null">
+                TO_ALL= #{toAll},
+            </if>
+            <if test="crmDiary != null">
+                CRM_DIARY=#{crmDiary},
+            </if>
+            <if test="diaType != null">
+                DIA_TYPE=#{diaType},
+            </if>
+            <if test="content != null">
+                CONTENT=#{content},
+            </if>
+            <if test="attachmentId != null">
+                ATTACHMENT_ID=#{attachmentId},
+            </if>
+            <if test="attachmentName != null">
+                ATTACHMENT_NAME=#{attachmentName},
+            </if>
+            <if test="toId != null">
+                TO_ID= #{toId},
+            </if>
+            <if test="readers != null">
+                READERS=#{readers},
+            </if>
+            <if test="userTopId != null and userTopId != ''">
+                USER_TOP_ID=#{userTopId},
+            </if>
+            <if test="sFlag != null and sFlag != ''">
+                SFLAG=#{sFlag},
+            </if>
+            <if test="allowComment != null">
+                ALLOW_COMMENT=#{allowComment},
+            </if>
+        </set>
+        where DIA_ID = #{diaId}
+    </update>
+
+    <update id="updateReadersByDiaId" parameterType="com.xoa.model.diary.DiaryModel">
+        update diary
+        <set>
+            <if test="readers != null">
+                READERS=#{readers}
+            </if>
+        </set>
+        where DIA_ID=#{diaId}
+    </update>
+
+
+    <select id="getDiarySelf" parameterType="map" resultMap="BaseResultMap">
+        select
+        d.DIA_ID,
+        d.USER_ID,
+        d.DIA_DATE,
+        if(d.DIA_TIME='0000-00-00 00:00:00','',d.DIA_TIME) as DIA_TIME,d.DIA_TYPE,d.SUBJECT,
+        if(d.LAST_COMMENT_TIME='0000-00-00 00:00:00','',d.LAST_COMMENT_TIME) as LAST_COMMENT_TIME,
+        d.TO_ALL,d.CRM_DIARY,d.CONTENT, d.ATTACHMENT_ID,d.ATTACHMENT_NAME, d.TO_ID,d.READERS
+        from diary d
+        LEFT JOIN diary_top top ON top.DIA_ID=d.DIA_ID
+        WHERE
+        d.USER_ID = #{userId}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        <if test="diaType!=null and diaType!=''">
+            and d.DIA_TYPE = #{diaType}
+        </if>
+        ORDER BY top.DIA_ID=d.DIA_ID DESC, d.DIA_ID DESC
+    </select>
+
+    <select id="getDiarySelf" parameterType="map" resultMap="BaseResultMap" databaseId="oracle">
+        select
+        <include refid="diaryList"/>
+        from "diary" d
+        INNER JOIN "USER" u ON d.USER_ID = u.USER_ID
+        LEFT JOIN "diary_top" dtop ON dtop.DIA_ID=d.DIA_ID
+        WHERE
+        d.USER_ID = #{userId}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        and dtop.DIA_ID=d.DIA_ID
+        ORDER BY
+        d.DIA_ID DESC
+    </select>
+
+    <select id="getDiarySelf" parameterType="map" resultMap="BaseResultMap" databaseId="dm">
+        select
+        <include refid="diaryList"/>
+        from "diary" d
+        INNER JOIN "USER" u ON d.USER_ID = u.USER_ID
+        LEFT JOIN "diary_top" dtop ON dtop.DIA_ID=d.DIA_ID
+        WHERE
+        d.USER_ID = #{userId}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        and dtop.DIA_ID=d.DIA_ID
+        ORDER BY
+        d.DIA_ID DESC
+    </select>
+
+    <select id="getDiarySelf" parameterType="map" resultMap="BaseResultMap" databaseId="kingbase">
+        select
+        d.DIA_ID,
+        d.USER_ID,
+        d.DIA_DATE,
+        if(d.DIA_TIME=to_date('0000-00-00 00:00:00','yyyy-mm-dd hh24:mi:ss'),'',d.DIA_TIME) as
+        DIA_TIME,d.DIA_TYPE,d.SUBJECT,
+        if(d.LAST_COMMENT_TIME=to_date('0000-00-00 00:00:00','yyyy-mm-dd hh24:mi:ss'),'',d.LAST_COMMENT_TIME) as
+        LAST_COMMENT_TIME,
+        d.TO_ALL,d.CRM_DIARY,d.CONTENT, d.ATTACHMENT_ID,d.ATTACHMENT_NAME, d.TO_ID,d.READERS
+        from diary d
+        LEFT JOIN diary_top "top" ON "top".DIA_ID=d.DIA_ID
+        WHERE
+        d.USER_ID = #{userId}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        <if test="diaType!=null and diaType!=''">
+            and d.DIA_TYPE = #{diaType}
+        </if>
+        ORDER BY "top".DIA_ID=d.DIA_ID DESC, d.DIA_ID DESC
+    </select>
+
+
+    <select id="getDiaryByDiaId" parameterType="map" resultMap="BaseResultMap2">
+        select <include refid="diaryList2"/>
+        <if test="isShowSecret">
+            ,sca.CONTENT_SECRECY
+        </if>
+        from diary d
+        left join user u on d.USER_ID = u.USER_ID
+        <if test="isShowSecret">
+            left join security_content_approval sca ON sca.MODULE_TABLE = 'diary' AND d.DIA_ID = sca.RECORD_ID AND sca.OPERATION_TYPE = 0
+        </if>
+        where d.DIA_ID = #{diaId}
+    </select>
+
+    <select id="getDiaryByDiaId" parameterType="map" resultMap="BaseResultMap2" databaseId="oracle">
+        select <include refid="diaryList2"/>
+        <if test="isShowSecret">
+            ,sca.CONTENT_SECRECY
+        </if>
+        from diary d
+        left join "user" u on d.USER_ID = u.USER_ID
+        <if test="isShowSecret">
+            left join security_content_approval sca ON sca.MODULE_TABLE = 'diary' AND d.DIA_ID = sca.RECORD_ID AND sca.OPERATION_TYPE = 0
+        </if>
+        where d.DIA_ID = #{diaId}
+    </select>
+
+    <select id="getDiaryByDiaId" parameterType="map" resultMap="BaseResultMap2" databaseId="dm">
+        select <include refid="diaryList2"/>
+        <if test="isShowSecret">
+            ,sca.CONTENT_SECRECY
+        </if>
+        from diary d
+        left join "user" u on d.USER_ID = u.USER_ID
+        <if test="isShowSecret">
+            left join security_content_approval sca ON sca.MODULE_TABLE = 'diary' AND d.DIA_ID = sca.RECORD_ID AND sca.OPERATION_TYPE = 0
+        </if>
+        where d.DIA_ID = #{diaId}
+    </select>
+
+    <select id="getDiaryByDiaId" parameterType="map" resultMap="BaseResultMap2" databaseId="kingbase">
+        select <include refid="diaryList2_KB"/>
+        <if test="isShowSecret">
+            ,sca.CONTENT_SECRECY
+        </if>
+        from diary d
+        left join "user" u on d.USER_ID = u.USER_ID
+        <if test="isShowSecret">
+            left join security_content_approval sca ON sca.MODULE_TABLE = 'diary' AND d.DIA_ID = sca.RECORD_ID AND sca.OPERATION_TYPE = 0
+        </if>
+        where d.DIA_ID = #{diaId}
+    </select>
+
+    <select id="getDiaryList" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="diaryList"/>
+        FROM
+        diary d
+        LEFT JOIN `user` u ON u.USER_ID = d.USER_ID
+        LEFT JOIN diary_top top ON top.DIA_ID = d.DIA_ID
+        where
+        (
+        DIA_TYPE != '2'
+        AND ((TO_ID LIKE concat('%,',#{userId},',%') OR TO_ID LIKE concat(#{userId},',%')) or TO_ALL=1)
+        )
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        ORDER BY
+        top.DIA_ID = d.DIA_ID DESC,
+        d.DIA_ID DESC
+    </select>
+
+    <select id="getDiaryList" resultMap="BaseResultMap" parameterType="map" databaseId="oracle">
+        select
+        <include refid="diaryList"/>
+        from
+        diary d
+        INNER JOIN "USER" u ON u.USER_ID = d.USER_ID
+        LEFT JOIN diary_top top ON top.DIA_ID=d.DIA_ID
+        where
+        (
+        DIA_TYPE != '2'
+        AND ((TO_ID LIKE concat('%,',#{userId},',%') OR TO_ID LIKE concat(#{userId},',%')) or TO_ALL=1)
+        )
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        ORDER BY
+        top.DIA_ID,d.DIA_ID DESC
+    </select>
+
+    <select id="getDiaryList" resultMap="BaseResultMap" parameterType="map" databaseId="dm">
+        select
+        <include refid="diaryList"/>
+        from
+        diary d
+        INNER JOIN "USER" u ON u.USER_ID = d.USER_ID
+        LEFT JOIN diary_top top ON top.DIA_ID=d.DIA_ID
+        where
+        (
+        DIA_TYPE != '2'
+        AND ((TO_ID LIKE concat('%,',#{userId},',%') OR TO_ID LIKE concat(#{userId},',%')) or TO_ALL=1)
+        )
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        ORDER BY
+        top.DIA_ID,d.DIA_ID DESC
+    </select>
+
+    <select id="getDiaryList" resultMap="BaseResultMap" parameterType="map" databaseId="kingbase">
+        select
+        <include refid="diaryList_KB"/>
+        FROM
+        diary d
+        LEFT JOIN "user" u ON u.USER_ID = d.USER_ID
+        LEFT JOIN diary_top "top" ON "top".DIA_ID = d.DIA_ID
+        where
+        (
+        DIA_TYPE != '2'
+        AND ((TO_ID LIKE concat('%,',#{userId},',%') OR TO_ID LIKE concat(#{userId},',%')) or TO_ALL=1)
+        )
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        ORDER BY
+        "top".DIA_ID = d.DIA_ID DESC,
+        d.DIA_ID DESC
+    </select>
+
+    <select id="getAdminDiaryList" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="diaryList"/>
+        FROM
+        diary d
+        LEFT JOIN `user` u ON u.USER_ID = d.USER_ID
+        LEFT JOIN diary_top top ON top.DIA_ID = d.DIA_ID
+        where
+        (
+        DIA_TYPE != '2'
+        OR ((TO_ID LIKE concat('%,',#{userId},',%') OR TO_ID LIKE concat(#{userId},',%')) or TO_ALL=1)
+        )
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        ORDER BY
+        top.DIA_ID = d.DIA_ID DESC,
+        d.DIA_ID DESC
+    </select>
+
+    <select id="getAdminDiaryList" resultMap="BaseResultMap" parameterType="map" databaseId="oracle">
+        select
+        <include refid="diaryList"/>
+        from
+        diary d
+        INNER JOIN "USER" u ON u.USER_ID = d.USER_ID
+        LEFT JOIN diary_top top ON top.DIA_ID=d.DIA_ID
+        where
+        (
+        DIA_TYPE != '2'
+        OR ((TO_ID LIKE concat('%,',#{userId},',%') OR TO_ID LIKE concat(#{userId},',%')) or TO_ALL=1)
+        )
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        ORDER BY
+        top.DIA_ID,d.DIA_ID DESC
+    </select>
+
+    <select id="getAdminDiaryList" resultMap="BaseResultMap" parameterType="map" databaseId="dm">
+        select
+        <include refid="diaryList"/>
+        from
+        diary d
+        INNER JOIN "USER" u ON u.USER_ID = d.USER_ID
+        LEFT JOIN diary_top top ON top.DIA_ID=d.DIA_ID
+        where
+        (
+        DIA_TYPE != '2'
+        OR ((TO_ID LIKE concat('%,',#{userId},',%') OR TO_ID LIKE concat(#{userId},',%')) or TO_ALL=1)
+        )
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        ORDER BY
+        top.DIA_ID,d.DIA_ID DESC
+    </select>
+
+    <select id="getAdminDiaryList" resultMap="BaseResultMap" parameterType="map" databaseId="kingbase">
+        select
+        <include refid="diaryList_KB"/>
+        FROM
+        diary d
+        LEFT JOIN "user" u ON u.USER_ID = d.USER_ID
+        LEFT JOIN diary_top "top" ON "top".DIA_ID = d.DIA_ID
+        where
+        (
+        DIA_TYPE != '2'
+        OR ((TO_ID LIKE concat('%,',#{userId},',%') OR TO_ID LIKE concat(#{userId},',%')) or TO_ALL=1)
+        )
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        ORDER BY
+        "top".DIA_ID = d.DIA_ID DESC,
+        d.DIA_ID DESC
+    </select>
+
+    <select id="getCountSelf" parameterType="map" resultType="integer">
+        select count(*) from diary d where d.USER_ID=#{userId}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+    </select>
+    <select id="getCountOther" parameterType="map" resultMap="BaseResultMap" databaseId="mysql">
+        select d.DIA_ID,d.TO_ALL,d.TO_ID from diary d where d.USER_ID <![CDATA[<>]]>#{userIdOther}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        and ( d.DIA_TYPE!=#{diaTypeOther} AND ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE
+        concat(#{userIdOther},',%')) or TO_ALL=1))
+    </select>
+
+    <select id="getCountDiaryOther" parameterType="map" resultType="java.lang.Integer" databaseId="mysql">
+        select count(*) from diary d where d.USER_ID <![CDATA[<>]]>#{userIdOther}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        and ( d.DIA_TYPE!=#{diaTypeOther} AND ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE
+        concat(#{userIdOther},',%')) or TO_ALL=1))
+    </select>
+    <select id="getCountOther" parameterType="map" resultMap="BaseResultMap" databaseId="oracle">
+        select d.DIA_ID,d.TO_ALL,d.TO_ID from diary d where d.USER_ID <![CDATA[<>]]>#{userIdOther}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        and ( d.DIA_TYPE!=#{diaTypeOther} AND ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE
+        concat(#{userIdOther},',%')) or TO_ALL=1))
+    </select>
+
+    <select id="getCountOther" parameterType="map" resultMap="BaseResultMap" databaseId="kingbase">
+        select d.DIA_ID,d.TO_ALL,d.TO_ID from diary d where d.USER_ID <![CDATA[<>]]>#{userIdOther}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        and ( d.DIA_TYPE!=#{diaTypeOther} AND ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE
+        concat(#{userIdOther},',%')) or TO_ALL=1))
+    </select>
+
+    <select id="getAdminCountOther" parameterType="map" resultMap="BaseResultMap">
+        select d.DIA_ID,d.TO_ALL,d.TO_ID from diary d where d.USER_ID <![CDATA[<>]]>#{userIdOther}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        and ( d.DIA_TYPE!=#{diaTypeOther} OR ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE
+        concat(#{userIdOther},',%')) or TO_ALL=1))
+    </select>
+    <select id="getAdminCountOther" parameterType="map" resultMap="BaseResultMap" databaseId="dm">
+        select d.DIA_ID,d.TO_ALL,d.TO_ID from "diary" d where d.USER_ID <![CDATA[<>]]>#{userIdOther}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        and ( d.DIA_TYPE!=#{diaTypeOther} OR ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE
+        concat(#{userIdOther},',%')) or TO_ALL=1))
+    </select>
+    <select id="getAdminCountOther" parameterType="map" resultMap="BaseResultMap" databaseId="oracle">
+        select d.DIA_ID,d.TO_ALL,d.TO_ID from "diary" d where d.USER_ID <![CDATA[<>]]>#{userIdOther}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        and ( d.DIA_TYPE!=#{diaTypeOther} OR ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE
+        concat(#{userIdOther},',%')) or TO_ALL=1))
+    </select>
+
+    <select id="getAdminCountOther" parameterType="map" resultMap="BaseResultMap" databaseId="kingbase">
+        select d.DIA_ID,d.TO_ALL,d.TO_ID from diary d where d.USER_ID <![CDATA[<>]]>#{userIdOther}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        and ( d.DIA_TYPE!=#{diaTypeOther} OR ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE
+        concat(#{userIdOther},',%')) or TO_ALL=1))
+    </select>
+
+    <select id="getAdminCountDiartOther" parameterType="map" resultType="java.lang.Integer">
+        select count(*) from diary d where d.USER_ID <![CDATA[<>]]>#{userIdOther}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        and ( d.DIA_TYPE!=#{diaTypeOther} OR ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE
+        concat(#{userIdOther},',%')) or TO_ALL=1))
+    </select>
+    <select id="getAdminCountDiartOther" parameterType="map" resultType="java.lang.Integer" databaseId="oracle">
+        select count(*) from diary d where d.USER_ID <![CDATA[<>]]>#{userIdOther}
+        <if test="subject!=null and subject!=''">
+            AND d.SUBJECT LIKE concat('%',#{subject},'%')
+        </if>
+        <if test="content!=null and content!='' ">
+            AND d.CONTENT LIKE concat('%',#{content},'%')
+        </if>
+        and ( d.DIA_TYPE!=#{diaTypeOther} OR ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE
+        concat(#{userIdOther},',%')) or TO_ALL=1))
+    </select>
+    <select id="getAdminCountDiartOther" parameterType="map" resultType="java.lang.Integer" databaseId="dm">
+        select count(*) from "diary" d where d.USER_ID <![CDATA[<>]]>#{userIdOther}
+        <if test="subject!=null and subject!=''">
+            AND d.SUBJECT LIKE concat('%',#{subject},'%')
+        </if>
+        <if test="content!=null and content!='' ">
+            AND d.CONTENT LIKE concat('%',#{content},'%')
+        </if>
+        and ( d.DIA_TYPE!=#{diaTypeOther} OR ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE
+        concat(#{userIdOther},',%')) or TO_ALL=1))
+    </select>
+
+    <select id="getDeptUserId" parameterType="map" resultType="string">
+        select USER_ID FROM USER WHERE DEPT_ID IN
+        <foreach collection="deptIdList" item="dept" open="(" separator="," close=")">
+            #{dept}
+        </foreach>
+    </select>
+
+    <select id="getDeptUserId" parameterType="map" resultType="string" databaseId="oracle">
+        select USER_ID FROM "USER" WHERE DEPT_ID IN
+        <foreach collection="deptIdList" item="dept" open="(" separator="," close=")">
+            #{dept}
+        </foreach>
+    </select>
+
+    <select id="getDeptUserId" parameterType="map" resultType="string" databaseId="dm">
+        select USER_ID FROM "USER" WHERE DEPT_ID IN
+        <foreach collection="deptIdList" item="dept" open="(" separator="," close=")">
+            #{dept}
+        </foreach>
+    </select>
+
+    <select id="getDeptUserId" parameterType="map" resultType="string" databaseId="kingbase">
+        select USER_ID FROM "USER" WHERE DEPT_ID IN
+        <foreach collection="deptIdList" item="dept" open="(" separator="," close=")">
+            #{dept}
+        </foreach>
+    </select>
+
+    <select id="getUserIdByPriv" parameterType="list" resultType="string">
+        select USER_ID FROM USER WHERE USER_PRIV IN
+        <foreach collection="list" item="priv" open="(" separator="," close=")">
+            #{priv}
+        </foreach>
+    </select>
+
+    <select id="getUserIdByPriv" parameterType="list" resultType="string" databaseId="oracle">
+        select USER_ID FROM "USER" WHERE USER_PRIV IN
+        <foreach collection="list" item="priv" open="(" separator="," close=")">
+            #{priv}
+        </foreach>
+    </select>
+
+    <select id="getUserIdByPriv" parameterType="list" resultType="string" databaseId="dm">
+        select USER_ID FROM "USER" WHERE USER_PRIV IN
+        <foreach collection="list" item="priv" open="(" separator="," close=")">
+            #{priv}
+        </foreach>
+    </select>
+
+    <select id="getUserIdByPriv" parameterType="list" resultType="string" databaseId="kingbase">
+        select USER_ID FROM "USER" WHERE USER_PRIV IN
+        <foreach collection="list" item="priv" open="(" separator="," close=")">
+            #{priv}
+        </foreach>
+    </select>
+
+    <!--getDiaryOtherList start  -->
+    <select id="getDiaryOtherList" parameterType="map" resultMap="BaseResultMap" databaseId="mysql">
+        select
+        <include refid="diaryList"/>
+        FROM diary d
+        INNER JOIN `user` u ON u.USER_ID = d.USER_ID
+        LEFT JOIN diary_top top ON top.DIA_ID = d.DIA_ID
+        where d.USER_ID!=#{userIdOther}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        AND (
+        DIA_TYPE != '2'
+        AND ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE concat(#{userIdOther},',%')) or TO_ALL=1)
+        )
+        ORDER BY d.DIA_ID DESC
+        <if test="page!=null and pageSize!=null">
+            limit #{page},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getDiaryOtherList" parameterType="map" resultMap="BaseResultMap" databaseId="oracle">
+        select
+        <include refid="diaryList"/>
+        from
+        diary d
+        INNER JOIN "USER" u ON u.USER_ID = d.USER_ID
+        LEFT JOIN diary_top top ON top.DIA_ID=d.DIA_ID
+        where d.USER_ID!=#{userIdOther}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        AND (
+        DIA_TYPE != '2'
+        AND ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE concat(#{userIdOther},',%')) or TO_ALL=1)
+        )
+        ORDER BY
+        top.DIA_ID,d.DIA_ID DESC
+    </select>
+
+    <select id="getDiaryOtherList" parameterType="map" resultMap="BaseResultMap" databaseId="dm">
+        select
+        <include refid="diaryList"/>
+        from
+        diary d
+        INNER JOIN "USER" u ON u.USER_ID = d.USER_ID
+        LEFT JOIN diary_top top ON top.DIA_ID=d.DIA_ID
+        where d.USER_ID!=#{userIdOther}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        AND (
+        DIA_TYPE != '2'
+        AND ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE concat(#{userIdOther},',%')) or TO_ALL=1)
+        )
+        ORDER BY
+        top.DIA_ID,d.DIA_ID DESC
+    </select>
+
+    <select id="getDiaryOtherList" parameterType="map" resultMap="BaseResultMap" databaseId="kingbase">
+        select
+        <include refid="diaryList_KB"/>
+        FROM diary d
+        INNER JOIN "user" u ON u.USER_ID = d.USER_ID
+        LEFT JOIN diary_top "top" ON "top".DIA_ID = d.DIA_ID
+        where d.USER_ID!=#{userIdOther}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        AND (
+        DIA_TYPE != '2'
+        AND ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE concat(#{userIdOther},',%')) or TO_ALL=1)
+        )
+        ORDER BY d.DIA_ID DESC
+        <if test="page!=null and pageSize!=null">
+            limit #{page},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getDiaryOtherListCount" parameterType="map" resultType="int" databaseId="mysql">
+        select count(*) FROM
+        diary d
+        INNER JOIN `user` u ON u.USER_ID = d.USER_ID
+        LEFT JOIN diary_top top ON top.DIA_ID = d.DIA_ID
+        where d.USER_ID!=#{userIdOther}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        AND (
+        DIA_TYPE != '2'
+        AND ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE concat(#{userIdOther},',%')) or TO_ALL=1)
+        )
+    </select>
+
+    <select id="getDiaryOtherListCount" parameterType="map" resultType="int" databaseId="kingbase">
+        select count(*) FROM
+        diary d
+        INNER JOIN "user" u ON u.USER_ID = d.USER_ID
+        LEFT JOIN diary_top "top" ON "top".DIA_ID = d.DIA_ID
+        where d.USER_ID!=#{userIdOther}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        AND (
+        DIA_TYPE != '2'
+        AND ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE concat(#{userIdOther},',%')) or TO_ALL=1)
+        )
+    </select>
+
+
+    <select id="getAdminDiaryOtherList" parameterType="map" resultMap="BaseResultMap" databaseId="mysql">
+        select
+        <include refid="diaryList"/>
+        FROM
+        diary d
+        LEFT JOIN `user` u ON u.USER_ID = d.USER_ID
+        LEFT JOIN diary_top top ON top.DIA_ID = d.DIA_ID
+        where d.USER_ID!=#{userIdOther}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        AND (
+        DIA_TYPE != '2'
+        OR ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE concat(#{userIdOther},',%')) or TO_ALL=1)
+        )
+        ORDER BY d.DIA_ID DESC
+        <if test="page!=null and pageSize!=null">
+            limit #{page},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getAdminDiaryOtherList" parameterType="map" resultMap="BaseResultMap" databaseId="oracle">
+        select
+        <include refid="diaryList"/>
+        from
+        diary d
+        INNER JOIN "USER" u ON u.USER_ID = d.USER_ID
+        LEFT JOIN diary_top top ON top.DIA_ID=d.DIA_ID
+        where d.USER_ID!=#{userIdOther}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        AND (
+        DIA_TYPE != '2'
+        OR ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE concat(#{userIdOther},',%')) or TO_ALL=1)
+        )
+        ORDER BY
+        top.DIA_ID,d.DIA_ID DESC
+    </select>
+
+    <select id="getAdminDiaryOtherList" parameterType="map" resultMap="BaseResultMap" databaseId="dm">
+        select
+        <include refid="diaryList"/>
+        from
+        diary d
+        INNER JOIN "USER" u ON u.USER_ID = d.USER_ID
+        LEFT JOIN diary_top top ON top.DIA_ID=d.DIA_ID
+        where d.USER_ID!=#{userIdOther}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        AND (
+        DIA_TYPE != '2'
+        OR ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE concat(#{userIdOther},',%')) or TO_ALL=1)
+        )
+        ORDER BY
+        top.DIA_ID,d.DIA_ID DESC
+    </select>
+
+    <select id="getAdminDiaryOtherList" parameterType="map" resultMap="BaseResultMap" databaseId="kingbase">
+        select
+        <include refid="diaryList_KB"/>
+        FROM
+        diary d
+        LEFT JOIN "user" u ON u.USER_ID = d.USER_ID
+        LEFT JOIN diary_top "top" ON "top".DIA_ID = d.DIA_ID
+        where d.USER_ID!=#{userIdOther}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        AND (
+        DIA_TYPE != '2'
+        OR ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE concat(#{userIdOther},',%')) or TO_ALL=1)
+        )
+        ORDER BY d.DIA_ID DESC
+        <if test="page!=null and pageSize!=null">
+            limit #{page},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getAdminDiaryOtherListCount" parameterType="map" resultType="int" databaseId="mysql">
+        select count(*) FROM
+        diary d
+        LEFT JOIN `user` u ON u.USER_ID = d.USER_ID
+        LEFT JOIN diary_top top ON top.DIA_ID = d.DIA_ID
+        where d.USER_ID!=#{userIdOther}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        AND (
+        DIA_TYPE != '2'
+        OR ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE concat(#{userIdOther},',%')) or TO_ALL=1)
+        )
+    </select>
+
+    <select id="getAdminDiaryOtherListCount" parameterType="map" resultType="int" databaseId="kingbase">
+        select count(*) FROM
+        diary d
+        LEFT JOIN "user" u ON u.USER_ID = d.USER_ID
+        LEFT JOIN diary_top "top" ON "top".DIA_ID = d.DIA_ID
+        where d.USER_ID!=#{userIdOther}
+        <if test="searchValue!=null and searchValue !='' ">
+            AND ( d.SUBJECT LIKE concat('%',#{searchValue},'%') OR d.CONTENT LIKE concat('%',#{searchValue},'%') )
+        </if>
+        AND (
+        DIA_TYPE != '2'
+        OR ((TO_ID LIKE concat('%,',#{userIdOther},',%') OR TO_ID LIKE concat(#{userIdOther},',%')) or TO_ALL=1)
+        )
+    </select>
+
+    <!-- 高级搜索 -->
+    <select id="diarySelectOne" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="diaryList"/>
+        from diary d,user u where u.USER_ID=d.USER_ID
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeEnd!= null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        <if test="userIds != null and userIds.size!=0">
+            and
+            <foreach collection="userIds" item="userid" open="(" separator="  or  " close=")">
+                ( d.USER_ID = #{userid} )
+            </foreach>
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectOne" parameterType="map" resultMap="BaseResultMap" databaseId="oracle">
+        select
+        <include refid="diaryList"/>
+        from diary d,"USER" u
+        where
+        u.USER_ID=d.USER_ID
+        and (d.USER_ID=#{userId}
+        or (TO_ALL=1 and d.DIA_TYPE=#{diaType})
+        or ((TO_ID LIKE concat('%,',concat(#{userId},',%')) OR TO_ID LIKE concat(#{userId},',%')) and
+        d.DIA_TYPE=#{diaType}))
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeEnd!= null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        <if test="userIds != null and userIds.size!=0">
+            and
+            <foreach collection="userIds" item="userid" open="(" separator="  or  " close=")">
+                (TO_ID LIKE concat('%,',concat(#{userid},',%')) OR TO_ID LIKE concat(#{userid},',%') OR d.USER_ID =
+                #{userid})
+            </foreach>
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectOne" parameterType="map" resultMap="BaseResultMap" databaseId="dm">
+        select
+        <include refid="diaryList"/>
+        from diary d,"USER" u where u.USER_ID=d.USER_ID and (d.USER_ID=#{userId} or (TO_ALL=1 and d.DIA_TYPE=#{diaType})
+        or ((TO_ID LIKE concat('%,',concat(#{userId},',%')) OR TO_ID LIKE concat(#{userId},',%')) and
+        d.DIA_TYPE=#{diaType}))
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeEnd!= null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        <if test="userIds != null and userIds.size!=0">
+            and
+            <foreach collection="userIds" item="userid" open="(" separator="  or  " close=")">
+                (TO_ID LIKE concat('%,',concat(#{userid},',%')) OR TO_ID LIKE concat(#{userid},',%') OR d.USER_ID =
+                #{userid})
+            </foreach>
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectOne" parameterType="map" resultMap="BaseResultMap" databaseId="kingbase">
+        select
+        <include refid="diaryList_KB"/>
+        from diary d,"user" u where u.USER_ID=d.USER_ID
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeEnd!= null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        <if test="userIds != null and userIds.size!=0">
+            and
+            <foreach collection="userIds" item="userid" open="(" separator="  or  " close=")">
+                ( d.USER_ID = #{userid} )
+            </foreach>
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <select id="selectName" parameterType="List" resultType="java.lang.String">
+        select user_name from USER where user_id in
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="selectName" parameterType="List" resultType="java.lang.String" databaseId="oracle">
+        select user_name from "USER" where user_id in
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="selectName" parameterType="List" resultType="java.lang.String" databaseId="dm">
+        select user_name from "USER" where user_id in
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="selectName" parameterType="List" resultType="java.lang.String" databaseId="kingbase">
+        select user_name from "USER" where user_id in
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="diarySelectTwo" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="diaryList"/>
+        from diary d,user u where d.USER_ID=#{userId} and d.USER_ID=u.USER_ID
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectTwo" parameterType="map" resultMap="BaseResultMap" databaseId="oracle">
+        select
+        <include refid="diaryList"/>
+        from diary d,"USER" u where d.USER_ID=#{userId} and d.USER_ID=u.USER_ID
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectTwo" parameterType="map" resultMap="BaseResultMap" databaseId="dm">
+        select
+        <include refid="diaryList"/>
+        from diary d,"USER" u where d.USER_ID=#{userId} and d.USER_ID=u.USER_ID
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectTwo" parameterType="map" resultMap="BaseResultMap" databaseId="kingbase">
+        select
+        <include refid="diaryList_KB"/>
+        from diary d,"user" u where d.USER_ID=#{userId} and d.USER_ID=u.USER_ID
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectThree" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="diaryList"/>
+        from diary d,user u where d.USER_ID <![CDATA[<>]]>#{userId} and u.USER_ID=d.USER_ID and d.DIA_TYPE=#{diaType}
+        and ((TO_ID LIKE concat('%,',#{userId},',%') OR TO_ID LIKE concat(#{userId},',%')) or TO_ALL=1)
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        <if test="userIds != null and userIds.size!=0">
+            and
+            <foreach collection="userIds" item="userid" open="(" separator="  or  " close=")">
+                ( d.USER_ID = #{userid} )
+            </foreach>
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectThree" parameterType="map" resultMap="BaseResultMap" databaseId="oracle">
+        select
+        <include refid="diaryList"/>
+        from diary d,"USER" u where d.USER_ID <![CDATA[<>]]>#{userId} and u.USER_ID=d.USER_ID and d.DIA_TYPE=#{diaType}
+        and ((TO_ID LIKE concat('%,',CONCAT(#{userId},',%')) OR TO_ID LIKE concat(#{userId},',%')) or TO_ALL=1)
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        <if test="userIds != null and userIds.size!=0">
+            and
+            <foreach collection="userIds" item="userid" open="(" separator="  or  " close=")">
+                ( d.USER_ID = #{userid} )
+            </foreach>
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectThree" parameterType="map" resultMap="BaseResultMap" databaseId="dm">
+        select
+        <include refid="diaryList"/>
+        from diary d,"USER" u where d.USER_ID <![CDATA[<>]]>#{userId} and u.USER_ID=d.USER_ID and d.DIA_TYPE=#{diaType}
+        and ((TO_ID LIKE concat('%,',CONCAT(#{userId},',%')) OR TO_ID LIKE concat(#{userId},',%')) or TO_ALL=1)
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        <if test="userIds != null and userIds.size!=0">
+            and
+            <foreach collection="userIds" item="userid" open="(" separator="  or  " close=")">
+                ( d.USER_ID = #{userid} )
+            </foreach>
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectThree" parameterType="map" resultMap="BaseResultMap" databaseId="kingbase">
+        select
+        <include refid="diaryList_KB"/>
+        from diary d,"user" u where d.USER_ID <![CDATA[<>]]>#{userId} and u.USER_ID=d.USER_ID and d.DIA_TYPE=#{diaType}
+        and ((TO_ID LIKE concat('%,',#{userId},',%') OR TO_ID LIKE concat(#{userId},',%')) or TO_ALL=1)
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        <if test="userIds != null and userIds.size!=0">
+            and
+            <foreach collection="userIds" item="userid" open="(" separator="  or  " close=")">
+                ( d.USER_ID = #{userid} )
+            </foreach>
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectFour" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="diaryList"/>
+        from diary d,user u where u.USER_ID=d.USER_ID
+        <if test="adminType!=1">
+            and (
+            d.USER_ID=#{userId}
+            or (TO_ALL=1 and d.DIA_TYPE=#{diaType})
+            or ((TO_ID LIKE concat('%,',#{userId},',%') OR TO_ID LIKE concat(#{userId},',%'))
+            and d.DIA_TYPE=#{diaType})
+            )
+        </if>
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        <if test="userIds != null and userIds.size!=0">
+            and
+            <foreach collection="userIds" item="userid" open="(" separator="  or  " close=")">
+                ( d.USER_ID = #{userid})
+            </foreach>
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectFour" parameterType="map" resultMap="BaseResultMap" databaseId="oracle">
+        select
+        <include refid="diaryList"/>
+        from diary d,"USER" u where u.USER_ID=d.USER_ID and (d.USER_ID=#{userId} or (TO_ALL=1 and d.DIA_TYPE=#{diaType})
+        or ((TO_ID LIKE concat('%,',concat(#{userId},',%')) OR TO_ID LIKE concat(#{userId},',%')) and
+        d.DIA_TYPE=#{diaType}))
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        <if test="userIds != null and userIds.size!=0">
+            and
+            <foreach collection="userIds" item="userid" open="(" separator="  or  " close=")">
+                ( d.USER_ID = #{userid} )
+            </foreach>
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectFour" parameterType="map" resultMap="BaseResultMap" databaseId="dm">
+        select
+        <include refid="diaryList"/>
+        from diary d,"USER" u where u.USER_ID=d.USER_ID and (d.USER_ID=#{userId} or (TO_ALL=1 and d.DIA_TYPE=#{diaType})
+        or ((TO_ID LIKE concat('%,',concat(#{userId},',%')) OR TO_ID LIKE concat(#{userId},',%')) and
+        d.DIA_TYPE=#{diaType}))
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        <if test="userIds != null and userIds.size!=0">
+            and
+            <foreach collection="userIds" item="userid" open="(" separator="  or  " close=")">
+                ( d.USER_ID = #{userid} )
+            </foreach>
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectFour" parameterType="map" resultMap="BaseResultMap" databaseId="kingbase">
+        select
+        <include refid="diaryList_KB"/>
+        from diary d,"user" u where u.USER_ID=d.USER_ID
+        <if test="adminType!=1">
+            and (
+            d.USER_ID=#{userId}
+            or (TO_ALL=1 and d.DIA_TYPE=#{diaType})
+            or ((TO_ID LIKE concat('%,',#{userId},',%') OR TO_ID LIKE concat(#{userId},',%'))
+            and d.DIA_TYPE=#{diaType})
+            )
+        </if>
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        <if test="userIds != null and userIds.size!=0">
+            and
+            <foreach collection="userIds" item="userid" open="(" separator="  or  " close=")">
+                ( d.USER_ID = #{userid})
+            </foreach>
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectFive" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="diaryList"/>
+        from diary d,user u where u.USER_ID=d.USER_ID
+        <if test="adminType!=1">
+            and (
+            d.USER_ID=#{userId} or (TO_ALL=1 and d.DIA_TYPE=#{diaType}) or ((TO_ID LIKE concat('%,',#{userId},',%') OR
+            TO_ID LIKE concat(#{userId},',%')) and d.DIA_TYPE=#{diaType})
+            )
+        </if>
+        <if test="time != null">
+            and DIA_DATE like concat(#{time},'%')
+        </if>
+        <if test="userIds != null and userIds.size!=0">
+            and
+            <foreach collection="userIds" item="userid" open="(" separator="  or  " close=")">
+                ( d.USER_ID = #{userid} )
+            </foreach>
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectFive" parameterType="map" resultMap="BaseResultMap" databaseId="oracle">
+        select
+        <include refid="diaryList"/>
+        from diary d,"USER" u where u.USER_ID=d.USER_ID and (d.USER_ID=#{userId} or (TO_ALL=1 and d.DIA_TYPE=#{diaType})
+        or ((TO_ID LIKE concat('%,',concat(#{userId},',%')) OR TO_ID LIKE concat(#{userId},',%')) and
+        d.DIA_TYPE=#{diaType}))
+        <if test="time != null">
+            and DIA_DATE=#{time}
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectFive" parameterType="map" resultMap="BaseResultMap" databaseId="dm">
+        select
+        <include refid="diaryList"/>
+        from diary d,"USER" u where u.USER_ID=d.USER_ID and (d.USER_ID=#{userId} or (TO_ALL=1 and d.DIA_TYPE=#{diaType})
+        or ((TO_ID LIKE concat('%,',concat(#{userId},',%')) OR TO_ID LIKE concat(#{userId},',%')) and
+        d.DIA_TYPE=#{diaType}))
+        <if test="time != null">
+            and DIA_DATE=#{time}
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectFive" parameterType="map" resultMap="BaseResultMap" databaseId="kingbase">
+        select
+        <include refid="diaryList_KB"/>
+        from diary d,"user" u where u.USER_ID=d.USER_ID
+        <if test="adminType!=1">
+            and (
+            d.USER_ID=#{userId} or (TO_ALL=1 and d.DIA_TYPE=#{diaType}) or ((TO_ID LIKE concat('%,',#{userId},',%') OR
+            TO_ID LIKE concat(#{userId},',%')) and d.DIA_TYPE=#{diaType})
+            )
+        </if>
+        <if test="time != null">
+            and DIA_DATE like concat(#{time},'%')
+        </if>
+        <if test="userIds != null and userIds.size!=0">
+            and
+            <foreach collection="userIds" item="userid" open="(" separator="  or  " close=")">
+                ( d.USER_ID = #{userid} )
+            </foreach>
+        </if>
+        order by d.DIA_ID desc
+    </select>
+    <!-- 高级搜索 -->
+
+    <delete id="deletDiaById" parameterType="com.xoa.model.diary.DiaryModel">
+        delete
+        from diary
+        where DIA_ID = #{diaId}
+    </delete>
+
+    <select id="getReadUsers" resultMap="BaseResultMap" parameterType="Integer">
+        SELECT readers
+        from diary
+        WHERE DIA_ID = #{diaId}
+    </select>
+
+
+    <select id="getDiaryListByIds" parameterType="string" resultMap="BaseResultMap">
+        select
+        d.DIA_ID,
+        d.USER_ID,
+        d.DIA_DATE,
+        if(d.DIA_TIME='0000-00-00 00:00:00','',d.DIA_TIME) as DIA_TIME,d.DIA_TYPE,d.SUBJECT,
+        if(d.LAST_COMMENT_TIME='0000-00-00 00:00:00','',d.LAST_COMMENT_TIME) as LAST_COMMENT_TIME,
+        d.TO_ALL,d.CRM_DIARY,d.CONTENT, d.ATTACHMENT_ID,d.ATTACHMENT_NAME, d.TO_ID,d.READERS
+        FROM
+        diary d
+        LEFT JOIN diary_top top ON top.DIA_ID = d.DIA_ID
+        AND (top.user_id like concat('%,', #{userId},',%') or
+        top.user_id like concat(#{userId},',%') )
+        where d.USER_ID in
+        <foreach collection="list" index="index" item="ids" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+        ORDER BY top.TOP_ID DESC, d.DIA_TIME DESC
+        <if test="page!=null and pageSize!=null">
+            limit #{page},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getDiaryListByIds" parameterType="string" resultMap="BaseResultMap" databaseId="kingbase">
+        select
+        d.DIA_ID,
+        d.USER_ID,
+        d.DIA_DATE,
+        if(d.DIA_TIME=to_date('0000-00-00 00:00:00','yyyy-mm-dd hh24:mi:ss'),'',d.DIA_TIME) as
+        DIA_TIME,d.DIA_TYPE,d.SUBJECT,
+        if(d.LAST_COMMENT_TIME=to_date('0000-00-00 00:00:00','yyyy-mm-dd hh24:mi:ss'),'',d.LAST_COMMENT_TIME) as
+        LAST_COMMENT_TIME,
+        d.TO_ALL,d.CRM_DIARY,d.CONTENT, d.ATTACHMENT_ID,d.ATTACHMENT_NAME, d.TO_ID,d.READERS
+        FROM
+        diary d
+        LEFT JOIN diary_top "top" ON "top".DIA_ID = d.DIA_ID
+        AND ("top".user_id like concat('%,', #{userId},',%') or
+        "top".user_id like concat(#{userId},',%') )
+        where d.USER_ID in
+        <foreach collection="list" index="index" item="ids" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+        ORDER BY "top".TOP_ID DESC, d.DIA_TIME DESC
+        <if test="page!=null and pageSize!=null">
+            limit #{page},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getDiaryListByIdsCount" parameterType="map" resultType="int">
+        select
+        count(*)
+        FROM
+        diary d
+        LEFT JOIN diary_top top ON top.DIA_ID = d.DIA_ID
+        AND (top.user_id like concat('%,', #{userId},',%') or
+        top.user_id like concat(#{userId},',%') )
+        where d.USER_ID in
+        <foreach collection="list" index="index" item="ids" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </select>
+
+    <select id="getDiaryListByIdsCount" parameterType="map" resultType="int" databaseId="kingbase">
+        select
+        count(*)
+        FROM
+        diary d
+        LEFT JOIN diary_top "top" ON "top".DIA_ID = d.DIA_ID
+        AND ("top".user_id like concat('%,', #{userId},',%') or
+        "top".user_id like concat(#{userId},',%') )
+        where d.USER_ID in
+        <foreach collection="list" index="index" item="ids" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </select>
+
+
+    <select id="getDiaryListByIdsCount2" parameterType="map" resultType="int">
+        select count(*) from diary d,user u where u.USER_ID=d.USER_ID
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeEnd!= null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        <if test="userIds != null and userIds.size!=0">
+            and
+            <foreach collection="userIds" item="userid" open="(" separator="  or  " close=")">
+                ( d.USER_ID = #{userid} )
+            </foreach>
+        </if>
+    </select>
+
+    <select id="getDiaryListByIdsCount2" parameterType="map" resultType="int" databaseId="kingbase">
+        select count(*) from diary d,"user" u where u.USER_ID=d.USER_ID
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeEnd!= null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        <if test="userIds != null and userIds.size!=0">
+            and
+            <foreach collection="userIds" item="userid" open="(" separator="  or  " close=")">
+                ( d.USER_ID = #{userid} )
+            </foreach>
+        </if>
+    </select>
+
+
+    <select id="getDiaryById" parameterType="string" resultMap="BaseResultMap">
+        select d.DIA_ID,
+               d.USER_ID,
+               d.DIA_DATE,
+               IF(
+                           d.DIA_TIME = '0000-00-00 00:00:00',
+                           '',
+                           d.DIA_TIME
+                   ) AS DIA_TIME,
+               d.DIA_TYPE,
+               d.SUBJECT,
+               IF(
+                           d.LAST_COMMENT_TIME = '0000-00-00 00:00:00',
+                           '',
+                           d.LAST_COMMENT_TIME
+                   ) AS LAST_COMMENT_TIME,
+               d.TO_ALL,
+               d.CRM_DIARY,
+               d.CONTENT,
+               d.ATTACHMENT_ID,
+               d.ATTACHMENT_NAME,
+               d.TO_ID,
+               d.READERS
+        FROM diary d
+        where DIA_ID = #{id}
+    </select>
+
+    <select id="getDiaryById" parameterType="string" resultMap="BaseResultMap" databaseId="kingbase">
+        select d.DIA_ID,
+               d.USER_ID,
+               d.DIA_DATE,
+               IF(
+                           d.DIA_TIME = to_date('0000-00-00 00:00:00', 'yyyy-mm-dd hh24:mi:ss'),
+                           '',
+                           d.DIA_TIME
+                   ) AS DIA_TIME,
+               d.DIA_TYPE,
+               d.SUBJECT,
+               IF(
+                           d.LAST_COMMENT_TIME = to_date('0000-00-00 00:00:00', 'yyyy-mm-dd hh24:mi:ss'),
+                           '',
+                           d.LAST_COMMENT_TIME
+                   ) AS LAST_COMMENT_TIME,
+               d.TO_ALL,
+               d.CRM_DIARY,
+               d.CONTENT,
+               d.ATTACHMENT_ID,
+               d.ATTACHMENT_NAME,
+               d.TO_ID,
+               d.READERS
+        FROM diary d
+        where DIA_ID = #{id}
+    </select>
+
+    <select id="getCountDiarySubord" parameterType="string" resultType="java.lang.Integer">
+        select count(*) from
+        diary d
+        LEFT JOIN diary_top top ON top.DIA_ID = d.DIA_ID
+        where d.USER_ID in
+        <foreach collection="array" index="index" item="ids" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </select>
+
+    <select id="getCountDiarySubord" parameterType="string" resultType="java.lang.Integer" databaseId="kingbase">
+        select count(*) from
+        diary d
+        LEFT JOIN diary_top "top" ON "top".DIA_ID = d.DIA_ID
+        where d.USER_ID in
+        <foreach collection="array" index="index" item="ids" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </select>
+
+    <select id="diarySelectTwoCounts" parameterType="map" resultType="int">
+        select count(*) from diary d,user u where d.USER_ID=#{userId} and d.USER_ID=u.USER_ID
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectTwoCounts" parameterType="map" resultType="int" databaseId="kingbase">
+        select count(*) from diary d,"user" u where d.USER_ID=#{userId} and d.USER_ID=u.USER_ID
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <!-- <insert id="insert" parameterType="com.xoa.model.diary.DiaryModelWithBLOBs" >
+      insert into diary (DIA_ID, USER_ID, DIA_DATE,
+        DIA_TIME, DIA_TYPE, SUBJECT,
+        LAST_COMMENT_TIME, TO_ALL, CRM_DIARY,
+        CONTENT, ATTACHMENT_ID, ATTACHMENT_NAME,
+        TO_ID, COMPRESS_CONTENT, READERS
+        )
+      values (#{diaId}, #{userId}, #{diaDate},
+        #{diaTime}, #{diaType}, #{subject},
+        #{lastCommentTime}, #{toAll}, #{crmDiary},
+        #{content}, #{attachmentId}, #{attachmentName},
+        #{toId}, #{compressContent}, #{readers}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.xoa.model.diary.DiaryModel" >
+      insert into diary
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="diaId != null" >
+          DIA_ID,
+        </if>
+        <if test="userId != null" >
+          USER_ID,
+        </if>
+        <if test="diaDate != null" >
+          DIA_DATE,
+        </if>
+        <if test="diaTime != null" >
+          DIA_TIME,
+        </if>
+        <if test="diaType != null" >
+          DIA_TYPE,
+        </if>
+        <if test="subject != null" >
+          SUBJECT,
+        </if>
+        <if test="lastCommentTime != null" >
+          LAST_COMMENT_TIME,
+        </if>
+        <if test="toAll != null" >
+          TO_ALL,
+        </if>
+        <if test="crmDiary != null" >
+          CRM_DIARY,
+        </if>
+        <if test="content != null" >
+          CONTENT,
+        </if>
+        <if test="attachmentId != null" >
+          ATTACHMENT_ID,
+        </if>
+        <if test="attachmentName != null" >
+          ATTACHMENT_NAME,
+        </if>
+        <if test="toId != null" >
+          TO_ID,
+        </if>
+        <if test="compressContent != null" >
+          COMPRESS_CONTENT,
+        </if>
+        <if test="readers != null" >
+          READERS,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="diaId != null" >
+          #{diaId},
+        </if>
+        <if test="userId != null" >
+          #{userId},
+        </if>
+        <if test="diaDate != null" >
+          #{diaDate},
+        </if>
+        <if test="diaTime != null" >
+          #{diaTime},
+        </if>
+        <if test="diaType != null" >
+          #{diaType},
+        </if>
+        <if test="subject != null" >
+          #{subject},
+        </if>
+        <if test="lastCommentTime != null" >
+          #{lastCommentTime},
+        </if>
+        <if test="toAll != null" >
+          #{toAll},
+        </if>
+        <if test="crmDiary != null" >
+          #{crmDiary},
+        </if>
+        <if test="content != null" >
+          #{content},
+        </if>
+        <if test="attachmentId != null" >
+          #{attachmentId},
+        </if>
+        <if test="attachmentName != null" >
+          #{attachmentName},
+        </if>
+        <if test="toId != null" >
+          #{toId},
+        </if>
+        <if test="compressContent != null" >
+          #{compressContent},
+        </if>
+        <if test="readers != null" >
+          #{readers},
+        </if>
+      </trim>
+    </insert> -->
+
+    <select id="diarySelectOneUser" parameterType="map" resultType="string">
+        select d.user_id as userId from diary d,user u where u.USER_ID=d.USER_ID
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeEnd!= null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        <if test="userIds != null and userIds.size!=0">
+            and
+            <foreach collection="userIds" item="userid" open="(" separator="  or  " close=")">
+                ( d.USER_ID = #{userid} )
+            </foreach>
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <select id="diarySelectOneUser" parameterType="map" resultType="string" databaseId="kingbase">
+        select d.user_id as userId from diary d,"user" u where u.USER_ID=d.USER_ID
+        <if test="timeBegin != null">
+            and DIA_TIME<![CDATA[>=]]>#{timeBegin}
+        </if>
+        <if test="timeEnd!= null">
+            and DIA_TIME<![CDATA[<=]]>#{timeEnd}
+        </if>
+        <if test="userIds != null and userIds.size!=0">
+            and
+            <foreach collection="userIds" item="userid" open="(" separator="  or  " close=")">
+                ( d.USER_ID = #{userid} )
+            </foreach>
+        </if>
+        order by d.DIA_ID desc
+    </select>
+
+    <select id="findDiarySelf" parameterType="map" resultMap="BaseResultMap">
+        select
+        d.DIA_ID,
+        d.USER_ID,
+        d.DIA_DATE,
+        d.DIA_TIME,
+        d.DIA_TYPE,
+        d.SUBJECT,
+        d.LAST_COMMENT_TIME,
+        d.TO_ALL,
+        d.CRM_DIARY,
+        d.CONTENT,
+        d.ATTACHMENT_ID,
+        d.ATTACHMENT_NAME,
+        d.TO_ID,
+        d.READERS,
+        d.ALLOW_COMMENT,
+        u.USER_NAME userName,
+        u.PHOTO photo,
+        u.AVATAR avatar,
+        u.SEX sex,
+        u.UID uid,
+        u.USER_PRIV_NAME userPrivName,
+        dt.DEPT_NAME,
+        top.TOP_ID
+        <if test="isShowSecret">
+            ,sca.CONTENT_SECRECY
+        </if>
+        from diary d
+        LEFT JOIN diary_top top ON top.DIA_ID=d.DIA_ID
+        LEFT JOIN user u ON u.USER_ID = d.USER_ID
+        LEFT JOIN department dt ON u.DEPT_ID = dt.DEPT_ID
+        <if test="isShowSecret">
+            LEFT JOIN security_content_approval sca ON sca.MODULE_TABLE = 'diary' AND d.DIA_ID = sca.RECORD_ID AND sca.OPERATION_TYPE = 0
+        </if>
+        <where>
+            u.USER_ID is not null
+            <if test="type != null">
+                <if test="moduleUserIds != null or moduleDeptIds != null or moduleRolePrivNo != null or moduleRolePrivIds != null">
+                    and d.USER_ID in (
+                    select USER_ID
+                    from user
+                    <where>
+                        USER_ID is not null
+                        and USER_ID in (
+                        select USER_ID
+                        from user
+                        <where>
+                            <if test="moduleUserIds != null">
+                                and USER_ID in
+                                <foreach collection="moduleUserIds" item="moduleUserId" open="(" close=")"
+                                         separator=",">
+                                    #{moduleUserId}
+                                </foreach>
+                            </if>
+                            <if test="moduleDeptIds != null">
+                                and DEPT_ID in
+                                <foreach collection="moduleDeptIds" item="moduleDeptId" open="(" close=")"
+                                         separator=",">
+                                    #{moduleDeptId}
+                                </foreach>
+                            </if>
+                            <if test="moduleRolePrivNo != null">
+                                and USER_PRIV_NO &gt; #{moduleRolePrivNo}
+                            </if>
+                            <if test="moduleRolePrivIds != null">
+                                and USER_PRIV in
+                                <foreach collection="moduleRolePrivIds" item="roleIds" open="(" close=")" separator=",">
+                                    #{roleIds}
+                                </foreach>
+                            </if>
+                        </where>
+                        )
+                        <if test="userIds != null">
+                            or USER_ID in
+                            <foreach collection="userIds" item="ids" separator="," open="(" close=")">
+                                #{ids}
+                            </foreach>
+                        </if>
+                    </where>
+                    )
+                </if>
+                <if test="moduleUserIds == null and moduleDeptIds == null and moduleRolePrivNo == null and moduleRolePrivIds == null">
+                    <if test="userIds != null">
+                        and d.USER_ID in
+                        <foreach collection="userIds" item="ids" separator="," open="(" close=")">
+                            #{ids}
+                        </foreach>
+                    </if>
+                    <if test="userIds == null">
+                        and d.USER_ID = ''
+                    </if>
+                </if>
+            </if>
+            <if test="type == null">
+                <if test="userIds != null">
+                    and d.USER_ID in
+                    <foreach collection="userIds" item="ids" separator="," open="(" close=")">
+                        #{ids}
+                    </foreach>
+                </if>
+            </if>
+            <if test="diaType!=null and diaType!=''">
+                and d.DIA_TYPE = #{diaType}
+            </if>
+            <if test="deDiaType!=null and deDiaType!=''">
+                and d.DIA_TYPE &lt;&gt; #{deDiaType}
+            </if>
+            <if test="userIdOther !=null and userIdOther!=''">
+                AND (find_in_set(#{userIdOther},TO_ID) or TO_ALL=1)
+            </if>
+
+            <if test="diaTime!=null and diaTime!=''">
+                and d.DIA_TIME &gt; #{diaTime}
+            </if>
+            <if test="diaDate!=null and diaDate!=''">
+                and d.DIA_DATE=#{diaDate}
+            </if>
+
+            <if test="timeBegin != null and timeEnd!= null">
+                and date_format(d.DIA_DATE,'%Y-%m-%d') between #{timeBegin} and #{timeEnd}
+            </if>
+            <if test="sFlag != null and sFlag != ''">
+                and d.SFLAG = #{sFlag}
+            </if>
+            <if test="deUserId != null and deUserId != ''">
+                and d.USER_ID &lt;&gt; #{deUserId}
+            </if>
+            <if test="viewDepts != null and viewDepts != '' and viewDepts.length > 0">
+                and u.DEPT_ID in
+                <foreach collection="viewDepts" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+            <if test="viewPrivs != null and viewPrivs != '' and viewPrivs.length > 0">
+                and u.USER_PRIV in
+                <foreach collection="viewPrivs" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+            <if test="viewUsers != null and viewUsers != '' and viewUsers.length > 0">
+                and u.USER_ID in
+                <foreach collection="viewUsers" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+            <if test="isShowSecret">
+                AND (sca.APPROVAL_STATUS = '1'
+                <if test="scaOperationUserId != null">
+                    OR (d.SFLAG = #{sFlag} AND sca.APPROVAL_STATUS != '1' AND sca.OPERATION_USER_ID = #{scaOperationUserId})
+                </if>
+                )
+                AND sca.CONTENT_SECRECY in
+                <foreach item="security" collection="securityRestriction" open="(" separator="," close=")">
+                    #{security}
+                </foreach>
+            </if>
+        </where>
+        ORDER BY top.DIA_ID=d.DIA_ID DESC, d.DIA_TIME DESC
+        <if test="page!=null and pageSize!=null">
+            limit #{page},#{pageSize}
+        </if>
+    </select>
+
+    <select id="findDiarySelf" parameterType="map" resultMap="BaseResultMap" databaseId="kingbase">
+        select
+        d.DIA_ID,
+        d.USER_ID,
+        d.DIA_DATE,
+        d.DIA_TIME,
+        d.DIA_TYPE,
+        d.SUBJECT,
+        d.LAST_COMMENT_TIME,
+        d.TO_ALL,
+        d.CRM_DIARY,
+        d.CONTENT,
+        d.ATTACHMENT_ID,
+        d.ATTACHMENT_NAME,
+        d.TO_ID,
+        d.READERS,
+        d.ALLOW_COMMENT,
+        u.USER_NAME userName,
+        u.PHOTO photo,
+        u.AVATAR avatar,
+        u.SEX sex,
+        u.UID uid,
+        u.USER_PRIV_NAME userPrivName,
+        dt.DEPT_NAME,
+        "top".TOP_ID
+        <if test="isShowSecret">
+            ,sca.CONTENT_SECRECY
+        </if>
+        from diary d
+        LEFT JOIN diary_top "top" ON "top".DIA_ID=d.DIA_ID
+        LEFT JOIN "user" u ON u.USER_ID = d.USER_ID
+        LEFT JOIN department dt ON u.DEPT_ID = dt.DEPT_ID
+        <if test="isShowSecret">
+            LEFT JOIN security_content_approval sca ON sca.MODULE_TABLE = 'diary' AND d.DIA_ID = sca.RECORD_ID AND sca.OPERATION_TYPE = 0
+        </if>
+        <where>
+            u.USER_ID is not null
+            <if test="type != null">
+                <if test="moduleUserIds != null or moduleDeptIds != null or moduleRolePrivNo != null or moduleRolePrivIds != null">
+                    and d.USER_ID in (
+                    select USER_ID
+                    from "user"
+                    <where>
+                        USER_ID is not null
+                        and USER_ID in (
+                        select USER_ID
+                        from "user"
+                        <where>
+                            <if test="moduleUserIds != null">
+                                and USER_ID in
+                                <foreach collection="moduleUserIds" item="moduleUserId" open="(" close=")"
+                                         separator=",">
+                                    #{moduleUserId}
+                                </foreach>
+                            </if>
+                            <if test="moduleDeptIds != null">
+                                and DEPT_ID in
+                                <foreach collection="moduleDeptIds" item="moduleDeptId" open="(" close=")"
+                                         separator=",">
+                                    #{moduleDeptId}
+                                </foreach>
+                            </if>
+                            <if test="moduleRolePrivNo != null">
+                                and USER_PRIV_NO &gt; #{moduleRolePrivNo}
+                            </if>
+                            <if test="moduleRolePrivIds != null">
+                                and USER_PRIV in
+                                <foreach collection="moduleRolePrivIds" item="roleIds" open="(" close=")" separator=",">
+                                    #{roleIds}
+                                </foreach>
+                            </if>
+                        </where>
+                        )
+                        <if test="userIds != null">
+                            or USER_ID in
+                            <foreach collection="userIds" item="ids" separator="," open="(" close=")">
+                                #{ids}
+                            </foreach>
+                        </if>
+                    </where>
+                    )
+                </if>
+                <if test="moduleUserIds == null and moduleDeptIds == null and moduleRolePrivNo == null and moduleRolePrivIds == null">
+                    <if test="userIds != null">
+                        and d.USER_ID in
+                        <foreach collection="userIds" item="ids" separator="," open="(" close=")">
+                            #{ids}
+                        </foreach>
+                    </if>
+                    <if test="userIds == null">
+                        and d.USER_ID = ''
+                    </if>
+                </if>
+            </if>
+            <if test="type == null">
+                <if test="userIds != null">
+                    and d.USER_ID in
+                    <foreach collection="userIds" item="ids" separator="," open="(" close=")">
+                        #{ids}
+                    </foreach>
+                </if>
+            </if>
+            <if test="diaType!=null and diaType!=''">
+                and d.DIA_TYPE = #{diaType}
+            </if>
+            <if test="deDiaType!=null and deDiaType!=''">
+                and d.DIA_TYPE &lt;&gt; #{deDiaType}
+            </if>
+            <if test="userIdOther !=null and userIdOther!=''">
+                AND ((TO_ID LIKE CONCAT(#{userIdOther}, ',%') OR TO_ID LIKE CONCAT('%,', #{userIdOther}, ',%')) OR
+                TO_ALL=1)
+            </if>
+
+            <if test="diaTime!=null and diaTime!=''">
+                and d.DIA_TIME &gt; #{diaTime}
+            </if>
+            <if test="diaDate!=null and diaDate!=''">
+                and d.DIA_DATE=#{diaDate}
+            </if>
+
+            <if test="timeBegin != null and timeEnd!= null">
+                and d.DIA_DATE between #{timeBegin} and #{timeEnd}
+            </if>
+            <if test="sFlag != null and sFlag != ''">
+                and d.SFLAG = #{sFlag}
+            </if>
+            <if test="deUserId != null and deUserId != ''">
+                and d.USER_ID &lt;&gt; #{deUserId}
+            </if>
+            <if test="viewDepts != null and viewDepts != '' and viewDepts.length > 0">
+                and u.DEPT_ID in
+                <foreach collection="viewDepts" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+            <if test="viewPrivs != null and viewPrivs != '' and viewPrivs.length > 0">
+                and u.USER_PRIV in
+                <foreach collection="viewPrivs" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+            <if test="viewUsers != null and viewUsers != '' and viewUsers.length > 0">
+                and u.USER_ID in
+                <foreach collection="viewUsers" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+            <if test="isShowSecret">
+                AND (sca.APPROVAL_STATUS = '1'
+                <if test="scaOperationUserId != null">
+                    OR (d.SFLAG = #{sFlag} AND sca.APPROVAL_STATUS != '1' AND sca.OPERATION_USER_ID = #{scaOperationUserId})
+                </if>
+                )
+                AND sca.CONTENT_SECRECY in
+                <foreach item="security" collection="securityRestriction" open="(" separator="," close=")">
+                    #{security}
+                </foreach>
+            </if>
+        </where>
+        ORDER BY "top".DIA_ID=d.DIA_ID DESC, d.DIA_TIME DESC
+        <if test="page!=null and pageSize!=null">
+            limit #{page},#{pageSize}
+        </if>
+    </select>
+
+    <select id="findDiarySelfCount" parameterType="map" resultType="integer">
+        select
+        count(*)
+        from diary d
+        LEFT JOIN diary_top top ON top.DIA_ID=d.DIA_ID
+        LEFT JOIN user u ON u.USER_ID = d.USER_ID
+        <if test="isShowSecret">
+            LEFT JOIN security_content_approval sca ON sca.MODULE_TABLE = 'diary' AND d.DIA_ID = sca.RECORD_ID AND sca.OPERATION_TYPE = 0
+        </if>
+        <where>
+            u.USER_ID is not null
+            <if test="type != null">
+                <if test="moduleUserIds != null or moduleDeptIds != null or moduleRolePrivNo != null or moduleRolePrivIds != null">
+                    and d.USER_ID in (
+                    select USER_ID
+                    from user
+                    <where>
+                        USER_ID is not null
+                        and USER_ID in (
+                        select USER_ID
+                        from user
+                        <where>
+                            <if test="moduleUserIds != null">
+                                and USER_ID in
+                                <foreach collection="moduleUserIds" item="moduleUserId" open="(" close=")"
+                                         separator=",">
+                                    #{moduleUserId}
+                                </foreach>
+                            </if>
+                            <if test="moduleDeptIds != null">
+                                and DEPT_ID in
+                                <foreach collection="moduleDeptIds" item="moduleDeptId" open="(" close=")"
+                                         separator=",">
+                                    #{moduleDeptId}
+                                </foreach>
+                            </if>
+                            <if test="moduleRolePrivNo != null">
+                                and USER_PRIV_NO &gt; #{moduleRolePrivNo}
+                            </if>
+                            <if test="moduleRolePrivIds != null">
+                                and USER_PRIV in
+                                <foreach collection="moduleRolePrivIds" item="roleIds" open="(" close=")" separator=",">
+                                    #{roleIds}
+                                </foreach>
+                            </if>
+                        </where>
+                        )
+                        <if test="userIds != null">
+                            or USER_ID in
+                            <foreach collection="userIds" item="ids" separator="," open="(" close=")">
+                                #{ids}
+                            </foreach>
+                        </if>
+                    </where>
+                    )
+                </if>
+                <if test="moduleUserIds == null and moduleDeptIds == null and moduleRolePrivNo == null and moduleRolePrivIds == null">
+                    <if test="userIds != null">
+                        and d.USER_ID in
+                        <foreach collection="userIds" item="ids" separator="," open="(" close=")">
+                            #{ids}
+                        </foreach>
+                    </if>
+                    <if test="userIds == null">
+                        and d.USER_ID = ''
+                    </if>
+                </if>
+            </if>
+            <if test="type == null">
+                <if test="userIds != null">
+                    and d.USER_ID in
+                    <foreach collection="userIds" item="ids" separator="," open="(" close=")">
+                        #{ids}
+                    </foreach>
+                </if>
+            </if>
+            <if test="diaType!=null and diaType!=''">
+                and d.DIA_TYPE = #{diaType}
+            </if>
+            <if test="deDiaType!=null and deDiaType!=''">
+                and d.DIA_TYPE &lt;&gt; #{deDiaType}
+            </if>
+            <if test="userIdOther !=null and userIdOther!=''">
+                AND (find_in_set(#{userIdOther},TO_ID) or TO_ALL=1)
+            </if>
+
+            <if test="diaTime!=null and diaTime!=''">
+                and d.DIA_TIME &gt; #{diaTime}
+            </if>
+            <if test="diaDate!=null and diaDate!=''">
+                and d.DIA_DATE=#{diaDate}
+            </if>
+
+            <if test="timeBegin != null and timeEnd!= null">
+                and date_format(d.DIA_DATE,'%Y-%m-%d') between #{timeBegin} and #{timeEnd}
+            </if>
+            <if test="sFlag != null and sFlag != ''">
+                and d.SFLAG = #{sFlag}
+            </if>
+            <if test="deUserId != null and deUserId != ''">
+                and d.USER_ID &lt;&gt; #{deUserId}
+            </if>
+            <if test="viewDepts != null and viewDepts != '' and viewDepts.length > 0">
+                and u.DEPT_ID in
+                <foreach collection="viewDepts" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+            <if test="viewPrivs != null and viewPrivs != '' and viewPrivs.length > 0">
+                and u.USER_PRIV in
+                <foreach collection="viewPrivs" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+            <if test="viewUsers != null and viewUsers != '' and viewUsers.length > 0">
+                and u.USER_ID in
+                <foreach collection="viewUsers" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+            <if test="isShowSecret">
+                AND (sca.APPROVAL_STATUS = '1'
+                <if test="scaOperationUserId != null">
+                    OR (d.SFLAG = #{sFlag} AND sca.APPROVAL_STATUS != '1' AND sca.OPERATION_USER_ID = #{scaOperationUserId})
+                </if>
+                )
+                AND sca.CONTENT_SECRECY in
+                <foreach item="security" collection="securityRestriction" open="(" separator="," close=")">
+                    #{security}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="findDiarySelfCount" parameterType="map" resultType="integer" databaseId="kingbase">
+        select
+        count(*)
+        from diary d
+        LEFT JOIN diary_top "top" ON "top".DIA_ID=d.DIA_ID
+        LEFT JOIN "user" u ON u.USER_ID = d.USER_ID
+        <if test="isShowSecret">
+            LEFT JOIN security_content_approval sca ON sca.MODULE_TABLE = 'diary' AND d.DIA_ID = sca.RECORD_ID AND sca.OPERATION_TYPE = 0
+        </if>
+        <where>
+            u.USER_ID is not null
+            <if test="type != null">
+                <if test="moduleUserIds != null or moduleDeptIds != null or moduleRolePrivNo != null or moduleRolePrivIds != null">
+                    and d.USER_ID in (
+                    select USER_ID
+                    from "user"
+                    <where>
+                        USER_ID is not null
+                        and USER_ID in (
+                        select USER_ID
+                        from "user"
+                        <where>
+                            <if test="moduleUserIds != null">
+                                and USER_ID in
+                                <foreach collection="moduleUserIds" item="moduleUserId" open="(" close=")"
+                                         separator=",">
+                                    #{moduleUserId}
+                                </foreach>
+                            </if>
+                            <if test="moduleDeptIds != null">
+                                and DEPT_ID in
+                                <foreach collection="moduleDeptIds" item="moduleDeptId" open="(" close=")"
+                                         separator=",">
+                                    #{moduleDeptId}
+                                </foreach>
+                            </if>
+                            <if test="moduleRolePrivNo != null">
+                                and USER_PRIV_NO &gt; #{moduleRolePrivNo}
+                            </if>
+                            <if test="moduleRolePrivIds != null">
+                                and USER_PRIV in
+                                <foreach collection="moduleRolePrivIds" item="roleIds" open="(" close=")" separator=",">
+                                    #{roleIds}
+                                </foreach>
+                            </if>
+                        </where>
+                        )
+                        <if test="userIds != null">
+                            or USER_ID in
+                            <foreach collection="userIds" item="ids" separator="," open="(" close=")">
+                                #{ids}
+                            </foreach>
+                        </if>
+                    </where>
+                    )
+                </if>
+                <if test="moduleUserIds == null and moduleDeptIds == null and moduleRolePrivNo == null and moduleRolePrivIds == null">
+                    <if test="userIds != null">
+                        and d.USER_ID in
+                        <foreach collection="userIds" item="ids" separator="," open="(" close=")">
+                            #{ids}
+                        </foreach>
+                    </if>
+                    <if test="userIds == null">
+                        and d.USER_ID = ''
+                    </if>
+                </if>
+            </if>
+            <if test="type == null">
+                <if test="userIds != null">
+                    and d.USER_ID in
+                    <foreach collection="userIds" item="ids" separator="," open="(" close=")">
+                        #{ids}
+                    </foreach>
+                </if>
+            </if>
+            <if test="diaType!=null and diaType!=''">
+                and d.DIA_TYPE = #{diaType}
+            </if>
+            <if test="deDiaType!=null and deDiaType!=''">
+                and d.DIA_TYPE &lt;&gt; #{deDiaType}
+            </if>
+            <if test="userIdOther !=null and userIdOther!=''">
+                AND ((TO_ID LIKE CONCAT(#{userIdOther}, ',%') OR TO_ID LIKE CONCAT('%,', #{userIdOther}, ',%')) OR
+                TO_ALL=1)
+            </if>
+
+            <if test="diaTime!=null and diaTime!=''">
+                and d.DIA_TIME &gt; #{diaTime}
+            </if>
+            <if test="diaDate!=null and diaDate!=''">
+                and d.DIA_DATE=#{diaDate}
+            </if>
+
+            <if test="timeBegin != null and timeEnd!= null">
+                and d.DIA_DATE between #{timeBegin} and #{timeEnd}
+            </if>
+            <if test="sFlag != null and sFlag != ''">
+                and d.SFLAG = #{sFlag}
+            </if>
+            <if test="deUserId != null and deUserId != ''">
+                and d.USER_ID &lt;&gt; #{deUserId}
+            </if>
+            <if test="viewDepts != null and viewDepts != '' and viewDepts.length > 0">
+                and u.DEPT_ID in
+                <foreach collection="viewDepts" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+            <if test="viewPrivs != null and viewPrivs != '' and viewPrivs.length > 0">
+                and u.USER_PRIV in
+                <foreach collection="viewPrivs" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+            <if test="viewUsers != null and viewUsers != '' and viewUsers.length > 0">
+                and u.USER_ID in
+                <foreach collection="viewUsers" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+            <if test="isShowSecret">
+                AND (sca.APPROVAL_STATUS = '1'
+                <if test="scaOperationUserId != null">
+                    OR (d.SFLAG = #{sFlag} AND sca.APPROVAL_STATUS != '1' AND sca.OPERATION_USER_ID = #{scaOperationUserId})
+                </if>
+                )
+                AND sca.CONTENT_SECRECY in
+                <foreach item="security" collection="securityRestriction" open="(" separator="," close=")">
+                    #{security}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="findDiaryUserId" resultType="java.lang.String" parameterType="map">
+        SELECT
+        GROUP_CONCAT(USER_ID) AS userIds
+        FROM
+        `user`
+        <where>
+            NOT_LOGIN = '0'
+            <if test="belongtoDepts!=null or viewDepts!=null or viewPrivs!=null or viewUsers!=null ">
+                and
+                <trim prefix="(" suffix=")" prefixOverrides="or">
+                    <if test="belongtoDepts!=null and belongtoDepts!=''">
+                        or DEPT_ID in
+                        <foreach collection="belongtoDepts" item="ids" open="(" separator="," close=")">
+                            #{ids}
+                        </foreach>
+                    </if>
+                    <if test="viewDepts!=null and viewDepts!=''">
+                        or DEPT_ID in
+                        <foreach collection="viewDepts" item="ids" open="(" separator="," close=")">
+                            #{ids}
+                        </foreach>
+                    </if>
+                    <if test="viewPrivs!=null and viewPrivs!=''">
+                        or USER_PRIV in
+                        <foreach collection="viewPrivs" item="ids" open="(" separator="," close=")">
+                            #{ids}
+                        </foreach>
+                    </if>
+                    <if test="viewUsers!=null and viewUsers!=''">
+                        or USER_ID in
+                        <foreach collection="viewUsers" item="ids" open="(" separator="," close=")">
+                            #{ids}
+                        </foreach>
+                    </if>
+                </trim>
+            </if>
+        </where>
+    </select>
+
+    <select id="findDiaryUserId" resultType="java.lang.String" parameterType="map" databaseId="kingbase">
+        SELECT
+        GROUP_CONCAT(USER_ID) AS userIds
+        FROM
+        "user"
+        <where>
+            NOT_LOGIN = '0'
+            <if test="belongtoDepts!=null or viewDepts!=null or viewPrivs!=null or viewUsers!=null ">
+                and
+                <trim prefix="(" suffix=")" prefixOverrides="or">
+                    <if test="belongtoDepts!=null and belongtoDepts!=''">
+                        or DEPT_ID in
+                        <foreach collection="belongtoDepts" item="ids" open="(" separator="," close=")">
+                            #{ids}
+                        </foreach>
+                    </if>
+                    <if test="viewDepts!=null and viewDepts!=''">
+                        or DEPT_ID in
+                        <foreach collection="viewDepts" item="ids" open="(" separator="," close=")">
+                            #{ids}
+                        </foreach>
+                    </if>
+                    <if test="viewPrivs!=null and viewPrivs!=''">
+                        or USER_PRIV in
+                        <foreach collection="viewPrivs" item="ids" open="(" separator="," close=")">
+                            #{ids}
+                        </foreach>
+                    </if>
+                    <if test="viewUsers!=null and viewUsers!=''">
+                        or USER_ID in
+                        <foreach collection="viewUsers" item="ids" open="(" separator="," close=")">
+                            #{ids}
+                        </foreach>
+                    </if>
+                </trim>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectDiaryUserId" resultType="java.lang.String" parameterType="map">
+        SELECT
+        USER_ID
+        FROM
+        `user`
+        <where>
+            NOT_LOGIN = '0'
+            <if test="deptIds != null and deptIds != '' and deptIds.length > 0">
+                AND DEPT_ID in
+                <foreach collection="deptIds" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+            <if test="userPrivNo != null and userPrivNo != ''">
+                AND USER_PRIV_NO > #{userPrivNo}
+            </if>
+            <if test="viewDepts != null and viewDepts != '' and viewDepts.length > 0">
+                AND DEPT_ID in
+                <foreach collection="viewDepts" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+            <if test="viewPrivs != null and viewPrivs != '' and viewPrivs.length > 0">
+                AND USER_PRIV in
+                <foreach collection="viewPrivs" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+            <if test="viewUsers != null and viewUsers != '' and viewUsers.length > 0">
+                AND USER_ID in
+                <foreach collection="viewUsers" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectDiaryUserId" resultType="java.lang.String" parameterType="map" databaseId="kingbase">
+        SELECT
+        USER_ID
+        FROM
+        "user"
+        <where>
+            NOT_LOGIN = '0'
+            <if test="deptIds != null and deptIds != '' and deptIds.length > 0">
+                AND DEPT_ID in
+                <foreach collection="deptIds" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+            <if test="userPrivNo != null and userPrivNo != ''">
+                AND USER_PRIV_NO > #{userPrivNo}
+            </if>
+            <if test="viewDepts != null and viewDepts != '' and viewDepts.length > 0">
+                AND DEPT_ID in
+                <foreach collection="viewDepts" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+            <if test="viewPrivs != null and viewPrivs != '' and viewPrivs.length > 0">
+                AND USER_PRIV in
+                <foreach collection="viewPrivs" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+            <if test="viewUsers != null and viewUsers != '' and viewUsers.length > 0">
+                AND USER_ID in
+                <foreach collection="viewUsers" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectDiaryUserTopIdByUserPriv" resultType="java.lang.String" parameterType="java.util.Map">
+        SELECT GROUP_CONCAT(USER_ID) AS userIds
+        FROM `user`
+        WHERE NOT_LOGIN = '0'
+          AND USER_ID != #{userId}
+          AND DEPT_ID = #{deptId}
+          AND USER_PRIV_NO
+         &lt; #{userPrivNo}
+    </select>
+
+    <select id="selectDiaryUserTopIdByUserPriv" resultType="java.lang.String" parameterType="java.util.Map"
+            databaseId="kingbase">
+        SELECT GROUP_CONCAT(USER_ID) AS userIds
+        FROM "user"
+        WHERE NOT_LOGIN = '0'
+          AND USER_ID != #{userId}
+          AND DEPT_ID = #{deptId}
+          AND USER_PRIV_NO
+         &lt; #{userPrivNo}
+    </select>
+
+    <select id="findDauserPrivs" resultType="java.lang.String" parameterType="string">
+        SELECT GROUP_CONCAT(USER_PRIV) AS USER_PRIV
+        FROM user_priv
+        WHERE PRIV_NO > #{privNo}
+    </select>
+
+    <select id="findChildDept" resultType="java.lang.String" parameterType="string">
+        SELECT DEPT_ID
+        FROM department
+        WHERE DEPT_PARENT = #{deptParent}
+    </select>
+
+    <select id="diaryQuery" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        <if test="diaId == null">
+            DIA_ID, USER_ID, DIA_DATE, DIA_TYPE, SUBJECT, READERS
+        </if>
+        <if test="diaId != null">
+            DIA_ID, USER_ID, DIA_DATE, SUBJECT, CONTENT, READERS, ALLOW_COMMENT
+        </if>
+        <if test="isExport != null">
+            , CONTENT, TO_ID, USER_TOP_ID
+        </if>
+        <if test="isShowSecret">
+            ,sca.CONTENT_SECRECY
+        </if>
+        FROM diary
+        <if test="isShowSecret">
+            LEFT JOIN security_content_approval sca ON sca.MODULE_TABLE = 'diary' AND diary.DIA_ID = sca.RECORD_ID AND sca.OPERATION_TYPE = 0
+        </if>
+        <where>
+            <if test="sFlag == null">
+                AND SFLAG = '1'
+            </if>
+            <if test="sFlag != null">
+                AND SFLAG = #{sFlag}
+            </if>
+            <if test="userIdList != null and userIdList.size() > 0">
+                AND USER_ID IN
+                <foreach collection="userIdList" item="user" open="(" separator="," close=")" index="index">
+                    #{user}
+                </foreach>
+            </if>
+            <if test="userId != null and userId != ''">
+                AND USER_ID = #{userId}
+            </if>
+            <if test="startTime != null and endTime == null">
+                AND DIA_DATE &gt;= #{startTime}
+            </if>
+            <if test="startTime == null and endTime != null">
+                AND DIA_DATE &lt;= #{endTime}
+            </if>
+            <if test="startTime != null and endTime != null">
+                AND (DIA_DATE BETWEEN #{startTime} AND #{endTime})
+            </if>
+            <if test="deptUserIdList != null and deptUserIdList.size() > 0">
+                AND USER_ID IN
+                <foreach collection="deptUserIdList" item="user" open="(" separator="," close=")" index="index">
+                    #{user}
+                </foreach>
+            </if>
+            <if test="userTopId != null and userTopId != ''">
+                AND (USER_TOP_ID LIKE CONCAT(#{userTopId}, ',%') OR USER_TOP_ID LIKE CONCAT('%,', #{userTopId}, ',%'))
+            </if>
+            <if test="diaType != null and diaType != ''">
+                AND DIA_TYPE = #{diaType}
+            </if>
+            <if test="diaId != null and last == null and next == null">
+                AND DIA_ID = #{diaId}
+            </if>
+            <if test="diaId != null and last != null and next == null">
+                AND DIA_ID &gt; #{diaId} ORDER BY DIA_ID LIMIT 1
+            </if>
+            <if test="diaId != null and last == null and next != null">
+                AND DIA_ID &lt; #{diaId} ORDER BY DIA_ID DESC LIMIT 1
+            </if>
+            <if test="isShowSecret">
+                AND sca.APPROVAL_STATUS = '1'
+                AND sca.CONTENT_SECRECY in
+                <foreach item="security" collection="securityRestriction" open="(" separator="," close=")">
+                    #{security}
+                </foreach>
+            </if>
+        </where>
+        <if test="diaId == null and last == null and next == null">
+            ORDER BY DIA_TIME DESC
+        </if>
+    </select>
+
+    <select id="reportStatistic" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT COUNT(DIA_TYPE = '1' OR NULL) AS reported,
+               COUNT(DIA_TYPE = '2' OR NULL) AS notReported
+        FROM diary
+        WHERE (DIA_DATE BETWEEN #{startTime} and #{endTime})
+          AND USER_ID = #{userId}
+    </select>
+
+    <select id="statisticsDiaryNumber" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT COUNT(*)                             AS allDiaryNumber,
+               COUNT(USER_ID = #{userId} OR NULL)   AS myDiaryNumber,
+               COUNT(USER_ID != #{userId} OR NULL ) AS othersDiaryNumber
+        FROM diary
+    </select>
+
+    <select id="selectDiaryComment" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT a.DIA_ID,
+               a.SUBJECT,
+               a.DIA_DATE,
+               b.USER_ID AS commenter
+        FROM diary AS a
+                 LEFT JOIN diary_comment AS b ON a.DIA_ID = b.DIA_ID
+        WHERE a.USER_ID = #{userId}
+          AND a.LAST_COMMENT_TIME != '0000-00-00 00:00:00'
+        ORDER BY
+            a.LAST_COMMENT_TIME DESC
+            LIMIT 0, 5
+    </select>
+
+    <select id="selectDiaryComment" resultMap="BaseResultMap" parameterType="java.lang.String" databaseId="kingbase">
+        SELECT a.DIA_ID,
+               a.SUBJECT,
+               a.DIA_DATE,
+               b.USER_ID AS commenter
+        FROM diary AS a
+                 LEFT JOIN diary_comment AS b ON a.DIA_ID = b.DIA_ID
+        WHERE a.USER_ID = #{userId}
+          AND a.LAST_COMMENT_TIME != to_date('0000-00-00 00:00:00','yyyy-mm-dd hh24:mi:ss')
+        ORDER BY
+            a.LAST_COMMENT_TIME DESC
+            LIMIT 0, 5
+    </select>
+
+    <select id="getNotCommentDiary" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        *
+        FROM (
+        -- 最终数据
+        SELECT
+        *
+        FROM
+        diary
+        WHERE
+        SFLAG = '1'
+        AND USER_ID IN
+        <foreach collection="userIdList" item="userId" open="(" separator="," close=")" index="index">
+            #{userId}
+        </foreach>
+        AND DIA_ID NOT IN (
+        SELECT DIA_ID FROM diary_comment WHERE DIA_ID IN (
+        SELECT DIA_ID FROM diary WHERE SFLAG = '1'
+        AND USER_ID IN
+        <foreach collection="userIdList" item="userId" open="(" separator="," close=")" index="index">
+            #{userId}
+        </foreach>
+        ) AND USER_ID = #{userTopId}
+        )
+        AND DIA_ID NOT IN (
+        SELECT DIA_ID FROM diary_comment WHERE COMMENT_ID IN (
+        SELECT COMMENT_ID FROM diary_comment_reply WHERE COMMENT_ID IN (
+        SELECT COMMENT_ID FROM diary_comment WHERE DIA_ID IN (
+        SELECT DIA_ID FROM diary WHERE SFLAG = '1'
+        AND USER_ID IN
+        <foreach collection="userIdList" item="userId" open="(" separator="," close=")" index="index">
+            #{userId}
+        </foreach>
+        AND DIA_ID NOT IN (
+        SELECT DIA_ID FROM diary_comment WHERE DIA_ID IN (
+        SELECT DIA_ID FROM diary WHERE SFLAG = '1'
+        AND USER_ID IN
+        <foreach collection="userIdList" item="userId" open="(" separator="," close=")" index="index">
+            #{userId}
+        </foreach>
+        ) AND USER_ID = #{userTopId}
+        )
+        )
+        )
+        AND REPLYER = #{userTopId}
+        )
+        )
+        <if test="isComment != null">
+            OR DIA_ID = #{isComment}
+        </if>
+        ) resultDiary
+        <if test="isShowSecret">
+            LEFT JOIN security_content_approval sca ON sca.MODULE_TABLE = 'diary' AND DIA_ID = sca.RECORD_ID AND sca.OPERATION_TYPE = 0
+        </if>
+        <where>
+            SFLAG = '1'
+            AND DIA_TYPE != '2'
+            <if test="promoter != null and promoter != ''">
+                AND USER_ID = #{promoter}
+            </if>
+            <if test="startTime != null and endTime == null">
+                AND DIA_DATE &gt;= #{startTime}
+            </if>
+            <if test="startTime == null and endTime != null">
+                AND DIA_DATE &lt;= #{endTime}
+            </if>
+            <if test="startTime != null and endTime != null">
+                AND (DIA_DATE BETWEEN #{startTime} AND #{endTime})
+            </if>
+            <if test="diaType != null and diaType != ''">
+                AND DIA_TYPE = #{diaType}
+            </if>
+            <if test="diaIdList != null and diaIdList.size() > 0">
+                AND DIA_ID IN
+                <foreach collection="diaIdList" item="id" open="(" separator="," close=")" index="index">
+                    #{id}
+                </foreach>
+            </if>
+            <if test="diaId != null and last == null and next == null">
+                AND DIA_ID = #{diaId}
+            </if>
+            <if test="diaId != null and last != null and next == null">
+                AND DIA_ID &gt; #{diaId} ORDER BY DIA_ID LIMIT 1
+            </if>
+            <if test="diaId != null and last == null and next != null">
+                AND DIA_ID &lt; #{diaId} ORDER BY DIA_ID DESC LIMIT 1
+            </if>
+            <if test="isShowSecret">
+                AND sca.APPROVAL_STATUS = '1'
+                AND sca.CONTENT_SECRECY in
+                <foreach item="security" collection="securityRestriction" open="(" separator="," close=")">
+                    #{security}
+                </foreach>
+            </if>
+        </where>
+        <if test="diaId == null and last == null and next == null">
+            ORDER BY DIA_TIME DESC
+        </if>
+    </select>
+
+    <select id="selectDiaryMonthlyReport" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        DIA_ID,
+        SUBJECT,
+        DIA_TYPE
+        <if test="isShowSecret">
+            ,sca.CONTENT_SECRECY
+        </if>
+        FROM
+        diary
+        <if test="isShowSecret">
+            LEFT JOIN security_content_approval sca ON sca.MODULE_TABLE = 'diary' AND diary.DIA_ID = sca.RECORD_ID AND sca.OPERATION_TYPE = 0
+        </if>
+        <where>
+            <if test="sFlag != null">
+                AND SFLAG = #{sFlag}
+            </if>
+            <if test="userId != null">
+                AND USER_ID = #{userId}
+            </if>
+            <if test="userTopId != null">
+                AND (USER_TOP_ID LIKE CONCAT(#{userTopId}, ',%') OR USER_TOP_ID LIKE CONCAT('%,', #{userTopId}, ',%'))
+            </if>
+            <if test="diaType != null">
+                AND DIA_TYPE = #{diaType}
+            </if>
+            <if test="diaDate != null">
+                AND DIA_DATE LIKE CONCAT('%', #{diaDate}, '%')
+            </if>
+            <if test="isShowSecret">
+                AND sca.APPROVAL_STATUS = '1'
+                AND sca.CONTENT_SECRECY in
+                <foreach item="security" collection="securityRestriction" open="(" separator="," close=")">
+                    #{security}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectDiaryWeeklyReport" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        DIA_ID,
+        SUBJECT,
+        DIA_TYPE
+        <if test="isShowSecret">
+            ,sca.CONTENT_SECRECY
+        </if>
+        FROM
+        diary
+        <if test="isShowSecret">
+            LEFT JOIN security_content_approval sca ON sca.MODULE_TABLE = 'diary' AND diary.DIA_ID = sca.RECORD_ID AND sca.OPERATION_TYPE = 0
+        </if>
+        <where>
+            <if test="sFlag != null">
+                AND SFLAG = #{sFlag}
+            </if>
+            <if test="userId != null">
+                AND USER_ID = #{userId}
+            </if>
+            <if test="userTopId != null">
+                AND (USER_TOP_ID LIKE CONCAT(#{userTopId}, ',%') OR USER_TOP_ID LIKE CONCAT('%,', #{userTopId}, ',%'))
+            </if>
+            <if test="diaType != null">
+                AND DIA_TYPE = #{diaType}
+            </if>
+            <if test="startTime != null and endTime != null">
+                AND (DIA_DATE BETWEEN #{startTime} and #{endTime})
+            </if>
+            <if test="isShowSecret">
+                AND sca.APPROVAL_STATUS = '1'
+                AND sca.CONTENT_SECRECY in
+                <foreach item="security" collection="securityRestriction" open="(" separator="," close=")">
+                    #{security}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectDiaryDailyReport" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        DIA_ID,
+        SUBJECT,
+        DIA_TYPE
+        <if test="isShowSecret">
+            ,sca.CONTENT_SECRECY
+        </if>
+        FROM
+        diary
+        <if test="isShowSecret">
+            LEFT JOIN security_content_approval sca ON sca.MODULE_TABLE = 'diary' AND diary.DIA_ID = sca.RECORD_ID AND sca.OPERATION_TYPE = 0
+        </if>
+        <where>
+            <if test="sFlag != null">
+                AND SFLAG = #{sFlag}
+            </if>
+            <if test="userId != null">
+                AND USER_ID = #{userId}
+            </if>
+            <if test="userTopId != null">
+                AND (USER_TOP_ID LIKE CONCAT(#{userTopId}, ',%') OR USER_TOP_ID LIKE CONCAT('%,', #{userTopId}, ',%'))
+            </if>
+            <if test="diaType != null">
+                AND DIA_TYPE = #{diaType}
+            </if>
+            <if test="diaDate != null">
+                AND DIA_DATE = #{diaDate}
+            </if>
+            <if test="isShowSecret">
+                AND sca.APPROVAL_STATUS = '1'
+                AND sca.CONTENT_SECRECY in
+                <foreach item="security" collection="securityRestriction" open="(" separator="," close=")">
+                    #{security}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectDiaryModelByDiaId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT *
+        FROM diary
+        WHERE DIA_ID = #{diaId}
+    </select>
+
+    <select id="selectDeptIdByManager" resultType="string" parameterType="string">
+        select GROUP_CONCAT(DEPT_ID)
+        from department
+        where find_in_set(#{userId}, MANAGER)
+    </select>
+
+    <select id="selectDiaryUserIdByUserHierarchy" resultType="java.lang.String" parameterType="map">
+        SELECT
+        GROUP_CONCAT(USER_ID) AS userIds
+        FROM
+        (
+        SELECT *
+        FROM user
+        WHERE USER_ID IN
+        <foreach collection="xiajiUsers" item="ids" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+        ) U
+        <where>
+            NOT_LOGIN = '0'
+            <if test="viewDepts!=null and viewDepts!=''">
+                and DEPT_ID in
+                <foreach collection="viewDepts" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+            <if test="viewPrivs!=null and viewPrivs!=''">
+                and USER_PRIV in
+                <foreach collection="viewPrivs" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+            <if test="viewUsers!=null and viewUsers!=''">
+                and USER_ID in
+                <foreach collection="viewUsers" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectDiaryUserIdByUserHierarchy" resultType="java.lang.String" parameterType="map"
+            databaseId="kingbase">
+        SELECT
+        GROUP_CONCAT(USER_ID) AS userIds
+        FROM
+        (
+        SELECT *
+        FROM "user"
+        WHERE USER_ID IN
+        <foreach collection="xiajiUsers" item="ids" open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+        ) U
+        <where>
+            NOT_LOGIN = '0'
+            <if test="viewDepts!=null and viewDepts!=''">
+                and DEPT_ID in
+                <foreach collection="viewDepts" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+            <if test="viewPrivs!=null and viewPrivs!=''">
+                and USER_PRIV in
+                <foreach collection="viewPrivs" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+            <if test="viewUsers!=null and viewUsers!=''">
+                and USER_ID in
+                <foreach collection="viewUsers" item="ids" open="(" separator="," close=")">
+                    #{ids}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="mobileTerminalOtherPeople" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        d.DIA_ID,
+        d.USER_ID,
+        d.DIA_DATE,
+        d.SUBJECT,
+        d.CONTENT,
+        d.READERS,
+        u.USER_NAME,
+        dept.DEPT_NAME
+        FROM
+        diary d
+        left join user u on u.USER_ID = d.USER_ID
+        left join department dept on dept.DEPT_ID = u.DEPT_ID
+        WHERE
+        FIND_IN_SET( #{userId}, d.TO_ID )
+        AND d.SFLAG = '1'
+        <if test="keyword!=null">
+            AND (d.SUBJECT LIKE CONCAT('%', #{keyword}, '%') OR d.CONTENT LIKE CONCAT('%', #{keyword}, '%'))
+        </if>
+        ORDER BY
+        d.DIA_DATE DESC
+    </select>
+
+    <select id="mobileTerminalOtherPeople" resultMap="BaseResultMap" parameterType="java.util.Map"
+            databaseId="kingbase">
+        SELECT
+        d.DIA_ID,
+        d.USER_ID,
+        d.DIA_DATE,
+        d.SUBJECT,
+        d.CONTENT,
+        d.READERS,
+        u.USER_NAME,
+        dept.DEPT_NAME
+        FROM
+        diary d
+        left join "user" u on u.USER_ID = d.USER_ID
+        left join department dept on dept.DEPT_ID = u.DEPT_ID
+        WHERE
+        FIND_IN_SET( #{userId}, d.TO_ID )
+        AND d.SFLAG = '1'
+        <if test="keyword!=null">
+            AND (d.SUBJECT LIKE CONCAT('%', #{keyword}, '%') OR d.CONTENT LIKE CONCAT('%', #{keyword}, '%'))
+        </if>
+        ORDER BY
+        d.DIA_DATE DESC
+    </select>
+
+    <select id="mobileTerminalOneself" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        d.DIA_ID,
+        d.USER_ID,
+        d.DIA_DATE,
+        d.SUBJECT,
+        d.CONTENT,
+        d.READERS,
+        u.USER_NAME,
+        dept.DEPT_NAME
+        FROM
+        diary d
+        left join user u on u.USER_ID = d.USER_ID
+        left join department dept on dept.DEPT_ID = u.DEPT_ID
+        WHERE
+        d.USER_ID = #{userId}
+        AND d.SFLAG = '1'
+        <if test="keyword != null">
+            AND (d.SUBJECT LIKE CONCAT('%', #{keyword}, '%') OR d.CONTENT LIKE CONCAT('%', #{keyword}, '%'))
+        </if>
+        <if test="diaType != null">
+            AND DIA_TYPE = #{diaType}
+        </if>
+        ORDER BY
+        d.DIA_DATE DESC
+    </select>
+
+    <select id="mobileTerminalOneself" resultMap="BaseResultMap" parameterType="java.util.Map" databaseId="kingbase">
+        SELECT
+        d.DIA_ID,
+        d.USER_ID,
+        d.DIA_DATE,
+        d.SUBJECT,
+        d.CONTENT,
+        d.READERS,
+        u.USER_NAME,
+        dept.DEPT_NAME
+        FROM
+        diary d
+        left join "user" u on u.USER_ID = d.USER_ID
+        left join department dept on dept.DEPT_ID = u.DEPT_ID
+        WHERE
+        d.USER_ID = #{userId}
+        AND d.SFLAG = '1'
+        <if test="keyword != null">
+            AND (d.SUBJECT LIKE CONCAT('%', #{keyword}, '%') OR d.CONTENT LIKE CONCAT('%', #{keyword}, '%'))
+        </if>
+        <if test="diaType != null">
+            AND DIA_TYPE = #{diaType}
+        </if>
+        ORDER BY
+        d.DIA_DATE DESC
+    </select>
+
+    <select id="mobileTerminalCommentDiary" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        d.DIA_ID,
+        d.USER_ID,
+        d.DIA_DATE,
+        d.SUBJECT,
+        d.READERS,
+        u.USER_NAME,
+        u.AVATAR avatar,
+        dept.DEPT_NAME
+        FROM
+        diary d
+        left join user u on u.USER_ID = d.USER_ID
+        left join department dept on dept.DEPT_ID = u.DEPT_ID
+        <where>
+            d.SFLAG = '1'
+            <if test="userBottomId != null">
+                AND d.USER_ID = #{userBottomId}
+            </if>
+            <if test="userBottomIdList != null and userBottomIdList.size() > 0">
+                AND d.USER_ID IN
+                <foreach collection="userBottomIdList" item="userBottomId" open="(" separator="," close=")">
+                    #{userBottomId}
+                </foreach>
+            </if>
+            <if test="day != null">
+                AND d.DIA_DATE = #{day}
+            </if>
+            <if test="start != null">
+                AND d.DIA_DATE &gt;= #{start}
+            </if>
+            <if test="end != null">
+                AND d.DIA_DATE &lt;= #{end}
+            </if>
+            <if test="diaType != null">
+                AND d.DIA_TYPE = #{diaType}
+            </if>
+            <if test="content != null">
+                AND d.CONTENT LIKE CONCAT('%', #{content}, '%')
+            </if>
+            <if test="comStatus != null and comStatus == 1">
+                AND d.DIA_ID not in (select DIA_ID from diary_comment where USER_ID = #{userId})
+            </if>
+            <if test="comStatus != null and comStatus == 2">
+                AND d.DIA_ID in (select DIA_ID from diary_comment where USER_ID = #{userId})
+            </if>
+            <if test="readStatus != null and readStatus == 1">
+                AND d.DIA_ID not in (select DIA_ID from diary_refer where CUID = #{userId})
+            </if>
+            <if test="readStatus != null and readStatus == 2">
+                AND d.DIA_ID in (select DIA_ID from diary_refer where CUID = #{userId})
+            </if>
+        </where>
+    </select>
+
+    <select id="mobileTerminalCommentDiary" resultMap="BaseResultMap" parameterType="java.util.Map"
+            databaseId="kingbase">
+        SELECT
+        d.DIA_ID,
+        d.USER_ID,
+        d.DIA_DATE,
+        d.SUBJECT,
+        d.READERS,
+        u.USER_NAME,
+        u.AVATAR avatar,
+        dept.DEPT_NAME
+        FROM
+        diary d
+        left join "user" u on u.USER_ID = d.USER_ID
+        left join department dept on dept.DEPT_ID = u.DEPT_ID
+        <where>
+            d.SFLAG = '1'
+            <if test="userBottomId != null">
+                AND d.USER_ID = #{userBottomId}
+            </if>
+            <if test="userBottomIdList != null and userBottomIdList.size() > 0">
+                AND d.USER_ID IN
+                <foreach collection="userBottomIdList" item="userBottomId" open="(" separator="," close=")">
+                    #{userBottomId}
+                </foreach>
+            </if>
+            <if test="day != null">
+                AND d.DIA_DATE = #{day}
+            </if>
+            <if test="start != null">
+                AND d.DIA_DATE &gt;= #{start}
+            </if>
+            <if test="end != null">
+                AND d.DIA_DATE &lt;= #{end}
+            </if>
+            <if test="diaType != null">
+                AND d.DIA_TYPE = #{diaType}
+            </if>
+            <if test="content != null">
+                AND d.CONTENT LIKE CONCAT('%', #{content}, '%')
+            </if>
+            <if test="comStatus != null and comStatus == 1">
+                AND d.DIA_ID not in (select DIA_ID from diary_comment where USER_ID = #{userId})
+            </if>
+            <if test="comStatus != null and comStatus == 2">
+                AND d.DIA_ID in (select DIA_ID from diary_comment where USER_ID = #{userId})
+            </if>
+            <if test="readStatus != null and readStatus == 1">
+                AND d.DIA_ID not in (select DIA_ID from diary_refer where CUID = #{userId})
+            </if>
+            <if test="readStatus != null and readStatus == 2">
+                AND d.DIA_ID in (select DIA_ID from diary_refer where CUID = #{userId})
+            </if>
+        </where>
+    </select>
+
+    <select id="selectDiaryByUserId" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        d.DIA_ID,
+        d.USER_ID,
+        d.DIA_DATE,
+        d.SUBJECT,
+        d.CONTENT,
+        d.READERS,
+        u.USER_NAME,
+        dt.DEPT_NAME
+        FROM
+        diary d
+        left join user u on d.USER_ID = u.USER_ID
+        left join department dt ON dt.DEPT_ID = u.DEPT_ID
+        WHERE
+        d.USER_ID = #{userId}
+        AND d.SFLAG = #{sFlag}
+        <if test="keyword!=null">
+            AND (d.SUBJECT LIKE CONCAT('%', #{keyword}, '%') OR d.CONTENT LIKE CONCAT('%', #{keyword}, '%'))
+        </if>
+        ORDER BY d.DIA_DATE DESC
+    </select>
+
+    <select id="selectDiaryByUserId" resultMap="BaseResultMap" parameterType="java.util.Map" databaseId="kingbase">
+        SELECT
+        d.DIA_ID,
+        d.USER_ID,
+        d.DIA_DATE,
+        d.SUBJECT,
+        d.CONTENT,
+        d.READERS,
+        u.USER_NAME,
+        dt.DEPT_NAME
+        FROM
+        diary d
+        left join "user" u on d.USER_ID = u.USER_ID
+        left join department dt ON dt.DEPT_ID = u.DEPT_ID
+        WHERE
+        d.USER_ID = #{userId}
+        AND d.SFLAG = #{sFlag}
+        <if test="keyword!=null">
+            AND (d.SUBJECT LIKE CONCAT('%', #{keyword}, '%') OR d.CONTENT LIKE CONCAT('%', #{keyword}, '%'))
+        </if>
+        ORDER BY d.DIA_DATE DESC
+    </select>
+
+    <select id="selectDiaPre" resultMap="BaseResultMap">
+        SELECT DIA_ID, SUBJECT
+        FROM diary
+        WHERE SFLAG = '1'
+          and USER_ID = #{userId}
+          and DIA_TIME &lt; #{diaDate}
+        order by DIA_TIME desc limit 0,1
+    </select>
+
+
+    <select id="selectDiaNext" resultMap="BaseResultMap">
+        SELECT DIA_ID, SUBJECT
+        FROM diary
+        WHERE SFLAG = '1'
+          and USER_ID = #{userId}
+          and DIA_TIME &gt; #{diaDate}
+        order by DIA_TIME asc limit 0,1
+    </select>
+
+    <select id="reportStatisticExcelDiary" resultMap="BaseResultMap" parameterType="java.util.Arrays">
+        SELECT
+        SUBJECT,
+        USER_ID,
+        DIA_DATE,
+        DIA_TYPE,
+        TO_ID,
+        USER_TOP_ID,
+        CONTENT,
+        (
+        SELECT
+        IFNULL( GROUP_CONCAT( CONCAT( '【', u.user_name, '：', content, '】' ) ), '' )
+        FROM
+        diary_comment dc
+        LEFT JOIN USER u ON u.user_id = dc.user_id
+        WHERE
+        d.dia_id = dc.dia_id
+        ) AS COMMENT_TXT
+        FROM
+        diary d
+        WHERE
+        SFLAG = '1'
+        AND DIA_ID IN
+        <foreach collection="diaIds" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        ORDER BY
+        DIA_DATE DESC
+    </select>
+
+    <select id="mobileTerminaluserBottomDiary" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        DIA_ID,
+        USER_ID,
+        DIA_DATE,
+        SUBJECT,
+        CONTENT,
+        READERS
+        FROM
+        diary
+        <where>
+            SFLAG = '1'
+            <if test="keyword != null">
+                AND (SUBJECT LIKE CONCAT('%', #{keyword}, '%') OR CONTENT LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+            <if test="userBottomIdList != null and userBottomIdList.size() > 0">
+                AND USER_ID IN
+                <foreach collection="userBottomIdList" item="userBottomId" open="(" separator="," close=")">
+                    #{userBottomId}
+                </foreach>
+            </if>
+        </where>
+        ORDER BY
+        DIA_DATE DESC
+    </select>
+
+    <select id="diaryAdvancedQuery" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        <if test="diaId == null">
+            DIA_ID, USER_ID, DIA_DATE, DIA_TYPE, SUBJECT, READERS
+        </if>
+        <if test="diaId != null">
+            DIA_ID, USER_ID, DIA_DATE, SUBJECT, CONTENT, READERS, ALLOW_COMMENT
+        </if>
+        <if test="isExport != null">
+            , CONTENT, TO_ID, USER_TOP_ID
+        </if>
+        FROM diary
+        <where>
+            DIA_ID IN
+            <foreach collection="diaIdList" item="id" open="(" separator="," close=")" index="index">
+                #{id}
+            </foreach>
+            <if test="commentStatus != null and commentStatus != '' and commentStatus == 0">
+                AND DIA_ID NOT IN (
+                SELECT DIA_ID FROM diary_comment
+                WHERE
+                USER_ID = #{loginUserId}
+                AND DIA_ID IN
+                <foreach collection="diaIdList" item="id" open="(" separator="," close=")" index="index">
+                    #{id}
+                </foreach>
+                )
+            </if>
+            <if test="commentStatus != null and commentStatus != '' and commentStatus == 1">
+                AND DIA_ID IN (
+                SELECT DIA_ID FROM diary_comment
+                WHERE
+                USER_ID = #{loginUserId}
+                AND DIA_ID IN
+                <foreach collection="diaIdList" item="id" open="(" separator="," close=")" index="index">
+                    #{id}
+                </foreach>
+                )
+            </if>
+        </where>
+        <if test="diaId == null and last == null and next == null">
+            ORDER BY DIA_TIME DESC
+        </if>
+    </select>
+
+
+    <select id="querySubject" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select  * from diary
+        <where>
+            <if test="userId != null">
+                and (USER_ID=#{userId}
+               or TO_ID like concat('%',#{userId},',%')
+                )
+            </if>
+            <if test="subject != null and subject != ''">
+                AND (
+                SUBJECT like concat('%',#{subject},'%')
+                or CONTENT like concat('%',#{subject},'%')
+                <if test="strs != null">
+                    <foreach collection="strs" item="str">
+                        or SUBJECT like concat ('%',#{str},'%')
+                        or CONTENT like concat ('%',#{str},'%')
+                    </foreach>
+                </if>
+                <if test="attachIds != null">
+                    <foreach collection="attachIds" item="attachId">
+                        or ATTACHMENT_ID like concat ('%',#{attachId},'%')
+                    </foreach>
+                </if>
+                )
+            </if>
+        </where>
+    </select>
+    <select id="queryFile" resultType="string" parameterType="java.util.Map">
+        select ATTACHMENT_ID from diary
+        <where>
+            <if test="userId != null">
+                and (USER_ID=#{userId}
+                or TO_ID like concat('%',#{userId},',%')
+                )
+            </if>
+        </where>
+    </select>
+</mapper>

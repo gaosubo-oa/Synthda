@@ -1,0 +1,7 @@
+*{padding:0px;margin:0px;}
+body{background:#e3eef2;font-size:9pt;overflow:hidden;}
+A:link { COLOR: #0066cc; TEXT-DECORATION: none;}
+A:visited { COLOR: #0066cc; TEXT-DECORATION: none}
+A:active  { COLOR: #3333ff; TEXT-DECORATION: underline}
+A:hover   { COLOR: #ff0000; TEXT-DECORATION: underline}
+#tongdainfo{line-height:20px;margin-left:10px;float:left;}

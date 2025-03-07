@@ -1,0 +1,113 @@
+* {font-family: "Microsoft Yahei" !important;}
+body{
+    background: url(/WebRoot/ui/img/crm/bar_bg.png);
+}
+b{
+    color: red;
+}
+.head{
+    margin-top: 10px;
+    height: 40px;
+    position: relative;
+}
+.head .title{
+    margin-left: 22px;
+}
+.head span{
+    float: none;
+    /*margin-top: 9px;*/
+    font-size: 22px;
+    color: #333;
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: middle;
+    margin-top: -6px;
+}
+.head input{
+    position: absolute;
+    top:-5px;
+    right: 120px;
+    padding: 8px 20px;
+    background-color: silver;
+    color: white;
+    height: 35px;
+    line-height: 20px;
+    width: 80px;
+    font-size: 14px;
+    border-radius: 10px;
+}
+.quit input{
+    position: absolute;
+    top:-5px;
+    right: 30px;
+    padding: 8px 20px;
+    background-color: silver;
+    color: white;
+    height: 35px;
+    line-height: 20px;
+    width: 80px;
+    font-size: 14px;
+    border-radius: 10px;
+}
+.add input{
+    position: absolute;
+    top:-5px;
+    right: 210px;
+    padding: 8px 20px;
+    background-color:rosybrown;
+    color: white;
+    height: 35px;
+    line-height: 20px;
+    width: 80px;
+    font-size: 14px;
+    border-radius: 10px;
+}
+#ajaxforms{
+    background: white;
+    line-height: 40px;
+    font-size: 11pt;
+    height: 40px;
+}
+#ajaxforms tr td input{
+    border-radius: 10px;
+    width: 350px;
+    height: 40px;
+}
+#ajaxforms_1 tr td{
+    border: 1px silver solid;
+    padding: 0px 10px;
+}
+#ajaxforms tr td select{
+    border-radius: 10px;
+    width: 350px;
+    height: 40px;
+}
+#pagediv{
+    margin: 30px auto;
+    width:480px;
+}
+#add_btn{
+    background-color:red;
+    color: white;
+    height: 35px;
+    line-height: 20px;
+    width: 80px;
+    font-size: 14px;
+    border-radius: 10px;
+    margin: 10px 200px;
+}
+.h3{
+    font-weight: normal;
+    padding-left: 10px;
+    border-left: 12px solid #19bd9b;
+    height: 30px;
+    vertical-align: bottom;
+    line-height: 30px;
+}
+p{
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}

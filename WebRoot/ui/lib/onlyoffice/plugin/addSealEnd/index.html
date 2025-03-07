@@ -1,0 +1,226 @@
+<!--
+ (c) Copyright Ascensio System SIA 2020
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>签章</title>
+    <style>
+        p, a{
+            font-size: 12px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+
+        a:link {
+            color: darkgrey;
+        }
+
+        /* visited link */
+        a:visited {
+            color: darkgrey;
+        }
+
+        /* mouse over link */
+        a:hover {
+            color: #8d8d8d;
+        }
+
+        /* selected link */
+        a:active {
+            color: darkgrey;
+        }
+				.small {
+				    font-size: 9pt;
+				}
+				.big3 {
+				    font-size: 12pt;
+				    COLOR: #124164;
+				    FONT-WEIGHT: bold;
+				}
+				.TableBlock {
+				    border: 1px #dddddd solid;
+				    line-height: 20px;
+				    font-size: 9pt;
+				    border-collapse: collapse;
+				}
+				.TableData {
+				    BACKGROUND: #FFFFFF;
+				    COLOR: #000000;
+				}
+				.TableData:hover{
+				    background: #708DDF;
+				    color: #fff;
+				}
+				.TableHeader {
+				    COLOR: #383838;
+				    FONT-WEIGHT: bold;
+				    FONT-SIZE: 9pt;
+				    background: #fff;
+				    line-height: 40px;
+				    border-bottom: 1px #dddddd solid;
+				}
+				.TableBlock .TableHeader td, .TableBlock td.TableHeader {
+				    height: 30px;
+				    background: #ffffff;
+				    /* border: 1px #9cb269 solid; */
+				    font-weight: bold;
+				    color: #383838;
+				    line-height: 23px;
+				    padding: 0px;
+				    padding-left: 5px;
+				}
+				.TableBlock .TableData td, .TableBlock td.TableData {
+				    border-bottom: 1px #dddddd solid;
+				    border-top: 1px #dddddd solid;
+				    border-right: 1px #dddddd solid;
+				    padding: 3px;
+				    height: 30px;
+				}
+    </style>
+		
+        <script type="text/javascript" src="https://onlyoffice.github.io/sdkjs-plugins/v1/plugins.js"></script>
+        <script type="text/javascript" src="https://onlyoffice.github.io/sdkjs-plugins/v1/plugins-ui.js"></script>
+				<script type="text/javascript" src="scripts/jquery-1.8.3.min.js"></script>
+				<script type="text/javascript" src="scripts/layer/layer.js"></script> 
+        <link rel="stylesheet" href="https://onlyoffice.github.io/sdkjs-plugins/v1/plugins.css">
+    <script type="text/javascript">
+				var sealInfor = {};
+				var src = '';
+				var signId = '';
+				var parentUrl = '';
+        window.Asc.plugin.init = function()
+        {		
+						debugger
+            this.resizeWindow(1080, 500, 1080, 500, 1080, 500);
+						
+						var callbackUrl = parent.window.g_asc_plugins.api.vIc;
+						// var callbackUrl = parent.window.g_asc_plugins.api.fTc;
+						console.log(callbackUrl.split('&uid=')[1])
+						var uid = callbackUrl.split('&uid=')[1].split('&')[0];
+						console.log('父页面地址：'+parent.window.location.search.split('&parentOrigin=')[1])
+						
+						parentUrl = parent.window.location.search.split('&parentOrigin=')[1];
+						sealInfor = {};
+						
+						$.ajax({
+							type: 'get',
+							url: parentUrl + '/xsign/getOnlyOfficeXSign?uid='+ uid,
+							dataType: 'jsonp',
+							success: function(json){
+								if(json.flag){
+									var str = '';
+									for(var i=0;i<json.obj.length;i++){
+											sealInfor[json.obj[i].signId] = json.obj[i];
+											str += '<tr class="TableData">\
+													<td align="center" class="menulines" style="" onclick="javascript:click_seal('+ json.obj[i].signId +')">\
+													'+ json.obj[i].signId +'  </td>\
+													<td align="center" class="menulines" onclick="javascript:click_seal('+ json.obj[i].signId +')">\
+													'+ json.obj[i].signName +'  </td>\
+													</tr>';
+									}
+									$('.TableHeader').after(str);
+								}
+							},
+							error:function(e){
+								console.log(e)
+								
+								
+							}
+						})
+           
+        };
+				function click_seal (id){
+							src = sealInfor[id].signImg;
+							signId = sealInfor[id].signId;
+							console.log(src, signId);	
+							getPassword()
+					
+				}
+				function getPassword(){
+					layer.open({
+					        area: ['auto', '200px'],
+					        maxWidth:400,
+					        closeBtn: 0,
+					        title:['输入密码', 'color: #fff;background: -webkit-linear-gradient(top, #2077c6, #2495df);'],
+					        content: '<input type="password" placeholder="请输入印章密码" id="SealPaseWord" style="width: 70%;height: 30px;border-radius: 4px;background: #f8f8f8;border: 1px solid #d4cdcd!important;font-size: 14px;text-indent: 5px;margin-top: 10px;">',
+					        btn:['确定', '取消'],
+					        yes:function(index, layero){
+					            var psw = $('#SealPaseWord').val();
+											parent.window.g_asc_plugins.api.signId = signId
+					            $.ajax({
+					                type: 'get',
+					                url: parentUrl + '/xsign/isOnlyOfficePwdTrue',
+					                dataType: 'jsonp',
+					                data:{
+					                    signId: signId,
+					                    password: psw
+					                },
+					                success: function (res) {
+					                    if(res.object){
+																		window.Asc.plugin.callCommand(function(){
+																			debugger
+																			console.log(window[0].src);
+																			var src = window[0].src;
+																			if(window.location.href.indexOf('/documenteditor/') > -1){
+																				var oDocument = Api.GetDocument();
+																				var oParagraph = oDocument.GetElement(0);
+																				var oDrawing = Api.CreateImage( src , 50 * 36000 , 50 * 36000 );
+																				oParagraph.AddDrawing(oDrawing);
+																				oDrawing.SetWrappingStyle("behind");
+																				window[0].Asc.plugin.executeCommand("close", "")
+																			}else if(window.location.href.indexOf('/spreadsheeteditor/') > -1){
+																				var oWorksheet = Api.GetActiveSheet();
+																				var oImage = oWorksheet.AddImage(src, 60 * 36000, 60 * 36000, 0, 2 * 36000, 0, 3 * 36000);
+																				window[0].Asc.plugin.executeCommand("close", "")
+																			}else{
+																				
+																			}															
+																		})
+					                        layer.closeAll();
+					                    }else{
+					                        $('#SealPaseWord').val('');
+					                        alert('密码错误！')
+					                    }
+					
+					                }
+					            });
+					
+					        }
+					    });
+
+				}
+        window.Asc.plugin.button = function(id)
+        {
+						debugger
+            this.executeCommand("close", "");
+        };
+
+    </script>
+</head>
+<body style="padding-left: 20px; padding-right: 20px">
+<table width="100%" class="TableBlock">
+    <tbody>
+    <tr class="TableHeader">
+        <td align="center"><b>印章ID</b></td>
+        <td align="center"><b>印章名称</b></td>
+    </tr>
+
+    </tbody>
+</table>
+
+</body>
+</html>

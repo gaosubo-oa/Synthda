@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.wages_manage.WagesAttendancePrivMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.wages_manage.WagesAttendancePriv">
+        <id column="ATTENDANCE_PRIV" jdbcType="INTEGER" property="attendancePriv"/>
+        <result column="USER_ID" jdbcType="VARCHAR" property="userId"/>
+        <result column="SUBORDINATE_USER_ID" jdbcType="VARCHAR" property="subordinateUserId"/>
+        <result column="SUBORDINATE_DEPT_ID" jdbcType="VARCHAR" property="subordinateDeptId"/>
+    </resultMap>
+
+    <insert id="addAttendancePriv" parameterType="com.xoa.model.wages_manage.WagesAttendancePriv">
+        insert into wages_attendance_priv(USER_ID, SUBORDINATE_USER_ID, SUBORDINATE_DEPT_ID)
+        values (#{userId}, #{subordinateUserId}, #{subordinateDeptId})
+    </insert>
+
+    <delete id="deleteAttendancePriv" parameterType="java.lang.Integer">
+        delete
+        from wages_attendance_priv
+        where ATTENDANCE_PRIV = #{attendancePriv}
+    </delete>
+
+    <update id="updateAttendancePriv" parameterType="com.xoa.model.wages_manage.WagesAttendancePriv">
+        update wages_attendance_priv
+        <set>
+            <if test="userId != null">
+                USER_ID = #{userId},
+            </if>
+            <if test="subordinateUserId != null">
+                SUBORDINATE_USER_ID = #{subordinateUserId},
+            </if>
+            <if test="subordinateDeptId != null">
+                SUBORDINATE_DEPT_ID = #{subordinateDeptId},
+            </if>
+        </set>
+        where ATTENDANCE_PRIV = #{attendancePriv}
+    </update>
+
+    <select id="selectAllAttendancePriv" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select *
+        from wages_attendance_priv
+        <where>
+            <if test="attendancePriv != null and attendancePriv != ''">
+                ATTENDANCE_PRIV = #{attendancePriv}
+            </if>
+        </where>
+    </select>
+
+</mapper>

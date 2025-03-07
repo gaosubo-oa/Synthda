@@ -1,0 +1,814 @@
+@font-face {
+    font-family: electronicFont;
+    src: url(/img/planCheck/operationsCockpit_ZDJ/DS-DIGIT.TTF);
+}
+
+.wrapper {
+    position: relative;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    min-width: auto;
+    width: 1920px;
+    min-height: auto;
+    height: 1080px;
+    transform-origin: 0px 0px;
+
+    .button_group {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        height: 80px;
+        cursor: pointer;
+        z-index: 2;
+    }
+
+    .group_left {
+        left: 20px;
+    }
+    .group_right {
+        right: 20px;
+    }
+
+    .button_group button {
+        padding: 5px 10px;
+        font-size: 20px;
+        color: #fff;
+        border-radius: 4px;
+        transition: .3s;
+        cursor: pointer;
+    }
+
+    .button_group button:hover {
+        background-color: #0098e0;
+    }
+
+    .button_group .active {
+        background-color: #00468e;
+    }
+}
+
+.container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    transition: .3s;
+
+    .header {
+        position: relative;
+        height: 100px;
+        background-repeat: no-repeat;
+
+        .header_title {
+            font-size: 42px;
+            color: #fff;
+            text-align: center;
+            line-height: 80px;
+            font-family: '华文楷体';
+        }
+    }
+
+    .content {
+        position: relative;
+        display: flex;
+        justify-content: space-around;
+        height: 980px;
+        padding: 5px 10px;
+        overflow: hidden;
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 27.272727272727%;
+            min-width: 27.272727272727%;
+            max-width: 27.272727272727%;
+            overflow: hidden;
+
+            &:nth-child(2) {
+                width: 45.454545454545%;
+                min-width: 45.454545454545%;
+                max-width: 45.454545454545%;
+                padding: 0 20px 17px;
+                overflow: hidden;
+            }
+        }
+
+        .panel {
+            position: relative;
+            height: 32.5%;
+            border: 1px solid rgba(25, 186, 139, 0.17);
+            background: rgba(255, 255, 255, 0.04) url(/img/planCheck/operationsCockpit_ZDJ/panel_bg.png);
+            padding: 10px;
+    
+            &:before {
+                position: absolute;
+                top: -2px;
+                left: -2px;
+                content: "";
+                width: 10px;
+                height: 10px;
+                border-top: 2px solid #02a6b5;
+                border-left: 2px solid #02a6b5;
+            }
+    
+            &:after {
+                position: absolute;
+                top: -2px;
+                right: -2px;
+                content: "";
+                width: 10px;
+                height: 10px;
+                border-top: 2px solid #02a6b5;
+                border-right: 2px solid #02a6b5;
+            }
+    
+            .panel_title {
+                position: absolute;
+                top: 20%;
+                right: 10px;
+                width: 1em;
+                font-size: 14px;
+                color: #fff;
+                z-index: 1;
+            }
+    
+            .panel_footer {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+    
+                &:before {
+                    position: absolute;
+                    bottom: -2px;
+                    left: -2px;
+                    content: "";
+                    width: 10px;
+                    height: 10px;
+                    border-bottom: 2px solid #02a6b5;
+                    border-left: 2px solid #02a6b5;
+                }
+    
+                &:after {
+                    position: absolute;
+                    bottom: -2px;
+                    right: -2px;
+                    content: "";
+                    width: 10px;
+                    height: 10px;
+                    border-bottom: 2px solid #02a6b5;
+                    border-right: 2px solid #02a6b5;
+                }
+            }
+        }
+
+        .chart {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .box_wrap {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .map_content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+    
+            .btn_group {
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                height: 40px;
+    
+                .btn_box {
+                    width: 155px;
+                    height: 31px;
+                    background-size: 100% 100%;
+                    text-align: center;
+    
+                    button {
+                        padding: 0 26px;
+                        border-radius: 5px;
+                        border: none;
+                        outline: none;
+                        background: #00468e;
+                        color: #fff;
+                        line-height: 31px;
+                        cursor: pointer;
+                    }
+                }
+    
+                .active {
+                    button {
+                        background-color: #0098e0;
+                    }
+                }
+            }
+    
+            .dashboard {
+                display: flex;
+                justify-content: space-around;
+                height: 313px;
+                padding: 5px 10px;
+                
+                .dashboard_item {
+                    width: 33.33333333%;
+                    min-width: 33.33333333%;
+                    max-width: 33.33333333%;
+                }
+            }
+    
+            .map {
+                position: relative;
+                flex: 1;
+    
+                .map_table {
+                    position: absolute;
+                    bottom: 10px;
+                    left: 10px;
+                    background-color: rgba(255,255,255,0.1);
+                    padding: 10px 5px;
+                    border-radius: 10px;
+                    color: #fff;
+                    font-weight: 600;
+                    font-family: '新宋体';
+    
+                    p {
+                        padding: 2px 5px;
+                        font-size: 14px;
+                        color: #fff;
+    
+                        &:nth-child(2) {
+                            color: #0f0;
+                        }
+    
+                        &:nth-child(3) {
+                            color: #f00;
+                        }
+                    }
+                }
+            }
+        }
+    
+
+        .table_box {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+    
+            .table_header {
+                height: 44px;
+    
+                .table_li {
+                    line-height: 20px;
+                    color: #02a6b5;
+                    font-size: 16px;
+                }
+            }
+    
+            .table_body {
+                display: none;
+                overflow: hidden;
+            }
+    
+            .table_li {
+                display: flex;
+                justify-content: space-around;
+                line-height: 22px;
+                padding: 10px 5px;
+                color: #fff;
+                font-size: 12px;
+                cursor: pointer;
+                *zoom: 1;
+                /*ie6清除浮动的方式 *号只有IE6-IE7执行，其他浏览器不执行*/
+    
+                &::after {
+                    content: "";
+                    display: block;
+                    height: 0;
+                    clear: both;
+                    visibility: hidden;
+                }
+    
+                .li_item {
+                    width: 20%;
+                    padding: 2px 10px;
+    
+                    .item_con {
+                        width: 100%;
+                        word-break: break-all;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                    }
+                }
+            }
+        }
+    }
+}
+
+#wrapOne {
+    background: url(/img/planCheck/operationsCockpit_ZDJ/bg.jpg);
+    opacity: 1;
+    z-index: 1;
+
+    .header {
+        background: url(/img/planCheck/operationsCockpit_ZDJ/head_bg.png) no-repeat top center;
+        background-size: 100% 100%;
+    }
+
+    .set_btn {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        width: 16px;
+        height: 16px;
+        background: url(/img/planCheck/operationsCockpit_ZDJ/setting.png);
+        background-size: cover;
+        font-size: 12px;
+        color: #fff;
+        z-index: 2;
+        cursor: pointer;
+    }    
+}
+
+#wrapTwo {
+    opacity: 0;
+    z-index: 0;
+    // background-image: url("/img/planCheck/operationsCockpit_ZDJ/theme_2/bg.png");
+    background-color: #001d24;
+
+    .header {
+        background-image: url("/img/planCheck/operationsCockpit_ZDJ/theme_2/title.png");
+        background-size: auto;
+        background-position: center -90px;
+    }
+
+    .box_wrap {
+        background-image: url("/img/planCheck/operationsCockpit_ZDJ/theme_2/box.png");
+
+        .box_con {
+            height: 33.33333333%;
+            padding: 5px;
+
+            h4 {
+                text-align: center;
+                font-size: 24px;
+                font-weight: bold;
+                font-style: normal;
+                font-family: 微软雅黑;
+                color: rgb(248, 248, 248);
+            }
+            
+            p {
+                font-size: 40px;
+                text-align: center;
+                color: #33d000;
+            }
+        }
+    }
+}
+
+#wrapThree {
+    opacity: 0;
+    z-index: 0;
+    background-image: url("/img/planCheck/operationsCockpit_ZDJ/theme_3/bg.png");
+
+    .header {
+        background-image: url("/img/planCheck/operationsCockpit_ZDJ/theme_3/title.png");
+        background-size: auto;
+        background-position: center 50px;
+    }
+
+    .content .panel {
+        height: 49%;
+    }
+
+    .box_wrap {
+        background-image: url("/img/planCheck/operationsCockpit_ZDJ/theme_3/box.png");
+
+        .box_con {
+            height: 50%;
+            padding: 5px;
+
+            h4 {
+                text-align: center;
+                font-size: 24px;
+                font-weight: bold;
+                font-style: normal;
+                font-family: 微软雅黑;
+                color: rgb(248, 248, 248);
+                margin-top: 20px;
+            }
+
+            p {
+                margin-top: 16px;
+                font-size: 40px;
+                text-align: center;
+                color: #33d000;
+            }
+        }
+    }
+}
+
+#wrapFour {
+    background: url(/img/planCheck/operationsCockpit_ZDJ/bg.jpg);
+    opacity: 0;
+    z-index: 0;
+
+    .header {
+        background: url(/img/planCheck/operationsCockpit_ZDJ/head_bg.png) no-repeat top center;
+        background-size: 100% 100%;
+    }
+}
+
+.dialog_module {
+    position: fixed;
+    z-index: 9999999;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+
+    .dialog_mask {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, .5);
+    }
+
+    .dialog_box {
+        position: absolute;
+        width: 50%;
+        height: 50%;
+        top: 50%;
+        left: 50%;
+        margin: 0 auto;
+        transform: translate(-50%, -50%);
+        background-color: rgba(100, 151, 216, 0.29);
+
+        .dialog_content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 40px 30px;
+            background-color: rgba(100, 151, 216, 0.29);
+
+            * {
+                color: #fff !important;
+                font-size: 16px;
+                font-weight: 400;
+                font-weight: normal;
+                letter-spacing: 2px;
+            }
+
+            .dialog_header {
+                *zoom: 1;
+                /*ie6清除浮动的方式 *号只有IE6-IE7执行，其他浏览器不执行*/
+
+                &:after {
+                    content: "";
+                    display: block;
+                    height: 0;
+                    clear: both;
+                    visibility: hidden;
+                }
+
+                .dialog_title {
+                    float: left;
+                    color: #fff;
+                    line-height: 1.42858;
+                    font-weight: normal;
+                    font-size: 26px;
+                }
+
+                .close_dialog_btn {
+                    float: right;
+                    height: 30px;
+                    width: 30px;
+                    background: url(/img/planCheck/operationsCockpit_ZDJ/x.png);
+                    background-size: cover;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                    overflow: hidden;
+
+                    &:hover {
+                        transform: rotateZ(180deg);
+                    }
+                }
+            }
+
+            .dialog_body {
+                position: absolute;
+                top: 80px;
+                left: 30px;
+                right: 30px;
+                bottom: 74px;
+                padding: 5px;
+                overflow-x: hidden;
+                overflow-y: auto;
+            }
+
+            .dialog_footer {
+                position: absolute;
+                bottom: 40px;
+                right: 30px;
+                left: 30px;
+                text-align: right;
+
+                button {
+                    color: #fff;
+                    margin: 0 5px;
+                    padding: 2px 10px;
+                    line-height: 1.42858;
+                    font-weight: normal;
+                    font-size: 20px;
+                    background: rgba(100, 151, 216, 0.8);
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+.Parent-loading {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #0b173b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1s cubic-bezier(.83, .01, .75, .71);
+}
+
+.loding-animation-holder {
+    width: 100px;
+    height: 100px;
+    transform: rotate(45deg);
+    position: relative;
+}
+
+.loading-animator {
+    width: 50%;
+    height: 50%;
+    float: left;
+    border-radius: 50%;
+    background: #c4b422e3;
+    transform: rotate(0deg);
+    position: relative;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    opacity: 1;
+}
+
+.loading-animator:nth-child(1) {
+    transform-origin: bottom right;
+    -webkit-animation: loading 3s cubic-bezier(.46, -0.1, .2, 1.5) infinite;
+    -ms-animation: loading 3s cubic-bezier(.46, -0.1, .2, 1.5) infinite;
+    animation: loading 3s cubic-bezier(.46, -0.1, .2, 1.5) infinite;
+}
+
+.loading-animator:nth-child(2) {
+    transform-origin: bottom left;
+    -webkit-animation: loading 3s 0.3s cubic-bezier(.46, -0.1, .2, 1.5) infinite;
+    -ms-animation: loading 3s 0.3s cubic-bezier(.46, -0.1, .2, 1.5) infinite;
+    animation: loading 3s 0.3s cubic-bezier(.46, -0.1, .2, 1.5) infinite;
+}
+
+.loading-animator:nth-child(4) {
+    transform-origin: top left;
+    -webkit-animation: loading 3s 0.4s cubic-bezier(.46, -0.1, .2, 1.5) infinite;
+    -ms-animation: loading 3s 0.4s cubic-bezier(.46, -0.1, .2, 1.5) infinite;
+    animation: loading 3s 0.4s cubic-bezier(.46, -0.1, .2, 1.5) infinite;
+}
+
+.loading-animator:nth-child(3) {
+    transform-origin: top right;
+    -webkit-animation: loading 3s 0.5s cubic-bezier(.46, -0.1, .2, 1.5) infinite;
+    -ms-animation: loading 3s 0.5s cubic-bezier(.46, -0.1, .2, 1.5) infinite;
+    animation: loading 3s 0.5s cubic-bezier(.46, -0.1, .2, 1.5) infinite;
+}
+
+@-webkit-keyframes loading {
+    0% {
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+    25% {
+        transform: rotate(90deg);
+        opacity: 0;
+    }
+    35% {
+        transform: rotate(-90deg);
+        opacity: 0;
+    }
+    65% {
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+}
+
+@-ms-keyframes loading {
+    0% {
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+    25% {
+        transform: rotate(90deg);
+        opacity: 0;
+    }
+    35% {
+        transform: rotate(-90deg);
+        opacity: 0;
+    }
+    65% {
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes loading {
+    0% {
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+    25% {
+        transform: rotate(90deg);
+        opacity: 0;
+    }
+    35% {
+        transform: rotate(-90deg);
+        opacity: 0;
+    }
+    65% {
+        transform: rotate(0deg);
+        opacity: 1;
+    }
+}
+
+.middle-circle {
+    width: 5px;
+    height: 5px;
+    position: absolute;
+    top: 47.5px;
+    left: 47.5px;
+    border-radius: 100%;
+    border: 1px solid #000;
+    background: #FFEB3B;
+}
+
+.Parent-loading .lod h1 {
+    color: #fff;
+    margin-left: 60px;
+    font-family: fantasy;
+    font-weight: normal;
+}
+
+.Parent-loading .lod span {
+    color: #fff;
+    margin-left: 80px;
+    font-size: 14px;
+}
+
+.div_con {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+
+    /*修改滚动条样式*/
+    *::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+    }
+
+    *::-webkit-scrollbar-track {
+        background: rgb(239, 239, 239);
+        border-radius: 2px;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background: #bfbfbf;
+        border-radius: 5px;
+    }
+
+    *::-webkit-scrollbar-thumb:hover {
+        background: #333;
+    }
+
+    .div_box {
+        position: relative;
+        width: 45%;
+        height: 100%;
+        padding: 30px 20px 10px 40px;
+        overflow: hidden;
+    }
+
+    .scroll_div {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    ul {
+        width: 100%;
+
+        li {
+            position: relative;
+            padding: 5px 10px;
+            line-height: 26px;
+            height: 36px;
+
+            .check_item {
+                top: 9px;
+                left: 10px;
+            }
+
+            .li_text {
+                height: 100%;
+                width: 100%;
+                padding-left: 25px;
+            }
+        }
+
+        .li_show {
+            display: block;
+        }
+
+        .li_hide {
+            display: none;
+        }
+    }
+
+    .check_box {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+
+        i {
+            display: inline-block;
+            width: 100%;
+            height: 100%;
+            background: url(/img/planCheck/operationsCockpit_ZDJ/unchecked.png);
+            background-size: cover;
+        }
+    }
+
+    .checked_item, .checked_all {
+        i {
+            background: url(/img/planCheck/operationsCockpit_ZDJ/checked.png);
+            background-size: cover;
+        }
+    }
+
+    .box_title {
+        position: absolute;
+        top: 0;
+        left: 50px;
+        height: 24px;
+        line-height: 24px;
+        padding-left: 25px;
+
+        span {
+            margin-left: 20px;
+        }
+
+        .check_all {
+            top: 3px;
+            left: 0;
+        }
+    }
+}

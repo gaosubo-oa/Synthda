@@ -1,0 +1,4325 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.email.EmailBodyMapper">
+	<resultMap id="BaseResultMap" type="com.xoa.model.email.EmailBodyModel">
+		<id column="BODY_ID" property="bodyId" javaType="INTEGER" />
+		<result column="FROM_ID" property="fromId" javaType="String" />
+		<result column="fromName" property="fromName" javaType="String" />
+		<result column="SUBJECT" property="subject" javaType="String" />
+		<result column="SEND_TIME" property="sendTime" javaType="INTEGER" />
+		<result column="SEND_FLAG" property="sendFlag" javaType="String" />
+		<result column="SMS_REMIND" property="smsRemind" javaType="String" />
+		<result column="IMPORTANT" property="important" javaType="String" />
+		<result column="SIZE" property="size" javaType="Long" />
+		<result column="FROM_WEBMAIL_ID" property="fromWebmailId"
+			javaType="INTEGER" />
+		<result column="FROM_WEBMAIL" property="fromWebmail" javaType="String" />
+		<result column="WEBMAIL_FLAG" property="webmailFlag" javaType="String" />
+		<result column="RECV_FROM_NAME" property="recvFromName"
+			javaType="String" />
+		<result column="RECV_FROM" property="recvFrom" javaType="String" />
+		<result column="RECV_TO_ID" property="recvToId" javaType="INTEGER" />
+		<result column="RECV_TO" property="recvTo" javaType="String" />
+		<result column="IS_WEBMAIL" property="isWebmail" javaType="String" />
+		<result column="IS_WF" property="isWf" javaType="String" />
+		<result column="KEYWORD" property="keyword" javaType="String" />
+		<result column="SECRET_LEVEL" property="secretLevel" javaType="INTEGER" />
+		<result column="AUDIT_MAN" property="auditMan" javaType="String" />
+		<result column="TO_ID2" property="toId2" javaType="String" />
+		<result column="COPY_TO_ID" property="copyToId" javaType="String" />
+		<result column="SECRET_TO_ID" property="secretToId" javaType="String" />
+		<result column="CONTENT" property="content" javaType="String" />
+		<result column="ATTACHMENT_ID" property="attachmentId"
+			javaType="String" />
+		<result column="ATTACHMENT_NAME" property="attachmentName"
+			javaType="String" />
+		<result column="TO_WEBMAIL" property="toWebmail" javaType="String" />
+		<result column="COMPRESS_CONTENT" property="compressContent"
+			javaType="byte[]" />
+		<result column="WEBMAIL_CONTENT" property="webmailContent"
+			javaType="byte[]" />
+		<result column="AUDIT_REMARK" property="auditRemark" javaType="String" />
+		<result column="COPY_TO_WEBMAIL" property="copyToWebmail"
+			javaType="String" />
+		<result column="SECRET_TO_WEBMAIL" property="secretToWebmail"
+			javaType="String" />
+		<result column="PRAISE" property="praise" javaType="String" />
+		<result property="count1" column="count1" />
+		<result property="count2" column="count2" />
+		<result property="count3" column="count3" />
+		<result property="count4" column="count4" />
+		<result property="count5" column="count5" />
+		<result property="count6" column="count6" />
+		<result property="count7" column="count7" />
+		<result property="count8" column="count8" />
+		<result property="count9" column="count9" />
+		<result property="count10" column="count10" />
+		<result property="count11" column="count11" />
+		<result property="count12" column="count12" />
+		<result property="Months" column="Months" />
+		<result property="deptName" column="DEPT_NAME" />
+		<result property="deptId" column="DEPT_ID" />
+		<result property="examFlag" column="EXAM_FLAG" />
+		<result property="wordFlag" column="WORD_FLAG" />
+		<association property="users" column="BODY_ID"
+			javaType="com.xoa.model.users.Users">
+			<id column="UID" property="uid" />
+			<result property="userId" column="USER_ID" />
+			<result property="userName" column="USER_NAME" />
+			<result property="sex" column="SEX" />
+			<result property="avatar" column="AVATAR" />
+		</association>
+		<!-- 一对多收件人 -->
+		<collection property="emailList" ofType="com.xoa.model.email.EmailModel"
+			column="BODY_ID">
+			<id column="EMAIL_ID" property="emailId" javaType="INTEGER" />
+			<result column="TO_ID" property="toId" javaType="String" />
+			<result column="READ_FLAG" property="readFlag" javaType="String" />
+			<result column="DELETE_FLAG" property="deleteFlag" javaType="String" />
+			<result column="BOX_ID" property="boxId" javaType="INTEGER" />
+			<result column="BODY_ID" property="bodyId" javaType="INTEGER" />
+			<result column="RECEIPT" property="receipt" javaType="String" />
+			<result column="IS_F" property="isF" javaType="String" />
+			<result column="IS_R" property="isR" javaType="String" />
+			<result column="SIGN" property="sign" javaType="String" />
+			<result column="withdraw_flag" property="withdrawFlag" javaType="String" />
+		</collection>
+		<!-- 一对多外部邮件 -->
+		<collection property="webmailList" ofType="com.xoa.model.email.Webmail"
+					column="MAIL_ID">
+			<id column="MAIL_ID" property="mailId" javaType="Integer"/>
+			<result column="EMAIL" property="email" javaType="String"/>
+			<result column="USER_ID" property="userId" javaType="String"/>
+			<result column="POP_SERVER" property="popServer" javaType="String"/>
+			<result column="SMTP_SERVER" property="smtpServer" javaType="String"/>
+			<result column="LOGIN_TYPE" property="loginType" javaType="String"/>
+			<result column="SMTP_PASS" property="smtpPass" javaType="String"/>
+			<result column="EMAIL_USER" property="emailUser" javaType="String"/>
+			<result column="EMAIL_PASS" property="emailPass" javaType="String"/>
+			<result column="POP3_PORT" property="pop3Port" javaType="Integer"/>
+			<result column="SMTP_PORT" property="smtpPort" javaType="Integer"/>
+			<result column="IS_DEFAULT" property="isDefault" javaType="String"/>
+			<result column="POP3_SSL" property="pop3Ssl" javaType="String"/>
+			<result column="SMTP_SSL" property="smtpSsl" javaType="String"/>
+			<result column="QUOTA_LIMIT" property="quotaLimit" javaType="String"/>
+			<result column="CHECK_FLAG" property="checkFlag" javaType="String"/>
+			<result column="PRIORITY" property="priority" javaType="String"/>
+			<result column="RECV_DEL" property="recvDel" javaType="String"/>
+			<result column="RECV_REMIND" property="recvRemind" javaType="String"/>
+			<result column="RECV_FW" property="recvFw" javaType="String"/>
+			<result column="CREATE_USER" property="createUser" javaType="String"/>
+			<result column="EMAIL_UID" property="emailUid" javaType="String"/>
+		</collection>
+	</resultMap>
+	<resultMap id="EmailResultMap" type="com.xoa.model.email.EmailBodyModel">
+		<id column="BODY_ID" property="bodyId" javaType="INTEGER" />
+		<result column="READ_FLAG" property="readFlag" javaType="String" />
+		<result column="FROM_ID" property="fromId" javaType="String" />
+		<result column="fromName" property="fromName" javaType="String" />
+		<result column="SUBJECT" property="subject" javaType="String" />
+		<result column="SEND_TIME" property="sendTime" javaType="INTEGER" />
+		<result column="TO_ID2" property="toId2" javaType="String" />
+		<result column="CONTENT" property="content" javaType="String" />
+		<result column="ATTACHMENT_ID" property="attachmentId"
+				javaType="String" />
+		<result column="ATTACHMENT_NAME" property="attachmentName"
+				javaType="String" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		eb.BODY_ID,u.USER_NAME,eb.SUBJECT,eb.KEYWORD,eb.ATTACHMENT_NAME,eb.SEND_TIME,eb.SIZE,e.BOX_ID,e.READ_FLAG,e.DELETE_FLAG,e.SIGN
+	</sql>
+	<sql id="Page_Where_Clause">
+		<if test="startTime != null and startTime != ''">
+			eb.SEND_TIME &gt;= #{startTime}
+		</if>
+		<if test="endTime != null and endTime != ''">
+			AND eb.SEND_TIME &lt;= #{endTime}
+		</if>
+		<if test="readFlag != null and readFlag != ''">
+			AND e.READ_FLAG=#{readFlag}
+		</if>
+		<if test="boxId != null and boxId != ''">
+			AND e.BOX_ID= #{boxId}
+		</if>
+		<if test="userName!=null and userName!='' ">
+			AND u.USER_NAME= #{userName}
+		</if>
+		<if test="sign!=null and sign='' ">
+			AND e.SIGN=#{sign}
+		</if>
+		<if test="keyword!=null and keyword='' ">
+			AND eb.KEYWORD LIKE #{keyword}
+		</if>
+	</sql>
+	<select id="listqueryEmailBody" parameterType="Map" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from email_body as eb
+		LEFT JOIN user as u on eb.FROM_ID=u.USER_ID
+		LEFT
+		JOIN
+		emailModel as e on e.BODY_ID=eb.BODY_ID
+		<where>
+			<include refid="Page_Where_Clause" />
+		</where>
+		group by eb.BODY_ID
+	</select>
+
+	<select id="listqueryEmailBody" parameterType="Map" resultMap="BaseResultMap" databaseId="kingbase">
+		select
+		<include refid="Base_Column_List" />
+		from email_body as eb
+		LEFT JOIN "user" as u on eb.FROM_ID=u.USER_ID
+		LEFT
+		JOIN
+		emailModel as e on e.BODY_ID=eb.BODY_ID
+		<where>
+			<include refid="Page_Where_Clause" />
+		</where>
+		group by eb.BODY_ID
+	</select>
+
+	<!-- 发送邮件并保存到数据库 -->
+	<insert id="save" parameterType="com.xoa.model.email.EmailBodyModel"  useGeneratedKeys="true" keyProperty="bodyId">
+		<selectKey order="AFTER" keyProperty="bodyId" resultType="int">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into email_body (
+		FROM_ID,
+		SUBJECT,
+		SEND_TIME,
+		SEND_FLAG,
+		SMS_REMIND,
+		IMPORTANT,
+		SIZE,
+		FROM_WEBMAIL_ID,
+		FROM_WEBMAIL,
+		WEBMAIL_FLAG,
+		RECV_FROM_NAME,
+		RECV_FROM,
+		RECV_TO_ID,
+		RECV_TO,
+		IS_WEBMAIL,
+		IS_WF,
+		KEYWORD,
+		SECRET_LEVEL,
+		AUDIT_MAN,
+		TO_ID2,
+		COPY_TO_ID,
+		SECRET_TO_ID,
+		CONTENT,
+		ATTACHMENT_ID,
+		ATTACHMENT_NAME,
+		TO_WEBMAIL,
+		COMPRESS_CONTENT,
+		WEBMAIL_CONTENT,
+		AUDIT_REMARK,
+		COPY_TO_WEBMAIL,
+		SECRET_TO_WEBMAIL,
+		PRAISE,EXAM_FLAG,
+		WORD_FLAG)
+		values(
+		#{fromId},
+		#{subject},
+		#{sendTime},
+		#{sendFlag},
+		#{smsRemind},
+		#{important},
+		#{size},
+		#{fromWebmailId},
+		#{fromWebmail},
+		#{webmailFlag},
+		#{recvFromName},
+		#{recvFrom},
+		#{recvToId},
+		#{recvTo},
+		#{isWebmail},
+		#{isWf},
+		#{keyword},
+		#{secretLevel},
+		#{auditMan},
+		#{toId2},
+		#{copyToId},
+		#{secretToId},
+		#{content},
+		#{attachmentId},
+		#{attachmentName},
+		#{toWebmail},
+		#{compressContent},
+		#{webmailContent},
+		#{auditRemark},
+		#{copyToWebmail},
+		#{secretToWebmail},
+		#{praise},
+		#{examFlag},
+		#{wordFlag}
+		)
+	</insert>
+
+	<insert id="save" parameterType="com.xoa.model.email.EmailBodyModel"  useGeneratedKeys="true" keyProperty="bodyId" databaseId="dm">
+		<selectKey keyProperty="bodyId"  order="BEFORE" resultType="int">
+			SELECT IDENT_CURRENT('EMAIL_BODY');
+		</selectKey>
+		insert into email_body (
+		FROM_ID,
+		SUBJECT,
+		SEND_TIME,
+		SEND_FLAG,
+		SMS_REMIND,
+		IMPORTANT,
+		"SIZE",
+		FROM_WEBMAIL_ID,
+		FROM_WEBMAIL,
+		WEBMAIL_FLAG,
+		RECV_FROM_NAME,
+		RECV_FROM,
+		RECV_TO_ID,
+		RECV_TO,
+		IS_WEBMAIL,
+		IS_WF,
+		KEYWORD,
+		SECRET_LEVEL,
+		AUDIT_MAN,
+		TO_ID2,
+		COPY_TO_ID,
+		SECRET_TO_ID,
+		CONTENT,
+		ATTACHMENT_ID,
+		ATTACHMENT_NAME,
+		TO_WEBMAIL,
+		COMPRESS_CONTENT,
+		WEBMAIL_CONTENT,
+		AUDIT_REMARK,
+		COPY_TO_WEBMAIL,
+		SECRET_TO_WEBMAIL,
+		PRAISE)
+		values(
+		#{fromId},
+		#{subject},
+		#{sendTime},
+		#{sendFlag},
+		#{smsRemind},
+		#{important},
+		#{size},
+		#{fromWebmailId},
+		#{fromWebmail},
+		#{webmailFlag},
+		#{recvFromName},
+		#{recvFrom},
+		#{recvToId},
+		#{recvTo},
+		#{isWebmail},
+		#{isWf},
+		#{keyword},
+		#{secretLevel},
+		#{auditMan},
+		#{toId2},
+		#{copyToId},
+		#{secretToId},
+		#{content},
+		#{attachmentId},
+		#{attachmentName},
+		#{toWebmail},
+		#{compressContent},
+		#{webmailContent},
+		#{auditRemark},
+		#{copyToWebmail},
+		#{secretToWebmail},
+		#{praise}
+		)
+	</insert>
+	<insert id="save" parameterType="com.xoa.model.email.EmailBodyModel"  useGeneratedKeys="true" keyProperty="bodyId" databaseId="oracle">
+		<selectKey keyProperty="bodyId"  order="BEFORE" resultType="int">
+			select EMAIL_BODY_BODY_ID_SEQ.nextval as bodyId from  dual
+		</selectKey>
+		INSERT INTO EMAIL_BODY (
+		BODY_ID,
+		FROM_ID,
+		SUBJECT,
+		SEND_TIME,
+		SEND_FLAG,
+		SMS_REMIND,
+		IMPORTANT,
+		"SIZE",
+		FROM_WEBMAIL_ID,
+		FROM_WEBMAIL,
+		WEBMAIL_FLAG,
+		RECV_FROM_NAME,
+		RECV_FROM,
+		RECV_TO_ID,
+		RECV_TO,
+		IS_WEBMAIL,
+		IS_WF,
+		KEYWORD,
+		SECRET_LEVEL,
+		AUDIT_MAN,
+		TO_ID2,
+		COPY_TO_ID,
+		SECRET_TO_ID,
+		"CONTENT",
+		ATTACHMENT_ID,
+		ATTACHMENT_NAME,
+		TO_WEBMAIL,
+		COMPRESS_CONTENT,
+		WEBMAIL_CONTENT,
+		AUDIT_REMARK,
+		COPY_TO_WEBMAIL,
+		SECRET_TO_WEBMAIL,
+		PRAISE
+		)
+		values(
+		#{bodyId},
+		#{fromId},
+		#{subject},
+		#{sendTime},
+		#{sendFlag},
+		#{smsRemind},
+		#{important},
+		#{size},
+		#{fromWebmailId},
+		#{fromWebmail},
+		#{webmailFlag},
+		#{recvFromName},
+		#{recvFrom},
+		#{recvToId},
+		#{recvTo},
+		#{isWebmail},
+		#{isWf},
+		#{keyword},
+		#{secretLevel},
+		#{auditMan},
+		#{toId2},
+		#{copyToId},
+		#{secretToId},
+		#{content},
+		#{attachmentId},
+		#{attachmentName},
+		#{toWebmail},
+		#{compressContent},
+		#{webmailContent},
+		#{auditRemark},
+		#{copyToWebmail},
+		#{secretToWebmail},
+		#{praise}
+		)
+	</insert>
+
+	<insert id="save" parameterType="com.xoa.model.email.EmailBodyModel"  useGeneratedKeys="true" keyProperty="bodyId" databaseId="kingbase">
+		INSERT INTO EMAIL_BODY
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="bodyId != null">
+				BODY_ID,
+			</if>
+			<if test="fromId != null">
+				FROM_ID,
+			</if>
+			<if test="subject != null">
+				SUBJECT,
+			</if>
+			<if test="sendTime != null">
+				SEND_TIME,
+			</if>
+			<if test="sendFlag != null">
+				SEND_FLAG,
+			</if>
+			<if test="smsRemind != null">
+				SMS_REMIND,
+			</if>
+			<if test="important != null">
+				IMPORTANT,
+			</if>
+			<if test="size != null">
+				SIZE,
+			</if>
+			<if test="fromWebmailId != null">
+				FROM_WEBMAIL_ID,
+			</if>
+			<if test="fromWebmail != null">
+				FROM_WEBMAIL,
+			</if>
+			<if test="webmailFlag != null">
+				WEBMAIL_FLAG,
+			</if>
+			<if test="recvFromName != null">
+				RECV_FROM_NAME,
+			</if>
+			<if test="recvFrom != null">
+				RECV_FROM,
+			</if>
+			<if test="recvToId != null">
+				RECV_TO_ID,
+			</if>
+			<if test="recvTo != null">
+				RECV_TO,
+			</if>
+			<if test="isWebmail != null">
+				IS_WEBMAIL,
+			</if>
+			<if test="isWf != null">
+				IS_WF,
+			</if>
+			<if test="keyword != null">
+				KEYWORD,
+			</if>
+			<if test="secretLevel != null">
+				SECRET_LEVEL,
+			</if>
+			<if test="auditMan != null">
+				AUDIT_MAN,
+			</if>
+			<if test="toId2 != null">
+				TO_ID2,
+			</if>
+			<if test="copyToId != null">
+				COPY_TO_ID,
+			</if>
+			<if test="secretToId != null">
+				SECRET_TO_ID,
+			</if>
+			<if test="content != null">
+				CONTENT,
+			</if>
+			<if test="attachmentId != null">
+				ATTACHMENT_ID,
+			</if>
+			<if test="attachmentName != null">
+				ATTACHMENT_NAME,
+			</if>
+			<if test="toWebmail != null">
+				TO_WEBMAIL,
+			</if>
+			<if test="compressContent != null">
+				COMPRESS_CONTENT,
+			</if>
+			<if test="webmailContent != null">
+				WEBMAIL_CONTENT,
+			</if>
+			<if test="auditRemark != null">
+				AUDIT_REMARK,
+			</if>
+			<if test="copyToWebmail != null">
+				COPY_TO_WEBMAIL,
+			</if>
+			<if test="secretToWebmail != null">
+				SECRET_TO_WEBMAIL,
+			</if>
+			<if test="praise != null">
+				PRAISE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="bodyId != null">
+				#{bodyId},
+			</if>
+			<if test="fromId != null">
+				#{fromId},
+			</if>
+			<if test="subject != null">
+				#{subject},
+			</if>
+			<if test="sendTime != null">
+				#{sendTime},
+			</if>
+			<if test="sendFlag != null">
+				#{sendFlag},
+			</if>
+			<if test="smsRemind != null">
+				#{smsRemind},
+			</if>
+			<if test="important != null">
+				#{important},
+			</if>
+			<if test="size != null">
+				#{size},
+			</if>
+			<if test="fromWebmailId != null">
+				#{fromWebmailId},
+			</if>
+			<if test="fromWebmail != null">
+				#{fromWebmail},
+			</if>
+			<if test="webmailFlag != null">
+				#{webmailFlag},
+			</if>
+			<if test="recvFromName != null">
+				#{recvFromName},
+			</if>
+			<if test="recvFrom != null">
+				#{recvFrom},
+			</if>
+			<if test="recvToId != null">
+				#{recvToId},
+			</if>
+			<if test="recvTo != null">
+				#{recvTo},
+			</if>
+			<if test="isWebmail != null">
+				#{isWebmail},
+			</if>
+			<if test="isWf != null">
+				#{isWf},
+			</if>
+			<if test="keyword != null">
+				#{keyword},
+			</if>
+			<if test="secretLevel != null">
+				#{secretLevel},
+			</if>
+			<if test="auditMan != null">
+				#{auditMan},
+			</if>
+			<if test="toId2 != null">
+				#{toId2},
+			</if>
+			<if test="copyToId != null">
+				#{copyToId},
+			</if>
+			<if test="secretToId != null">
+				#{secretToId},
+			</if>
+			<if test="content != null">
+				#{content},
+			</if>
+			<if test="attachmentId != null">
+				#{attachmentId},
+			</if>
+			<if test="attachmentName != null">
+				#{attachmentName},
+			</if>
+			<if test="toWebmail != null">
+				#{toWebmail},
+			</if>
+			<if test="compressContent != null">
+				#{compressContent},
+			</if>
+			<if test="webmailContent != null">
+				#{webmailContent},
+			</if>
+			<if test="auditRemark != null">
+				#{auditRemark},
+			</if>
+			<if test="copyToWebmail != null">
+				#{copyToWebmail},
+			</if>
+			<if test="secretToWebmail != null">
+				#{secretToWebmail},
+			</if>
+			<if test="praise != null">
+				#{praise},
+			</if>
+		</trim>
+		RETURNING BODY_ID
+	</insert>
+
+	<!-- 邮件条件查询 废-->
+	<select id="selectObjcet" resultMap="BaseResultMap"
+		parameterType="Map">
+		select
+		eb.FROM_ID,
+		eb.BODY_ID,eb.SUBJECT,e.EMAIL_ID,eb.SEND_TIME,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,e.DELETE_FLAG,eb.TO_ID2,e.READ_FLAG,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,u.USER_ID,e.TO_ID,u.USER_NAME from email_body as eb
+		LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN user as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		e.TO_ID=#{fromId}
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		GROUP BY eb.BODY_ID ORDER BY
+		eb.SEND_TIME DESC
+	</select>
+
+	<select id="selectObjcet" resultMap="BaseResultMap" parameterType="Map" databaseId="kingbase">
+		SELECT eb.FROM_ID,eb.BODY_ID,eb.SUBJECT,e.EMAIL_ID,eb.SEND_TIME,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,
+		e.DELETE_FLAG,eb.TO_ID2,e.READ_FLAG,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,u.USER_ID,e.TO_ID,
+		u.USER_NAME
+		FROM email_body AS eb
+		LEFT JOIN email AS e ON e.BODY_ID = eb.BODY_ID
+		LEFT JOIN "user" AS u ON u.USER_ID = eb.FROM_ID
+		LEFT JOIN webmail AS wb ON wb.USER_ID = eb.FROM_ID
+		WHERE e.TO_ID = #{fromId}
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND e.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME BETWEEN #{startTime} AND #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT LIKE #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT LIKE #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME LIKE #{attachmentName}
+		</if>
+		GROUP BY eb.BODY_ID,e.EMAIL_ID,e.DELETE_FLAG,e.READ_FLAG,e.TO_ID,u.USER_ID,u.USER_NAME
+		ORDER BY eb.SEND_TIME DESC
+	</select>
+
+	<!--草稿  -->
+	<select id="" resultMap="BaseResultMap" parameterType="Map">
+		select eb.FROM_ID,e.EMAIL_ID,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME, eb.BODY_ID,eb.SUBJECT,eb.SEND_TIME,eb.TO_ID2,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,e.TO_ID,u.USER_ID,u.USER_NAME,u.SEX,u.AVATAR from email_body as eb
+		LEFT
+		JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN user as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		eb.FROM_ID=#{fromId}
+		AND SEND_FLAG="0"
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND  (u.USER_NAME like CONCAT('%',#{queryField},'%') OR eb.`SUBJECT` like CONCAT('%',#{queryField},'%') )
+		</if>
+		 GROUP BY eb.BODY_ID order by
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="listDrafts" resultMap="BaseResultMap" parameterType="Map" databaseId="dm">
+		select eb.FROM_ID,e.EMAIL_ID,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME, eb.BODY_ID,eb.SUBJECT,eb.SEND_TIME,eb.TO_ID2,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,e.TO_ID,u.USER_ID,u.USER_NAME,u.SEX,u.AVATAR from "email_body" as eb
+		LEFT
+		JOIN "email" as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN "USER" as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN "webmail" as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		eb.FROM_ID=#{fromId}
+		AND SEND_FLAG='0'
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND  (u.USER_NAME like CONCAT('%',#{queryField},'%') OR eb.`SUBJECT` like CONCAT('%',#{queryField},'%') )
+		</if>
+		order by
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="listDrafts" resultMap="BaseResultMap" parameterType="Map" databaseId="kingbase">
+		SELECT eb.FROM_ID,e.EMAIL_ID,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME, eb.BODY_ID,eb.SUBJECT,
+		eb.SEND_TIME,eb.TO_ID2,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,e.TO_ID,u.USER_ID,
+		u.USER_NAME,u.SEX,u.AVATAR
+		FROM email_body AS eb
+		LEFT JOIN email AS e ON e.BODY_ID = eb.BODY_ID
+		LEFT JOIN "user" AS u ON u.USER_ID = eb.FROM_ID
+		LEFT JOIN webmail AS wb ON wb.USER_ID = eb.FROM_ID
+		WHERE eb.FROM_ID = #{fromId}
+		AND SEND_FLAG = '0'
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME BETWEEN #{startTime} AND #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT LIKE #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT LIKE #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME LIKE #{attachmentName}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND eb.SUBJECT LIKE #{searchCriteria}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND (u.USER_NAME LIKE CONCAT('%',#{queryField}::VARCHAR,'%') OR eb.SUBJECT LIKE CONCAT('%',#{queryField}::VARCHAR,'%'))
+		</if>
+		GROUP BY eb.BODY_ID,e.EMAIL_ID,e.TO_ID,u.USER_ID,u.USER_NAME,u.SEX,u.AVATAR
+		ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+
+	<select id="listDrafts" resultMap="BaseResultMap" parameterType="Map" databaseId="oracle">
+		SELECT
+		eb.FROM_ID,
+		E.EMAIL_ID,
+		eb.ATTACHMENT_ID,
+		eb.ATTACHMENT_NAME,
+		eb.BODY_ID,
+		eb.SUBJECT,
+		eb.SEND_TIME,
+		eb.TO_ID2,
+		eb.COPY_TO_ID,
+		eb.SECRET_TO_ID,
+		eb."CONTENT",
+		E.TO_ID,
+		U.USER_ID,
+		U.USER_NAME,
+		U.SEX,
+		U.AVATAR
+		FROM
+		email_body  eb
+		LEFT JOIN email  E ON E .BODY_ID = eb.BODY_ID
+		LEFT JOIN "USER"  U ON U .USER_ID = eb.FROM_ID
+		LEFT JOIN webmail  wb ON wb.USER_ID = eb.FROM_ID
+		where
+		eb.FROM_ID=#{fromId}
+		AND SEND_FLAG='0'
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND  (u.USER_NAME like CONCAT('%',#{queryField},'%') OR eb.`SUBJECT` like CONCAT('%',#{queryField},'%') )
+		</if>
+		order by
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="listDrafts" resultMap="BaseResultMap" parameterType="Map" >
+		select eb.FROM_ID,e.EMAIL_ID,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME, eb.BODY_ID,eb.SUBJECT,eb.SEND_TIME,eb.TO_ID2,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,e.TO_ID,u.USER_ID,u.USER_NAME,u.SEX,u.AVATAR from email_body as eb
+		LEFT
+		JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN user as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		LEFT JOIN USER U2 ON FIND_IN_SET(U2.USER_ID,eb.TO_ID2)
+		where
+		eb.FROM_ID=#{fromId}
+		AND SEND_FLAG="0"
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="searchEnter != null and searchEnter != ''">
+			AND (eb.SUBJECT LIKE CONCAT ('%',#{searchEnter},'%') or U2.USER_NAME LIKE CONCAT ('%',#{searchEnter},'%'))
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND  (u.USER_NAME like CONCAT('%',#{queryField},'%') OR eb.`SUBJECT` like CONCAT('%',#{queryField},'%'))
+		</if>
+		GROUP BY eb.BODY_ID order by
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- 发件箱查询 -->
+	<select id="listSendEmail" parameterType="Map" resultMap="BaseResultMap">
+		SELECT
+		eb.FROM_ID,
+		eb.BODY_ID,
+		E.EMAIL_ID,
+		eb.SUBJECT,
+		eb.ATTACHMENT_ID,
+		eb.ATTACHMENT_NAME,
+		eb.SEND_TIME,
+		E.DELETE_FLAG,
+		E.READ_FLAG,
+		eb.TO_ID2,
+		eb.COPY_TO_ID,
+		eb.SECRET_TO_ID,
+		eb.CONTENT,
+		U.USER_ID,
+		E.TO_ID,
+		U.USER_NAME,
+		U.SEX,
+		U.AVATAR,
+		E.withdraw_flag
+		FROM
+		EMAIL_BODY  eb
+		LEFT JOIN EMAIL  E ON eb.BODY_ID = E.BODY_ID
+		LEFT JOIN USER  U ON U.USER_ID = eb.FROM_ID
+		LEFT JOIN WEBMAIL  wb ON wb.USER_ID = eb.FROM_ID
+		LEFT JOIN USER U2 ON FIND_IN_SET(U2.USER_ID,E.TO_ID)
+		WHERE
+		eb.FROM_ID = #{fromId}
+		AND SEND_FLAG = '1'
+		AND (
+		E.DELETE_FLAG = ''
+		OR E.DELETE_FLAG = '0'
+		OR E.DELETE_FLAG = '3'
+		OR E.DELETE_FLAG = '1'
+		)
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="searchEnter != null and searchEnter != ''">
+			AND (eb.SUBJECT LIKE CONCAT ('%',#{searchEnter},'%') or U2.USER_NAME LIKE CONCAT ('%',#{searchEnter},'%'))
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND  (u.USER_NAME like CONCAT('%',#{queryField},'%') OR eb.`SUBJECT` like CONCAT('%',#{queryField},'%') )
+		</if>
+		<!-- ** -->
+		<if test="toId2 != null and toId2 != ''">
+			AND (eb.TO_ID2 LIKE CONCAT ('%',#{toId2},'%') OR (eb.TO_ID2 LIKE u.USER_ID AND (select replace(u.USER_NAME,' ','')) LIKE CONCAT ('%',#{toId2},'%')))
+		</if>
+		<!-- ** -->
+		 GROUP BY eb.BODY_ID
+		 ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="listSendEmail" parameterType="Map" resultMap="BaseResultMap" databaseId="dm">
+		SELECT
+		eb.FROM_ID,
+		eb.BODY_ID,
+		E.EMAIL_ID,
+		eb.SUBJECT,
+		eb.ATTACHMENT_ID,
+		eb.ATTACHMENT_NAME,
+		eb.SEND_TIME,
+		E.DELETE_FLAG,
+		E.READ_FLAG,
+		eb.TO_ID2,
+		eb.COPY_TO_ID,
+		eb.SECRET_TO_ID,
+		eb.CONTENT,
+		U.USER_ID,
+		E.TO_ID,
+		U.USER_NAME,
+		U.SEX,
+		U.AVATAR,
+		E.withdraw_flag
+		FROM
+		 EMAIL_BODY  eb
+		LEFT JOIN EMAIL  E ON eb.BODY_ID = E.BODY_ID
+		LEFT JOIN "USER"  U ON U .USER_ID = eb.FROM_ID
+		LEFT JOIN WEBMAIL  wb ON wb.USER_ID = eb.FROM_ID
+		WHERE
+		eb.FROM_ID = #{fromId}
+		AND SEND_FLAG = '1'
+		AND (
+		E.DELETE_FLAG = ''
+		OR E.DELETE_FLAG = '0'
+		OR E.DELETE_FLAG = '3'
+		OR E.DELETE_FLAG = '1'
+		)
+		AND BOX_ID = '0'
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND  (u.USER_NAME like CONCAT(CONCAT('%',#{queryField}),'%') OR eb.`SUBJECT` like CONCAT(CONCAT('%',#{queryField}),'%') )
+		</if>
+		<!-- ** -->
+		<if test="toId2 != null and toId2 != ''">
+			AND (eb.TO_ID2 LIKE CONCAT (CONCAT('%',#{toId2}),'%') OR (eb.TO_ID2 LIKE u.USER_ID AND (select replace(u.USER_NAME,' ','')) LIKE CONCAT (CONCAT('%',#{toId2}),'%')))
+		</if>
+		<!-- ** -->
+		ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+
+	<select id="listSendEmail" parameterType="Map" resultMap="BaseResultMap" databaseId="oracle">
+		SELECT
+		eb.FROM_ID,
+		eb.BODY_ID,
+		eb.SUBJECT,
+		eb.ATTACHMENT_ID,
+		eb.ATTACHMENT_NAME,
+		eb.SEND_TIME,
+		eb.TO_ID2,
+		eb.COPY_TO_ID,
+		eb.SECRET_TO_ID,
+		eb. "CONTENT",
+		U .USER_ID,
+		U .USER_NAME,
+		U .SEX,
+		U .AVATAR,
+		E .withdraw_flag
+		FROM
+		EMAIL_BODY  eb
+	LEFT JOIN "USER"  U ON U .USER_ID = eb.FROM_ID
+		LEFT JOIN WEBMAIL  wb ON wb.USER_ID = eb.FROM_ID
+		WHERE
+		eb.FROM_ID = 'admin'
+		AND SEND_FLAG = '1'
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND  (u.USER_NAME like CONCAT('%',#{queryField},'%') OR eb.`SUBJECT` like CONCAT('%',#{queryField},'%'))
+		</if>
+
+		ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="listSendEmail" parameterType="Map" resultMap="BaseResultMap" databaseId="kingbase">
+		SELECT distinct eb.FROM_ID,eb.BODY_ID,e.EMAIL_ID,eb.SUBJECT,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,eb.SEND_TIME,e.DELETE_FLAG,
+		e.READ_FLAG,eb.TO_ID2,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,u.USER_ID,e.TO_ID,u.USER_NAME,
+		u.SEX,u.AVATAR,e.withdraw_flag
+		FROM email_body eb
+		LEFT JOIN email e ON eb.BODY_ID = e.BODY_ID
+		LEFT JOIN "user" u ON u.USER_ID = eb.FROM_ID
+		LEFT JOIN webmail wb ON wb.USER_ID = eb.FROM_ID
+		WHERE eb.FROM_ID = #{fromId}
+		AND SEND_FLAG = '1'
+		AND (
+			e.DELETE_FLAG = ''
+			OR e.DELETE_FLAG = '0'
+			OR e.DELETE_FLAG = '3'
+			OR e.DELETE_FLAG = '1'
+		)
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME BETWEEN #{startTime} AND #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT LIKE #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT LIKE #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME LIKE #{attachmentName}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND eb.SUBJECT LIKE #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND (u.USER_NAME LIKE CONCAT('%',#{queryField}::VARCHAR,'%') OR eb.SUBJECT LIKE CONCAT('%',#{queryField}::VARCHAR,'%') )
+		</if>
+		<if test="toId2 != null and toId2 != ''">
+			AND (eb.TO_ID2 LIKE CONCAT ('%',#{toId2}::VARCHAR,'%') OR (eb.TO_ID2 LIKE u.USER_ID AND (SELECT replace(u.USER_NAME,'
+			','')) LIKE CONCAT ('%',#{toId2}::VARCHAR,'%')))
+		</if>
+		ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- 废纸篓查询 空值 -->
+	<select id="listWastePaperbasket" resultMap="BaseResultMap"
+		parameterType="Map">
+		SELECT eb.FROM_ID,e.EMAIL_ID,eb.BODY_ID,eb.SUBJECT,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,e.DELETE_FLAG,eb.SEND_TIME,eb.TO_ID2,e.READ_FLAG,eb.COPY_TO_ID,eb.SECRET_TO_ID,u.USER_ID,eb.CONTENT,e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR FROM
+		email_body as eb
+		LEFT JOIN email as e on e.BODY_ID =eb.BODY_ID
+		INNER JOIN user as u on u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		LEFT JOIN USER U2 ON FIND_IN_SET(U2.USER_ID,eb.TO_ID2)
+		where
+		e.TO_ID=#{fromId}
+		AND (
+			e.DELETE_FLAG = '3'
+			OR e.DELETE_FLAG = '4'
+		)
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="toId != null and toId != '' ">
+			AND eb.FROM_ID=#{toId}
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND   eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="searchEnter != null and searchEnter != ''">
+			AND (eb.SUBJECT LIKE CONCAT ('%',#{searchEnter},'%') or U2.USER_NAME LIKE CONCAT ('%',#{searchEnter},'%'))
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND  (u.USER_NAME like CONCAT('%',#{queryField},'%') OR eb.`SUBJECT` like CONCAT('%',#{queryField},'%'))
+		</if>
+		GROUP BY
+			eb.BODY_ID
+		ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="listWastePaperbasket" resultMap="BaseResultMap"
+			parameterType="Map" databaseId="dm">
+		SELECT eb.FROM_ID,e.EMAIL_ID,eb.BODY_ID,eb.SUBJECT,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,e.DELETE_FLAG,eb.SEND_TIME,eb.TO_ID2,e.READ_FLAG,eb.COPY_TO_ID,eb.SECRET_TO_ID,u.USER_ID,eb.CONTENT,e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR FROM
+		email_body as eb
+		LEFT JOIN email as e on e.BODY_ID =eb.BODY_ID
+		INNER JOIN "USER" as u on u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		e.TO_ID=#{fromId}
+		AND (
+		e.DELETE_FLAG = '3'
+		OR e.DELETE_FLAG = '4'
+		)
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND   eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND  (u.USER_NAME like CONCAT('%',#{queryField},'%') OR eb.`SUBJECT` like CONCAT('%',#{queryField},'%'))
+		</if>
+
+		ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+
+	<select id="listWastePaperbasket" resultMap="BaseResultMap"
+			parameterType="Map" databaseId="oracle">
+		SELECT eb.FROM_ID,e.EMAIL_ID,eb.BODY_ID,eb.SUBJECT,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,e.DELETE_FLAG,eb.SEND_TIME,eb.TO_ID2,e.READ_FLAG,eb.COPY_TO_ID,eb.SECRET_TO_ID,u.USER_ID,eb.CONTENT,e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR FROM
+		email_body as eb
+		LEFT JOIN email as e on e.BODY_ID =eb.BODY_ID
+		LEFT JOIN "USER" as u on u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		e.TO_ID=#{fromId}
+		AND (
+		e.DELETE_FLAG = '3'
+		OR e.DELETE_FLAG = '4'
+		)
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND   eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND  (u.USER_NAME like CONCAT('%',#{queryField},'%') OR eb.`SUBJECT` like CONCAT('%',#{queryField},'%'))
+		</if>
+
+		ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="listWastePaperbasket" resultMap="BaseResultMap" parameterType="Map" databaseId="kingbase">
+		SELECT eb.FROM_ID,e.EMAIL_ID,eb.BODY_ID,eb.SUBJECT,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,e.DELETE_FLAG,
+		eb.SEND_TIME,eb.TO_ID2,e.READ_FLAG,eb.COPY_TO_ID,eb.SECRET_TO_ID,u.USER_ID,eb.CONTENT,e.TO_ID,
+		u.USER_NAME,u.SEX,u.AVATAR
+		FROM email_body AS eb
+		LEFT JOIN email AS e ON e.BODY_ID = eb.BODY_ID
+		INNER JOIN "user" AS u ON u.USER_ID = eb.FROM_ID
+		LEFT JOIN webmail AS wb ON wb.USER_ID = eb.FROM_ID
+		WHERE e.TO_ID = #{fromId}
+		AND (
+		e.DELETE_FLAG = '3'
+		OR e.DELETE_FLAG = '4'
+		)
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="toId != null and toId != '' ">
+			AND eb.FROM_ID = #{toId}
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME BETWEEN #{startTime} AND #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT LIKE #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT LIKE #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME LIKE #{attachmentName}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND eb.SUBJECT LIKE #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND (u.USER_NAME LIKE CONCAT('%',#{queryField}::VARCHAR,'%') OR eb.SUBJECT LIKE CONCAT('%',#{queryField}::VARCHAR,'%'))
+		</if>
+		GROUP BY eb.BODY_ID,e.EMAIL_ID,e.DELETE_FLAG,e.READ_FLAG,u.USER_ID,e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR
+		ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<!--收件箱查询 -->
+	<select id="selectInbox" parameterType="Map" resultMap="BaseResultMap" >
+		select
+		eb.FROM_ID,
+		eb.BODY_ID,eb.SUBJECT,e.EMAIL_ID,eb.SEND_TIME,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,e.DELETE_FLAG,
+		eb.TO_ID2,e.READ_FLAG,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,u.USER_ID,e.TO_ID,e.withdraw_flag,
+		u.USER_NAME,u.SEX,u.AVATAR,u.UID from email_body as eb
+		LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN user as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		e.TO_ID=#{fromId}
+		and (e.DELETE_FLAG ='0' or e.DELETE_FLAG='' or e.DELETE_FLAG='2')
+		AND e.BOX_ID='0'
+		AND (eb.EXAM_FLAG is null or eb.EXAM_FLAG='1' or  eb.EXAM_FLAG='3')
+		AND (eb.WORD_FLAG is null or eb.WORD_FLAG='1' or  eb.WORD_FLAG='3')
+		AND e.withdraw_flag = '0'
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="fromUserId != null and fromUserId != ''">
+			AND (eb.FROM_ID LIKE CONCAT ('%',#{fromUserId},'%') OR (eb.FROM_ID LIKE u.USER_ID AND (select replace(u.USER_NAME,' ','')) LIKE CONCAT ('%',#{fromUserId},'%')))
+		</if>
+		<if test="readFlag != null and readFlag != ''">
+			AND e.READ_FLAG  LIKE #{readFlag}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="searchEnter != null and searchEnter != ''">
+			AND (eb.SUBJECT LIKE CONCAT ('%',#{searchEnter},'%') or u.USER_NAME LIKE CONCAT ('%',#{searchEnter},'%'))
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		<if test="queryField != null and queryField != ''">
+		  AND   (u.USER_NAME like CONCAT('%',#{queryField},'%') OR eb.`SUBJECT` like CONCAT('%',#{queryField},'%'))
+     	</if>
+		GROUP BY eb.BODY_ID ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="selectInbox" parameterType="Map" resultMap="BaseResultMap" databaseId="dm">
+		select
+		eb.FROM_ID,
+		eb.BODY_ID,eb.SUBJECT,e.EMAIL_ID,eb.SEND_TIME,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,e.DELETE_FLAG,
+		eb.TO_ID2,e.READ_FLAG,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,u.USER_ID,e.TO_ID,e.withdraw_flag,
+		u.USER_NAME,u.SEX,u.AVATAR,u.UID from "email_body" as eb
+		LEFT JOIN "email" as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN "user" as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN "webmail" as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		e.TO_ID=#{fromId}
+		and (e.DELETE_FLAG ='0' or e.DELETE_FLAG='' or e.DELETE_FLAG='2')
+		AND e.BOX_ID='0'
+		AND (eb.EXAM_FLAG is null or eb.EXAM_FLAG='1' or  eb.EXAM_FLAG='3')
+		AND (eb.WORD_FLAG is null or eb.WORD_FLAG='1' or  eb.WORD_FLAG='3')
+		AND e.withdraw_flag = '0'
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="fromUserId != null and fromUserId != ''">
+			AND (eb.FROM_ID LIKE CONCAT ('%',#{fromUserId},'%') OR (eb.FROM_ID LIKE u.USER_ID AND (select replace(u.USER_NAME,' ','')) LIKE CONCAT ('%',#{fromUserId},'%')))
+		</if>
+		<if test="readFlag != null and readFlag != ''">
+			AND e.READ_FLAG  LIKE #{readFlag}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND   (u.USER_NAME like CONCAT('%',#{queryField},'%') OR eb.`SUBJECT` like CONCAT('%',#{queryField},'%'))
+		</if>
+		ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+
+
+	<select id="selectInbox" parameterType="Map" resultMap="BaseResultMap" databaseId="oracle">
+		SELECT
+		eb.FROM_ID,
+		eb.BODY_ID,
+		eb.SUBJECT,
+		E .EMAIL_ID,
+		eb.SEND_TIME,
+		eb.ATTACHMENT_ID,
+		eb.ATTACHMENT_NAME,
+		E .DELETE_FLAG,
+		eb.TO_ID2,
+		E .READ_FLAG,
+		eb.COPY_TO_ID,
+		eb.SECRET_TO_ID,
+		eb. "CONTENT",
+		U .USER_ID,
+		E .TO_ID,
+		E .withdraw_flag,
+		U .USER_NAME,
+		U .SEX,
+		U .AVATAR,
+		U ."UID"
+		FROM
+		email_body  eb
+		LEFT JOIN email  E ON E .BODY_ID = eb.BODY_ID
+		LEFT JOIN "USER"  U ON U .USER_ID = eb.FROM_ID
+		LEFT JOIN webmail  wb ON wb.USER_ID = eb.FROM_ID
+		WHERE
+		E.TO_ID = #{fromId}
+		AND (
+		E.DELETE_FLAG = '0'
+		OR E.DELETE_FLAG = ''
+		OR E.DELETE_FLAG = '2'
+		)
+		AND (eb.EXAM_FLAG is null or eb.EXAM_FLAG='' or eb.EXAM_FLAG='1' or  eb.EXAM_FLAG='3')
+		AND (eb.WORD_FLAG is null or eb.WORD_FLAG='' or eb.WORD_FLAG='1' or  eb.WORD_FLAG='3')
+		AND E.BOX_ID = '0'
+		AND e.withdraw_flag = '0'
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="fromUserId != null and fromUserId != ''">
+			AND (eb.FROM_ID LIKE CONCAT ('%',#{fromUserId},'%') OR (eb.FROM_ID LIKE u.USER_ID AND (select replace(u.USER_NAME,' ','')) LIKE CONCAT ('%',#{fromUserId},'%')))
+		</if>
+		<if test="readFlag != null and readFlag != ''">
+			AND e.READ_FLAG  LIKE #{readFlag}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND   (u.USER_NAME like CONCAT('%',#{queryField},'%') OR eb.`SUBJECT` like CONCAT('%',#{queryField},'%'))
+		</if>
+		ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="selectInbox" parameterType="Map" resultMap="BaseResultMap" databaseId="kingbase">
+		SELECT
+		eb.FROM_ID,
+		eb.BODY_ID,eb.SUBJECT,e.EMAIL_ID,eb.SEND_TIME,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,e.DELETE_FLAG,
+		eb.TO_ID2,e.READ_FLAG,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,u.USER_ID,e.TO_ID,e.withdraw_flag,
+		u.USER_NAME,u.SEX,u.AVATAR,u.UID
+		FROM email_body AS eb
+		LEFT JOIN email AS e ON e.BODY_ID = eb.BODY_ID
+		LEFT JOIN "user" AS u ON u.USER_ID = eb.FROM_ID
+		LEFT JOIN webmail AS wb ON wb.USER_ID = eb.FROM_ID
+		WHERE e.TO_ID = #{fromId}
+		AND (e.DELETE_FLAG = '0' OR e.DELETE_FLAG = '' OR e.DELETE_FLAG = '2')
+		AND e.BOX_ID = '0'
+		AND (eb.EXAM_FLAG IS NULL OR eb.EXAM_FLAG = '1' OR eb.EXAM_FLAG = '3')
+		AND (eb.WORD_FLAG IS NULL OR eb.WORD_FLAG = '1' OR eb.WORD_FLAG = '3')
+		AND e.withdraw_flag = '0'
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME BETWEEN #{startTime} AND #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT LIKE #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT LIKE #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME LIKE #{attachmentName}
+		</if>
+		<if test="fromUserId != null and fromUserId != ''">
+			AND (eb.FROM_ID LIKE CONCAT ('%', #{fromUserId}::VARCHAR, '%') OR (eb.FROM_ID LIKE u.USER_ID AND (SELECT
+			replace(u.USER_NAME, ' ', '')) LIKE CONCAT ('%', #{fromUserId}::VARCHAR, '%')))
+		</if>
+		<if test="readFlag != null and readFlag != ''">
+			AND e.READ_FLAG LIKE #{readFlag}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND eb.SUBJECT LIKE #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND (u.USER_NAME LIKE CONCAT('%', #{queryField}::VARCHAR, '%') OR eb.SUBJECT LIKE CONCAT('%', #{queryField}::VARCHAR, '%'))
+		</if>
+		GROUP BY eb.BODY_ID,e.EMAIL_ID,e.DELETE_FLAG,e.READ_FLAG,u.USER_ID,e.TO_ID,e.withdraw_flag,u.USER_NAME,u.SEX,u.AVATAR,u.UID
+		ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<!--全局搜索收件箱查询 -->
+	<select id="queryEmailBySubject" parameterType="String" resultMap="BaseResultMap" databaseId="mysql">
+		select
+		eb.FROM_ID,
+		eb.BODY_ID,eb.SUBJECT,e.EMAIL_ID,eb.SEND_TIME,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,e.DELETE_FLAG,
+		eb.TO_ID2,e.READ_FLAG,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,u.USER_ID,e.TO_ID,e.withdraw_flag,
+		u.USER_NAME,u.SEX,u.AVATAR,u.UID from email_body as eb
+		LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN user as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		(e.DELETE_FLAG ='0' or e.DELETE_FLAG='' or e.DELETE_FLAG='2')
+		AND e.BOX_ID='0'
+		<!--<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">-->
+		<!--AND eb.SEND_TIME between #{startTime} and #{endTime}-->
+		<!--</if>-->
+		<!--<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>-->
+		AND eb.SUBJECT LIKE '%' #{subject} '%' or eb.CONTENT LIKE '%' #{content} '%'
+		<!--<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>-->
+		<!--<if test="attachmentName != null and attachmentName != ''">-->
+		<!--AND eb.ATTACHMENT_NAME like #{attachmentName}-->
+		<!--</if>-->
+		<!--<if test="fromUserId != null and fromUserId != ''">-->
+		<!--AND (eb.FROM_ID LIKE CONCAT ('%',#{fromUserId},'%') OR (eb.FROM_ID LIKE u.USER_ID AND (select replace(u.USER_NAME,' ','')) LIKE CONCAT ('%',#{fromUserId},'%')))-->
+		<!--</if>-->
+		<!--<if test="readFlag != null and readFlag != ''">-->
+		<!--AND e.READ_FLAG  LIKE #{readFlag}-->
+		<!--</if>-->
+		<!--<if test="searchCriteria != null and searchCriteria != ''">-->
+		<!--AND  eb.SUBJECT like #{searchCriteria}-->
+		<!--</if>-->
+		<!--<if test="isWebmail != null and isWebmail != ''">-->
+		<!--AND eb.IS_WEBMAIL LIKE #{isWebmail}-->
+		<!--</if>-->
+		<!--<if test="queryField != null and queryField != ''">-->
+		<!--AND   (u.USER_NAME like CONCAT('%',#{queryField},'%') OR eb.`SUBJECT` like CONCAT('%',#{queryField},'%'))-->
+		<!--</if>-->
+		GROUP BY eb.BODY_ID ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<!--全局搜索收件箱查询 -->
+	<select id="queryEmailBySubject" parameterType="String" resultMap="BaseResultMap" databaseId="kingbase">
+		SELECT eb.FROM_ID,eb.BODY_ID,eb.SUBJECT,e.EMAIL_ID,eb.SEND_TIME,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,
+		e.DELETE_FLAG,eb.TO_ID2,e.READ_FLAG,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,u.USER_ID,e.TO_ID,e.withdraw_flag,
+		u.USER_NAME,u.SEX,u.AVATAR,u.UID
+		FROM email_body AS eb
+		LEFT JOIN email AS e ON e.BODY_ID = eb.BODY_ID
+		LEFT JOIN "user" AS u ON u.USER_ID = eb.FROM_ID
+		LEFT JOIN webmail AS wb ON wb.USER_ID = eb.FROM_ID
+		WHERE
+		(e.DELETE_FLAG = '0' OR e.DELETE_FLAG = '' OR e.DELETE_FLAG = '2')
+		AND e.BOX_ID = '0'
+		<!--<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">-->
+		<!--AND eb.SEND_TIME between #{startTime} and #{endTime}-->
+		<!--</if>-->
+		<!--<if test="subject != null and subject != ''">
+            AND eb.SUBJECT like #{subject}
+        </if>-->
+		AND eb.SUBJECT LIKE '%' #{subject} '%' or eb.CONTENT LIKE '%' #{content} '%'
+		<!--<if test="content != null and content != ''">
+            AND eb.CONTENT like #{content}
+        </if>-->
+		<!--<if test="attachmentName != null and attachmentName != ''">-->
+		<!--AND eb.ATTACHMENT_NAME like #{attachmentName}-->
+		<!--</if>-->
+		<!--<if test="fromUserId != null and fromUserId != ''">-->
+		<!--AND (eb.FROM_ID LIKE CONCAT ('%',#{fromUserId},'%') OR (eb.FROM_ID LIKE u.USER_ID AND (select replace(u.USER_NAME,' ','')) LIKE CONCAT ('%',#{fromUserId},'%')))-->
+		<!--</if>-->
+		<!--<if test="readFlag != null and readFlag != ''">-->
+		<!--AND e.READ_FLAG  LIKE #{readFlag}-->
+		<!--</if>-->
+		<!--<if test="searchCriteria != null and searchCriteria != ''">-->
+		<!--AND  eb.SUBJECT like #{searchCriteria}-->
+		<!--</if>-->
+		<!--<if test="isWebmail != null and isWebmail != ''">-->
+		<!--AND eb.IS_WEBMAIL LIKE #{isWebmail}-->
+		<!--</if>-->
+		<!--<if test="queryField != null and queryField != ''">-->
+		<!--AND   (u.USER_NAME like CONCAT('%',#{queryField},'%') OR eb.`SUBJECT` like CONCAT('%',#{queryField},'%'))-->
+		<!--</if>-->
+		GROUP BY eb.BODY_ID,e.EMAIL_ID,e.DELETE_FLAG,e.READ_FLAG,u.USER_ID,e.TO_ID,e.withdraw_flag,u.USER_NAME,u.SEX,u.AVATAR,u.UID
+		ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+    <!--未读查询-->
+	<select id="selectIsRead" parameterType="Map" resultMap="BaseResultMap">
+		select
+		eb.FROM_ID,e.EMAIL_ID,
+		eb.BODY_ID,eb.SUBJECT,e.DELETE_FLAG,eb.SEND_TIME,eb.TO_ID2,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,eb.COPY_TO_ID,e.READ_FLAG,eb.SECRET_TO_ID,eb.CONTENT,u.USER_ID,e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR from email_body as eb
+		LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN user as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		e.TO_ID=#{fromId}
+		AND e.READ_FLAG='0'
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		GROUP BY eb.BODY_ID ORDER BY
+		eb.SEND_TIME DESC
+	</select>
+
+	<select id="selectIsRead" parameterType="Map" resultMap="BaseResultMap" databaseId="kingbase">
+		SELECT eb.FROM_ID,e.EMAIL_ID,eb.BODY_ID,eb.SUBJECT,e.DELETE_FLAG,eb.SEND_TIME,eb.TO_ID2,
+			   eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,eb.COPY_TO_ID,e.READ_FLAG,eb.SECRET_TO_ID,eb.CONTENT,
+			   u.USER_ID,e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR
+		FROM email_body AS eb
+				 LEFT JOIN email AS e ON e.BODY_ID = eb.BODY_ID
+				 LEFT JOIN "user" AS u ON u.USER_ID = eb.FROM_ID
+				 LEFT JOIN webmail AS wb ON wb.USER_ID = eb.FROM_ID
+		WHERE e.TO_ID = #{fromId} AND e.READ_FLAG = '0'
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		GROUP BY eb.BODY_ID,e.EMAIL_ID,e.DELETE_FLAG,e.READ_FLAG,u.USER_ID,e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR
+		ORDER BY eb.SEND_TIME DESC
+	</select>
+
+
+	<!--收件箱未读查询 -->
+	<select id="selectInboxIsRead" parameterType="Map" resultMap="BaseResultMap">
+		select
+		eb.FROM_ID,e.EMAIL_ID,
+		eb.BODY_ID,eb.SUBJECT,e.DELETE_FLAG,eb.SEND_TIME,eb.TO_ID2,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,eb.COPY_TO_ID,e.READ_FLAG,eb.SECRET_TO_ID,eb.CONTENT,u.USER_ID,e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR from email_body as eb
+		LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN user as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		e.TO_ID=#{fromId}
+		and (e.DELETE_FLAG ='0' or e.DELETE_FLAG='' or e.DELETE_FLAG='2')
+		AND e.BOX_ID='0'
+		AND e.READ_FLAG='0'
+		GROUP BY eb.BODY_ID ORDER BY
+		eb.SEND_TIME DESC
+	</select>
+
+	<select id="selectInboxIsRead" parameterType="Map" resultMap="BaseResultMap" databaseId="kingbase">
+		SELECT eb.FROM_ID,e.EMAIL_ID,eb.BODY_ID,eb.SUBJECT,e.DELETE_FLAG,eb.SEND_TIME,eb.TO_ID2,
+			   eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,eb.COPY_TO_ID,e.READ_FLAG,eb.SECRET_TO_ID,eb.CONTENT,
+			   u.USER_ID,e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR
+		FROM email_body AS eb
+				 LEFT JOIN email AS e ON e.BODY_ID = eb.BODY_ID
+				 LEFT JOIN "user" AS u ON u.USER_ID = eb.FROM_ID
+				 LEFT JOIN webmail AS wb ON wb.USER_ID = eb.FROM_ID
+		WHERE
+			e.TO_ID = #{fromId}
+		  AND (e.DELETE_FLAG = '0' OR e.DELETE_FLAG = '' OR e.DELETE_FLAG = '2')
+		  AND e.BOX_ID = '0'
+		  AND e.READ_FLAG = '0'
+		GROUP BY eb.BODY_ID,e.EMAIL_ID,e.DELETE_FLAG,e.READ_FLAG,u.USER_ID,e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR
+		ORDER BY eb.SEND_TIME DESC
+	</select>
+
+
+	<!--收件箱未读查询 -->
+	<select id="selectInboxIsReadList" parameterType="Map" resultMap="BaseResultMap">
+		select
+		eb.FROM_ID,e.EMAIL_ID,
+		eb.BODY_ID,eb.SUBJECT,e.DELETE_FLAG,eb.SEND_TIME,eb.TO_ID2,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,eb.COPY_TO_ID,e.READ_FLAG,eb.SECRET_TO_ID,eb.CONTENT,u.USER_ID,e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR from email_body as eb
+		LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN user as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		e.TO_ID=#{fromId}
+		and (e.DELETE_FLAG ='0' or e.DELETE_FLAG='' or e.DELETE_FLAG='2')
+		AND e.BOX_ID='0'
+		AND e.READ_FLAG='1'
+		GROUP BY eb.BODY_ID ORDER BY
+		eb.SEND_TIME DESC
+	</select>
+
+
+
+	<!-- 根据id查询一条邮件 -->
+	<select id="queryByCountID" resultMap="BaseResultMap" parameterType="Map">
+		select
+		eb.FROM_ID,
+		e.EMAIL_ID,
+		eb.BODY_ID,eb.SUBJECT,eb.SEND_TIME,eb.TO_ID2,eb.COPY_TO_ID,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,eb.SECRET_TO_ID,u.USER_ID,eb.CONTENT,
+		e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR,d.DEPT_NAME,
+		e.READ_FLAG,
+		e.BOX_ID,
+		e.RECEIPT,
+		e.IS_F,
+		e.IS_R,
+		e.SIGN,
+		e.withdraw_flag
+		from email_body as eb
+		LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN user as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN department d ON d.DEPT_ID =u.DEPT_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		<where>
+			<if test="emailId != null and emailId != ''">
+				eb.BODY_ID=#{emailId}
+			</if>
+		</where>
+		GROUP BY eb.BODY_ID
+	</select>
+
+	<select id="queryByCountID" resultMap="BaseResultMap" parameterType="Map" databaseId="kingbase">
+		SELECT eb.FROM_ID,e.EMAIL_ID,eb.BODY_ID,eb.SUBJECT,eb.SEND_TIME,eb.TO_ID2,eb.COPY_TO_ID,
+		eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,eb.SECRET_TO_ID,u.USER_ID,eb.CONTENT,e.TO_ID,
+		u.USER_NAME,u.SEX,u.AVATAR,d.DEPT_NAME,e.READ_FLAG,e.BOX_ID,e.RECEIPT,e.IS_F,e.IS_R,e.SIGN,e.withdraw_flag
+		FROM email_body AS eb
+		LEFT JOIN email AS e ON e.BODY_ID = eb.BODY_ID
+		LEFT JOIN "user" AS u ON u.USER_ID = eb.FROM_ID
+		LEFT JOIN department d ON d.DEPT_ID = u.DEPT_ID
+		LEFT JOIN webmail AS wb ON wb.USER_ID = eb.FROM_ID
+		<where>
+			<if test="emailId != null and emailId != ''">
+				eb.BODY_ID = #{emailId}
+			</if>
+		</where>
+		GROUP BY eb.BODY_ID,e.EMAIL_ID,u.USER_ID,e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR,d.DEPT_NAME,e.READ_FLAG,e.BOX_ID,e.RECEIPT,e.IS_F,e.IS_R,e.SIGN,e.withdraw_flag
+	</select>
+
+	<!-- 根据id查询一条邮件 -->
+	<select id="queryById" resultMap="BaseResultMap" parameterType="Map">
+	 select
+	 eb.FROM_ID,
+	 e.EMAIL_ID,
+		eb.BODY_ID,eb.SUBJECT,eb.SEND_TIME,eb.TO_ID2,eb.COPY_TO_ID,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,eb.SECRET_TO_ID,u.USER_ID,eb.CONTENT,eb.TO_WEBMAIL,eb.FROM_WEBMAIL,
+		e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR,d.DEPT_NAME,
+		e.READ_FLAG,
+		e.BOX_ID,
+		e.RECEIPT,
+		e.IS_F,
+		e.IS_R,
+		e.SIGN,
+		e.withdraw_flag
+		 from email_body as eb
+		LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN user as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN department d ON d.DEPT_ID =u.DEPT_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		<where>
+			<if test="emailId != null and emailId != ''">
+				e.EMAIL_ID=#{emailId}
+			</if>
+			<if test="bodyId != null and bodyId != ''">
+				eb.BODY_ID = #{bodyId}
+			</if>
+		</where>
+		GROUP BY eb.BODY_ID
+	</select>
+	<select id="queryById" resultMap="BaseResultMap" parameterType="Map" databaseId="dm">
+		select
+		eb.FROM_ID,
+		e.EMAIL_ID,
+		eb.BODY_ID,eb.SUBJECT,eb.SEND_TIME,eb.TO_ID2,eb.COPY_TO_ID,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,eb.SECRET_TO_ID,u.USER_ID,eb.CONTENT,eb.TO_WEBMAIL,eb.FROM_WEBMAIL,
+		e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR,
+		e.READ_FLAG,
+		e.BOX_ID,
+		e.RECEIPT,
+		e.IS_F,
+		e.IS_R,
+		e.SIGN,
+		e.withdraw_flag
+		from email_body as eb
+		LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN "USER" as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		<where>
+			<if test="emailId != null and emailId != ''">
+				e.EMAIL_ID=#{emailId}
+			</if>
+			<if test="bodyId != null and bodyId != ''">
+				eb.BODY_ID = #{bodyId}
+			</if>
+		</where>
+
+	</select>
+
+	<select id="queryById" resultMap="BaseResultMap" parameterType="Map" databaseId="oracle">
+		select
+		eb.FROM_ID,
+		e.EMAIL_ID,
+		eb.BODY_ID,eb.SUBJECT,eb.SEND_TIME,eb.TO_ID2,eb.COPY_TO_ID,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,eb.SECRET_TO_ID,u.USER_ID,eb.CONTENT,eb.TO_WEBMAIL,eb.FROM_WEBMAIL,
+		e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR,
+		e.READ_FLAG,
+		e.BOX_ID,
+		e.RECEIPT,
+		e.IS_F,
+		e.IS_R,
+		e.SIGN,
+		e.withdraw_flag
+		from email_body  eb
+		LEFT JOIN email  e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN "USER"  u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail  wb
+		on wb.USER_ID = eb.FROM_ID
+		<where>
+			<if test="emailId != null and emailId != ''">
+				e.EMAIL_ID=#{emailId}
+			</if>
+			<if test="bodyId != null and bodyId != ''">
+				eb.BODY_ID = #{bodyId}
+			</if>
+		</where>
+
+	</select>
+
+	<select id="queryById" resultMap="BaseResultMap" parameterType="Map" databaseId="kingbase">
+		select
+		eb.FROM_ID,
+		e.EMAIL_ID,
+		eb.BODY_ID,eb.SUBJECT,eb.SEND_TIME,eb.TO_ID2,eb.COPY_TO_ID,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,eb.SECRET_TO_ID,u.USER_ID,eb.CONTENT,eb.TO_WEBMAIL,eb.FROM_WEBMAIL,
+		e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR,
+		e.READ_FLAG,
+		e.BOX_ID,
+		e.RECEIPT,
+		e.IS_F,
+		e.IS_R,
+		e.SIGN,
+		e.withdraw_flag
+		from email_body  eb
+		LEFT JOIN email  e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN "USER"  u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail  wb
+		on wb.USER_ID = eb.FROM_ID
+		<where>
+			<if test="emailId != null and emailId != ''">
+				e.EMAIL_ID=#{emailId}
+			</if>
+			<if test="bodyId != null and bodyId != ''">
+				eb.BODY_ID = #{bodyId}
+			</if>
+		</where>
+
+	</select>
+
+	<!--草稿箱删除，delete -->
+	<delete id="deleteDrafts" parameterType="java.lang.Integer">
+		delete from
+		email_body where BODY_ID = #{bodyId}
+	</delete>
+
+	<!-- 发件箱删除 变为2 -->
+	<update id="updateOutbox" parameterType="java.lang.Integer">
+	update email_body eb LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID set e.DELETE_FLAG='2'
+	where eb.BODY_ID = #{bodyId} AND (e.DELETE_FLAG !='1'  OR e.DELETE_FLAG !='2' OR e.DELETE_FLAG !='3' OR e.DELETE_FLAG !='4')
+	</update>
+
+	<update id="updateOutbox" parameterType="java.lang.Integer" databaseId="kingbase">
+		UPDATE
+		    email e
+		SET
+		    e.DELETE_FLAG = '2'
+		FROM
+			email_body eb
+		WHERE
+			e.BODY_ID = eb.BODY_ID
+		  AND eb.BODY_ID = #{bodyId}
+		  AND (
+			e.DELETE_FLAG != '1'
+		   OR e.DELETE_FLAG != '2'
+		   OR e.DELETE_FLAG != '3'
+		   OR e.DELETE_FLAG != '4'
+			)
+	</update>
+
+	<!-- 发件箱删除 变为4 -->
+	<update id="updateOutboxs" parameterType="java.lang.Integer">
+	update email_body eb LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID set e.DELETE_FLAG='4'
+	where eb.BODY_ID = #{bodyId} AND (e.DELETE_FLAG !='' OR e.DELETE_FLAG !='0' OR e.DELETE_FLAG !='1'  OR e.DELETE_FLAG !='2' OR e.DELETE_FLAG !='4')
+	</update>
+
+	<update id="updateOutboxs" parameterType="java.lang.Integer" databaseId="kingbase">
+		UPDATE
+		    email e
+		SET
+		    e.DELETE_FLAG = '4'
+		FROM
+			email_body eb
+		WHERE
+			e.BODY_ID = eb.BODY_ID
+		  AND eb.BODY_ID = #{bodyId}
+		  AND (
+			e.DELETE_FLAG != ''
+		   OR e.DELETE_FLAG != '0'
+		   OR e.DELETE_FLAG != '1'
+		   OR e.DELETE_FLAG != '2'
+		   OR e.DELETE_FLAG != '4'
+			)
+	</update>
+
+	<!--  发件箱为1时删除  -->
+	<delete id="deleteOutbox" parameterType="java.lang.Integer">
+		DELETE FROM	email WHERE BODY_ID = #{bodyId}
+		AND DELETE_FLAG = '1'
+	</delete>
+
+	<!-- 收件箱删除 ，变为3 -->
+	<update id="updateInbox" parameterType="java.lang.Integer">
+	update email_body eb LEFT JOIN email  e on e.BODY_ID=eb.BODY_ID set e.DELETE_FLAG='3',e.BOX_ID = '0'
+	where e.EMAIL_ID=#{emailId}  AND (e.DELETE_FLAG =''  OR e.DELETE_FLAG ='0' OR e.DELETE_FLAG ='2')
+	</update>
+
+	<update id="updateInbox" parameterType="java.lang.Integer" databaseId="dm">
+		update email as e set e.DELETE_FLAG='3',e.BOX_ID = '0'
+		where e.EMAIL_ID=#{emailId}  AND (e.DELETE_FLAG =''  OR e.DELETE_FLAG ='0')
+	</update>
+	<update id="updateInbox" parameterType="java.lang.Integer" databaseId="oracle">
+	UPDATE email E
+SET E .DELETE_FLAG = '3',
+ E .BOX_ID = '0'
+WHERE
+	E .EMAIL_ID = #{emailId}
+AND (
+	E .DELETE_FLAG = ''
+	OR E .DELETE_FLAG = '0'
+)
+	</update>
+
+	<update id="updateInbox" parameterType="java.lang.Integer" databaseId="kingbase">
+		UPDATE
+			email e
+		SET
+			e.DELETE_FLAG = '3',
+			e.BOX_ID = '0'
+		FROM
+			email_body eb
+		WHERE
+			e.BODY_ID = eb.BODY_ID
+		  AND
+			e.EMAIL_ID =#{emailId}
+		  AND (
+			e.DELETE_FLAG = ''
+		   OR e.DELETE_FLAG = '0'
+		   OR e.DELETE_FLAG = '2'
+			)
+	</update>
+
+	<!-- 收件箱删除 ，变为4 -->
+	<update id="updateInboxs" parameterType="java.lang.Integer">
+	update email_body eb LEFT JOIN email  e on e.BODY_ID=eb.BODY_ID set e.DELETE_FLAG='4',e.BOX_ID = '0'
+	where e.EMAIL_ID=#{emailId}  AND e.DELETE_FLAG ='2'
+	</update>
+
+	<update id="updateInboxs" parameterType="java.lang.Integer" databaseId="dm">
+		update  email as e  set e.DELETE_FLAG='4',e.BOX_ID = '0'
+		where e.EMAIL_ID=#{emailId}  AND e.DELETE_FLAG ='2'
+	</update>
+	<update id="updateInboxs" parameterType="java.lang.Integer" databaseId="oracle">
+		update  email  e  set e.DELETE_FLAG='4',e.BOX_ID = '0'
+		where e.EMAIL_ID=#{emailId}  AND e.DELETE_FLAG ='2'
+	</update>
+
+	<update id="updateInboxs" parameterType="java.lang.Integer" databaseId="kingbase">
+		UPDATE
+			email e
+		SET
+			e.DELETE_FLAG = '4',
+			e.BOX_ID = '0'
+		FROM
+			email_body eb
+		WHERE
+			e.BODY_ID = eb.BODY_ID
+		  AND
+			e.EMAIL_ID =#{emailId}
+		  AND e.DELETE_FLAG = '2'
+	</update>
+
+	<!-- 废纸篓删除，变为1 -->
+	<update id="updateRecycle" parameterType="java.lang.Integer">
+	update email_body eb LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID set e.DELETE_FLAG='1'
+	where e.EMAIL_ID=#{emailId}  AND e.DELETE_FLAG ='3'
+	</update>
+
+	<update id="updateRecycle" parameterType="java.lang.Integer" databaseId="kingbase">
+		UPDATE
+			email e
+		SET
+			e.DELETE_FLAG = '1'
+		FROM
+			email_body eb
+		WHERE
+			e.BODY_ID = eb.BODY_ID
+		  AND
+			e.EMAIL_ID =#{emailId}
+		  AND e.DELETE_FLAG = '3'
+	</update>
+	<!-- 废纸篓删除刘旭辉-->
+	<update id="updateRecycles" parameterType="java.lang.String">
+		UPDATE email e
+			LEFT JOIN USER u ON e.TO_ID = u.USER_ID
+			SET e.DELETE_FLAG = '1'
+		WHERE
+			e.TO_ID = #{toId}
+		  AND ( e.DELETE_FLAG = '3' OR e.DELETE_FLAG = '4' )
+	</update>
+	<!-- 废纸篓删除，delete -->
+	<delete id="deleteRecycle" parameterType="java.lang.Integer">
+		DELETE FROM	email  WHERE EMAIL_ID=#{emailId}
+	</delete>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.email.EmailBodyModel">
+		update email_body
+		<set>
+			<if test="fromId != null">
+				FROM_ID = #{fromId},
+			</if>
+			<if test="subject != null">
+				SUBJECT = #{subject},
+			</if>
+			<if test="sendTime != null">
+				SEND_TIME = #{sendTime},
+			</if>
+			<if test="sendFlag != null">
+				SEND_FLAG = #{sendFlag},
+			</if>
+			<if test="smsRemind != null">
+				SMS_REMIND = #{smsRemind},
+			</if>
+			<if test="important != null">
+				IMPORTANT = #{important},
+			</if>
+			<if test="size != null">
+				SIZE = #{size},
+			</if>
+			<if test="fromWebmailId != null">
+				FROM_WEBMAIL_ID = #{fromWebmailId},
+			</if>
+			<if test="fromWebmail != null">
+				FROM_WEBMAIL = #{fromWebmail},
+			</if>
+			<if test="webmailFlag != null">
+				WEBMAIL_FLAG = #{webmailFlag},
+			</if>
+			<if test="recvFromName != null">
+				RECV_FROM_NAME = #{recvFromName},
+			</if>
+			<if test="recvFrom != null">
+				RECV_FROM = #{recvFrom},
+			</if>
+			<if test="recvToId != null">
+				RECV_TO_ID = #{recvToId},
+			</if>
+			<if test="recvTo != null">
+				RECV_TO = #{recvTo},
+			</if>
+			<if test="isWebmail != null">
+				IS_WEBMAIL = #{isWebmail},
+			</if>
+			<if test="isWf != null">
+				IS_WF = #{isWf},
+			</if>
+			<if test="keyword != null">
+				KEYWORD = #{keyword},
+			</if>
+			<if test="secretLevel != null">
+				SECRET_LEVEL = #{secretLevel},
+			</if>
+			<if test="auditMan != null">
+				AUDIT_MAN = #{auditMan},
+			</if>
+			<if test="toId2 != null">
+				TO_ID2 = #{toId2},
+			</if>
+			<if test="copyToId != null">
+				COPY_TO_ID = #{copyToId},
+			</if>
+			<if test="secretToId != null">
+				SECRET_TO_ID = #{secretToId},
+			</if>
+			<if test="content != null">
+				CONTENT = #{content},
+			</if>
+			<if test="attachmentId != null">
+				ATTACHMENT_ID = #{attachmentId},
+			</if>
+			<if test="attachmentName != null">
+				ATTACHMENT_NAME = #{attachmentName},
+			</if>
+			<if test="toWebmail != null">
+				TO_WEBMAIL = #{toWebmail},
+			</if>
+			<if test="compressContent != null">
+				COMPRESS_CONTENT =
+				#{compressContent},
+			</if>
+			<if test="webmailContent != null">
+				WEBMAIL_CONTENT =
+				#{webmailContent},
+			</if>
+			<if test="auditRemark != null">
+				AUDIT_REMARK = #{auditRemark},
+			</if>
+			<if test="copyToWebmail != null">
+				COPY_TO_WEBMAIL = #{copyToWebmail},
+			</if>
+			<if test="secretToWebmail != null">
+				SECRET_TO_WEBMAIL =
+				#{secretToWebmail},
+			</if>
+			<if test="praise != null">
+				PRAISE = #{praise},
+			</if>
+		</set>
+		where BODY_ID = #{bodyId}
+	</update>
+
+	<!-- 草稿箱修改或发送 -->
+	<update id="update" parameterType="com.xoa.model.email.EmailBodyModel"  >
+		UPDATE email_body SET
+		FROM_ID = #{fromId},
+		SUBJECT = #{subject},
+		SEND_TIME = #{sendTime},
+		SEND_FLAG = #{sendFlag},
+		SMS_REMIND = #{smsRemind},
+		IMPORTANT = #{important},
+		SIZE = #{size},
+		FROM_WEBMAIL_ID = #{fromWebmailId},
+		FROM_WEBMAIL = #{fromWebmail},
+		WEBMAIL_FLAG = #{webmailFlag},
+		RECV_FROM_NAME = #{recvFromName},
+		RECV_FROM = #{recvFrom},
+		RECV_TO_ID = #{recvToId},
+		RECV_TO = #{recvTo},
+		IS_WEBMAIL = #{isWebmail},
+		IS_WF = #{isWf},
+		KEYWORD = #{keyword},
+		SECRET_LEVEL = #{secretLevel},
+		AUDIT_MAN = #{auditMan},
+		TO_ID2 = #{toId2},
+		COPY_TO_ID = #{copyToId},
+		SECRET_TO_ID = #{secretToId},
+		CONTENT = #{content},
+		ATTACHMENT_ID = #{attachmentId},
+		ATTACHMENT_NAME = #{attachmentName},
+		TO_WEBMAIL = #{toWebmail},
+		COMPRESS_CONTENT = #{compressContent},
+		WEBMAIL_CONTENT = #{webmailContent},
+		AUDIT_REMARK = #{auditRemark},
+		COPY_TO_WEBMAIL = #{copyToWebmail},
+		SECRET_TO_WEBMAIL = #{secretToWebmail},
+		PRAISE = #{praise},
+		EXAM_FLAG=#{examFlag},
+		WORD_FLAG=#{wordFlag}
+		WHERE
+		BODY_ID = #{bodyId}
+	</update>
+
+
+	<!--其他邮件查询 -->
+	<select id="selectBoxEmail" parameterType="Map" resultMap="BaseResultMap">
+		SELECT
+		eb.FROM_ID,
+		e.BOX_ID,
+		eb.BODY_ID,
+		eb. SUBJECT,
+		e.EMAIL_ID,
+		eb.SEND_TIME,
+		eb.ATTACHMENT_ID,
+		eb.ATTACHMENT_NAME,
+		e.DELETE_FLAG,
+		eb.TO_ID2,
+		e.READ_FLAG,
+		eb.COPY_TO_ID,
+		eb.SECRET_TO_ID,
+		eb.CONTENT,
+		u.USER_ID,
+		e.TO_ID,
+		u.USER_NAME,
+		u.SEX,u.AVATAR
+		FROM
+		email_body AS eb
+		LEFT JOIN email AS e ON e.BODY_ID = eb.BODY_ID
+		LEFT JOIN USER AS u ON u.USER_ID = eb.FROM_ID
+		LEFT JOIN email_box ebo on ebo.BOX_ID = e.BOX_ID
+		WHERE
+		e.TO_ID = #{fromId}
+		and e.BOX_ID=#{boxId}
+		AND (
+		e.DELETE_FLAG = '0'
+		OR e.DELETE_FLAG = ''
+		OR e.DELETE_FLAG = '2'
+		)
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		ORDER by
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+
+	</select>
+
+	<select id="selectBoxEmail" parameterType="Map" resultMap="BaseResultMap" databaseId="kingbase">
+		SELECT
+		eb.FROM_ID,
+		e.BOX_ID,
+		eb.BODY_ID,
+		eb.SUBJECT,
+		e.EMAIL_ID,
+		eb.SEND_TIME,
+		eb.ATTACHMENT_ID,
+		eb.ATTACHMENT_NAME,
+		e.DELETE_FLAG,
+		eb.TO_ID2,
+		e.READ_FLAG,
+		eb.COPY_TO_ID,
+		eb.SECRET_TO_ID,
+		eb.CONTENT,
+		u.USER_ID,
+		e.TO_ID,
+		u.USER_NAME,
+		u.SEX,u.AVATAR
+		FROM
+		email_body AS eb
+		LEFT JOIN email AS e ON e.BODY_ID = eb.BODY_ID
+		LEFT JOIN "USER" AS u ON u.USER_ID = eb.FROM_ID
+		LEFT JOIN email_box ebo on ebo.BOX_ID = e.BOX_ID
+		WHERE
+		e.TO_ID = #{fromId}
+		and e.BOX_ID=#{boxId}
+		AND (
+		e.DELETE_FLAG = '0'
+		OR e.DELETE_FLAG = ''
+		OR e.DELETE_FLAG = '2'
+		)
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		ORDER by
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+
+	</select>
+
+
+	<!--查询其他邮件中是否存在详细邮件 -->
+	<select id="selectIsBoxEmail" parameterType="Map" resultMap="BaseResultMap">
+		SELECT
+		e.EMAIL_ID,
+		u.USER_NAME
+		FROM
+		email_body AS eb
+		LEFT JOIN email AS e ON e.BODY_ID = eb.BODY_ID
+		LEFT JOIN USER AS u ON u.USER_ID = eb.FROM_ID
+		WHERE
+		e.TO_ID = #{fromId}
+		and e.BOX_ID=#{boxId}
+	</select>
+
+	<select id="selectIsBoxEmail" parameterType="Map" resultMap="BaseResultMap" databaseId="kingbase">
+		SELECT
+		e.EMAIL_ID,
+		u.USER_NAME
+		FROM
+		email_body AS eb
+		LEFT JOIN email AS e ON e.BODY_ID = eb.BODY_ID
+		LEFT JOIN "USER" AS u ON u.USER_ID = eb.FROM_ID
+		WHERE
+		e.TO_ID = #{fromId}
+	    and e.BOX_ID=#{boxId}
+	</select>
+
+<select id="selectCount" parameterType="map" resultMap="BaseResultMap">
+	SELECT count1, count2,count3, count4,count5,count6,count7,count8,
+	       count9,count10,count11,count12,dept.DEPT_NAME,d.USER_NAME
+	,d.BODY_ID, d.FROM_ID FROM
+	(
+	SELECT
+	sum(case month(FROM_UNIXTIME(e.SEND_TIME, '%Y-%m-%d')) when '1' then 1 else 0 end) as count1,
+	sum(case month(FROM_UNIXTIME(e.SEND_TIME, '%Y-%m-%d')) when '2' then 1 else 0 end) as count2,
+	sum(case month(FROM_UNIXTIME(e.SEND_TIME, '%Y-%m-%d')) when '3' then 1 else 0 end) as count3,
+	sum(case month(FROM_UNIXTIME(e.SEND_TIME, '%Y-%m-%d')) when '4' then 1 else 0 end) as count4,
+	sum(case month(FROM_UNIXTIME(e.SEND_TIME, '%Y-%m-%d')) when '5' then 1 else 0 end) as count5,
+	sum(case month(FROM_UNIXTIME(e.SEND_TIME, '%Y-%m-%d')) when '6' then 1 else 0 end) as count6,
+	sum(case month(FROM_UNIXTIME(e.SEND_TIME, '%Y-%m-%d')) when '7' then 1 else 0 end) as count7,
+	sum(case month(FROM_UNIXTIME(e.SEND_TIME, '%Y-%m-%d')) when '8' then 1 else 0 end) as count8,
+	sum(case month(FROM_UNIXTIME(e.SEND_TIME, '%Y-%m-%d')) when '9' then 1 else 0 end) as count9,
+	sum(case month(FROM_UNIXTIME(e.SEND_TIME, '%Y-%m-%d')) when '10' then 1 else 0 end) as count10,
+	sum(case month(FROM_UNIXTIME(e.SEND_TIME, '%Y-%m-%d')) when '11' then 1 else 0 end) as count11,
+	sum(case month(FROM_UNIXTIME(e.SEND_TIME, '%Y-%m-%d')) when '12' then 1 else 0 end) as count12,
+	d.DEPT_NAME,d.DEPT_ID,u.USER_NAME,e.FROM_ID,u.uid as BODY_ID
+	FROM
+	department as d
+	INNER JOIN `user` u ON u.DEPT_ID = d.DEPT_ID
+	INNER JOIN email_body e ON u.USER_ID = e.FROM_ID
+	where
+
+		YEAR (
+		FROM_UNIXTIME(e.SEND_TIME, '%Y-%m-%d')
+		) =  #{sendTime}
+		and e.BODY_ID IN (
+		SELECT BODY_ID FROM email
+		where DELETE_FLAG!=2
+		GROUP BY BODY_ID
+		)
+
+		GROUP BY u.uid
+
+	)  d    RIGHT JOIN  department dept on  dept.DEPT_ID = d.DEPT_ID
+	<where>
+		    dept.DEPT_ID != 0
+		<if test="toId != null and toId != ''">
+			and dept.DEPT_ID = #{toId}
+		</if>
+		<if test="deptIds != null and deptIds.size() > 0">
+			AND dept.DEPT_ID IN
+			<foreach collection="deptIds" open="(" close=")" separator="," item="deptId">
+				#{deptId}
+			</foreach>
+		</if>
+	</where>
+  order by  USER_NAME desc
+<!--SELECT
+			MONTH (
+				FROM_UNIXTIME(e.SEND_TIME, '%Y-%m-%d')
+			) AS BODY_ID,
+			count(*) AS count,
+			MONTH (
+				FROM_UNIXTIME(e.SEND_TIME, '%Y-%m-%d')
+			) AS Months,
+			e.FROM_ID,
+			u.USER_NAME,
+			d.DEPT_NAME
+		FROM
+			email_body e
+		INNER JOIN `user` u ON u.USER_ID = e.FROM_ID
+		INNER JOIN department d ON u.DEPT_ID = d.DEPT_ID
+	<where>
+		YEAR (
+		FROM_UNIXTIME(e.SEND_TIME, '%Y-%m-%d')
+		) = #{sendTime}
+		<if test="toId != null and toId != ''">
+			AND  d.DEPT_ID = #{toId}
+		</if>
+		GROUP BY deptId,Months
+	</where>-->
+
+</select>
+
+	<select id="selectCount" parameterType="map" resultMap="BaseResultMap" databaseId="oracle">
+
+		SELECT
+		sum(CASE WHEN to_char( to_date( '1970-01-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS' ) + NUMTODSINTERVAL( e.SEND_TIME, 'second' ), 'MM' ) = 1 THEN 1 ELSE 0 END ) as count1,
+		sum(CASE WHEN to_char( to_date( '1970-01-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS' ) + NUMTODSINTERVAL( e.SEND_TIME, 'second' ), 'MM' ) = 2 THEN 1 ELSE 0 END ) as count2,
+		sum(CASE WHEN to_char( to_date( '1970-01-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS' ) + NUMTODSINTERVAL( e.SEND_TIME, 'second' ), 'MM' ) = 3 THEN 1 ELSE 0 END ) as count3,
+		sum(CASE WHEN to_char( to_date( '1970-01-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS' ) + NUMTODSINTERVAL( e.SEND_TIME, 'second' ), 'MM' ) = 4 THEN 1 ELSE 0 END ) as count4,
+		sum(CASE WHEN to_char( to_date( '1970-01-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS' ) + NUMTODSINTERVAL( e.SEND_TIME, 'second' ), 'MM' ) = 5 THEN 1 ELSE 0 END ) as count5,
+		sum(CASE WHEN to_char( to_date( '1970-01-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS' ) + NUMTODSINTERVAL( e.SEND_TIME, 'second' ), 'MM' ) = 6 THEN 1 ELSE 0 END ) as count6,
+		sum(CASE WHEN to_char( to_date( '1970-01-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS' ) + NUMTODSINTERVAL( e.SEND_TIME, 'second' ), 'MM' ) = 7 THEN 1 ELSE 0 END ) as count7,
+		sum(CASE WHEN to_char( to_date( '1970-01-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS' ) + NUMTODSINTERVAL( e.SEND_TIME, 'second' ), 'MM' ) = 8 THEN 1 ELSE 0 END ) as count8,
+		sum(CASE WHEN to_char( to_date( '1970-01-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS' ) + NUMTODSINTERVAL( e.SEND_TIME, 'second' ), 'MM' ) = 9 THEN 1 ELSE 0 END ) as count9,
+		sum(CASE WHEN to_char( to_date( '1970-01-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS' ) + NUMTODSINTERVAL( e.SEND_TIME, 'second' ), 'MM' ) = 10 THEN 1 ELSE 0 END ) as count10,
+		sum(CASE WHEN to_char( to_date( '1970-01-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS' ) + NUMTODSINTERVAL( e.SEND_TIME, 'second' ), 'MM' ) = 11 THEN 1 ELSE 0 END ) as count11,
+		sum(CASE WHEN to_char( to_date( '1970-01-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS' ) + NUMTODSINTERVAL( e.SEND_TIME, 'second' ), 'MM' ) = 12 THEN 1 ELSE 0 END ) as count12,
+		d.DEPT_NAME,u.USER_NAME,e.FROM_ID,u."UID" as BODY_ID
+		FROM
+		department  d
+		INNER JOIN "USER" u ON u.DEPT_ID = d.DEPT_ID
+		INNER JOIN email_body e ON u.USER_ID = e.FROM_ID
+		<where>
+			<if test="toId != null and toId != ''">
+				and d.DEPT_ID = #{toId}
+			</if>
+			and
+			to_char( to_date( '1970-01-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS' ) + numtodsinterval( e.SEND_TIME, 'second' ), 'yyyy' ) = #{sendTime}
+			GROUP BY
+			d.DEPT_NAME,
+			u.USER_NAME,
+			e.FROM_ID,
+			u."UID"
+
+		</where>
+
+		<!--SELECT
+                MONTH (
+                    FROM_UNIXTIME(e.SEND_TIME, '%Y-%m-%d')
+                ) AS BODY_ID,
+                count(*) AS count,
+                MONTH (
+                    FROM_UNIXTIME(e.SEND_TIME, '%Y-%m-%d')
+                ) AS Months,
+                e.FROM_ID,
+                u.USER_NAME,
+                d.DEPT_NAME
+            FROM
+                email_body e
+            INNER JOIN `user` u ON u.USER_ID = e.FROM_ID
+            INNER JOIN department d ON u.DEPT_ID = d.DEPT_ID
+        <where>
+            YEAR (
+            FROM_UNIXTIME(e.SEND_TIME, '%Y-%m-%d')
+            ) = #{sendTime}
+            <if test="toId != null and toId != ''">
+                AND  d.DEPT_ID = #{toId}
+            </if>
+            GROUP BY deptId,Months
+        </where>-->
+
+	</select>
+
+	<select id="selectCount" parameterType="map" resultMap="BaseResultMap" databaseId="kingbase">
+		SELECT
+		sum(CASE WHEN to_char(TO_TIMESTAMP(e.SEND_TIME), 'MM') = 1 THEN 1 ELSE 0 END ) as count1,
+		sum(CASE WHEN to_char(TO_TIMESTAMP(e.SEND_TIME), 'MM') = 2 THEN 1 ELSE 0 END ) as count2,
+		sum(CASE WHEN to_char(TO_TIMESTAMP(e.SEND_TIME), 'MM') = 3 THEN 1 ELSE 0 END ) as count3,
+		sum(CASE WHEN to_char(TO_TIMESTAMP(e.SEND_TIME), 'MM') = 4 THEN 1 ELSE 0 END ) as count4,
+		sum(CASE WHEN to_char(TO_TIMESTAMP(e.SEND_TIME), 'MM') = 5 THEN 1 ELSE 0 END ) as count5,
+		sum(CASE WHEN to_char(TO_TIMESTAMP(e.SEND_TIME), 'MM') = 6 THEN 1 ELSE 0 END ) as count6,
+		sum(CASE WHEN to_char(TO_TIMESTAMP(e.SEND_TIME), 'MM') = 7 THEN 1 ELSE 0 END ) as count7,
+		sum(CASE WHEN to_char(TO_TIMESTAMP(e.SEND_TIME), 'MM') = 8 THEN 1 ELSE 0 END ) as count8,
+		sum(CASE WHEN to_char(TO_TIMESTAMP(e.SEND_TIME), 'MM') = 9 THEN 1 ELSE 0 END ) as count9,
+		sum(CASE WHEN to_char(TO_TIMESTAMP(e.SEND_TIME), 'MM') = 10 THEN 1 ELSE 0 END ) as count10,
+		sum(CASE WHEN to_char(TO_TIMESTAMP(e.SEND_TIME), 'MM') = 11 THEN 1 ELSE 0 END ) as count11,
+		sum(CASE WHEN to_char(TO_TIMESTAMP(e.SEND_TIME), 'MM') = 12 THEN 1 ELSE 0 END ) as count12,
+		d.DEPT_NAME,u.USER_NAME,e.FROM_ID,u."UID" as BODY_ID
+		FROM
+		department  d
+		INNER JOIN "USER" u ON u.DEPT_ID = d.DEPT_ID
+		INNER JOIN email_body e ON u.USER_ID = e.FROM_ID
+		<where>
+			<if test="toId != null and toId != ''">
+				AND d.DEPT_ID = #{toId}
+			</if>
+			AND to_char(TO_TIMESTAMP(e.SEND_TIME), 'YYYY') = #{sendTime}
+			GROUP BY d.DEPT_NAME,u.USER_NAME,e.FROM_ID,u."UID"
+		</where>
+	</select>
+
+	<select id="selectListByMoths" parameterType="String" resultMap="BaseResultMap">
+	  SELECT
+	    e.BODY_ID,
+		e.SEND_TIME,
+		e.`SUBJECT`,
+		e.ATTACHMENT_ID,
+		e.ATTACHMENT_NAME
+		FROM
+			email_body e
+		WHERE
+		MONTH (
+			  FROM_UNIXTIME(e.SEND_TIME, '%Y-%m-%d')
+			) = #{sendTime}
+     AND  YEAR (
+		FROM_UNIXTIME(e.SEND_TIME, '%Y-%m-%d')
+		) =  #{year}
+    AND e.FROM_ID=#{userId}
+			</select>
+
+	<select id="selectListByMoths" parameterType="String" resultMap="BaseResultMap" databaseId="oracle">
+	SELECT
+		e.BODY_ID,
+		e.SEND_TIME,
+		e."SUBJECT",
+		e.ATTACHMENT_ID,
+		e.ATTACHMENT_NAME
+		FROM
+		email_body e
+WHERE
+TO_CHAR(e.SEND_TIME / ( 60 * 60 * 24) +
+TO_DATE('1970-01-01 08:00:00', 'YYYY-MM-DD HH:MI:SS'), 'MM') = #{sendTime}
+	</select>
+<select id="queryByBodyId" parameterType="map" resultMap="BaseResultMap">
+	select
+	eb.FROM_ID,
+	e.EMAIL_ID,
+	eb.BODY_ID,eb.SUBJECT,eb.SEND_TIME,eb.TO_ID2,eb.COPY_TO_ID,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,eb.SECRET_TO_ID,u.USER_ID,eb.CONTENT,
+	e.TO_ID,u.USER_NAME,u.SEX,u.AVATAR,
+	e.READ_FLAG,
+	e.BOX_ID,
+	e.RECEIPT,
+	e.IS_F,
+	e.IS_R,
+	e.SIGN,
+	u.USER_NAME,
+	d.DEPT_NAME,eb.EXAM_FLAG,eb.WORD_FLAG
+	from email_body as eb
+	LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID
+	LEFT JOIN user as u on
+	u.USER_ID=eb.FROM_ID
+	INNER JOIN department d ON u.DEPT_ID = d.DEPT_ID
+	WHERE eb.BODY_ID=#{bodyId}
+	GROUP BY eb.BODY_ID
+</select>
+
+	<select id="queryByBodyId" parameterType="map" resultMap="BaseResultMap" databaseId="kingbase">
+		SELECT eb.FROM_ID,e.EMAIL_ID,eb.BODY_ID,eb.SUBJECT,eb.SEND_TIME,eb.TO_ID2,eb.COPY_TO_ID,
+			   eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,eb.SECRET_TO_ID,u.USER_ID,eb.CONTENT,e.TO_ID,
+			   u.USER_NAME,u.SEX,u.AVATAR,e.READ_FLAG,e.BOX_ID,e.RECEIPT,e.IS_F,e.IS_R,e.SIGN,
+			   u.USER_NAME,d.DEPT_NAME,eb.EXAM_FLAG,eb.WORD_FLAG
+		FROM email_body AS eb
+				 LEFT JOIN email AS e ON e.BODY_ID = eb.BODY_ID
+				 LEFT JOIN "user" AS u ON u.USER_ID = eb.FROM_ID
+				 INNER JOIN department d ON u.DEPT_ID = d.DEPT_ID
+		WHERE eb.BODY_ID = #{bodyId}
+		GROUP BY eb.BODY_ID,e.EMAIL_ID,u.USER_NAME,u.SEX,u.AVATAR,e.READ_FLAG,e.BOX_ID,e.RECEIPT,e.IS_F,e.IS_R,e.SIGN,
+				 u.USER_NAME,d.DEPT_NAME,eb.EXAM_FLAG,eb.WORD_FLAG
+	</select>
+
+
+
+	<select id="selExamEmail"  resultMap="BaseResultMap">
+		SELECT
+		eb.FROM_ID,
+		eb.BODY_ID,
+		eb.SUBJECT,
+		eb.ATTACHMENT_ID,
+		eb.ATTACHMENT_NAME,
+		eb.SEND_TIME,
+		eb.TO_ID2,
+		eb.COPY_TO_ID,
+		eb.SECRET_TO_ID,
+		eb.CONTENT,
+		u.DEPT_ID,
+		u.USER_NAME as fromName
+		FROM
+		EMAIL_BODY  eb
+		JOIN `user` u ON u.USER_ID=eb.FROM_ID
+		WHERE
+		eb.SEND_FLAG = '1'
+		AND eb.EXAM_FLAG='0'
+		ORDER BY eb.SEND_TIME DESC
+	</select>
+
+	<select id="selExamEmail"  resultMap="BaseResultMap" databaseId="oracle">
+		SELECT
+		eb.FROM_ID,
+		eb.BODY_ID,
+		eb.SUBJECT,
+		eb.ATTACHMENT_ID,
+		eb.ATTACHMENT_NAME,
+		eb.SEND_TIME,
+		eb.TO_ID2,
+		eb.COPY_TO_ID,
+		eb.SECRET_TO_ID,
+		eb.CONTENT,
+		u.DEPT_ID,
+		u.USER_NAME as fromName
+		FROM
+		EMAIL_BODY  eb
+		JOIN "user" u ON u.USER_ID=eb.FROM_ID
+		WHERE
+		eb.SEND_FLAG = '1'
+		AND eb.EXAM_FLAG='0'
+		ORDER BY eb.SEND_TIME DESC
+	</select>
+
+	<select id="selExamEmail"  resultMap="BaseResultMap" databaseId="dm">
+		SELECT
+		eb.FROM_ID,
+		eb.BODY_ID,
+		eb.SUBJECT,
+		eb.ATTACHMENT_ID,
+		eb.ATTACHMENT_NAME,
+		eb.SEND_TIME,
+		eb.TO_ID2,
+		eb.COPY_TO_ID,
+		eb.SECRET_TO_ID,
+		eb.CONTENT,
+		u.DEPT_ID,
+		u.USER_NAME as fromName
+		FROM
+		EMAIL_BODY  eb
+		JOIN "user" u ON u.USER_ID=eb.FROM_ID
+		WHERE
+		eb.SEND_FLAG = '1'
+		AND eb.EXAM_FLAG='0'
+		ORDER BY eb.SEND_TIME DESC
+	</select>
+
+	<select id="selExamEmail"  resultMap="BaseResultMap" databaseId="kingbase">
+		SELECT
+		eb.FROM_ID,
+		eb.BODY_ID,
+		eb.SUBJECT,
+		eb.ATTACHMENT_ID,
+		eb.ATTACHMENT_NAME,
+		eb.SEND_TIME,
+		eb.TO_ID2,
+		eb.COPY_TO_ID,
+		eb.SECRET_TO_ID,
+		eb.CONTENT,
+		u.DEPT_ID,
+		u.USER_NAME as fromName
+		FROM
+		EMAIL_BODY  eb
+		JOIN "user" u ON u.USER_ID=eb.FROM_ID
+		WHERE
+		eb.SEND_FLAG = '1'
+		AND eb.EXAM_FLAG='0'
+		ORDER BY eb.SEND_TIME DESC
+	</select>
+
+	<select id="selWordExamEmail"  resultMap="BaseResultMap">
+		SELECT
+		eb.FROM_ID,
+		eb.BODY_ID,
+		eb.SUBJECT,
+		eb.ATTACHMENT_ID,
+		eb.ATTACHMENT_NAME,
+		eb.SEND_TIME,
+		eb.TO_ID2,
+		eb.COPY_TO_ID,
+		eb.SECRET_TO_ID,
+		eb.CONTENT,
+		u.DEPT_ID,
+		u.USER_NAME as fromName
+		FROM
+		EMAIL_BODY  eb
+		JOIN `user` u ON u.USER_ID=eb.FROM_ID
+		WHERE
+		eb.SEND_FLAG = '1'
+		AND eb.WORD_FLAG='0'
+		ORDER BY eb.SEND_TIME DESC
+	</select>
+
+	<select id="selWordExamEmail"  resultMap="BaseResultMap" databaseId="kingbase">
+		SELECT
+		eb.FROM_ID,
+		eb.BODY_ID,
+		eb.SUBJECT,
+		eb.ATTACHMENT_ID,
+		eb.ATTACHMENT_NAME,
+		eb.SEND_TIME,
+		eb.TO_ID2,
+		eb.COPY_TO_ID,
+		eb.SECRET_TO_ID,
+		eb.CONTENT,
+		u.DEPT_ID,
+		u.USER_NAME as fromName
+		FROM
+		EMAIL_BODY  eb
+		JOIN "user" u ON u.USER_ID=eb.FROM_ID
+		WHERE
+		eb.SEND_FLAG = '1'
+		AND eb.WORD_FLAG='0'
+		ORDER BY eb.SEND_TIME DESC
+	</select>
+
+	<update id="updateExamFlag" parameterType="com.xoa.model.email.EmailBodyModel">
+		UPDATE EMAIL_BODY SET EXAM_FLAG=#{examFlag} where BODY_ID=#{bodyId}
+	</update>
+
+	<update id="updateWordFlag" parameterType="com.xoa.model.email.EmailBodyModel">
+		UPDATE EMAIL_BODY
+		<set>
+			<if test="wordFlag!=null">
+				WORD_FLAG=#{wordFlag},
+			</if>
+			<if test="subject!=null">
+				SUBJECT=#{subject},
+			</if>
+			<if test="content!=null">
+				CONTENT=#{content},
+			</if>
+		</set>
+		where BODY_ID=#{bodyId}
+	</update>
+	<select id="selectEmail" resultType="Integer"  >
+		select  count(*)  from email_body
+
+	</select>
+
+	<select id="selectEmailAll" resultMap="BaseResultMap" parameterType="map">
+		SELECT
+	FROM_ID,
+	TO_ID2,
+	SEND_TIME,
+	`SUBJECT`,
+	CONTENT,
+	ATTACHMENT_NAME
+FROM
+	email_body eb
+	WHERE
+	FROM_ID = 'admin'
+	AND TO_ID2 LIKE  '%,'
+	AND SEND_TIME &gt;= #{SEND_TIME} AND SEND_TIME &lt;= #{SEND_TIME}
+ORDER BY
+	SEND_TIME
+
+	</select>
+
+
+<!--查询邮件-->
+	<select id="AllselectObjcets" resultMap="EmailResultMap" parameterType="map">
+		select DISTINCT
+		eb.BODY_ID,eb.FROM_ID,eb.SUBJECT,eb.SEND_TIME,eb.TO_ID2,eb.CONTENT,e.READ_FLAG,ATTACHMENT_NAME from email_body as eb
+		LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID
+		<where>
+			<if test="fromId != null and fromId != ''">
+			 AND eb.FROM_ID IN
+			<foreach collection="fromId"  item="fromIds" open="(" close=")" separator=",">
+				#{fromIds}
+			</foreach>
+		</if>
+			<if test="fromId = null and fromId = ''">
+				AND eb.FROM_ID !=""
+			</if>
+		<if test="toId2 != null and toId2 != ''">
+			AND eb.TO_ID2 like concat('%',#{toId2},'%')
+		</if>
+		<if test="Subject != null and Subject != ''">
+			AND eb.SUBJECT like concat ('%',#{Subject},'%')
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like concat('%',#{content},'%')
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like concat('%',#{attachmentName},'%')
+		</if>
+		<if test="startTimes != null and startTimes != ''">
+			AND eb.SEND_TIME &gt;= #{startTimes}
+		</if>
+		<if test="endTimes != null and endTimes != ''">
+			AND eb.SEND_TIME  &lt;= #{endTimes}
+		</if>
+		</where>
+		ORDER BY SEND_TIME  DESC
+	</select>
+
+	<!--/**-->
+	<!--* @创建作者:李然  Lr-->
+	<!--* @方法描述：获取条件查询总数-->
+	<!--* @创建时间：10:57 2019/5/17-->
+	<!--Integer AllselectObjcetsCount(Map<String,Object> maps);-->
+	<!--**/-->
+
+	<select id="AllselectObjcetsCount" resultType="Integer" parameterType="map">
+		select
+		count(*) from email_body as eb
+		LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID
+		<where>
+			<if test="fromId != null and fromId != ''">
+			 AND eb.FROM_ID IN
+			<foreach collection="fromId"  item="fromIds" open="(" close=")" separator=",">
+				#{fromIds}
+			</foreach>
+		</if>
+			<if test="fromId = null and fromId = ''">
+				AND eb.FROM_ID !=""
+			</if>
+		<if test="toId2 != null and toId2 != ''">
+			AND eb.TO_ID2 like concat('%',#{toId2},'%')
+		</if>
+		<if test="Subject != null and Subject != ''">
+			AND eb.SUBJECT like concat ('%',#{Subject},'%')
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like concat('%',#{content},'%')
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like concat('%',#{attachmentName},'%')
+		</if>
+		<if test="startTimes != null and startTimes != ''">
+			AND eb.SEND_TIME &gt;= #{startTimes}
+		</if>
+		<if test="endTimes != null and endTimes != ''">
+			AND eb.SEND_TIME  &lt;= #{endTimes}
+		</if>
+		</where>
+		ORDER BY SEND_TIME  DESC
+	</select>
+	<!--查询总条数-->
+	<select id="AllselectInt" resultType="Integer">
+        select count(*) from email_body
+	</select>
+
+	<delete id="AlldeleteId">
+     delete from email_body  WHERE BODY_ID IN
+				<foreach collection="array"  index="index" item="bodyIds" open="(" close=")" separator=",">
+					#{bodyIds}
+				</foreach>
+
+	</delete>
+
+	<select id="getNoReadCount" resultType="Integer" parameterType="map">
+		select count(*) from (select
+		eb.FROM_ID,
+		eb.BODY_ID,eb.SUBJECT,e.EMAIL_ID,eb.SEND_TIME,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,e.DELETE_FLAG,
+		eb.TO_ID2,e.READ_FLAG,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,u.USER_ID,e.TO_ID,e.withdraw_flag,
+		u.USER_NAME,u.SEX,u.AVATAR,u.UID from email_body as eb
+		LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN user as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		e.TO_ID=#{fromId}
+		and (e.DELETE_FLAG ='0' or e.DELETE_FLAG='' or e.DELETE_FLAG='2')
+		AND e.BOX_ID='0'
+		AND (eb.EXAM_FLAG is null or eb.EXAM_FLAG='1' or  eb.EXAM_FLAG='3')
+		AND (eb.WORD_FLAG is null or eb.WORD_FLAG='1' or  eb.WORD_FLAG='3')
+		AND e.READ_FLAG  LIKE  '0'
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="fromUserId != null and fromUserId != ''">
+			AND (eb.FROM_ID LIKE CONCAT ('%',#{fromUserId},'%') OR (eb.FROM_ID LIKE u.USER_ID AND (select replace(u.USER_NAME,' ','')) LIKE CONCAT ('%',#{fromUserId},'%')))
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND   (u.USER_NAME like CONCAT('%',#{queryField},'%') OR eb.`SUBJECT` like CONCAT('%',#{queryField},'%'))
+		</if>
+		GROUP BY eb.BODY_ID ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+		) tab
+	</select>
+
+	<select id="getNoReadCount" resultType="Integer" parameterType="map" databaseId="dm">
+		select count(*) from (select
+		eb.BODY_ID from email_body as eb
+		LEFT JOIN "email" as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN "user" as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN "webmail" as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		e.TO_ID=#{fromId}
+		and (e.DELETE_FLAG ='0' or e.DELETE_FLAG='' or e.DELETE_FLAG='2')
+		AND e.BOX_ID='0'
+		AND (eb.EXAM_FLAG is null or eb.EXAM_FLAG='1' or  eb.EXAM_FLAG='3')
+		AND (eb.WORD_FLAG is null or eb.WORD_FLAG='1' or  eb.WORD_FLAG='3')
+		AND e.READ_FLAG  LIKE  '0'
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="fromUserId != null and fromUserId != ''">
+			AND (eb.FROM_ID LIKE CONCAT ('%',#{fromUserId},'%') OR (eb.FROM_ID LIKE u.USER_ID AND (select replace(u.USER_NAME,' ','')) LIKE CONCAT ('%',#{fromUserId},'%')))
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND   (u.USER_NAME like CONCAT('%',#{queryField},'%') OR eb.`SUBJECT` like CONCAT('%',#{queryField},'%'))
+		</if>
+		GROUP BY eb.BODY_ID
+		) tab
+	</select>
+
+	<select id="getNoReadCount" resultType="Integer" parameterType="map" databaseId="kingbase">
+		SELECT COUNT(*) FROM (
+			SELECT eb.BODY_ID
+			FROM email_body AS eb
+			LEFT JOIN email AS e ON e.BODY_ID = eb.BODY_ID
+			LEFT JOIN "user" AS u ON u.USER_ID = eb.FROM_ID
+			LEFT JOIN webmail AS wb ON wb.USER_ID = eb.FROM_ID
+			WHERE e.TO_ID = #{fromId}
+			AND (e.DELETE_FLAG = '0' OR e.DELETE_FLAG = '' OR e.DELETE_FLAG = '2')
+			AND e.BOX_ID = '0'
+			AND (eb.EXAM_FLAG IS NULL OR eb.EXAM_FLAG='1' OR eb.EXAM_FLAG = '3')
+			AND (eb.WORD_FLAG IS NULL OR eb.WORD_FLAG='1' OR eb.WORD_FLAG = '3')
+			AND e.READ_FLAG LIKE '0'
+			<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+				AND eb.SEND_TIME BETWEEN #{startTime} AND #{endTime}
+			</if>
+			<if test="subject != null and subject != ''">
+				AND eb.SUBJECT LIKE #{subject}
+			</if>
+			<if test="content != null and content != ''">
+				AND eb.CONTENT LIKE #{content}
+			</if>
+			<if test="attachmentName != null and attachmentName != ''">
+				AND eb.ATTACHMENT_NAME LIKE #{attachmentName}
+			</if>
+			<if test="fromUserId != null and fromUserId != ''">
+				AND (eb.FROM_ID LIKE CONCAT ('%',#{fromUserId}::VARCHAR,'%') OR (eb.FROM_ID LIKE u.USER_ID AND (SELECT
+				replace(u.USER_NAME,' ','')) LIKE CONCAT ('%',#{fromUserId}::VARCHAR,'%')))
+			</if>
+			<if test="searchCriteria != null and searchCriteria != ''">
+				AND eb.SUBJECT LIKE #{searchCriteria}
+			</if>
+			<if test="isWebmail != null and isWebmail != ''">
+				AND eb.IS_WEBMAIL LIKE #{isWebmail}
+			</if>
+			<if test="queryField != null and queryField != ''">
+				AND (u.USER_NAME LIKE CONCAT('%',#{queryField}::VARCHAR,'%') OR eb.SUBJECT LIKE CONCAT('%',#{queryField}::VARCHAR,'%'))
+			</if>
+			GROUP BY eb.BODY_ID
+			ORDER BY
+			<choose>
+				<when test="orderByName != null and orderByName != ''">
+					${orderByName}
+				</when>
+				<otherwise>
+					eb.SEND_TIME
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="orderWhere != null and orderWhere != ''">
+					${orderWhere}
+				</when>
+				<otherwise>
+					DESC
+				</otherwise>
+			</choose>
+		) tab
+	</select>
+
+	<select id="selectInboxNoRead" parameterType="Map" resultMap="BaseResultMap" databaseId="mysql">
+		select
+		eb.FROM_ID,
+		eb.BODY_ID,eb.SUBJECT,e.EMAIL_ID,eb.SEND_TIME,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,e.DELETE_FLAG,
+		eb.TO_ID2,e.READ_FLAG,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,u.USER_ID,e.TO_ID,e.withdraw_flag,
+		u.USER_NAME,u.SEX,u.AVATAR,u.UID from email_body as eb
+		LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN user as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		e.TO_ID=#{fromId}
+		and (e.DELETE_FLAG ='0' or e.DELETE_FLAG='' or e.DELETE_FLAG='2')
+		AND (eb.EXAM_FLAG is null or eb.EXAM_FLAG='1' or  eb.EXAM_FLAG='3')
+		AND (eb.WORD_FLAG is null or eb.WORD_FLAG='1' or  eb.WORD_FLAG='3')
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="fromUserId != null and fromUserId != ''">
+			AND (eb.FROM_ID LIKE CONCAT ('%',#{fromUserId},'%') OR (eb.FROM_ID LIKE u.USER_ID AND (select replace(u.USER_NAME,' ','')) LIKE CONCAT ('%',#{fromUserId},'%')))
+		</if>
+		<if test="readFlag != null and readFlag != ''">
+			AND e.READ_FLAG  LIKE #{readFlag}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND   (u.USER_NAME like CONCAT('%',#{queryField},'%') OR eb.`SUBJECT` like CONCAT('%',#{queryField},'%'))
+		</if>
+		GROUP BY eb.BODY_ID ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="selectInboxNoRead" parameterType="Map" resultMap="BaseResultMap" databaseId="kingbase">
+		SELECT eb.FROM_ID,eb.BODY_ID,eb.SUBJECT,e.EMAIL_ID,eb.SEND_TIME,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,
+		e.DELETE_FLAG,eb.TO_ID2,e.READ_FLAG,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,u.USER_ID,e.TO_ID,e.withdraw_flag,
+		u.USER_NAME,u.SEX,u.AVATAR,u.UID
+		FROM email_body AS eb
+		LEFT JOIN email AS e ON e.BODY_ID = eb.BODY_ID
+		LEFT JOIN "user" AS u ON u.USER_ID = eb.FROM_ID
+		LEFT JOIN webmail AS wb ON wb.USER_ID = eb.FROM_ID
+		WHERE e.TO_ID = #{fromId}
+		AND (e.DELETE_FLAG = '0' OR e.DELETE_FLAG = '' OR e.DELETE_FLAG = '2')
+		AND (eb.EXAM_FLAG IS NULL OR eb.EXAM_FLAG = '1' OR eb.EXAM_FLAG = '3')
+		AND (eb.WORD_FLAG IS NULL OR eb.WORD_FLAG = '1' OR eb.WORD_FLAG = '3')
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME BETWEEN #{startTime} AND #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT LIKE #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT LIKE #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME LIKE #{attachmentName}
+		</if>
+		<if test="fromUserId != null and fromUserId != ''">
+			AND (eb.FROM_ID LIKE CONCAT ('%',#{fromUserId}::VARCHAR,'%') OR (eb.FROM_ID LIKE u.USER_ID AND (SELECT
+			replace(u.USER_NAME,' ','')) LIKE CONCAT ('%',#{fromUserId}::VARCHAR,'%')))
+		</if>
+		<if test="readFlag != null and readFlag != ''">
+			AND e.READ_FLAG LIKE #{readFlag}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND eb.SUBJECT LIKE #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND (u.USER_NAME LIKE CONCAT('%',#{queryField}::VARCHAR,'%') OR eb.SUBJECT LIKE CONCAT('%',#{queryField}::VARCHAR,'%'))
+		</if>
+		GROUP BY eb.BODY_ID,e.EMAIL_ID,e.DELETE_FLAG,e.READ_FLAG,u.USER_ID,e.TO_ID,e.withdraw_flag,u.USER_NAME,u.SEX,u.AVATAR,u.UID
+		ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+	<select id="getPrivAttachment" parameterType="map" resultType="string">
+		select eb.FROM_ID from email_body eb where eb.ATTACHMENT_ID like concat('%',#{attachmentId},'%')
+		and eb.ATTACHMENT_NAME like concat('%',#{attachmentName},'%') and eb.SEND_FLAG = '1'
+
+	</select>
+
+	<select id="getEmailNames" resultType="string">
+		select SUBSTRING(table_name,12) as str from information_schema.tables
+		where table_schema=#{tableSchema} and table_name LIKE 'email_body_%'
+    </select>
+
+	<select id="selectInbox2" parameterType="Map" resultMap="BaseResultMap">
+        select
+		eb.FROM_ID,eb.BODY_ID,eb.SUBJECT,e.EMAIL_ID,eb.SEND_TIME,eb.ATTACHMENT_ID,
+		eb.ATTACHMENT_NAME,e.DELETE_FLAG,
+		eb.TO_ID2,e.READ_FLAG,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,e.TO_ID
+		FROM ${dbSource}.email_body_${emailId} as eb
+		LEFT JOIN ${dbSource}.email_${emailId} as e on e.BODY_ID=eb.BODY_ID
+		where
+		e.TO_ID=#{fromId}
+		and (e.DELETE_FLAG ='0' or e.DELETE_FLAG='' or e.DELETE_FLAG='2')
+		AND e.BOX_ID='0'
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="fromUserId != null and fromUserId != ''">
+			AND (eb.FROM_ID LIKE CONCAT ('%',#{fromUserId},'%') )
+		</if>
+		<if test="readFlag != null and readFlag != ''">
+			AND e.READ_FLAG  LIKE #{readFlag}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		GROUP BY eb.BODY_ID ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+    <select id="listDrafts2" parameterType="Map" resultMap="BaseResultMap">
+		select eb.FROM_ID,e.EMAIL_ID,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME, eb.BODY_ID,
+		eb.SUBJECT,eb.SEND_TIME,eb.TO_ID2,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,e.TO_ID
+		from ${dbSource}.email_body_#{emailId} as eb
+		LEFT JOIN ${dbSource}.email_#{emailId} as e on e.BODY_ID=eb.BODY_ID
+		where eb.FROM_ID=#{fromId} AND SEND_FLAG="0"
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		GROUP BY eb.BODY_ID order by
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+	<select id="listSendEmail2" parameterType="Map" resultMap="BaseResultMap">
+		SELECT
+		eb.FROM_ID,eb.BODY_ID,eb.SUBJECT,eb.ATTACHMENT_ID,
+		eb.ATTACHMENT_NAME,eb.SEND_TIME,E .DELETE_FLAG,E .READ_FLAG,
+		eb.TO_ID2,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,E .TO_ID
+		FROM ${dbSource}.EMAIL_BODY_#{emailId}  eb
+		LEFT JOIN ${dbSource}.EMAIL_#{emailId}  E ON eb.BODY_ID = E .BODY_ID
+		WHERE eb.FROM_ID = #{fromId} AND SEND_FLAG = '1'
+		AND (
+		E .DELETE_FLAG = ''
+		OR E .DELETE_FLAG = '0'
+		OR E .DELETE_FLAG = '3'
+		OR E .DELETE_FLAG = '1'
+		)
+		AND BOX_ID = '0'
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		<if test="toId2 != null and toId2 != ''">
+			AND (eb.TO_ID2 LIKE CONCAT ('%',#{toId2},'%'))
+		</if>
+		GROUP BY eb.BODY_ID
+		ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+	<select id="listWastePaperbasket2" parameterType="Map" resultMap="BaseResultMap">
+		SELECT eb.FROM_ID,e.EMAIL_ID,eb.BODY_ID,eb.SUBJECT,eb.ATTACHMENT_ID,
+		eb.ATTACHMENT_NAME,e.DELETE_FLAG,eb.SEND_TIME,eb.TO_ID2,e.READ_FLAG,
+		eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,e.TO_ID
+		FROM ${dbSource}.email_body_#{emailId} as eb
+		LEFT JOIN ${dbSource}.email_#{emailId} as e on e.BODY_ID =eb.BODY_ID
+		where
+		e.TO_ID=#{fromId}
+		AND (
+		e.DELETE_FLAG = '3'
+		OR e.DELETE_FLAG = '4'
+		)
+		<if test="bodyIds != null and bodyIds.size() > 0">
+			AND eb.BODY_ID IN
+			<foreach collection="bodyIds" open="(" close=")" separator="," item="bodyId">
+				#{bodyId}
+			</foreach>
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND   eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		GROUP BY
+		eb.BODY_ID
+		ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+	</select>
+
+
+	<select id="queryArchiveById" resultMap="BaseResultMap" parameterType="Map">
+		select
+		eb.FROM_ID,
+		e.EMAIL_ID,
+		eb.BODY_ID,eb.SUBJECT,eb.SEND_TIME,eb.TO_ID2,eb.COPY_TO_ID,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,eb.SECRET_TO_ID,eb.CONTENT,eb.TO_WEBMAIL,eb.FROM_WEBMAIL,
+		e.TO_ID,
+		e.READ_FLAG,
+		e.BOX_ID,
+		e.RECEIPT,
+		e.IS_F,
+		e.IS_R,
+		e.SIGN
+		FROM ${dbSource}.email_body_#{copyTime} as eb
+		LEFT JOIN ${dbSource}.email_#{copyTime} as e on e.BODY_ID =eb.BODY_ID
+		<where>
+			<if test="emailId != null and emailId != ''">
+				e.EMAIL_ID=#{emailId}
+			</if>
+			<if test="bodyId != null and bodyId != ''">
+				eb.BODY_ID = #{bodyId}
+			</if>
+		</where>
+		GROUP BY eb.BODY_ID
+	</select>
+	<select id="selectByBodyId" resultMap="BaseResultMap" >
+		select BODY_ID,FROM_ID,COPY_TO_ID,TO_ID2,SECRET_TO_ID,SUBJECT,CONTENT
+		from email_body
+		where body_id =#{bodyId}
+	</select>
+
+	<select id="selectZeroSizeEmail" resultMap="BaseResultMap">
+		SELECT DISTINCT eb.BODY_ID,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME
+		FROM email_body eb
+		left join email e on e.BODY_ID = eb.BODY_ID and e.DELETE_FLAG = 0
+		WHERE eb.ATTACHMENT_ID !='' and eb.SIZE = 0
+	</select>
+
+	<update id="updateBatchZeroSizeEmail"  parameterType="java.util.List">
+		<foreach collection="zeroSizeEmail" item="item" index="index" open="" close="" separator=";">
+			update email_body
+			<set>
+				SIZE = #{item.size}
+			</set>
+			where BODY_ID = #{item.bodyId}
+		</foreach>
+	</update>
+
+	<update id="updateZeroSizeEmail"  parameterType="com.xoa.model.email.EmailBodyModel">
+		update email_body
+		<set>
+			SIZE = #{size}
+		</set>
+		where BODY_ID = #{bodyId}
+	</update>
+
+	<select id="selectEmailSizeByUserId"  resultMap="BaseResultMap" parameterType="Map">
+		select eb.BODY_ID,eb.SIZE,eb.FROM_ID,e.TO_ID
+		FROM email e
+		inner join email_body eb on e.BODY_ID = eb.BODY_ID and e.DELETE_FLAG = 0
+		WHERE
+		<if test="fromId != null and fromId != ''">
+			eb.FROM_ID = #{userId}
+		</if>
+		<if test="toId != null and toId != ''">
+			e.TO_ID = #{userId}
+		</if>
+	</select>
+
+	<select id="listDraftsCount" resultType="integer"  parameterType="Map" >
+		select count(*) from (
+		select eb.BODY_ID
+		from email_body as eb
+		LEFT
+		JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN user as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		eb.FROM_ID=#{fromId}
+		AND SEND_FLAG="0"
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND  (u.USER_NAME like CONCAT('%',#{queryField},'%') OR eb.`SUBJECT` like CONCAT('%',#{queryField},'%'))
+		</if>
+		GROUP BY eb.BODY_ID order by
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+		) a
+	</select>
+
+	<select id="listDraftsCount" resultType="integer"  parameterType="Map" databaseId="kingbase">
+		SELECT COUNT(*) FROM (
+			SELECT eb.BODY_ID
+			FROM email_body AS eb
+			LEFT JOIN email AS e ON e.BODY_ID = eb.BODY_ID
+			LEFT JOIN "user" AS u ON u.USER_ID = eb.FROM_ID
+			LEFT JOIN webmail AS wb ON wb.USER_ID = eb.FROM_ID
+			WHERE eb.FROM_ID = #{fromId}
+			AND SEND_FLAG = '0'
+			<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+				AND eb.SEND_TIME BETWEEN #{startTime} AND #{endTime}
+			</if>
+			<if test="subject != null and subject != ''">
+				AND eb.SUBJECT LIKE #{subject}
+			</if>
+			<if test="content != null and content != ''">
+				AND eb.CONTENT LIKE #{content}
+			</if>
+			<if test="attachmentName != null and attachmentName != ''">
+				AND eb.ATTACHMENT_NAME LIKE #{attachmentName}
+			</if>
+			<if test="searchCriteria != null and searchCriteria != ''">
+				AND eb.SUBJECT LIKE #{searchCriteria}
+			</if>
+			<if test="queryField != null and queryField != ''">
+				AND (u.USER_NAME LIKE CONCAT('%',#{queryField}::VARCHAR,'%') OR eb.SUBJECT LIKE CONCAT('%',#{queryField}::VARCHAR,'%'))
+			</if>
+			GROUP BY eb.BODY_ID
+			ORDER BY
+			<choose>
+				<when test="orderByName != null and orderByName != ''">
+					${orderByName}
+				</when>
+				<otherwise>
+					eb.SEND_TIME
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="orderWhere != null and orderWhere != ''">
+					${orderWhere}
+				</when>
+				<otherwise>
+					DESC
+				</otherwise>
+			</choose>
+		) a
+	</select>
+
+	<select id="listSendEmailCount" parameterType="Map" resultType="integer">
+		select count(*) from (
+		select eb.BODY_ID
+		from
+		EMAIL_BODY eb
+		LEFT JOIN EMAIL E ON eb.BODY_ID = E .BODY_ID
+		LEFT JOIN USER U ON U .USER_ID = eb.FROM_ID
+		LEFT JOIN WEBMAIL wb ON wb.USER_ID = eb.FROM_ID
+		WHERE
+		eb.FROM_ID = #{fromId}
+		AND SEND_FLAG = '1'
+		AND (
+		E .DELETE_FLAG = ''
+		OR E .DELETE_FLAG = '0'
+		OR E .DELETE_FLAG = '3'
+		OR E .DELETE_FLAG = '1'
+		)
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND (u.USER_NAME like CONCAT('%',#{queryField},'%') OR eb.`SUBJECT` like CONCAT('%',#{queryField},'%') )
+		</if>
+		<!-- ** -->
+		<if test="toId2 != null and toId2 != ''">
+			AND (eb.TO_ID2 LIKE CONCAT ('%',#{toId2},'%') OR (eb.TO_ID2 LIKE u.USER_ID AND (select replace(u.USER_NAME,
+			' ','')) LIKE CONCAT ('%',#{toId2},'%')))
+		</if>
+		<!-- ** -->
+		GROUP BY eb.BODY_ID
+		ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+		) a
+	</select>
+
+	<select id="listSendEmailCount" parameterType="Map" resultType="integer" databaseId="kingbase">
+		SELECT COUNT(*) FROM (
+			SELECT eb.BODY_ID
+			FROM email_body eb
+			LEFT JOIN email e ON eb.BODY_ID = e.BODY_ID
+			LEFT JOIN "user" u ON u.USER_ID = eb.FROM_ID
+			LEFT JOIN webmail wb ON wb.USER_ID = eb.FROM_ID
+			WHERE eb.FROM_ID = #{fromId}
+			AND SEND_FLAG = '1'
+			AND (
+				e.DELETE_FLAG = ''
+				OR e.DELETE_FLAG = '0'
+				OR e.DELETE_FLAG = '3'
+				OR e.DELETE_FLAG = '1'
+			)
+			<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+				AND eb.SEND_TIME BETWEEN #{startTime} AND #{endTime}
+			</if>
+			<if test="subject != null and subject != ''">
+				AND eb.SUBJECT LIKE #{subject}
+			</if>
+			<if test="content != null and content != ''">
+				AND eb.CONTENT LIKE #{content}
+			</if>
+			<if test="attachmentName != null and attachmentName != ''">
+				AND eb.ATTACHMENT_NAME LIKE #{attachmentName}
+			</if>
+			<if test="searchCriteria != null and searchCriteria != ''">
+				AND eb.SUBJECT LIKE #{searchCriteria}
+			</if>
+			<if test="isWebmail != null and isWebmail != ''">
+				AND eb.IS_WEBMAIL LIKE #{isWebmail}
+			</if>
+			<if test="queryField != null and queryField != ''">
+				AND (u.USER_NAME LIKE CONCAT('%',#{queryField}::VARCHAR,'%') OR eb.SUBJECT LIKE CONCAT('%',#{queryField}::VARCHAR,'%') )
+			</if>
+			<if test="toId2 != null and toId2 != ''">
+				AND (eb.TO_ID2 LIKE CONCAT ('%',#{toId2}::VARCHAR,'%') OR (eb.TO_ID2 LIKE u.USER_ID AND (SELECT replace(u.USER_NAME,
+				' ','')) LIKE CONCAT ('%',#{toId2}::VARCHAR,'%')))
+			</if>
+			GROUP BY eb.BODY_ID
+			ORDER BY
+			<choose>
+				<when test="orderByName != null and orderByName != ''">
+					${orderByName}
+				</when>
+				<otherwise>
+					eb.SEND_TIME
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="orderWhere != null and orderWhere != ''">
+					${orderWhere}
+				</when>
+				<otherwise>
+					DESC
+				</otherwise>
+			</choose>
+		) a
+	</select>
+
+	<select id="listWastePaperbasketCount" resultType="integer"
+			parameterType="Map">
+		select count(*) from (
+		select eb.BODY_ID
+		from
+		email_body as eb
+		LEFT JOIN email as e on e.BODY_ID =eb.BODY_ID
+		INNER JOIN user as u on u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		e.TO_ID=#{fromId}
+		AND (
+		e.DELETE_FLAG = '3'
+		OR e.DELETE_FLAG = '4'
+		)
+		<if test="toId != null and toId != '' ">
+			AND eb.FROM_ID=#{toId}
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND   eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND  (u.USER_NAME like CONCAT('%',#{queryField},'%') OR eb.`SUBJECT` like CONCAT('%',#{queryField},'%'))
+		</if>
+		GROUP BY
+		eb.BODY_ID
+		ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+		) a
+	</select>
+
+	<select id="listWastePaperbasketCount" resultType="integer" parameterType="Map" databaseId="kingbase">
+		SELECT COUNT(*) FROM (
+			SELECT eb.BODY_ID
+			FROM email_body AS eb
+			LEFT JOIN email AS e ON e.BODY_ID = eb.BODY_ID
+			INNER JOIN "user" AS u ON u.USER_ID = eb.FROM_ID
+			LEFT JOIN webmail AS wb ON wb.USER_ID = eb.FROM_ID
+			WHERE e.TO_ID = #{fromId}
+			AND (
+				e.DELETE_FLAG = '3'
+				OR e.DELETE_FLAG = '4'
+			)
+			<if test="toId != null and toId != '' ">
+				AND eb.FROM_ID = #{toId}
+			</if>
+			<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+				AND eb.SEND_TIME BETWEEN #{startTime} AND #{endTime}
+			</if>
+			<if test="subject != null and subject != ''">
+				AND eb.SUBJECT LIKE #{subject}
+			</if>
+			<if test="content != null and content != ''">
+				AND eb.CONTENT LIKE #{content}
+			</if>
+			<if test="attachmentName != null and attachmentName != ''">
+				AND eb.ATTACHMENT_NAME LIKE #{attachmentName}
+			</if>
+			<if test="searchCriteria != null and searchCriteria != ''">
+				AND eb.SUBJECT LIKE #{searchCriteria}
+			</if>
+			<if test="isWebmail != null and isWebmail != ''">
+				AND eb.IS_WEBMAIL LIKE #{isWebmail}
+			</if>
+			<if test="queryField != null and queryField != ''">
+				AND (u.USER_NAME LIKE CONCAT('%',#{queryField}::VARCHAR,'%') OR eb.SUBJECT LIKE CONCAT('%',#{queryField}::VARCHAR,'%'))
+			</if>
+			GROUP BY eb.BODY_ID
+			ORDER BY
+			<choose>
+				<when test="orderByName != null and orderByName != ''">
+					${orderByName}
+				</when>
+				<otherwise>
+					eb.SEND_TIME
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="orderWhere != null and orderWhere != ''">
+					${orderWhere}
+				</when>
+				<otherwise>
+					DESC
+				</otherwise>
+			</choose>
+		) a
+	</select>
+
+	<select id="selectInboxCount" parameterType="Map" resultType="integer" >
+		select count(*) from (
+		select eb.BODY_ID
+		from email_body as eb
+		LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN user as u on
+		u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb
+		on wb.USER_ID = eb.FROM_ID
+		where
+		e.TO_ID=#{fromId}
+		and (e.DELETE_FLAG ='0' or e.DELETE_FLAG='' or e.DELETE_FLAG='2')
+		AND e.BOX_ID='0'
+		AND (eb.EXAM_FLAG is null or eb.EXAM_FLAG='1' or  eb.EXAM_FLAG='3')
+		AND (eb.WORD_FLAG is null or eb.WORD_FLAG='1' or  eb.WORD_FLAG='3')
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+			AND eb.SEND_TIME between #{startTime} and #{endTime}
+		</if>
+		<if test="subject != null and subject != ''">
+			AND eb.SUBJECT like #{subject}
+		</if>
+		<if test="content != null and content != ''">
+			AND eb.CONTENT like #{content}
+		</if>
+		<if test="attachmentName != null and attachmentName != ''">
+			AND eb.ATTACHMENT_NAME like #{attachmentName}
+		</if>
+		<if test="fromUserId != null and fromUserId != ''">
+			AND (eb.FROM_ID LIKE CONCAT ('%',#{fromUserId},'%') OR (eb.FROM_ID LIKE u.USER_ID AND (select replace(u.USER_NAME,' ','')) LIKE CONCAT ('%',#{fromUserId},'%')))
+		</if>
+		<if test="readFlag != null and readFlag != ''">
+			AND e.READ_FLAG  LIKE #{readFlag}
+		</if>
+		<if test="searchCriteria != null and searchCriteria != ''">
+			AND  eb.SUBJECT like #{searchCriteria}
+		</if>
+		<if test="isWebmail != null and isWebmail != ''">
+			AND eb.IS_WEBMAIL LIKE #{isWebmail}
+		</if>
+		<if test="queryField != null and queryField != ''">
+			AND   (u.USER_NAME like CONCAT('%',#{queryField},'%') OR eb.`SUBJECT` like CONCAT('%',#{queryField},'%'))
+		</if>
+		GROUP BY eb.BODY_ID ORDER BY
+		<choose>
+			<when test="orderByName != null and orderByName != ''">
+				${orderByName}
+			</when>
+			<otherwise>
+				eb.SEND_TIME
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="orderWhere != null and orderWhere != ''">
+				${orderWhere}
+			</when>
+			<otherwise>
+				DESC
+			</otherwise>
+		</choose>
+		) a
+	</select>
+
+	<select id="selectInboxCount" parameterType="Map" resultType="integer" databaseId="kingbase">
+		SELECT COUNT(*) FROM (
+			SELECT eb.BODY_ID
+			FROM email_body AS eb
+			LEFT JOIN email AS e ON e.BODY_ID = eb.BODY_ID
+			LEFT JOIN "user" AS u ON u.USER_ID = eb.FROM_ID
+			LEFT JOIN webmail AS wb ON wb.USER_ID = eb.FROM_ID
+			WHERE e.TO_ID = #{fromId}
+			AND (e.DELETE_FLAG = '0' OR e.DELETE_FLAG = '' OR e.DELETE_FLAG = '2')
+			AND e.BOX_ID = '0'
+			AND (eb.EXAM_FLAG IS NULL OR eb.EXAM_FLAG = '1' OR eb.EXAM_FLAG = '3')
+			AND (eb.WORD_FLAG IS NULL OR eb.WORD_FLAG = '1' OR eb.WORD_FLAG = '3')
+			<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+				AND eb.SEND_TIME BETWEEN #{startTime} AND #{endTime}
+			</if>
+			<if test="subject != null and subject != ''">
+				AND eb.SUBJECT LIKE #{subject}
+			</if>
+			<if test="content != null and content != ''">
+				AND eb.CONTENT LIKE #{content}
+			</if>
+			<if test="attachmentName != null and attachmentName != ''">
+				AND eb.ATTACHMENT_NAME LIKE #{attachmentName}
+			</if>
+			<if test="fromUserId != null and fromUserId != ''">
+				AND (eb.FROM_ID LIKE CONCAT ('%',#{fromUserId}::VARCHAR,'%') OR (eb.FROM_ID LIKE u.USER_ID AND (SELECT
+				replace(u.USER_NAME,' ','')) LIKE CONCAT ('%',#{fromUserId}::VARCHAR,'%')))
+			</if>
+			<if test="readFlag != null and readFlag != ''">
+				AND e.READ_FLAG LIKE #{readFlag}
+			</if>
+			<if test="searchCriteria != null and searchCriteria != ''">
+				AND eb.SUBJECT LIKE #{searchCriteria}
+			</if>
+			<if test="isWebmail != null and isWebmail != ''">
+				AND eb.IS_WEBMAIL LIKE #{isWebmail}
+			</if>
+			<if test="queryField != null and queryField != ''">
+				AND (u.USER_NAME LIKE CONCAT('%',#{queryField}::VARCHAR,'%') OR eb.SUBJECT LIKE CONCAT('%',#{queryField}::VARCHAR,'%'))
+			</if>
+			GROUP BY eb.BODY_ID
+			ORDER BY
+			<choose>
+				<when test="orderByName != null and orderByName != ''">
+					${orderByName}
+				</when>
+				<otherwise>
+					eb.SEND_TIME
+				</otherwise>
+			</choose>
+			<choose>
+				<when test="orderWhere != null and orderWhere != ''">
+					${orderWhere}
+				</when>
+				<otherwise>
+					DESC
+				</otherwise>
+			</choose>
+		) a
+	</select>
+	<!--收件箱查询 -->
+	<select id="querys" parameterType="Map" resultMap="BaseResultMap" >
+		select
+		eb.FROM_ID,
+		eb.BODY_ID,eb.SUBJECT,e.EMAIL_ID,eb.SEND_TIME,eb.ATTACHMENT_ID,eb.ATTACHMENT_NAME,e.DELETE_FLAG,
+		eb.TO_ID2,e.READ_FLAG,eb.COPY_TO_ID,eb.SECRET_TO_ID,eb.CONTENT,u.USER_ID,e.TO_ID,e.withdraw_flag,
+		u.USER_NAME,u.SEX,u.AVATAR,u.UID from
+		email_body as eb
+		LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN user as u on u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb on wb.USER_ID = eb.FROM_ID
+		where
+		 (e.DELETE_FLAG ='0' or e.DELETE_FLAG='' or e.DELETE_FLAG='2')
+		AND (eb.EXAM_FLAG is null or eb.EXAM_FLAG='1' or  eb.EXAM_FLAG='3')
+		AND (eb.WORD_FLAG is null or eb.WORD_FLAG='1' or  eb.WORD_FLAG='3')
+		<if test="fromId != null and fromId != ''">
+			AND( e.TO_ID=#{fromId}
+			or eb.FROM_ID=#{fromId})
+		</if>
+		<if test="subject != null and subject != ''">
+			AND (
+			    eb.SUBJECT like concat('%',#{subject},'%')
+			 or eb.CONTENT like concat('%',#{subject},'%')
+		<if test="strs != null">
+			<foreach collection="strs"   item="str">
+				or eb.SUBJECT like concat ('%',#{str},'%')
+				or eb.CONTENT like concat ('%',#{str},'%')
+			</foreach>
+		</if>
+			<if test="attachIds != null">
+				<foreach collection="attachIds"  item="attachId">
+					or	eb.ATTACHMENT_ID like concat ('%',#{attachId},'%')
+				</foreach>
+			</if>
+			)
+		</if>
+
+		GROUP BY eb.BODY_ID ORDER BY eb.BODY_ID desc
+	</select>
+
+	<select id="queryFile" parameterType="Map" resultType="string" >
+		select
+		eb.ATTACHMENT_ID from
+		email_body as eb
+		LEFT JOIN email as e on e.BODY_ID=eb.BODY_ID
+		LEFT JOIN user as u on u.USER_ID=eb.FROM_ID
+		LEFT JOIN webmail as wb on wb.USER_ID = eb.FROM_ID
+		where
+		(e.DELETE_FLAG ='0' or e.DELETE_FLAG='' or e.DELETE_FLAG='2')
+		AND (eb.EXAM_FLAG is null or eb.EXAM_FLAG='1' or  eb.EXAM_FLAG='3')
+		AND (eb.WORD_FLAG is null or eb.WORD_FLAG='1' or  eb.WORD_FLAG='3')
+		<if test="userId != null and userId != ''">
+			AND( e.TO_ID=#{userId}
+			or eb.FROM_ID=#{userId})
+		</if>
+		ORDER BY eb.BODY_ID desc
+	</select>
+</mapper>

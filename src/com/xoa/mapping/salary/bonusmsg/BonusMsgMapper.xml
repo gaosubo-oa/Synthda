@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.salary.bonusmsg.BonusMsgMapper">
+    <!--上传的数据-->
+    <insert id="inserMsg" parameterType="map">
+        INSERT INTO bonusmsg
+        (BONUS_ID,HEAD,
+        <foreach collection="heads" index="index" item="item" separator="," close=")">
+            ${item}
+        </foreach>
+        VALUES
+        <foreach collection="bonusmsg" item="u" separator=",">
+            (#{bonusId},#{head},
+            <foreach collection="u" index="index" item="item2" separator="," close=")">
+                #{item2}
+            </foreach>
+        </foreach>
+    </insert>
+
+    <update id="updateBMsg" parameterType="map">
+        update `bonusmsg`
+         set USER_ID = #{USER_ID}
+         where BONUSMSG_ID = #{BONUSMSG_ID}
+    </update>
+
+    <select id="queryBounsMsgByBounsId" parameterType="map" resultType="map">
+        select * FROM bonusmsg
+        <where>
+            <if test="bonusId!=null and bonusId!=''">
+                BONUS_ID = #{bonusId}
+            </if>
+            <if test="head != null and head!=''">
+                and HEAD like concat('%',#{head,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="userId != null ">
+                and USER_ID = #{userId}
+            </if>
+            <if test="userName != null and userName != ''">
+                and USER_NAME = #{userName}
+            </if>
+        </where>
+        ORDER BY HEAD
+    </select>
+
+    <delete id="deleteBMsg" parameterType="map">
+    DELETE
+        FROM
+	bonusmsg
+        WHERE
+	bonus_id = #{bonusId}
+
+</delete>
+
+    <delete id="deleteBonusMsg" parameterType="integer">
+        DELETE
+        FROM
+            bonusmsg
+        WHERE
+            bonusMsg_Id = #{bonusMsgId}
+    </delete>
+
+</mapper>

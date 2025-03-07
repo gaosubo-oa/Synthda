@@ -1,0 +1,183 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+}
+.title{
+    height: 60px;
+    width: 100%;
+    margin-left: 15px;
+}
+.title .div_im img{
+    width: 23px;
+    margin-right:10px;
+    float: left;
+    margin-top: 9px;
+}
+.title .div_title{
+    font-size: 22px;
+    float: left
+}
+.TABLE tr{
+    border: 1px solid #c0c0c0;
+}
+.TABLE tr td{
+    padding: 6px;
+    border-right: 1px solid #c0c0c0;
+    display: table-cell;
+    vertical-align: inherit;
+    font-size: 12px;
+}
+#btn{
+    margin: 0 auto;
+    width: 70px;
+    height: 28px;
+}
+.DIV_Txt{
+    width: 70px;
+    height: 28px;
+    line-height: 28px;
+    background: url("../../img/email/btn_add_03.png ") no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer
+}
+#BTN{
+    width: 168px;
+    overflow: hidden;
+    margin: 0 auto;
+}
+#BTN .DIV_BTN{
+    float: left;
+    width: 70px;
+    height:28px;
+    border: #ccc 1px solid;
+    border-radius: 3px;
+    cursor: pointer;
+    text-align: center;
+    line-height: 28px;
+}
+#btnReturn{
+    margin-left: 20px;
+}
+.TABLE table tr td input{
+    border: 1px solid #C6C6C6;
+    height: 22px;
+    padding-left: 3px;
+    width: 200px;
+}
+hr{
+    border: #ddd 1px dashed;
+    margin: 15px 0;
+}
+.TABLE_A tr{
+    border: 1px solid #c0c0c0;
+}
+.TABLE_A table tr:nth-child(odd) {
+    background-color: #F6F7F9;
+}
+.TABLE_A table tr:nth-child(even) {
+    background-color: #fff;
+}
+.TABLE_A table tr th{
+    color: #2B7FE0;
+    font-size: 14px;
+    padding: 6px;
+}
+.TABLE_A table tr td{
+    font-size: 12px;
+    padding: 6px;
+}
+.TABLE_A table tr td input[type="text"]{
+    width: 50px;
+    height: 22px;
+    padding-left: 5px;
+}
+.set_btn{
+    border-radius: 3px;
+    padding: 3px 10px;
+    font-size: 12px;
+    color: #333;
+    margin: 1px;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    border: #ccc 1px solid;
+    display: inline-block;
+}
+.TABLE_A table tr td a{
+    text-decoration: none;
+    margin-left: 10px;
+    color: #1687cb;
+}
+.externalMail{
+    width: 100%;
+}
+.newAdd{
+    float: right;
+    width: 90px;
+    height: 28px;
+    background: url(../../img/file/cabinet01.png) no-repeat;
+    margin-right: 50px;
+    margin-top: 5px;
+    cursor: pointer;
+    line-height: 29px;
+    color: #fff;
+    font-size: 14px;
+}
+.newList{
+    width: 100%;
+}
+table tr{
+    border:#ccc 1px solid;
+}
+table tr th{
+    padding: 6px;
+    font-size: 15px;
+    color:#2B7FE0;
+}
+table tr td:first-of-type{
+    border-right: #ccc 1px solid;
+    width: 15%;
+}
+table tr td{
+    padding: 6px;
+    font-size: 12px;
+}
+table tr td a{
+    text-decoration: none;
+    color: #1772c0;
+}
+.newButton{
+    width: 150px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.newSureBtn{
+    float: left;
+    background-image: url(../../img/confirm.png);
+    width: 70px;
+    height: 28px;
+    cursor: pointer;
+    line-height: 28px;
+    font-size: 14px;
+    margin-right: 10px;
+}
+.newBackBtn{
+    float: left;
+    background-image: url(../../img/sys/return.png);
+    width: 70px;
+    height: 28px;
+    cursor: pointer;
+    line-height: 28px;
+    font-size: 14px;
+}
+.setList input[type="text"],
+.setList input[type="email"],
+.setList input[type="password"]{
+    height: 20px;
+}
+.div_ssL{
+    margin-top: 5px;
+}

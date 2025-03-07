@@ -1,0 +1,302 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>会签控件</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <link rel="stylesheet" href="../formdesign/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../../../css/ueditor/site.css">
+    <link rel="stylesheet" href="../themes/default/css/ueditor.css">
+    <script type="text/javascript" src="../dialogs/internal.js"></script>
+    <script type="text/javascript" src="/js/xoajq/xoajq3.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery-migrate-3.4.0.js"></script>
+    <script type="text/javascript" src="../../../js/base/base.js"></script>
+    <style>.userName{display: none}</style>
+    <!--&lt;!&ndash; 配置文件 &ndash;&gt;-->
+    <!--<script type="text/javascript" src="../ueditor.config.js"></script>-->
+    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash; 编辑器源码文件 &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+    <!--<script type="text/javascript" src="../ueditor.all.js"></script>-->
+    <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash; 语言包文件 &ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+    <!--<script type="text/javascript" src="../lang/zh-cn/zh-cn.js"></script>-->
+    <link rel="stylesheet" href="leipi.style.css">
+    <script type="text/javascript">
+function createElement(type, name)
+{     
+    var element = null;     
+    try {        
+        element = document.createElement('<'+type+' name="'+name+'">');     
+    } catch (e) {}   
+    if(element==null) {     
+        element = document.createElement(type);     
+        element.name = name;     
+    } 
+    return element;     
+}
+//    window.um = UE.getEditor('container', {
+//        /* 传入配置参数,可配参数列表看umeditor.config.js */
+//        toolbars:[['FullScreen', 'Source','bold','italic','underline','justifyleft', 'justifycenter', 'justifyright', 'justifyjustify','table','fontfamily', 'fontsize','inserttable']]
+//    });
+//    um.ready(function(){//初始化方法
+//        um.setHeight(100);
+//    });
+
+    </script>
+
+</head>
+<body>
+<div class="content">
+    <table class="table table-bordered table-striped table-hover">
+     <tr>
+        <th width="248px"><span class="languageText" language="workform_formItem_name">控件名称</span><span class="label label-important">*</span></th>
+        <th ><span class="languageText" language="workform_formItem_srkys">输入框样式</span></th>
+    </tr>
+    <tr>
+        <td >
+            <input id="orgname" placeholder="必填项" type="text" class="languagePlaceHolder" language="workform_formItem_btx"/>
+        </td>
+        <input type="hidden" id="fielid" placeholder="必填项" class="languagePlaceHolder" language="workform_formItem_btx">
+        <td>
+            <span class="languageText" language="workform_formItem_width">宽</span> <input id="orgwidth" type="text" value="200" class="input-small span1" placeholder="auto"> px
+            &nbsp;&nbsp;
+            <span class="languageText" language="workform_formItem_height">高</span> <input id="orgheight" type="text" value="50" class="input-small span1" placeholder="auto"> px
+        </td>
+    </tr>
+        <tr>
+            <td>
+                <span class="languageText" language="workform_formItem_sfyxjbrtxhqyj">是否允许经办人填写会签意见</span>
+            </td>
+            <td>
+                <label style="display: inline-block;" for="write_yn1"><input id="write_yn1" type="radio" name="write_yn" style="margin: -2px 3px 0 0;" value="1" checked><span class="languageText" language="workform_formItem_yes">是</span></label>
+                <label style="display: inline-block; margin-left: 15px;" for="write_yn2"><input id="write_yn2" type="radio" name="write_yn" style="margin: -2px 3px 0 0;" value="0"><span class="languageText" language="workform_formItem_no">否</span></label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="languageText" language="workform_formItem_pxsz">排序设置 </span>
+            </td>
+            <td>
+                <label style="display: inline-block;" for="flag1"><input id="flag1" type="radio" name="flag" style="margin: -2px 3px 0 0;" value="1" checked><span class="languageText" language="workform_formItem_aqzsjpx">按签字时间排序</span></label>
+                <label style="display: inline-block; margin-left: 15px;" for="flag2"><input id="flag2" type="radio" name="flag" style="margin: -2px 3px 0 0;" value="2"><span class="languageText" language="workform_formItem_ajsxhpx">按角色序号排序</span></label>
+                <label style="display: inline-block; margin-left: 15px;" for="flag3"><input id="flag3" type="radio" name="flag" style="margin: -2px 3px 0 0;" value="3"><span class="languageText" language="workform_formItem_zdypxxm">自定义排序姓名</span></label>
+
+            </td>
+        </tr>
+        <tr class="userName">
+            <th colspan="2"><span class="languageText" language="workform_formItem_xzyh">选择用户</span></th>
+        </tr>
+        <tr class="userName">
+            <td colspan="2">
+                <div style="display: flex">
+                    <div><textarea type="text" id="userName" class="form-control" value="" style="width:280px;" readonly=""></textarea></div>
+                    <div style="display: flex">
+                        <div style="margin-top: 4px; margin-left: 10px;"> <a id="btn_select" onclick="selectDataSrc()" class="button cke_dialog_ui_button" href="javascript:void(0)"><span class="button cke_dialog_ui_button languageText" language="workform_formItem_choose">选择</span></a></div>
+                        <div style="margin-top: 4px; margin-left: 10px;"> <a id="btn_clear" onclick="Clear()" class="button cke_dialog_ui_button" href="javascript:void(0)"><span class="button cke_dialog_ui_button languageText" language="workform_formItem_clear">清空</span></a></div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    <tr>
+        <th colspan = "2"><span class="languageText" language="workform_formItem_hqmb">会签模板</span><span class="label label-important">*</span></th>
+    </tr>
+    <tr>
+        <td colspan = "2">
+            <textarea id="orgtempl" name="content"  style="width:565px;height:150px;">
+{{C}}
+
+                {{U}}  {{TS}}
+            </textarea>
+        </td>
+    </tr>
+    <tr>
+        <th colspan = "2"><span class="languageText" language="workform_formItem_hqkjsm">会签控件数据显示格式，{{C}}=会签内容，{{U}}=会签用户姓名，{{D}}=用户所属部门，{{DS}}=用户所属短部门，{{R}}=用户所属角色，{{T}}=会签时间，{{TS}}=会签时间只显示年月日，{{WN}}=流程步骤名称</span></th>
+    </tr>
+    </table>
+</div>
+<script>
+    if(getCookie("language") != 'zh_CN'){
+        $('title').text(workform_formItem.workform_formItem_sign);
+        var $languageText = $('.languageText');
+        var $languagePlaceHolder = $('.languagePlaceHolder');
+        for(var i = 0; i < $languageText.length; i++){
+            var language = $languageText.eq(i).attr('language');
+            $('*[language='+ language +']').text(workform_formItem[language]);
+        }
+        for(var i = 0; i < $languagePlaceHolder.length; i++){
+            var language = $languagePlaceHolder.eq(i).attr('language');
+            $('*[language='+ language +']').prop('placeholder', workform_formItem[language]);
+        }
+    }
+
+</script>
+<script type="text/javascript">
+    var user_id;
+    function selectDataSrc(){
+        user_id='userName';
+        $.ajax({
+            url:'/imfriends/getIsFriends',
+            type:'get',
+            dataType:'json',
+            data:{},
+            success:function(obj){
+                if(obj.object == 1){
+                    $.popWindow("/common/selectUserIMAddGroup");
+                }else{
+                    $.popWindow("/common/selectUser");
+                }
+            },
+            error:function(res){
+                $.popWindow("/common/selectUser");
+            }
+        })
+    }
+    function Clear(){
+        $('#userName').val('');
+        $('#userName').attr('username','');
+        $('#userName').attr('dataid','');
+        $('#userName').attr('user_id','');
+        $('#userName').attr('userprivname','');
+    }
+    $(function () {
+        console.log(UE);
+        $("label").on("click",function(){
+            if($('input[name="flag"]:checked').val() == 3){
+                $('.userName').show()
+            }else{
+                $('.userName').hide()
+            }
+        })
+        var dataid = $.getQueryString('dataid');
+        var dataNumber=parent.pluginId;
+        var oNode = null,thePlugins = 'sign';
+
+            if( UE.plugins[thePlugins].editdom ){
+                oNode = UE.plugins[thePlugins].editdom;
+                var gTitle=oNode.getAttribute('title').replace(/&quot;/g,"\"");
+                var templ=oNode.getAttribute('orgtempl');
+                var gWidth=oNode.getAttribute('gWidth');
+                var gHeight=oNode.getAttribute('gHeight');
+                var templ=oNode.getAttribute('orgtempl');
+                var write_yn = oNode.getAttribute('write_yn');
+                var flag = oNode.getAttribute('flag')||'1';
+                var userIds = oNode.getAttribute('userIds')||'';
+                var userName = oNode.getAttribute('userName')||'';
+
+                $G('orgname').value = gTitle;
+                $G('orgtempl').value = templ;
+                $G('orgwidth').value = gWidth;
+                $G('orgheight').value = gHeight;
+
+                if (write_yn && write_yn == '0') {
+                    $G('write_yn1').checked = false;
+                    $G('write_yn2').checked = true;
+                }
+                if(flag == 2){
+                    $('input[name=flag]').eq(1).prop('checked',true)
+                }else if(flag == 3){
+                    $('input[name=flag]').eq(2).prop('checked',true);
+                    $('.userName').show();
+                    $('#userName').attr({
+                        'user_id':userIds,
+                        'username':userName
+                    }).val(userName)
+                }
+            }
+
+        dialog.oncancel = function () {
+            if( UE.plugins[thePlugins].editdom ) {
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+        dialog.onok = function (){
+            if( $G('orgname').value == '') {
+                if(workform_formItem){
+                    alert(workform_formItem.workform_formItem_qsrkjmc);
+                }else{
+                    alert('请输入控件名称');
+                }
+                return false;
+            }
+            var gTitle=$G('orgname').value.replace(/\"/g,"&quot;"),gWidth = $G('orgwidth').value,
+                gHeight = $G('orgheight').value ;
+            var templ=$G('orgtempl').value;
+            var write_yn = $('[name="write_yn"]:checked').val();
+
+            var flag = $('[name="flag"]:checked').val();
+            var user_id = $('#userName').attr('user_id');
+            var userName = $('#userName').val();
+            if(flag != 3){
+                user_id = '';
+                userName = '';
+            }
+            if( !oNode ) {
+                try {
+                    var html = '<textarea ';
+                    html += ' name =  "' + 'DATA_'+dataNumber + '"';
+                    html += ' id =  "' + 'DATA_'+dataNumber + '"';
+                    html += ' class = "' + 'form_item sign' + '"';
+                    html += ' data-type = "' + 'sign' + '"';
+                    html += ' title = "' + gTitle + '"';
+                    html += ' write_yn = "' + write_yn + '"';
+                    html += ' flag = "' + flag + '"';
+                    html += ' userIds = "' + user_id + '"';
+                    html += ' userName = "' + userName + '"';
+                    html += ' orgtempl = "' + templ + '"';
+
+                    if( gWidth != '' ) {
+                        html += ' gWidth = "' + gWidth + '"';
+                    } else {
+                        html += ' gWidth = ""';
+                    }
+                    if(gHeight != '') {
+                        html += ' gHeight = "' + gHeight + '"';
+                    } else {
+                        html += ' gHeight = ""';
+                    }
+                    html += '></textarea>';
+                    html = $(html);
+                    html.attr("style",'height:'+gHeight+'px;width:'+gWidth+'px;');
+
+                    editor.execCommand('insertHtml',html.prop("outerHTML"));
+                    return true ;
+                } catch ( e ) {
+                    try {
+                        editor.execCommand('error');
+                    } catch ( e ) {
+                        if(workform_formItem){
+                            alert(workform_formItem.workform_formItem_kjycqlxjszc);
+                        }else{
+                            alert('控件异常，请联系技术支持');
+                        }
+                    }
+                    return false;
+                }
+            } else {
+                oNode.setAttribute('title',gTitle);
+                oNode.setAttribute('class', "form_item sign");
+                oNode.setAttribute('data-type', "sign");
+                oNode.setAttribute('orgtempl',  templ);
+                oNode.setAttribute('gWidth', gWidth);
+                oNode.setAttribute('gHeight', gHeight);
+                oNode.setAttribute('write_yn', write_yn);
+                oNode.setAttribute('flag', flag);
+                oNode.setAttribute('userIds', user_id);
+                oNode.setAttribute('userName', userName);
+
+                if(gWidth != ''){
+                    oNode.style.width = gWidth+'px';
+                }
+                if(gHeight != ''){
+                    oNode.style.height = gHeight+'px';
+                }
+
+                delete UE.plugins[thePlugins].editdom;
+                return true;
+            }
+        };
+
+    });
+
+</script>
+
+</body>
+</html>

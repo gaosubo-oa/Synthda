@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.wages_manage.WagesJobManageMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.wages_manage.WagesJobManage">
+        <id column="JOB_MANAGE_ID" jdbcType="INTEGER" property="jobManageId"/>
+        <result column="TYPE1" jdbcType="VARCHAR" property="type1"/>
+        <result column="TYPE2" jdbcType="VARCHAR" property="type2"/>
+        <result column="JOB" jdbcType="VARCHAR" property="job"/>
+        <result column="SALARY_TYPEA" jdbcType="DECIMAL" property="salaryTypea"/>
+        <result column="SALARY_TYPEB" jdbcType="DECIMAL" property="salaryTypeb"/>
+        <result column="SALARY_TYPEC" jdbcType="DECIMAL" property="salaryTypec"/>
+        <result column="SALARY_TYPED" jdbcType="DECIMAL" property="salaryTyped"/>
+        <result column="SALARY_TYPEE" jdbcType="DECIMAL" property="salaryTypee"/>
+        <result column="SALARY_TYPEF" jdbcType="DECIMAL" property="salaryTypef"/>
+        <result column="REMARKS" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+    <insert id="insert" parameterType="com.xoa.model.wages_manage.WagesJobManage">
+   insert into wages_job_manage(
+TYPE1,
+TYPE2,
+JOB,
+SALARY_TYPEA,
+SALARY_TYPEB,
+SALARY_TYPEC,
+SALARY_TYPED,
+SALARY_TYPEE,
+SALARY_TYPEF,
+REMARKS
+   )values (
+#{type1},
+#{type2},
+#{job},
+#{salaryTypea},
+#{salaryTypeb},
+#{salaryTypec},
+#{salaryTyped},
+#{salaryTypee},
+#{salaryTypef},
+#{remarks}
+   )
+    </insert>
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select * from wages_job_manage
+        <where>
+            <if test="wagesJobManage.type1 != null and wagesJobManage.type1 != ''">
+                and TYPE1= #{wagesJobManage.type1}
+            </if>
+            <if test="wagesJobManage.type2 != null and wagesJobManage.type2 != ''">
+                and TYPE2= #{wagesJobManage.type2}
+            </if>
+            <if test="wagesJobManage.job != null and wagesJobManage.job != ''">
+                and JOB like concat ('%',#{wagesJobManage.job},'%')
+            </if>
+        </where>
+    </select>
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+       select * from wages_job_manage where JOB_MANAGE_ID = #{jobManageId}
+    </select>
+    <update id="update" parameterType="com.xoa.model.wages_manage.WagesJobManage">
+        update wages_job_manage
+        <set>
+            <if test="type1 != null and type1 != ''">TYPE1= #{type1},</if>
+            <if test="type2 != null and type2 != ''">TYPE2= #{type2},</if>
+            <if test="job != null and job != ''">JOB= #{job},</if>
+            SALARY_TYPEA= #{salaryTypea},
+            SALARY_TYPEB= #{salaryTypeb},
+            SALARY_TYPEC= #{salaryTypec},
+            SALARY_TYPED= #{salaryTyped},
+            SALARY_TYPEE= #{salaryTypee},
+            SALARY_TYPEF= #{salaryTypef},
+            REMARKS= #{remarks}
+        </set>
+        where JOB_MANAGE_ID = #{jobManageId}
+    </update>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+         delete from wages_job_manage where JOB_MANAGE_ID = #{jobManageId}
+    </delete>
+    <select id="selectByTypeAndName" resultMap="BaseResultMap" parameterType="java.lang.String">
+       select * from wages_job_manage where JOB = #{job}  and TYPE1=#{type1}  and TYPE2=#{type2}
+    </select>
+    <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+       select * from wages_job_manage where JOB = #{job}
+    </select>
+    <select id="selectAllData" resultMap="BaseResultMap">
+        select * from wages_job_manage
+    </select>
+</mapper>

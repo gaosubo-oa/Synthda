@@ -1,0 +1,24 @@
+Welcome to use Synthda OA Community Software! Before using this software, please carefully read this License Agreement ("Agreement"). Your use of the software constitutes acceptance of all terms and conditions herein. If you do not agree with the terms, please refrain from using the software.
+
+I. Definitions
+"Synthda OA Community Software" ("Software"): Refers to the office automation (OA) software provided by Beijing Gaosuibo Software Co., Ltd., including but not limited to software programs, related documentation, data, and any updates/upgrades.
+"You": Refers to individuals, developers, or entities using the Software.
+"Licensor": Refers to Beijing Gaosuibo Software Co., Ltd.
+
+II. Agreement Application and Acceptance
+This Agreement applies to all users who download, install, or use the Software.
+By downloading, installing, using the Software, or clicking "I Accept" (if applicable), you acknowledge compliance with all terms. If using on behalf of an entity, you warrant legal authority to accept this Agreement on its behalf.
+
+III. License Grant
+Subject to this Agreement, Licensor grants you a non-exclusive, non-transferable, and non-sublicensable license for:
+Personal learning, research, development purposes;
+Internal use in non-commercial environments.
+Individuals/developers may freely use the Software for personal projects/technical research without additional fees. However, all copyright notices/trademark marks embedded in the Software must be retained.
+
+IV. Commercial Use Restrictions
+Any commercial deployment (e.g., enterprise internal operations, external service provision), cloud service offerings, or profit-making activities using the Software require prior written commercial licensing from Licensor. Unauthorized commercial use is strictly prohibited.
+Commercial license acquisition methods, fees, and terms will be separately stipulated. Contact Licensor's sales department for details.
+
+V. Agreement Modification
+Licensor reserves the right to modify this Agreement based on business development or legal requirements.
+Continued use after modifications constitutes acceptance of revised terms. Disagreement requires immediate cessation of use and deletion of all copies.

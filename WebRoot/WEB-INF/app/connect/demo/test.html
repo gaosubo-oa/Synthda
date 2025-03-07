@@ -1,0 +1,32 @@
+
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="/lib/layui/layui/css/layui.css?20210319.1"/>
+    <script type="text/javascript" src="/lib/layui/layui/layui.js"></script>
+    <script type="text/javascript" src="/lib/layui/layui/layui.all.js"></script>
+    <script type="text/javascript" src="/js/xoajq/xoajq2.js"></script>
+    <title></title>
+    <style type="text/css">
+
+    </style>
+</head>
+<body>
+<div>
+    <button type="button" class="layui-btn btn1 layui-btn-warm">后台调用全部人员接口</button>
+    <button type="button" class="layui-btn btn2 layui-btn-normal">前台调用新建流程</button>
+    <button type="button" class="layui-btn btn3 layui-btn-normal">前台调用邮件模块</button>
+</div>
+<script type="text/javascript">
+  $('.btn1').click(function(){
+      console.log("dara")
+      window.location.href="/connect/test1";
+  })
+  $('.btn2').click(function(){
+      window.location.href="/connect/test2";
+  })
+  $('.btn3').click(function(){
+      window.location.href="/connect/test3";
+  })
+</script>
+</body>
+</html>

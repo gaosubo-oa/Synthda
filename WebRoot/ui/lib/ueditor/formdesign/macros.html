@@ -1,0 +1,483 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>宏控件</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+    <link rel="stylesheet" href="../formdesign/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../../../css/ueditor/site.css">
+    <script type="text/javascript" src="../dialogs/internal.js"></script>
+    <script type="text/javascript" src="/js/xoajq/xoajq3.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery-migrate-3.4.0.js"></script>
+    <script type="text/javascript" src="../../../js/base/base.js"></script>
+    <script type="text/javascript">
+function createElement(type, name)
+{     
+    var element = null;     
+    try {        
+        element = document.createElement('<'+type+' name="'+name+'">');     
+    } catch (e) {}   
+    if(element==null) {     
+        element = document.createElement(type);     
+        element.name = name;     
+    } 
+    return element;     
+}
+    </script>
+</head>
+<body>
+<div class="content">
+    <table class="table table-bordered table-striped table-hover">
+        <tbody id='itemAttr'>
+        <tr>
+            <th>
+                <span class="languageText" language="workform_formItem_name">控件名称</span>
+                <span class="label label-important">*</span>
+            </th>
+            <th><span class="languageText" language="workform_formItem_lx">类型</span></th>
+        </tr>
+        <tr>
+            <td>
+                <input id="orgname" type="text" placeholder="必填项" class="languagePlaceHolder" language="workform_formItem_btx"/>
+            </td>
+            <td>
+                <select  id="datafld" class="">
+                    <optgroup label="----单行输入框----" class="languageLabel" language="workform_formItem_dhsrkLaber">
+                        <option value="SYS_DATE" class="languageText" language="workform_formItem_dqrqxr1">当前日期，形如：1999-01-01</option>
+                        <option value="SYS_DATE_HMS1" class="languageText" language="workform_formItem_dqrqxr2">当前日期时分秒，形如：1999-01-01 00:00:00</option>
+                        <option value="SYS_DATE_CN" class="languageText" language="workform_formItem_dqrqxr3">当前日期，形如：2009年1月1日</option>
+                        <option value="SYS_DATE_CN_SHORT3" class="languageText" language="workform_formItem_dqrqxr4">当前日期，形如：2009年</option>
+                        <option value="SYS_DATE_CN_SHORT4" class="languageText" language="workform_formItem_dqrqxr5">当前年份，形如：2009</option>
+                        <option value="SYS_DATE_CN_SHORT1" class="languageText" language="workform_formItem_dqrqxr6">当前日期，形如：2009年1月</option>
+                        <option value="SYS_DATE_CN_SHORT2" class="languageText" language="workform_formItem_dqrqxr7">当前日期，形如：1月1日</option>
+                        <option value="SYS_TIME" class="languageText" language="workform_formItem_dqrqxr8">当前时间</option>
+                        <option value="SYS_DATETIME" class="languageText" language="workform_formItem_dqrqxr9">当前日期+时间</option>
+                        <option value="SYS_WEEK" class="languageText" language="workform_formItem_dqrqxr10">当前星期中的第几天，形如：星期一</option>
+                        <option value="SYS_USERID" class="languageText" language="workform_formItem_dqrqxr11">当前用户ID</option>
+                        <option value="SYS_USERNAME" class="languageText" language="workform_formItem_dqrqxr12">当前用户姓名</option>
+                        <option value="SYS_DEPTNAME" class="languageText" language="workform_formItem_dqrqxr13">当前用户部门(长名称)</option>
+                        <option value="SYS_DEPTNAME_SHORT" class="languageText" language="workform_formItem_dqrqxr14">当前用户部门(短名称)</option>
+                        <option value="SYS_USERPRIV" class="languageText" language="workform_formItem_dqrqxr15">当前用户角色</option>
+                        <option value="SYS_USERPRIVOTHER" class="languageText" language="workform_formItem_dqrqxr16">当前用户辅助角色</option>
+                        <option value="SYS_USERNAME_DATE" class="languageText" language="workform_formItem_dqrqxr17">当前用户姓名+日期</option>
+                        <option value="SYS_USERNAME_DATETIME" class="languageText" language="workform_formItem_dqrqxr18">当前用户姓名+日期+时间</option>
+                        <option value="SYS_USERPHONE" class="languageText" language="workform_formItem_dqrqxr19">当前用户手机号</option>
+                        <option value="SYS_FORMNAME" class="languageText" language="workform_formItem_dqrqxr20">表单名称</option>
+                        <option value="SYS_RUNNAME" class="languageText" language="workform_formItem_dqrqxr21">工作名称/文号</option>
+                        <option value="SYS_RUNDATE" class="languageText" language="workform_formItem_dqrqxr22">流程开始日期</option>
+                        <option value="SYS_RUNDATETIME" class="languageText" language="workform_formItem_dqrqxr23">流程开始日期+时间</option>
+                        <option value="SYS_RUNID" class="languageText" language="workform_formItem_dqrqxr24">流水号</option>
+                        <option value="SYS_RUNIDDATE" class="languageText" language="workform_formItem_dqrqxr25">当前日期 + 流水号</option>
+                        <option value="SYS_AUTONUM" class="languageText" language="workform_formItem_dqrqxr26">文号计数器</option>
+                        <option value="SYS_AUTONUM_YEAR" class="languageText" language="workform_formItem_dqrqxr27">文号计数器(按年编号)</option>
+                        <option value="SYS_AUTONUM_MONTH" class="languageText" language="workform_formItem_dqrqxr28">文号计数器(按月编号)</option>
+                        <option value="SYS_IP" class="languageText" language="workform_formItem_dqrqxr29">经办人IP地址</option>
+                        <option value="SYS_MANAGER1" class="languageText" language="workform_formItem_dqrqxr30">部门主管(本部门)</option>
+                        <option value="SYS_MANAGER2" class="languageText" language="workform_formItem_dqrqxr31">部门主管(上级部门)</option>
+                        <option value="SYS_MANAGER3" class="languageText" language="workform_formItem_dqrqxr32">部门主管(一级部门)</option>
+                        <option value="SYS_LEVEL" class="languageText" language="workform_formItem_dqrqxr33">紧急程度</option>
+                        <option value="SYS_CODE" class="languageText" language="workform_formItem_dqrqxr34">系统代码</option>
+                        <option value="SYS_SQL" class="languageText" language="workform_formItem_dqrqxr35">来自SQL查询语句</option>
+                    </optgroup>
+                    <optgroup label="----下拉菜单----" class="languageLabel" language="workform_formItem_xlcdLaber">
+                        <option value="SYS_LIST_DEPT" class="languageText" language="workform_formItem_dqrqxr36">部门列表</option>
+                        <option value="SYS_LIST_DEPT_PERSON" class="languageText" language="workform_formItem_dqrqxr37">部门人员(本部门)</option>
+                        <option value="SYS_LIST_USER" class="languageText" language="workform_formItem_dqrqxr38">人员列表</option>
+                        <option value="SYS_LIST_PRIV" class="languageText" language="workform_formItem_dqrqxr39">角色列表</option>
+                        <option value="SYS_LIST_PRIV_ONLY" class="languageText" language="workform_formItem_dqrqxr40">主角色列表</option>
+                        <option value="SYS_LIST_PRIV_OTHER" class="languageText" language="workform_formItem_dqrqxr41">辅助角色列表</option>
+                        <option value="SYS_LIST_PRCSUSER1" class="languageText" language="workform_formItem_dqrqxr42">流程设置所有经办人列表</option>
+                        <option value="SYS_LIST_PRCSUSER2" class="languageText" language="workform_formItem_dqrqxr41">本步骤设置经办人列表</option>
+                        <option value="SYS_LIST_MANAGER1" class="languageText" language="workform_formItem_dqrqxr44">部门主管(本部门)</option>
+                        <option value="SYS_LIST_MANAGER2" class="languageText" language="workform_formItem_dqrqxr45">部门主管(上级部门)</option>
+                        <option value="SYS_LIST_MANAGER3" class="languageText" language="workform_formItem_dqrqxr46">部门主管(一级部门)</option>
+                        <option value="SYS_LIST_SQL" class="languageText" language="workform_formItem_dqrqxr47">来自SQL查询语句的列表</option>
+                    </optgroup>
+                </select>
+
+            </td>
+        </tr>
+        <tr id="signImg" style="background:#fff!important;display: none" >
+            <td colspan="2" style="background:#fff!important">
+                <div class="showRadio">
+                    <input type="radio" checked id="signOne" name="sign" value="0">
+                    <span class="languageText" language="workform_formItem_xsyhdxm">显示当前用户姓名</span>
+                    <input type="radio" name="sign" id="signTwo" value="1">
+                    <span class="languageText" language="workform_formItem_xsyhqmtp">显示当前用户签名图片</span>
+                </div>
+            </td>
+        </tr>
+        <tr class="querySQL" style="display: none">
+            <th colspan="2" class="languageText" language="workform_formItem_sqlcxyj">SQL查询语句 ('号用`号替换)</th>
+        </tr>
+        <tr class="querySQL" style="display: none">
+            <td colspan="2">
+                <textarea name="" id="SQL" style="width: 380px;height: 50px;vertical-align: bottom;"></textarea>
+                <span><a href="javascript:;" class="writeSQL languageText" language="workform_formItem_sqlcxyjsxzd">SQL查询语句书写指导</a></span>
+            </td>
+        </tr>
+        <tr class="queryCODE" style="display: none">
+            <th colspan="2" class="languageText" language="workform_formItem_szxtdmzfl">设置系统代码主分类</th>
+        </tr>
+        <tr class="queryCODE" style="display: none">
+            <td colspan="2">
+                <select name="sysCode" id="sysCode"></select>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="2" class="languageText" language="workform_formItem_szkjlx">设置控件类型</th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <select name="macrosType" id="macrosType">
+                    <option value="1" class="languageText" language="workform_formItem_dhkj">单行控件</option>
+                    <option value="2" class="languageText" language="workform_formItem_dhkj2">多行控件</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th><span class="languageText" language="workform_formItem_kjys">控件样式</span></th>
+            <th><span class="languageText" language="workform_formItem_kjx">可见性</span></th>
+        </tr>
+        <tr>
+            <td >
+                <span class="languageText" language="workform_formItem_width">宽</span> <input id="orgwidth" type="text" value="150" class="input-small span1" placeholder="auto"/> px
+                &nbsp;&nbsp;
+                <span class="languageText" language="workform_formItem_height">高</span> <input id="orgheight" type="text" value="" class="input-small span1" placeholder="auto"/> px
+                &nbsp;&nbsp;
+                <span class="languageText" language="workform_formItem_font">字体</span> <input id="orgfontsize" type="text" value="" class="input-small span1" placeholder="auto"/> px
+            </td>
+            <td>
+                <label  style="margin-top: 8px;" class="checkbox">
+                    <input id="orghide" type="checkbox">
+                    <span class="languageText" language="workform_formItem_hide">隐藏</span>
+                </label>
+            </td>
+        </tr>
+    </tbody>
+    
+    </table>
+</div>
+<script>
+    if(getCookie("language") != 'zh_CN'){
+        $('title').text(workform_formItem.workform_formItem_macros);
+        var $languageText = $('.languageText');
+        var $languageHtml = $('.languageHtml');
+        var $languagePlaceHolder = $('.languagePlaceHolder');
+        var $languageLabel = $('.languageLabel');
+        for(var i = 0; i < $languageText.length; i++){
+            var language = $languageText.eq(i).attr('language');
+            $('*[language='+ language +']').text(workform_formItem[language]);
+        }
+        for(var i = 0; i < $languageHtml.length; i++){
+            var language = $languageHtml.eq(i).attr('language');
+            $('*[language='+ language +']').html(workform_formItem[language]);
+        }
+        for(var i = 0; i < $languagePlaceHolder.length; i++){
+            var language = $languagePlaceHolder.eq(i).attr('language');
+            $('*[language='+ language +']').prop('placeholder', workform_formItem[language]);
+        }
+        for(var i = 0; i < $languageLabel.length; i++){
+            var language = $languageLabel.eq(i).attr('language');
+            $('*[language='+ language +']').attr('label', workform_formItem[language]);
+        }
+    }
+
+</script>
+<script type="text/javascript">
+    let getAllSysCodeAjax = false;
+    function getAllSysCodeFun(fn) {
+        $.get('/code/syscode/getAllSysCode', {}, function(json){
+            if(json.flag){
+                const arr = json.obj;
+                let option = '';
+                for(var i = 0; i < arr.length; i++){
+                    option += '<option value="'+ arr[i].codeNo +'">'+ arr[i].codeName +'</option>';
+                }
+                $('select[name="sysCode"]').html(option);
+                getAllSysCodeAjax = true;
+            }
+            if(typeof fn){
+                fn();
+            }
+        })
+    }
+
+    $(function () {
+        $('#datafld').on('change', function(){
+            var val = $(this).find('option:selected').val();
+            if(val == 'SYS_SQL' || val == 'SYS_LIST_SQL'){
+                $('.querySQL').show();
+            }else{
+                $('.querySQL').hide();
+            }
+            if(val == 'SYS_USERNAME'){
+                $('#signImg').show();
+            }else{
+                $('#signImg').hide();
+            }
+            if(val == 'SYS_CODE'){
+                if(!getAllSysCodeAjax){
+                    getAllSysCodeFun(function () {
+                        $('.queryCODE').show();
+                    });
+                }else{
+                    $('.queryCODE').show();
+                }
+            }else{
+                $('.queryCODE').hide();
+            }
+        })
+        $('.writeSQL').on('click', function(){
+            window.open('/workflow/work/querySQL')
+        })
+
+        $('.test').on('click', function(){
+            if($('#SQL').val() == '') {
+                if(workform_formItem){
+                    alert(workform_formItem.workform_formItem_sqlcxyjbnwk);
+                }else{
+                    alert('SQL查询语句不能为空');
+                }
+                return false;
+            }
+            check_sql('1')
+
+        })
+        function check_sql(check_flag)
+        {
+            //检测单引号和回车
+            var expr1 = /[\r\n]/g;
+            var expr2 = /'/g;
+            var sql = $('#SQL').val();
+
+            if(sql.match(expr1) || sql.match(expr2)) {
+                if(workform_formItem){
+                    var msg = workform_formItem.workform_formItem_ndsqlyjzczdyhhhc;
+                }else{
+                    var msg = "您的SQL语句中存在单引号和回车，不符合要求，是否进行替换？";
+                }
+                if(window.confirm(msg)) {
+                    sql = sql.replace(expr1,"");
+                    sql = sql.replace(expr2,"`");
+                    $('#ITEM_SQL').val(sql)
+                }else {
+                    return (false);
+                }
+            }
+
+            if(check_flag) {
+                // window.document.form1.submit();
+            }
+            return (true);
+        }
+
+
+        var oNode = null,thePlugins = 'macros';
+        var dataid = $.getQueryString('dataid');
+        var dataNumber=parent.pluginId;
+            if( UE.plugins[thePlugins].editdom ) {
+                oNode = UE.plugins[thePlugins].editdom;
+                var gTitle=oNode.getAttribute('title').replace(/&quot;/g,"\""),gHidden=oNode.getAttribute('orghide'),gFontSize=oNode.getAttribute('orgfontsize'),gWidth=oNode.getAttribute('orgwidth'),gHeight=oNode.getAttribute('orgheight'),gType=oNode.getAttribute('datafld');
+                gTitle = gTitle==null ? '' : gTitle;
+                var gSql =oNode.getAttribute('orgsql') ;
+                var gCode =oNode.getAttribute('orgcode')||'' ;
+                var gSqlList =oNode.getAttribute('orgsqlList') ;
+                var gSign = oNode.getAttribute('orgsignImg') ;
+                var macrosType = oNode.getAttribute('macrosType') || '1';
+                if(gType=='SYS_SQL'||gType=='SYS_LIST_SQL'){
+                    $('.querySQL').show();
+                }else{
+                    $('.querySQL').hide();
+                }
+                if(gType=='SYS_USERNAME'){
+                    $('#signImg').show();
+                }else{
+                    $('#signImg').hide();
+                }
+                if(gType == 'SYS_CODE'){
+                    if(!getAllSysCodeAjax){
+                        getAllSysCodeFun(function () {
+                            $('select[name="sysCode"]').val(gCode);
+                            $('.queryCODE').show();
+                        });
+                    }else{
+                        $('.queryCODE').show();
+                    }
+                }else{
+                    $('.queryCODE').hide();
+                }
+                $G('orgname').value = gTitle;
+                //if( oNode.tagName == 'INPUT' ) {}
+                if(oNode.getAttribute('orghidden')=='1' || oNode.getAttribute('orghidden')=='hidden'){
+                    $G('orghide').checked = true;
+                }
+                $G('orgname').value = gTitle;
+                $G('datafld').value = gType;
+                $G('orgwidth').value = gWidth;
+                $G('orgheight').value = gHeight;
+                $G('orgfontsize').value = gFontSize;
+                $G('macrosType').value = macrosType;
+                if(gType=='SYS_SQL'){
+                    $G('SQL').value = gSql;
+                }else if(gType=='SYS_LIST_SQL'){
+                    $G('SQL').value = gSqlList;
+                }
+                if(gSign=='1'){
+                    $G('signTwo').checked = true;
+                }else{
+                    $G('signOne').checked = true;
+                }
+                if(gType=='SYS_CODE'){
+                    $G('sysCode').value = gCode;
+                }
+            }
+
+
+        dialog.oncancel = function () {
+            if( UE.plugins[thePlugins].editdom ) {
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+        dialog.onok = function (){
+            if ( $G('orgname').value == '' ) {
+                if(workform_formItem){
+                    alert(workform_formItem.workform_formItem_qsrkjmc);
+                }else{
+                    alert('请输入控件名称');
+                }
+                return false;
+            }
+            var gTitle = $G('orgname').value.replace(/\"/g,"&quot;"),gFontSize=$G('orgfontsize').value,gWidth=$G('orgwidth').value,gType=$G('datafld').value,gHeight=$G('orgheight').value;
+            var macrosType = $('#macrosType').val();
+            if( !oNode ) {
+                try {
+                    if(macrosType == 1){
+                        oNode = createElement('input','leipiNewField');
+
+                    }else{
+                        oNode = createElement('textarea','leipiNewField');
+                    }
+
+                    oNode.setAttribute('value','{macros}');
+                    oNode.setAttribute('class', "AUTO  form_item ");
+                    oNode.setAttribute('data-type', "macros");
+                    oNode.setAttribute('title',gTitle);
+                    oNode.setAttribute('name','DATA_'+dataNumber);
+                    oNode.setAttribute('type','text');
+                    oNode.setAttribute('id','DATA_'+dataNumber);
+                    oNode.setAttribute('datafld',gType);
+                    oNode.setAttribute('macrosType',macrosType);
+                    if(gType == 'SYS_SQL'){ //选择来自查询的SQL
+                        oNode.setAttribute('orgsql', $('#SQL').val() ) ;
+                    }else{
+                        oNode.setAttribute('orgsql', "" ) ;
+                    }
+                    if(gType == 'SYS_CODE'){ //选择来自查询的SQL
+                        oNode.setAttribute('orgcode', $('#sysCode').val() ) ;
+                    }
+                    if(gType == 'SYS_USERNAME'){ //选择来自查询的SQL
+                        oNode.setAttribute('orgsignImg', $('input[name="sign"]:checked').val() ) ;
+                    }
+                    if(gType == 'SYS_LIST_SQL'){ //选择来自查询的SQL
+                        oNode.setAttribute('orgsqlLIst', $('#SQL').val() ) ;
+                    }else{
+                        oNode.setAttribute('orgsqlLIst', "" ) ;
+                    }
+                    if( $G('orghide').checked ) {
+                        oNode.setAttribute('orghidden', '1' ) ;
+                    } else {
+                        oNode.setAttribute('orghidden', '0' ) ;
+                    }
+                    if( gFontSize != '' ) {
+                        oNode.style.fontSize = gFontSize + 'px';
+                        oNode.setAttribute('orgfontsize',gFontSize );
+                    }
+                    if( gWidth != '' ) {
+                        oNode.style.width = gWidth + 'px';
+                        oNode.setAttribute('orgwidth',gWidth );
+                    }
+                    if( gHeight != '' ) {
+                        oNode.style.height = gHeight + 'px';
+                        oNode.setAttribute('orgheight',gHeight );
+                    }
+                    editor.execCommand('insertHtml',oNode.outerHTML);
+                    return true;
+                } catch ( e ) {
+                    try {
+                        editor.execCommand('error');
+                    } catch ( e ) {
+                        if(workform_formItem){
+                            alert(workform_formItem.workform_formItem_kjycqlxjszc);
+                        }else{
+                            alert('控件异常，请联系技术支持');
+                        }
+                    }
+                    return false;
+                }
+            } else {
+                var norgname = oNode.getAttribute('name').replace(/\"/g,"&quot;");
+
+                var oNewNode = null;
+                if(macrosType == 1){
+                    oNewNode = createElement('input','leipiNewField');
+                }else{
+                    oNewNode = createElement('textarea','leipiNewField');
+                }
+                oNewNode.setAttribute('name',norgname);
+                oNewNode.setAttribute('type','text');
+                oNewNode.setAttribute('value','{macros}');
+                oNewNode.setAttribute('class', "AUTO  form_item ");
+                oNewNode.setAttribute('data-type', "macros");
+                oNewNode.setAttribute('title',gTitle);
+                oNewNode.setAttribute('id',norgname);
+                oNewNode.setAttribute('datafld',gType);
+                oNewNode.setAttribute('macrosType',macrosType);
+                if( $G('orghide').checked ) {
+                    oNewNode.setAttribute('orghidden', '1' ) ;
+                } else {
+                    oNewNode.setAttribute('orghidden', '0' ) ;
+                }
+                if(gType == 'SYS_CODE'){ //选择来自查询的SQL
+                    oNewNode.setAttribute('orgcode', $('#sysCode').val() ) ;
+                }
+                if(gType == 'SYS_SQL'){ //选择来自查询的SQL
+                    oNewNode.setAttribute('orgsql', $('#SQL').val() ) ;
+                }else{
+                    oNewNode.setAttribute('orgsql', "" ) ;
+                }
+                if(gType == 'SYS_USERNAME'){ //选择来自查询的SQL
+                    oNewNode.setAttribute('orgsignImg', $('input[name="sign"]:checked').val() ) ;
+                }
+                if(gType == 'SYS_LIST_SQL'){ //选择来自查询的SQL
+                    oNewNode.setAttribute('orgsqlLIst', $('#SQL').val() ) ;
+                }else{
+                    oNewNode.setAttribute('orgsqlLIst', "" ) ;
+                }
+                if( gFontSize != '' ) {
+                    oNewNode.style.fontSize = gFontSize + 'px';
+                    oNewNode.setAttribute('orgfontsize',gFontSize );
+                }else{
+                    oNewNode.setAttribute('orgfontsize', '');
+                }
+                if( gWidth != '' ) {
+                    oNewNode.style.width = gWidth + 'px';
+                    oNewNode.setAttribute('orgwidth',gWidth );
+                }else{
+                    oNewNode.setAttribute('orgwidth', '');
+                }
+                if( gHeight != '' ) {
+                    oNewNode.style.height = gHeight + 'px';
+                    oNewNode.setAttribute('orgheight',gHeight );
+                }
+                $(oNode).after(oNewNode.outerHTML)
+                domUtils.remove(oNode,false);
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,214 @@
+.navigation{
+    width: 100%;
+    box-sizing: border-box;
+    height: 70px;
+    padding-left: 34px;
+    line-height: 70px;
+    text-align: start!important;
+    margin: 0!important;
+}
+.navigation img{
+    vertical-align: middle;
+}
+.navigation h2{
+    font-weight: normal;
+    display: inline-block;
+    font-size: 22px;
+    color: #494d59;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+.navigation label{
+    vertical-align: middle;
+    margin-left: 40px;
+}
+.navigation label select,.navigation label a{
+    vertical-align: middle;
+    color: #000;
+}
+.navigation label select{
+    width: 168px;
+    height: 29px;
+    line-height: 29px;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+.navigation label a.submit{
+    background: url(../../img/center_q.png) no-repeat;
+    background-size: 74px;
+    width: 74px;
+    height: 30px;
+    line-height: 29px;
+    display: inline-block;
+    padding-left: 23px;
+    box-sizing: border-box;
+}
+#operation tr td input{
+    vertical-align: middle;
+}
+#operation tr td span{
+    vertical-align: middle;
+}
+.notice_top {
+    display: inline-block;
+    width: 56px;
+    height: 24px;
+    line-height: 24px;
+    background: url(../../img/btn_top.png) no-repeat;
+    font-size: 12px;
+    cursor: pointer;
+    margin: 0 20px;
+}
+.notice_notop {
+    display: inline-block;
+    width: 83px;
+    height: 24px;
+    line-height: 24px;
+    cursor: pointer;
+    background: url(../../img/btn_canceltop.png) no-repeat;
+    font-size: 12px;
+}
+.delete_check {
+    display: inline-block;
+    width: 113px;
+    height: 24px;
+    line-height: 24px;
+    background: url(../../img/btn_deleteannounce.png) no-repeat;
+    background-size: 113px;
+    font-size: 12px;
+    cursor: pointer;
+    margin: 0 20px;
+}
+.delete_all {
+    display: inline-block;
+    width: 109px;
+    height: 24px;
+    line-height: 24px;
+    background: url(../../img/btn_deleteannounce.png) no-repeat;
+    cursor: pointer;
+    font-size: 12px;
+}
+.tableMain{
+    width: 97%;
+    margin: 0 auto;
+    height: 200px;
+
+}
+.tableMain table{
+    width: 100%;
+    background: #fff;
+}
+.tableMain table tbody td{
+    box-sizing: border-box;
+    padding:10px 4px 10px 25px;
+    border-right: 1px solid #c0c0c0;
+}
+.tableMain table tbody td select{
+    width: 70%;
+    border: 1px solid #c0c0c0;
+    border-radius: 4px;
+    height: 30px;
+    line-height:30px;
+    vertical-align: middle;
+}
+.tableMain table tbody td input[type=text]{
+    width: 40%;
+    border: 1px solid #c0c0c0;
+    border-radius: 4px;
+    height: 30px;
+    line-height:30px;
+    padding-left: 10px;
+    vertical-align: middle;
+}
+.tableMain table tbody td input{
+    vertical-align: middle;
+}
+.tableMain table tbody td span{
+    vertical-align: middle;
+}
+.tableMain table tbody td input[type=text]:focus{
+    border-color: blue;
+}
+.tableMain table tbody td b{
+    color: red;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+.tableMain table tbody td textarea{
+    /*width: 30%;*/
+    border: 1px solid #c0c0c0;
+    border-radius: 4px;
+    /*height: 46px;*/
+    /*line-height:20px;*/
+
+    padding-left: 10px;
+    vertical-align: middle;
+    background-color: #e7e7e7;
+    outline: none;
+}
+.blue_text{
+    font-size: 11pt;
+    color: #2a588c;
+    font-weight: bold;
+}
+.blue_text a{
+    color: #207bd6;
+}
+.openFile{
+    position: relative;
+
+    height: 18px;
+    line-height:18px;
+    display: inline-block;
+}
+.openFile img{
+    vertical-align: middle;
+}
+.openFile span{
+    vertical-align: middle;
+}
+.openFile input[type=file]{
+    position: absolute;
+    top:0;
+    right: 0;
+    bottom: 0;
+    left:0;
+    width: 100%;
+    height: 18px;
+    z-index:99;
+    opacity: 0;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}
+#word_container{
+    width: 100%;
+    min-height: 200px;
+}
+.btnarr a{
+    padding: 5px 15px;
+    color: #fff;
+    border-radius: 4px;
+    background: #2F8AE3;
+    margin:0 10px;
+}
+.deptrole{
+    display: none;
+}
+.query{
+    width: 550px;
+    margin:0 auto;
+}
+input[type=checkbox]{
+    width: 13px!important;
+    height: 13px!important;
+}
+.query .header{
+    height:40px;
+    line-height: 40px;
+    width: 100%;
+    font-size: 13pt;
+    color: #fff;
+    background: #3791DA;
+    border-top-left-radius:4px ;
+    border-top-right-radius:4px ;
+    text-align: center;
+}

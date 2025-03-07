@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.widget.WidgetSetMapper" >
+
+    <resultMap id="BaseResultMap" type="com.xoa.model.widget.WidgetSetModel" >
+        <id column="ID" property="id" javaType="Integer" />
+        <result column="UID" property="uid" javaType="Integer" />
+        <result column="WIDGET_TYPE" property="type" javaType="String" />
+        <result column="WIDGET_IDS" property="moduleIds" javaType="String" />
+        <result column="WIDGET_BG" property="bg" javaType="String" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        ID, UID, WIDGET_TYPE, WIDGET_IDS, WIDGET_BG
+    </sql>
+
+    <select id="getWidgetSetByUid" resultMap="BaseResultMap" >
+        SELECT <include refid="Base_Column_List" /> from  user_widget_set where uid = #{uid};
+    </select>
+
+    <update id="updateWidgetSet" parameterType="com.xoa.model.widget.WidgetSetModel" >
+      update user_widget_set set
+        <if test="type!=null and type !='' " >
+            WIDGET_TYPE=#{type},
+        </if>
+        <if test="moduleIds!=null " >
+            WIDGET_IDS=#{moduleIds},
+        </if>
+        <if test="bg!=null  " >
+            WIDGET_BG=#{bg}
+        </if>
+        where uid = #{uid}
+    </update>
+
+    <insert id="saveWidgetSet" parameterType="com.xoa.model.widget.WidgetSetModel">
+        INSERT INTO user_widget_set
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="uid!=null and uid !='' " >
+                UID,
+            </if>
+            <if test="type!=null and type !='' " >
+                WIDGET_TYPE,
+            </if>
+            <if test="moduleIds!=null and moduleIds != '' " >
+                WIDGET_IDS,
+            </if>
+            <if test="bg!=null and bg!='' " >
+                WIDGET_BG,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="uid!=null and uid !='' " >
+                #{uid},
+            </if>
+            <if test="type!=null and type !='' " >
+                #{type},
+            </if>
+            <if test="moduleIds!=null and moduleIds != '' " >
+                #{moduleIds},
+            </if>
+            <if test="bg!=null  and bg !='' " >
+                #{bg},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateAllWidgetSet" parameterType="com.xoa.model.widget.WidgetSetModel" >
+        update user_widget_set
+        <set>
+            <if test="type!=null and type !='' " >
+                WIDGET_TYPE=#{type},
+            </if>
+            <if test="moduleIds!=null " >
+                WIDGET_IDS=#{moduleIds},
+            </if>
+            <if test="bg!=null  " >
+                WIDGET_BG=#{bg}
+            </if>
+        </set>
+    </update>
+
+</mapper>

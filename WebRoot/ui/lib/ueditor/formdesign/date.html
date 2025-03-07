@@ -1,0 +1,203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>日历控件</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <link rel="stylesheet" href="../formdesign/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="./css/ueditor/site.css">
+    <script type="text/javascript" src="../dialogs/internal.js"></script>
+    <script type="text/javascript" src="/js/xoajq/xoajq3.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery-migrate-3.4.0.js"></script>
+    <script type="text/javascript" src="../../../js/base/base.js"></script>
+    <link rel="stylesheet" href="leipi.style.css">
+   <script type="text/javascript">
+function createElement(type, name)
+{     
+    var element = null;     
+    try {        
+        element = document.createElement('<'+type+' name="'+name+'">');     
+    } catch (e) {}   
+    if(element==null) {     
+        element = document.createElement(type);     
+        element.name = name;     
+    } 
+    return element;     
+}
+    </script>
+    <style type="text/css">
+        .span2{
+            width: 35px !important;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <table class="table table-bordered table-striped table-hover">
+     <tr>
+        <th><span class="languageText" language="workform_formItem_name">控件名称</span><span class="label label-important">*</span></th>
+        <th><span class="languageText" language="workform_formItem_rqgs">日期格式</span></th>
+    </tr>
+    <tr>
+        <td>
+            <input id="orgname" placeholder="必填项" type="text" class="languagePlaceHolder" language="workform_formItem_btx"/>
+        </td>
+        <input type="hidden" id="fielid" placeholder="必填项" class="languagePlaceHolder" language="workform_formItem_btx">
+        <td>
+            <select id="dataformat" class="span7">
+                <option value="YYYY-MM-DD" class="languageText" language="workform_formItem_rqxrYMD">日期，形如：2010-09-09</option>
+                <option value="YYYY-MM-DD hh:mm:ss" class="languageText" language="workform_formItem_rqsjxrYMDhms">日期时间，形如：2010-09-09 09:25:00</option>
+                <option value="HH:MM" class="languageText" language="workform_formItem_sfxrhm">时分，形如：09:30</option>
+            </select>
+        </td>
+    </tr>
+        <tr>
+            <th><span class="languageText" language="workform_formItem_kjys">控件样式</span></th>
+            <th><span class="languageText" language="workform_formItem_mrrq">默认日期</span></th>
+        </tr>
+        <tr>
+            <td >
+                <span class="languageText" language="workform_formItem_width">宽</span> <input id="orgwidth" type="text" value="150" class="input-small span2" placeholder="auto"> px
+                &nbsp;
+                <span class="languageText" language="workform_formItem_height">高</span> <input id="orgheight" type="text" value="" class="input-small span2" placeholder="auto"> px
+                &nbsp;
+                <span class="languageText" language="workform_formItem_font">字体</span><input id="orgfontsize" type="text" value="" class="input-small span2" placeholder="auto"/> px
+            </td>
+            <td style="line-height: 38px;">
+                &nbsp;<input id="isNow" type="checkbox" checked  style=" margin-top: -4px;"/>
+                &nbsp;<span class="languageText" language="workform_formItem_sfxsdqrq">是否显示当前日期</span>
+            </td>
+        </tr>
+    </table>
+</div>
+<script>
+    if(getCookie("language") != 'zh_CN'){
+        $('title').text(workform_formItem.workform_formItem_date);
+        var $languageText = $('.languageText');
+        var $languagePlaceHolder = $('.languagePlaceHolder');
+        for(var i = 0; i < $languageText.length; i++){
+            var language = $languageText.eq(i).attr('language');
+            $('*[language='+ language +']').text(workform_formItem[language]);
+        }
+        for(var i = 0; i < $languagePlaceHolder.length; i++){
+            var language = $languagePlaceHolder.eq(i).attr('language');
+            $('*[language='+ language +']').prop('placeholder', workform_formItem[language]);
+        }
+    }
+
+</script>
+<script type="text/javascript">
+    $(function () {
+        var dataid = $.getQueryString('dataid');
+        var dataNumber=parent.pluginId;
+        var oNode = null,thePlugins = 'calendar';
+
+            if( UE.plugins[thePlugins].editdom ){
+                oNode = UE.plugins[thePlugins].editdom;
+                var gTitle=oNode.getAttribute('title').replace(/&quot;/g,"\"");
+                var date_format=oNode.getAttribute('date_format');
+                var gWidth=oNode.getAttribute('gWidth');
+                var gHeight=oNode.getAttribute('gHeight');
+                var gFontSize = oNode.getAttribute('orgfontsize');
+                var isNow = oNode.getAttribute('isNow');
+                $G('orgfontsize').value = gFontSize;
+                $G('orgname').value = gTitle;
+                $G('orgwidth').value = gWidth;
+                $G('orgheight').value = gHeight;
+                $G('dataformat').value = date_format;
+                if (isNow == '1')
+                {
+                    $G('isNow').checked = true;
+                }else{
+                    $G('isNow').checked = false;
+                }
+
+            }
+
+        dialog.oncancel = function () {
+            if( UE.plugins[thePlugins].editdom ) {
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+        dialog.onok = function (){
+            if( $G('orgname').value == '') {
+                if(workform_formItem){
+                    alert(workform_formItem.workform_formItem_qsrkjmc);
+                }else{
+                    alert('请输入控件名称');
+                }
+                return false;
+            }
+            var gTitle=$G('orgname').value.replace(/\"/g,"&quot;"), gWidth = $G('orgwidth').value,
+                gHeight = $G('orgheight').value;
+            var dataformat =$G('dataformat').value;
+            var gFontSize = $G('orgfontsize').value;
+            var isNow = $('#isNow').is(':checked') == true?1:0;
+            if( !oNode ) {
+                try {
+                    oNode = createElement('input','DATA_' + dataNumber);
+                    oNode.setAttribute('title',gTitle);
+                    oNode.setAttribute('class', "form_item");
+                    oNode.setAttribute('data-type', "calendar");
+                    oNode.setAttribute('id', 'DATA_' + dataNumber);
+                    oNode.setAttribute('value', dataformat);
+                    oNode.setAttribute('date_format', dataformat);
+                    oNode.setAttribute('gWidth',gWidth );
+                    oNode.setAttribute('gHeight',gHeight );
+                    oNode.setAttribute('orgfontsize',gFontSize );
+                    oNode.setAttribute('isNow',isNow );
+                    var styleStr="";
+                    if(gWidth){
+                        styleStr+="width:"+gWidth+"px;";
+                    }
+                    if(gHeight){
+                        styleStr+="height:"+gHeight+"px;";
+                    }
+                    if(gFontSize){
+                        styleStr+="font-size:"+gFontSize+"px;";
+                    }
+                    oNode.setAttribute('style',styleStr );
+
+                    editor.execCommand('insertHtml',oNode.outerHTML);
+                    return true ;
+                } catch ( e ) {
+                    try {
+                        editor.execCommand('error');
+                    } catch ( e ) {
+                        if(workform_formItem){
+                            alert(workform_formItem.workform_formItem_kjycqlxjszc);
+                        }else{
+                            alert('控件异常，请联系技术支持');
+                        }
+                    }
+                    return false;
+                }
+            } else {
+                oNode.setAttribute('title',gTitle);
+                oNode.setAttribute('class', "form_item");
+                oNode.setAttribute('data-type', "calendar");
+                oNode.setAttribute('gWidth',gWidth );
+                oNode.setAttribute('gHeight',gHeight );
+                oNode.setAttribute('orgfontsize',gFontSize );
+                oNode.setAttribute('isNow',isNow );
+                oNode.setAttribute('value', dataformat);
+                oNode.setAttribute('date_format', dataformat);//日期格式
+                var styleStr="";
+                if(gWidth){
+                    styleStr+="width:"+gWidth+"px;";
+                }
+                if(gHeight){
+                    styleStr+="height:"+gHeight+"px;";
+                }
+                if(gFontSize){
+                    styleStr+="font-size:"+gFontSize+"px;";
+                }
+                oNode.setAttribute('style',styleStr );
+                delete UE.plugins[thePlugins].editdom;
+                return true;
+            }
+        };
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,488 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>数据选择控件</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <link rel="stylesheet" href="/lib/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../css/ueditor/site.css">
+    <link rel="stylesheet" href="../themes/default/css/ueditor.css">
+    <link rel="stylesheet" href="/lib/bootstrap/bootstrap-select/css/bootstrap-select.min.css">
+    <script type="text/javascript" src="../dialogs/internal.js"></script>
+    <script type="text/javascript" src="/js/xoajq/xoajq3.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery-migrate-3.4.0.js"></script>
+    <script type="text/javascript" src="../../../js/base/base.js"></script>
+    <script type="text/javascript" src="../../../js/bootstrap/bootstrap.min.js"></script>
+    <script src="/lib/bootstrap/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <link rel="stylesheet" href="leipi.style.css">
+    <script type="text/javascript">
+        function createElement(type, name)
+        {
+            var element = null;
+            try {
+                element = document.createElement('<'+type+' name="'+name+'">');
+            } catch (e) {}
+            if(element==null) {
+                element = document.createElement(type);
+                element.name = name;
+            }
+            return element;
+        }
+    </script>
+    <style>
+        .table-bordered th, .table-bordered td{
+            border: none;
+        }
+        .TableList th{
+            text-align: center;
+        }
+        .TableList td{
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+<div class="content">
+    <div class="content">
+        <table class="table table-bordered table-striped table-hover">
+            <tr>
+                <th colspan="3"><span class="languageText" language="workform_formItem_name">控件名称</span><span style="background-color: #b94a48;padding: 0.1em 0.5em 0.1em;margin-left: 3px;" class="label label-important">*</span></th>
+            </tr>
+            <tr>
+                <td  colspan="3">
+                    <input id="orgname" class="form-control languagePlaceHolder" placeholder="必填项" type="text" language="workform_formItem_btx"/>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="3"><span class="languageText" language="workform_formItem_syfs">使用方式</span> </th>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <input  id="isSeal" value="0" checked type="radio" name="way" style="margin-top:12px; ">
+                    <span class="span1" class="languageText" language="workform_formItem_tcckxq">弹出窗口选取</span>
+                    <input id="isHandwriting" value="1" name="way" type="radio">
+                    <span class="span1" class="languageText" language="workform_formItem_gjlrxzdgl">根据录入项自动关联</span></td>
+            </tr>
+            <tr>
+                <th colspan="3"><span class="languageText" language="workform_formItem_sjly">数据来源</span></th>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <!-- Single button -->
+                    <select id="signcolor" name="signcolor" class=" signcolor selectpicker show-tick form-control"  data-live-search="false">
+                        <option value="0" class="languageText" language="workform_formItem_xzsjly">选择数据来源</option>
+                        <option value="1" style="pointer-events: none; font-weight:900" class="languageText" language="workform_formItem_xt">系统</option>
+                        <option value="office_products" style="margin-left: 30px;" class="languageText" language="workform_formItem_bgyp">办公用品</option>
+                        <option value="hr_staff_info" style="margin-left: 30px;" class="languageText" language="workform_formItem_rsda">人事档案</option>
+                        <option value="contract" style="margin-left: 30px;" class="languageText" language="workform_formItem_htxx">合同信息</option>
+                        <option value="5" style="pointer-events: none; font-weight:900" class="languageText" language="workform_formItem_zdy">自定义</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th colspan="3"><span class="languageText" language="workform_formItem_ysgx">映射关系</span></th>
+            </tr>
+            <tr name="trField" style="display: none">
+                <td style="width: 7%;border: none;">
+                    <select id="Field" name="Field" class=" signcolor selectpicker show-tick form-control"  data-live-search="false">
+                        <option value="0" class="languageText" language="workform_formItem_xzsjly">选择数据来源</option>
+                    </select>
+                    <div style="display: flex;margin-top: 5px;margin-left: 3px;">
+                        <div><input type="checkbox" name="isQuery" id="isQuery"></div>
+                        <div style="margin-left: 5px;margin-top: 2px;"> <label for="isQuery" class="languageText" language="workform_formItem_zwcxzd">做为查询字段</label></div>
+                    </div>
+                </td>
+                <td style="width: 1%;border: none;padding: 8px 0px;">
+                    <div style="margin-top: 8px;">—</div>
+                </td>
+                <td style="border: none;width: 25%;padding: 8px 0px;">
+                    <input name="mapname"  class="form-control languagePlaceHolder" placeholder="必填项" type="text" style="width: 55%;display: inline-block" language="workform_formItem_btx"/>
+                    <button name="addtable" style="width: 15%;height: 28px;margin-left: 10px;" class="languageText" language="workform_formItem_tj">添加</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <!--表格-->
+                    <table class="table table-bordered table-striped table-hover TableList" width="100%" >
+                        <thead>
+                        <tr class="TableHeader">
+                            <th class="languageText" language="workform_formItem_sjkzd">数据库字段</th>
+                            <th class="languageText" language="workform_formItem_sjxslmc">数据显示列名称</th>
+                            <th class="languageText" language="workform_formItem_yskjmc">映射控件名称</th>
+                            <th class="languageText" language="workform_formItem_zwcxzd">做为查询字段</th>
+                            <th class="languageText" language="workform_formItem_cz">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="mapTable" _datasrc="" _datafield="" _datafieldname="" _itemtitle="" _isquery="">
+
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script>
+    if(getCookie("language") != 'zh_CN'){
+        $('title').text(workform_formItem.workform_formItem_dataselect);
+        var $languageText = $('.languageText');
+        var $languagePlaceHolder = $('.languagePlaceHolder');
+        for(var i = 0; i < $languageText.length; i++){
+            var language = $languageText.eq(i).attr('language');
+            $('*[language='+ language +']').text(workform_formItem[language]);
+        }
+        for(var i = 0; i < $languagePlaceHolder.length; i++){
+            var language = $languagePlaceHolder.eq(i).attr('language');
+            $('*[language='+ language +']').prop('placeholder', workform_formItem[language]);
+        }
+    }
+
+</script>
+<script type="text/javascript">
+    var data_tables='';
+
+
+    $(function () {
+        var oNode = null,
+            thePlugins = 'dataselect';
+        var dataNumber=parent.pluginId;
+
+        //自定义数据来源
+        $.ajax({
+            type: "get",
+            async: false,
+            url: "/TerpServerController/selectTerpServerByLike",
+            dataType: 'JSON',
+            success: function (res) {
+                if (res.flag) {
+                    var obj = res.obj;
+                    var str = '';
+                    for (var i = 0; i < obj.length; i++) {
+                        str += '<option value="' + obj[i].dName + '" style="margin-left: 30px;">' + obj[i].dDesc + '</option>';
+                    }
+                    $("#signcolor").append(str);
+                }
+            }
+        });
+
+        if( UE.plugins[thePlugins].editdom ) {
+            oNode = UE.plugins[thePlugins].editdom;
+            var gTitle=oNode.getAttribute('title').replace(/&quot;/g,"\""),
+                data_table=oNode.getAttribute('data_table'),
+                way=oNode.getAttribute('way'),
+
+                data_fld_name=oNode.getAttribute('data_fld_name').split(','),
+                data_control=oNode.getAttribute('data_control').split(','),
+                data_querys=oNode.getAttribute('data_querys').split(','),
+                data_field=oNode.getAttribute('data_field').split(',');
+            gTitle = gTitle==null ? '' : gTitle;
+            $G('orgname').value = gTitle;
+            if (way=='1'){
+                $("#isSeal").prop("checked",false);
+                $("#isHandwriting").prop("checked",true);
+            }else{
+                $("#isSeal").prop("checked",true);
+                $("#isHandwriting").prop("checked",false);
+            }
+
+            data_tables=data_table;
+            $('#signcolor').val(data_table);
+            $('tr[name="trField"]').css("display","block");
+
+            var daStr="";
+            if (data_table==='office_products' ||data_table==='hr_staff_info' ||data_table==='contract'){
+                daStr='';
+            }else {
+                daStr='data_';
+            }
+            relationship(daStr+data_table);
+
+            Assignment(data_field,data_fld_name,data_control,data_querys);  //表格
+        }
+
+        dialog.oncancel = function () {
+            if( UE.plugins[thePlugins].editdom ) {
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+
+        dialog.onok = function (){
+            if ($G('orgname').value == '' ) {
+                if(workform_formItem){
+                    alert(workform_formItem.workform_formItem_qsrkjmc);
+                }else{
+                    alert('请输入控件名称');
+                }
+                return false;
+            }
+
+            if ($('.ming').length ==0 ) {
+                if(workform_formItem){
+                    alert(workform_formItem.workform_formItem_qtjysgx);
+                }else{
+                    alert('请添加映射关系！');
+                }
+                return false;
+            }
+
+
+            var gTitle=$G('orgname').value.replace(/\"/g,"&quot;"),
+                data_table=$('#signcolor').val(),
+                way=$("input[name='way']:checked").val(),
+
+                data_field='', //字段
+                data_fld_name='', //列名称
+                data_control='', //控件名
+                data_querys=''; //是否是查询字段
+
+            $('.ming').each(function(index,item){
+                var td0=$(this).find('td').eq(0).text(); //字段
+                var td1=$(this).find('td').eq(1).text(); //列名称
+                var td2=$(this).find('td').eq(2).text(); //控件名称
+                var td3=$(this).find('td').eq(3).text(); //是否是查询字段 ， 0非 1是
+                if (td3=='是'){
+                    td3='1';
+                }else{
+                    td3='0';
+                }
+                data_field+=td0+',';
+                data_fld_name+=td1+',';
+                data_control+=td2+',';
+                data_querys+=td3+',';
+            });
+
+            if(way==='1' && data_querys.indexOf('1')){
+                if(workform_formItem){
+                    alert(workform_formItem.workform_formItem_qszcxzj);
+                }else{
+                    alert("请设置查询主键！");
+                }
+                return false;
+            }
+
+            if(!oNode) {
+                //新建
+                try {
+                    var html = '<button ';
+                    html += ' name =  "' + 'DATA_'+dataNumber + '"';
+                    html += ' id =  "' + 'DATA_'+dataNumber + '"';
+                    html += ' class = "' + 'form_item dataselect' + '"';
+                    html += ' data-type = "' + 'dataselect' + '"';
+                    html += ' title = "' + gTitle + '"';
+                    html += ' readonly = "readonly"';
+                    html +=' data_table="'+data_table+'"';
+                    html +=' data_field="'+data_field+'"';
+                    html +=' data_fld_name="'+data_fld_name+'"';
+                    html +=' data_control="'+data_control+'"';
+                    html +=' data_querys="'+data_querys+'"';
+                    html +=' way="'+way+'"';
+                    html += '>'+gTitle+'</button>';
+                    html = $(html);
+                    html.attr("style","height:auto; width:auto;");
+
+                    editor.execCommand('insertHtml',html.prop("outerHTML"));
+                    return true;
+                } catch ( e ) {
+                    try {
+                        editor.execCommand('error');
+                    } catch ( e ) {
+                        if(workform_formItem){
+                            alert(workform_formItem.workform_formItem_kjycqlxjszc);
+                        }else{
+                            alert('控件异常，请联系技术支持');
+                        }
+                    }
+                    return false;
+                }
+            } else {
+                //编辑
+                oNode.setAttribute('title',gTitle);
+                oNode.setAttribute('data_table',data_table);
+                oNode.setAttribute('data_field',data_field);
+                oNode.setAttribute('data_fld_name',data_fld_name);
+                oNode.setAttribute('data_control',data_control);
+                oNode.setAttribute('data_querys',data_querys);
+                oNode.setAttribute('way',way);
+                oNode.innerText=gTitle;
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+
+    });
+
+    //监听select的改变
+    $("#signcolor").on('change', function () {
+        if ($(this).val()!='0'){
+            //映射变量关系
+            var daStr="";
+            if ($(this).val()==='office_products' ||$(this).val()==='hr_staff_info' ||$(this).val()==='contract'){
+                daStr='';
+            }else {
+                daStr='data_';
+            }
+
+            if (data_tables!=''){
+                var is=$("input[name='way']:checked").val();
+                if (is==='0'){
+                    //弹出窗口选取
+                    if(workform_formItem){
+                        var workform_formItem_sjxzkjsm = workform_formItem.workform_formItem_sjxzkjsm;
+                    }else{
+                        var workform_formItem_sjxzkjsm = '数据来源只能选择一种，变更数据来源，您之前的映射项将被清除，是否继续？';
+
+                    }
+                    var mymessage = confirm(workform_formItem_sjxzkjsm);
+                    if(mymessage){
+                        $('#mapTable').html('');
+                        $('#Field').val('0');
+                        $("#Field").selectpicker('refresh'); //动态刷新
+                        $('input[name="mapname"]').val('');
+                        data_tables=$(this).val();
+                    }else {
+                        $('#signcolor').val(data_tables);
+                        $("#signcolor").selectpicker('refresh'); //动态刷新
+                    }
+                }
+            }
+            relationship(daStr+$(this).val());
+
+        }else {
+            $('tr[name="trField"]').css("display","none");
+        }
+    });
+
+    function relationship(tableName) {
+        //映射变量关系
+        $.ajax({
+            type: "get",
+            async: false,
+            url: "/TerpServerController/getTabField",
+            data:{tableName:tableName},
+            dataType: 'JSON',
+            success: function (res) {
+                if (res.flag) {
+                    var obj = res.obj;
+                    if(workform_formItem){
+                        var workform_formItem_xzsjly = workform_formItem.workform_formItem_xzsjly;
+                    }else{
+                        var workform_formItem_xzsjly = '选择数据来源';
+                    }
+                    var str = '<option value="0">'+ workform_formItem_xzsjly +'</option>';
+                    for (var i = 0; i < obj.length; i++) {
+                        str += '<option value="' + obj[i].data1 + '">' + obj[i].data3 + '</option>';
+                    }
+
+                    $("#Field").html('');
+                    $("#Field").append(str);
+                    $("#Field").selectpicker('refresh'); //动态刷新
+                    $('tr[name="trField"]').css("display","block");
+                }
+            }
+        });
+    }
+
+    //添加按钮点击事件
+    $('button[name="addtable"]').on('click', function () {
+        var Field=$('#Field').val(); //选择框value值
+        var FieldText=$('#Field').find("option:selected").text(); //文本值
+        var is=$('#isQuery').is(":checked"); //是否是查询字段
+        var mapname=$('input[name="mapname"]').val(); //映射控件名称
+        if (Field==='0'){
+            if(workform_formItem){
+                alert(workform_formItem.workform_formItem_qxzsjkzd);
+            }else{
+                alert('请选择数据库字段');
+            }
+            return false;
+        }
+        if (mapname===''){
+            if(workform_formItem){
+                alert(workform_formItem.workform_formItem_qtxyskjmc);
+            }else{
+                alert('请填写映射控件名称');
+            }
+            return false;
+        }
+        if ($('#'+Field).length > 0){
+            if(workform_formItem){
+                alert(workform_formItem.workform_formItem_zdmcbncf);
+            }else{
+                alert('字段名称不能重复');
+            }
+            return false;
+        }
+        var tr='  <tr id="'+Field+'" class="ming">\n' +
+            '  <td>'+Field+'</td>\n' +
+            '  <td>'+FieldText+'</td>\n' +
+            '  <td>'+mapname+'</td>\n' +
+            '  <td>'+function () {
+                if (is){
+                    if(workform_formItem){
+                        return workform_formItem.workform_formItem_yes;
+                    }else{
+                        return '是';
+                    }
+                }else {
+                    if(workform_formItem){
+                        return workform_formItem.workform_formItem_no;
+                    }else{
+                        return '否';
+                    }
+                }
+            }()+'</td>\n' +
+            '  <td><div onclick="deltr(this)" style="color: #337ab7;  text-decoration: none;">'+ function(){
+                if(workform_formItem){
+                    return workform_formItem.workform_formItem_delete;
+                }else{
+                    return '删除';
+                }
+            }() +'</div></td>\n' +
+            '</tr>';
+        $('#mapTable').append(tr);
+    });
+
+    //删除按钮 ，删除节点
+    function deltr(target) {
+        $(target).parent().parent().remove();
+    }
+
+    //编辑追加表格
+    function  Assignment(data_field,data_fld_name,data_control,data_querys){
+        for(var i=0;data_field.length>i;i++){
+            if (data_field[i]!=''){
+                var tr='<tr id="'+data_field[i]+'" class="ming">'+
+                    '  <td>'+data_field[i]+'</td>\n' +
+                    '  <td>'+data_fld_name[i]+'</td>\n' +
+                    '  <td>'+data_control[i]+'</td>\n' +
+                    '  <td>'+function () {
+                        if (data_querys[i]==='0'){
+                            if(workform_formItem){
+                                return workform_formItem.workform_formItem_no;
+                            }else{
+                                return '否';
+                            }
+                        }else {
+                            if(workform_formItem){
+                                return workform_formItem.workform_formItem_yes;
+                            }else{
+                                return '是';
+                            }
+                        }
+                    }()+'</td>\n' +
+                    '  <td><div onclick="deltr(this)" style="color: #337ab7;  text-decoration: none;">'+ function(){
+                        if(workform_formItem){
+                            return workform_formItem.workform_formItem_delete;
+                        }else{
+                            return '删除';
+                        }
+                    }() +'</div></td>\n' +
+                    '</tr>';
+                $('#mapTable').append(tr);
+            }
+        }
+    }
+
+</script>
+</body>
+</html>

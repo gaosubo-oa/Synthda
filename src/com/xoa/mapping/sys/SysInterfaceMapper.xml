@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.sys.SysInterfaceMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.sys.InterfaceModel">
+        <result column="IE_TITLE" property="ieTitle" jdbcType="VARCHAR"/>
+        <result column="STATUS_TEXT" property="statusText" jdbcType="VARCHAR"/>
+        <result column="BANNER_TEXT" property="bannerText" jdbcType="VARCHAR"/>
+        <result column="BANNER_FONT" property="bannerFont" jdbcType="VARCHAR"/>
+        <result column="ATTACHMENT_ID" property="attachmentId" jdbcType="VARCHAR"/>
+        <result column="ATTACHMENT_NAME" property="attachmentName" jdbcType="VARCHAR"/>
+        <result column="IMG_WIDTH" property="imgWidth" jdbcType="INTEGER"/>
+        <result column="IMG_HEIGHT" property="imgHeight" jdbcType="INTEGER"/>
+        <result column="ATTACHMENT_ID1" property="attachmentId1" jdbcType="VARCHAR"/>
+        <result column="ATTACHMENT_NAME1" property="attachmentName1" jdbcType="VARCHAR"/>
+        <result column="AVATAR_UPLOAD" property="avatarUpload" jdbcType="CHAR"/>
+        <result column="AVATAR_WIDTH" property="avatarWidth" jdbcType="INTEGER"/>
+        <result column="AVATAR_HEIGHT" property="avatarHeight" jdbcType="INTEGER"/>
+        <result column="LOGIN_INTERFACE" property="loginInterface" jdbcType="VARCHAR"/>
+        <result column="UI" property="ui" jdbcType="VARCHAR"/>
+        <result column="THEME_SELECT" property="themeSelect" jdbcType="VARCHAR"/>
+        <result column="THEME" property="theme" jdbcType="VARCHAR"/>
+        <result column="TEMPLATE" property="template" jdbcType="VARCHAR"/>
+        <result column="WEATHER_CITY" property="weatherCity" jdbcType="VARCHAR"/>
+        <result column="NOTIFY_TEXT" property="notifyText" javaType="string"/>
+        <result column="SHOW_RSS" property="showRss" jdbcType="CHAR"/>
+        <result column="IMG_TOS" property="imgTos" javaType="java.lang.Integer"/>
+        <result column="ATTACHMENT_ID2" property="attachmentId2" jdbcType="VARCHAR"/>
+        <result column="ATTACHMENT_NAME2" property="attachmentName2" jdbcType="VARCHAR"/>
+        <result column="LOGIN_LITERALS" property="loginLiterals" jdbcType="VARCHAR"/>
+        <result column="LOGIN_VALIDATION" property="loginValidation" jdbcType="VARCHAR"/>
+        <result column="ATTACHMENT_ID3" property="attachmentId3" jdbcType="VARCHAR"/>
+        <result column="ATTACHMENT_NAME3" property="attachmentName3" jdbcType="VARCHAR"/>
+        <result column="ATTACHMENT_ID4" property="attachmentId4" jdbcType="VARCHAR"/>
+        <result column="ATTACHMENT_NAME4" property="attachmentName4" jdbcType="VARCHAR"/>
+        <result column="MOBILE_WATERMARK" property="mobileWatermark" jdbcType="CHAR"/>
+        <result column="BLACK_THEME" property="blackTheme" jdbcType="CHAR"/>
+    </resultMap>
+
+    <insert id="insertInterfaceInfo" parameterType="com.xoa.model.sys.InterfaceModel" >
+        INSERT into interface
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ieTitle != null">
+                ie_Title,
+            </if>
+            <if test="statusText != null">
+                status_Text,
+            </if>
+            <if test="bannerText != null">
+                banner_Text,
+            </if>
+            <if test="bannerFont != null">
+                banner_Font,
+            </if>
+            <if test="attachmentId != null">
+                attachment_Id,
+            </if>
+            <if test="attachmentName != null">
+                attachment_Name,
+            </if>
+            <if test="imgWidth != null">
+                img_Width,
+            </if>
+            <if test="imgHeight != null">
+                img_Height,
+            </if>
+            <if test="attachmentId1 != null">
+                attachment_Id1,
+            </if>
+            <if test="attachmentName1 != null">
+                attachment_Name1,
+            </if>
+            <if test="avatarUpload != null">
+                avatar_Upload,
+            </if>
+            <if test="avatarWidth != null">
+                avatar_Width,
+            </if>
+            <if test="avatarHeight != null">
+                avatar_Height,
+            </if>
+            <if test="loginInterface != null">
+                login_Interface,
+            </if>
+            <if test="ui != null">
+                ui,
+            </if>
+            <if test="themeSelect != null">
+                theme_Select,
+            </if>
+            <if test="theme != null">
+                theme,
+            </if>
+            <if test="template != null">
+                template,
+            </if>
+            <if test="weatherCity != null">
+                weather_City,
+            </if>
+            <if test=" showRss != null">
+                show_Rss,
+            </if>
+            <if test=" notifyText != null">
+                NOTIFY_TEXT,
+            </if>
+            <if test=" imgTos != null">
+                img_Tos,
+            </if>
+            <if test="attachmentId2 != null">
+                ATTACHMENT_ID2,
+            </if>
+            <if test="attachmentName2 != null">
+                ATTACHMENT_NAME2,
+            </if>
+            <if test="loginLiterals != null">
+                LOGIN_LITERALS,
+            </if>
+            <if test="loginValidation != null">
+                LOGIN_VALIDATION,
+            </if>
+            <if test="attachmentId3 != null">
+                ATTACHMENT_ID3,
+            </if>
+            <if test="attachmentName3 != null">
+                ATTACHMENT_NAME3,
+            </if>
+            <if test="attachmentId4 != null">
+                ATTACHMENT_ID4,
+            </if>
+            <if test="attachmentName4 != null">
+                ATTACHMENT_NAME4,
+            </if>
+            <if test="mobileWatermark != null">
+                MOBILE_WATERMARK,
+            </if>
+            <if test="blackTheme != null">
+                BLACK_THEME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ieTitle != null">
+                #{ieTitle},
+            </if>
+            <if test="statusText != null">
+                #{statusText},
+            </if>
+            <if test="bannerText != null">
+                #{bannerText},
+            </if>
+            <if test="bannerFont != null">
+                #{bannerFont},
+            </if>
+            <if test="attachmentId != null">
+                #{attachmentId},
+            </if>
+            <if test="attachmentName != null">
+                #{attachmentName},
+            </if>
+            <if test="imgWidth != null">
+                #{imgWidth},
+            </if>
+            <if test="imgHeight != null">
+                #{imgHeight},
+            </if>
+            <if test="attachmentId1 != null">
+                #{attachmentId1},
+            </if>
+            <if test="attachmentName1 != null">
+                #{attachmentName1},
+            </if>
+            <if test="avatarUpload != null">
+                #{avatarUpload},
+            </if>
+            <if test="avatarWidth != null">
+                #{avatarWidth},
+            </if>
+            <if test="avatarHeight != null">
+                #{avatarHeight},
+            </if>
+            <if test="loginInterface != null">
+                #{loginInterface},
+            </if>
+            <if test="ui != null">
+                #{ui},
+            </if>
+            <if test="themeSelect != null">
+                #{themeSelect},
+            </if>
+            <if test="theme != null">
+                #{theme},
+            </if>
+            <if test="template != null">
+                #{theme},
+            </if>
+            <if test="weatherCity != null">
+                #{weatherCity},
+            </if>
+            <if test=" showRss != null">
+                #{showRss},
+            </if>
+            <if test=" notifyText != null">
+                #{notifyText},
+            </if>
+            <if test=" imgTos != null">
+                #{imgTos},
+            </if>
+            <if test="attachmentId2 != null">
+                #{attachmentId2},
+            </if>
+            <if test="attachmentName2 != null">
+                #{attachmentName2},
+            </if>
+            <if test="loginLiterals != null">
+                #{loginLiterals},
+            </if>
+            <if test="loginValidation != null">
+                #{loginValidation},
+            </if>
+            <if test="attachmentId3 != null">
+                #{attachmentId3},
+            </if>
+            <if test="attachmentName3 != null">
+                #{attachmentName3},
+            </if>
+            <if test="attachmentId4 != null">
+                #{attachmentId4},
+            </if>
+            <if test="attachmentName4 != null">
+                #{attachmentName4},
+            </if>
+            <if test="mobileWatermark != null">
+                #{mobileWatermark},
+            </if>
+            <if test="blackTheme != null">
+                #{blackTheme},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="getStatusText" resultMap="BaseResultMap">
+        SELECT  i.STATUS_TEXT FROM interface i;
+    </select>
+    <select id="getStatusText" resultMap="BaseResultMap" databaseId="oracle">
+        SELECT  i.STATUS_TEXT FROM interface i
+    </select>
+    <select id="getStatusText" resultMap="BaseResultMap" databaseId="dm">
+        SELECT  i.STATUS_TEXT FROM interface i
+    </select>
+
+    <select id="getIndexInfo" resultMap="BaseResultMap">
+        SELECT  IE_TITLE,ATTACHMENT_NAME,IMG_WIDTH,IMG_HEIGHT,`THEME` FROM interface;
+    </select>
+
+    <select id="getIndexInfo" resultMap="BaseResultMap" databaseId="kingbase">
+        SELECT  IE_TITLE,ATTACHMENT_NAME,IMG_WIDTH,IMG_HEIGHT,THEME FROM interface
+    </select>
+
+    <select id="editStatusText" parameterType="java.lang.String">
+        update interface i set i.STATUS_TEXT = #{statusText}
+    </select>
+
+    <select id="getInterfaceInfo" resultMap="BaseResultMap">
+        select * from interface
+    </select>
+
+    <update id="updateInterfaceInfo" parameterType="com.xoa.model.sys.InterfaceModel">
+        update interface
+        <set>
+            <if test="ieTitle != null">
+                IE_TITLE = #{ieTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="bannerText != null">
+                BANNER_TEXT = #{bannerText,jdbcType=VARCHAR},
+            </if>
+            <if test="bannerFont != null">
+                BANNER_FONT = #{bannerFont,jdbcType=VARCHAR},
+            </if>
+            <if test="attachmentId != null">
+                ATTACHMENT_ID = #{attachmentId,jdbcType=VARCHAR},
+            </if>
+            <if test="attachmentName != null">
+                ATTACHMENT_NAME = #{attachmentName,jdbcType=VARCHAR},
+            </if>
+            <if test="imgWidth != null">
+                IMG_WIDTH = #{imgWidth,jdbcType=INTEGER},
+            </if>
+            <if test="imgHeight != null">
+                IMG_HEIGHT = #{imgHeight,jdbcType=INTEGER},
+            </if>
+            <if test="attachmentId1 != null">
+                ATTACHMENT_ID1 = #{attachmentId1,jdbcType=VARCHAR},
+            </if>
+            <if test="attachmentName1 != null">
+                ATTACHMENT_NAME1 = #{attachmentName1,jdbcType=VARCHAR},
+            </if>
+            <if test="avatarUpload != null">
+                AVATAR_UPLOAD = #{avatarUpload,jdbcType=CHAR},
+            </if>
+            <if test="avatarWidth != null">
+                AVATAR_WIDTH = #{avatarWidth,jdbcType=INTEGER},
+            </if>
+            <if test="avatarHeight != null">
+                AVATAR_HEIGHT = #{avatarHeight,jdbcType=INTEGER},
+            </if>
+            <if test="loginInterface != null">
+                LOGIN_INTERFACE = #{loginInterface,jdbcType=VARCHAR},
+            </if>
+            <if test="ui != null">
+                UI = #{ui,jdbcType=VARCHAR},
+            </if>
+            <if test="themeSelect != null">
+                THEME_SELECT = #{themeSelect,jdbcType=VARCHAR},
+            </if>
+            <if test="theme != null and theme != ''">
+                THEME = #{theme,jdbcType=VARCHAR},
+            </if>
+            <if test="template != null and template != ''">
+                TEMPLATE = #{template,jdbcType=VARCHAR},
+            </if>
+            <if test="weatherCity != null">
+                WEATHER_CITY = #{weatherCity,jdbcType=VARCHAR},
+            </if>
+            <if test="showRss != null">
+                SHOW_RSS = #{showRss,jdbcType=CHAR},
+            </if>
+            <if test="imgTos != null">
+                IMG_TOS = #{imgTos,jdbcType=BIT},
+            </if>
+            <if test="statusText != null">
+                STATUS_TEXT = #{statusText,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="notifyText != null">
+                NOTIFY_TEXT = #{notifyText,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="attachmentId2 != null">
+                ATTACHMENT_ID2=  #{attachmentId2},
+            </if>
+            <if test="attachmentName2 != null">
+                ATTACHMENT_NAME2=  #{attachmentName2},
+            </if>
+            <if test="loginLiterals != null">
+                LOGIN_LITERALS=   #{loginLiterals},
+            </if>
+            <if test="loginValidation != null">
+                LOGIN_VALIDATION =  #{loginValidation},
+            </if>
+            <if test="attachmentId3 != null">
+                ATTACHMENT_ID3=  #{attachmentId3},
+            </if>
+            <if test="attachmentName3 != null">
+                ATTACHMENT_NAME3=  #{attachmentName3},
+            </if>
+            <if test="attachmentId4 != null">
+                ATTACHMENT_ID4=  #{attachmentId4},
+            </if>
+            <if test="attachmentName4 != null">
+                ATTACHMENT_NAME4=  #{attachmentName4},
+            </if>
+            <if test="mobileWatermark != null">
+                MOBILE_WATERMARK = #{mobileWatermark,jdbcType=CHAR},
+            </if>
+            <if test="blackTheme != null">
+                BLACK_THEME = #{blackTheme,jdbcType=CHAR},
+            </if>
+        </set>
+
+
+    </update>
+
+    <update id="updateInterfaceInfo" parameterType="com.xoa.model.sys.InterfaceModel" databaseId="oracle">
+        update interface
+        <set>
+            <if test="ieTitle != null">
+                IE_TITLE = #{ieTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="bannerText != null">
+                BANNER_TEXT = #{bannerText,jdbcType=VARCHAR},
+            </if>
+            <if test="bannerFont != null">
+                BANNER_FONT = #{bannerFont,jdbcType=VARCHAR},
+            </if>
+            <if test="attachmentId != null">
+                ATTACHMENT_ID = #{attachmentId,jdbcType=VARCHAR},
+            </if>
+            <if test="attachmentName != null">
+                ATTACHMENT_NAME = #{attachmentName,jdbcType=VARCHAR},
+            </if>
+            <if test="imgWidth != null">
+                IMG_WIDTH = #{imgWidth,jdbcType=INTEGER},
+            </if>
+            <if test="imgHeight != null">
+                IMG_HEIGHT = #{imgHeight,jdbcType=INTEGER},
+            </if>
+            <if test="attachmentId1 != null">
+                ATTACHMENT_ID1 = #{attachmentId1,jdbcType=VARCHAR},
+            </if>
+            <if test="attachmentName1 != null">
+                ATTACHMENT_NAME1 = #{attachmentName1,jdbcType=VARCHAR},
+            </if>
+            <if test="avatarUpload != null">
+                AVATAR_UPLOAD = #{avatarUpload,jdbcType=CHAR},
+            </if>
+            <if test="avatarWidth != null">
+                AVATAR_WIDTH = #{avatarWidth,jdbcType=INTEGER},
+            </if>
+            <if test="avatarHeight != null">
+                AVATAR_HEIGHT = #{avatarHeight,jdbcType=INTEGER},
+            </if>
+            <if test="loginInterface != null">
+                LOGIN_INTERFACE = #{loginInterface,jdbcType=VARCHAR},
+            </if>
+            <if test="ui != null">
+                UI = #{ui,jdbcType=VARCHAR},
+            </if>
+            <if test="themeSelect != null">
+                THEME_SELECT = #{themeSelect,jdbcType=VARCHAR},
+            </if>
+            <if test="theme != null and theme != ''">
+                THEME = #{theme,jdbcType=VARCHAR},
+            </if>
+            <if test="template != null and template != ''">
+                "TEMPLATE" = #{template,jdbcType=VARCHAR},
+            </if>
+            <if test="weatherCity != null">
+                WEATHER_CITY = #{weatherCity,jdbcType=VARCHAR},
+            </if>
+            <if test="showRss != null">
+                SHOW_RSS = #{showRss,jdbcType=CHAR},
+            </if>
+            <if test="imgTos != null">
+                IMG_TOS = #{imgTos,jdbcType=BIT},
+            </if>
+            <if test="statusText != null">
+                STATUS_TEXT = #{statusText,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="notifyText != null">
+                NOTIFY_TEXT = #{notifyText,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="attachmentId2 != null">
+                ATTACHMENT_ID2=  #{attachmentId2},
+            </if>
+            <if test="attachmentName2 != null">
+                ATTACHMENT_NAME2=  #{attachmentName2},
+            </if>
+            <if test="loginLiterals != null">
+                LOGIN_LITERALS=   #{loginLiterals},
+            </if>
+            <if test="loginValidation != null">
+                LOGIN_VALIDATION =  #{loginValidation},
+            </if>
+            <if test="attachmentId3 != null">
+                ATTACHMENT_ID3=  #{attachmentId3},
+            </if>
+            <if test="attachmentName3 != null">
+                ATTACHMENT_NAME3=  #{attachmentName3},
+            </if>
+            <if test="attachmentId4 != null">
+                ATTACHMENT_ID4=  #{attachmentId4},
+            </if>
+            <if test="attachmentName4 != null">
+                ATTACHMENT_NAME4=  #{attachmentName4},
+            </if>
+            <if test="mobileWatermark != null">
+                MOBILE_WATERMARK = #{mobileWatermark,jdbcType=CHAR},
+            </if>
+            <if test="blackTheme != null">
+                BLACK_THEME = #{blackTheme,jdbcType=CHAR},
+            </if>
+        </set>
+
+
+    </update>
+
+    <update id="updateInterfaceInfo" parameterType="com.xoa.model.sys.InterfaceModel" databaseId="dm">
+        update interface
+        <set>
+            <if test="ieTitle != null">
+                IE_TITLE = #{ieTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="bannerText != null">
+                BANNER_TEXT = #{bannerText,jdbcType=VARCHAR},
+            </if>
+            <if test="bannerFont != null">
+                BANNER_FONT = #{bannerFont,jdbcType=VARCHAR},
+            </if>
+            <if test="attachmentId != null">
+                ATTACHMENT_ID = #{attachmentId,jdbcType=VARCHAR},
+            </if>
+            <if test="attachmentName != null">
+                ATTACHMENT_NAME = #{attachmentName,jdbcType=VARCHAR},
+            </if>
+            <if test="imgWidth != null">
+                IMG_WIDTH = #{imgWidth,jdbcType=INTEGER},
+            </if>
+            <if test="imgHeight != null">
+                IMG_HEIGHT = #{imgHeight,jdbcType=INTEGER},
+            </if>
+            <if test="attachmentId1 != null">
+                ATTACHMENT_ID1 = #{attachmentId1,jdbcType=VARCHAR},
+            </if>
+            <if test="attachmentName1 != null">
+                ATTACHMENT_NAME1 = #{attachmentName1,jdbcType=VARCHAR},
+            </if>
+            <if test="avatarUpload != null">
+                AVATAR_UPLOAD = #{avatarUpload,jdbcType=CHAR},
+            </if>
+            <if test="avatarWidth != null">
+                AVATAR_WIDTH = #{avatarWidth,jdbcType=INTEGER},
+            </if>
+            <if test="avatarHeight != null">
+                AVATAR_HEIGHT = #{avatarHeight,jdbcType=INTEGER},
+            </if>
+            <if test="loginInterface != null">
+                LOGIN_INTERFACE = #{loginInterface,jdbcType=VARCHAR},
+            </if>
+            <if test="ui != null">
+                UI = #{ui,jdbcType=VARCHAR},
+            </if>
+            <if test="themeSelect != null">
+                THEME_SELECT = #{themeSelect,jdbcType=VARCHAR},
+            </if>
+            <if test="theme != null and theme != ''">
+                THEME = #{theme,jdbcType=VARCHAR},
+            </if>
+            <if test="template != null and template != ''">
+                "TEMPLATE" = #{template,jdbcType=VARCHAR},
+            </if>
+            <if test="weatherCity != null">
+                WEATHER_CITY = #{weatherCity,jdbcType=VARCHAR},
+            </if>
+            <if test="showRss != null">
+                SHOW_RSS = #{showRss,jdbcType=CHAR},
+            </if>
+            <if test="imgTos != null">
+                IMG_TOS = #{imgTos,jdbcType=BIT},
+            </if>
+            <if test="statusText != null">
+                STATUS_TEXT = #{statusText,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="notifyText != null">
+                NOTIFY_TEXT = #{notifyText,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="attachmentId2 != null">
+                ATTACHMENT_ID2=  #{attachmentId2},
+            </if>
+            <if test="attachmentName2 != null">
+                ATTACHMENT_NAME2=  #{attachmentName2},
+            </if>
+            <if test="loginLiterals != null">
+                LOGIN_LITERALS=   #{loginLiterals},
+            </if>
+            <if test="loginValidation != null">
+                LOGIN_VALIDATION =  #{loginValidation},
+            </if>
+            <if test="attachmentId3 != null">
+                ATTACHMENT_ID3=  #{attachmentId3},
+            </if>
+            <if test="attachmentName3 != null">
+                ATTACHMENT_NAME3=  #{attachmentName3},
+            </if>
+            <if test="attachmentId4 != null">
+                ATTACHMENT_ID4=  #{attachmentId4},
+            </if>
+            <if test="attachmentName4 != null">
+                ATTACHMENT_NAME4=  #{attachmentName4},
+            </if>
+            <if test="mobileWatermark != null">
+                MOBILE_WATERMARK = #{mobileWatermark,jdbcType=CHAR},
+            </if>
+            <if test="blackTheme != null">
+                BLACK_THEME = #{blackTheme,jdbcType=CHAR},
+            </if>
+        </set>
+
+
+    </update>
+
+    <select id="getThemeSelect" resultType="com.xoa.model.sys.InterfaceModel">
+        select THEME_SELECT as themeSelect from interface;
+    </select>
+
+    <select id="getAvatarUpload" resultType="com.xoa.model.sys.InterfaceModel">
+        select AVATAR_UPLOAD as avatarUpload  from interface;
+    </select>
+
+    <select id="getTemplate" resultType="com.xoa.model.sys.InterfaceModel">
+        select TEMPLATE as template  from interface;
+    </select>
+    <select id="getMobileWatermark" resultType="com.xoa.model.sys.InterfaceModel">
+        select MOBILE_WATERMARK as mobileWatermark from interface;
+    </select>
+
+    <select id="getBlackTheme" resultType="com.xoa.model.sys.InterfaceModel">
+        select BLACK_THEME from interface
+    </select>
+
+
+</mapper>

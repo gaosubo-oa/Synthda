@@ -1,0 +1,105 @@
+#add{
+    float:right;
+    margin:0px 40px 0px 0px;
+    /*background: url(../img/newjian.png);*/
+    padding: 7px 20px 7px 30px;
+    position: absolute;
+    right: -11px;
+    top: 7px;
+    z-index: 666;
+}
+.preservation{
+    margin-top: 30px !important;
+    display: inline-block;
+    margin-right: 100px !important;
+    line-height: 1;font-size:18px;
+    padding: 10px 50px !important;
+    background: #228CDC !important;
+    letter-spacing:3px;
+    color: #fff;
+    border-radius: 6px
+}
+.getBack{
+    margin-top: 30px !important;
+    display: inline-block;
+    line-height: 1;
+    letter-spacing:3px;
+    font-size:18px;
+    padding: 10px 50px !important;
+    background: #698CAC !important;
+    color: #fff;
+    border-radius: 6px
+}
+.mainBg .mainTitle{
+    width: 55%;
+    /*box-shadow: 1px 1px 6px;*/
+}
+body{
+    background: #f6f6f6;
+}
+#datasave{
+    background: #f6f6f6;
+}
+table tbody tr{
+    background-color: #fff;
+}
+.mainTitle>ul>li:first-child{
+    padding: 0 !important;
+    height: 40px !important;
+    text-align: left !important;
+    /*background: url("/img/lantiao.png") no-repeat;*/
+    border-bottom: 1px solid #d6d6d6 !important;
+    margin-left: 10px;
+    margin-bottom: 15px;
+}
+.spanSize{
+    color: #111111;
+    font-size: 18px;
+    margin-left: 23px;
+}
+
+.mainTitleUl .bordercolor span{
+    background: none;
+    color: #111111;
+    font-size: 14px;
+    position: relative;
+    left: 20px;
+}
+.mainTitleUl .bordercolor label{
+    border-bottom: none;
+}
+.bordercolor{
+    border: none;
+}
+.mainTitleUl .bordercolor label input[type=text]{
+    color: #adadad;
+    border: 1px solid #DFE4EB;
+    border-radius: 2px;
+}
+input {
+    color: #111111 !important;
+}
+
+ul li{
+    padding-left: 70px;
+}
+
+.content div:nth-child(1){
+    /*background: #fff;*/
+}
+
+.content .headNav{
+    /*background-color: #f6f6f6!important;*/
+}
+.mainTitleUl .bordercolor span{
+    border-bottom: none;
+}
+textarea,select{
+    color: #111111 !important;
+}
+
+label {
+    /*width: 50% !important;*/
+}
+
+

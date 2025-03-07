@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.diary.setting.DiaryReadPrivMapper" >
+    <resultMap id="BaseResultMap" type="com.xoa.model.diary.setting.DiaryReadPriv" >
+        <result column="RPRIV_ID" property="rprivId" javaType="Integer" />
+        <result column="USER_ID" property="userId" javaType="String" />
+        <result column="READ_RANGE" property="readRange" javaType="String" />
+    </resultMap>
+
+    <insert id="addDiaryReadPriv">
+        INSERT INTO diary_read_priv
+        (USER_ID, READ_RANGE)
+        VALUES (#{userId}, #{readRange})
+    </insert>
+
+    <delete id="deleteDiaryReadPrivById">
+        DELETE
+        FROM
+            diary_read_priv
+        WHERE
+            RPRIV_ID = #{rprivId}
+    </delete>
+
+    <update id="updateDiaryReadPriv">
+        UPDATE diary_read_priv
+        SET READ_RANGE = #{readRange}
+        WHERE
+            RPRIV_ID = #{rprivId}
+    </update>
+
+    <select id="selectAllDiaryReadPriv" resultMap="BaseResultMap">
+        SELECT
+            *
+        FROM
+            diary_read_priv
+        <where>
+            <if test="rprivId != null">
+                AND RPRIV_ID = #{rprivId}
+            </if>
+            <if test="userIdList != null and userIdList.size() > 0">
+                AND USER_ID IN
+                <foreach collection="userIdList" item="userId" open="(" separator="," close=")" index="index">
+                    #{userId}
+                </foreach>
+            </if>
+            <if test="readRange != null and readRange != ''">
+                AND READ_RANGE LIKE CONCAT ('%',#{readRange},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectDiaryReadPriv" resultMap="BaseResultMap">
+        SELECT
+            *
+        FROM
+            diary_read_priv
+        WHERE
+            USER_ID = #{userId}
+    </select>
+
+</mapper>

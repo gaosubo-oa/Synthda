@@ -1,0 +1,407 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>下拉菜单</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+    <link rel="stylesheet" href="../formdesign/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/ueditor/site.css">
+    <script type="text/javascript" src="../dialogs/internal.js"></script>
+    <script type="text/javascript" src="/js/xoajq/xoajq3.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery-migrate-3.4.0.js"></script>
+    <script type="text/javascript" src="../../../js/base/base.js"></script>
+    <link rel="stylesheet" href="leipi.style.css">
+    <script type="text/javascript">
+        function createElement(type, name)
+        {
+            var element = null;
+            try {
+                element = document.createElement('<'+type+' name="'+name+'">');
+            } catch (e) {}
+            if(element==null) {
+                element = document.createElement(type);
+                element.name = name;
+            }
+            return element;
+        }
+        function fnSelect( combo ) {
+            var iIndex = combo.selectedIndex ;
+            oListText.selectedIndex    = iIndex ;
+            var olistText    = document.getElementById( "orgtext" ) ;
+            olistText.value    = oListText.value ;
+        }
+
+        function fnAdd() {
+            var olistText    = document.getElementById( "orgtext" ) ;
+            fnAddComboOption( oListText, olistText.value, olistText.value ) ;
+            oListText.selectedIndex = oListText.options.length - 1 ;
+            olistText.value    = '' ;
+            olistText.focus() ;
+        }
+
+        function fnModify() {
+            var iIndex = oListText.selectedIndex ;
+            if ( iIndex < 0 ) return ;
+            var olistText    = document.getElementById( "orgtext" ) ;
+            oListText.options[ iIndex ].innerHTML    = fnHTMLEncode( olistText.value ) ;
+            oListText.options[ iIndex ].value        = olistText.value ;
+            olistText.value    = '' ;
+            olistText.focus() ;
+        }
+
+        function fnMove( steps ) {
+            fnChangeOptionPosition( oListText, steps ) ;
+        }
+
+        function fnDelete() {
+            fnRemoveSelectedOptions( oListText ) ;
+        }
+
+        function fnSetSelectedValue() {
+            var iIndex = oListText.selectedIndex ;
+            if ( iIndex < 0 ) return ;
+            var olistText = document.getElementById( "orgvalue" ) ;
+            olistText.innerHTML = oListText.options[ iIndex ].value ;
+        }
+
+        // Moves the selected option by a number of steps (also negative)
+        function fnChangeOptionPosition( combo, steps ) {
+            var iActualIndex = combo.selectedIndex ;
+            if ( iActualIndex < 0 ){
+                return ;
+            }
+            var iFinalIndex = iActualIndex + steps ;
+            if ( iFinalIndex < 0 ){
+                iFinalIndex = 0 ;
+            }
+            if ( iFinalIndex > ( combo.options.length - 1 ) ) {
+                iFinalIndex = combo.options.length - 1 ;
+            }
+            if ( iActualIndex == iFinalIndex ) {
+                return ;
+            }
+            var oOption = combo.options[ iActualIndex ] ;
+            if(oOption.value=="") {
+                var sText    = fnHTMLDecode( oOption.value ) ;
+            } else {
+                var sText    = fnHTMLDecode( oOption.innerHTML ) ;
+            }
+            combo.remove( iActualIndex ) ;
+            oOption = fnAddComboOption( combo, sText, sText, null, iFinalIndex ) ;
+            oOption.selected = true ;
+        }
+
+        // Remove all selected options from a SELECT object
+        function fnRemoveSelectedOptions( combo ) {
+            // Save the selected index
+            var iSelectedIndex = combo.selectedIndex ;
+            var oOptions = combo.options ;
+            // Remove all selected options
+            for ( var i = oOptions.length - 1 ; i >= 0 ; i-- ) {
+                if (oOptions[i].selected) combo.remove(i) ;
+            }
+
+            // Reset the selection based on the original selected index
+            if ( combo.options.length > 0 ) {
+                if ( iSelectedIndex >= combo.options.length ) iSelectedIndex = combo.options.length - 1 ;
+                combo.selectedIndex = iSelectedIndex ;
+            }
+        }
+
+        // Add a new option to a SELECT object (combo or list)
+        function fnAddComboOption( combo, optionText, optionValue, documentObject, index ) {
+            var oOption ;
+            if ( documentObject ) {
+                oOption = documentObject.createElement("option") ;
+            } else {
+                oOption = document.createElement("option") ;
+            }
+            if ( index != null ) {
+                combo.options.add( oOption, index ) ;
+            } else {
+                combo.options.add( oOption ) ;
+            }
+            oOption.innerHTML = optionText.length > 0 ? fnHTMLEncode( optionText ) : '&nbsp;' ;
+            oOption.value     = optionValue ;
+            return oOption ;
+        }
+
+        function fnHTMLEncode( text ) {
+            if ( !text ) {
+                return '' ;
+            }
+            text = text.replace( /&/g, '&amp;' ) ;
+            text = text.replace( /</g, '&lt;' ) ;
+            text = text.replace( />/g, '&gt;' ) ;
+            return text ;
+        }
+
+
+        function fnHTMLDecode( text ) {
+            if ( !text ) {
+                return '' ;
+            }
+            text = text.replace( /&gt;/g, '>' ) ;
+            text = text.replace( /&lt;/g, '<' ) ;
+            text = text.replace( /&amp;/g, '&' ) ;
+            return text ;
+        }
+
+        function fnSetAttribute( element, attName, attValue ) {
+            if ( attValue == null || attValue.length == 0 ){
+                element.removeAttribute( attName, 0 ) ;
+            } else {
+                element.setAttribute( attName, attValue, 0 ) ;
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="content">
+    <table class="table table-bordered table-striped table-hover">
+        <tr>
+            <th><span class="languageText" language="workform_formItem_name">控件名称</span>
+                <span class="label label-important">*</span></th>
+            <th><span class="languageText" language="workform_formItem_csxd">初始选定</span></th>
+        </tr>
+        <tr>
+            <td ><input type="text" id="orgname" placeholder="必填项" class="languagePlaceHolder" language="workform_formItem_btx"></td>
+            <td> <span id="orgvalue" class="uneditable-input" style="height:20px;"></span> <input id="fieldflow" style="display: none;" type="checkbox"/></td>
+        </tr>
+        <tr>
+
+            <th colspan="2"><span class="languageText" language="workform_formItem_kjys">控件样式</span> </th>
+        </tr>
+        <tr>
+            <!--<td><label class="checkbox inline"><input id="fieldflow" type="checkbox"/> 流程变量</label></td>-->
+
+            <td colspan="2">
+                <span class="languageText" language="workform_formItem_width">宽</span>：
+                <input id="orgwidth" type="text" value="150" class="input-small span1"/> px&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="languageText" language="workform_formItem_height">高</span>：<input id="orgsize" type="text" class="input-small span1" value="1"/>
+                <span class="languageText" language="workform_formItem_row">行</span>
+                <span class="languageText" language="workform_formItem_font">字体</span>：<input id="orgfontsize" type="text" class="input-small span1" value="" placeholder="auto"/> px
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <span class="languageText" language="workform_formItem_glzcdmc">关联子菜单名称</span>
+                <a id="showTips" style="text-decoration: none;" rel="popover">
+                    <i class="icon-info-sign" onclick="info($(this))" style="cursor: pointer"></i>
+                    <span class="showTips languageText" style="display: none;font-size: 10px;" language="workform_formItem_selectSm">若关联子菜单，需要子下拉菜单设置的时候在每个选项后加上特殊标记以记录与父菜单关系，形如“子菜单项目|父菜单项目”，则父菜单发生变化，子菜单会随之自动刷新筛选</span>
+                </a> </th>
+            <td><input id="orgChild" type="text" size="20" > </td>
+        </tr>
+        <!--<tr>-->
+            <!--<th><span class="pull-right">初始选定</span></th>-->
+            <!--<td> <span id="orgvalue" class="uneditable-input" style="height:20px;"></span> </td>-->
+        <!--</tr>-->
+        <tr>
+            <th colspan="2">
+                <span class="languageText" language="workform_formItem_lbz">列表值</span> <span class="label label-important">*</span>
+            </th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <select id="orglist"  multiple="multiple" class="span14"></select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="btn-group pull-right">
+                    <a title="新增" onclick="fnAdd();" class="btn btn-primary languageTitle" language="workform_formItem_add"><i class="icon-white icon-plus"></i></a>
+                    <a title="修改" onclick="fnModify();" class="btn btn-default languageTitle" language="workform_formItem_edit"><i class="icon-edit"></i></a>
+                </div>
+                <input type="text" placeholder="输入列表值..." class="span2 languagePlaceHolder" id="orgtext" language="workform_formItem_srlbz">
+            </td>
+            <td>
+                <div class="btn-group">
+                    <button title="上移" onclick="fnMove(-1);" class="btn btn-default languageTitle" language="workform_formItem_sy"><i class="icon-arrow-up"></i></button>
+                    <button title="下移" onclick="fnMove(1);" class="btn btn-default languageTitle" language="workform_formItem_xy"><i class="icon-arrow-down"></i></button>
+                    <button title="设为初始化时选定值" onclick="fnSetSelectedValue();" class="btn btn-default languageTitle" language="workform_formItem_swcshsxdz"><i class="icon-ok-circle"></i></button>
+                    <button title="删除" onclick="fnDelete();" class="btn btn-default languageTitle" language="workform_formItem_delete"><i class="icon-ban-circle"></i></button>
+                </div>
+            </td>
+
+        </tr>
+    </table>
+</div>
+<script>
+    if(getCookie("language") != 'zh_CN'){
+        $('title').text(workform_formItem.workform_formItem_select);
+        var $languageText = $('.languageText');
+        var $languagePlaceHolder = $('.languagePlaceHolder');
+        var $languageTitle = $('.languageTitle');
+        for(var i = 0; i < $languageText.length; i++){
+            var language = $languageText.eq(i).attr('language');
+            $('*[language='+ language +']').text(workform_formItem[language]);
+        }
+        for(var i = 0; i < $languagePlaceHolder.length; i++){
+            var language = $languagePlaceHolder.eq(i).attr('language');
+            $('*[language='+ language +']').prop('placeholder', workform_formItem[language]);
+        }
+        for(var i = 0; i < $languageTitle.length; i++){
+            var language = $languageTitle.eq(i).attr('language');
+            $('*[language='+ language +']').prop('title', workform_formItem[language]);
+        }
+    }
+
+</script>
+<script type="text/javascript">
+    var oNode = null, oListText='',thePlugins = 'select';
+    function info(e){
+        $('.showTips').show();
+    }
+ $(function () {
+
+         var dataid = $.getQueryString('dataid');
+         var dataNumber=parent.pluginId;
+         oListText = $G('orglist');
+         if( UE.plugins[thePlugins].editdom ){
+             oNode = UE.plugins[thePlugins].editdom;
+             var gTitle=oNode.getAttribute('title').replace(/&quot;/g,"\""),
+                 gFlow=oNode.getAttribute('fieldflow'),
+                 gWidth=oNode.getAttribute('orgwidth'),
+                 gChild = oNode.getAttribute('child')||'',
+                 gSize=oNode.getAttribute('size');
+                 gfontSize = oNode.getAttribute('orgfontsize'),
+             gTitle = gTitle==null ? '' : gTitle;
+
+             $G('orgvalue').innerHTML = oNode.value;
+             $G('orgname').value = gTitle;
+             $G('orgsize').value = gSize;
+             $G('orgwidth').value = gWidth;
+             $G('orgChild').value = gChild;
+             $G('orgfontsize').value = gfontSize;
+             if (gFlow == '1')
+             {
+                 //$G('fieldflow').checked = true;
+             }
+             for ( var i = 0 ; i < oNode.options.length ; i++ ) {
+                 var sText    = oNode.options[i].value ;
+                 fnAddComboOption( oListText, sText, sText ) ;
+             }
+         }
+
+     dialog.oncancel = function () {
+         if( UE.plugins[thePlugins].editdom ) {
+             delete UE.plugins[thePlugins].editdom;
+         }
+     };
+     dialog.onok = function (){
+
+         if($G('orgname').value==''){
+             if(workform_formItem){
+                 alert(workform_formItem.workform_formItem_qsrkjmc);
+             }else{
+                 alert('请输入控件名称');
+             }
+             return false;
+         }
+         if( oListText.options.length == 0 ) {
+             if(workform_formItem){
+                 alert(workform_formItem.workform_formItem_qtjxlcdxx);
+             }else{
+                 alert('请添加下拉菜单选项！');
+             }
+             return false;
+         }
+         var gSize = $G('orgsize').value ;
+         if ( gSize == null || isNaN( gSize ) || gSize < 1 ) {
+             gSize = 1 ;
+         }
+         var gWidth = $G('orgwidth').value;
+         if(gWidth == ''){
+             gWidth = 'auto';
+         }
+         var gChild = $G('orgChild').value;
+         var gfontSize = $G('orgfontsize').value;
+         if(gfontSize == ''){
+             gfontSize = 'auto';
+         }
+         if( !oNode ) {
+             try {
+                 oNode = createElement('select', 'NEWFIELD');
+                 oNode.setAttribute('class', "form_item");
+                 oNode.setAttribute('data-type', "select");
+                 oNode.setAttribute('name', 'DATA_'+dataNumber);
+                 oNode.setAttribute('id', 'DATA_'+dataNumber);
+                 oNode.setAttribute('title', $G('orgname').value);
+                 oNode.setAttribute('plugins', thePlugins );
+                 oNode.setAttribute('size', gSize);
+                 oNode.setAttribute('child', gChild);
+                 oNode.setAttribute('orgfontsize', gfontSize);
+                 if ( $G('fieldflow').checked ) {
+                     oNode.setAttribute('fieldflow', 1);
+                 } else {
+                     oNode.setAttribute('fieldflow', 0);
+                 }
+
+                 oNode.style.width = gWidth + 'px';
+                 oNode.style.fontSize = gfontSize + 'px';
+                 oNode.setAttribute('orgwidth', gWidth );
+
+                 // Add all available options.
+                 for ( var i = 0 ; i < oListText.options.length ; i++ ) {
+                     var sText    = oListText.options[i].value ;
+                     if ( sText.length == 0 ) {
+                         sText = sText ;
+                     }
+                     var oOption = fnAddComboOption( oNode, sText, sText ) ;
+                     if ( sText == $G('orgvalue').innerHTML ) {
+                         fnSetAttribute( oOption, 'selected', 'selected' ) ;
+                         oOption.selected = true ;
+                     }
+                 }
+                 //firefox要利用span
+                 editor.execCommand('insertHtml', oNode.outerHTML);
+                 return true ;
+             } catch ( e ) {
+                 try {
+                     editor.execCommand('error');
+                 } catch ( e ) {
+                     if(workform_formItem){
+                         alert(workform_formItem.workform_formItem_kjycqlxjszc);
+                     }else{
+                         alert('控件异常，请联系技术支持');
+                     }
+                 }
+                 return false;
+             }
+         } else {
+             oNode.setAttribute('title', $G('orgname').value);
+             oNode.setAttribute('size', gSize);
+             oNode.setAttribute('child', gChild);
+             oNode.setAttribute('orgfontsize', gfontSize);
+             if ( $G('fieldflow').checked ) {
+                 oNode.setAttribute('fieldflow',1);
+             } else {
+                 oNode.setAttribute('fieldflow',0);
+             }
+             oNode.style.width = gWidth + 'px';
+             oNode.style.fontSize = gfontSize + 'px';
+             oNode.setAttribute('orgwidth', gWidth );
+             // Remove all options.
+             while ( oNode.options.length > 0 ){
+                 oNode.remove(0) ;
+             }
+             for ( var i = 0 ; i < $G('orglist').options.length ; i++ ) {
+                 var sText    = $G('orglist').options[i].value ;
+                 if ( sText.length == 0 ) {
+                     sText = sText ;
+                 }
+                 var oOption = fnAddComboOption( oNode, sText, sText ) ;
+                 if ( sText == $G('orgvalue').innerHTML ) {
+                     fnSetAttribute( oOption, 'selected', 'selected' ) ;
+                     oOption.selected = true ;
+                 }
+             }
+             delete UE.plugins[thePlugins].editdom;
+         }
+     };
+
+ });
+
+</script>
+</body>
+</html>

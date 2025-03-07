@@ -1,0 +1,181 @@
+﻿.ax_default {
+  font-family:'Arial Normal', 'Arial';
+  font-weight:400;
+  font-style:normal;
+  font-size:13px;
+  color:#333333;
+  text-align:center;
+  line-height:normal;
+}
+._一级标题 {
+  font-family:'Arial Normal', 'Arial';
+  font-weight:bold;
+  font-style:normal;
+  font-size:32px;
+  text-align:left;
+}
+._二级标题 {
+  font-family:'Arial Normal', 'Arial';
+  font-weight:bold;
+  font-style:normal;
+  font-size:24px;
+  text-align:left;
+}
+._三级标题 {
+  font-family:'Arial Normal', 'Arial';
+  font-weight:bold;
+  font-style:normal;
+  font-size:18px;
+  text-align:left;
+}
+._四级标题 {
+  font-family:'Arial Normal', 'Arial';
+  font-weight:bold;
+  font-style:normal;
+  font-size:14px;
+  text-align:left;
+}
+._五级标题 {
+  font-family:'Arial Normal', 'Arial';
+  font-weight:bold;
+  font-style:normal;
+  text-align:left;
+}
+._六级标题 {
+  font-family:'Arial Normal', 'Arial';
+  font-weight:bold;
+  font-style:normal;
+  font-size:10px;
+  text-align:left;
+}
+._文本段落 {
+  text-align:left;
+}
+._流程形状 {
+}
+.box_1 {
+}
+._形状 {
+  font-family:'Arial Normal', 'Arial';
+  font-weight:normal;
+  font-style:normal;
+}
+._下拉列表框 {
+  color:#000000;
+  text-align:left;
+}
+._水平线 {
+}
+.button {
+}
+._图片 {
+  color:#000000;
+}
+.droplist {
+  color:#000000;
+  text-align:left;
+}
+.list_box {
+  color:#000000;
+  text-align:left;
+}
+.table {
+}
+.table_cell {
+}
+.iconfont {
+  font-family:'iconfont Regular', 'iconfont';
+  font-weight:400;
+  font-style:normal;
+  font-size:18px;
+  color:#666666;
+}
+.table_cell1 {
+}
+.image {
+  color:#000000;
+}
+.placeholder {
+}
+.vertical_line {
+}
+.checkbox {
+  text-align:left;
+}
+.radio_button {
+  text-align:left;
+}
+.tree_node {
+  text-align:left;
+}
+.shape {
+}
+.connector {
+}
+._图片1 {
+}
+.icon {
+}
+.paragraph {
+  text-align:left;
+}
+.heading_1 {
+  font-family:'Arial Negreta', 'Arial Normal', 'Arial';
+  font-weight:700;
+  font-style:normal;
+  font-size:32px;
+  text-align:left;
+}
+.box_2 {
+}
+.ellipse {
+}
+.flow_shape {
+}
+.heading_2 {
+  font-family:'Arial Negreta', 'Arial Normal', 'Arial';
+  font-weight:700;
+  font-style:normal;
+  font-size:24px;
+  text-align:left;
+}
+.horizontal_line {
+}
+.line {
+}
+._形状1 {
+}
+._文本框 {
+  color:#000000;
+  text-align:left;
+}
+._文本框1 {
+  color:#000000;
+  text-align:left;
+}
+.label {
+  font-size:14px;
+  text-align:left;
+}
+._文本段落1 {
+  text-align:left;
+}
+._多行文本框 {
+  color:#000000;
+  text-align:left;
+}
+._图片2 {
+  color:#000000;
+}
+.image1 {
+}
+._文本段落2 {
+  text-align:left;
+}
+._图片3 {
+  color:#000000;
+}
+.button1 {
+}
+._默认样式 {
+}

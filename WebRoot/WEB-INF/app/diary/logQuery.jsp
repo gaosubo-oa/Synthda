@@ -1,0 +1,613 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: 张继斌
+  Date: 2022/4/13
+  Time: 13:53
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>日志查询</title>
+    <link rel="stylesheet" type="text/css" href="../lib/laydate.css"/>
+    <link rel="stylesheet" type="text/css" href="../lib/pagination/style/pagination.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/base.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/diary/workLog.css?2019101712.55"/>
+    <link rel="stylesheet" type="text/css" href="../css/diary/calendar1.css"/>
+    <link rel="stylesheet" type="text/css" href="/lib/layui/layui/css/layui.css?20210319.1"/>
+    <script type="text/javascript" src="/lib/layui/layui/layui.js"></script>
+    <script type="text/javascript" src="/lib/layui/layui/layui.all.js"></script>
+    <script src="/js/common/language.js"></script>
+<%--    <script src="/js/xoajq/xoajq1.js" type="text/javascript" charset="utf-8"></script>--%>
+    <script type="text/javascript" src="/js/xoajq/xoajq3.js"></script>
+<%--    <script type="text/javascript" src="/js/jquery/jquery-migrate-3.4.0.js"></script>--%>
+    <script src="/lib/jQuery-File-Upload-master/jquery-ui.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/lib/jQuery-File-Upload-master/jquery.iframe-transport.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/lib/jQuery-File-Upload-master/jquery.fileupload.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/diary/calendar1.js/"></script>
+    <script type="text/javascript" src="../js/diary/date.js/"></script>
+    <script src="/js/jquery/jquery.cookie.js"></script>
+    <script src="../lib/laydate/laydate.js"></script>
+    <script src="../js/news/page.js"></script>
+    <script src="../lib/pagination/js/jquery.pagination.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/base/base.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../lib/ueditor/ueditor.config.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../lib/ueditor/ueditor.all.js" type="text/javascript" charset="utf-8"></script>
+    <%-- <script type="text/javascript" src="../js/diary/index.js/"></script>--%>
+    <script src="../lib/layer/layer.js?20201106"></script>
+    <script src="../../js/jquery/jquery.form.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/lib/jQuery-File-Upload-master/jquery.fileupload.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/attachment/attachView.js?20210406.1" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="/js/common/fileupload.js"></script>
+    <!-- kindeditor文本编辑器 -->
+    <script charset="utf-8" src="/lib/kindeditor/kindeditor-all.js"></script>
+    <script charset="utf-8" src="/lib/kindeditor/lang/zh-CN.js"></script>
+</head>
+<style>
+    .one{
+        background-color: white !important;
+        color: black !important;
+    }
+    .two{
+        color: white;
+        border-radius: 20px !important;
+        /*background-color: #005825;*/
+    }
+    .three{
+        background-color: white !important;
+        border-radius: 20px !important;
+    }
+    .fore{
+        background-color: white !important;
+        border-radius: 20px !important;
+    }
+    body{
+        /*background-color: rgb(233,234,235);*/
+    }
+    .main_head{
+        width:97%;
+        text-align: left;
+        padding-left: 20px;
+        height: 40px;
+        line-height: 40px;
+        border-radius: 4px 4px 0 0;
+        /*box-shadow: 0 1px 2px 0 rgba(0,0,0,.15);*/
+        box-sizing: border-box;
+        font-size: 22px;
+        color: rgb(73, 77, 89)
+    }
+    .main{
+        box-sizing: border-box;
+        /*padding:10px 60px;*/
+        display: flex;
+        align-items: center;
+        width:97%;
+        margin:0 auto;
+        background:#fff;
+        /*box-shadow: 0 1px 2px 0 rgba(0,0,0,.15);*/
+        border-radius: 0 0 4px 4px;
+    }
+    .layui-form-label{
+        text-align: left !important;
+        padding: 9px 0;
+    }
+    .layui-hide{
+        display: inline-block !important;
+    }
+    .layui-form {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-around;
+    }
+    .layui-form .layui-inline {
+        flex: 1 1 auto;
+        margin-top: 20px;
+    }
+    .main_head img {
+        margin-top: 0.36%;
+        width: 30px;
+        height: 30px;
+        display: inline-block;
+        float: left;
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="/css/commonTheme/${sessionScope.InterfaceModel}/commonTheme.css"/>
+<body>
+<div class="head w clearfix" style="position: fixed;background: #fff;width:100%;z-index:1000;height:45px;">
+    <ul class="index_head clearfix">
+        <li id="index" data_id=""><span class="one headli1_1 titName" style="background-color: white !important;">工作日志</span></li>
+        <li id="logQuery" data_id=""><span class="two headli1_1 titName">日志查询</span></li>
+        <li id="noCommentLog" data_id=""><span class="three headli1_1 titName">未点评日志</span></li>
+        <li id="reportStatistics" data_id=""><span class="fore headli1_1 titName">汇报统计</span></li>
+        <%--<li data_id="0" onclick="develop()"><span class="headli2_1"><fmt:message code="diary.th.LogRetrieval"/></span><img class="headli1_2" src="../img/twoth.png" alt=""/></span>--%>
+        <%--</li>--%>
+    </ul>
+</div>
+<div style="position: relative;top: 60px;width: 100%;">
+    <div class="main_head"><img src="/img/main_img/app/0128.png"><div>日志查询</div></div>
+    <div class="main">
+        <form class="layui-form" action="">
+
+<%--            style="margin-left: 60px;--%>
+            <div class="layui-inline">
+                <label class="layui-form-label">发起人</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="userId" readonly id="faqiren" lay-verify="date" placeholder="请选择发起人" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-inline">
+                <label class="layui-form-label">日志日期</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="date" id="startTime" lay-verify="date" placeholder="请选择开始日期" autocomplete="off" class="layui-input">
+                </div>
+                <span style="margin-left: 10px;margin-right: 10px;">至</span>
+                <div class="layui-input-inline">
+                    <input type="text" name="date" id="endTime" lay-verify="date" placeholder="请选择结束日期" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-inline" >
+                <label class="layui-form-label">发起人部门</label>
+                <div class="layui-input-inline" >
+                    <input type="text"  name="deptId" readonly id="faqirenbumen" lay-verify="date" placeholder="请选择发起人部门" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-inline" style="margin-top: 20px;">
+                <label class="layui-form-label">阅评范围</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="date" readonly id="yuepingfanwei" lay-verify="date" placeholder="请选择汇报对象" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-inline" style="margin-top: 20px;">
+                <label class="layui-form-label">日志类型</label>
+                <div class="layui-input-inline">
+                    <select id="diaType" name="schoolTypes" class="schoolType noEdit" lay-verify="required" lay-search="" title="">
+                        <option value="1">工作日志</option>
+                        <option value="3">工作周报</option>
+                        <option value="4">工作月报</option>
+                        <option value="2">个人日志</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-inline" style="margin-top: 20px;">
+                <label class="layui-form-label">点评状态</label>
+                <div class="layui-input-inline">
+                    <select id="commentStatus" name="schoolTypes" class="schoolType noEdit" lay-verify="required" lay-search="" title="">
+                        <option value=""></option>
+                        <option value="0">未点评</option>
+                        <option value="1">已点评</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-inline" style="margin-top: 20px;">
+                <button type="button" id="search" class="layui-btn layui-btn-sm">查询</button>
+                <button type="button" id="export" class="layui-btn layui-btn-sm layui-btn-normal">导出</button>
+                <button type="button" id="yijianyuedu" class="layui-btn layui-btn-sm layui-btn-normal">一键阅读</button>
+            </div>
+
+            <%--表格--%>
+            <div class="biao" style="width: 100%;">
+                <table class="layui-hide" id="tests" lay-skin="nob"  lay-filter="tests"></table>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+<script id="barDemos" type="text/html">
+    <div class="long">
+        <a lay-event="edit" class="layui-btn layui-btn-xs" id="edit">查看</a>
+    </div>
+
+</script>
+<script>
+    function getQueryString(name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  decodeURI(r[2]); return null;
+    }
+    var returnTpe = getQueryString('returnTpe');
+    var startTime = getQueryString('startTime') || '';
+    var endTime = getQueryString('endTime') || '';
+    var userId = getQueryString('userId') || '';
+    var deptId = getQueryString('deptId') || '';
+    var userTopId = getQueryString('userTopId') || '';
+    var userTopName = getQueryString('userTopName') || '';
+    var userName = getQueryString('userName') || '';
+    var deptName = getQueryString('deptName') || '';
+    var diaType = getQueryString('diaType') || '';
+    var commentStatus = getQueryString('commentStatus');
+    if (startTime == "" && endTime == ""){
+        startTime = DateFormat(getLastMonday(new Date()), "yyyy-MM-dd");
+        endTime = DateFormat(getLastSunday(new Date()), "yyyy-MM-dd");
+    }
+    $("#startTime").val(startTime)
+    $("#endTime").val(endTime)
+    $("input[name='userId']").attr("user_id", userId)
+    $("input[name='userId']").attr("username", userName)
+    $("input[name='userId']").val(userName)
+    $("input[name='deptId']").attr("deptid", deptId)
+    $("input[name='deptId']").attr("deptname", deptName)
+    $("input[name='deptId']").val(deptName)
+    $("#yuepingfanwei").attr("user_id", userTopId)
+    $("#yuepingfanwei").attr("username", userTopName)
+    $("#yuepingfanwei").val(userTopName)
+    if (diaType != ""){
+        $("#diaType").val(diaType)
+    } else {
+        $("#diaType").val(3)
+    }
+    $("#commentStatus").val(commentStatus)
+    layui.use(['form', 'table', 'element', 'layedit','upload','laydate'], function () {
+        var laydate = layui.laydate;
+        var table = layui.table
+        var form = layui.form
+        var element = layui.element
+        var layedit = layui.layedit
+        var eleTree = layui.eleTree;
+        var upload = layui.upload;
+        laydate.render({
+            elem: '#startTime'
+        });
+        laydate.render({
+            elem: '#endTime'
+        });
+        if(returnTpe == '1'){
+            var urlList = '/diary/diaryQuery?useFlag=true&startTime='+startTime+'&endTime='+endTime+'&userId='+userId+'&deptId='+
+                deptId+'&userTopId='+userTopId+'&diaType='+diaType+'&commentStatus='+commentStatus;
+        }else{
+            var urlList = '/diary/diaryQuery?useFlag=true&startTime='+startTime+'&endTime='+endTime+'&diaType='+$("#diaType").val();
+        }
+        table.render({
+            elem: '#tests',
+            skin:'nob'
+            , url: urlList
+            , defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+                title: '提示'
+                , layEvent: 'LAYTABLE_TIPS'
+                , icon: 'layui-icon-tips'
+            }]
+            , title: '日志汇报记录'
+            , cols: [[
+                {field: 'diaDate',title: '日志日期', align:'center', width: 150}
+                ,{field: 'userId',title: '发起人', align:'center', width: 250, templet: function (d) {
+                        if(d.userName==undefined){
+                            return ''
+                        }else{
+                            return d.userName
+                        }
+                    }}
+                ,{field: 'subject',title: '日志标题', align:'center', width: 350, templet: function (d) {
+                        // 判断是否返回内容密级
+                        var contentSecrecyName = '';
+                        if (d.contentSecrecy && d.contentSecrecy !== "") {
+                            contentSecrecyName = '<span style="color: red">【' + d.contentSecrecyName + '】</span>';
+                        }
+                        return contentSecrecyName + d.subject;
+                    }}
+                ,{field: 'diaType',title: '类型', align:'center', templet: function (d) {
+                        if(d.diaType=='1'){
+                            return '工作日志'
+                        }else if(d.diaType=='2'){
+                            return '个人日志'
+                        }else if(d.diaType=='3'){
+                            return '工作周报'
+                        }else if(d.diaType=='4'){
+                            return '工作月报'
+                        }else {
+                            return ''
+                        }
+                    }}
+                ,{field: 'deptName',title: '发起人部门', align:'center', width: 100}
+                ,{field: 'readingStatus',title: '阅读状态', align:'center',}
+                ,{field: 'commentStatus',title: '点评状态', align:'center',}
+                , {field: '', title: '操作', toolbar: '#barDemos',align:'center'}
+            ]]
+            ,done: function (res, curr, count) {
+
+            }
+            , parseData: function (res) { //res 即为原始返回的数据
+                return {
+                    "code": 0, //解析接口状态
+                    "msg": res.msg, //解析提示文本
+                    "count": res.totleNum, //解析数据长度
+                    "data": res.obj, //解析数据列表
+                };
+            }
+            , page: true
+        })
+        form.render()
+        $(document).on('click','#search',function(){
+            var startTime = $("#startTime").val()
+            var endTime = $("#endTime").val()
+            var userId = $("input[name='userId']").attr('user_id')
+            var deptId = $("input[name='deptId']").attr('deptid')
+            var userTopId = $("#yuepingfanwei").attr('user_id')
+            var diaType = $("#diaType").val()
+            var commentStatus = $("#commentStatus").val()
+            if(userId != undefined){
+                var a = userId.split(',')
+                userId = a[0]
+            } else {
+                userId = ""
+            }
+            if(deptId != undefined){
+                var a = deptId.split(',')
+                deptId = a[0]
+            } else {
+                deptId = ""
+            }
+            if(userTopId != undefined){
+                var a = userTopId.split(',')
+                userTopId = a[0]
+            } else {
+                userTopId = ""
+            }
+            table.render({
+                elem: '#tests'
+                , url: '/diary/diaryQuery?useFlag=true&startTime='+startTime+'&endTime='+endTime+'&userId='+userId+'&deptId='+deptId+'&userTopId='+userTopId+'&diaType='+
+                    diaType+'&commentStatus='+commentStatus
+                , defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+                    title: '提示'
+                    , layEvent: 'LAYTABLE_TIPS'
+                    , icon: 'layui-icon-tips'
+                }]
+                , title: '日志汇报记录'
+                , cols: [[
+                    {field: 'diaDate',title: '汇报时间', align:'center', }
+                    ,{field: 'userId',title: '发起人', align:'center',templet: function (d) {
+                            if(d.userName==undefined){
+                                return ''
+                            }else{
+                                return d.userName
+                            }
+                        }}
+                    ,{field: 'subject',title: '日志标题', align:'center',width:300, templet: function (d) {
+                            // 判断是否返回内容密级
+                            var contentSecrecyName = '';
+                            if (d.contentSecrecy && d.contentSecrecy !== "") {
+                                contentSecrecyName = '<span style="color: red">【' + d.contentSecrecyName + '】</span>';
+                            }
+                            return contentSecrecyName + d.subject;
+                        }}
+                    ,{field: 'diaType',title: '类型', align:'center',templet: function (d) {
+                            if(d.diaType=='1'){
+                                return '工作日志'
+                            }else if(d.diaType=='2'){
+                                return '个人日志'
+                            }else if(d.diaType=='3'){
+                                return '工作周报'
+                            }else if(d.diaType=='4'){
+                                return '工作月报'
+                            }else {
+                                return ''
+                            }
+                        }}
+                    ,{field: 'deptName',title: '发起人部门', align:'center',}
+                    ,{field: 'readingStatus',title: '阅读状态', align:'center',}
+                    ,{field: 'commentStatus',title: '点评状态', align:'center',}
+                    , {field: '', title: '操作', toolbar: '#barDemos',align:'center'}
+                ]]
+                , limit: $(".layui-table-page").find("select").val()
+                , done: function (res, curr, count) {
+
+                }
+                , parseData: function (res) { //res 即为原始返回的数据
+
+                    return {
+                        "code": 0, //解析接口状态
+                        "msg": res.msg, //解析提示文本
+                        "count": res.totleNum, //解析数据长度
+                        "data": res.obj, //解析数据列表
+                    };
+                }
+                , page: true
+            })
+        })
+        $(document).on('click','#export',function(){
+            var startTime = $("#startTime").val()
+            var endTime = $("#endTime").val()
+            var userId = $("input[name='userId']").attr('user_id')
+            var deptId = $("input[name='deptId']").attr('deptid')
+            var userTopId = $("#yuepingfanwei").attr('user_id')
+            var diaType = $("#diaType").val()
+            var commentStatus = $("#commentStatus").val()
+            if(userId != undefined){
+                var a = userId.split(',')
+                userId = a[0]
+            } else {
+                userId = ""
+            }
+            if(deptId != undefined){
+                var a = deptId.split(',')
+                deptId = a[0]
+            } else {
+                deptId = ""
+            }
+            if(userTopId != undefined){
+                var a = userTopId.split(',')
+                userTopId = a[0]
+            } else {
+                userTopId = ""
+            }
+            window.location.href = '/diary/diaryQuery?startTime='+startTime+'&endTime='+endTime+'&userId='+userId+'&deptId='+deptId+'&userTopId='+userTopId+'&diaType='+
+                diaType+'&commentStatus='+commentStatus+'&export=1';
+        })
+        $(document).on('click','#yijianyuedu',function(){
+            var startTime = $("#startTime").val()
+            var endTime = $("#endTime").val()
+            var userId = $("input[name='userId']").attr('user_id')
+            var deptId = $("input[name='deptId']").attr('deptid')
+            var userTopId = $("#yuepingfanwei").attr('user_id')
+            var diaType = $("#diaType").val()
+            var commentStatus = $("#commentStatus").val()
+            if(userId != undefined){
+                var a = userId.split(',')
+                userId = a[0]
+            } else {
+                userId = ""
+            }
+            if(deptId != undefined){
+                var a = deptId.split(',')
+                deptId = a[0]
+            } else {
+                deptId = ""
+            }
+            if(userTopId != undefined){
+                var a = userTopId.split(',')
+                userTopId = a[0]
+            } else {
+                userTopId = ""
+            }
+            $.ajax({
+                type:'get',
+                url:' /diary/diaryQuery',
+                dataType:'json',
+                data:{
+                    'startTime':startTime,
+                    'endTime':endTime,
+                    'userId':userId,
+                    'deptId':deptId,
+                    'userTopId':userTopId,
+                    'diaType':diaType,
+                    'commentStatus':commentStatus,
+                    'reading':1
+                },
+                success:function(data){
+                    if(data.msg == 'ok'){
+                        window.location.reload()
+                    }
+                }
+            })
+        })
+        table.on('tool(tests)', function (obj) {
+            var diaId = obj.data.diaId
+            var startTime = $("#startTime").val()
+            var endTime = $("#endTime").val()
+            var userId = $("#faqiren").attr('user_id')
+            var userName = $("#faqiren").val()
+            var deptId = $("#faqirenbumen").attr('deptid')
+            var deptName = $("#faqirenbumen").val()
+            var userTopId = $("#yuepingfanwei").attr('user_id')
+            var userTopName = $("#yuepingfanwei").val()
+            var diaType = $("#diaType").val()
+            var commentStatus = $("#commentStatus").val()
+            if(userId != undefined){
+                var a = userId.split(',')
+                userId = a[0]
+            } else {
+                userId = ""
+            }
+            if(userName != undefined){
+                var a = userName.split(',')
+                userName = a[0]
+            } else {
+                userName = ""
+            }
+            if(deptId != undefined){
+                var a = deptId.split(',')
+                deptId = a[0]
+            } else {
+                deptId = ""
+            }
+            if(deptName != undefined){
+                var a = deptName.split(',')
+                deptName = a[0]
+            } else {
+                deptName = ""
+            }
+            if(userTopId != undefined){
+                var a = userTopId.split(',')
+                userTopId = a[0]
+            } else {
+                userTopId = ""
+            }
+            if(userTopName != undefined){
+                var a = userTopName.split(',')
+                userTopName = a[0]
+            } else {
+                userTopName = ""
+            }
+            window.location.href = '/diary/logCheck?diaId='+diaId+'&type=logQuery'+'&startTime='+startTime+'&endTime='+endTime+'&userId='+userId+'&userName='+userName+'&deptId='+
+                deptId+'&deptName='+deptName+'&userTopId='+userTopId+'&userTopName='+userTopName+'&diaType='+diaType+'&commentStatus='+commentStatus;
+        })
+    })
+
+    //获取周一
+    function getMonday(date) {
+        var day = date.getDay() || 7;
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1 - day);
+    };
+    //获取周日
+    function getSunday(date) {
+        var day = date.getDay() || 7;
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate() + 7 - day);
+    };
+    //获取上周一
+    function getLastMonday(date) {
+        var mondayTime = getMonday(date).getTime();//本周一时间戳
+        var oneDayTime = 24 * 60 * 60 * 1000;//一天的时间戳
+        var lastMonday = new Date(mondayTime - oneDayTime * 7);//上周一
+        return lastMonday;
+    };
+    //获取上周日
+    function getLastSunday(date) {
+        var sundayTime = getSunday(date).getTime();//本周日时间戳
+        var oneDayTime = 24 * 60 * 60 * 1000;//一天的时间戳
+        var lastSunday = new Date(sundayTime - oneDayTime * 7);//上周日
+        return lastSunday;
+    };
+    //日期格式化
+    function DateFormat(date, fmt) {
+        var o = {
+            "M+": date.getMonth() + 1,
+            "d+": date.getDate(),
+            "h+": date.getHours(),
+            "m+": date.getMinutes(),
+            "s+": date.getSeconds(),
+            "q+": Math.floor((date.getMonth() + 3) / 3),
+            "S": date.getMilliseconds()
+        };
+        if (/(y+)/.test(fmt))
+            fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt))
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    };
+
+    //选人员
+    $('#faqiren').on('click',function(){
+        user_id='faqiren';
+        $.popWindow("../common/selectUser?0");
+    });
+    //选人员
+    $('#yuepingfanwei').on('click',function(){
+        user_id='yuepingfanwei';
+        $.popWindow("../common/selectUser?0");
+    });
+    //选部门
+    $('#faqirenbumen').on('click',function(){
+        dept_id='faqirenbumen';
+        $.popWindow("../common/selectDept");
+    });
+    $(document).on('click','#index',function () {
+        window.location.href = '/diary/index';
+    })
+    $(document).on('click','#logQuery',function () {
+        window.location.href = '/diary/logQuery';
+    })
+    $(document).on('click','#noCommentLog',function () {
+        window.location.href = '/diary/noCommentLog';
+    })
+    $(document).on('click','#reportStatistics',function () {
+        window.location.href = '/diary/reportStatistics';
+    })
+</script>
+</html>

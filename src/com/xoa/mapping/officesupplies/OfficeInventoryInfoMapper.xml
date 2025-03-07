@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.officesupplies.OfficeInventoryInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.officesupplies.OfficeInventoryInfo" >
+    <id column="INVENTORY_INFO_ID" property="inventoryInfoId" jdbcType="INTEGER" />
+    <result column="INVENTORY_ID" property="inventoryId" jdbcType="INTEGER" />
+    <result column="PRO_ID" property="proId" jdbcType="INTEGER" />
+    <result column="LAST_INVENTORY_DATE" property="lastInventoryDate" jdbcType="DATE" />
+    <result column="OLD_BALANCE" property="oldBalance" jdbcType="INTEGER" />
+    <result column="SCHEDULED_RECEIPT" property="scheduledReceipt" jdbcType="INTEGER" />
+    <result column="OUTBOUND_QUANTITY" property="outboundQuantity" jdbcType="INTEGER" />
+    <result column="BOOK_QUANTITY" property="bookQuantity" jdbcType="INTEGER" />
+    <result column="ACTUAL_DISK_COUNT" property="actualDiskCount" jdbcType="INTEGER" />
+    <result column="INVENTORY_INFO_DESC" property="inventoryInfoDesc" jdbcType="VARCHAR" />
+
+    <result column="PRO_NAME" property="proName" jdbcType="VARCHAR" />
+    <result column="PRO_DESC" property="proDesc" jdbcType="VARCHAR" />
+    <result column="TYPE_NAME" property="officeProtypeName" jdbcType="VARCHAR" />
+    <result column="INVENTORY_DATE" property="inventoryDate" jdbcType="DATE" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    INVENTORY_INFO_ID, INVENTORY_ID, PRO_ID, LAST_INVENTORY_DATE, OLD_BALANCE, SCHEDULED_RECEIPT, OUTBOUND_QUANTITY, BOOK_QUANTITY, ACTUAL_DISK_COUNT, INVENTORY_INFO_DESC
+  </sql>
+
+  <insert id="addOfficeInventoryInfo" parameterType="com.xoa.model.officesupplies.OfficeInventoryInfo">
+    insert into office_inventory_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="inventoryId != null" >
+        INVENTORY_ID,
+      </if>
+      <if test="proId != null" >
+        PRO_ID,
+      </if>
+      <if test="lastInventoryDate != null" >
+        LAST_INVENTORY_DATE,
+      </if>
+      <if test="oldBalance != null" >
+        OLD_BALANCE,
+      </if>
+      <if test="scheduledReceipt != null" >
+        SCHEDULED_RECEIPT,
+      </if>
+      <if test="outboundQuantity != null" >
+        OUTBOUND_QUANTITY,
+      </if>
+      <if test="bookQuantity != null" >
+        BOOK_QUANTITY,
+      </if>
+      <if test="actualDiskCount != null" >
+        ACTUAL_DISK_COUNT,
+      </if>
+      <if test="inventoryInfoDesc != null" >
+        INVENTORY_INFO_DESC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="inventoryId != null" >
+        #{inventoryId,jdbcType=INTEGER},
+      </if>
+      <if test="proId != null" >
+        #{proId,jdbcType=INTEGER},
+      </if>
+      <if test="lastInventoryDate != null" >
+        #{lastInventoryDate,jdbcType=DATE},
+      </if>
+      <if test="oldBalance != null" >
+        #{oldBalance,jdbcType=INTEGER},
+      </if>
+      <if test="scheduledReceipt != null" >
+        #{scheduledReceipt,jdbcType=INTEGER},
+      </if>
+      <if test="outboundQuantity != null" >
+        #{outboundQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="bookQuantity != null" >
+        #{bookQuantity,jdbcType=INTEGER},
+      </if>
+      <if test="actualDiskCount != null" >
+        #{actualDiskCount,jdbcType=INTEGER},
+      </if>
+      <if test="inventoryInfoDesc != null" >
+        #{inventoryInfoDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="selectOfficeInventoryInfo" resultMap="BaseResultMap" parameterType="java.util.Map">
+    select oii.*, op.PRO_NAME, op.PRO_DESC, ot.TYPE_NAME
+    from office_inventory_info oii
+    left join office_products op on oii.PRO_ID = op.PRO_ID
+    left join office_type ot on op.OFFICE_PROTYPE = ot.ID
+    <where>
+      <if test="proName != null and proName != ''">
+        and op.PRO_NAME like CONCAT('%',#{proName,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="inventoryId != null">
+        and INVENTORY_ID = #{inventoryId,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+
+  <select id="selectLastOfficeInventoryInfo" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select oii.ACTUAL_DISK_COUNT, oi.INVENTORY_DATE
+    from office_inventory_info oii
+    left join office_inventory oi on oii.INVENTORY_ID = oi.INVENTORY_ID
+    where PRO_ID = #{proId,jdbcType=INTEGER}
+    order by INVENTORY_INFO_ID desc
+    limit 1
+  </select>
+
+</mapper>

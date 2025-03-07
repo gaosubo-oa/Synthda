@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.sys.SysLogMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.common.Syslog">
+        <id column="LOG_ID" property="logId" jdbcType="INTEGER"/>
+        <result column="USER_ID" property="userId" jdbcType="VARCHAR"/>
+        <result column="TIME" property="time" jdbcType="TIMESTAMP"/>
+        <result column="IP" property="ip" jdbcType="VARCHAR"/>
+        <result column="TYPE" property="type" javaType="java.lang.Integer"/>
+        <result column="USER_NAME" property="userName" jdbcType="VARCHAR"/>
+        <result column="CODE_NAME" property="typeName" jdbcType="VARCHAR"/>
+        <result column="CLIENT_TYPE" property="clientType" javaType="int" />
+        <result column="CLIENT_VERSION" property="clientVersion" javaType="string" />
+    </resultMap>
+
+    <select id="getTenLog" resultMap="BaseResultMap">
+        select s.LOG_ID, s.USER_ID, s.TIME, s.IP, s.TYPE,s.REMARK,s.CLIENT_TYPE,s.CLIENT_VERSION from sys_log s
+        where s.LOG_ID>(select max(LOG_ID)-10 from sys_log) order by s.LOG_ID desc
+    </select>
+    <select id="findTotalCount" resultType="java.lang.Long">
+        select COUNT(s.LOG_ID)  from sys_log s;
+    </select>
+    <select id="findTotalCount" resultType="java.lang.Long" databaseId="oracle">
+        select COUNT(s.LOG_ID)  from sys_log s
+    </select>
+    <select id="findTotalCount" resultType="java.lang.Long" databaseId="dm">
+        select COUNT(s.LOG_ID)  from sys_log s
+    </select>
+    <!--  <select id="findDayCount" resultType="com.xoa.model.common.Syslog">
+          select * from sys_log s HAVING s.LOG_ID =  min(s.LOG_ID);
+      </select>-->
+    <select id="findYearCount" resultType="java.lang.Long" parameterType="hashMap">
+        SELECT count(LOG_ID) FROM sys_log  s WHERE
+         s.TIME > #{yearStart}  AND
+           #{yearEnd}  > s.TIME
+    </select>
+    <select id="findYearCount" resultType="java.lang.Long" parameterType="hashMap" databaseId="oracle">
+        SELECT count(LOG_ID)
+        FROM sys_log  s
+        WHERE to_char(s."TIME",'yyyy-mm-dd') > #{yearStart}  AND #{yearEnd} > to_char(s."TIME",'yyyy-mm-dd')
+    </select>
+    <select id="findYearCount" resultType="java.lang.Long" parameterType="hashMap" databaseId="dm">
+        SELECT count(LOG_ID)
+        FROM sys_log  s
+        WHERE to_char(s."TIME",'yyyy-mm-dd') > #{yearStart}  AND #{yearEnd} > to_char(s."TIME",'yyyy-mm-dd')
+
+    </select>
+    <select id="findMouthCount" parameterType="java.lang.String" resultType="java.lang.Long">
+        SELECT count(LOG_ID) FROM sys_log s WHERE
+        s.TIME > #{yearmouth}
+    </select>
+    <select id="findMouthCount" parameterType="java.lang.String" resultType="java.lang.Long" databaseId="oracle">
+        SELECT count(LOG_ID) FROM sys_log s
+        WHERE to_char(s."TIME",'yyyy-mm-dd hh:mm:ss') > #{yearmouth}
+
+    </select>
+    <select id="findMouthCount" parameterType="java.lang.String" resultType="java.lang.Long" databaseId="dm">
+        SELECT count(LOG_ID) FROM sys_log s
+        WHERE to_char(s."TIME",'yyyy-mm-dd hh:mm:ss') > #{yearmouth}
+    </select>
+    <select id="findDayCount" resultType="java.lang.Long" parameterType="java.lang.String">
+        SELECT count(LOG_ID) FROM sys_log s WHERE s.TIME>#{yearmouthday};
+    </select>
+    <select id="findDayCount" resultType="java.lang.Long" parameterType="java.lang.String" databaseId="oracle">
+        SELECT count(LOG_ID) FROM sys_log s WHERE to_char(s."TIME",'yyyy-mm-dd hh:mm:ss')>#{yearmouthday}
+    </select>
+    <select id="findDayCount" resultType="java.lang.Long" parameterType="java.lang.String" databaseId="dm">
+        SELECT count(LOG_ID) FROM sys_log s WHERE to_char(s."TIME",'yyyy-mm-dd hh:mm:ss')>#{yearmouthday}
+    </select>
+
+    <select id="findTotalDay" resultMap="BaseResultMap">
+        select s.TIME from sys_log s WHERE s.LOG_ID=(SELECT min(s1.LOG_ID) from sys_log s1) AND s.TYPE=1;
+    </select>
+
+    <select id="findTotalDay" resultMap="BaseResultMap" databaseId="oracle">
+        select s."TIME" from sys_log s WHERE s.LOG_ID=(SELECT min(s1.LOG_ID) from sys_log s1) AND s."TYPE"=1
+    </select>
+
+    <select id="findTotalDay" resultMap="BaseResultMap" databaseId="dm">
+        select s."TIME" from sys_log s WHERE s.LOG_ID=(SELECT min(s1.LOG_ID) from sys_log s1) AND s."TYPE"=1
+    </select>
+    <select id="getThisMonthCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(s.LOG_ID) FROM sys_log s WHERE
+        s.TIME LIKE #{monthTime};
+    </select>
+    <select id="getThisMonthCount" parameterType="java.lang.String" resultType="java.lang.Integer" databaseId="oracle">
+        select count(s.LOG_ID) FROM sys_log s WHERE
+        TO_CHAR(s."TIME",'yyyy-mm-dd hh:mm:ss') LIKE #{monthTime}
+    </select>
+    <select id="getThisMonthCount" parameterType="java.lang.String" resultType="java.lang.Integer" databaseId="dm">
+        select count(s.LOG_ID) FROM sys_log s WHERE
+        TO_CHAR(s."TIME",'yyyy-mm-dd hh:mm:ss') LIKE #{monthTime}
+    </select>
+    <select id="getEachDayLogData" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(s.LOG_ID) FROM sys_log s WHERE s.TIME  LIKE #{dayTime};
+    </select>
+    <select id="getEachDayLogData" parameterType="java.lang.String" resultType="java.lang.Integer" databaseId="oracle">
+        select count(s.LOG_ID) FROM sys_log s WHERE  TO_CHAR(s."TIME",'yyyy-mm-dd hh:mm:ss')  LIKE #{dayTime}
+    </select>
+    <select id="getEachDayLogData" parameterType="java.lang.String" resultType="java.lang.Integer" databaseId="dm">
+        select count(s.LOG_ID) FROM sys_log s WHERE  TO_CHAR(s."TIME",'yyyy-mm-dd hh:mm:ss')  LIKE #{dayTime}
+    </select>
+    <select id="getHourLog" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+        SELECT count(s.LOG_ID) from SYS_LOG s
+         where
+         TYPE='1' and s.TIME LIKE #{hourTime}
+    </select>
+    <select id="getHourLog" parameterType="java.util.HashMap" resultType="java.lang.Integer" databaseId="oracle">
+        SELECT count(s.LOG_ID) from SYS_LOG s
+        where s."TYPE"='1' and to_char(s."TIME",'yyyy-mm-dd hh:mm:ss') LIKE #{hourTime}
+    </select>
+    <select id="getHourLog" parameterType="java.util.HashMap" resultType="java.lang.Integer" databaseId="dm">
+        SELECT count(s.LOG_ID) from SYS_LOG s
+        where s."TYPE"='1' and to_char(s."TIME",'yyyy-mm-dd hh:mm:ss') LIKE #{hourTime}
+    </select>
+
+    <select id="findLogOption" parameterType="hashMap" resultMap="BaseResultMap">
+        select
+        s.IP, s.TIME, s.LOG_ID, s.USER_ID, s.IP, s.TYPE,s.REMARK,
+        <if test="type != null and type != 10">
+        u.USER_NAME,
+        </if>
+        sc.CODE_NAME,
+        s.CLIENT_TYPE,
+        s.CLIENT_VERSION
+        from sys_log s,
+            <if test="type != null and type != 10">
+             user u,
+            </if>
+             sys_code sc
+        <where>
+            <if test="type != null">
+                and s.TYPE = #{type} AND sc.CODE_NO=#{type} AND sc.PARENT_NO='SYS_LOG'
+            </if>
+            <if test="startTime != null">
+                AND TIME >= #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND #{endTime} >= TIME
+            </if>
+            <if test="ip != null">
+                AND s.IP = #{ip}
+            </if>
+            <if test="remark != null">
+                AND s.REMARK LIKE #{remark}
+            </if>
+            <if test="ids != null">
+                <foreach collection="ids" item="id" open=" AND  s.USER_ID  IN ( " close=" ) " separator=" , ">
+                    #{id}
+
+
+                </foreach>
+            </if>
+
+            <if test="type != null and type != 10">
+                AND s.USER_ID=u.USER_ID
+            </if>
+
+            AND s.TYPE = sc.CODE_NO AND sc.PARENT_NO='SYS_LOG'
+            <!--
+                        <if test="ids != null">
+                            <foreach collection="ids" item="id" open=" AND s.USER_ID=u.USER_ID AND  u.USER_ID  =" close=" "
+                                     separator="">
+                                #{id}
+                            </foreach>
+                        </if>
+            -->
+
+
+        </where>
+        ORDER BY s.TIME DESC
+        limit 0,2000;
+    </select>
+
+
+    <select id="findLogOption" parameterType="hashMap" resultMap="BaseResultMap" databaseId="oracle">
+        select s.IP, s."TIME", s.LOG_ID, s.USER_ID, s.IP, s."TYPE",s.REMARK,u.USER_NAME,sc.CODE_NAME
+        from sys_log s, "USER" u, sys_code sc
+        <where>
+            <if test="type != null">
+                and s."TYPE" = #{type} AND sc.CODE_NO=to_char(#{type}) AND sc.PARENT_NO='SYS_LOG'
+            </if>
+            <if test="startTime != null">
+               AND to_char(s."TIME",'yyyy-mm-dd hh:mm:ss') >= #{startTime}
+            </if>
+            <if test="endTime != null">
+              AND #{endTime} >= to_char(s."TIME",'yyyy-mm-dd hh:mm:ss')
+            </if>
+            <if test="ip != null">
+                AND s.IP = #{ip}
+            </if>
+            <if test="remark != null">
+                AND s.REMARK LIKE #{remark}
+            </if>
+            <if test="ids != null">
+                <foreach collection="ids" item="id" open=" AND  s.USER_ID  IN ( " close=" ) " separator=" , ">
+                    #{id}
+                </foreach>
+            </if>
+            AND s.USER_ID=u.USER_ID AND to_char(s."TYPE") = sc.CODE_NO AND sc.PARENT_NO='SYS_LOG'
+            AND rownum  &lt;= 300
+        </where>
+
+    </select>
+
+    <select id="findLogOption" parameterType="hashMap" resultMap="BaseResultMap" databaseId="dm">
+        select s.IP, s."TIME", s.LOG_ID, s.USER_ID, s.IP, s."TYPE",s.REMARK,u.USER_NAME,sc.CODE_NAME
+        from sys_log s, "USER" u, sys_code sc
+        <where>
+            <if test="type != null">
+                and s."TYPE" = #{type} AND sc.CODE_NO=to_char(#{type}) AND sc.PARENT_NO='SYS_LOG'
+            </if>
+            <if test="startTime != null">
+                AND to_char(s."TIME",'yyyy-mm-dd hh:mm:ss') >= #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND #{endTime} >= to_char(s."TIME",'yyyy-mm-dd hh:mm:ss')
+            </if>
+            <if test="ip != null">
+                AND s.IP = #{ip}
+            </if>
+            <if test="remark != null">
+                AND s.REMARK LIKE #{remark}
+            </if>
+            <if test="ids != null">
+                <foreach collection="ids" item="id" open=" AND  s.USER_ID  IN ( " close=" ) " separator=" , ">
+                    #{id}
+                </foreach>
+            </if>
+            AND s.USER_ID=u.USER_ID AND to_char(s."TYPE") = sc.CODE_NO AND sc.PARENT_NO='SYS_LOG'
+            AND rownum  &lt;= 300
+        </where>
+
+    </select>
+    <delete id="deleteLogOption" parameterType="hashMap">
+        delete from sys_log
+        <where>
+            <if test="type != null">
+                and TYPE = #{type}
+            </if>
+            <if test="startTime != null">
+                AND TIME >= #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND #{endTime} >= TIME
+            </if>
+            <if test="ip != null">
+                AND IP = #{ip}
+            </if>
+            <if test="remark != null">
+                AND REMARK LIKE #{remark}
+            </if>
+            <if test="ids != null">
+                <foreach collection="ids" item="id" open=" AND  USER_ID  IN ( " close=" ) " separator=" , ">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+
+    </delete>
+
+    <delete id="deleteLogById" parameterType="java.lang.Integer">
+        DELETE FROM sys_log  WHERE LOG_ID = #{id}
+    </delete>
+    <delete id="deleteAllLog">
+        DELETE FROM sys_log;
+    </delete>
+
+    <select id="getUserLoginLogs" parameterType="java.lang.String" resultMap="BaseResultMap">
+           SELECT
+         s.LOG_ID,
+         s.USER_ID,
+         s.TIME,
+         s.IP,
+         sc.CODE_NAME,
+         u.USER_NAME
+        FROM
+         sys_log s
+        INNER JOIN `user` u
+        INNER JOIN sys_code sc ON s.USER_ID = u.USER_ID
+        where
+         sc.CODE_NO = '1'
+        AND sc.PARENT_NO = 'SYS_LOG'
+        AND s.USER_ID = #{userId}
+        ORDER BY
+         s.TIME DESC LIMIT 20
+    </select>
+
+    <select id="getUserLoginLogs" parameterType="java.lang.String" resultMap="BaseResultMap"  databaseId="oracle">
+        SELECT
+        s.LOG_ID,
+        s.USER_ID,
+        s."TIME",
+        s.IP,
+        sc.CODE_NAME,
+        u.USER_NAME
+        FROM
+        sys_log s
+        INNER JOIN "USER" u ON s.USER_ID = #{userId}
+        INNER JOIN sys_code sc ON s.USER_ID = u.USER_ID
+        where
+        sc.CODE_NO = '1'
+        AND sc.PARENT_NO = 'SYS_LOG'
+        and  rownum &lt; 10
+        ORDER BY
+        s."TIME" DESC
+    </select>
+
+    <select id="getUserLoginLogs" parameterType="java.lang.String" resultMap="BaseResultMap" databaseId="dm">
+        SELECT
+        s.LOG_ID,
+        s.USER_ID,
+        s."TIME",
+        s.IP,
+        sc.CODE_NAME,
+        u.USER_NAME
+        FROM
+        sys_log s
+        INNER JOIN "USER" u ON s.USER_ID = #{userId}
+        INNER JOIN sys_code sc ON s.USER_ID = u.USER_ID
+        where
+        sc.CODE_NO = '1'
+        AND sc.PARENT_NO = 'SYS_LOG'
+        and  rownum &lt; 10
+        ORDER BY
+        s."TIME" DESC
+    </select>
+
+    <select id="getUserLoginLogs" parameterType="java.lang.String" resultMap="BaseResultMap" databaseId="kingbase">
+        SELECT
+            s.LOG_ID,
+            s.USER_ID,
+            s.TIME,
+            s.IP,
+            sc.CODE_NAME,
+            u.USER_NAME
+        FROM
+            sys_log s
+            INNER JOIN "user" u ON s.USER_ID = u.USER_ID
+            INNER JOIN sys_code sc ON s.USER_ID = u.USER_ID
+        WHERE
+            sc.CODE_NO = '1'
+            AND sc.PARENT_NO = 'SYS_LOG'
+            AND s.USER_ID = #{userId}
+        ORDER BY
+            s.TIME DESC
+            LIMIT 20
+    </select>
+
+    <select id="getTenBatchSetLog" resultMap="BaseResultMap">
+        select s.* from sys_log s WHERE
+       s.TYPE = 19 ORDER BY s.LOG_ID DESC LIMIT 0,10;
+    </select>
+    <select id="getTenBatchSetLog" resultMap="BaseResultMap" databaseId="oracle">
+        select s.* from sys_log s WHERE
+        s.TYPE = 19 AND  ROWNUM >=0 AND  ROWNUM <![CDATA[<]]>= 10 ORDER BY s.LOG_ID DESC
+    </select>
+    <select id="getTenBatchSetLog" resultMap="BaseResultMap" databaseId="dm">
+        select s.* from sys_log s WHERE
+        s.TYPE = 19 AND  ROWNUM >=0 AND  ROWNUM <![CDATA[<]]>= 10 ORDER BY s.LOG_ID DESC
+    </select>
+    <select id="getModifyPwdLog" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        s.LOG_ID,
+        s.USER_ID,
+        s.TIME,
+        s.IP,
+        s.REMARK,
+        sc.CODE_NAME,
+        u.USER_NAME
+        FROM sys_log s
+        INNER JOIN `user` u  ON s.USER_ID = u.USER_ID
+        INNER JOIN sys_code sc
+        where
+        sc.CODE_NO = '14'
+        AND sc.PARENT_NO = 'SYS_LOG'
+        AND s.USER_ID = #{userId}
+        AND s.TYPE = sc.CODE_NO
+        ORDER BY  s.TIME DESC LIMIT 10
+    </select>
+
+    <select id="getModifyPwdLog" parameterType="java.lang.String" resultMap="BaseResultMap"  databaseId="oracle">
+        SELECT
+        s.LOG_ID,
+        s.USER_ID,
+        s."TIME",
+        s.IP,
+        s.REMARK,
+        sc.CODE_NAME,
+        u.USER_NAME
+        FROM sys_log s
+        INNER JOIN "USER" u  ON s.USER_ID = u.USER_ID
+        INNER JOIN sys_code sc on sc.CODE_NO = '14'
+        where
+         sc.PARENT_NO = 'SYS_LOG'
+        AND s.USER_ID = #{userId}
+        AND s."TYPE" = sc.CODE_NO
+        and  rownum &lt; 10
+        ORDER BY  s."TIME" DESC
+    </select>
+
+    <select id="getModifyPwdLog" parameterType="java.lang.String" resultMap="BaseResultMap" databaseId="dm">
+       SELECT
+        s.LOG_ID,
+        s.USER_ID,
+        s."TIME",
+        s.IP,
+        s.REMARK,
+        sc.CODE_NAME,
+        u.USER_NAME
+        FROM sys_log s
+        INNER JOIN "USER" u  ON s.USER_ID = u.USER_ID
+        INNER JOIN sys_code sc on sc.CODE_NO = '14'
+        where
+         sc.PARENT_NO = 'SYS_LOG'
+        AND s.USER_ID = #{userId}
+        AND s."TYPE" = sc.CODE_NO
+        and  rownum &lt; 10
+        ORDER BY  s."TIME" DESC
+    </select>
+
+    <select id="getModifyPwdLog" parameterType="java.lang.String" resultMap="BaseResultMap" databaseId="kingbase">
+       SELECT
+        s.LOG_ID,
+        s.USER_ID,
+        s."TIME",
+        s.IP,
+        s.REMARK,
+        sc.CODE_NAME,
+        u.USER_NAME
+        FROM sys_log s
+        INNER JOIN "USER" u  ON s.USER_ID = u.USER_ID
+        INNER JOIN sys_code sc on sc.CODE_NO = '14'
+        where
+         sc.PARENT_NO = 'SYS_LOG'
+        AND s.USER_ID = #{userId}
+        AND s."TYPE" = sc.CODE_NO
+        and  rownum &lt; 10
+        ORDER BY  s."TIME" DESC
+    </select>
+
+    <select id="getLoginLog" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        s.LOG_ID,
+        s.USER_ID,
+        s.TIME,
+        s.IP,
+        s.REMARK,
+        sc.CODE_NAME,
+        u.USER_NAME
+        FROM sys_log s
+        INNER JOIN `user` u  ON s.USER_ID = u.USER_ID
+        INNER JOIN sys_code sc
+        where
+        sc.CODE_NO = '1'
+        AND sc.PARENT_NO = 'SYS_LOG'
+        AND s.USER_ID = #{userId}
+        AND s.TYPE = sc.CODE_NO
+        ORDER BY  s.TIME DESC LIMIT 10
+    </select>
+
+    <select id="getLoginLog" parameterType="java.lang.String" resultMap="BaseResultMap"  databaseId="oracle">
+        SELECT
+        s.LOG_ID,
+        s.USER_ID,
+        s."TIME",
+        s.IP,
+        s.REMARK,
+        sc.CODE_NAME,
+        u.USER_NAME
+        FROM sys_log s
+        INNER JOIN "USER" u  ON s.USER_ID = u.USER_ID
+        INNER JOIN sys_code sc on sc.CODE_NO = '1'
+        where
+        sc.PARENT_NO = 'SYS_LOG'
+        AND s.USER_ID = #{userId}
+        AND s."TYPE" = sc.CODE_NO
+        and  rownum &lt; 10
+        ORDER BY  s."TIME" DESC
+    </select>
+
+    <select id="getLoginLog" parameterType="java.lang.String" resultMap="BaseResultMap" databaseId="dm">
+        SELECT
+        s.LOG_ID,
+        s.USER_ID,
+        s."TIME",
+        s.IP,
+        s.REMARK,
+        sc.CODE_NAME,
+        u.USER_NAME
+        FROM sys_log s
+        INNER JOIN "USER" u  ON s.USER_ID = u.USER_ID
+        INNER JOIN sys_code sc on sc.CODE_NO = '1'
+        where
+        sc.PARENT_NO = 'SYS_LOG'
+        AND s.USER_ID = #{userId}
+        AND s."TYPE" = sc.CODE_NO
+        and  rownum &lt; 10
+        ORDER BY  s."TIME" DESC
+    </select>
+
+    <select id="getLoginLog" parameterType="java.lang.String" resultMap="BaseResultMap" databaseId="kingbase">
+        SELECT
+        s.LOG_ID,
+        s.USER_ID,
+        s."TIME",
+        s.IP,
+        s.REMARK,
+        sc.CODE_NAME,
+        u.USER_NAME
+        FROM sys_log s
+        INNER JOIN "USER" u  ON s.USER_ID = u.USER_ID
+        INNER JOIN sys_code sc on sc.CODE_NO = '1'
+        where
+        sc.PARENT_NO = 'SYS_LOG'
+        AND s.USER_ID = #{userId}
+        AND s."TYPE" = sc.CODE_NO
+        and  rownum &lt; 10
+        ORDER BY  s."TIME" DESC
+    </select>
+
+    <select id="getPassWordErrLog" resultMap="BaseResultMap" parameterType="Map">
+       select s.LOG_ID, s.USER_ID, s.TIME, s.IP, s.TYPE from sys_log s where DATE(s.TIME)=#{dateTime} AND s.USER_ID=#{userId} AND s.TYPE=2
+    </select>
+
+
+    <select id="getEachMouthUsers" resultMap="BaseResultMap" parameterType="com.xoa.model.common.Syslog">
+        SELECT s.USER_ID,s.TIME FROM sys_log s where DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= date(s.TIME) ORDER BY s.TIME
+    </select>
+
+    <select id="getEachSevenUsers" resultType="java.lang.Integer">
+        SELECT count(s.LOG_ID) FROM sys_log s where DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= date(s.TIME)
+    </select>
+
+    <select id="getFirstLog" resultMap="BaseResultMap" >
+        select LOG_ID, USER_ID, TIME, IP, TYPE from sys_log limit 0,1
+    </select>
+
+
+    <select id="selectSecurityLog" resultMap="BaseResultMap" parameterType="Map">
+        select * from sys_log
+        <where>
+            <trim prefixOverrides="and">
+                <if test="type != null and type != ''">
+                    and TYPE = #{type}
+                </if>
+                <if test="userId != null and userId != ''">
+                    and USER_ID = #{userId}
+                </if>
+                <if test="beginTime != null and endTime != null">
+                    and TIME BETWEEN #{beginTime} AND #{endTime}
+                </if>
+                <if test="queryUserIds != null and queryUserIds.size > 0">
+                    and USER_ID IN
+                    <foreach collection="queryUserIds" item="item" index="index"  open="(" separator="," close=")">
+                        #{item}
+                    </foreach>
+                </if>
+                <if test="notQueryUserIds != null and notQueryUserIds.size > 0">
+                    and
+                    <foreach collection="notQueryUserIds" item="item" separator="and" index="index">
+                        USER_ID != #{item}
+                    </foreach>
+                </if>
+            </trim>
+        </where>
+         ORDER BY TIME DESC
+    </select>
+</mapper>
+

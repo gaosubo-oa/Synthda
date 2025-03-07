@@ -1,0 +1,19 @@
+.titleleft{
+    background: url(/img/main_img/titleft.png) no-repeat;
+}
+.pbg{
+    border-top: 3px solid #bc0f14;
+}
+.mores{
+    color: #bc0f14;
+}
+.btnSelect{
+    background: #bc0f14!important;
+}
+.r-top{
+    color: #bc0f14;
+}
+.flowBtn, .reveiveBtn, .sendBtn, .emailBtn, .newBtn, .ReadFileBtn{
+    color: #bc0f14!important;
+    border: #bc0f14 1px solid!important;
+}

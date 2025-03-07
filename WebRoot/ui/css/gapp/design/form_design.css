@@ -1,0 +1,1094 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+body{
+    padding-top: 0;
+    background-color: #f3f5f8;
+}
+
+/*  ******************************************    头部选项卡   ***********************************************  */
+.layui-tab{
+    margin: 0!important;
+}
+
+.layui-tab-title{
+    left: 50%!important;
+    display: inline-block;
+    transform: translateX(-50%);
+}
+
+.layui-tab-title .layui-this:after{
+    height:51px!important;
+}
+
+.layui-tab-title{
+    height: 50px!important;
+}
+
+.layui-tab-title li{
+    font-size: 16px!important;
+    line-height: 50px!important;
+}
+
+.layui-tab-brief>.layui-tab-more li.layui-this:after, .layui-tab-brief>.layui-tab-title .layui-this:after{
+    border-bottom:3px solid rgb(56, 156, 255)!important;
+}
+
+.layui-tab-brief>.layui-tab-title .layui-this{
+    color: rgb(56, 156, 255) !important;
+}
+
+/*  *******************************************   选项卡内容   ****************************************************  */
+.layui-tab-content{
+    padding: 0!important;
+    height: calc(100% - 51px);
+}
+
+
+/*  *********************************************   头部保存   ***********************************************  */
+
+#header{
+    height: 40px;
+    width: 100%;
+    background-color: #ffffff;
+
+}
+
+#header span{
+    font-size: 15px;
+    color: #107fff;
+    line-height: 40px;
+    margin-left: 20px;
+}
+
+.save{
+    float: right;
+    width: 132px;
+    height: 40px;
+    background-color: #107fff;
+    line-height:40px;
+    text-align:center;
+    color:#ffffff;
+    vertical-align:center;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.save:hover{
+    background-color: #107fDD
+}
+
+.save img{
+    height: 15px;
+    width: 15px;
+}
+
+
+/*  **********************************************   左侧选择控件样式   ********************************************  */
+.body{
+    overflow: scroll;
+    width: 100%;
+    bottom: 0;
+    padding: 10px 0.5% ;
+    height: calc(100% - 41px);
+    box-sizing: border-box;
+
+}
+
+.body>div{
+    float: left;
+}
+
+#chooses{
+    width: 14%;
+    height: calc(100vh - 130px);
+    overflow-y: scroll;
+    box-shadow:0 0 3px 3px rgba(0,0,0,0.1);
+    border-radius: 5px;
+}
+
+#chooses>div{
+    height: 100%;
+}
+
+#chooses::-webkit-scrollbar{
+    display: none;
+}
+
+#chooses{
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+#chooses>div{
+    border-radius: 5px;
+    background-color: #fff;
+    margin-top: 10px;
+    width: 100%;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.4) ;
+}
+
+#chooses>div:first-child{
+    margin-top:0
+}
+
+.control{
+    width: 100%;
+    display: flex;
+    flex-wrap:wrap;
+    margin-bottom: 3px;
+}
+
+.title{
+    width: 100%;
+    height: 17px;
+    padding: 12px 0 7px 12px;
+}
+
+.title span{
+    font-weight: 700;
+}
+
+.control li{
+    width: 46%;
+    margin: 2%;
+    height: 31px;
+    line-height: 31px;
+    background-color: rgb(244,248,252);
+    color: #304265;
+    border-radius: 3px;
+    overflow: hidden;
+    cursor: grabbing;
+    position: relative;
+    border-radius: 3px;
+}
+
+li img{
+    width: 18px;
+    height: 18px;
+    vertical-align: center;
+    margin-right: 5%;
+    margin-left: 18%;
+}
+
+.control li:hover{
+    background-color: rgb(220,255,255);
+}
+
+#chooses span{
+    color: #304265;
+    font-size: 14px;
+    font-width: 700;
+}
+
+
+
+.add{
+    position: absolute;
+    top: 50%;
+    right: 2px;
+    transform: translateY(-50%);
+    opacity: 0;
+    font-size: 16px;
+    cursor: pointer;
+    height: 18px;
+    width: 18px;
+}
+
+.add .icon-add{
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    background-color: #ffffff;
+}
+
+.moreCol{
+    font-size: 16px;
+    margin: 10px 10px;
+    color: #666666;
+}
+
+/*  ***********************************************   中间表单样式   ***********************************************  */
+
+#context{
+    width: 68%;
+    margin: 0 1%;
+    padding: 12px 0;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.4) ;
+    overflow: auto;
+    background-color: #fff;
+    height: calc(100vh - 150px);
+}
+
+#context::-webkit-scrollbar {
+    display: none;
+}
+
+#context{
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+#context .layui-textarea{
+    resize:none!important;
+    min-height:80px!important;
+}
+
+
+/* ************************************************     右侧属性样式     *******************************************  */
+
+#set{
+    width: 16%;
+    height: calc(100vh - 130px);
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.4);
+    background-color: #ffffff;
+    font-size: 15px;
+}
+
+#set::-webkit-scrollbar{
+    display: none;
+}
+
+#set{
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.btn{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    padding: 0 15%;
+    box-sizing: border-box;
+}
+
+.btn li{
+    flex: 1;
+    line-height: 50px;
+    color: #000000;
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+}
+
+.neirong{
+    width: 100%;
+    height: calc(100% - 50px);
+    position: relative;
+    overflow-y: auto;
+}
+
+
+.neirong::-webkit-scrollbar{
+    display: none;
+}
+
+.neirong{
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.neirong>div{
+    width: 100%;
+}
+
+.control-data-box{
+    color: #ffffff;
+    display: none;
+    transition: all 0.5s;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.control-data-box #infoFill .layui-form-select{
+    width: 55%;
+    display: inline-block;
+}
+
+.control-data-box #infoFill>div>div{
+    padding: 3px 0px;
+}
+
+#controlBtn div,#formBtn div{
+    width: 0;
+    height: 3px;
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #389cff;
+    transition: all 0.2s;
+}
+
+#formBtn div{
+    width: 100%;
+    color: #389cff;
+}
+
+#controlBtn div:hover,#formBtn div:hover{
+    color: #389cff;
+}
+
+
+
+/*  ****************************************   表单    *********************************************  */
+
+.layui-form-label{
+    padding: 5px 0!important;
+    height: 30px;
+}
+
+
+#context  .layui-form-label{
+    text-align: left;
+}
+
+#context>#show-form>.layui-form-item{
+    width: 100%;
+    /*padding: 12px 2.5%;*/
+    padding: 9px 2.5%;
+    margin-bottom:0!important;
+    box-sizing: border-box;
+    cursor: grabbing;
+    border: 1px solid #ffffff;
+    position: relative;
+}
+
+
+.layui-form-itemc{
+    width: 100%;
+    /*padding: 12px 2.5%;*/
+    padding: 9px 2.5%;
+    margin-bottom:0!important;
+    box-sizing: border-box;
+    cursor: grabbing;
+    border: 1px solid #ffffff;
+}
+
+#context .layui-btn:hover{
+    opacity:1!important;
+}
+
+#context .layui-btn{
+    cursor: grabbing;
+}
+
+#context .input-text,#context .layui-input,#context .layui-textarea{
+    cursor: grabbing;
+}
+
+.input-enter:hover{
+    background-color: rgb(244,248,252);
+}
+
+#context>#show-form .input-active{
+    background-color: rgb(233,243,253);
+    border-top: #0aa3e3 1px dashed;
+    border-bottom: #0aa3e3 1px dashed;
+    border-left: #0aa3e3 1px dashed;
+    border-right: #0aa3e3 1px dashed;
+    z-index: 10;
+    position: relative;
+}
+
+
+
+
+/*  *******************************************   表单属性   **************************************************  */
+
+#data-title .layui-input-block{
+    margin-left:0!important;
+}
+
+#form-data .layui-form-item{
+    padding: 0 5%;
+    box-sizing: border-box;
+}
+
+#form-data xm-select > .xm-label .xm-label-block{
+    width: 45%;
+}
+
+#form-data .layui-input, #form-data .layui-select, #form-data .layui-textarea{
+    height: 40px!important;
+    line-height: 40px!important;
+    border-radius:4px!important;
+}
+
+#form-data  .layui-form-label{
+    text-align: left;
+    width: 100%!important;
+}
+
+#form-help img,
+#task-remind img,
+#operationLog img,
+#data-title img,
+#show-set img{
+    width: 15px;
+    height: 15px;
+    vertical-align:top;
+}
+
+#form-help .help-icon,
+#task-remind .help-icon,
+#operationLog .help-icon,
+#data-title .help-icon,
+#show-set .help-icon{
+    position: relative;
+}
+
+.move-box,.PC-box{
+    margin-left: 10%;
+    background-color:rgb(244,248,252);
+    display: inline-block;
+    padding: 3px 0;
+}
+
+div[lay-skin="primary"]{
+    display: block;
+}
+
+#form-data .layui-form-radio{
+    display: inline;
+}
+
+#form-data .layui-form-radio>div{
+    display: inline;
+}
+
+
+/*  ***************************************   控件属性   *******************************************  */
+
+/*   单行文本   */
+#control-data .layui-form-item{
+    padding: 0 5%;
+    box-sizing: border-box;
+    margin-top: 10px;
+}
+
+#control-data .layui-form-label{
+    text-align: left;
+}
+
+#control-data{
+    color: #000000;
+}
+#control-data .control-remarks{
+    float: right;
+    font-size: 13px;
+    background-color: rgb(244,248,252);
+}
+
+#control-data #hide .hide-remarks{
+    float: right;
+    font-size: 13px;
+    margin-right: 20px;
+}
+
+#control-data #scanCode img{
+    width: 15px;
+    height: 15px;
+    vertical-align:top;
+}
+
+#control-data #scanCode .help-icon{
+    position: relative;
+}
+
+#control-data #scanCode .help-icon::before{
+    content:'支持扫条码，二维码';
+    width: 150px;
+    background-color: rgb(83,107,155);
+    position: absolute;
+    color: #ffffff;
+    left: 11px;
+    top: -40px;
+    box-sizing: border-box;
+    padding: 5px;
+    border-radius: 5px;
+    transform:translateX(-30%);
+    display: none;
+}
+
+#control-data #scanCode .help-icon::after{
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+    border-top-color: rgb(83,107,155);
+    top: -10px;
+    left: 0px;
+    display: none;
+}
+
+#control-data #scanCode .help-icon:hover::before,
+#control-data #scanCode .help-icon:hover::after{
+    display: block;
+}
+
+#control-data #remarks .layui-textarea{
+    resize:none!important;
+    min-height:80px!important;
+}
+
+#control-data #remarks textarea::-webkit-scrollbar{
+    display: none;
+}
+
+#control-data #remarks textarea{
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+#control-data .radioListItem input[type="text"]{
+    width: 70%;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+#control-data .checkListItem input[type="text"]{
+    width: 70%;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+#control-data .checkListItem>div{
+    display: inline-block;
+    padding: 0!important;
+    margin: 0;
+}
+
+#control-data .radioListItem>div{
+    padding: 0!important;
+    margin: 0;
+}
+
+
+#control-data .radioListItem .delete,#control-data .checkListItem .delete{
+    position: relative;
+    top: 5px;
+}
+
+.radio-line-block>div{
+    display: inline-block;
+}
+
+.check-line-block>div{
+    display: inline-block;
+}
+
+.check-line-block>div>.layui-disabled,
+.check-line-block>div>.layui-disabled:hover,
+.radio-line-block>div>.layui-disabled,
+.radio-line-block>div>.layui-disabled:hover
+{
+    cursor: grabbing!important;
+}
+
+.radio-line-block>div div,.check-line-block>div div {
+    color: #000000 !important;
+}
+
+.check-line-block>div span{
+    color: #000000 !important;
+}
+
+.radio-line-block>div i{
+    color: #c2c2c2!important;
+}
+
+.radio-line-block>div{
+    display: inline-block;
+}
+
+.radio-line-block .layui-form-radio>i{
+    color: #5FB878!important;
+}
+
+.colDelete{
+    position: absolute;
+    right: 8px;
+    width: 26px;
+    height: 26px!important;
+    background-color: #ff4384;
+    top: -10px;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    display: none;
+    z-index:9999
+}
+
+.colCopy{
+    position: absolute;
+    right: 40px;
+    width: 26px;
+    height: 26px!important;
+    background-color: #7457ff;
+    top: -10px;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+    display: none;
+    z-index:9999
+}
+
+.col-delete{
+    /*position: absolute;*/
+    top: 20px;
+    right: 8px;
+    /*background-color: #ff4384;*/
+    /*border-radius: 50%;*/
+}
+
+.col-addnew{
+    /*position: absolute;*/
+    top: 20px;
+    right: 80px;
+    /*background-color: #7457ff;*/
+    /*border-radius: 50%;*/
+}
+
+.col-icon-delete,.col-icon-copy{
+    width: 16px;
+    height: 18px;
+    color: #ffffff;
+    line-height: 26px;
+}
+
+#switch>div>.layui-form-switch{
+    margin-top: 0px!important;
+}
+
+#address + span{
+    overflow: hidden!important;
+}
+
+/*  ***************************************   表单名   *******************************************  */
+#tabName{
+    border: none;
+    outline:medium;
+    background-color: #eeeeee;
+    height: 30px;
+    line-height: 30px;
+    font-size: 18px;
+    color: #666666;
+    border-bottom: 2px dotted #A9A9A9;
+    width: 200px;
+    display: block;
+    position: absolute;
+    top: 10px;
+    left: 50px;
+}
+
+
+/* jQuery Gridly
+ * Copyright 2013 Kevin Sylvestre
+ * 1.2.3
+ */
+#show-form, #show-form > :not(.dragging) {
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+#show-form .dragging {
+    z-index: 800;
+}
+
+
+#show-form {
+    position: relative;
+    height: auto;
+    width: 100%;
+}
+
+#tips{
+    background-color: rgb(83,107,155);
+    color: #ffffff;
+    max-width: 250px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 5px;
+    border-radius: 5px;
+    display: none;
+    z-index:99999999999
+}
+
+#tips::after{
+    content: '';
+    position: absolute;
+    display: block;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0px;
+    height: 0px;
+    border: 10px solid transparent;
+    border-top-color: rgb(83,107,155);
+}
+
+#colDes{
+    background-color: rgb(83,107,155);
+    color: #ffffff;
+    max-width: 250px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 5px;
+    border-radius: 5px;
+    display: none;
+    z-index:99999999999
+}
+
+#colDes::after{
+    content: '';
+    position: absolute;
+    display: block;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0px;
+    height: 0px;
+    border: 10px solid transparent;
+    border-top-color: rgb(83,107,155);
+}
+
+.layui-icon-tips{
+    color: #cccccc;
+}
+
+/*分组标题样式*/
+.group-title{
+    position: absolute;
+    display: inline-block;
+    right: 10px;
+    top: 0;
+    width: 15px;
+    height: 15px;
+}
+
+
+/*一行多列样式*/
+.more-btn{
+    width: 70px;
+    height: 32px;
+    background-color: #fff;
+    border: 1px solid #cccccc;
+    line-height: 32px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.more-active{
+    background-color: #107FFF;
+    color: #ffffff;
+}
+
+.proportion{
+    width: 90%;
+    margin: 10px 5%;
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #dddddd;
+    cursor: pointer;
+}
+
+.proportion-active{
+    border: 1px solid #107FFF;
+    position: relative;
+}
+
+.proportion-active::after{
+    content: '\2714';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #ffffff;
+    text-align: center;
+    background-color: #107FFF;
+    font-size: 13px;
+    text-align: center;
+    line-height: 15px;
+    width: 15px;
+    height: 15px;
+}
+
+.proportion-item{
+    box-sizing: border-box;
+    padding: 0 10px;
+    display: inline-block;
+    line-height: 30px;
+    height: 30px;
+}
+
+.proportion-item span{
+    background-color:#eeeeee;
+    color: #666666;
+}
+
+.no-choose-col-box{
+    display: inline-block;
+    text-align: center;
+    box-sizing: border-box;
+    vertical-align: top;
+    padding: 10px;
+    color: #666666;
+}
+
+.no-choose-col{
+    min-height: 88px;
+    line-height: 88px;
+    cursor: pointer!important;
+}
+
+.no-choose-col{
+    border: 1px  dashed  #cccccc;
+}
+
+.input-active .no-choose-col{
+    border: 1px  dashed  #107FFF;
+}
+
+#addColList{
+    border-right: 1px solid #cccccc;
+    overflow-y: auto;
+    height: 100%;
+    text-align: center;
+    font-size: 14px;
+    padding: 0 10px;
+}
+
+#addColList li{
+    box-sizing: border-box;
+    height: 30px;
+    margin: 10px 0;
+}
+
+#addColList li div{
+    box-sizing: border-box;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#addColList::-webkit-scrollbar,
+#addColForm::-webkit-scrollbar{
+    display: none;
+}
+
+.activeChooseCol{
+    border: 1px solid #107FFF!important;
+}
+
+
+#addColForm{
+    display: inline-block;
+    width: 75%;
+    height: calc(100% - 40px);
+    vertical-align: top;
+    padding-top: 20px;
+    overflow-y: auto;
+}
+
+/* 表格控件样式 */
+.table-col{
+    /*overflow-x: auto;*/
+    white-space:nowrap;
+    margin: 10px;
+    padding-top: 15px;
+    overflow-x: auto;
+}
+
+.table-col .layui-form-checkbox{
+    display: inline-block;
+}
+
+.table-col::-webkit-scrollbar{
+    width:8px;
+    height:8px;
+}
+.table-col::-webkit-scrollbar-track{
+    background: #f6f6f6;
+    border-radius:2px;
+}
+.table-col::-webkit-scrollbar-thumb{
+    background: #cdcdcd;
+    border-radius:2px;
+}
+.table-col::-webkit-scrollbar-thumb:hover{
+    background: #747474;
+}
+.table-col::-webkit-scrollbar-corner {
+    background: #f6f6f6;
+}
+
+#context .table-col>.layui-form-item,
+.table-col-item{
+    min-width: 200px;
+    vertical-align: top;
+    border-left: 1px solid #cccccc;
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    display: inline-block;
+    margin-left: -5px;
+    text-align: center;
+    padding:0;
+}
+
+/* 单行输入框 */
+#context .table-col>.layui-form-item .layui-select-title input,
+#context .table-col>.layui-form-item>div>button,
+#context .table-col>.layui-form-item>div>input[type="text"]{
+    height: 30px;
+    width: calc(100% - 5px);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    line-height: 30px;
+    margin: 0 5px;
+}
+
+/* 单行输入框 */
+#context_gapp .table-col>.layui-form-item .layui-select-title input,
+#context_gapp .table-col>.layui-form-item>div>button,
+#context_gapp .table-col>.layui-form-item>div>input[type="text"]{
+    height: 30px;
+    width: calc(100% - 5px);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    line-height: 30px;
+    margin: 0 5px;
+}
+#context_gapp .table-col .layui-form-item:last-child{
+    border-right: 1px solid #cccccc;
+}
+
+#context .table-col>.layui-form-item .layui-form-select{
+    position: static;
+}
+
+
+.has-textarea .table-col-item>div:not(:first-child){
+    height: 90px;
+    line-height: 30px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.has-textarea .add-table-item .add-table-button{
+    height: 131px;
+    line-height: 131px;
+}
+
+.has-textarea .table-col-item>div:not(:first-child){
+    line-height: 90px;
+}
+
+
+.table-col>.add-table-item{
+    width: 150px;
+    vertical-align: top;
+    border-left: 1px solid #cccccc;
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+    display: inline-block;
+    margin-left: -5px;
+    text-align: center;
+}
+
+.table-col-item>div:nth-child(1){
+    border-bottom: 1px solid #cccccc;
+}
+
+.table-col-item>div:not(:first-child)>*{
+    margin: 5px;
+}
+
+.default-checkbox{
+    position: relative;
+}
+
+.default-checkbox>.layui-form-checkbox{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    margin: 0!important;
+    padding: 0!important;
+}
+
+.table-col-item textarea{
+    width: calc(100% - 5px)
+}
+
+.table-col-item:nth-child(1),
+.table-col-item:nth-child(2){
+    margin-left: 0px;
+    min-width: 60px!important;
+}
+
+.table-col-item>.table-content{
+    position: relative;
+}
+
+.table-col-item>.table-title,
+.table-col-item>.table-content
+{
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border-bottom: 1px solid #cccccc;
+}
+
+.table-col-preset{
+    width: 50px;
+}
+
+.add-table-item .add-table-button{
+    height: 81px;
+    line-height: 81px;
+    border-right: 1px solid #cccccc;
+    cursor: pointer;
+}
+
+#tableSort{
+    font-size: 14px;
+    color: #666666;
+}
+
+#tableSort li{
+    padding: 5px 0;
+}
+
+#tableSort img{
+    float: right;
+}
+.table-content input[type="text"],
+.table-content textarea,
+.table-content .layui-input-inline{
+    margin: 0!important;
+}

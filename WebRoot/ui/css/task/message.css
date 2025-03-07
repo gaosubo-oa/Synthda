@@ -1,0 +1,250 @@
+/* 选择用户弹窗样式 */
+.user_list_modal .c_top {
+    max-height: 320px;
+    min-height: 150px;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+.user_list_modal .c_top .c_top_r,
+.user_list_modal .c_top .c_top_l {
+    height: 317px;
+    min-height: 317px;
+    max-height: 317px;
+}
+
+.user_list_modal .u_m_serch {
+    position: relative;
+    margin-bottom: 10px;
+    color: #55595c;
+}
+
+.user_list_modal .u_m_serch input {
+    width: 100%;
+    border: none;
+    background-color: #f2f2f2;
+    padding: 5px 0 5px 25px;
+    height: 28px;
+    line-height: 28px;
+    border-radius: 3px;
+}
+
+.user_list_modal .u_m_serch .m_icon_search {
+    position: absolute;
+    top: 6px;
+    left: 5px;
+}
+
+.user_list_modal .nav-tabs > li {
+    margin-bottom: 0;
+}
+
+.user_list_modal .nav-tabs.row li {
+    padding: 0;
+}
+
+.user_list_modal .nav-tabs > li.active > a {
+    cursor: pointer;
+    border: none;
+    color: #0477ca;
+    border-bottom: 1px solid #0477ca;
+}
+
+.user_list_modal .nav-tabs > li a {
+    color: #000;
+    text-align: center;
+}
+
+.user_list_modal .nav-tabs > li.active a:hover {
+    border-bottom: 1px solid #0477ca;
+}
+
+.user_list_modal .nav > li > a:hover,
+.user_list_modal .nav > li > a:focus {
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.user_list_modal .nav-tabs > li > a:hover {
+    border-color: transparent;
+    color: #0477ca;
+}
+
+.user_list_modal .tab-content {
+    padding: 10px 0;
+}
+
+.user_list_modal .tab-content .tab-pane {
+    min-height: 216px;
+    max-height: 216px;
+    font-size: 12px;
+    overflow: auto;
+}
+
+.user_list_modal .tab-content .tab-pane .priv_list a {
+    display: block;
+    position: relative;
+    text-decoration: none;
+    color: #222;
+    cursor: pointer;
+    padding: 8px 10px 8px 55px;
+    font-size: 14px;
+}
+
+.user_list_modal .tab-content .tab-pane .priv_list a span {
+    position: absolute;
+    font-size: 18px;
+    top: 9px;
+    left: 20px;
+}
+
+.user_list_modal .tab-content .tab-pane .group_list a {
+    display: block;
+    text-decoration: none;
+    color: #222;
+    cursor: pointer;
+    padding: 8px 10px 8px 55px;
+    font-size: 14px;
+}
+
+.user_list_modal .r_title {
+    height: 28px;
+    line-height: 28px;
+    margin-bottom: 10px;
+}
+
+.user_list_modal .r_title a {
+    height: 20px;
+    line-height: 20px;
+    color: #55595c;
+    text-decoration: none;
+}
+
+.user_list_modal .r_title .check_other_user {
+    margin-left: 20px;
+}
+
+.user_list_modal .r_title .check_box {
+    position: relative;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    margin: -5px 5px 0 0;
+    border: 1px solid #55595c;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+.user_list_modal .r_title .check_box:before {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 12px;
+    font-weight: 100;
+}
+
+.user_list_modal .r_title .check_box.on:before {
+    visibility: visible;
+}
+
+.user_list_modal .c_top .c_top_r .row {
+    margin: 0;
+    min-height: 280px;
+    max-height: 280px;
+    overflow: auto;
+    padding-bottom: 10px;
+}
+
+.user_list_modal .c_top .c_top_r .r_item {
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.user_list_modal .c_top .c_top_r .r_item .glyphicon-ok {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #222;
+    font-weight: 100;
+}
+
+.user_list_modal .c_top .c_top_r .r_item.active .glyphicon-ok {
+    display: block;
+}
+
+.user_list_modal .u_avatar {
+    float: left;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.user_list_modal .u_info {
+    padding-left: 40px;
+}
+
+.user_list_modal .u_info p {
+    font-size: 13px;
+    word-break: break-all;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin: 0;
+}
+
+.user_list_modal .u_info p.u_name {
+    font-weight: 600;
+}
+
+.user_list_modal .check_title {
+    padding: 10px;
+}
+
+.user_list_modal .check_title p {
+    float: left;
+}
+
+.user_list_modal .check_title a {
+    float: right;
+    color: #337ab7;
+    margin-left: 30px;
+    text-decoration: none;
+}
+
+.user_list_modal .users_box {
+    height: auto;
+    max-height: 180px;
+    overflow: auto;
+}
+
+.user_list_modal .users_box .u_item {
+    margin-bottom: 10px;
+}
+
+.treeview .list-group-item {
+    word-break: break-all;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.clearf:after {
+    content: "";
+    display: block;
+    height: 0;
+    line-height: 0;
+    clear: both;
+    visibility: hidden;
+    overflow: hidden;
+}
+
+.clearf {
+    zoom: 1;
+}

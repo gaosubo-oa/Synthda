@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns="http://www.springframework.org/schema/beans"
+       xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd   http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:property-placeholder
+            location="classpath:config/properties/appConstants.properties,classpath*:upload.properties"
+            file-encoding="UTF-8"/>
+
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <!-- 注解扫描包 -->
+
+    <context:component-scan base-package="com.xoa">
+    </context:component-scan>
+    <context:component-scan base-package="com.xoa.jdyproject">
+    </context:component-scan>
+    <mvc:default-servlet-handler/>
+    <!-- 开启注解 -->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean id="fastJsonHttpMessageConverter"
+                  class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                        <value>text/javascript;charset=UTF-8</value>
+                    </list>
+                </property>
+                <!--去除循环引用-->
+                <property name="features">
+                    <array value-type="com.alibaba.fastjson.serializer.SerializerFeature">
+                        <value>DisableCircularReferenceDetect</value>
+                    </array>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!-- 静态资源(js/image/css/fonts/flash)的访问 -->
+    <!-- 静态资源(js/image/css/fonts/flash)的访问 -->
+    <mvc:resources location="/ui/js/" mapping="/js/**"/>
+
+    <mvc:resources location="/ui/css/" mapping="/css/**"/>
+    <mvc:resources location="/ui/img/" mapping="/img/**"/>
+    <mvc:resources location="/WEB-INF/login/" mapping="/login/**"/>
+    <mvc:resources location="/ui/file/" mapping="/file/**"/>
+    <mvc:resources location="/ui/fonts/" mapping="/fonts/**"/>
+    <mvc:resources location="/ui/flash/" mapping="/flash/**"/>
+    <mvc:resources location="/ui/lib/" mapping="/lib/**"/>
+    <mvc:resources location="/ui/form/" mapping="/form/**"/>
+    <mvc:resources location="/ui/css/tdoa/theme/" mapping="/theme/**"/>
+    <!--	<mvc:resources location="/ui/tdold/" mapping="/tdold/**" />-->
+    <mvc:resources location="/WEB-INF/app/" mapping="/app/**"/>
+    <mvc:resources location="/cmsTmp/" mapping="/cmsTmp/**"/><!--cms门户页面-->
+    <mvc:resources location="/cmstpls/" mapping="/cmstpls/**"/>
+
+
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/css/**"/>
+            <mvc:exclude-mapping path="/v1/3rd/**"/>
+            <mvc:exclude-mapping path="/img/**"/>
+            <mvc:exclude-mapping path="/fonts/**"/>
+            <mvc:exclude-mapping path="/flash/**"/>
+            <mvc:exclude-mapping path="/lib/**"/>
+            <mvc:exclude-mapping path="/app/**"/>
+            <mvc:exclude-mapping path="/file/pc/**"/>
+            <mvc:exclude-mapping path="/file/apk/**"/>
+            <mvc:exclude-mapping path="/js/**"/>
+            <mvc:exclude-mapping path="/login/**"/>
+            <mvc:exclude-mapping path="/apph5/**"/>
+            <mvc:exclude-mapping path="/pcweb/**"/>
+            <mvc:exclude-mapping path="/aichat/**"/>
+            <bean id="=sessionInterceptor" class="com.xoa.global.intercptor.SessionInterceptor">
+                <property name="loginUrl" value="/jsonp/login"/>
+                <property name="loginUrlV1" value="/jsonp/v1/login"/>
+                <property name="welcomUrl" value="/"/>
+                <property name="mainUrl" value="/main"/>
+                <property name="redirectUrl" value="/defaultIndexErr"/>
+            </bean>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/css/**"/>
+            <mvc:exclude-mapping path="/v1/3rd/**"/>
+            <mvc:exclude-mapping path="/img/**"/>
+            <mvc:exclude-mapping path="/fonts/**"/>
+            <mvc:exclude-mapping path="/flash/**"/>
+            <mvc:exclude-mapping path="/lib/**"/>
+            <mvc:exclude-mapping path="/app/**"/>
+            <mvc:exclude-mapping path="/file/pc/**"/>
+            <mvc:exclude-mapping path="/file/apk/**"/>
+            <mvc:exclude-mapping path="/js/**"/>
+            <mvc:exclude-mapping path="/login/**"/>
+            <mvc:exclude-mapping path="/cmstpls/**"/>
+            <mvc:exclude-mapping path="/reliaOASso/ssoLogin" />
+            <mvc:exclude-mapping path="/reliaOASso/synPersion" />
+            <mvc:exclude-mapping path="/reliaOASso/synDeptment" />
+            <mvc:exclude-mapping path="/apph5/**"/>
+            <mvc:exclude-mapping path="/pcweb/**"/>
+            <mvc:exclude-mapping path="/aichat/**"/>
+            <bean id="loginInterceptor" class="com.xoa.global.intercptor.CommonInterceptor">
+                <property name="loginUrl" value="/login"/>
+                <property name="welcomUrl" value="/"/>
+                <property name="mainUrl" value="/main"/>
+                <property name="redirectUrl" value="/defaultIndexErr"/>
+                <property name="ignoreUrls">
+                    <list>
+                        <value>/resetPsword</value>
+                        <value>/getPublicKey</value>
+                        <value>/GetCodeImgServlet</value>
+                        <value>/jsonp/outlogin/*</value>
+                        <value>/jsonp/login</value>
+                        <value>/jsonp/v1/login</value>
+                        <value>/login/index</value>
+                        <value>/defaultIndex1</value>
+                        <value>/defaultIndex2</value>
+                        <value>/defaultIndex3</value>
+                        <value>/defaultIndex4</value>
+                        <value>/defaultIndex5</value>
+                        <value>/defaultIndex6</value>
+                        <value>/defaultIndex7</value>
+                        <value>/defaultIndex8</value>
+                        <value>/defaultIndex88</value>
+                        <value>/defaultIndex9</value>
+                        <value>/defaultIndex10</value>
+                        <value>/defaultIndex11</value>
+                        <value>/defaultIndex12</value>
+                        <value>/defaultIndex13</value>
+                        <value>/defaultIndex14</value>
+                        <value>/defaultIndex15</value>
+                        <value>/defaultIndex16</value>
+                        <value>/defaultIndex17</value>
+                        <value>/defaultIndex18</value>
+                        <value>/defaultIndex19</value>
+                        <value>/defaultIndex20</value>
+                        <value>/defaultIndex21</value>
+                        <value>/defaultIndex25</value>
+                        <value>/defaultIndex30</value>
+                        <value>/defaultIndex89</value>
+                        <value>/defaultIndex100</value>
+                        <value>/spirit/login</value>
+                        <value>/spirit/willDoCounts</value>
+                        <value>/getCompanyAll</value>
+                        <value>/xs</value>
+                        <value>/LogoImg</value>
+                        <value>/qywx/</value>
+                        <value>/email/sendEmailCross</value>
+                        <!--<value>/download</value>-->
+                        <value>/sys/getInterfaceInfo</value>
+                        <value>/sys/getBlackTheme</value>
+                        <value>/sys/getInterfaceParam</value>
+                        <value>/sys/getSysMessage</value>
+                        <value>/sys/getAPPMessage</value>
+                        <value>/webService/webServiceTigger</value>
+                        <value>/xoa</value>
+                        <!--<value>/xtd</value>-->
+                        <value>/eduFixAssets/selFixAssetsById</value>
+                        <value>/oa2xoa</value>
+                        <!-- 21.01.06 安全问题注释掉这几个接口 改为登录后可访问 -->
+                        <!--<value>/code/updateDabase</value>
+                        <value>/code/editDabase</value>
+                        <value>/code/getObjectcount</value>;;
+                        <value>/code/getObjectdetail</value>
+                        <value>/code/downLog</value>-->
+                        <!--<value>/sys/sysInfo</value>-->
+                        <value>/m/chooseTeam</value>
+                        <value>/m/lxloginh5</value>
+                        <value>/m/lxloginh5api</value>
+                        <!--<value>/h5AppLogin/getMainddh5</value>-->
+                        <value>/m/dingdingLoginH5</value>
+                        <value>/m/getH5LoginPage</value>
+                        <value>/sys/uploadLec</value>
+                        <value>/sso/ssoLogin</value>
+                        <value>/sys/importLec</value>
+                        <value>/sys/isLoginRole</value>
+                        <value>/sys/signActivation</value>
+                        <value>/sys/getEachMouthDay</value>
+                        <value>/xoaCas/login</value>
+                        <value>/xoaCas/interceptCas</value>
+                        <value>/ewx/m/main</value>
+                        <value>/ewx/getjsapiticket</value>
+                        <value>/ewx/getWxUserByCode</value>
+                        <value>/ewx/index</value>
+                        <value>/attend/findDateList</value><!--考勤统计，统计一天接口-->
+                        <value>/attend/queryDateAll</value><!--考勤统计，统计一周接口-->
+                        <value>/dingding/m/main</value>
+                        <value>/dingding/m/mainPC</value>
+                        <value>/dingding/getjsapi</value>
+                        <value>/dingding/getUserIdByCode</value>
+                        <value>/code/getCode</value>
+                        <value>/trCourseSchedule/showDetils</value>
+                        <value>/trCourseManage/signUp</value>
+                        <value>/trCourseManage/signIn</value>
+                        <value>/trCourseManage/evlute</value>
+                        <value>/trCourse/showDetils</value>
+                        <value>/signIn/signh5</value>
+                        <value>/PwegSso/ssoLogin</value>
+                        <value>/PwegYzm/YzmCode</value>
+                        <value>/Pweg4ASso/getToken</value>
+                        <value>/Pweg4ASso/authorize</value>
+                        <value>/connect/syslogin</value>
+                        <value>/connect/test1</value>
+                        <value>/connect/test2</value>
+                        <value>/v1/3rd/**</value>
+                        <value>/pwegNews/getOneById</value>
+                        <value>/connect/xoa_goto</value>
+                        <value>/ueditor/xsFilesImg</value>
+                        <value>/ueditor/wordToHtml</value>
+                        <!--合同取号-->
+                        <value>/ContractNoView/H5takeNumber</value>
+                        <value>/ContractNoView/loginIndex</value>
+                        <value>/ContractNoView/ewxIndex</value>
+                        <value>/ContractNo/insertContractNo</value>
+                        <value>/ContractNo/delContractNo</value>
+                        <value>/ContractNo/findContractNo</value>
+                        <value>/ContractNo/phoneVerification</value>
+                        <value>/ContractNo/smsNoCode</value>
+                        <!-- 牟平单点登录 -->
+                        <value>/mp/ssoLogin</value>
+                        <!-- 张家口智慧公交OA单点登录 -->
+                        <value>/zjkbus/ssoLogin</value>
+                        <value>/zjkbus/user/notification</value>
+
+
+                        <!-- 教育 -->
+                        <value>/PCLogin/studentAndParentLogin</value>
+                        <value>/eduSso/login</value>
+                        <value>/eduSso/login</value>
+                        <!--省综合素质开放接口 -->
+                        <!-- 典型案例 -->
+                        <value>/dxal.html</value>
+                        <value>/dxal/data</value>
+                        <!--社会实践 -->
+                        <value>/shsj.html</value>
+                        <value>/shsj/data</value>
+                        <!-- 身心健康-->
+                        <value>/sxjk.html</value>
+                        <value>/sxjk/data</value>
+                        <!-- 思想品德-->
+                        <value>/sxpd.html</value>
+                        <value>/sxpd/data</value>
+                        <!-- 学业水平-->
+                        <value>/xysp.html</value>
+                        <value>/xysp/data</value>
+                        <value>/discipline/down</value>
+                        <!-- 艺术素养-->
+                        <value>/yssy.html</value>
+                        <value>/yssy/data</value>
+                        <value>/summary.html</value>
+                        <value>/summary/data</value>
+                        <!-- 学习资源下载-->
+                        <value>/MyResource/downfilenew</value>
+                        <!-- 氚云h3yun单点登录 -->
+                        <value>/h3yunSso/ssoLogin</value>
+                        <!--手机短信重置密码  获取手机验证码接口 -->
+                        <value>/verification/smsNoCode</value>
+                        <!--手机短信重置密码  修改AO用户密码接口 -->
+                        <value>/verification/editPwd</value>
+                        <!--手机短信重置密码  检查验证码是否一致 -->
+                        <value>/verification/inspectCode</value>
+                        <!--获取密码设置规则-->
+                        <value>/user/getPwRule</value>
+                        <!--判断密码复杂度-->
+                        <value>/sysTasks/selectAll</value>
+
+                        <!--wps-->
+                        <value>/v1/3rd/file/info</value>
+                        <value>/v1/3rd/user/info</value>
+                        <value>/v1/3rd/file/save</value>
+                        <value>/v1/3rd/file/online</value>
+                        <value>/v1/3rd/file/version/*</value>
+                        <value>/v1/3rd/file/rename</value>
+                        <value>/v1/3rd/file/history</value>
+                        <value>/v1/3rd/onnotify</value>
+
+                        <!--onlyOffice相关接口-->
+                        <value>/onlyOfficeDownload</value>
+                        <value>/onlyOfficeCallBack</value>
+                        <value>/netdisk/onlyOfficeDownload</value>
+                        <value>/netdisk/onlyOfficeCallBack</value>
+                        <value>/xsign/getOnlyOfficeXSign</value>
+                        <value>/xsign/isOnlyOfficePwdTrue</value>
+                        <value>/xsign/saveOnlyOfficeSignLog</value>
+
+                        <!--扫码登录-->
+                        <value>/qrCode/generateSecret</value>
+                        <value>/qrCode/generate</value>
+                        <value>/qrCode/query</value>
+
+                        <value>/oaSwMeeting/GetPadMeetingData</value>
+                        <value>/user/getuserinfo</value>
+                        <value>/favicon.ico</value>
+                        <!--打捞局人员登记相关接口-->
+                        <value>/coesStaffRegister/selectNumber</value>
+                        <value>/coesStaffRegister/coesStaffRegisterH5</value>
+                        <value>/coesStaffRegister/boardStaffRegister</value>
+                        <value>/coesStaffRegister/ashoreStaffRegister</value>
+                        <value>/coesStaffRegister/selVLName</value>
+                        <!-- 加密部门接口 -->
+                        <value>/dataExchanges/serverjson</value>
+                        <!-- h5登录页 -->
+                        <value>/h5</value>
+
+                        <!-- 云OA -->
+                        <value>/sys/queryAgentOrg</value>
+                        <value>/sys/createAgentOrg</value>
+                        <value>/sys/updateAgentOrg</value>
+
+                        <!-- cms -->
+                        <value>/site/accessAuthority</value>
+                        <value>/cmsSite/getSiteInfoBySiteId</value>
+                        <value>/cmsDocument/selCarousel</value>
+                        <value>/cmsChannel/getIndexChannelDocs</value>
+                        <value>/cmsChannel/getChannelInfos</value>
+                        <value>/site/accessAuthority</value>
+                        <value>/cmsSite/getSiteInfoBySiteId</value>
+                        <value>/cmsDocument/selCarousel</value>
+                        <value>/cmsChannel/geiChannelInfoById</value>
+                        <value>/cmsDocument/selCmsDocs</value>
+                        <value>/cmsDocument/getDocument</value>
+                        <value>/cmsPub/portal</value>
+                        <value>/site/cmsErr</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!-- 定义视图解析器 -->
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass"
+                  value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 配置国际化资源文件路径 -->
+    <!-- 存储区域设置信息 -->
+<!--    <bean id="localeResolver"-->
+<!--          class="org.springframework.web.servlet.i18n.SessionLocaleResolver">-->
+<!--        <property name="defaultLocale" value="zh_CN"></property>-->
+<!--    </bean>-->
+    <bean id="localeResolver"
+          class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="en_US"></property>
+    </bean>
+    <mvc:interceptors>
+        <bean id="localeChangeInterceptor"
+              class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="lang"/>
+        </bean>
+    </mvc:interceptors>
+    <!-- 国际化资源文件 -->
+    <bean id="messageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:config/i18properties/message"/>
+    </bean>
+    <bean name="functionMemory" class="com.xoa.global.intercptor.CommonFunctionMemory"/>
+    <bean name="functionDatebase" class="com.xoa.global.intercptor.CommonDatase"/>
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8"/>
+        <!-- 指定所上传文件的总大小不能超过6000KB。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
+        <!--<property name="maxUploadSize" value="157286400" />-->
+    </bean>
+
+    <!-- SpringMVC在超出上传文件限制时，会抛出org.springframework.web.multipart.MaxUploadSizeExceededException -->
+    <!-- 该异常是SpringMVC在检查上传的文件信息时抛出来的，而且此时还没有进入到Controller方法中 -->
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <!-- 遇到MaxUploadSizeExceededException异常时，自动跳转到/WEB-INF/jsp/error_fileupload.jsp页面 -->
+                <prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">error_fileupload</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="exceptionHandler" class="com.xoa.global.exception.GlobalException"/>
+
+    <!-- 用户和部门的webService接口有暴露风险漏洞，暂时注释掉 如果有项目需要可以直接打开下面的注释 单独更新 -->
+    <!--<jaxws:endpoint id="UserWS" implementor="com.xoa.webservice.impl.UserWSImpl" address="/UserWS"/>
+    <jaxws:endpoint id="DeptWS" implementor="com.xoa.webservice.impl.DeptWSImpl" address="/DeptWS"/>-->
+
+    <jaxws:endpoint id="NotifyWS" implementor="com.xoa.webservice.impl.NotifyWSImpl" address="/NotifyWS"/>
+    <jaxws:endpoint id="SmsListByTypeWS" implementor="com.xoa.dev.sms.impl.SmsListByTypeWSImpl"
+                    address="/SmsListByTypeWS"/>
+    <bean id="defaultSchedulingConfigurer" class="com.xoa.util.scheduler.DefaultSchedulingConfigurer"/>
+    <bean id="SchedulerTask" class="com.xoa.global.component.SchedulerTask"/>
+</beans>

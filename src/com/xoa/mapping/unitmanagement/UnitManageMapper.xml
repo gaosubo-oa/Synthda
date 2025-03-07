@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.unitmanagement.UnitManageMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.unitmanagement.UnitManage">
+        <result column="UNIT_ID" property="unitId" />
+        <result column="UNIT_NAME" property="unitName" jdbcType="CHAR"/>
+        <result column="TEL_NO" property="telNo" jdbcType="CHAR"/>
+        <result column="FAX_NO" property="faxNo" jdbcType="CHAR"/>
+        <result column="POST_NO" property="postNo" jdbcType="CHAR"/>
+        <result column="ADDRESS" property="address" jdbcType="CHAR"/>
+        <result column="URL" property="url" jdbcType="CHAR"/>
+        <result column="EMAIL" property="email" jdbcType="CHAR"/>
+        <result column="BANK_NAME" property="bankName" jdbcType="CHAR"/>
+        <result column="BANK_NO" property="bankNo" jdbcType="CHAR"/>
+        <result column="ATTACHMENT_ID" property="attachmentId" jdbcType="LONGVARCHAR"/>
+        <result column="ATTACHMENT_NAME" property="attachmentName" jdbcType="LONGVARCHAR"/>
+        <result column="CONTENT" property="content" jdbcType="LONGVARCHAR"/>
+        <result column="TAX_NUMBER" property="taxNumber" javaType="string" />
+    </resultMap>
+    <!--  <resultMap id="ResultMapWithBLOBs" type="com.xoa.model.unitmanagement.UnitManageWithBLOBs" extends="BaseResultMap" >
+       <result column="ATTACHMENT_ID" property="attachmentId" jdbcType="LONGVARCHAR" />
+       <result column="ATTACHMENT_NAME" property="attachmentName" jdbcType="LONGVARCHAR" />
+       <result column="CONTENT" property="content" jdbcType="LONGVARCHAR" />
+     </resultMap> -->
+    <sql id="Blob_Column_List">
+    ATTACHMENT_ID, ATTACHMENT_NAME, CONTENT ,TAX_NUMBER
+  </sql>
+    <select id="showUnitManage" resultMap="BaseResultMap" parameterType="com.xoa.model.unitmanagement.UnitManage">
+     SELECT * FROM unit
+  </select>
+    <insert id="addUnitManage" parameterType="com.xoa.model.unitmanagement.UnitManage" useGeneratedKeys="true" keyProperty="unitId">
+        insert into unit
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="unitName != null">
+                UNIT_NAME,
+            </if>
+            <if test="telNo != null">
+                TEL_NO,
+            </if>
+            <if test="faxNo != null">
+                FAX_NO,
+            </if>
+            <if test="postNo != null">
+                POST_NO,
+            </if>
+            <if test="address != null">
+                ADDRESS,
+            </if>
+            <if test="url != null">
+                URL,
+            </if>
+            <if test="email != null">
+                EMAIL,
+            </if>
+            <if test="bankName != null">
+                BANK_NAME,
+            </if>
+            <if test="bankNo != null">
+                BANK_NO,
+            </if>
+            <if test="attachmentId != null">
+                ATTACHMENT_ID,
+            </if>
+            <if test="attachmentName != null">
+                ATTACHMENT_NAME,
+            </if>
+            <if test="content != null">
+                CONTENT,
+            </if>
+            <if test="taxNumber != null">
+                TAX_NUMBER,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="unitName != null">
+                #{unitName,jdbcType=CHAR},
+            </if>
+            <if test="telNo != null">
+                #{telNo,jdbcType=CHAR},
+            </if>
+            <if test="faxNo != null">
+                #{faxNo,jdbcType=CHAR},
+            </if>
+            <if test="postNo != null">
+                #{postNo,jdbcType=CHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=CHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=CHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=CHAR},
+            </if>
+            <if test="bankName != null">
+                #{bankName,jdbcType=CHAR},
+            </if>
+            <if test="bankNo != null">
+                #{bankNo,jdbcType=CHAR},
+            </if>
+            <if test="attachmentId != null">
+                #{attachmentId,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="attachmentName != null">
+                #{attachmentName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="taxNumber != null">
+                #{taxNumber}
+            </if>
+        </trim>
+    </insert >
+    <update id="update"  parameterType="com.xoa.model.unitmanagement.UnitManage" >
+        update unit
+        <set>
+            <if test="unitName != null">
+                UNIT_NAME= #{unitName},
+            </if>
+            <if test="telNo != null">
+                TEL_NO=#{telNo,jdbcType=CHAR},
+            </if>
+            <if test="faxNo != null">
+                FAX_NO= #{faxNo,jdbcType=CHAR},
+            </if>
+            <if test="postNo != null">
+                POST_NO=#{postNo,jdbcType=CHAR},
+            </if>
+            <if test="address != null">
+                ADDRESS=#{address,jdbcType=CHAR},
+            </if>
+            <if test="url != null">
+                URL=#{url,jdbcType=CHAR},
+            </if>
+            <if test="email != null">
+                EMAIL=#{email,jdbcType=CHAR},
+            </if>
+            <if test="bankName != null">
+                BANK_NAME=#{bankName,jdbcType=CHAR},
+            </if>
+            <if test="bankNo != null">
+                BANK_NO=#{bankNo,jdbcType=CHAR},
+            </if>
+            <if test="attachmentId != null">
+                ATTACHMENT_ID=#{attachmentId,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="attachmentName != null">
+                ATTACHMENT_NAME=#{attachmentName,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="content != null">
+                CONTENT=#{content,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="taxNumber != null">
+                TAX_NUMBER = #{taxNumber}
+            </if>
+        </set>
+        where UNIT_ID= #{unitId}
+
+    </update>
+
+
+    <update id="updateUnit"  parameterType="com.xoa.model.unitmanagement.UnitManage" >
+    UPDATE ${xoa}.unit SET UNIT_NAME=#{name} WHERE UNIT_ID=${unitId}
+ </update>
+
+</mapper>

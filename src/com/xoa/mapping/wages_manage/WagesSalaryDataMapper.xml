@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.wages_manage.WagesSalaryDataMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.wages_manage.WagesSalaryData">
+
+        <id column="SALARY_DATA_ID" jdbcType="INTEGER" property="salaryDataId"/>
+        <result column="USER_ID" jdbcType="VARCHAR" property="userId"/>
+        <result column="USER_NAME" jdbcType="VARCHAR" property="userName"/>
+        <result column="DEPT_ID" jdbcType="INTEGER" property="deptId"/>
+        <result column="DEPT_NAME" jdbcType="VARCHAR" property="deptName"/>
+        <result column="ID_NUMBER" jdbcType="VARCHAR" property="idNumber"/>
+        <result column="DATA_YEAR" jdbcType="VARCHAR" property="dataYear"/>
+        <result column="DATA_MONTH" jdbcType="VARCHAR" property="dataMonth"/>
+        <result column="JOB_MANAGE_ID" jdbcType="INTEGER" property="jobManageId"/>
+        <result column="JOB_RATIO" jdbcType="DECIMAL" property="jobRatio"/>
+        <result column="SEA_GOING_PERFORMANCE" jdbcType="DECIMAL" property="seaGoingPerformance"/>
+        <result column="FLOAT_PAY" jdbcType="DECIMAL" property="floatPay"/>
+        <result column="BASE_PAY" jdbcType="DECIMAL" property="basePay"/>
+        <result column="JOB_PAY" jdbcType="DECIMAL" property="jobPay"/>
+        <result column="OTHER1" jdbcType="DECIMAL" property="other1"/>
+        <result column="OTHER2" jdbcType="DECIMAL" property="other2"/>
+        <result column="ON_SITE_WORK" jdbcType="INTEGER" property="onSiteWork"/>
+        <result column="JOB_WORK" jdbcType="INTEGER" property="jobWork"/>
+        <result column="REST" jdbcType="INTEGER" property="rest"/>
+        <result column="TOTAL_ATTENDANCE" jdbcType="INTEGER" property="totalAttendance"/>
+        <result column="ON_SITE_WORK_PAY" jdbcType="DECIMAL" property="onSiteWorkPay"/>
+        <result column="JOB_WORK_PAY" jdbcType="DECIMAL" property="jobWorkPay"/>
+        <result column="REST_PAY" jdbcType="DECIMAL" property="restPay"/>
+        <result column="ASSESSMENT_TYPE" jdbcType="VARCHAR" property="assessmentType"/>
+        <result column="ASSESSMENT_RATIO" jdbcType="DECIMAL" property="assessmentRatio"/>
+        <result column="ASSESSMENT_RETAINED" jdbcType="DECIMAL" property="assessmentRetained"/>
+        <result column="ASSESSMENT_SCORE" jdbcType="DECIMAL" property="assessmentScore"/>
+        <result column="DEDUCT_ASSESSMENT_PAY" jdbcType="DECIMAL" property="deductAssessmentPay"/>
+        <result column="ACTUAI_ASSESSMENT_PAY" jdbcType="DECIMAL" property="actuaiAssessmentPay"/>
+        <result column="DEDUCT_SHIPPING_BUSINESS" jdbcType="DECIMAL" property="deductShippingBusiness"/>
+        <result column="DEDUCT_PUBLIC_HOLIDAY" jdbcType="DECIMAL" property="deductPublicHoliday"/>
+        <result column="ACTUAL_JOB_PAY" jdbcType="DECIMAL" property="actualJobPay"/>
+        <result column="EMPLOYMENT_FORM" jdbcType="VARCHAR" property="employmentForm"/>
+        <result column="EMPLOYMENT_COMPANY" jdbcType="VARCHAR" property="employmentCompany"/>
+        <result column="PERFORMANCE_PAY1" jdbcType="DECIMAL" property="performancePay1"/>
+        <result column="PERFORMANCE_PAY2" jdbcType="DECIMAL" property="performancePay2"/>
+        <result column="PERFORMANCE_PAY3" jdbcType="DECIMAL" property="performancePay3"/>
+        <result column="ACK_STATUS" jdbcType="CHAR" property="ackStatus"/>
+        <result column="REMARKS" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.xoa.model.wages_manage.WagesSalaryData">
+        insert into wages_salary_data(
+SALARY_DATA_ID,
+USER_ID,
+USER_NAME,
+DEPT_ID,
+DEPT_NAME,
+ID_NUMBER,
+DATA_YEAR,
+DATA_MONTH,
+JOB_MANAGE_ID,
+JOB_RATIO,
+SEA_GOING_PERFORMANCE,
+FLOAT_PAY,
+BASE_PAY,
+JOB_PAY,
+OTHER1,
+OTHER2,
+ON_SITE_WORK,
+JOB_WORK,
+REST,
+TOTAL_ATTENDANCE,
+ON_SITE_WORK_PAY,
+JOB_WORK_PAY,
+REST_PAY,
+ASSESSMENT_TYPE,
+ASSESSMENT_RATIO,
+ASSESSMENT_RETAINED,
+ASSESSMENT_SCORE,
+DEDUCT_ASSESSMENT_PAY,
+ACTUAI_ASSESSMENT_PAY,
+DEDUCT_SHIPPING_BUSINESS,
+DEDUCT_PUBLIC_HOLIDAY,
+ACTUAL_JOB_PAY,
+EMPLOYMENT_FORM,
+EMPLOYMENT_COMPANY,
+PERFORMANCE_PAY1,
+PERFORMANCE_PAY2,
+PERFORMANCE_PAY3,
+ACK_STATUS,
+REMARKS
+        )values (
+#{salaryDataId},
+ #{userId},
+ #{userName},
+ #{deptId},
+ #{deptName},
+ #{idNumber},
+ #{dataYear},
+ #{dataMonth},
+ #{jobManageId},
+ #{jobRatio},
+ #{seaGoingPerformance},
+ #{floatPay},
+ #{basePay},
+ #{jobPay},
+ #{other1},
+ #{other2},
+ #{onSiteWork},
+ #{jobWork},
+ #{rest},
+ #{totalAttendance},
+ #{onSiteWorkPay},
+ #{jobWorkPay},
+ #{restPay},
+ #{assessmentType},
+ #{assessmentRatio},
+ #{assessmentRetained},
+ #{assessmentScore},
+ #{deductAssessmentPay},
+ #{actuaiAssessmentPay},
+ #{deductShippingBusiness},
+ #{deductPublicHoliday},
+ #{actualJobPay},
+ #{employmentForm},
+ #{employmentCompany},
+ #{performancePay1},
+ #{performancePay2},
+ #{performancePay3},
+ #{ackStatus},
+ #{remarks}
+        )
+    </insert>
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select * from wages_salary_data
+        <where>
+        <if test="theYear1 !=null and theYear2!=null">
+            <if test="!theYear1.equals(theYear2)">
+                <if test="theMonth1 != null and theMonth2 != null">
+                    and ( (DATA_YEAR= #{theYear1} and ((DATA_MONTH+0) between  (#{theMonth1}+0) and 12))
+                    or ((DATA_YEAR+0) &gt; (#{theYear1}+0) and (DATA_YEAR+0)  &lt; (#{theYear2}+0))
+                    or (DATA_YEAR= #{theYear2} and ((DATA_MONTH+0) between 1 and (#{theMonth2}+0))))
+                </if>
+            </if>
+            <if test="theYear1.equals(theYear2)">
+               <if test="theMonth1 != null and theMonth2 != null">
+                and DATA_YEAR= #{theYear1} and (DATA_MONTH+0) between  (#{theMonth1}+0) and (#{theMonth2}+0)
+              </if>
+            </if>
+        </if>
+            <if test="wagesSalaryData.dataYear != null and  wagesSalaryData.dataYear!= ''">
+                and DATA_YEAR=#{wagesSalaryData.dataYear}
+            </if>
+            <if test=" wagesSalaryData.dataMonth!= null and  wagesSalaryData.dataMonth!= ''">
+                and DATA_MONTH=#{wagesSalaryData.dataMonth}
+            </if>
+            <if test="wagesSalaryData.userId != null and wagesSalaryData.userId != ''">
+                and USER_ID=#{wagesSalaryData.userId}
+            </if>
+            <if test=" wagesSalaryData.ackStatus!= null and  wagesSalaryData.ackStatus!= ''">
+                and ACK_STATUS=#{wagesSalaryData.ackStatus}
+            </if>
+            <if test=" wagesSalaryData.deptName!= null and  wagesSalaryData.deptName!= ''">
+                and DEPT_NAME like CONCAT('%',#{wagesSalaryData.deptName},'%')
+            </if>
+            <if test=" wagesSalaryData.userName!= null and  wagesSalaryData.userName!= ''">
+                and USER_NAME like CONCAT('%',#{wagesSalaryData.userName},'%')
+            </if>
+            <if test="usersId!=null">
+                and USER_ID in
+                <foreach collection="usersId" close=")" open="(" index="index" separator="," item="item">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </select>
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+       select * from wages_salary_data where SALARY_DATA_ID = #{salaryDataId}
+    </select>
+    <update id="update" parameterType="com.xoa.model.wages_manage.WagesSalaryData">
+        update wages_salary_data
+        <set>
+            <if test="userId != null and userId != ''">USER_ID=#{userId},</if>
+            <if test=" userName!= null and  userName!= ''">USER_NAME=#{userName},</if>
+            <if test=" deptId!= null and  deptId!= ''">DEPT_ID=#{deptId},</if>
+            <if test=" deptName!= null and  deptName!= ''">DEPT_NAME=#{deptName},</if>
+            <if test=" idNumber!= null and  idNumber!= ''">ID_NUMBER=#{idNumber},</if>
+            <if test="dataYear != null and  dataYear!= ''">DATA_YEAR=#{dataYear},</if>
+            <if test=" dataMonth!= null and  dataMonth!= ''">DATA_MONTH=#{dataMonth},</if>
+            <if test="jobManageId != null and jobManageId != ''">JOB_MANAGE_ID=#{jobManageId},</if>
+            <if test=" jobRatio!= null">JOB_RATIO=#{jobRatio},</if>
+            <if test=" seaGoingPerformance!= null">
+                SEA_GOING_PERFORMANCE=#{seaGoingPerformance},
+            </if>
+            <if test=" floatPay!= null">FLOAT_PAY=#{floatPay},</if>
+            <if test=" basePay!= null">BASE_PAY=#{basePay},</if>
+            <if test=" jobPay!= null">JOB_PAY=#{jobPay},</if>
+            <if test=" other1!= null">OTHER1=#{other1},</if>
+            <if test=" other2!= null">OTHER2=#{other2},</if>
+            <if test=" onSiteWork!= null and  onSiteWork!= ''">ON_SITE_WORK=#{onSiteWork},</if>
+            <if test=" jobWork!= null and  jobWork!= ''">JOB_WORK=#{jobWork},</if>
+            <if test=" rest!= null and  rest!= ''">REST=#{rest},</if>
+            <if test=" totalAttendance!= null and  totalAttendance!= ''">TOTAL_ATTENDANCE=#{totalAttendance},</if>
+            <if test=" onSiteWorkPay!= null">ON_SITE_WORK_PAY=#{onSiteWorkPay},</if>
+            <if test=" jobWorkPay!= null">JOB_WORK_PAY=#{jobWorkPay},</if>
+            <if test=" restPay!= null">REST_PAY=#{restPay},</if>
+            <if test=" assessmentType!= null and  assessmentType!= ''">ASSESSMENT_TYPE=#{assessmentType},</if>
+            <if test=" assessmentRatio!= null">ASSESSMENT_RATIO=#{assessmentRatio},</if>
+            <if test=" assessmentRetained!= null">
+                ASSESSMENT_RETAINED=#{assessmentRetained},
+            </if>
+            <if test=" assessmentScore!= null">ASSESSMENT_SCORE=#{assessmentScore},</if>
+            <if test=" deductAssessmentPay!= null">
+                DEDUCT_ASSESSMENT_PAY=#{deductAssessmentPay},
+            </if>
+            <if test=" actuaiAssessmentPay!= null">
+                ACTUAI_ASSESSMENT_PAY=#{actuaiAssessmentPay},
+            </if>
+            <if test=" deductShippingBusiness!= null">
+                DEDUCT_SHIPPING_BUSINESS=#{deductShippingBusiness},
+            </if>
+            <if test="deductPublicHoliday != null">
+                DEDUCT_PUBLIC_HOLIDAY=#{deductPublicHoliday},
+            </if>
+            <if test=" actualJobPay!= null">ACTUAL_JOB_PAY=#{actualJobPay},</if>
+            <if test=" employmentForm!= null and  employmentForm!= ''">EMPLOYMENT_FORM=#{employmentForm},</if>
+            <if test=" employmentCompany!= null and  employmentCompany!= ''">EMPLOYMENT_COMPANY=#{employmentCompany},
+            </if>
+            <if test="performancePay1 != null">PERFORMANCE_PAY1=#{performancePay1},</if>
+            <if test="performancePay2 != null">PERFORMANCE_PAY2=#{performancePay2},</if>
+            <if test="performancePay3 != null">PERFORMANCE_PAY3=#{performancePay3},</if>
+            <if test=" ackStatus!= null and  ackStatus!= ''">ACK_STATUS=#{ackStatus},</if>
+            <if test=" remarks!= null and remarks != ''">REMARKS=#{remarks}</if>
+        </set>
+        where SALARY_DATA_ID = #{salaryDataId}
+    </update>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+         delete from  wages_salary_data where SALARY_DATA_ID = #{salaryDataId}
+    </delete>
+
+    <insert id="insertSelective" parameterType="com.xoa.model.wages_manage.WagesSalaryData" >
+        <!--
+          WARNING - @mbggenerated
+          This element is automatically generated by MyBatis Generator, do not modify.
+        -->
+        insert into wages_salary_data
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="salaryDataId != null" >
+                SALARY_DATA_ID,
+            </if>
+            <if test="userId != null" >
+                USER_ID,
+            </if>
+            <if test="userName != null" >
+                USER_NAME,
+            </if>
+            <if test="deptId != null" >
+                DEPT_ID,
+            </if>
+            <if test="deptName != null" >
+                DEPT_NAME,
+            </if>
+            <if test="idNumber != null" >
+                ID_NUMBER,
+            </if>
+            <if test="dataYear != null" >
+                DATA_YEAR,
+            </if>
+            <if test="dataMonth != null" >
+                DATA_MONTH,
+            </if>
+            <if test="jobManageId != null" >
+                JOB_MANAGE_ID,
+            </if>
+            <if test="jobRatio != null" >
+                JOB_RATIO,
+            </if>
+            <if test="seaGoingPerformance != null" >
+                SEA_GOING_PERFORMANCE,
+            </if>
+            <if test="floatPay != null" >
+                FLOAT_PAY,
+            </if>
+            <if test="basePay != null" >
+                BASE_PAY,
+            </if>
+            <if test="jobPay != null" >
+                JOB_PAY,
+            </if>
+            <if test="other1 != null" >
+                OTHER1,
+            </if>
+            <if test="other2 != null" >
+                OTHER2,
+            </if>
+            <if test="onSiteWork != null" >
+                ON_SITE_WORK,
+            </if>
+            <if test="jobWork != null" >
+                JOB_WORK,
+            </if>
+            <if test="rest != null" >
+                REST,
+            </if>
+            <if test="totalAttendance != null" >
+                TOTAL_ATTENDANCE,
+            </if>
+            <if test="onSiteWorkPay != null" >
+                ON_SITE_WORK_PAY,
+            </if>
+            <if test="jobWorkPay != null" >
+                JOB_WORK_PAY,
+            </if>
+            <if test="restPay != null" >
+                REST_PAY,
+            </if>
+            <if test="assessmentType != null" >
+                ASSESSMENT_TYPE,
+            </if>
+            <if test="assessmentRatio != null" >
+                ASSESSMENT_RATIO,
+            </if>
+            <if test="assessmentRetained != null" >
+                ASSESSMENT_RETAINED,
+            </if>
+            <if test="assessmentScore != null" >
+                ASSESSMENT_SCORE,
+            </if>
+            <if test="deductAssessmentPay != null" >
+                DEDUCT_ASSESSMENT_PAY,
+            </if>
+            <if test="actuaiAssessmentPay != null" >
+                ACTUAI_ASSESSMENT_PAY,
+            </if>
+            <if test="deductShippingBusiness != null" >
+                DEDUCT_SHIPPING_BUSINESS,
+            </if>
+            <if test="deductPublicHoliday != null" >
+                DEDUCT_PUBLIC_HOLIDAY,
+            </if>
+            <if test="actualJobPay != null" >
+                ACTUAL_JOB_PAY,
+            </if>
+            <if test="employmentForm != null" >
+                EMPLOYMENT_FORM,
+            </if>
+            <if test="employmentCompany != null" >
+                EMPLOYMENT_COMPANY,
+            </if>
+            <if test="performancePay1 != null" >
+                PERFORMANCE_PAY1,
+            </if>
+            <if test="performancePay2 != null" >
+                PERFORMANCE_PAY2,
+            </if>
+            <if test="performancePay3 != null" >
+                PERFORMANCE_PAY3,
+            </if>
+            <if test="ackStatus != null" >
+                ACK_STATUS,
+            </if>
+            <if test="remarks != null" >
+                REMARKS,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="salaryDataId != null" >
+                #{salaryDataId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null" >
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null" >
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="deptId != null" >
+                #{deptId,jdbcType=INTEGER},
+            </if>
+            <if test="deptName != null" >
+                #{deptName,jdbcType=VARCHAR},
+            </if>
+            <if test="idNumber != null" >
+                #{idNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="dataYear != null" >
+                #{dataYear,jdbcType=VARCHAR},
+            </if>
+            <if test="dataMonth != null" >
+                #{dataMonth,jdbcType=VARCHAR},
+            </if>
+            <if test="jobManageId != null" >
+                #{jobManageId,jdbcType=INTEGER},
+            </if>
+            <if test="jobRatio != null" >
+                #{jobRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="seaGoingPerformance != null" >
+                #{seaGoingPerformance,jdbcType=DECIMAL},
+            </if>
+            <if test="floatPay != null" >
+                #{floatPay,jdbcType=DECIMAL},
+            </if>
+            <if test="basePay != null" >
+                #{basePay,jdbcType=DECIMAL},
+            </if>
+            <if test="jobPay != null" >
+                #{jobPay,jdbcType=DECIMAL},
+            </if>
+            <if test="other1 != null" >
+                #{other1,jdbcType=DECIMAL},
+            </if>
+            <if test="other2 != null" >
+                #{other2,jdbcType=DECIMAL},
+            </if>
+            <if test="onSiteWork != null" >
+                #{onSiteWork,jdbcType=INTEGER},
+            </if>
+            <if test="jobWork != null" >
+                #{jobWork,jdbcType=INTEGER},
+            </if>
+            <if test="rest != null" >
+                #{rest,jdbcType=INTEGER},
+            </if>
+            <if test="totalAttendance != null" >
+                #{totalAttendance,jdbcType=INTEGER},
+            </if>
+            <if test="onSiteWorkPay != null" >
+                #{onSiteWorkPay,jdbcType=DECIMAL},
+            </if>
+            <if test="jobWorkPay != null" >
+                #{jobWorkPay,jdbcType=DECIMAL},
+            </if>
+            <if test="restPay != null" >
+                #{restPay,jdbcType=DECIMAL},
+            </if>
+            <if test="assessmentType != null" >
+                #{assessmentType,jdbcType=VARCHAR},
+            </if>
+            <if test="assessmentRatio != null" >
+                #{assessmentRatio,jdbcType=DECIMAL},
+            </if>
+            <if test="assessmentRetained != null" >
+                #{assessmentRetained,jdbcType=DECIMAL},
+            </if>
+            <if test="assessmentScore != null" >
+                #{assessmentScore,jdbcType=DECIMAL},
+            </if>
+            <if test="deductAssessmentPay != null" >
+                #{deductAssessmentPay,jdbcType=DECIMAL},
+            </if>
+            <if test="actuaiAssessmentPay != null" >
+                #{actuaiAssessmentPay,jdbcType=DECIMAL},
+            </if>
+            <if test="deductShippingBusiness != null" >
+                #{deductShippingBusiness,jdbcType=DECIMAL},
+            </if>
+            <if test="deductPublicHoliday != null" >
+                #{deductPublicHoliday,jdbcType=DECIMAL},
+            </if>
+            <if test="actualJobPay != null" >
+                #{actualJobPay,jdbcType=DECIMAL},
+            </if>
+            <if test="employmentForm != null" >
+                #{employmentForm,jdbcType=VARCHAR},
+            </if>
+            <if test="employmentCompany != null" >
+                #{employmentCompany,jdbcType=VARCHAR},
+            </if>
+            <if test="performancePay1 != null" >
+                #{performancePay1,jdbcType=DECIMAL},
+            </if>
+            <if test="performancePay2 != null" >
+                #{performancePay2,jdbcType=DECIMAL},
+            </if>
+            <if test="performancePay3 != null" >
+                #{performancePay3,jdbcType=DECIMAL},
+            </if>
+            <if test="ackStatus != null" >
+                #{ackStatus,jdbcType=CHAR},
+            </if>
+            <if test="remarks != null" >
+                #{remarks,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+        ON DUPLICATE KEY UPDATE USER_ID = #{userId,jdbcType=VARCHAR},DATA_YEAR = #{dataYear,jdbcType=VARCHAR},DATA_MONTH = #{dataMonth,jdbcType=VARCHAR}
+        <if test="userName != null" >
+            ,USER_NAME = #{userName,jdbcType=VARCHAR}
+        </if>
+        <if test="deptId != null" >
+            ,DEPT_ID = #{deptId,jdbcType=INTEGER}
+        </if>
+        <if test="deptName != null" >
+            ,DEPT_NAME = #{deptName,jdbcType=VARCHAR}
+        </if>
+        <if test="idNumber != null" >
+            ,ID_NUMBER = #{idNumber,jdbcType=VARCHAR}
+        </if>
+        <if test="jobManageId != null" >
+            ,JOB_MANAGE_ID = #{jobManageId,jdbcType=INTEGER}
+        </if>
+        <if test="jobRatio != null" >
+            ,JOB_RATIO = #{jobRatio,jdbcType=DECIMAL}
+        </if>
+        <if test="seaGoingPerformance != null" >
+            ,SEA_GOING_PERFORMANCE = #{seaGoingPerformance,jdbcType=DECIMAL}
+        </if>
+
+            ,FLOAT_PAY = #{floatPay,jdbcType=DECIMAL}
+
+
+            ,BASE_PAY = #{basePay,jdbcType=DECIMAL}
+
+
+            ,JOB_PAY = #{jobPay,jdbcType=DECIMAL}
+
+
+            ,OTHER1 = #{other1,jdbcType=DECIMAL}
+
+
+            ,OTHER2 = #{other2,jdbcType=DECIMAL}
+
+            ,ON_SITE_WORK = #{onSiteWork,jdbcType=INTEGER}
+
+            ,JOB_WORK = #{jobWork,jdbcType=INTEGER}
+
+            ,REST = #{rest,jdbcType=INTEGER}
+
+            ,TOTAL_ATTENDANCE = #{totalAttendance,jdbcType=INTEGER}
+
+
+            ,ON_SITE_WORK_PAY = #{onSiteWorkPay,jdbcType=DECIMAL}
+
+
+            ,JOB_WORK_PAY = #{jobWorkPay,jdbcType=DECIMAL}
+
+
+            ,REST_PAY = #{restPay,jdbcType=DECIMAL}
+
+
+            ,ASSESSMENT_TYPE = #{assessmentType,jdbcType=VARCHAR}
+
+
+            ,ASSESSMENT_RATIO = #{assessmentRatio,jdbcType=DECIMAL}
+
+
+            ,ASSESSMENT_RETAINED = #{assessmentRetained,jdbcType=DECIMAL}
+
+            ,ASSESSMENT_SCORE = #{assessmentScore,jdbcType=DECIMAL}
+
+            ,DEDUCT_ASSESSMENT_PAY = #{deductAssessmentPay,jdbcType=DECIMAL}
+            ,ACTUAI_ASSESSMENT_PAY = #{actuaiAssessmentPay,jdbcType=DECIMAL}
+
+            ,DEDUCT_SHIPPING_BUSINESS = #{deductShippingBusiness,jdbcType=DECIMAL}
+
+            ,DEDUCT_PUBLIC_HOLIDAY = #{deductPublicHoliday,jdbcType=DECIMAL}
+            ,ACTUAL_JOB_PAY = #{actualJobPay,jdbcType=DECIMAL}
+
+            ,EMPLOYMENT_FORM = #{employmentForm,jdbcType=VARCHAR}
+
+            ,EMPLOYMENT_COMPANY = #{employmentCompany,jdbcType=VARCHAR}
+
+
+            ,PERFORMANCE_PAY1 = #{performancePay1,jdbcType=DECIMAL}
+
+
+            ,PERFORMANCE_PAY2 = #{performancePay2,jdbcType=DECIMAL}
+
+
+            ,PERFORMANCE_PAY3 = #{performancePay3,jdbcType=DECIMAL}
+
+            ,ACK_STATUS = #{ackStatus,jdbcType=CHAR}
+
+            ,REMARKS = #{remarks,jdbcType=LONGVARCHAR}
+
+    </insert>
+
+    <select id="selectPastAssessmentRetained" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select USER_ID,ASSESSMENT_RETAINED from wages_salary_data
+        where USER_ID = #{userId}
+        and ((DATA_YEAR = #{dataYear}) and (DATA_MONTH = #{dataMonth})
+                 or (DATA_YEAR = #{dataYear2}) and (DATA_MONTH = #{dataMonth2})
+                 or (DATA_YEAR = #{dataYear3}) and (DATA_MONTH = #{dataMonth3}))
+    </select>
+
+    <delete id="deleteByAttendanceType" parameterType="java.util.Map">
+        delete from wages_salary_data
+        where DATA_YEAR = #{dataYear}
+        and DATA_MONTH = #{dataMonth}
+        and USER_ID = #{userId}
+    </delete>
+
+    <delete id="deleteByDate" parameterType="java.lang.String">
+        delete from wages_salary_data
+        where DATA_YEAR = #{theYear}
+          and DATA_MONTH = #{theMonth}
+    </delete>
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.diary.setting.DiarySettingMapper" >
+    <resultMap id="BaseResultMap" type="com.xoa.model.diary.setting.DiarySetting" >
+        <result column="REPORT_BEGINS" property="reportBegins" javaType="string" />
+        <result column="REPORT_END" property="reportEnd" javaType="string" />
+        <result column="WHITE_LIST_USER" property="whiteListUser" javaType="string" />
+        <result column="WHITE_LIST_PRIV" property="whiteListPriv" javaType="string" />
+        <result column="WHITE_LIST_DEPT" property="whiteListDept" javaType="string" />
+        <result column="REPORT_REMINDER" property="reportReminder" javaType="string" />
+        <result column="WEEKLY" property="weekly" javaType="string"  />
+        <result column="MONTHLY_REPORT" property="monthlyReport" javaType="string" />
+        <result column="COMMENT" property="comment" javaType="integer" />
+        <result column="WHETHER_REMIND" property="whetherRemind" javaType="integer" />
+        <result column="HOLIDAY_SETTING" property="holidaySetting" javaType="string" />
+        <result column="HOLIDAY_DATA" property="holidayData" javaType="string" />
+    </resultMap>
+
+    <insert id="saveDiarySetting" parameterType="com.xoa.model.diary.setting.DiarySetting">
+        INSERT INTO diary_setting
+            (REPORT_BEGINS, REPORT_END, WHITE_LIST_USER, WHITE_LIST_PRIV, WHITE_LIST_DEPT, REPORT_REMINDER,
+            WEEKLY, MONTHLY_REPORT, COMMENT, WHETHER_REMIND, HOLIDAY_SETTING, HOLIDAY_DATA)
+        VALUES (#{reportBegins}, #{reportEnd}, #{whiteListUser}, #{whiteListPriv}, #{whiteListDept}, #{reportReminder},
+            #{weekly}, #{monthlyReport}, #{comment}, #{whetherRemind}, #{holidaySetting}, #{holidayData})
+    </insert>
+
+    <update id="updateDiarySetting" parameterType="com.xoa.model.diary.setting.DiarySetting">
+        UPDATE diary_setting
+        SET REPORT_BEGINS = #{reportBegins}, REPORT_END = #{reportEnd}, WHITE_LIST_USER = #{whiteListUser},
+            WHITE_LIST_PRIV = #{whiteListPriv}, WHITE_LIST_DEPT = #{whiteListDept}, REPORT_REMINDER = #{reportReminder},
+            WEEKLY = #{weekly}, MONTHLY_REPORT = #{monthlyReport}, COMMENT = #{comment}, WHETHER_REMIND = #{whetherRemind},
+            HOLIDAY_SETTING = #{holidaySetting}, HOLIDAY_DATA = #{holidayData}
+    </update>
+
+    <select id="selectDiarySetting" resultMap="BaseResultMap" >
+        SELECT
+            *
+        FROM
+            diary_setting
+        LIMIT 1
+    </select>
+</mapper>
