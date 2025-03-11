@@ -1,0 +1,232 @@
+			html{
+				height: 100%;
+			}
+        	#left ul,#left ul li{
+        		list-style: none;
+        		width: 100%;
+        	}
+			#left ul li{
+				padding-left: 20px;
+				width: auto;
+				line-height:2.5;
+			}
+			a{
+				cursor: pointer;
+			}
+			.h2{
+
+				font-size: 15pt;
+				color: #494949;
+				font-weight: 600;
+				padding:5px;
+				margin-left:15px;
+				line-height: 2;
+				display: block;
+			}
+			#chaxun{
+				width: 80%;
+				margin:0 auto;
+			}
+			#st,#st1,#st2,#st3,#st4{
+				cursor: pointer;
+				border-bottom: 1px solid #cccccc;
+				height: 40px;
+				line-height: 40px;
+				width: 230px;
+				background-color: white;
+				color:#494949;
+			}
+
+        	.add{
+        		text-decoration: none;
+        		color:  cornflowerblue;
+        		text-align: center;
+        		line-height: 30px;
+				color:#2b7fe0;
+        	}
+        	.clear{
+        		text-decoration: none;
+        		color:  #2b7fe0;
+        		text-align: center;
+        		line-height: 30px;
+        	}
+        	table{
+        		border-collapse: collapse;
+				margin-left:20px;
+				line-height: 2;
+				font-size: 11pt;
+        		}
+        	td{
+				border: 1px solid #ccc;
+				padding:5px;
+				padding-left:10px;
+				vertical-align: middle;
+        	}
+
+			#tab,#tabj,#tabp{
+				height:200px;
+				width:98%;
+
+			}
+        	#tab1{
+				width: 98%;
+        	}
+
+        	#tab2{
+        		width: 98%;
+
+        	}
+        	#line{
+				width: 2px;
+				height:100%;
+				background: #ccc;
+				margin-left: 230px;
+				margin-top: -31px;
+			}
+        	.radio{
+        		text-align: left;
+				padding-left: 10px;
+        	}
+        	textarea{
+        		overflow-x:hidden;
+        		background-color:#eee;
+				border-radius:4px;
+				border:1px solid #c0c0c0;
+				outline: none;
+        	}
+        	.add{
+				margin-left:5px;
+        		color: #2B7FE0;
+				font-size:15px;
+        	}
+        	.add:hover{
+        		text-decoration: underline;
+        	}
+        	.clear{
+				margin-left:5px;
+				color: #2b7fe0;
+				font-size: 15px;
+        	}
+        	.clear:hover{
+        		text-decoration: underline;
+        		color: #2b7fe0;
+        	}
+        	#btn{
+        		width: 85px;
+        		height: 30px;
+				/*text-align:  right;*/
+        		cursor: pointer;
+				padding-left:5px;
+				border:none;
+				background: url("http://192.168.0.18/img/email/center_q.png ") no-repeat;
+        	}
+			#left{
+				box-sizing: border-box;
+				width: 270px;
+				border-right: #ccc 1px solid;
+			}
+			#right{
+				/*margin: 0 auto;*/
+				/*width: 70%;*/
+				/*!*height: 100%;*!*/
+				/*margin-top: 0px;*/
+			}
+			input{
+				height: 24px;
+			}
+
+			#tab,#tab1,#tab2,#tableChaxun,#tabj,#tabp{
+				margin-top: 10px;
+				/*margin-left: -40px;*/
+			}
+
+			/*#first,#second,#third{*/
+				/**/
+			/*}*/
+
+			#first{
+				display: block;
+				padding:5px;
+			}
+			#second,#third,#fourth,#fifth{
+				display: none;
+				padding:5px;
+			}
+			.club{
+				width:70%;
+
+				padding:20px;
+				padding-bottom:50px;
+				margin:0 auto;
+				margin-top: 125px;
+				border:1px solid #ccc;
+				box-shadow: 13px -13px 13px #ccc;
+			}
+			#chaxun{
+				display: none;
+			}
+			#return{
+				width: 80px;
+				height: 30px;
+			}
+			th{
+				font-weight: bolder;
+				text-align: center;
+			}
+
+			#incumbency{
+				height: 35px;
+				line-height: 35px;
+				text-align: left;
+				cursor: pointer;
+				border-top: 1px solid #ccc;
+				border-bottom: 1px solid #ccc;
+			}
+			#dimission{
+				height: 40px;
+				line-height: 40px;
+				text-align: left;
+				cursor: pointer;
+				border-top: 1px solid #ccc;
+				border-bottom: 1px solid #ccc;
+			}
+			#incumbency_on{
+				display: block;
+			}
+			#dimission_on{
+				display: none;
+			}
+			.son{
+				padding-left: 80px;
+			}
+			.son,.sons{
+				font-size: 14px;
+			}
+			.sons:hover{
+				background: #D8F0FA;
+			}
+			li{
+				cursor: pointer;
+				color: rgb(0, 102, 204);
+			}
+			.clickc{
+				display: inline-block;
+				position: relative;
+				top: -19px;
+			}
+			.TXT,.txt{
+				border-radius:6px;
+				border:1px solid #ccc;
+				outline: none;
+				box-shadow: 0 1px 1px rgba(0,0,0,0.075);
+				width:229px;
+				height:33px;
+				padding:2px 2px 2px 10px;
+				vertical-align: middle;
+				transition:border linear 0.2s,box-shadow linear 0.2s;
+			}
+			.TXT:focus,.txt:focus{
+				box-shadow: 0 0 5px #00a0e9;
+			}
+
+

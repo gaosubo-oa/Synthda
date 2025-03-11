@@ -1,0 +1,59 @@
+html,body{
+	position: relative;
+	height: 100%;
+	font-family: "microsoft yahei";
+	font-size: 14px;
+	background: #f5f5f5;
+}
+header.mui-bar{
+	background: #5077aa;	
+}
+.mui-title{
+	color: #fff;
+}
+.mui-input-row label{
+	font-family: "microsoft yahei";
+}
+.mui-title,.mui-nav-btn,.mui-bg-positive{
+	color: #fff;
+}
+.mui-popup-text{
+	margin-top: 10px;
+}
+.mui-badge-blue {
+    float: left;
+    width: 100%;
+    padding: 10px;
+    background: #5b93dc;
+    font-size: 17px;
+}
+.date-icon {
+    display: inline-block;
+    float: left;
+    margin-right: 8px;
+    width: 17px;
+    height: 17px;
+    background: url(../../../img/diary/m/riqi.png);
+    background-size: cover;
+}
+.mui-card-header{
+	color: #666;
+}
+.mui-bg-positive{
+	height: 180px;	    		
+	text-align: center;	    		    
+	background: #78adf4;
+    background: -moz-linear-gradient(top,  #78adf4 0%, #5c94dd 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#78adf4), color-stop(100%,#5c94dd));
+    background: -webkit-linear-gradient(top,  #78adf4 0%,#5c94dd 100%);
+    background: -o-linear-gradient(top,  #78adf4 0%,#5c94dd 100%);
+    background: -ms-linear-gradient(top,  #78adf4 0%,#5c94dd 100%);
+    background: linear-gradient(to bottom,  #78adf4 0%,#5c94dd 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#78adf4', endColorstr='#5c94dd',GradientType=0 );
+}
+:root .mui-bg-positive{filter:none;}
+.mui-num{
+	padding-top: 20px;
+	margin-top: -4px;
+	font-size: 41px;
+}

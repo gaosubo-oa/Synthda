@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title>计算控件</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+	<link rel="stylesheet" href="../formdesign/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" href="../../../css/ueditor/site.css">
+	<script type="text/javascript" src="../dialogs/internal.js"></script>
+	<script type="text/javascript" src="/js/xoajq/xoajq3.js"></script>
+	<script type="text/javascript" src="/js/jquery/jquery-migrate-3.4.0.js"></script>
+	<script type="text/javascript" src="../../../js/base/base.js"></script>
+</head>
+<script type="text/javascript">
+
+    function createElement(type, name) {
+        var element = null;
+        try {
+            element = document.createElement('<' + type + ' name="' + name + '">');
+        } catch (e) {
+        }
+        if (element == null) {
+            element = document.createElement(type);
+            element.name = name;
+        }
+        return element;
+    }
+</script>
+<body>
+<div class="content">
+	<table class="table table-bordered table-striped table-hover">
+		<tr>
+			<th ><span class="languageText" language="workform_formItem_name">控件名称</span><span class="label label-important">*</span></th>
+			<th ><span class="languageText" language="workform_formItem_jsjd">计算精度</span></th>
+		</tr>
+		<tr>
+			<td ><input type="text" id="orgname" placeholder="必填项" class="languagePlaceHolder" language="workform_formItem_btx"></td>
+			<input type="hidden" id="fielid" placeholder="必填项" class="languagePlaceHolder" language="workform_formItem_btx"></td>
+			<td ><input type="text" id="orgprec" placeholder="默认保留小数点后3位" class="languagePlaceHolder" language="workform_formItem_mrblxsdhtw"></td></td>
+		</tr>
+        <tr>
+            <th colspan="2"><span class="languageText" language="workform_formItem_jsgs">计算公式</span><span class="label label-important">*</span></th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <label for="orgvalue"></label>
+                <textarea class="input-block-level languagePlaceHolder" rows="3" id="orgvalue" placeholder="计算公式..."  language="workform_formItem_jsgs"></textarea>
+				<div id="desp" ishide="true" class="languageText" language="workform_formItem_ckjsgssm">查看计算公式说明</div>
+				<div id="desText" style="font-size: 10pt;font-family:宋体;color:blue;display: none;cursor: pointer;" class="languageHtml" language="workform_formItem_jsgssm">
+					计算公式支持+ - * / ^和英文括号以及特定计算函数，例如：(数值1+数值2)*数值3-ABS(数值4)<br>
+					其中数值1、数值2等为表单控件名称，并且使用的"("、")"、","为英文符号。<br>
+					<b>当前版本所支持的计算函数：</b><br>
+					1、MAX(数值1,数值2,数值3...) 输出最大值,英文逗号分割;<br>
+					2、MIN(数值1,数值2,数值3...) 输出最小值,英文逗号分割;<br>
+					3、ABS(数值1) 输出绝对值;<br>
+					4、MOD(数值1,数值2) 计算数值1和数值2的余数;<br>
+					5、AVG(数值1,数值2,数值3) 输出平均值;<br>
+					6、RMB(数值1) 输出人民币大写形式，数值范围0～9999999999.99;<br>
+					7、DAY(日期1-日期2) 输出时间差的整数天数;<br>
+					8、HOUR(日期1-日期2) 输出时间差的小时数;<br>
+					9、DATE(日期1-日期2) 输出时间差，形如：xx天xx小时xx分xx秒;<br>
+					10、LIST(列表控件名,第几列) 计算列表控件指定列的和;<br>
+					11、THS(数值1) 输出货币千分位形式，例如：1,000,000;<br>
+					<b>注意：参与日期计算的控件必须为日期类型或者日期+时间类型。</b><br>
+				</div>
+            </td>
+        </tr>
+		<tr>
+			<th  >
+				<span class="languageText" language="workform_formItem_kgztsize">&nbsp;&nbsp;&nbsp;&nbsp;宽&nbsp;&nbsp;X&nbsp;&nbsp;高&nbsp;&nbsp;&nbsp;&&nbsp;&nbsp;&nbsp;字体大小</span>
+			</th>
+			<th><span class="languageText" language="workform_formItem_kjx">可见性</span></th>
+		</tr>
+		<tr>
+			<td style="width: 50%;">
+				<input id="orgwidth" type="text" value="150" class="input-small span1" placeholder="auto"/>
+				X
+				<input id="orgheight" type="text" value="" class="input-small span1" placeholder="auto"/>
+				&
+				<input id="orgfontsize" type="text" value="" class="input-small span1" placeholder="auto"/> px
+			</td>
+			<td>
+				<label class="checkbox inline"><input id="orghide" type="checkbox"/> <span class="languageText" language="workform_formItem_hide">隐藏</span> </label>
+			</td>
+		</tr>
+	</table>
+</div>
+<script>
+	if(getCookie("language") != 'zh_CN'){
+		$('title').text(workform_formItem.workform_formItem_calculation);
+		var $languageText = $('.languageText');
+		var $languageHtml = $('.languageHtml');
+		var $languagePlaceHolder = $('.languagePlaceHolder');
+		for(var i = 0; i < $languageText.length; i++){
+			var language = $languageText.eq(i).attr('language');
+			$('*[language='+ language +']').text(workform_formItem[language]);
+		}
+		for(var i = 0; i < $languageHtml.length; i++){
+			var language = $languageHtml.eq(i).attr('language');
+			$('*[language='+ language +']').html(workform_formItem[language]);
+		}
+		for(var i = 0; i < $languagePlaceHolder.length; i++){
+			var language = $languagePlaceHolder.eq(i).attr('language');
+			$('*[language='+ language +']').prop('placeholder', workform_formItem[language]);
+		}
+	}
+
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#desp').on('click', function () {
+            if($(this).attr('ishide') == 'true'){
+                $('#desText').show();
+                $(this).attr('ishide',false);
+            }else{
+                $(this).attr('ishide',true);
+                $('#desText').hide();
+            }
+        })
+        var dataid = $.getQueryString('dataid');
+        var dataNumber=parent.pluginId;
+        var oNode = null, thePlugins = 'calculation';
+        if (UE.plugins[thePlugins].editdom) {
+            oNode = UE.plugins[thePlugins].editdom;
+            var gValue = oNode.value, gName = oNode.getAttribute('name'),
+                gTitle = oNode.getAttribute('title').replace(/&quot;/g, "\""),
+                ghide = oNode.getAttribute('orghidden');
+                gFontSize = oNode.getAttribute('orgfontsize'),
+                gWidth = oNode.getAttribute('orgwidth'),
+                gHeight = oNode.getAttribute('orgheight'),
+                gPrec = oNode.getAttribute('prec');
+
+            gValue = gValue == null ? '' : gValue;
+            gTitle = gTitle == null ? '' : gTitle;
+            gName = gName == null ? '' : gName;
+            gPrec = gPrec == null ? '' : gPrec;
+
+            $G('orgname').value = gTitle;
+            $G('orgvalue').value = gValue;
+            $G('orgprec').value = gPrec;
+
+
+            if (ghide == '1')
+            {
+                $G('orghide').checked = true;
+            }
+            if(gWidth != ''){
+                $G('orgwidth').value = gWidth;
+            }
+            $G('orgheight').value = gHeight;
+            $G('orgfontsize').value = gFontSize;
+
+        }
+
+        dialog.oncancel = function () {
+            if (UE.plugins[thePlugins].editdom) {
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+        dialog.onok = function () {
+            if ($G('orgname').value == '') {
+				if(workform_formItem){
+					alert(workform_formItem.workform_formItem_qsrkjmc);
+				}else{
+					alert('请输入控件名称');
+				}
+                return false;
+            }
+            var gValue = $G('orgvalue').value.replace(/\"/g, "&quot;"),
+                gTitle = $G('orgname').value.replace(/\"/g, "&quot;"),
+                gFontSize = $G('orgfontsize').value,
+                gWidth = $G('orgwidth').value,
+                gHeight = $G('orgheight').value,
+                gPrec= $G('orgprec').value;
+
+            if (!oNode) {
+                try {
+                    oNode = createElement('input','NEWFIELD');
+                    oNode.setAttribute('id', 'DATA_' + dataNumber);
+                    oNode.setAttribute('name', 'DATA_' + dataNumber);
+                    oNode.setAttribute('class', "form_item");
+                    oNode.setAttribute('type', "text");
+                    oNode.setAttribute('data-type', "calculation");
+                    oNode.setAttribute('readonly', "readonly");
+                    oNode.setAttribute('title', gTitle);
+                    oNode.setAttribute('value', gValue);
+                    oNode.setAttribute('formula', gValue);
+                    oNode.setAttribute('prec', gPrec);
+                    oNode.setAttribute('orgfontsize',gFontSize);
+                    oNode.setAttribute('orgwidth',gWidth);
+                    oNode.setAttribute('orgheight',gHeight);
+
+                    if (gFontSize != '') {
+                        oNode.style.fontSize = gFontSize + 'px';
+                    }
+                    if (gHeight != '') {
+                        oNode.style.height = gHeight + 'px';
+                    }
+                    if (gWidth != '') {
+                        oNode.style.width = gWidth + 'px';
+                    }
+                    if ($G('orghide').checked) {
+                        oNode.setAttribute('orghidden', 1);
+                    } else {
+                        oNode.setAttribute('orghidden', 0);
+                    }
+                    editor.execCommand('insertHtml', oNode.outerHTML);
+                } catch (e) {
+                    try {
+                        editor.execCommand('error');
+                    } catch (e) {
+						if(workform_formItem){
+							alert(workform_formItem.workform_formItem_kjycqlxjszc);
+						}else{
+							alert('控件异常，请联系技术支持');
+						}
+                    }
+                    return false;
+                }
+            } else {
+                oNode.setAttribute('title', gTitle);
+                oNode.setAttribute('value', $G('orgvalue').value);
+                oNode.setAttribute('formula', $G('orgvalue').value);
+                oNode.setAttribute('prec', gPrec);
+                oNode.setAttribute('orgfontsize',gFontSize);
+                oNode.setAttribute('orgwidth',gWidth);
+                oNode.setAttribute('orgheight',gHeight);
+                oNode.setAttribute('readonly', "readonly");
+
+                if (gFontSize != '') {
+                    oNode.style.fontSize = gFontSize + 'px';
+                } else {
+                    oNode.style.fontSize = '';
+                }
+                if (gWidth != '') {
+                    oNode.style.width = gWidth + 'px';
+                } else {
+                    oNode.style.width = '';
+                }
+                if (gHeight != '') {
+                    oNode.style.height = gHeight + 'px';
+                } else {
+                    oNode.style.height = '';
+                }
+                if ($G('orghide').checked) {
+                    oNode.setAttribute('orghidden', 1);
+                } else {
+                    oNode.setAttribute('orghidden', 0);
+                }
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+    });
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+body{background:url("bg2.jpg");font-size:9pt;color:#FFFFFF;}
+img{border:0px;}
+
+A:link, A:visited, A:active, A:hover{ color: #FFFFFF; text-decoration: none;}
+
+.topbar{font-size: 9pt;background:none;}
+#banner_text{
+   color:#FFFFFF;
+   WIDTH: 100%;
+   FONT-WEIGHT:bold;
+   FONT-SIZE: 18pt;
+}
+#time{
+   text-align:right;
+   padding-top:3px;
+   padding-bottom:3px;
+}
+.time_left{
+   padding-left:11px;
+   background:url("dt_bg_left.png") no-repeat bottom left;
+}
+.time_right{
+   margin-right:5px;
+   padding-top:3px;
+   padding-bottom:3px;
+   background:url("dt_bg_right.png") no-repeat bottom right;
+}
+#weather{
+   position:absolute;
+   text-align:right;
+   top:30px;
+   padding-right:10px;
+   right:50px;
+}
+#today{
+   position:absolute;
+   top:30px;
+   right:0px;
+   padding-right:5px;
+   color:#FFFFFF;
+}
+
+.city{
+   font-weight:bold;
+   cursor:pointer;
+}
+
+.wind, .weather{
+   padding-right:3px;
+}
+
+.temperature{
+   padding-right:3px;
+}
+
+#area_select{
+   width:310px;
+   text-align:right;
+   position:absolute;
+   top:25px;
+   right:0px;
+   display:none;
+}
+
+#Nav A {DISPLAY: block; POSITION: relative; COLOR:#FFFFFF; text-decoration: none;}
+#Nav A:hover { BACKGROUND-COLOR: #677CAD; COLOR:#FFFFFF; PADDING-LEFT: 0px; PADDING-RIGHT: 0px;  PADDING-TOP: 4px;  PADDING-BOTTOM: 4px; MARGIN: 0px;}

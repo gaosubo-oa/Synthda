@@ -1,0 +1,242 @@
+.up_page_right{
+	width: 85%;
+	height: 100%;
+	overflow-y: auto;  
+    overflow-x: hidden;
+}
+.up_page_right .up_header{
+	width: 100%;
+	height: 56px;
+	border-bottom: #2f80d1 1px solid;
+	overflow: hidden;
+	padding-left: 2%;
+}
+.up_page_right .up_header .up_nav{
+	width: 70%;
+	float: left;
+	height: 100%;
+	overflow: hidden;
+}
+.up_page_right .up_header .up_nav ul{
+	overflow: hidden;
+}
+.up_page_right .up_header .up_nav ul li{
+	font-size: 14px;
+	float: left;
+	padding: 5px 10px;
+	border: #999 1px solid;
+	margin-top: 12px;
+	margin-right: 1%;
+	border-radius: 3px;
+	cursor: pointer;
+}
+.up_page_right .up_header .up_nav ul li:nth-child(2){
+	margin-right: 5%;
+}
+.up_page_right .up_header .up_nav ul li img.im{
+	width: 16px;
+	height: 16px;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+.up_page_right .up_header .up_nav ul li img.am{
+	width: 10px;
+	height: 6px;
+	vertical-align: middle;
+	margin-left: 5px;
+}
+.up_pages{
+	overflow: hidden;
+}
+.up_pages .up_div_pages{
+	float: left;
+	overflow: hidden;
+	margin-left: 18%;
+}
+.up_pages .up_div_pages ul li{
+	float: left;
+	font-size: 14px;
+	border: #999 1px solid;
+	padding: 5px 0;
+	margin-top: 12px;
+	cursor: pointer;
+}
+.up_pages .up_div_pages ul li:first-of-type{
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+	border-right: none;
+}
+.up_pages .up_div_pages ul li:last-of-type{
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-left: none;
+}
+.up_pages .up_div_pages ul li span{
+	color: #ccc;
+	margin: 0 10px;
+}
+.up_pages .up_div_pages ul li img{
+	width: 6px;
+	height: 10px;
+	margin: 0 5px;
+}
+
+.up_pages .up_format{
+	float: left;
+	margin-left: 2%;
+}
+.up_pages .up_format ul{
+	width: 120px;
+
+	overflow: hidden;
+	border-radius: 3px;
+}
+.up_pages .up_format ul li{
+	float: left;
+	width: 40px;
+	height: 35px;
+	margin-top: 10px;
+	background-color: #f6f6f6;
+	text-align: center;
+	overflow: hidden;
+}
+.up_pages .up_format ul li img{
+	margin-top: 6px;
+}
+.main{
+	width: 100%;
+	overflow: hidden;
+	height: 92.6%;
+	background-color: #fff;
+}
+.main .main_left{
+	float: left;
+	width: 18%;
+	border-right: #cee7ff 8px solid;
+	height: 100%;
+	overflow-y: auto;  
+    overflow-x: hidden; 
+}
+.main .main_left ul li{
+	padding-left: 10px;
+	width: 100%;
+	border-bottom: #ccc 1px solid;
+	font-size: 14px;
+	overflow: hidden;
+}
+.main .main_left ul li .sort{
+	float: left;
+	margin: 20px 0;
+}
+.main .main_left ul li .sort_right{
+	float: right;
+	margin-right: 20px;
+	border: #aaa 1px solid;
+	margin-top: 20px;
+	padding-right: 10px;
+	border-radius: 3px;
+}
+.main .main_left ul li .sort_right img{
+	margin: 5px 5px;
+	vertical-align: middle;
+}
+.main .main_left ul li.tile{
+	height: 52px;
+	line-height: 52px;
+	font-size: 16px;
+}
+.main .main_left ul li .shang{
+	margin: 8px 0;
+}
+.main .main_left ul li .xia{
+	margin-bottom: 8px;
+}
+.main .main_left ul li img{
+	width: 16px;
+	height: 16px;
+	margin-left: 10px;
+}
+.main .main_left ul li .time{
+	margin-left: 30%;
+}
+.main .main_left ul li .xia .xia_txt{
+	display: inline-block;
+	width: 70%;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+
+
+.main .main_right{
+	float: left;
+	width: 81%;
+	position: relative;
+	
+}
+
+.main_right table{
+	width: 80%;
+	margin-left: 2%;
+	margin-top: 13px;
+	line-height: 30px;
+}
+.main_right table tr td{
+	font-size: 14px;
+}
+.main_right table tr td>span{
+	display: block;
+	line-height: 22px;
+	float: left;
+	margin-right: 10px;
+	color: #2f80d1;
+}
+.main_right table tr td>span img{
+	display: block;
+	line-height: 22px;
+	float: left;
+	margin-right: 10px;
+}
+.main_right table tr td p span{
+	color: #2f80d1;
+}
+.main_right table tr td p img{
+	vertical-align: middle;
+	margin: 0 10px;
+}
+
+.main_right .span_hr{
+	display: inline-block;
+	position: absolute;
+	top: 35px;
+	right: 70px;
+	text-align: center;
+}
+.main_right .span_hr>div{
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	overflow: hidden;
+	margin: 0 auto;
+}
+.main_right .span_hr>div img{
+	width: 100%;
+	height: 100%;
+}
+.main_right .span_hr p{
+	margin-top: 5px;
+}
+.main_right .article{
+	margin-top: 10px;
+	width: 100%;
+	padding-left: 2%;
+	border-top: #ebebeb 1px solid;
+}
+.main_right .article p{
+	margin-right: 25px;
+	font-size: 14px;
+}
+.main_right .article p:first-of-type{
+	margin-top: 13px;
+}

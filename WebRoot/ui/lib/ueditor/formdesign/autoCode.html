@@ -1,0 +1,632 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>自动编号</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+    <link rel="stylesheet" href="../formdesign/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../../../css/ueditor/site.css">
+    <script type="text/javascript" src="../dialogs/internal.js"></script>
+    <script type="text/javascript" src="/js/xoajq/xoajq3.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery-migrate-3.4.0.js"></script>
+    <script type="text/javascript" src="../../../js/base/base.js"></script>
+    <script type="text/javascript">
+        function createElement(type, name)
+        {
+            var element = null;
+            try {
+                element = document.createElement('<'+type+' name="'+name+'">');
+            } catch (e) {}
+            if(element==null) {
+                element = document.createElement(type);
+                element.name = name;
+            }
+            return element;
+        }
+    </script>
+    <style type="text/css">
+        .allacti {
+            display: inline-block;
+            width: 70%;
+            max-width: 300px;
+            height: 150px;
+            margin-right: 20px;
+            border: 1px solid #2F8AE3;
+            border-radius: 3px;
+            overflow: auto;
+            position: relative;
+            left: 50%;
+            margin-left: -35%;
+        }
+
+        .li_item, .module_item {
+            text-align: center;
+            padding: 2px 5px;
+            cursor: pointer;
+            line-height: 20px;
+        }
+
+        .module_item .del_map {
+            color: #f00;
+            margin-left: 5px;
+        }
+
+        .li_item:hover {
+            background-color: #2F8AE3;
+            color: #fff;
+        }
+
+        .li_item.active {
+            background-color: #2F8AE3;
+            color: #fff;
+        }
+
+        #mapModule {
+            position: relative;
+            width: 80%;
+            max-width: 620px;
+            height: 150px;
+            border: 1px solid #2F8AE3;
+            border-radius: 3px;
+            overflow: auto;
+            left: 50%;
+            margin-left: -40%;
+        }
+        .formList {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+        <tr>
+            <th><span class="languageText" language="workform_formItem_name">控件名称</span><span class="label label-important">*</span></th>
+            <th><span class="languageText" language="workform_formItem_zdbhgz">自动编号规则</span></th>
+        </tr>
+        <tr>
+            <td>
+                <input id="orgname" type="text" placeholder="必填项" class="languagePlaceHolder" language="workform_formItem_btx"/>
+            </td>
+            <td>
+                <select  id="datafld" onchange="func()" class="">
+
+                </select>
+                <div id="ruleTxt"></div>
+            </td>
+        </tr>
+        <tr  class="formLists">
+            <th  colspan="2">
+                <span class="languageText" language="workform_formItem_kgztsize">&nbsp;&nbsp;&nbsp;&nbsp;宽&nbsp;&nbsp;X&nbsp;&nbsp;高&nbsp;&nbsp;&nbsp;&&nbsp;&nbsp;&nbsp;字体大小</span>
+                <input id="orgwidth" style="margin-bottom: 5px;margin-left: 50px;" type="text" value="150" class="input-small span1" placeholder="auto"/>
+                X
+                <input id="orgheight" style="margin-bottom: 5px;" type="text" value="" class="input-small span1" placeholder="auto"/>
+                &
+                <input id="orgfontsize" style="margin-bottom: 5px;" type="text" value="" class="input-small span1" placeholder="auto"/> px
+            </th>
+
+        </tr>
+        <!--<tr   class="formLists">-->
+            <!--<td  colspan="2">-->
+                <!---->
+
+            <!--</td>-->
+
+        <!--</tr>-->
+        <tr class="formListCheck" style="display: none;">
+            <td colspan="2">
+                <label class="checkbox inline"><input id="orgControl" onclick="checkboxOnclick(this)" type="checkbox"/><span  class="languageText" language="workform_formItem_bhzblbdbdzd">编号中变量绑定表单字段</span></label>
+            </td>
+        </tr>
+        <!--<tr  class="formList">-->
+            <!--<th colspan="2">-->
+                <!--<span>编号规则变量与表单字段绑定</span>-->
+            <!--</th>-->
+        <!--</tr>-->
+        <tr class="formList">
+            <th>
+                <span class="languageText" language="workform_formItem_bdzd">表单字段</span><span>：</span>
+            </th>
+            <th>
+                <span class="languageText" language="workform_formItem_bhgzbdszdbl">编号规则表达式中的变量</span><span>：</span>
+            </th>
+        </tr>
+        <tr class="formList">
+            <td>
+                <div class="allacti business">
+                </div>
+            </td>
+            <td>
+                <div class="allacti processS">
+
+                </div>
+            </td>
+        </tr>
+        <tr class="formList">
+            <td colspan="2">
+                <button class="add_map languageText" language="workform_formItem_tjbddygx" type="button" style="background-color:#3a90f2;position: relative; left: 50%;width: 200px; margin-left:-100px;color:#fff;padding: 3px 10px;border-radius: 20px;cursor: pointer;border: 1px solid #3a90f2;">添加绑定对应关系</button>
+            </td>
+        </tr>
+        <tr class="formList">
+            <td colspan="2">
+                <div id="mapModule"></div>
+            </td>
+        </tr>
+        </thead>
+
+
+    </table>
+</div>
+<script>
+    if(getCookie("language") != 'zh_CN'){
+        $('title').text(workform_formItem.workform_formItem_autoCode);
+        var $languageText = $('.languageText');
+        var $languagePlaceHolder = $('.languagePlaceHolder');
+        for(var i = 0; i < $languageText.length; i++){
+            var language = $languageText.eq(i).attr('language');
+            $('*[language='+ language +']').text(workform_formItem[language]);
+        }
+        for(var i = 0; i < $languagePlaceHolder.length; i++){
+            var language = $languagePlaceHolder.eq(i).attr('language');
+            $('*[language='+ language +']').prop('placeholder', workform_formItem[language]);
+        }
+    }
+
+</script>
+<script type="text/javascript">
+    var ruleData;
+    $(function () {
+        var oNode = null,thePlugins = 'autocode';
+
+        var dataid = $.getQueryString('dataid');
+        var dataNumber=parent.pluginId;
+        ruleData = toAjaxT("../../../document/getRuleAll");
+        build();
+        function build(){
+            $.ajax({
+                type: "post",
+                url: "../../../document/getRuleAll",
+                dataType: 'JSON',
+                success: function (obj) {
+                    if(obj.flag==true){
+                        var option = '';
+                        obj.obj.forEach(function(v,i){
+                            option+='<option value="'+v.id+'">'+v.name+'</option>';
+                        });
+                        $('#datafld').html(option);
+                        var $input = $(window.parent.document).find('iframe#ueditor_0').contents().find('.form_item');
+                        var formStr = '';
+                        for(var x=0; x<$input.length; x++) {
+                            formStr += '<div class="li_item" filed="'+$input.eq(x).attr('id')+'">'+$input.eq(x).attr('title')+'</div>'
+                        }
+                        $('.business').html(formStr);
+                        var strS = obj.obj[0].expression;
+                        var arrss = returnRule(strS);
+                        var strss = '';
+                        for(var j=0; j<arrss[0].length; j++) {
+                            strss += '<div class="li_item" filed="'+arrss[0][j]+'">'+arrss[1][j]+'</div>'
+                        }
+                        $('.processS').html(strss);
+                        $('#ruleTxt').attr('counterType',obj.obj[0].counterType)
+                        $('#ruleTxt').html('规则表达式：'+strS);
+                        if(obj.obj[0].counterType == '1') {
+                            $('.formListCheck').hide();
+                            $('.formLists').show();
+                        }else{
+                            $('.formListCheck').hide();
+                            $('.formLists').hide();
+                        }
+                        if( UE.plugins[thePlugins].editdom ) {
+                            oNode = UE.plugins[thePlugins].editdom;
+                            var gTitle=oNode.getAttribute('title').replace(/&quot;/g,"\""),gType=oNode.getAttribute('datafld'),
+                                gFontSize = oNode.getAttribute('orgfontsize'),
+                                gWidth = oNode.getAttribute('orgwidth'),
+                                    gHeight = oNode.getAttribute('orgheight');
+                            gTitle = gTitle==null ? '' : gTitle;
+                            var gTypes = oNode.getAttribute('orgcontrol');
+                            var arr = [];
+                            var strS = '';
+                            var counterType = '';
+                            for(var i=0; i<ruleData.obj.length; i++) {
+                                if(gType == ruleData.obj[i].id) {
+                                    strS = ruleData.obj[i].expression;
+                                    counterType = ruleData.obj[i].counterType
+                                    arr = returnRule(ruleData.obj[i].expression);
+                                }
+                            }
+                            var str = '';
+                            for(var j=0; j<arr[0].length; j++) {
+                                str += '<div class="li_item" filed="'+arr[0][j]+'">'+arr[1][j]+'</div>'
+                            }
+                            $('.processS').html(str);
+                            $('#ruleTxt').attr('counterType',counterType)
+                            if(workform_formItem){
+                                var workform_formItem_gzbds = workform_formItem.workform_formItem_gzbds;
+                            }else{
+                                var workform_formItem_gzbds = '规则表达式';
+                            }
+                            $('#ruleTxt').html(workform_formItem_gzbds + '：' + strS);
+                            if(counterType == '1') {
+                                $('.formListCheck').hide();
+                                $('.formLists').show();
+                            }else{
+                                $('.formListCheck').show();
+                                $('.formLists').hide();
+                                if(gTypes == 'true') {
+                                    $G('orgControl').checked  = true;
+                                    $('.formList').show();
+                                }else{
+                                    $G('orgControl').checked  = false;
+                                    $('.formList').hide();
+                                }
+                            }
+                            var keystr = oNode.getAttribute('keystr');
+                            var keystrs = oNode.getAttribute('keystrs');
+                            var keystrArr = [];
+                            var keystrsArr = [];
+                            if(keystr != '' && keystr != undefined) {
+                                keystrArr = keystr.split('#');
+                            }else{
+                                keystrArr = [];
+                            }
+                            if(keystrs != '' && keystrs != undefined) {
+                                keystrsArr = keystrs.split('#');
+                            }else{
+                                keystrsArr = [];
+                            }
+                            var mStr = '';
+                            for(var m=0;m<keystrArr.length;m++) {
+                                if(keystrArr[m]) {
+                                    var mapId = keystrArr[m].split('@')[0] + '_' + keystrArr[m].split('@')[1];
+                                    var mapValue =  keystrsArr[m].split('=>')[1] + '=>' + keystrArr[m].split('@')[0];
+                                    mStr+='<div id="' + mapId + '" pid="' + keystrArr[m] + '" class="module_item"><span>' + keystrsArr[m] + '</span><strong class="del_map">x</strong><input type="hidden" value="' + mapValue + '"></div>';
+                                }
+                            }
+                            $('#mapModule').html(mStr);
+                            if(gWidth != ''){
+                                $G('orgwidth').value = gWidth;
+                            }
+                            $G('orgheight').value = gHeight;
+                            $G('orgfontsize').value = gFontSize;
+                            $G('orgname').value = gTitle;
+                            $G('datafld').value    = gType;
+
+
+                        }
+                    }
+                }
+            });
+        }
+
+
+
+
+        dialog.oncancel = function () {
+            if( UE.plugins[thePlugins].editdom ) {
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+        dialog.onok = function (){
+            if ( $G('orgname').value == '' ) {
+                if(workform_formItem){
+                    alert(workform_formItem.workform_formItem_qsrkjmc);
+                }else{
+                    alert('请输入控件名称');
+                }
+                return false;
+            }
+            var gTitle=$G('orgname').value.replace(/\"/g,"&quot;"),gType=$G('datafld').value,
+                gFontSize = $G('orgfontsize').value,
+                gWidth = $G('orgwidth').value,
+                gHeight = $G('orgheight').value,
+                gTypes = $G('orgControl').checked;
+            if( !oNode ) {
+                try {
+                    if(gTypes){
+                        oNode = createElement('img','leipiNewField');
+                        oNode.style.height = '30px';
+                        oNode.style.width = '30px';
+                        oNode.src = '../../img/workflow/work/NO1.png';
+                        oNode.style.display = 'inline-block';
+                        oNode.style.cursor = 'pointer';
+                        // oNode.innerHTML = '⑥';
+                        oNode.setAttribute('class', "form_item ");
+                        oNode.setAttribute('data-type', "autocode");
+                        oNode.setAttribute('title',gTitle);
+                        oNode.setAttribute('name','DATA_'+dataNumber);
+                        oNode.setAttribute('id','DATA_'+dataNumber);
+                        oNode.setAttribute('datafld',gType);
+                        oNode.setAttribute('orgfontsize','16');
+                        oNode.setAttribute('orgwidth','30');
+                        oNode.setAttribute('orgheight','30');
+                        oNode.setAttribute('counterType',$('#ruleTxt').attr('counterType'));
+                        oNode.setAttribute('orgcontrol',gTypes);
+                        oNode.setAttribute('rules',$('#ruleTxt').html().split('规则表达式：')[1]);
+                    }else{
+                        oNode = createElement('input','leipiNewField');
+                        oNode.setAttribute('type','text');
+                        oNode.setAttribute('value','{autocode}');
+                        oNode.setAttribute('class', "form_item ");
+                        oNode.setAttribute('data-type', "autocode");
+                        oNode.setAttribute('title',gTitle);
+                        oNode.setAttribute('name','DATA_'+dataNumber);
+                        oNode.setAttribute('id','DATA_'+dataNumber);
+                        oNode.setAttribute('datafld',gType);
+                        oNode.setAttribute('orgfontsize',gFontSize);
+                        oNode.setAttribute('orgwidth',gWidth);
+                        oNode.setAttribute('orgheight',gHeight);
+                        oNode.setAttribute('counterType',$('#ruleTxt').attr('counterType'));
+                        oNode.setAttribute('orgcontrol',gTypes);
+                    }
+                    if(gTypes) {
+                        var $div = $('#mapModule').find('div')
+                        var keyStr = '';
+                        var keyStrs = '';
+                        for(var y=0; y<$div.length; y++) {
+                            keyStr += $div.eq(y).attr('pid') + '#';
+                            keyStrs += $div.eq(y).find('span').text() + '#';
+                        }
+                        oNode.setAttribute('keystr',keyStr);
+                        oNode.setAttribute('keystrs',keyStrs);
+                    }else{
+                        oNode.setAttribute('keystr','');
+                        oNode.setAttribute('keystrs','');
+                    }
+                    editor.execCommand('insertHtml',oNode.outerHTML);
+                    return true;
+                } catch ( e ) {
+                    try {
+                        editor.execCommand('error');
+                    } catch ( e ) {
+                        if(workform_formItem){
+                            alert(workform_formItem.workform_formItem_kjycqlxjszc);
+                        }else{
+                            alert('控件异常，请联系技术支持');
+                        }
+                    }
+                    return false;
+                }
+            } else {
+                var  dataid = oNode.id.indexOf('DATA_')>-1 ? oNode.id.replace('DATA_','') : $.getQueryString('dataid')
+                var oNode1;
+                if(gTypes){
+                    oNode1 = createElement('img','leipiNewField');
+                    oNode1.style.height = '30px';
+                    oNode1.style.width = '30px';
+                    oNode1.src = '../../img/workflow/work/NO1.png';
+                    oNode1.style.display = 'inline-block';
+                    oNode1.style.cursor = 'pointer';
+                    oNode1.setAttribute('class', "form_item ");
+                    oNode1.setAttribute('data-type', "autocode");
+                    oNode1.setAttribute('title',gTitle);
+                    oNode1.setAttribute('name','DATA_'+dataid);
+                    oNode1.setAttribute('id','DATA_'+dataid);
+                    oNode1.setAttribute('datafld',gType);
+                    oNode1.setAttribute('orgfontsize','16');
+                    oNode1.setAttribute('orgwidth','30');
+                    oNode1.setAttribute('orgheight','30');
+                    oNode1.setAttribute('counterType',$('#ruleTxt').attr('counterType'));
+                    oNode1.setAttribute('orgcontrol',gTypes);
+                    oNode1.setAttribute('rules',$('#ruleTxt').html().split('规则表达式：')[1]);
+                }else{
+                    oNode1 = createElement('input','leipiNewField');
+                    oNode1.setAttribute('type','text');
+                    oNode1.setAttribute('value','{autocode}');
+                    oNode1.setAttribute('class', "form_item ");
+                    oNode1.setAttribute('data-type', "autocode");
+                    oNode1.setAttribute('title',gTitle);
+                    oNode1.setAttribute('name','DATA_'+dataid);
+                    oNode1.setAttribute('id','DATA_'+dataid);
+                    oNode1.setAttribute('datafld',gType);
+                    oNode1.setAttribute('orgfontsize', $G('orgfontsize').value);
+                    oNode1.setAttribute('orgwidth',$G('orgwidth').value);
+                    oNode1.setAttribute('orgheight',$G('orgheight').value);
+                    oNode1.setAttribute('counterType',$('#ruleTxt').attr('counterType'));
+                    oNode1.setAttribute('orgcontrol',gTypes);
+                }
+                if(gTypes) {
+                    var $div = $('#mapModule').find('div')
+                    var keyStr = '';
+                    var keyStrs = '';
+                    for(var y=0; y<$div.length; y++) {
+                        keyStr += $div.eq(y).attr('pid') + '#';
+                        keyStrs += $div.eq(y).find('span').text() + '#';
+                    }
+                    oNode1.setAttribute('keystr',keyStr);
+                    oNode1.setAttribute('keystrs',keyStrs);
+                }else{
+                    oNode1.setAttribute('keystr','');
+                    oNode1.setAttribute('keystrs','');
+                }
+                $(oNode).replaceWith(oNode1)
+                delete UE.plugins[thePlugins].editdom;
+
+            }
+        };
+        // 添加映射关系
+        $('.add_map').on('click', function () {
+            var $business = $('.business').find('.active');
+            var $processS = $('.processS').find('.active');
+            if ($business.length == 0 || $processS.length == 0) {
+                return false;
+            }
+
+            var businessObj = {
+                key: $business.attr('filed'),
+                name: $business.text()
+            }
+
+            var processObj = {
+                key: $processS.attr('filed'),
+                name: $processS.text()
+            }
+            var mapId = businessObj.key + '_' + processObj.key;
+            var mapIds = businessObj.key + '@' + processObj.key;
+            if(processObj.key == 'COUNTER') {
+                $(window.parent.document).find('iframe#ueditor_0').contents().find('#'+ businessObj.key).attr('js','1')
+            }
+            if ($('#' + mapId).length > 0) {
+                alert('该规则变量对应关系已存在！')
+                return false;
+            }
+            var $module_item = $('.module_item');
+            // var arrs = []
+            // for(var m=0; m<$module_item.length; m++) {
+            //     if($module_item.eq(m).attr('id').indexOf(processObj.key) > -1) {
+            //         arrs.push('1')
+            //     }
+            // }
+            // if(arrs.length > 0) {
+            //     alert('该规则变量对应关系只能对应唯一表单字段！')
+            //     return false;
+            // }
+            var mapValue = processObj.name + '=>' + businessObj.key;
+            var str = '<div id="' + mapId + '" pid="' + mapIds + '" class="module_item"><span>' + businessObj.name + '=>' + processObj.name + '</span><strong class="del_map">x</strong><input type="hidden" value="' + mapValue + '"></div>';
+
+            $('#mapModule').append(str);
+
+            $business.removeClass('active');
+            $processS.removeClass('active');
+        });
+        $(document).on('click', '.del_map', function() {
+            if($(this).parent().attr('pid').indexOf('COUNTER') > -1) {
+                $(window.parent.document).find('iframe#ueditor_0').contents().find('#'+ $(this).parent().attr('pid').split('@')[0]).attr('js','');
+            }
+            $(this).parent().remove();
+        });
+
+        $(document).on('click', '.li_item', function() {
+            $(this).addClass('active').siblings().removeClass('active');
+        });
+
+    });
+    function checkboxOnclick(checkbox) {
+        if ( checkbox.checked == true){
+            $('.formList').show();
+            var $business = $('.business').find('.active');
+            var $processS = $('.processS').find('.active');
+            $business.removeClass('active');
+            $processS.removeClass('active');
+            $('#mapModule').html('');
+        }else{
+            // $('#orgwidth').val('150');
+            // $('#orgheight').val('');
+            // $('#orgcontrol').val('');
+            $('.formList').hide();
+            var $business = $('.business').find('.active');
+            var $processS = $('.processS').find('.active');
+            $business.removeClass('active');
+            $processS.removeClass('active');
+            $('#mapModule').html('');
+        }
+    }
+    function func() {
+        var  a = $('#datafld').val();
+        var arr = [];
+        var strS = '';
+        var counterType = '';
+        for(var i=0; i<ruleData.obj.length; i++) {
+            if(a == ruleData.obj[i].id) {
+                strS = ruleData.obj[i].expression;
+                counterType = ruleData.obj[i].counterType
+                arr = returnRule(strS);
+            }
+        }
+        var str = '';
+        for(var j=0; j<arr[0].length; j++) {
+            str += '<div class="li_item" filed="'+arr[0][j]+'">'+arr[1][j]+'</div>'
+        }
+        $('.processS').html(str);
+        $('#ruleTxt').attr('counterType',counterType)
+        $('#ruleTxt').html('规则表达式：'+strS);
+        if(counterType == '1') {
+            $('.formListCheck').hide();
+            $('.formLists').show();
+            $('.formList').hide();
+            $G('orgwidth').value = '150';
+            $G('orgheight').value = '';
+            $G('orgfontsize').value = '';
+            $G('orgControl').checked  = false;
+        }else{
+            $('.formListCheck').show();
+            $G('orgControl').checked  = false;
+            $('.formLists').hide();
+            $('.formList').hide();
+        }
+    }
+    function returnRule(strS) {
+        var arr = [];
+        var arrTxt = []
+        if(strS.indexOf('[YY]') > -1) {
+            arr.push('YY');
+            arrTxt.push('当前年份(缩写)');
+        }
+        if(strS.indexOf('[ALL_YY]') > -1) {
+            arr.push('ALL_YY');
+            arrTxt.push('当前年份(完整)');
+        }
+        if(strS.indexOf('[DATE]') > -1) {
+            arr.push('DATE');
+            arrTxt.push('当前日期');
+        }
+        if(strS.indexOf('[H_MOS]') > -1) {
+            arr.push('H_MOS');
+            arrTxt.push('几日(补零)');
+        }
+        if(strS.indexOf('[H_MO]') > -1) {
+            arr.push('H_MO');
+            arrTxt.push('几日(不补零)');
+        }
+        if(strS.indexOf('[MONTHS]') > -1) {
+            arr.push('MONTHS');
+            arrTxt.push('几月(补零)');
+        }
+        if(strS.indexOf('[MONTH]') > -1) {
+            arr.push('MONTH');
+            arrTxt.push('几月(不补零)');
+        }
+        if(strS.indexOf('[DATE_TIME]') > -1) {
+            arr.push('DATE_TIME');
+            arrTxt.push('日期时间');
+        }
+        if(strS.indexOf('[DEPT_NAME]') > -1) {
+            arr.push('DEPT_NAME');
+            arrTxt.push('部门名称');
+        }
+        if(strS.indexOf('[PRIV_NAME]') > -1) {
+            arr.push('PRIV_NAME');
+            arrTxt.push('角色名称');
+        }
+        if(strS.indexOf('[COUNTER]') > -1) {
+            arr.push('COUNTER');
+            arrTxt.push('编号计数器');
+        }
+        if(strS.indexOf('[FORM_FILED_VALUE]') > -1) {
+            arr.push('FORM_FILED_VALUE');
+            arrTxt.push('表单字段变量');
+        }
+        var tatolArr = [];
+        tatolArr.push(arr);
+        tatolArr.push(arrTxt);
+        return tatolArr;
+    }
+    //同步
+    function toAjaxT(url,data) {
+        var result;
+        $.ajax({
+            url:url,
+            data:data,
+            type: 'post',
+            async:false,
+            dataType: 'json',
+            success: function (res){
+                result=res;
+            }
+        });
+        return result;
+    }
+
+</script>
+</body>
+</html>

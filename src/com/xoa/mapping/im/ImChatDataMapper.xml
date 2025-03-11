@@ -1,0 +1,783 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.im.ImChatDataMapper">
+  <resultMap id="BaseResultMap" type="com.xoa.model.im.ImChatData">
+    <id column="LIST_ID" property="listId" javaType="string" />
+    <result column="FROM_UID" property="fromUid" javaType="string" />
+    <result column="TO_UID" property="toUid" javaType="string" />
+    <result column="OF_FROM" property="ofFrom" javaType="string" />
+    <result column="OF_TO" property="ofTo" javaType="string" />
+    <result column="LAST_TIME" property="lastTime" javaType="string" />
+    <result column="LAST_ATIME" property="lastAtime" javaType="string" />
+    <result column="LAST_FILE_ID" property="lastFileId" javaType="string" />
+    <result column="LAST_FILE_NAME" property="lastFileName" javaType="string" />
+    <result column="LAST_THUMBNAIL_URL" property="lastThumbnailUrl" javaType="string" />
+    <result column="TYPE" property="type" javaType="string" />
+    <result column="MSG_TYPE" property="msgType" javaType="string" />
+    <result column="UUID" property="uuid" javaType="string" />
+    <result column="UID_IGNORE" jdbcType="CHAR" property="uidIgnore" />
+    <result column="LAST_CONTENT" property="lastContent" javaType="string" />
+    <result column="msg_free" property="msg_free" javaType="string" />
+    <result column="FromUserName" property="FromUserName" />
+    <result column="toUserName" property="toUserName" />
+    <result column="RNAMR" property="rnamr" javaType="string" />
+  </resultMap>
+
+  <select id="getSingleObject" parameterType="Map" resultType="String">
+    select LIST_ID from im_chatlist where FROM_UID=#{fromUid} and TO_UID=#{toUid} order by LIST_ID desc
+  </select>
+  <select id="getSingleByListId" parameterType="Map" resultMap="BaseResultMap">
+    select * from im_chatlist where LIST_ID=#{list_id}
+  </select>
+  <select id="getPriv" parameterType="Map" resultMap="BaseResultMap">
+    SELECT 	LIST_ID,msg_free
+     FROM im_chatlist
+     WHERE  OF_FROM=#{of_from}
+     AND OF_TO=#{of_to}
+    AND MSG_TYPE=#{msg_type}
+  </select>
+  <select id="getSingleObjectInt" parameterType="Map" resultType="int">
+    select count(LIST_ID) from im_chatlist where FROM_UID=#{fromUid} and TO_UID=#{toUid}
+  </select>
+  <select id="getChatList" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    i.*,u.USER_NAME as FromUserName, u1.USER_NAME as toUserName FROM im_chatlist i
+    INNER JOIN user u ON i.FROM_UID = u.UID
+    INNER JOIN user u1 ON i.TO_UID =u1.UID
+    where i.OF_FROM = #{ofFrom}
+  </select>
+
+  <select id="getChatAllList" parameterType="Map" resultMap="BaseResultMap">
+    SELECT ir.RNAMR,
+    i.*,u.USER_NAME as FromUserName, u1.USER_NAME as toUserName FROM im_chatlist i
+    left JOIN user u ON i.FROM_UID = u.UID
+    left JOIN user u1 ON i.TO_UID =u1.UID
+    left join im_room ir on i.TO_UID=ir.ROOM_OF
+    <where>
+      1=1
+       <if test="userId!=null and userId!='' ">
+          and TO_UID = #{userId}
+       </if>
+       <if test="content!=null and content!='' ">
+          and LAST_CONTENT like concat('%',#{content},'%')
+       </if>
+    </where>
+    order by i.LAST_TIME desc
+  </select>
+
+  <select id="getChatList" parameterType="map" resultMap="BaseResultMap" databaseId="oracle">
+    SELECT
+    i.*,u.USER_NAME as FromUserName, u1.USER_NAME as toUserName FROM im_chatlist i
+    INNER JOIN "USER" u ON i.FROM_UID = u."UID"
+    INNER JOIN "USER" u1 ON i.TO_UID ="TO_CHAR"(u1."UID")
+    <where>
+      1=1
+      <if test="ofFrom!=null and ofFrom!='' ">
+         and OF_FROM = #{ofFrom}
+      </if>
+      <if test="userId!=null and userId!='' ">
+        and TO_UID = #{userId}
+      </if>
+      <if test="content!=null and content!='' ">
+        and LAST_CONTENT like concat('%',#{content},'%')
+      </if>
+    </where>
+
+  </select>
+
+  <select id="getChatList" parameterType="map" resultMap="BaseResultMap" databaseId="dm">
+    SELECT
+    i.*,u.USER_NAME as FromUserName, u1.USER_NAME as toUserName FROM im_chatlist i
+    INNER JOIN "USER" u ON i.FROM_UID = u."UID"
+    INNER JOIN "USER" u1 ON i.TO_UID ="TO_CHAR"(u1."UID")
+    where OF_FROM = #{ofFrom}
+  </select>
+
+  <update id="updateChatlist"  parameterType="com.xoa.model.im.ImChatData">
+    update im_chatlist
+    <set>
+      <if test="fromUid != null">
+        FROM_UID = #{fromUid},
+      </if>
+      <if test="toUid != null">
+        TO_UID = #{toUid},
+      </if>
+      <if test="ofFrom != null">
+        OF_FROM = #{ofFrom},
+      </if>
+      <if test="ofTo != null">
+        OF_TO = #{ofTo},
+      </if>
+      <if test="lastTime != null">
+        LAST_TIME = #{lastTime},
+      </if>
+      <if test="lastAtime != null">
+        LAST_ATIME = #{lastAtime},
+      </if>
+      <if test="lastFileId != null">
+        LAST_FILE_ID = #{lastFileId},
+      </if>
+      <if test="lastFileName != null">
+        LAST_FILE_NAME = #{lastFileName},
+      </if>
+      <if test="lastThumbnailUrl != null">
+        LAST_THUMBNAIL_URL =#{lastThumbnailUrl},
+      </if>
+      <if test="type != null">
+        TYPE = #{type},
+      </if>
+      <if test="msgType != null">
+        MSG_TYPE = #{msgType},
+      </if>
+      <if test="uuid != null">
+        UUID = #{uuid},
+      </if>
+      <if test="lastContent != null">
+        LAST_CONTENT = #{lastContent},
+      </if>
+      <if test="msg_free != null">
+        msg_free = #{msg_free},
+      </if>
+    </set>
+    where  LIST_ID = #{listId}
+  </update>
+
+  <insert id="saveChat" parameterType="com.xoa.model.im.ImChatData">
+    insert into im_chatlist
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fromUid != null">
+        FROM_UID,
+      </if>
+      <if test="toUid != null">
+        TO_UID,
+      </if>
+      <if test="ofFrom != null">
+        OF_FROM,
+      </if>
+      <if test="ofTo != null">
+        OF_TO,
+      </if>
+      <if test="lastTime != null">
+        LAST_TIME,
+      </if>
+      <if test="lastAtime != null">
+        LAST_ATIME,
+      </if>
+      <if test="lastFileId != null">
+        LAST_FILE_ID,
+      </if>
+      <if test="lastFileName != null">
+        LAST_FILE_NAME,
+      </if>
+      <if test="lastThumbnailUrl != null">
+        LAST_THUMBNAIL_URL,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+      <if test="msgType != null">
+        MSG_TYPE,
+      </if>
+      <if test="uuid != null">
+        UUID,
+      </if>
+      <if test="lastContent != null">
+        LAST_CONTENT,
+      </if>
+      <if test="msg_free != null">
+        msg_free,
+      </if>
+      <if test="uidIgnore != null">
+        UID_IGNORE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fromUid != null">
+        #{fromUid},
+      </if>
+      <if test="toUid != null">
+        #{toUid},
+      </if>
+      <if test="ofFrom != null">
+        #{ofFrom},
+      </if>
+      <if test="ofTo != null">
+        #{ofTo},
+      </if>
+      <if test="lastTime != null">
+        #{lastTime},
+      </if>
+      <if test="lastAtime != null">
+        #{lastAtime},
+      </if>
+      <if test="lastFileId != null">
+        #{lastFileId},
+      </if>
+      <if test="lastFileName != null">
+        #{lastFileName},
+      </if>
+      <if test="lastThumbnailUrl != null">
+        #{lastThumbnailUrl},
+      </if>
+      <if test="type != null">
+        #{type},
+      </if>
+      <if test="msgType != null">
+        #{msgType},
+      </if>
+      <if test="uuid != null">
+        #{uuid},
+      </if>
+      <if test="lastContent != null">
+        #{lastContent},
+      </if>
+      <if test="msg_free != null">
+        #{msg_free},
+      </if>
+      <if test="uidIgnore != null">
+        #{uidIgnore},
+      </if>
+    </trim>
+  </insert>
+
+  <!--
+      <sql id="_Where_Clause">
+          <where>
+              <foreach collection="oredCriteria" item="criteria" separator="or">
+                  <if test="criteria.valid">
+                      <trim prefix="(" suffix=")" prefixOverrides="and">
+                          <foreach collection="criteria.criteria" item="criterion">
+                              <choose>
+                                  <when test="criterion.noValue">
+                                      and ${criterion.condition}
+                                  </when>
+                                  <when test="criterion.singleValue">
+                                      and ${criterion.condition} #{criterion.value}
+                                  </when>
+                                  <when test="criterion.betweenValue">
+                                      and ${criterion.condition} #{criterion.value}
+                                      and
+                                      #{criterion.secondValue}
+                                  </when>
+                                  <when test="criterion.listValue">
+                                      and ${criterion.condition}
+                                      <foreach collection="criterion.value" item="listItem"
+                                          open="(" close=")" separator=",">
+                                          #{listItem}
+                                      </foreach>
+                                  </when>
+                              </choose>
+                          </foreach>
+                      </trim>
+                  </if>
+              </foreach>
+          </where>
+      </sql>
+      <sql id="Update_By__Where_Clause">
+          <where>
+              <foreach collection=".oredCriteria" item="criteria"
+                  separator="or">
+                  <if test="criteria.valid">
+                      <trim prefix="(" suffix=")" prefixOverrides="and">
+                          <foreach collection="criteria.criteria" item="criterion">
+                              <choose>
+                                  <when test="criterion.noValue">
+                                      and ${criterion.condition}
+                                  </when>
+                                  <when test="criterion.singleValue">
+                                      and ${criterion.condition} #{criterion.value}
+                                  </when>
+                                  <when test="criterion.betweenValue">
+                                      and ${criterion.condition} #{criterion.value}
+                                      and
+                                      #{criterion.secondValue}
+                                  </when>
+                                  <when test="criterion.listValue">
+                                      and ${criterion.condition}
+                                      <foreach collection="criterion.value" item="listItem"
+                                          open="(" close=")" separator=",">
+                                          #{listItem}
+                                      </foreach>
+                                  </when>
+                              </choose>
+                          </foreach>
+                      </trim>
+                  </if>
+              </foreach>
+          </where>
+      </sql>
+      <sql id="Base_Column_List">
+          LIST_ID, FROM_UID, TO_UID, OF_FROM, OF_TO, LAST_TIME,
+          LAST_ATIME,
+          LAST_FILE_ID, LAST_FILE_NAME,
+          LAST_THUMBNAIL_URL, TYPE,
+          MSG_TYPE, UUID
+      </sql>
+      <sql id="Blob_Column_List">
+          LAST_CONTENT
+      </sql>
+      <select id="selectByFromId" parameterType="String" resultMap="BaseResultMap">
+          select * from im_chatlist where FROM_UID = #{fromId} or TO_UID = #{fromId}
+      </select>
+
+      <select id="selectChatListByParams" parameterType="Map"
+          resultMap="BaseResultMap">
+          select * from im_chatlist where 1=1
+          <if test="listId != null"> and LIST_ID=#{listId}</if>
+          <if test="fromUid != null"> and FROM_UID=#{fromUid}</if>
+          <if test="toUid != null"> and TO_UID=#{toUid}</if>
+          <if test="ofFrom != null"> and OF_FROM=#{ofFrom}</if>
+          <if test="ofTo !=null "> and OF_TO=#{ofTo}</if>
+          <if test="lastTime != null"> and LAST_TIME=#{lastTime}</if>
+          <if test="lastAtime != null"> and LAST_ATIME=#{lastAtime}</if>
+          <if test="lastFileId != null"> and LAST_FILE_ID=#{lastFileId}</if>
+          <if test="lastFileName != null"> and LAST_FILE_NAME=#{lastFileName}</if>
+          <if test="lastThumbnailUrl != null"> and LAST_THUMBNAIL_URL=#{lastThumbnailUrl}</if>
+          <if test="type != null"> and TYPE=#{type}</if>
+          <if test="msgType != null"> and MSG_TYPE=#{msgType}</if>
+          <if test="uuid != null"> and UUID=#{uuid}</if>
+      </select>
+      <select id="selectByWithBLOBs" resultMap="ResultMapWithBLOBs"
+          parameterType="com.xoa.model.im.ImChatData">
+          select
+          <if test="distinct">
+              distinct
+          </if>
+          <include refid="Base_Column_List" />
+          ,
+          <include refid="Blob_Column_List" />
+          from im_chatlist
+          <if test="_parameter != null">
+              <include refid="_Where_Clause" />
+          </if>
+          <if test="orderByClause != null">
+              order by ${orderByClause}
+          </if>
+      </select>
+      <select id="selectBy" resultMap="BaseResultMap"
+          parameterType="com.xoa.model.im.ImChatData">
+          select
+          <if test="distinct">
+              distinct
+          </if>
+          <include refid="Base_Column_List" />
+          from im_chatlist
+          <if test="_parameter != null">
+              <include refid="_Where_Clause" />
+          </if>
+          <if test="orderByClause != null">
+              order by ${orderByClause}
+          </if>
+      </select>
+      <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+          parameterType="java.lang.Integer">
+          select
+          <include refid="Base_Column_List" />
+          ,
+          <include refid="Blob_Column_List" />
+          from im_chatlist
+          where LIST_ID = #{listId}
+      </select>
+      <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+          delete from
+          im_chatlist
+          where LIST_ID = #{listId}
+      </delete>
+
+      <delete id="deleteBy" parameterType="com.xoa.model.im.ImChatData">
+          delete from im_chatlist
+          <if test="_parameter != null">
+              <include refid="_Where_Clause" />
+          </if>
+      </delete>
+      <insert id="insert" parameterType="com.xoa.model.im.ImChatData">
+          insert into im_chatlist
+          (LIST_ID, FROM_UID, TO_UID,
+          OF_FROM, OF_TO, LAST_TIME,
+          LAST_ATIME,
+          LAST_FILE_ID, LAST_FILE_NAME,
+          LAST_THUMBNAIL_URL, TYPE, MSG_TYPE,
+          UUID,
+          LAST_CONTENT)
+          values (#{listId},
+          #{fromUid},
+          #{toUid},
+          #{ofFrom}, #{ofTo},
+          #{lastTime},
+          #{lastAtime},
+          #{lastFileId},
+          #{lastFileName},
+          #{lastThumbnailUrl}, #{type},
+          #{msgType},
+          #{uuid},
+          #{lastContent})
+      </insert>
+
+      <select id="countBy" parameterType="com.xoa.model.im.ImChatData"
+          resultType="java.lang.Integer">
+          select count(*) from im_chatlist
+          <if test="_parameter != null">
+              <include refid="_Where_Clause" />
+          </if>
+      </select>
+      <update id="updateBySelective" parameterType="map">
+          update im_chatlist
+          <set>
+              <if test="record.listId != null">
+                  LIST_ID = #{record.listId},
+              </if>
+              <if test="record.fromUid != null">
+                  FROM_UID = #{record.fromUid},
+              </if>
+              <if test="record.toUid != null">
+                  TO_UID = #{record.toUid},
+              </if>
+              <if test="record.ofFrom != null">
+                  OF_FROM = #{record.ofFrom},
+              </if>
+              <if test="record.ofTo != null">
+                  OF_TO = #{record.ofTo},
+              </if>
+              <if test="record.lastTime != null">
+                  LAST_TIME = #{record.lastTime},
+              </if>
+              <if test="record.lastAtime != null">
+                  LAST_ATIME = #{record.lastAtime},
+              </if>
+              <if test="record.lastFileId != null">
+                  LAST_FILE_ID = #{record.lastFileId},
+              </if>
+              <if test="record.lastFileName != null">
+                  LAST_FILE_NAME = #{record.lastFileName},
+              </if>
+              <if test="record.lastThumbnailUrl != null">
+                  LAST_THUMBNAIL_URL =
+                  #{record.lastThumbnailUrl},
+              </if>
+              <if test="record.type != null">
+                  TYPE = #{record.type},
+              </if>
+              <if test="record.msgType != null">
+                  MSG_TYPE = #{record.msgType},
+              </if>
+              <if test="record.uuid != null">
+                  UUID = #{record.uuid},
+              </if>
+              <if test="record.lastContent != null">
+                  LAST_CONTENT =
+                  #{record.lastContent},
+              </if>
+          </set>
+          <if test="_parameter != null">
+              <include refid="Update_By__Where_Clause" />
+          </if>
+      </update>
+      <update id="updateByWithBLOBs" parameterType="map">
+          update im_chatlist
+          set LIST_ID = #{record.listId},
+          FROM_UID = #{record.fromUid},
+          TO_UID =
+          #{record.toUid},
+          OF_FROM =
+          #{record.ofFrom},
+          OF_TO =
+          #{record.ofTo},
+          LAST_TIME =
+          #{record.lastTime},
+          LAST_ATIME =
+          #{record.lastAtime},
+          LAST_FILE_ID =
+          #{record.lastFileId},
+          LAST_FILE_NAME =
+          #{record.lastFileName},
+          LAST_THUMBNAIL_URL =
+          #{record.lastThumbnailUrl},
+          TYPE =
+          #{record.type},
+          MSG_TYPE =
+          #{record.msgType},
+          UUID =
+          #{record.uuid},
+          LAST_CONTENT =
+          #{record.lastContent}
+          <if test="_parameter != null">
+              <include refid="Update_By__Where_Clause" />
+          </if>
+      </update>
+      <update id="updateBy" parameterType="map">
+          update im_chatlist
+          set LIST_ID = #{record.listId},
+          FROM_UID = #{record.fromUid},
+          TO_UID =
+          #{record.toUid},
+          OF_FROM =
+          #{record.ofFrom},
+          OF_TO =
+          #{record.ofTo},
+          LAST_TIME =
+          #{record.lastTime},
+          LAST_ATIME =
+          #{record.lastAtime},
+          LAST_FILE_ID =
+          #{record.lastFileId},
+          LAST_FILE_NAME =
+          #{record.lastFileName},
+          LAST_THUMBNAIL_URL =
+          #{record.lastThumbnailUrl},
+          TYPE =
+          #{record.type},
+          MSG_TYPE =
+          #{record.msgType},
+          UUID = #{record.uuid}
+          <if test="_parameter != null">
+              <include refid="Update_By__Where_Clause" />
+          </if>
+      </update>
+      <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.im.ImChatData">
+          update im_chatlist
+          <set>
+              <if test="fromUid != null">
+                  FROM_UID = #{fromUid},
+              </if>
+              <if test="toUid != null">
+                  TO_UID = #{toUid},
+              </if>
+              <if test="ofFrom != null">
+                  OF_FROM = #{ofFrom},
+              </if>
+              <if test="ofTo != null">
+                  OF_TO = #{ofTo},
+              </if>
+              <if test="lastTime != null">
+                  LAST_TIME = #{lastTime},
+              </if>
+              <if test="lastAtime != null">
+                  LAST_ATIME = #{lastAtime},
+              </if>
+              <if test="lastFileId != null">
+                  LAST_FILE_ID = #{lastFileId},
+              </if>
+              <if test="lastFileName != null">
+                  LAST_FILE_NAME = #{lastFileName},
+              </if>
+              <if test="lastThumbnailUrl != null">
+                  LAST_THUMBNAIL_URL =
+                  #{lastThumbnailUrl},
+              </if>
+              <if test="type != null">
+                  TYPE = #{type},
+              </if>
+              <if test="msgType != null">
+                  MSG_TYPE = #{msgType},
+              </if>
+              <if test="uuid != null">
+                  UUID = #{uuid},
+              </if>
+              <if test="lastContent != null">
+                  LAST_CONTENT = #{lastContent},
+              </if>
+          </set>
+          where LIST_ID = #{listId}
+      </update>
+      <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xoa.model.im.ImChatData">
+          update
+          im_chatlist
+          set FROM_UID = #{fromUid},
+          TO_UID =
+          #{toUid},
+          OF_FROM = #{ofFrom},
+          OF_TO =
+          #{ofTo},
+          LAST_TIME = #{lastTime},
+          LAST_ATIME = #{lastAtime},
+          LAST_FILE_ID =
+          #{lastFileId},
+          LAST_FILE_NAME =
+          #{lastFileName},
+          LAST_THUMBNAIL_URL =
+          #{lastThumbnailUrl},
+          TYPE = #{type},
+          MSG_TYPE = #{msgType},
+          UUID = #{uuid},
+          LAST_CONTENT = #{lastContent}
+          where LIST_ID =
+          #{listId}
+      </update>
+      <update id="updateByPrimaryKey" parameterType="com.xoa.model.im.ImChatData">
+          update
+          im_chatlist
+          set FROM_UID = #{fromUid},
+          TO_UID =
+          #{toUid},
+          OF_FROM = #{ofFrom},
+          OF_TO =
+          #{ofTo},
+          LAST_TIME = #{lastTime},
+          LAST_ATIME = #{lastAtime},
+          LAST_FILE_ID =
+          #{lastFileId},
+          LAST_FILE_NAME =
+          #{lastFileName},
+          LAST_THUMBNAIL_URL =
+          #{lastThumbnailUrl},
+          TYPE = #{type},
+          MSG_TYPE = #{msgType},
+          UUID = #{uuid}
+          where LIST_ID = #{listId}
+      </update>
+      <update id="updateByRollBack" parameterType="com.xoa.model.im.ImChatData">
+         update im_chatlist
+          <set>
+              <if test="fromUid != null">
+                  FROM_UID = #{fromUid},
+              </if>
+              <if test="toUid != null">
+                  TO_UID = #{toUid},
+              </if>
+              <if test="ofFrom != null">
+                  OF_FROM = #{ofFrom},
+              </if>
+              <if test="ofTo != null">
+                  OF_TO = #{ofTo},
+              </if>
+              <if test="lastTime != null">
+                  LAST_TIME = #{lastTime},
+              </if>
+              <if test="lastAtime != null">
+                  LAST_ATIME = #{lastAtime},
+              </if>
+              <if test="lastFileId != null">
+                  LAST_FILE_ID = #{lastFileId},
+              </if>
+              <if test="lastFileName != null">
+                  LAST_FILE_NAME = #{lastFileName},
+              </if>
+              <if test="lastThumbnailUrl != null">
+                  LAST_THUMBNAIL_URL =
+                  #{lastThumbnailUrl},
+              </if>
+              <if test="type != null">
+                  TYPE = #{type},
+              </if>
+              <if test="msgType != null">
+                  MSG_TYPE = #{msgType},
+              </if>
+              <if test="uuid != null">
+                  UUID = #{uuid},
+              </if>
+              <if test="lastContent != null">
+                  LAST_CONTENT = #{lastContent},
+              </if>
+          </set>
+          where FROM_UID = #{fromUid} and TO_UID = #{toUid}
+
+      </update>
+
+       -->
+  <select id="getChatListByFrom" parameterType="map" resultMap="BaseResultMap">
+		SELECT
+		i.*,u.USER_NAME as FromUserName FROM im_chatlist i
+		INNER JOIN user u ON i.FROM_UID = u.UID
+		where
+		  (
+            OF_FROM = #{ofFrom}
+            or
+            OF_TO=#{ofFrom}
+            OR
+            MSG_TYPE=1
+		  )
+		  and
+            (
+				UID_IGNORE not  LIKE CONCAT('%,',#{uid},',%')
+				and
+				UID_IGNORE not LIKE CONCAT(#{uid},',%')
+			)
+			ORDER BY  LAST_TIME DESC
+	</select>
+
+  <select id="getChatListByFrom" parameterType="map" resultMap="BaseResultMap" databaseId="kingbase">
+		SELECT
+		i.*,u.USER_NAME as FromUserName FROM im_chatlist i
+		INNER JOIN "USER" u ON i.FROM_UID = u.UID
+		where
+		  (
+            OF_FROM = #{ofFrom}
+            or
+            OF_TO=#{ofFrom}
+            OR
+            MSG_TYPE=1
+		  )
+		  and
+            (
+				UID_IGNORE not  LIKE CONCAT('%,',#{uid},',%')
+				and
+				UID_IGNORE not LIKE CONCAT(#{uid},',%')
+			)
+			ORDER BY  LAST_TIME DESC
+	</select>
+
+  <select id="getCountSingleObject" parameterType="Map" resultType="int">
+    select count(LIST_ID) from im_chatlist
+    where
+    (FROM_UID=#{fromUid} and TO_UID=#{toUid})
+    OR
+    (FROM_UID=#{toUid} and TO_UID=#{fromUid})
+  </select>
+
+  <select id="getDataSingleObject" parameterType="Map" resultType="String">
+    select LIST_ID from im_chatlist where (FROM_UID=#{fromUid} and TO_UID=#{toUid}) OR (FROM_UID=#{toUid} and TO_UID=#{fromUid}) order by LIST_ID desc
+  </select>
+
+  <select id="getDatagroupObject" parameterType="String" resultType="String">
+    select LIST_ID from im_chatlist where TO_UID=#{toUid} order by LIST_ID desc
+  </select>
+
+  <select id="getGroupByToUid" parameterType="String" resultMap="BaseResultMap">
+    select * from im_chatlist where TO_UID=#{toUid}
+  </select>
+
+
+  <update id="upChatByIgnore" parameterType="Map">
+    UPDATE im_chatlist SET UID_IGNORE=#{uidIgnore} WHERE LIST_ID=#{listId}
+  </update>
+
+  <select id="selChatByListId" parameterType="Integer"  resultMap="BaseResultMap">
+     select * from im_chatlist where LIST_ID=#{listId}
+  </select>
+
+  <select id="getDataSingleByUid" parameterType="Map" resultMap="BaseResultMap">
+    select * from im_chatlist where
+    (FROM_UID=#{fromUid} and TO_UID=#{toUid})
+    OR
+    (FROM_UID=#{toUid} and TO_UID=#{fromUid})
+  </select>
+
+  <select id="getMsgFreeByUid" parameterType="Map" resultType="string">
+    select msg_free from im_chatlist where
+    (FROM_UID=#{fromUid} and TO_UID=#{toUid})
+    OR
+    (FROM_UID=#{toUid} and TO_UID=#{fromUid})
+  </select>
+
+
+  <select id="queryListByCon" parameterType="Map" resultMap="BaseResultMap">
+    select LIST_ID,msg_free from im_chatlist
+    <where>
+      <if test="msg_type!=null and msg_type!='' and  msg_type==0">
+        and
+        (
+          OF_FROM=#{of_from} and OF_TO=#{of_to}
+        )
+        OR
+        (
+          OF_FROM=#{of_to} and OF_TO=#{of_from}
+        )
+      </if>
+      <if test="msg_type!=null and msg_type!='' and  msg_type==1">
+        and
+        OF_TO=#{of_to}
+      </if>
+      and MSG_TYPE=#{msg_type}
+    </where>
+  </select>
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.enclosure.AttachmentModuleMapper">
+  <resultMap id="BaseResultMap" type="com.xoa.model.enclosure.AttachmentModule">
+    <id column="MODULE_ID" javaType="java.lang.Integer" property="moduleId" />
+    <result column="MODULE_NAME" jdbcType="VARCHAR" property="moduleName" />
+    <result column="MODULE_CODE" jdbcType="VARCHAR" property="moduleCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    MODULE_ID, MODULE_NAME, MODULE_CODE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from attachment_module
+    where MODULE_ID = #{moduleId,jdbcType=TINYINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Byte">
+    delete from attachment_module
+    where MODULE_ID = #{moduleId,jdbcType=TINYINT}
+  </delete>
+  <insert id="insert" parameterType="com.xoa.model.enclosure.AttachmentModule">
+    insert into attachment_module (MODULE_ID, MODULE_NAME, MODULE_CODE
+      )
+    values (#{moduleId,jdbcType=TINYINT}, #{moduleName,jdbcType=VARCHAR}, #{moduleCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xoa.model.enclosure.AttachmentModule">
+    insert into attachment_module
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="moduleId != null">
+        MODULE_ID,
+      </if>
+      <if test="moduleName != null">
+        MODULE_NAME,
+      </if>
+      <if test="moduleCode != null">
+        MODULE_CODE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="moduleId != null">
+        #{moduleId,jdbcType=TINYINT},
+      </if>
+      <if test="moduleName != null">
+        #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleCode != null">
+        #{moduleCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.enclosure.AttachmentModule">
+    update attachment_module
+    <set>
+      <if test="moduleName != null">
+        MODULE_NAME = #{moduleName,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleCode != null">
+        MODULE_CODE = #{moduleCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where MODULE_ID = #{moduleId,jdbcType=TINYINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xoa.model.enclosure.AttachmentModule">
+    update attachment_module
+    set MODULE_NAME = #{moduleName,jdbcType=VARCHAR},
+      MODULE_CODE = #{moduleCode,jdbcType=VARCHAR}
+    where MODULE_ID = #{moduleId,jdbcType=TINYINT}
+  </update>
+</mapper>

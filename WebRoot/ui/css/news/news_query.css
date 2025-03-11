@@ -1,0 +1,271 @@
+@charset "UTF-8";
+html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img {
+    margin: 0;
+    padding: 0; /*清除元素的内外边距*/
+    font-weight: bold;
+}
+
+fieldset, img, input, button {
+  /*  border: none;*/
+    padding: 0;
+    margin: 0;
+    outline-style: none; /*外面环绕线*/
+}
+
+ul, ol {
+    list-style: none;
+}
+
+/*去掉原样式中的小黑点*/
+input {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif; /*字体的自动识别*/
+}
+
+select, input {
+    vertical-align: middle;
+}
+
+/*输入字居中显示*/
+select, input, textarea {
+    font-size: 12px;
+    margin: 0;
+}
+
+/**/
+textarea {
+    resize: none; /*不可以随意拖动*/
+}
+
+/*防止拖动*/
+img {
+    border: 0;
+    vertical-align: middle; /*  去掉图片底部默认的3像素空白缝隙*/
+}
+
+table {
+    border-collapse: collapse; /*合并外连线*/
+}
+
+body {
+    font: 12px/150% Arial, Verdana, "\5b8b\4f53"; /*unitedCode的写法，宋体的写法  */
+    color: #666; /*150%基于当前字体尺寸的百分比行间距*/
+    background: #fff;
+}
+
+.clearfix:before, .clearfix:after {
+    /*清除浮动，最好最标准的写法*/
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1; /*IE/7/6*/
+    /*兼容IE6下的写法*/
+}
+
+a {
+    color: #666; /*a 标签是不继承颜色 的*/
+    text-decoration: none;
+}
+
+a:hover {
+    color: #C81623;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 100%;
+}
+
+s, i, em {
+    /*一般是起装饰作用*/
+    font-style: normal; /*去掉原有的样式*/
+    text-decoration: none; /*去掉下划线或是删除线*/
+}
+
+.col-red {
+    color: #C81623 !important; /*京东主色调*/
+}
+
+/*公共类*/
+.w {
+    /*版心 提取 */
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.al {
+    text-align: left;
+}
+
+.ac {
+    text-align: center;
+}
+
+.ar {
+    text-align: right;
+}
+
+.hide {
+    display: none;
+}
+
+/*css初始化完成*/
+
+/*头部样式*/
+
+.head {
+    border-bottom: 1px solid #959595;
+    padding-bottom: 5px;
+}
+
+.head li {
+    width: 112px;
+    text-align: center;
+    height: 39px;
+    line-height: 39px;
+    display: inline-block;
+    float: left;
+    /*font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;*/
+    font-size: 18px;
+    margin: 10px;
+    cursor: pointer
+
+
+}
+
+.head .line {
+    display: inline-block;
+    margin: 0 -40px;
+}
+
+.head .one {
+    background-color: #2F8AE3;
+    font-size: 18px;
+    color: #ffffff;
+    border-radius: 20px;
+}
+
+/*center内容部分开始*/
+.center {
+    font-weight: bold;
+}
+.center .title {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 71px;
+}
+
+.center .title img {
+    display: inline-block;
+    float: left;
+}
+
+.center .title div {
+    display: inline-block;
+    float: left;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 8px;
+    margin-left: 5px;
+}
+
+.center .login {
+    width: 550px;
+    height: 336px;
+    margin: 0px auto;
+}
+
+.center .login .header {
+    height: 31px;
+    line-height: 31px;
+    background-color: #3791DA;
+    color: #fff;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 4px 4px 0px 0px;
+}
+.center .login .middle {
+    /*border-bottom:2px solid #DCDCDC;*/
+    border: 1px solid #DCDCDC;
+
+}
+.center .login .middle .color{
+    color:#2A588C;
+}
+.center .login .middle .le{
+    margin-left:25px;
+
+}
+.center .login .publisher {
+    height:50px;
+    line-height:50px;
+    /*border:2px dashed black;*/
+    margin-top:20px;
+}
+.center .login .publisher div{
+    float: left;
+}
+.center .login .subject {
+    height:26px;
+    line-height:26px;
+    /*border:2px dashed black;*/
+    margin-top:18px;
+}
+.center .login .subject div {
+    float: left;
+
+}
+.center .login .date {
+    height:24px;
+    line-height:24px;
+    /*border:2px dashed black;*/
+    margin-top:13px;
+}
+.center .login .date div {
+    float: left;
+}
+.center .login .ce1 {
+    height:25px;
+    line-height:25px;
+    /*border:2px dashed black;*/
+    margin-top:13px;
+}
+.center .login .ce1 div {
+    float: left;
+}
+.center .login .ce2 {
+    height:26px;
+    line-height:26px;
+    /*border:2px dashed black;*/
+    margin-top:17px;
+    margin-bottom:15px;
+}
+.center .login .ce2 div {
+    float: left;
+}
+.center .login .icons {
+    height:58px;
+    line-height:58px;
+    text-align: center;
+    border:1px solid #DCDCDC;
+
+}
+.center .logins .icon .img {
+    float: left;
+}

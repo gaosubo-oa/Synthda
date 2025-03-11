@@ -1,0 +1,1054 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.users.UserExtMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.users.UserExt">
+        <id column="UID" property="uid" javaType="java.lang.Integer"/>
+        <result column="USER_ID" property="userId" javaType="java.lang.String" />
+        <result column="TABLE_ICON" property="tableIcon" javaType="java.lang.String"/>
+        <result column="EMAIL_RECENT_LINKMAN" property="emailRecentLinkman" javaType="java.lang.String"/>
+        <result column="NICK_NAME" property="nickName" javaType="java.lang.String"/>
+        <result column="BBS_COUNTER" property="bbsCounter" javaType="java.lang.Integer"/>
+        <result column="EMAIL_CAPACITY" property="emailCapacity" />
+        <result column="FOLDER_CAPACITY" property="folderCapacity" />
+        <result column="WEBMAIL_CAPACITY" property="webmailCapacity" />
+        <result column="WEBMAIL_NUM" property="webmailNum" />
+        <result column="SCORE" property="score" javaType="java.lang.Integer"/>
+        <result column="TDER_FLAG" property="tderFlag" jdbcType="CHAR"/>
+        <result column="DUTY_TYPE" property="dutyType" jdbcType="SMALLINT"/>
+        <result column="USE_POP3" property="usePop3" javaType="java.lang.Integer"/>
+        <result column="IS_USE_POP3" property="isUsePop3" javaType="java.lang.Integer"/>
+        <result column="POP3_PASS_STYLE" property="pop3PassStyle" javaType="java.lang.Integer"/>
+        <result column="POP3_PASS" property="pop3Pass" javaType="java.lang.String"/>
+        <result column="CC_USERNAME" property="ccUsername" javaType="java.lang.String"/>
+        <result column="CC_PWD" property="ccPwd" javaType="java.lang.String"/>
+        <result column="IS_USE_EMAILSEND" property="isUseEmailsend" javaType="java.lang.Integer"/>
+        <result column="TASKCENTER_OPEN_START" property="taskcenterOpenStart" javaType="java.lang.Integer"/>
+        <result column="EMAIL_GETBOX" property="emailGetbox" javaType="java.lang.String"/>
+        <result column="FOLDER_VIEW_MODEL" property="folderViewModel" javaType="java.lang.Integer"/>
+        <result column="USE_EMAIL" property="useEmail" javaType="java.lang.Integer"/>
+        <result column="LOGIN_RESTRICTION" property="loginRestriction" />
+        <result column="LOGIN_TIME" property="loginTime" />
+        <result column="EMPLOYMENT_TYPE" property="employmentType" javaType="java.lang.String"/>
+        <result column="JOB_LEVEL" property="jobLevel" javaType="java.lang.String"/>
+        <result column="PLAN_COCKPIT_SET" property="planCockpitSet" jdbcType="LONGVARCHAR" javaType="string"/>
+        <result column="EMAIL_PANEL" property="emailPanel" javaType="java.lang.String"/>
+        <result column="FLOW_FAVORITES" property="flowFavorites" jdbcType="LONGVARCHAR" javaType="string"/>
+        <result column="DOCUMENT_PANEL" property="documentPanel" javaType="java.lang.String"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        UID, USER_ID, TABLE_ICON, EMAIL_RECENT_LINKMAN, NICK_NAME, BBS_COUNTER, EMAIL_CAPACITY,
+        FOLDER_CAPACITY, WEBMAIL_CAPACITY, WEBMAIL_NUM, SCORE, TDER_FLAG, DUTY_TYPE, USE_POP3,
+        IS_USE_POP3, POP3_PASS_STYLE, POP3_PASS, CC_USERNAME, CC_PWD, IS_USE_EMAILSEND, TASKCENTER_OPEN_START,
+        EMAIL_GETBOX, FOLDER_VIEW_MODEL, USE_EMAIL,EMPLOYMENT_TYPE,JOB_LEVEL,DOCUMENT_PANEL
+    </sql>
+
+    <select id="getUserFuncIdStr" parameterType="java.lang.String" resultType="java.lang.String">
+        select u.U_FUNC_ID_STR  from  user_ext u WHERE u.USER_ID = #{userId};
+    </select>
+    <select id="getUserFuncIdStr" parameterType="java.lang.String" resultType="java.lang.String" databaseId="oracle">
+        select u.U_FUNC_ID_STR  from  user_ext u WHERE u.USER_ID = #{userId}
+    </select>
+
+    <select id="getUserFuncIdStr" parameterType="java.lang.String" resultType="java.lang.String" databaseId="dm">
+        select u.U_FUNC_ID_STR  from  user_ext u WHERE u.USER_ID = #{userId}
+    </select>
+
+    <update id="updateUserFuncIdStr" parameterType="hashMap">
+       UPDATE user_ext SET U_FUNC_ID_STR = #{userFuncIdStr} WHERE USER_ID = #{userId}
+    </update>
+
+    <update id="updateUserFuncIdStr" parameterType="hashMap" databaseId="oracle">
+        UPDATE user_ext SET U_FUNC_ID_STR = #{userFuncIdStr} WHERE USER_ID = #{userId}
+    </update>
+
+    <update id="updateUserFuncIdStr" parameterType="hashMap" databaseId="dm">
+        UPDATE user_ext SET U_FUNC_ID_STR = #{userFuncIdStr} WHERE USER_ID = #{userId}
+    </update>
+
+    <insert id="addUserExt" parameterType="com.xoa.model.users.UserExt">
+        insert into user_ext
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                UID,
+            </if>
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="tableIcon != null">
+                TABLE_ICON,
+            </if>
+            <if test="emailRecentLinkman != null">
+                EMAIL_RECENT_LINKMAN,
+            </if>
+            <if test="nickName != null">
+                NICK_NAME,
+            </if>
+            <if test="bbsCounter != null">
+                BBS_COUNTER,
+            </if>
+            <if test="emailCapacity != null">
+                EMAIL_CAPACITY,
+            </if>
+            <if test="folderCapacity != null">
+                FOLDER_CAPACITY,
+            </if>
+            <if test="webmailCapacity != null">
+                WEBMAIL_CAPACITY,
+            </if>
+            <if test="webmailNum != null">
+                WEBMAIL_NUM,
+            </if>
+            <if test="score != null">
+                SCORE,
+            </if>
+            <if test="tderFlag != null">
+                TDER_FLAG,
+            </if>
+            <if test="dutyType != null">
+                DUTY_TYPE,
+            </if>
+            <if test="usePop3 != null">
+                USE_POP3,
+            </if>
+            <if test="isUsePop3 != null">
+                IS_USE_POP3,
+            </if>
+            <if test="pop3PassStyle != null">
+                POP3_PASS_STYLE,
+            </if>
+            <if test="pop3Pass != null">
+                POP3_PASS,
+            </if>
+            <if test="ccUsername != null">
+                CC_USERNAME,
+            </if>
+            <if test="ccPwd != null">
+                CC_PWD,
+            </if>
+            <if test="isUseEmailsend != null">
+                IS_USE_EMAILSEND,
+            </if>
+            <if test="taskcenterOpenStart != null">
+                TASKCENTER_OPEN_START,
+            </if>
+            <if test="emailGetbox != null">
+                EMAIL_GETBOX,
+            </if>
+            <if test="folderViewModel != null">
+                FOLDER_VIEW_MODEL,
+            </if>
+            <if test="useEmail != null">
+                USE_EMAIL,
+            </if>
+            <if test="bbsSignature != null">
+                BBS_SIGNATURE,
+            </if>
+            <if test="concernUser != null">
+                CONCERN_USER,
+            </if>
+            <if test="uFuncIdStr != null">
+                U_FUNC_ID_STR,
+            </if>
+            <if test="employmentType != null and employmentType !=''">
+                EMPLOYMENT_TYPE,
+            </if>
+            <if test="jobLevel != null and jobLevel !=''">
+                JOB_LEVEL,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                #{uid,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="tableIcon != null">
+                #{tableIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="emailRecentLinkman != null">
+                #{emailRecentLinkman,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null">
+                #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="bbsCounter != null">
+                #{bbsCounter,jdbcType=INTEGER},
+            </if>
+            <if test="emailCapacity != null">
+                #{emailCapacity,jdbcType=INTEGER},
+            </if>
+            <if test="folderCapacity != null">
+                #{folderCapacity,jdbcType=INTEGER},
+            </if>
+            <if test="webmailCapacity != null">
+                #{webmailCapacity,jdbcType=INTEGER},
+            </if>
+            <if test="webmailNum != null">
+                #{webmailNum,jdbcType=TINYINT},
+            </if>
+            <if test="score != null">
+                #{score,jdbcType=INTEGER},
+            </if>
+            <if test="tderFlag != null">
+                #{tderFlag,jdbcType=CHAR},
+            </if>
+            <if test="dutyType != null">
+                #{dutyType,jdbcType=SMALLINT},
+            </if>
+            <if test="usePop3 != null">
+                #{usePop3,jdbcType=BIT},
+            </if>
+            <if test="isUsePop3 != null">
+                #{isUsePop3,jdbcType=BIT},
+            </if>
+            <if test="pop3PassStyle != null">
+                #{pop3PassStyle,jdbcType=BIT},
+            </if>
+            <if test="pop3Pass != null">
+                #{pop3Pass,jdbcType=VARCHAR},
+            </if>
+            <if test="ccUsername != null">
+                #{ccUsername,jdbcType=VARCHAR},
+            </if>
+            <if test="ccPwd != null">
+                #{ccPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="isUseEmailsend != null">
+                #{isUseEmailsend,jdbcType=BIT},
+            </if>
+            <if test="taskcenterOpenStart != null">
+                #{taskcenterOpenStart,jdbcType=BIT},
+            </if>
+            <if test="emailGetbox != null">
+                #{emailGetbox,jdbcType=VARCHAR},
+            </if>
+            <if test="folderViewModel != null">
+                #{folderViewModel,jdbcType=BIT},
+            </if>
+            <if test="useEmail != null">
+                #{useEmail,jdbcType=BIT},
+            </if>
+            <if test="bbsSignature != null">
+                #{bbsSignature,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="concernUser != null">
+                #{concernUser,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="uFuncIdStr != null">
+                #{uFuncIdStr,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="employmentType != null and employmentType !=''">
+                #{employmentType,jdbcType=VARCHAR},
+            </if>
+            <if test="jobLevel != null and jobLevel !=''">
+                #{jobLevel,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="addUserExt" parameterType="com.xoa.model.users.UserExt" databaseId="oracle" useGeneratedKeys="true" keyProperty="uid">
+        <selectKey order="BEFORE" keyProperty="uid" resultType="int">
+            SELECT  USER_EXT_UID_SEQ.nextval as "uid" from dual
+        </selectKey>
+        insert into user_ext
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                "UID",
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="tableIcon != null">
+                TABLE_ICON,
+            </if>
+            <if test="emailRecentLinkman != null">
+                EMAIL_RECENT_LINKMAN,
+            </if>
+            <if test="nickName != null">
+                NICK_NAME,
+            </if>
+            <if test="bbsCounter != null">
+                BBS_COUNTER,
+            </if>
+            <if test="emailCapacity != null">
+                EMAIL_CAPACITY,
+            </if>
+            <if test="folderCapacity != null">
+                FOLDER_CAPACITY,
+            </if>
+            <if test="webmailCapacity != null">
+                WEBMAIL_CAPACITY,
+            </if>
+            <if test="webmailNum != null">
+                WEBMAIL_NUM,
+            </if>
+            <if test="score != null">
+                SCORE,
+            </if>
+            <if test="tderFlag != null">
+                TDER_FLAG,
+            </if>
+            <if test="dutyType != null">
+                DUTY_TYPE,
+            </if>
+            <if test="usePop3 != null">
+                USE_POP3,
+            </if>
+            <if test="isUsePop3 != null">
+                IS_USE_POP3,
+            </if>
+            <if test="pop3PassStyle != null">
+                POP3_PASS_STYLE,
+            </if>
+            <if test="pop3Pass != null">
+                POP3_PASS,
+            </if>
+            <if test="ccUsername != null">
+                CC_USERNAME,
+            </if>
+            <if test="ccPwd != null">
+                CC_PWD,
+            </if>
+            <if test="isUseEmailsend != null">
+                IS_USE_EMAILSEND,
+            </if>
+            <if test="taskcenterOpenStart != null">
+                TASKCENTER_OPEN_START,
+            </if>
+            <if test="emailGetbox != null">
+                EMAIL_GETBOX,
+            </if>
+            <if test="folderViewModel != null">
+                FOLDER_VIEW_MODEL,
+            </if>
+            <if test="useEmail != null">
+                USE_EMAIL,
+            </if>
+            <if test="bbsSignature != null">
+                BBS_SIGNATURE,
+            </if>
+            <if test="concernUser != null">
+                CONCERN_USER,
+            </if>
+            <if test="uFuncIdStr != null">
+                U_FUNC_ID_STR,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+
+                #{uid,jdbcType=INTEGER},
+
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="tableIcon != null">
+                #{tableIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="emailRecentLinkman != null">
+                #{emailRecentLinkman,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null">
+                #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="bbsCounter != null">
+                #{bbsCounter,jdbcType=INTEGER},
+            </if>
+            <if test="emailCapacity != null">
+                #{emailCapacity,jdbcType=SMALLINT},
+            </if>
+            <if test="folderCapacity != null">
+                #{folderCapacity,jdbcType=SMALLINT},
+            </if>
+            <if test="webmailCapacity != null">
+                #{webmailCapacity,jdbcType=SMALLINT},
+            </if>
+            <if test="webmailNum != null">
+                #{webmailNum,jdbcType=TINYINT},
+            </if>
+            <if test="score != null">
+                #{score,jdbcType=INTEGER},
+            </if>
+            <if test="tderFlag != null">
+                #{tderFlag,jdbcType=CHAR},
+            </if>
+            <if test="dutyType != null">
+                #{dutyType,jdbcType=SMALLINT},
+            </if>
+            <if test="usePop3 != null">
+                #{usePop3,jdbcType=BIT},
+            </if>
+            <if test="isUsePop3 != null">
+                #{isUsePop3,jdbcType=BIT},
+            </if>
+            <if test="pop3PassStyle != null">
+                #{pop3PassStyle,jdbcType=BIT},
+            </if>
+            <if test="pop3Pass != null">
+                #{pop3Pass,jdbcType=VARCHAR},
+            </if>
+            <if test="ccUsername != null">
+                #{ccUsername,jdbcType=VARCHAR},
+            </if>
+            <if test="ccPwd != null">
+                #{ccPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="isUseEmailsend != null">
+                #{isUseEmailsend,jdbcType=BIT},
+            </if>
+            <if test="taskcenterOpenStart != null">
+                #{taskcenterOpenStart,jdbcType=BIT},
+            </if>
+            <if test="emailGetbox != null">
+                #{emailGetbox,jdbcType=VARCHAR},
+            </if>
+            <if test="folderViewModel != null">
+                #{folderViewModel,jdbcType=BIT},
+            </if>
+            <if test="useEmail != null">
+                #{useEmail,jdbcType=BIT},
+            </if>
+            <if test="bbsSignature != null">
+                #{bbsSignature,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="concernUser != null">
+                #{concernUser,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="uFuncIdStr != null">
+                #{uFuncIdStr,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <insert id="addUserExt" parameterType="com.xoa.model.users.UserExt" databaseId="dm" useGeneratedKeys="true" keyProperty="uid">
+        SELECT  USER_EXT_UID_SEQ.nextval as "uid" from dual
+        insert into user_ext
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            UID,
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="tableIcon != null">
+                TABLE_ICON,
+            </if>
+            <if test="emailRecentLinkman != null">
+                EMAIL_RECENT_LINKMAN,
+            </if>
+            <if test="nickName != null">
+                NICK_NAME,
+            </if>
+            <if test="bbsCounter != null">
+                BBS_COUNTER,
+            </if>
+            <if test="emailCapacity != null">
+                EMAIL_CAPACITY,
+            </if>
+            <if test="folderCapacity != null">
+                FOLDER_CAPACITY,
+            </if>
+            <if test="webmailCapacity != null">
+                WEBMAIL_CAPACITY,
+            </if>
+            <if test="webmailNum != null">
+                WEBMAIL_NUM,
+            </if>
+            <if test="score != null">
+                SCORE,
+            </if>
+            <if test="tderFlag != null">
+                TDER_FLAG,
+            </if>
+            <if test="dutyType != null">
+                DUTY_TYPE,
+            </if>
+            <if test="usePop3 != null">
+                USE_POP3,
+            </if>
+            <if test="isUsePop3 != null">
+                IS_USE_POP3,
+            </if>
+            <if test="pop3PassStyle != null">
+                POP3_PASS_STYLE,
+            </if>
+            <if test="pop3Pass != null">
+                POP3_PASS,
+            </if>
+            <if test="ccUsername != null">
+                CC_USERNAME,
+            </if>
+            <if test="ccPwd != null">
+                CC_PWD,
+            </if>
+            <if test="isUseEmailsend != null">
+                IS_USE_EMAILSEND,
+            </if>
+            <if test="taskcenterOpenStart != null">
+                TASKCENTER_OPEN_START,
+            </if>
+            <if test="emailGetbox != null">
+                EMAIL_GETBOX,
+            </if>
+            <if test="folderViewModel != null">
+                FOLDER_VIEW_MODEL,
+            </if>
+            <if test="useEmail != null">
+                USE_EMAIL,
+            </if>
+            <if test="bbsSignature != null">
+                BBS_SIGNATURE,
+            </if>
+            <if test="concernUser != null">
+                CONCERN_USER,
+            </if>
+            <if test="uFuncIdStr != null">
+                U_FUNC_ID_STR,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+
+            #{uid,jdbcType=INTEGER},
+
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="tableIcon != null">
+                #{tableIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="emailRecentLinkman != null">
+                #{emailRecentLinkman,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null">
+                #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="bbsCounter != null">
+                #{bbsCounter,jdbcType=INTEGER},
+            </if>
+            <if test="emailCapacity != null">
+                #{emailCapacity,jdbcType=INTEGER},
+            </if>
+            <if test="folderCapacity != null">
+                #{folderCapacity,jdbcType=INTEGER},
+            </if>
+            <if test="webmailCapacity != null">
+                #{webmailCapacity,jdbcType=INTEGER},
+            </if>
+            <if test="webmailNum != null">
+                #{webmailNum,jdbcType=TINYINT},
+            </if>
+            <if test="score != null">
+                #{score,jdbcType=INTEGER},
+            </if>
+            <if test="tderFlag != null">
+                #{tderFlag,jdbcType=CHAR},
+            </if>
+            <if test="dutyType != null">
+                #{dutyType,jdbcType=SMALLINT},
+            </if>
+            <if test="usePop3 != null">
+                #{usePop3,jdbcType=BIT},
+            </if>
+            <if test="isUsePop3 != null">
+                #{isUsePop3,jdbcType=BIT},
+            </if>
+            <if test="pop3PassStyle != null">
+                #{pop3PassStyle,jdbcType=BIT},
+            </if>
+            <if test="pop3Pass != null">
+                #{pop3Pass,jdbcType=VARCHAR},
+            </if>
+            <if test="ccUsername != null">
+                #{ccUsername,jdbcType=VARCHAR},
+            </if>
+            <if test="ccPwd != null">
+                #{ccPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="isUseEmailsend != null">
+                #{isUseEmailsend,jdbcType=BIT},
+            </if>
+            <if test="taskcenterOpenStart != null">
+                #{taskcenterOpenStart,jdbcType=BIT},
+            </if>
+            <if test="emailGetbox != null">
+                #{emailGetbox,jdbcType=VARCHAR},
+            </if>
+            <if test="folderViewModel != null">
+                #{folderViewModel,jdbcType=BIT},
+            </if>
+            <if test="useEmail != null">
+                #{useEmail,jdbcType=BIT},
+            </if>
+            <if test="bbsSignature != null">
+                #{bbsSignature,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="concernUser != null">
+                #{concernUser,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="uFuncIdStr != null">
+                #{uFuncIdStr,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateUserExtByUid" parameterType="com.xoa.model.users.UserExt">
+        update user_ext
+        <set>
+            <if test="userId != null and userId!=''">
+                USER_ID = #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="tableIcon != null">
+                TABLE_ICON = #{tableIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="emailRecentLinkman != null">
+                EMAIL_RECENT_LINKMAN = #{emailRecentLinkman,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null and nickName!='' ">
+                NICK_NAME = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="bbsCounter != null">
+                BBS_COUNTER = #{bbsCounter,jdbcType=INTEGER},
+            </if>
+            <if test="emailCapacity != null">
+                EMAIL_CAPACITY = #{emailCapacity,jdbcType=INTEGER},
+            </if>
+            <if test="folderCapacity != null">
+                FOLDER_CAPACITY = #{folderCapacity,jdbcType=INTEGER},
+            </if>
+            <if test="webmailCapacity != null">
+                WEBMAIL_CAPACITY = #{webmailCapacity,jdbcType=INTEGER},
+            </if>
+            <if test="webmailNum != null">
+                WEBMAIL_NUM = #{webmailNum,jdbcType=TINYINT},
+            </if>
+            <if test="score != null">
+                SCORE = #{score,jdbcType=INTEGER},
+            </if>
+            <if test="tderFlag != null">
+                TDER_FLAG = #{tderFlag,jdbcType=CHAR},
+            </if>
+            <if test="dutyType != null">
+                DUTY_TYPE = #{dutyType,jdbcType=SMALLINT},
+            </if>
+            <if test="usePop3 != null or usePop3==0 ">
+                USE_POP3 = #{usePop3,jdbcType=BIT},
+            </if>
+            <if test="isUsePop3 != null">
+                IS_USE_POP3 = #{isUsePop3,jdbcType=BIT},
+            </if>
+            <if test="pop3PassStyle != null">
+                POP3_PASS_STYLE = #{pop3PassStyle,jdbcType=BIT},
+            </if>
+            <if test="pop3Pass != null">
+                POP3_PASS = #{pop3Pass,jdbcType=VARCHAR},
+            </if>
+            <if test="ccUsername != null">
+                CC_USERNAME = #{ccUsername,jdbcType=VARCHAR},
+            </if>
+            <if test="ccPwd != null">
+                CC_PWD = #{ccPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="isUseEmailsend != null">
+                IS_USE_EMAILSEND = #{isUseEmailsend,jdbcType=BIT},
+            </if>
+            <if test="taskcenterOpenStart != null">
+                TASKCENTER_OPEN_START = #{taskcenterOpenStart,jdbcType=BIT},
+            </if>
+            <if test="emailGetbox != null">
+                EMAIL_GETBOX = #{emailGetbox,jdbcType=VARCHAR},
+            </if>
+            <if test="folderViewModel != null">
+                FOLDER_VIEW_MODEL = #{folderViewModel,jdbcType=BIT},
+            </if>
+            <if test="useEmail != null">
+                USE_EMAIL = #{useEmail,jdbcType=BIT},
+            </if>
+            <if test="bbsSignature != null">
+                BBS_SIGNATURE = #{bbsSignature,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="concernUser != null">
+                CONCERN_USER = #{concernUser,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="uFuncIdStr != null">
+                U_FUNC_ID_STR = #{uFuncIdStr,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="employmentType != null">
+                EMPLOYMENT_TYPE = #{employmentType,jdbcType=VARCHAR},
+            </if>
+            <if test="jobLevel != null">
+                JOB_LEVEL = #{jobLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="menuPanel != null">
+                MENU_PANEL = #{menuPanel},
+            </if>
+            <if test="emailPanel != null">
+                EMAIL_PANEL = #{emailPanel},
+            </if>
+            <if test="bankDeposit != null">
+                BANK_DEPOSIT = #{bankDeposit},
+            </if>
+            <if test="bankCardNumber != null">
+                BANK_CARD_NUMBER = #{bankCardNumber},
+            </if>
+            <if test="documentPanel != null">
+                DOCUMENT_PANEL = #{documentPanel},
+            </if>
+        </set>
+        where UID = #{uid,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateUserExtByUid" parameterType="com.xoa.model.users.UserExt"  databaseId="oracle">
+        update user_ext
+        <set>
+            <if test="userId != null and userId!=''">
+                USER_ID = #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="tableIcon != null">
+                TABLE_ICON = #{tableIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="emailRecentLinkman != null">
+                EMAIL_RECENT_LINKMAN = #{emailRecentLinkman,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null">
+                NICK_NAME = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="bbsCounter != null">
+                BBS_COUNTER = #{bbsCounter,jdbcType=INTEGER},
+            </if>
+            <if test="emailCapacity != null">
+                EMAIL_CAPACITY = #{emailCapacity,jdbcType=INTEGER},
+            </if>
+            <if test="folderCapacity != null">
+                FOLDER_CAPACITY = #{folderCapacity,jdbcType=INTEGER},
+            </if>
+            <if test="webmailCapacity != null">
+                WEBMAIL_CAPACITY = #{webmailCapacity,jdbcType=INTEGER},
+            </if>
+            <if test="webmailNum != null">
+                WEBMAIL_NUM = #{webmailNum,jdbcType=TINYINT},
+            </if>
+            <if test="score != null">
+                SCORE = #{score,jdbcType=INTEGER},
+            </if>
+            <if test="tderFlag != null">
+                TDER_FLAG = #{tderFlag,jdbcType=CHAR},
+            </if>
+            <if test="dutyType != null">
+                DUTY_TYPE = #{dutyType,jdbcType=SMALLINT},
+            </if>
+            <if test="usePop3 != null or usePop3==0 ">
+                USE_POP3 = #{usePop3,jdbcType=BIT},
+            </if>
+            <if test="isUsePop3 != null">
+                IS_USE_POP3 = #{isUsePop3,jdbcType=BIT},
+            </if>
+            <if test="pop3PassStyle != null">
+                POP3_PASS_STYLE = #{pop3PassStyle,jdbcType=BIT},
+            </if>
+            <if test="pop3Pass != null">
+                POP3_PASS = #{pop3Pass,jdbcType=VARCHAR},
+            </if>
+            <if test="ccUsername != null">
+                CC_USERNAME = #{ccUsername,jdbcType=VARCHAR},
+            </if>
+            <if test="ccPwd != null">
+                CC_PWD = #{ccPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="isUseEmailsend != null">
+                IS_USE_EMAILSEND = #{isUseEmailsend,jdbcType=BIT},
+            </if>
+            <if test="taskcenterOpenStart != null">
+                TASKCENTER_OPEN_START = #{taskcenterOpenStart,jdbcType=BIT},
+            </if>
+            <if test="emailGetbox != null">
+                EMAIL_GETBOX = #{emailGetbox,jdbcType=VARCHAR},
+            </if>
+            <if test="folderViewModel != null">
+                FOLDER_VIEW_MODEL = #{folderViewModel,jdbcType=BIT},
+            </if>
+            <if test="useEmail != null">
+                USE_EMAIL = #{useEmail,jdbcType=BIT},
+            </if>
+            <if test="bbsSignature != null">
+                BBS_SIGNATURE = #{bbsSignature,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="concernUser != null">
+                CONCERN_USER = #{concernUser,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="uFuncIdStr != null">
+                U_FUNC_ID_STR = #{uFuncIdStr,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where "UID" = #{uid,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateUserExtByUid" parameterType="com.xoa.model.users.UserExt" databaseId="dm">
+        update  user_ext
+        <set>
+            <if test="userId != null and userId!=''">
+                USER_ID = #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="tableIcon != null">
+                TABLE_ICON = #{tableIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="emailRecentLinkman != null">
+                EMAIL_RECENT_LINKMAN = #{emailRecentLinkman,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null">
+                NICK_NAME = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="bbsCounter != null">
+                BBS_COUNTER = #{bbsCounter,jdbcType=INTEGER},
+            </if>
+            <if test="emailCapacity != null">
+                EMAIL_CAPACITY = #{emailCapacity,jdbcType=INTEGER},
+            </if>
+            <if test="folderCapacity != null">
+                FOLDER_CAPACITY = #{folderCapacity,jdbcType=INTEGER},
+            </if>
+            <if test="webmailCapacity != null">
+                WEBMAIL_CAPACITY=#{webmailCapacity,jdbcType=INTEGER},
+            </if>
+            <if test="webmailNum != null">
+                WEBMAIL_NUM = #{webmailNum,jdbcType=TINYINT},
+            </if>
+            <if test="score != null">
+                SCORE = #{score,jdbcType=INTEGER},
+            </if>
+            <if test="tderFlag != null">
+                TDER_FLAG = #{tderFlag,jdbcType=CHAR},
+            </if>
+            <if test="dutyType != null">
+                DUTY_TYPE = #{dutyType,jdbcType=SMALLINT},
+            </if>
+            <if test="usePop3 != null or usePop3==0 ">
+                USE_POP3 = #{usePop3,jdbcType=BIT},
+            </if>
+            <if test="isUsePop3 != null">
+                IS_USE_POP3 = #{isUsePop3,jdbcType=BIT},
+            </if>
+            <if test="pop3PassStyle != null">
+                POP3_PASS_STYLE = #{pop3PassStyle,jdbcType=BIT},
+            </if>
+            <if test="pop3Pass != null">
+                POP3_PASS = #{pop3Pass,jdbcType=VARCHAR},
+            </if>
+            <if test="ccUsername != null">
+                CC_USERNAME=#{ccUsername,jdbcType=VARCHAR},
+            </if>
+            <if test="ccPwd != null">
+                CC_PWD = #{ccPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="isUseEmailsend != null">
+                IS_USE_EMAILSEND = #{isUseEmailsend,jdbcType=BIT},
+            </if>
+            <if test="taskcenterOpenStart != null">
+                TASKCENTER_OPEN_START = #{taskcenterOpenStart,jdbcType=BIT},
+            </if>
+            <if test="emailGetbox != null">
+                EMAIL_GETBOX = #{emailGetbox,jdbcType=VARCHAR},
+            </if>
+            <if test="folderViewModel != null">
+                FOLDER_VIEW_MODEL = #{folderViewModel,jdbcType=BIT},
+            </if>
+            <if test="useEmail != null">
+                USE_EMAIL = #{useEmail,jdbcType=BIT},
+            </if>
+            <if test="bbsSignature != null">
+                BBS_SIGNATURE = #{bbsSignature,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="concernUser != null">
+                CONCERN_USER=#{concernUser,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="uFuncIdStr != null">
+                U_FUNC_ID_STR = #{uFuncIdStr,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where "UID" = #{uid,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deleteUserExtByUids" parameterType="string">
+        DELETE FROM user_ext WHERE UID in
+        <foreach item="uids" collection="array" open="(" separator="," close=")">
+            #{uids}
+        </foreach>
+    </delete>
+
+    <select id="queryUserExt"  resultMap="BaseResultMap">
+      SELECT * from user_ext u where
+       u.UID=#{uid}
+    </select>
+    <select id="queryUserExt"  resultMap="BaseResultMap" databaseId="oracle">
+        SELECT * from user_ext u where
+        u."UID"=#{uid}
+    </select>
+    <select id="queryUserExt"  resultMap="BaseResultMap" databaseId="dm">
+        SELECT * from user_ext u where
+        u."UID"=#{uid}
+    </select>
+
+    <update id="updateUserExtByUids" >
+        update user_ext
+        <set>
+
+            <if test="userExt.tableIcon != null">
+                TABLE_ICON = #{userExt.tableIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="userExt.emailRecentLinkman != null">
+                EMAIL_RECENT_LINKMAN = #{userExt.emailRecentLinkman,jdbcType=VARCHAR},
+            </if>
+            <if test="userExt.nickName != null">
+                NICK_NAME = #{userExt.nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="userExt.bbsCounter != null">
+                BBS_COUNTER = #{userExt.bbsCounter,jdbcType=INTEGER},
+            </if>
+            <if test="userExt.emailCapacity != null">
+                EMAIL_CAPACITY = #{userExt.emailCapacity,jdbcType=INTEGER},
+            </if>
+            <if test="userExt.folderCapacity != null">
+                FOLDER_CAPACITY = #{userExt.folderCapacity,jdbcType=INTEGER},
+            </if>
+            <if test="userExt.webmailCapacity != null">
+                WEBMAIL_CAPACITY = #{userExt.webmailCapacity,jdbcType=INTEGER},
+            </if>
+            <if test="userExt.webmailNum != null">
+                WEBMAIL_NUM = #{userExt.webmailNum,jdbcType=TINYINT},
+            </if>
+            <if test="userExt.score != null">
+                SCORE = #{userExt.score,jdbcType=INTEGER},
+            </if>
+            <if test="userExt.tderFlag != null">
+                TDER_FLAG = #{userExt.tderFlag,jdbcType=CHAR},
+            </if>
+            <if test="userExt.dutyType != null">
+                DUTY_TYPE = #{userExt.dutyType,jdbcType=SMALLINT},
+            </if>
+            <if test="userExt.usePop3 != null or userExt.usePop3==0 ">
+                USE_POP3 = #{userExt.usePop3,jdbcType=BIT},
+            </if>
+            <if test="userExt.isUsePop3 != null">
+                IS_USE_POP3 = #{userExt.isUsePop3,jdbcType=BIT},
+            </if>
+            <if test="userExt.pop3PassStyle != null">
+                POP3_PASS_STYLE = #{userExt.pop3PassStyle,jdbcType=BIT},
+            </if>
+            <if test="userExt.pop3Pass != null">
+                POP3_PASS = #{userExt.pop3Pass,jdbcType=VARCHAR},
+            </if>
+            <if test="userExt.ccUsername != null">
+                CC_USERNAME = #{userExt.ccUsername,jdbcType=VARCHAR},
+            </if>
+            <if test="userExt.ccPwd != null">
+                CC_PWD = #{userExt.ccPwd,jdbcType=VARCHAR},
+            </if>
+            <if test="userExt.isUseEmailsend != null">
+                IS_USE_EMAILSEND = #{userExt.isUseEmailsend,jdbcType=BIT},
+            </if>
+            <if test="userExt.taskcenterOpenStart != null">
+                TASKCENTER_OPEN_START = #{userExt.taskcenterOpenStart,jdbcType=BIT},
+            </if>
+            <if test="userExt.emailGetbox != null">
+                EMAIL_GETBOX = #{userExt.emailGetbox,jdbcType=VARCHAR},
+            </if>
+            <if test="userExt.folderViewModel != null">
+                FOLDER_VIEW_MODEL = #{userExt.folderViewModel,jdbcType=BIT},
+            </if>
+            <if test="userExt.useEmail != null">
+                USE_EMAIL = #{userExt.useEmail,jdbcType=BIT},
+            </if>
+            <if test="userExt.bbsSignature != null">
+                BBS_SIGNATURE = #{userExt.bbsSignature,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="userExt.concernUser != null">
+                CONCERN_USER = #{userExt.concernUser,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="userExt.uFuncIdStr != null">
+                U_FUNC_ID_STR = #{userExt.uFuncIdStr,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where UID IN
+        <foreach item="uid" collection="uids" open="(" separator="," close=")">
+            <if test="uid!=null and uid != '' ">
+                #{uid}
+            </if>
+        </foreach>
+    </update>
+    <select id="queryUserExtByByName"  resultMap="BaseResultMap" parameterType="string">
+         SELECT EMAIL_RECENT_LINKMAN,LOGIN_RESTRICTION,LOGIN_TIME,u.UID from user u left join user_ext ue on u.UID=ue.UID where u.BYNAME=#{byname}
+    </select>
+    <select id="queryUserExtByByName"  resultMap="BaseResultMap" parameterType="string" databaseId="oracle">
+          SELECT ue.EMAIL_RECENT_LINKMAN,LOGIN_RESTRICTION,LOGIN_TIME,u.UID from "user" u left join "user_ext" ue on u.UID=ue.UID where u.BYNAME=#{byname}
+    </select>
+    <select id="queryUserExtByByName"  resultMap="BaseResultMap" parameterType="string" databaseId="dm">
+         SELECT ue.EMAIL_RECENT_LINKMAN,LOGIN_RESTRICTION,LOGIN_TIME,u.UID from "user" u left join user_ext ue on u.UID=ue.UID where u.BYNAME=#{byname}
+    </select>
+    <select id="queryUserExtByByName"  resultMap="BaseResultMap" parameterType="string" databaseId="kingbase">
+         SELECT ue.EMAIL_RECENT_LINKMAN,LOGIN_RESTRICTION,LOGIN_TIME,u.UID from "user" u left join "user_ext" ue on u.UID=ue.UID where u.BYNAME=#{byname}
+    </select>
+
+
+    <select id="selUserExtByUserId"  resultMap="BaseResultMap" parameterType="string">
+        SELECT EMAIL_RECENT_LINKMAN,LOGIN_RESTRICTION,LOGIN_TIME,u.UID,EMPLOYMENT_TYPE,JOB_LEVEL from user u left join user_ext ue on u.UID=ue.UID where u.user_Id=#{userId}
+    </select>
+
+    <select id="selUserExtByUserId"  resultMap="BaseResultMap" parameterType="string" databaseId="dm">
+        SELECT EMAIL_RECENT_LINKMAN,LOGIN_RESTRICTION,LOGIN_TIME,u.UID,EMPLOYMENT_TYPE from "user" u left join "user_ext" ue on u.UID=ue.UID where u.user_Id=#{userId}
+    </select>
+
+    <select id="selUserExtByUserId"  resultMap="BaseResultMap" parameterType="string" databaseId="kingbase">
+        SELECT EMAIL_RECENT_LINKMAN,LOGIN_RESTRICTION,LOGIN_TIME,u.UID,EMPLOYMENT_TYPE from "user" u left join "user_ext" ue on u.UID=ue.UID where u.user_Id=#{userId}
+    </select>
+
+    <update id="updateUserExtByuidlogin" parameterType="com.xoa.model.users.UserExt">
+    update user_ext set  LOGIN_RESTRICTION = #{loginRestriction}, LOGIN_Time = #{loginTime} where uid=#{uid}
+    </update>
+    <update id="updateUserExtByuidlogin" parameterType="com.xoa.model.users.UserExt" databaseId="oracle">
+    update user_ext set  LOGIN_RESTRICTION = #{loginRestriction}, LOGIN_Time = #{loginTime} where uid=#{uid}
+    </update>
+    <update id="updateUserExtByuidlogin" parameterType="com.xoa.model.users.UserExt" databaseId="dm">
+    update "user_ext" set  LOGIN_RESTRICTION = #{loginRestriction}, LOGIN_Time = #{loginTime} where uid=#{uid}
+    </update>
+    <update id="updatePlanCockpitSet" parameterType="com.xoa.model.users.UserExt">
+       UPDATE user_ext SET PLAN_COCKPIT_SET = #{planCockpitSet} WHERE USER_ID = #{userId}
+    </update>
+    <select id="getPlanCockpitSet" resultMap="BaseResultMap" parameterType="com.xoa.model.users.UserExt">
+        SELECT PLAN_COCKPIT_SET,USER_ID from USER_EXT where USER_ID = #{userId}
+    </select>
+    <select id="getDutyType" resultMap="BaseResultMap" parameterType="string">
+        SELECT USER.USER_ID,USER_EXT.DUTY_TYPE from USER,USER_EXT where USER.USER_ID=USER_EXT.USER_ID and BYNAME=#{pin}
+    </select>
+    <update id="updateEmploymentTypeByUid" parameterType="com.xoa.model.users.UserExt">
+        update user_ext
+        <set>
+         EMPLOYMENT_TYPE = #{employmentType,jdbcType=VARCHAR}
+        </set>
+        where UID = #{uid,jdbcType=INTEGER}
+    </update>
+    <select id="checkUser" parameterType="map" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from user_ext
+        where USER_ID IN
+        <foreach item="userId" collection="userIds" open="(" separator="," close=")">
+            <if test="userId != null and userId != '' ">
+                #{userId}
+            </if>
+        </foreach>
+        <if test="userType != null and userType != ''">
+            and EMPLOYMENT_TYPE in
+            <foreach item="type" collection="userType" open="(" separator="," close=")">
+                <if test="type != null and type != '' ">
+                    #{type}
+                </if>
+            </foreach>
+        </if>
+    </select>
+
+    <update id="updateFlowFavorites" parameterType="com.xoa.model.users.UserExt">
+        update user_ext
+        <set>
+            FLOW_FAVORITES = #{flowFavorites}
+        </set>
+        where UID = #{uid}
+    </update>
+
+    <select id="selectFolderCapacityByUserId" resultType="Integer">
+        select FOLDER_CAPACITY from user_ext where USER_ID = #{userId}
+    </select>
+
+    <select id="selectEmailCapacityByUserId" resultType="Integer">
+        select EMAIL_CAPACITY from user_ext where USER_ID = #{userId}
+    </select>
+</mapper>

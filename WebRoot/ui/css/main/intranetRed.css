@@ -1,0 +1,458 @@
+
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, menu, nav, output, ruby, section, summary, time, mark, audio, video, input {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+    outline: 0;
+}
+body{
+    padding-top:10px;
+}
+.topmain{
+    width: 98%;
+    margin:0 auto;
+}
+.topmainleft{
+    width: 67%;
+    float: left;
+    height: 500px;
+}
+.daiban{
+    height: 314px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    position: relative;
+}
+.daibantop{
+    height: 102px;
+}
+.daibantop .left{
+    width: 32%;
+    height: 100%;
+    background: #3794cf;
+    text-align: center;
+}
+.daibantop .right{
+    width: 68%;
+    height: 100%;
+}
+.sr-f:hover{
+    color: red;
+}
+.daibantop .right div{
+    width: 96%;
+    margin-left: 1%;
+    height: 100%;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd;
+}
+.daibantop .right div>img{
+    width: 40px;
+    margin-top:23px;
+    margin-left: 2%;
+}
+.daibantop .right div>span{
+    width: 25%;
+    margin-top:20px;
+    margin-left: 6%;
+}
+.daibantop .right div>span strong{
+    font-size: 16pt;
+    display: block;
+    color: #363636;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+.daibantop .right div>span label{
+    font-size: 15px;
+    color: #363636;
+    margin-top: 10px;
+    display: block;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+.daibanbuttom{
+    height: 85px;
+}
+.daibanbuttom .left{
+    width: 32%;
+    height: 100%;
+    background: #fdd350;
+    text-align: center;
+}
+.daibanbuttom .left p{
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+    margin-top: 5px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 26px;
+    text-align: center;
+}
+.daibanbuttom .left p>span{
+    font-weight: normal;
+    font-size: 18px;
+    color: #fd770c;
+}
+.daibanbuttom .right{
+    width: 68%;
+    height: 100%;
+}
+.daibanbuttom .right .top{
+    width: 96%;
+    margin-left: 5%;
+    line-height: 28px;
+    font-size: 14px;
+    margin-top: 5px;
+}
+.daibanbuttom .right .buttom{
+    width: 96%;
+    margin-left: 5%;
+    font-size:20px;
+    color: #fd770c;
+    line-height: 40px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.changyong{
+    width: 100%;
+    height: 170px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    margin-top:14px;
+}
+.pbg{
+    position: relative;
+    width: 100%;
+    height:37px;
+    line-height:37px;
+    /*background: #f0f7ff;*/
+    border-top: 3px solid #bc0f14;
+}
+.titleleft{
+    background: url("/img/main_img/titleft.png") no-repeat;
+    width: 163px;
+    height: 46px;
+    line-height: 37px;
+    position: absolute;
+    left: -9px;
+    top:-13px;
+    font-size: 16px;
+    padding: 7px 45px;
+    letter-spacing: 1px;
+    color: #fff;
+    text-align: left;
+    box-sizing: border-box;
+}
+.changyongmain{
+    width: 100%;
+    height: 120px;
+    padding:5px;
+    box-sizing: border-box;
+    overflow: auto;
+}
+.changyongmain li{
+    width: 80px;
+    text-align: center;
+    padding:5px 5px;
+    margin: 0px 4%;
+}
+.changyongmain li h4{
+    font-size: 14px;
+    color: #3c92e5;
+    font-weight: normal;
+}
+.changyongmain li:hover{
+    background: #e9f3ff;
+    cursor: pointer;
+}
+.topmaincenter{
+    margin:0 3%;
+    background: #fff;
+    height: 100%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    text-align: center;
+}
+.topmaincenter>img{
+    width: 95%;
+    border-radius: 4px;
+    height: 195px;
+    margin:13px 0px;
+}
+.textmain{
+    width: 95%;
+    height: 87px;
+    text-align: left;
+    margin: 0 auto;
+}
+
+.textmain .title{
+    line-height: 24px;
+}
+.textmain .title strong{
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #2c1e1e;
+    width:10em;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+}
+.textmain .title a{
+    font-size: 14px;
+    color: #666;
+    letter-spacing: 1px;
+}
+.pmain{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+    line-height: 30px;
+    font-size: 14px;
+    color: #999;
+}
+
+.topmainright{
+    float: left;
+    margin-left: 1%;
+    width: 31%;
+    background: #fff;
+    height: 500px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    text-align: center;
+}
+.r-top{
+    height: 21%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    margin-bottom: 2%;
+    background: url("/img/main_img/timeshijian.png") no-repeat;
+    background-size: cover;
+    color: red;
+}
+
+.r-top h3{
+    font-size: 36px;
+    line-height: 49px;
+    padding-top: 10px;
+}
+.r-top h4{
+    font-size: 24px;
+    line-height: 36px;
+}
+
+
+.r-bot{
+    /*height: 69%;*/
+}
+#ca{
+    width: 95%;
+    height: 280px;
+    margin:0 auto;
+    border-bottom: 1px solid #999;
+    padding: 5px 0px;
+}
+.topmainright-main{
+    width: 95%;
+    margin:0 auto;
+    height:97px;
+    padding:5px 0px;
+    text-align: left;
+    overflow: auto;
+}
+.topmainright-main li{
+    line-height:30px;
+    margin-top:5px;
+}
+.buttommain{
+    width: 98%;
+    margin: 0 auto;
+    margin-top: 15px;
+    height: 251px;
+}
+.buttommain>div{
+    width: 32.5%;
+    float: left;
+    height: 100%;
+    position: relative;
+}
+.buttommainleft{
+    background: #fff;
+    height: 100%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    text-align: center;
+}
+.navigations{
+    margin-right: 5px;
+}
+.navigations span{
+    padding:1px 4px;
+    background: #fff;
+    color: #3c92e5;
+    border:1px solid #3c92e5;
+    border-radius: 3px;
+    margin:0px 2px;
+    font-size: 12px;
+    cursor: pointer;
+}
+.navigations span.active{
+    color: #fff;
+    background:#3c92e5 ;
+}
+.buttommai-main{
+    width: 95%;
+    height:230px;
+    /*overflow: auto;*/
+    margin:0 auto;
+}
+.buttommai-main li{
+    height: 43px;
+    border-bottom: 1px solid #ddd;
+    margin-top:6px;
+    cursor: pointer;
+}
+.textmains{
+    padding-left: 5px;
+    box-sizing: border-box;
+    text-align: left;
+}
+.textmains .top{
+    height:23px;
+    line-height: 23px;
+    font-size: 12px;
+    color: #363636;
+}
+.textmains .top a{
+    color: #363636;
+}
+.textmains .buttom{
+    height:23px;
+    line-height: 23px;
+    font-size: 12px;
+
+}
+.textmains .buttom span{
+    width: 13em;
+    overflow: hidden;
+    display: inline-block;
+    height: 18px;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.textmains .buttom span a{
+    color: #1b5e8d;
+}
+.buttommaincontent{
+    background: #fff;
+    height: 100%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    margin:0 1%;
+}
+.hide{
+    display: none;
+}
+
+.more{
+    position: absolute;
+    top: 14px;
+    right: 23px;
+}
+.mores{
+    color: #bc0f14;
+    font-weight: 700;
+}
+
+.calendar .calendar-views .now{
+    background:#bc0f14 !important;
+}
+
+.lef{
+    float: left;
+    width: 16em;
+    overflow: hidden;
+    display: inline-block;
+    height: 43px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+    font-size: 12px;
+}
+.rit{
+    float: right;
+    margin-right: 9px;
+    font-size: 12px;
+    color: #919191;
+}
+.lt{
+    width: 48%;
+    float: left;
+    margin: 1% 2%;
+    box-sizing: border-box;
+    height: 240px;
+}
+.rt{
+    width: 45%;
+    height: 250px;
+    float: right;
+    overflow: auto;
+    box-sizing: border-box;
+    margin: 1% 2% 1% 0;
+}
+
+.sorc li{
+    height: 74px;
+    margin-top: 10px;
+}
+.sr-f{
+    float: left;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 70%;
+}
+.src-r{
+    float: right;
+    font-weight: 700;
+}
+.sor-t{
+    height: 39%;
+}
+.sor-b{
+    height: 51%;
+    color: #b0b0b0;
+    font-size: 14px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+
+    overflow: hidden;
+}
+
+.overhides{
+    width: 11em;
+    overflow: hidden;
+    display: inline-block;
+    height: 24px;
+    vertical-align: text-bottom;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+
+
+@media screen and (min-width:1100px) and (max-width:1300px){
+    .changyongmain li{
+        margin:0 1%;
+    }
+
+}

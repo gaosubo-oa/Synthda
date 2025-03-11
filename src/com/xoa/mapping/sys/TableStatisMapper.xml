@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.sys.TableStatisticsMapper" >
+    <resultMap id="BaseResultMap" type="com.xoa.model.sys.TableStatistics">
+
+        <result   column="Name" property="Name" javaType="string"/>
+        <result   column="Rows" property="Rows" javaType="int"/>
+        <result  column="Data_length" property="Datalength" javaType="int"/>
+    </resultMap>
+    <select id="select" resultMap="BaseResultMap" parameterType="map" >
+       show table status like #{tablename}
+    </select>
+
+    <select id="select" resultMap="BaseResultMap" parameterType="map" databaseId="kingbase">
+        select sys_relation_size(#{tablename}) AS Data_length
+    </select>
+
+</mapper>

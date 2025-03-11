@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>复选框</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <link rel="stylesheet" href="../formdesign/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="./css/ueditor/site.css">
+    <script type="text/javascript" src="../dialogs/internal.js"></script>
+    <script type="text/javascript" src="/js/xoajq/xoajq3.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery-migrate-3.4.0.js"></script>
+    <script type="text/javascript" src="../../../js/base/base.js"></script>
+    <link rel="stylesheet" href="leipi.style.css">
+   <script type="text/javascript">
+function createElement(type, name)
+{     
+    var element = null;     
+    try {        
+        element = document.createElement('<'+type+' name="'+name+'">');     
+    } catch (e) {}   
+    if(element==null) {     
+        element = document.createElement(type);     
+        element.name = name;     
+    } 
+    return element;     
+}
+    </script>
+</head>
+<body>
+<div class="content">
+    <table class="table table-bordered table-striped table-hover">
+     <tr>
+        <th>
+            <span class="languageText" language="workform_formItem_name">控件名称</span>
+            <span class="label label-important">*</span>
+        </th>
+        <th>
+            <span class="languageText" language="workform_formItem_xzzt">选中状态</span>
+        </th>
+    </tr>
+    <tr>
+        <td><input id="orgname" placeholder="必填项" type="text" class="languagePlaceHolder" language="workform_formItem_btx"/>
+        </td>
+        <input type="hidden" id="fielid" placeholder="必填项" class="languagePlaceHolder" language="workform_formItem_btx">
+        <td>
+            <label class="radio"><input id="orgchecked0" checked="checked" name="checked" type="radio"> <span class="languageText" language="workform_formItem_unchecked">不选中</span> </label>
+            <label class="radio"><input id="orgchecked1" name="checked" type="radio"> <span class="languageText" language="workform_formItem_checked">选中</span> </label>
+        </td>
+    </tr>
+    </table>
+</div>
+<script>
+    if(getCookie("language") != 'zh_CN'){
+        $('title').text(workform_formItem.workform_formItem_checkbox);
+        var $languageText = $('.languageText');
+        var $languagePlaceHolder = $('.languagePlaceHolder');
+        for(var i = 0; i < $languageText.length; i++){
+            var language = $languageText.eq(i).attr('language');
+            $('*[language='+ language +']').text(workform_formItem[language]);
+        }
+        for(var i = 0; i < $languagePlaceHolder.length; i++){
+            var language = $languagePlaceHolder.eq(i).attr('language');
+            $('*[language='+ language +']').prop('placeholder', workform_formItem[language]);
+        }
+    }
+
+</script>
+<script type="text/javascript">
+    $(function () {
+        var dataid = $.getQueryString('dataid');
+        var dataNumber=parent.pluginId;
+        var oNode = null,thePlugins = 'checkbox';
+
+            if( UE.plugins[thePlugins].editdom ){
+                oNode = UE.plugins[thePlugins].editdom;
+                var gTitle=oNode.getAttribute('title').replace(/&quot;/g,"\"");
+                $G('orgname').value = gTitle;
+                var checked = oNode.getAttribute('checked');
+                checked ? $G('orgchecked1').checked = true : $G('orgchecked0').checked = true;
+            }
+
+        dialog.oncancel = function () {
+            if( UE.plugins[thePlugins].editdom ) {
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+        dialog.onok = function (){
+            if( $G('orgname').value == '') {
+                if(workform_formItem){
+                    alert(workform_formItem.workform_formItem_qsrkjmc);
+                }else{
+                    alert('请输入控件名称');
+                }
+                return false;
+            }
+            var gTitle=$G('orgname').value.replace(/\"/g,"&quot;"),gid = $G('fielid').value;
+            if( !oNode ) {
+                try {
+                    oNode = createElement('input','leipiNewField');
+                    oNode.setAttribute('title',gTitle);
+                    oNode.setAttribute('type','checkbox');
+                    oNode.setAttribute('class', "form_item");
+                    oNode.setAttribute('data-type', "checkbox");
+                    oNode.setAttribute('name', 'DATA_' + dataNumber);
+                    oNode.setAttribute('id', 'DATA_' + dataNumber);
+                    if ($G('orgchecked1').checked) {
+                        oNode.setAttribute('checked','checked');
+                    } else {
+                        oNode.checked = false;
+                    }
+                    editor.execCommand('insertHtml',oNode.outerHTML);
+                    return true ;
+                } catch ( e ) {
+                    try {
+                        editor.execCommand('error');
+                    } catch ( e ) {
+                        if(workform_formItem){
+                            alert(workform_formItem.workform_formItem_kjycqlxjszc);
+                        }else{
+                            alert('控件异常，请联系技术支持');
+                        }
+                    }
+                    return false;
+                }
+            } else {
+                oNode.setAttribute('title',gTitle);
+                oNode.setAttribute('class', "form_item");
+                //oNode.setAttribute('data-type', "text");
+               // oNode.setAttribute('value', $G('orgvalue').value);
+                 if ($G('orgchecked1').checked) {
+                    oNode.setAttribute('checked','checked');
+                } else {
+                    oNode.removeAttribute('checked');
+                }
+                delete UE.plugins[thePlugins].editdom;
+                return true;
+            }
+        };
+
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,3 @@
+jdbc:mysql://127.0.0.1:3308/xoa1000?zeroDateTimeBehavior=convertToNull
+root
+myoa888

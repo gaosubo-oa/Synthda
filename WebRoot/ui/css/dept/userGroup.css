@@ -1,0 +1,97 @@
+
+
+
+
+
+
+.nav_box div {
+    heihgt: 190px;
+    line-height: 70px;
+    display: inline-block;
+    float: left;
+}
+ .new_dept {
+     display: inline-block;
+     color: #fff!important;
+    width: 140px;
+    height: 30px;
+     line-height:30px;
+    font-size: 13px !important;
+    background-image: url(../../img/sys/dept_personnel.png);
+    cursor: pointer;
+    background-repeat: no-repeat;
+    color: #fff;
+text-align: center;
+}
+
+ .new_dept label{
+     display: inline-block;
+     margin-left: 27px;
+     line-height:30px;
+     color: #fff;
+ }
+
+.backCanBtn {
+    background-image: url(../../img/sys/return.png);
+    width: 70px;
+    height: 28px;
+    border: none;
+    text-align: center;
+    padding-left: 27px;
+    font-style: 13px!important;
+}
+.TableData {
+    BACKGROUND: #FFFFFF;
+    COLOR: #000000;
+}
+.table-bordered th, .table-bordered td {
+    border-left: 1px solid #dddddd;
+}
+.table th, .table td {
+    padding: 8px;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid #dddddd;
+}
+.btn-mini {
+    padding: 2px 6px;
+    font-size: 12px;
+    line-height: 13px;
+}
+
+.btn {
+    position: relative;
+    padding: 4px 12px;
+    margin: 0;
+    color: #333;
+    text-shadow: 0 1px 0 #fff;
+    white-space: nowrap;
+    font-family: Simsun, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-background-clip: padding;
+    -moz-background-clip: padding;
+    background-clip: padding;
+    cursor: default;
+    background-color: #f3f3f3;
+    background-image: -moz-linear-gradient(top, #f5f5f5, #f1f1f1);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f5f5f5), to(#f1f1f1));
+    background-image: -webkit-linear-gradient(top, #f5f5f5, #f1f1f1);
+    background-image: -o-linear-gradient(top, #f5f5f5, #f1f1f1);
+    background-image: linear-gradient(to bottom, #f5f5f5, #f1f1f1);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', endColorstr='#fff1f1f1', GradientType=0);
+    border: 1px solid #dcdcdc;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+.pullright {
+    float: right;
+}

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.menu.SysMenuMapper">
+    <resultMap id="menuResultMap" type="com.xoa.model.menu.SysMenu">
+        <id column="MENU_ID" property="id" javaType="string"/>
+        <result column="MENU_NAME" property="name" javaType="string"/>
+        <result column="MENU_NAME1" property="name1" javaType="string"/>
+        <result column="MENU_NAME2" property="name2" javaType="string"/>
+        <result column="MENU_NAME3" property="name3" javaType="string"/>
+        <result column="MENU_NAME4" property="name4" javaType="string"/>
+        <result column="MENU_NAME5" property="name5" javaType="string"/>
+        <result column="IMAGE" property="img" javaType="string"/>
+        <result column="MENU_EXT" property="ext" javaType="string"/>
+    </resultMap>
+
+
+    <select id="getDatagrid" resultMap="menuResultMap">
+		SELECT MENU_ID,MENU_NAME,MENU_NAME1,MENU_NAME2,MENU_NAME3,MENU_NAME4,MENU_NAME5,IMAGE,MENU_EXT from sys_menu order by MENU_ID
+	</select>
+
+    <update id="updateSysMenu" parameterType="com.xoa.model.menu.SysMenu">
+        update sys_menu
+        <set>
+            <if test="id != null and newId != null and id != newId">
+                MENU_ID = #{newId,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                MENU_NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="name1 != null">
+                MENU_NAME1 = #{name1,jdbcType=VARCHAR},
+            </if>
+            <if test="name2 != null">
+                MENU_NAME2 = #{name2,jdbcType=VARCHAR},
+            </if>
+            <if test="name3 != null">
+                MENU_NAME3 = #{name3,jdbcType=VARCHAR},
+            </if>
+            <if test="name4 != null">
+                MENU_NAME4 = #{name4,jdbcType=VARCHAR},
+            </if>
+            <if test="name5 != null">
+                MENU_NAME5 = #{name5,jdbcType=VARCHAR},
+            </if>
+            <if test="ext != null">
+                MENU_EXT = #{ext,jdbcType=VARCHAR},
+            </if>
+            <if test="img != null">
+                IMAGE = #{img,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where MENU_ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <insert id="addSysMenu" parameterType="com.xoa.model.menu.SysMenu">
+
+            insert into sys_menu (MENU_ID, MENU_NAME, MENU_NAME1,
+            MENU_NAME2, MENU_NAME3, MENU_NAME4,
+            MENU_NAME5, MENU_EXT, IMAGE
+            )
+            values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{name1,jdbcType=VARCHAR},
+            #{name2,jdbcType=VARCHAR}, #{name3,jdbcType=VARCHAR}, #{name4,jdbcType=VARCHAR},
+            #{name5,jdbcType=VARCHAR}, #{ext,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}
+            )
+        </insert>
+
+    <insert id="addSysMenu" parameterType="com.xoa.model.menu.SysMenu" databaseId="oracle">
+
+        insert into sys_menu (MENU_ID, MENU_NAME, MENU_NAME1,
+        MENU_NAME2, MENU_NAME3, MENU_NAME4,
+        MENU_NAME5, MENU_EXT, IMAGE
+        )
+        values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{name1,jdbcType=VARCHAR},
+        #{name2,jdbcType=VARCHAR}, #{name3,jdbcType=VARCHAR}, #{name4,jdbcType=VARCHAR},
+        #{name5,jdbcType=VARCHAR}, #{ext,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="addSysMenu" parameterType="com.xoa.model.menu.SysMenu" databaseId="dm">
+
+        insert into sys_menu (MENU_ID, MENU_NAME, MENU_NAME1,
+        MENU_NAME2, MENU_NAME3, MENU_NAME4,
+        MENU_NAME5, MENU_EXT, IMAGE
+        )
+        values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{name1,jdbcType=VARCHAR},
+        #{name2,jdbcType=VARCHAR}, #{name3,jdbcType=VARCHAR}, #{name4,jdbcType=VARCHAR},
+        #{name5,jdbcType=VARCHAR}, #{ext,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <delete id="deleteSysMenu" parameterType="java.lang.String">
+        delete from sys_menu
+         where MENU_ID = #{id,jdbcType=VARCHAR}
+    </delete>
+    <select id="getTheFirstMenu" parameterType="java.lang.String" resultMap="menuResultMap">
+        select MENU_ID, MENU_NAME, MENU_NAME1, MENU_NAME2, MENU_NAME3, MENU_NAME4,
+          MENU_NAME5, MENU_EXT, IMAGE  from sys_menu s WHERE s.MENU_ID=#{id};
+    </select>
+    <select id="getTheFirstMenu" parameterType="java.lang.String" resultMap="menuResultMap"  databaseId="oracle">
+        select MENU_ID, MENU_NAME, MENU_NAME1, MENU_NAME2, MENU_NAME3, MENU_NAME4,MENU_NAME5, MENU_EXT, IMAGE
+        from sys_menu s
+        WHERE s.MENU_ID=#{id}
+    </select>
+    <select id="getTheFirstMenu" parameterType="java.lang.String" resultMap="menuResultMap"  databaseId="dm">
+        select MENU_ID, MENU_NAME, MENU_NAME1, MENU_NAME2, MENU_NAME3, MENU_NAME4,MENU_NAME5, MENU_EXT, IMAGE
+        from sys_menu s
+        WHERE s.MENU_ID=#{id}
+    </select>
+
+    <select id="selectIdRepeat" resultType="java.lang.Integer" parameterType="java.util.Map">
+        SELECT
+            COUNT( * )
+        FROM
+            sys_menu
+        WHERE
+            <if test="id != null and newId != null">
+                MENU_ID = #{newId} AND MENU_ID != #{id}
+            </if>
+            <if test="id != null and newId == null">
+                MENU_ID = #{id}
+            </if>
+    </select>
+
+</mapper>

@@ -1,0 +1,300 @@
+html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img {
+    margin: 0;
+    padding: 0; /*清除元素的内外边距*/
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+}
+
+fieldset, img, input, button {
+    border: none;
+    padding: 0;
+    margin: 0;
+    outline-style: none; /*外面环绕线*/
+}
+
+a {
+    text-decoration: none
+}
+
+ul, ol, li {
+    list-style: none;
+}
+
+/*去掉原样式中的小黑点*/
+input {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif; /*字体的自动识别*/
+}
+
+.navigation {
+    position: fixed;
+    top: 0;
+    left: 0px;
+    right: 0;
+    border-bottom: 1px solid #999;
+    background: #fff;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    table-layout: fixed;
+}
+
+.clearfix:after {
+    clear: both;
+    display: block;
+    content: '';
+}
+
+.tr_td tr:nth-child(odd) {
+    background-color: #F6F7F9;
+}
+
+tr {
+    border: 1px solid #c0c0c0;
+}
+
+.th {
+    background-color: #fff;
+    font-size: 13pt;
+    color: #2F5C8F;
+    font-weight: bold;
+    border: 0px;
+}
+
+.th, td {
+    color: #404060;
+    padding: 10px;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    color: #404060;
+    padding: 10px;
+    font: 11pt "微软雅黑";
+}
+
+table td, table th {
+    word-break: keep-all;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-align: center;
+}
+
+table td a {
+    color: #2e8ded;
+    margin-right: 5px;
+}
+
+.navigation .left {
+    line-height: 46px;
+    height: 46px;
+}
+
+.navigation .left .news {
+    /* font-size: 14px; */
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+    font-size: 14px;
+    color: #494d59;
+
+    float: left;
+    cursor: pointer;
+}
+
+.navigation .left .news span {
+    display: inline-block;
+    line-height: 28px;
+    border-radius: 20px;
+    padding: 0 10px;
+    margin-top: 10px;
+}
+
+.maintop p {
+    float: left;
+    height: 41px;
+    line-height: 41px;
+}
+
+.maintop p label {
+    margin-left: 5px;
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+    margin-top: -3px;
+    margin-right: 40px;
+    font-size: 22px;
+    color: #494d59;
+}
+
+.maintop {
+    padding-left: 2%;
+    margin-top: 10px;
+}
+
+.lf {
+    float: left;
+}
+
+.rf {
+    float: right;
+}
+
+.news.active span {
+    background: #2F8AE3;
+    color: #fff;
+}
+
+.newsBtn {
+    background: url(/img/cabinet01.png) no-repeat !important;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12pt;
+    padding: 0px 10px 0px 20px;
+}
+
+table tbody tr:hover {
+    background: #e8f4fc;
+}
+
+.mainBottom {
+    width: 95%;
+    margin: 0 auto;
+}
+
+.inputlayout {
+    height: 350px;
+    overflow-y: auto;
+    max-height: 1800px;
+}
+
+.inputlayout ul li label {
+    width: 150px;
+    text-align: right;
+    line-height: 30px;
+    height: 30px;
+    float: left;
+}
+
+.inputlayout > ul > li {
+    padding: 10px 40px;
+    line-height: 30px;
+}
+
+.inputlayout > ul ul > li {
+    text-align: center;
+    cursor: pointer;
+}
+
+.inputlayout > ul ul > li:hover {
+    background: #4898d5;
+    color: #fff;
+}
+
+.inputlayout ul li > input {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 300px;
+    height: 30px;
+    line-height: 30px;
+    margin-left: 30px;
+    padding-left: 10px;
+    float: left;
+}
+
+.inputlayout ul li > .layui-unselect {
+
+    width: 300px;
+    height: 30px;
+    line-height: 30px;
+
+    margin-left: 30px;
+    float: left;
+}
+
+.inputlayout ul li .layui-select-title input {
+    border-radius: 4px;
+    line-height: 30px;
+    height: 30px;
+}
+
+.layui-form-select dl dd.layui-this {
+    background: #2F8AE3;
+}
+
+.inputlayout > ul ul {
+    float: left;
+    margin-left: 30px;
+    height: 130px;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 133px;
+}
+
+.inputlayout > ul ol {
+    float: left;
+    margin-left: 30px;
+    height: 130px;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 300px;
+}
+
+.inputlayout > ul ol li {
+    text-align: center;
+    position: relative;
+}
+
+.inputlayout > ul ol li {
+    padding-left: 10px;
+}
+
+.inputlayout > ul ol li b {
+    color: red;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.inputlayout > ul ol:hover {
+    border: 1px solid #2e8ded;
+}
+
+.inputlayout > ul ul:hover {
+    border: 1px solid #2e8ded;
+}
+
+.inputlayout ul li textarea {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 300px;
+    line-height: 30px;
+    margin-left: 30px;
+    padding-left: 10px;
+    float: left;
+    outline: none;
+    resize: none;
+}
+
+.inputlayout ul li input:focus {
+    border: 1px solid #2e8ded;
+}
+
+.inputlayout ul li textarea:focus {
+    border: 1px solid #2e8ded;
+}
+
+.inputlayout ul li > input[type="radio"] {
+    width: auto;
+    height: auto;
+    float: none;
+}

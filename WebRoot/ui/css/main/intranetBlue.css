@@ -1,0 +1,471 @@
+body{
+    padding-top:10px;
+    padding-bottom: 10px;
+}
+.topmain{
+    width: 98%;
+    margin:0 auto;
+}
+.topmain>div{
+    width: 32.5%;
+    float: left;
+    height: 460px;
+}
+.daiban{
+    height: 187px;
+    background: #fff;
+    /*box-shadow: 0 2px 6px rgba(0,0,0,0.2);*/
+}
+.daibantop{
+    height: 102px;
+}
+.daibantop .left{
+    width: 32%;
+    height: 100%;
+    background: #3794cf;
+    text-align: center;
+}
+.daibantop .rightOld{
+    width: 68%;
+    height: 100%;
+}
+.daibantop .right{
+    width: 24.6%;
+    height: 100%;
+    background: #3794cf;
+    text-align: center;
+    border:#3794cf 1px solid;
+}
+.daibantop .rights{
+    width:74.3%;
+    height: 100%;
+
+    border:#3794cf 1px solid;
+    border-left-style:none
+
+
+}
+
+.daibantop .rightOld>div {
+    width: 99%;
+    /*margin-left: 5%;*/
+    height: 100%;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+}
+.daibantop .right>div{
+    width: 99%;
+    /*margin-left: 1%;*/
+    /*height: 100%;*/
+    box-sizing: border-box;
+    /*border-bottom: 1px solid #3794cf;*/
+}
+.daibantop .right div>img{
+    width: 50px;
+    margin-top: 27px;
+    margin-left:34%;
+}
+.daibantop .right div>span{
+    width: 25%;
+    margin-top:28px;
+    margin-left: 6%;
+}
+.daibantop .right div>span strong{
+    font-size: 8pt;
+    display: block;
+    color: #fff;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    /*white-space: nowrap;*/
+    width: 100%;
+    margin-left:-50%;
+    margin-top: 10%;
+}
+.daibantop .right div>span label{
+    font-size: 8px;
+    color: #fff;
+    display: block;
+    text-overflow:ellipsis;
+    /*white-space: nowrap;*/
+    width: 140%;
+    height: 30%;
+    margin-left:-70%;
+    margin-right: 0%;
+    margin-top: 0%;
+    margin-bottom: 5%;
+
+}
+.daibanbuttom{
+    height: 85px;
+}
+.daibanbuttom .left{
+    width: 24.6%;
+    height: 98.2%;
+    background: #e8f4fc;
+    text-align: center;
+    border:#3794cf ;
+    border:#3794cf 1px solid;
+    border-left-style:none
+}
+.daibanbuttom .leftOld{
+    width: 32%;
+    height: 100%;
+    background: #fdd350;
+    text-align: center;
+}
+.workflowNumOld{
+    font-size: 21px!important;
+    color: #fd770c;
+    line-height: 31px;
+}
+.daibanbuttom .lefts{
+    width: 24.6%;
+    height:98.2%;
+    background:#e8f4fc;
+    text-align: center;
+    border:#3794cf ;
+    border:#3794cf 1px solid;
+    border-left-style:none
+}
+.daibanbuttom .left1{
+    width: 24.6%;
+    height: 98.2%;
+    background: #e8f4fc;
+    text-align: center;
+    border:#3794cf 1px solid;
+
+}
+.daibanbuttom .left2{
+    width: 24.6%;
+    height: 98.2%;
+    background:#e8f4fc;
+    text-align: center;
+    border:#3794cf ;
+    border:#3794cf 1px solid;
+    border-left-style:none
+}
+.daibanbuttom .left p{
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+    margin-top: 5px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 26px;
+    text-align: center;
+}
+.daibanbuttom .leftOld  p{
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+    margin-top: 5px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 26px;
+    text-align: center;
+}
+.daibanbuttom .lefts p{
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+    margin-top: 5px;
+    font-weight: bold;
+    font-size: 14pt;
+    line-height: 26px;
+    text-align: center;
+    color: #3794cf;
+}
+.daibanbuttom .left2 p{
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+    margin-top: 5px;
+    font-weight: bold;
+    font-size: 14pt;
+    line-height: 26px;
+    text-align: center;
+    color: #3c92e5;
+}
+.daibanbuttom .left1 p{
+    width: 100%;
+    margin: 0 auto;
+    text-align: left;
+    margin-top: 5px;
+    font-weight: bold;
+    font-size: 14pt;
+    line-height: 26px;
+    text-align: center;
+    color: #3794cf;
+}
+.daibanbuttom .left p>span{
+    font-weight: normal;
+    font-size: 18px;
+    color: #fd770c;
+}
+.daibanbuttom .right{
+    width: 68%;
+    height: 100%;
+}
+.daibanbuttom .right .top{
+    width: 96%;
+    margin-left: 5%;
+    line-height: 28px;
+    font-size: 14px;
+    margin-top: 5px;
+}
+.daibanbuttom .right .buttom{
+    width: 96%;
+    margin-left: 5%;
+    font-size:20px;
+    color: #fd770c;
+    line-height: 40px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.changyong{
+    width: 100%;
+    height: 268px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    margin-top:7px;
+}
+.pbg{
+    position: relative;
+    width: 100%;
+    height:37px;
+    line-height:37px;
+    background: #f0f7ff;
+}
+.titleleft{
+    background: url("/img/main_img/titleleft.png") no-repeat;
+    width: 106px;
+    height: 46px;
+    line-height: 37px;
+    position: absolute;
+    left: -7px;
+    top:0px;
+    /*font-size: 16px;*/
+    font-size: 13pt;
+    padding-left: 16px;
+    letter-spacing: 1px;
+    color: #fff;
+    text-align: left;
+    box-sizing: border-box;
+}
+.changyongmain{
+    width: 100%;
+    height: 231px;
+    padding:5px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+.changyongmain li{
+    width: 80px;
+    text-align: center;
+    padding:5px 0px;
+    margin: 0px 11px;
+}
+.changyongmain li h4{
+    /*font-size: 14px;*/
+    font-size: 11pt;
+    color: #3c92e5;
+    font-weight: normal;
+}
+.changyongmain li:hover{
+    background: #e9f3ff;
+    cursor: pointer;
+}
+.topmaincenter{
+    margin:0 1%;
+    background: #fff;
+    height: 100%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    text-align: center;
+}
+.topmaincenter>img{
+    width: 95%;
+    border-radius: 4px;
+    height: 195px;
+    margin-top:13px;
+}
+.textmain{
+    width: 95%;
+    height: 87px;
+    text-align: left;
+    margin: 0 auto;
+    margin-top:4px;
+    border-bottom: 1px solid #ddd;
+}
+
+.overhides{
+    width: 15em;
+    overflow: hidden;
+    display: inline-block;
+    height: 24px;
+    vertical-align: text-bottom;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.textmain .title{
+    line-height: 24px;
+}
+.textmain .title strong{
+    /*font-size: 16px;*/
+    font-size: 13pt;
+    letter-spacing: 1px;
+    color: #2c1e1e;
+    width:70%;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+}
+.textmain .title strong:hover{
+    color: #3c92e5;
+}
+
+
+
+.textmain .title a{
+    /*font-size: 14px;*/
+    font-size: 11pt;
+    color: #666;
+    letter-spacing: 1px;
+}
+.pmain{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+    line-height:21px;
+    /*font-size: 14px;*/
+    font-size: 11pt;
+    color: #999;
+    height:41px;
+}
+
+.topmainright{
+    background: #fff;
+    height: 100%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    text-align: center;
+}
+#ca{
+    width: 95%;
+    height: 280px;
+    margin:0 auto;
+    border-bottom: 1px solid #ddd;
+    padding: 5px 0px;
+}
+.topmainright-main{
+    width: 95%;
+    margin:0 auto;
+    height:110px;
+    padding:5px 0px;
+    text-align: left;
+    overflow: auto;
+}
+.topmainright-main li{
+    line-height:30px;
+    margin-top:5px;
+}
+.buttommain{
+    width: 98.2%;
+    margin: 0 auto;
+    margin-top: 10px;
+    height: 266px;
+}
+.buttommain>div{
+    width: 32.5%;
+    float: left;
+    height: 100%;
+}
+.buttommainleft{
+    background: #fff;
+    height: 100%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    text-align: center;
+}
+.navigations{
+    margin-right: 5px;
+}
+.navigations span{
+    padding:1px 4px;
+    background: #fff;
+    color: #3c92e5;
+    border:1px solid #3c92e5;
+    border-radius: 3px;
+    margin:0px 2px;
+    font-size: 12px;
+    cursor: pointer;
+}
+.navigations span.active{
+    color: #fff;
+    background:#3c92e5 ;
+}
+.buttommai-main{
+    width: 95%;
+    height:220px;
+    overflow: auto;
+    margin:0 auto;
+}
+.buttommai-main li{
+    height: 46px;
+    border-bottom: 1px solid #ddd;
+    margin-top:7px;
+    cursor: pointer;
+    padding:0px 10px;
+    box-sizing: border-box;
+}
+#liucheng .textmains .buttom span{
+    width: 70%;
+}
+.buttommai-main li>span{
+    margin-top:3px;
+}
+.buttommai-main li.clearfix:hover{
+    background: #e9f3ff;
+}
+.textmains{
+    padding-left: 5px;
+    box-sizing: border-box;
+    text-align: left;
+}
+.textmains .top{
+    height:23px;
+    line-height: 23px;
+    font-size: 12px;
+    color: #363636;
+}
+.textmains .top a{
+    color: #363636;
+}
+.textmains .buttom{
+    height:23px;
+    line-height: 23px;
+    font-size: 12px;
+
+}
+.textmains .buttom span{
+    width: 90%;
+    overflow: hidden;
+    display: inline-block;
+    height: 18px;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.textmains .buttom span a{
+    color: #1b5e8d;
+}
+.buttommaincontent{
+    background: #fff;
+    height: 100%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    margin:0 1%;
+}
+.hide{
+    display: none;
+}

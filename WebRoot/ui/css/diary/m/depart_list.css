@@ -1,0 +1,241 @@
+
+h1,h2,h3,h4,h5,h6{
+  margin:0;
+}
+
+ul{
+  margin: 0;
+  padding: 0;
+}
+
+li{
+  list-style: none;
+}
+
+body{
+  font:"microsoft yahei";
+  font-size: 14px;
+}
+
+.searchbox {
+  padding:  0.19rem 0.15rem;
+}
+
+.search-main {
+  text-align:center;
+	height: 0.68rem;
+  position: relative;
+}
+
+.search-main input {
+	position: absolute;
+	width: 100%;
+	top: 0;
+	left: 0;
+	box-sizing: border-box;
+	height: 0.68rem;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  outline: none;
+}
+
+.search-main p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  color: #96959A;
+  font-size: 0.3rem;
+}
+
+.main {
+  border-top: 1px solid #dcdcdc;
+}
+
+.main>.department{
+  margin-left: 0.23rem;
+}
+
+.department {
+  margin-left: 0.4rem;
+  border-top: 1px solid #dcdcdc;
+  font-size: 0.29rem;
+	color: #070707;
+}
+
+.file {
+  display: inline-block;
+  background: url(/images/diary/wen.png) no-repeat 0 0;
+  background-size: 100% 100%;
+  height: 0.65rem;
+  width: 0.65rem;
+  vertical-align: middle;
+  margin-right: 0.27rem;
+}
+
+.department-level2 {
+  border-top: 1px solid #dcdcdc;
+}
+.department h3{
+  border-bottom: 1px solid #dcdcdc;
+}
+.department input {
+  box-sizing: content-box;
+	height: 0.4rem;
+	width: 0.4rem;
+	float: right;
+	margin-right: 0.2rem;
+	border: 1px solid #dcdcdc;
+	border-radius: 5px;
+	-webkit-appearance: none;
+	appearance: none;
+  border-radius: 50%;
+}
+
+.department .person{
+  height: 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+.person span{
+  margin-bottom: 5px;
+  display: block;
+}
+
+.person p {
+  color: #8f8f94;
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+/* 覆盖样式 */
+.top{
+  padding: 0.19rem 0.15rem;
+  height: 0.68rem;
+  box-sizing: content-box;
+}
+
+.top .mui-search .mui-placeholder {
+  font-size: 0.3rem;
+  font-weight: normal;
+  color: #939395;
+}
+
+.main{
+  background-color: #fff;
+  margin-bottom: 50px;
+}
+
+.main .mui-checkbox input[type=checkbox] {
+  width: 0.5rem;
+  height: 0.5rem;
+  top: 50%;
+  transform: translate3d(0, -50%, 0);
+}
+
+.main .mui-checkbox input[type=checkbox]:before {
+  width: 0.3rem;
+  height: 0.3rem;
+  line-height: 30px;
+  text-align: center;
+  display: block;
+  font-size: 30px;
+}
+
+.main .mui-checkbox label {
+  padding: 0.2rem 50px 0.2rem 0;
+}
+
+h3{
+  font-size: 0.3rem;
+  font-weight: normal;
+}
+
+.top .mui-search .mui-placeholder .mui-icon {
+  font-size: 0.34rem;
+  color: #939395;
+}
+
+.top .mui-search .mui-placeholder {
+  height: 0.68rem;
+  line-height: 0.68rem;
+}
+
+.top .mui-search{
+  height: 0.68rem;
+}
+
+.top input[type=search] {
+  height: 0.68rem;
+}
+
+.top .mui-icon {
+  margin-right: 10px;
+}
+
+.top .mui-input-row .mui-input-clear~.mui-icon-clear {
+  font-size: 0.3rem;
+
+}
+
+.top .mui-input-row.mui-search.mui-active::before{
+  font-size: 0.3rem;
+  top: 70%;
+}
+
+.person span{
+  margin-bottom: 5px;
+}
+
+.main .person input[type=checkbox] {
+  position: absolute;
+  top: 50%;
+  right:0.2rem;
+  width: 30px;
+  height: 30px;
+  transform: translate3d(0, -50%, 0);
+}
+
+.main .department:first-of-type {
+  border: none;
+}
+
+.department ul {
+  margin-left: 0.2rem;
+}
+
+.top p {
+  font-size: 0.3rem;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  text-align: center;
+  line-height: 0.68rem;
+  margin: 0;
+}
+
+.top .mui-icon {
+  font-size: 0.4rem;
+}
+
+.top>.mui-input-row>span.mui-icon {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate3d(0, -50%, 0);
+}
+
+.top{
+  margin-top: 44px;
+}
+.box_confirm {
+	  height: 40px;
+    line-height: 40px;
+    color: #fff;
+    border-radius: 5px;
+}

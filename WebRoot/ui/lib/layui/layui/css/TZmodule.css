@@ -1,0 +1,137 @@
+html,body{
+    background: #fff;
+}
+.tzbox{
+    background: #f2f2f2;
+    width: 100%;
+    font-size: 12px!important;
+}
+.tzbox .layui-tab-content{
+    /*height: 315px;*/
+    padding: 0;
+    background: #fff;
+}
+.tzbox .layui-tab-title{
+    height: 29px;
+}
+.tzbox .layui-tab-title li{
+    font-size: 12px;
+    padding: 0px;
+    line-height: 30px;
+}
+.tzbox .layui-tab-title .layui-this:after{
+    height: 30px;
+}
+.tzbox  .layui-form-checkbox{
+    height: 23px;
+    line-height: 23px;
+    margin-left: 10px;
+}
+.tzbox .layui-form-checkbox i{
+    height: 21px;
+    font-size: 19px;
+    width: 21px;
+}
+.tzbox .layui-form-checkbox span{
+    padding: 0 3px;
+}
+.tzbox .layui-table{
+    margin: 0;
+}
+.tzbox .layui-input, .layui-textarea{
+    width: 88px;
+    display: inline;
+    height: 24px;
+    padding-left: 4px;
+}
+.tzbox .layui-field-box {
+    padding: 4px 5px;
+}
+.tzbox .layui-form-radio>i {
+    margin-right: 3px;
+    font-size: 16px;
+}
+.tzbox .layui-form-radio{
+    margin: 0;
+}
+.tzbox .layui-form-radio, .layui-form-radio *{
+    display: inline;
+}
+.tzbox .layui-elem-field{
+    margin-bottom: 0;
+}
+
+.tzbox .spl .layui-form-checkbox{
+    display: block;
+    margin: 7px 0;
+    margin-top: 10px;
+}
+.tzbox .layui-form-checkbox{
+    padding-right: 22px;
+}
+.tzbox .spls input{
+    width: 50px;
+    padding-left: 2px;
+}
+.tzbox .layui-unselect{
+    display: inline;
+}
+.tzbox .layui-form-select .layui-input{
+    width: 60px;
+    padding-right: 0;
+}
+.tzbox .layui-select-title{
+    display: inline;
+}
+.tzbox .layui-form-select dl{
+    top: 19px;
+}
+.tzbox .layui-form-select .layui-edge{
+    right: 3px;
+}
+.tzbox .spls .layui-field-box{
+    margin-top: 4px;
+}
+.tzbox .svd .layui-form-checkbox i{
+    top: -12px;
+}
+
+.tznavbox{
+    /*background: #f2f2f2;*/
+    /*width: 650px;*/
+    width: 100%;
+    /*height: 400px;*/
+    font-size: 12px!important;
+}
+.layui-tab-content{
+    padding: 0;
+}
+.tznavbox .layui-tab-title{
+    height: 29px;
+}
+.tznavbox .layui-tab-title li{
+    font-size: 12px;
+    padding: 0px 4px;
+    line-height: 30px;
+}
+.tznavbox .layui-tab-title .layui-this:after{
+    height: 30px;
+}
+
+.divfloat div{
+    float: left;
+}
+
+.divfloat div p{
+    margin-bottom: 5px;
+}
+.layui-table[lay-size=sm] td, .layui-table[lay-size=sm] th{
+    padding: 2px 10px;
+}
+
+.tztable{
+    padding: 4px;
+    background: #fff;
+    height: 200px;
+    border: 1px solid #ccc;
+}

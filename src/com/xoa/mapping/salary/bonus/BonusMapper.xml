@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.salary.bonus.BonusMapper">
+    <insert id="insertHead" parameterType="map" useGeneratedKeys="true" keyProperty="bonusId" keyColumn="BONUS_ID">
+        <selectKey resultType="int" order="AFTER" keyProperty="bonusId">
+            SELECT LAST_INSERT_ID() as BONUS_ID
+        </selectKey>
+        INSERT INTO bonus
+        (HEAD_ID,BONUS_TYPE, UID,
+        <foreach collection="head" index="index" item="item" separator="," close=")">
+           ${item}
+        </foreach>
+        VALUES
+        (#{headId},#{bonusType},#{uid},
+        <foreach collection="datas" index="index" item="item2" separator="," close=")">
+            #{item2}
+        </foreach>
+    </insert>
+
+    <select id="queryBonusAll" parameterType="string" resultType="map" >
+    SELECT bonus.* FROM
+    bonus
+    right join bonusmsg on bonus.BONUS_ID = bonusmsg.BONUS_ID
+    where BONUS_TYPE = #{wageDifference}
+        <if test="uId != null and uId!=''">
+            and UID = #{uId}
+        </if>
+        <if test="headId != null and headId!=''">
+            and HEAD_ID like concat('%',#{headId,jdbcType=VARCHAR},'%')
+        </if>
+    GROUP BY bonus.BONUS_ID
+    ORDER BY STR_TO_DATE(bonus.HEAD_ID, '%Y年%m月') DESC
+    </select>
+
+    <delete id="deleteBMs" parameterType="map">
+    DELETE
+    FROM
+    bonus
+    WHERE
+    bonus_id = #{bonusId}
+    AND BONUS_TYPE = #{bonusType}
+    AND head_id = #{headId}
+  </delete>
+</mapper>

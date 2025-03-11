@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.knowledge.KnowledgeRoleColumnMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.knowledge.KnowledgeRoleColumn" >
+    <id column="ROLE_ID" property="roleId" jdbcType="INTEGER" />
+    <result column="COLUMN_ID" property="columnId" jdbcType="VARCHAR" />
+    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+    <result column="DEPT_ID" property="deptId" jdbcType="INTEGER" />
+    <result column="PRIV_ID" property="privId" jdbcType="INTEGER" />
+    <result column="DOCFILE_CLASS" property="docfileClass" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ROLE_ID, COLUMN_ID, ROLE_NAME,DEPT_ID,PRIV_ID,DOCFILE_CLASS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from knowledge_role_column
+    where ROLE_ID = #{roleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from knowledge_role_column
+    where ROLE_ID = #{roleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xoa.model.knowledge.KnowledgeRoleColumn" >
+    insert into knowledge_role_column (ROLE_ID, COLUMN_ID, ROLE_NAME,DEPT_ID,PRIV_ID,DOCFILE_CLASS
+      )
+    values (#{roleId,jdbcType=INTEGER}, #{columnId,jdbcType=VARCHAR}, #{deptId,jdbcType=INTEGER},
+    #{privId,jdbcType=INTEGER},#{roleName,jdbcType=VARCHAR}, #{docfileClass,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xoa.model.knowledge.KnowledgeRoleColumn" >
+    insert into knowledge_role_column
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        ROLE_ID,
+      </if>
+      <if test="columnId != null" >
+        COLUMN_ID,
+      </if>
+      <if test="roleName != null" >
+        ROLE_NAME,
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID,
+      </if>
+      <if test="privId != null" >
+        PRIV_ID,
+      </if>
+      <if test="docfileClass != null" >
+        DOCFILE_CLASS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="columnId != null" >
+        #{columnId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null" >
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="privId != null" >
+        #{privId,jdbcType=INTEGER},
+      </if>
+      <if test="docfileClass != null" >
+        #{docfileClass,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.knowledge.KnowledgeRoleColumn" >
+    update knowledge_role_column
+    <set >
+      <if test="columnId != null" >
+        COLUMN_ID = #{columnId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleName != null" >
+        ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID = #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="privId != null" >
+        PRIV_ID = #{privId,jdbcType=INTEGER},
+      </if>
+      <if test="docfileClass != null" >
+        DOCFILE_CLASS = #{docfileClass,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ROLE_ID = #{roleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xoa.model.knowledge.KnowledgeRoleColumn" >
+    update knowledge_role_column
+    set COLUMN_ID = #{columnId,jdbcType=VARCHAR},
+      ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      DEPT_ID = #{deptId,jdbcType=INTEGER},
+      PRIV_ID = #{privId,jdbcType=INTEGER},
+      DOCFILE_CLASS== #{docfileClass,jdbcType=VARCHAR}
+    where ROLE_ID = #{roleId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAllByParam" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from
+    knowledge_role_column
+    <where>
+      <if test="roleColumn.roleName!=null and roleColumn.roleName!=''">
+        and ROLE_NAME like concat('%',#{roleColumn.roleName},'%')
+      </if>
+    </where>
+    order by ROLE_ID desc
+  </select>
+</mapper>

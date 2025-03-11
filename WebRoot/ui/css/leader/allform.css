@@ -1,0 +1,34 @@
+table .title{
+    background-color: #f7f7f7;
+    width: 130px;
+    text-align: center!important;
+}
+table td{
+    vertical-align: middle!important;
+    text-align: left!important;
+}
+.controls{
+    margin-left: 0!important;
+}
+select,input {
+    width: 90%;
+}
+.control-group {
+    margin: 0!important;
+    padding: 0!important;
+}
+td.fuck .controls {
+    width: 100%!important;
+}
+td.fuck .controls .input-prepend {
+    width: 90%;
+}
+td.fuck input {
+    width: 90%;
+}
+.control-label{
+    display: none;
+}
+.help-block{
+    display: inline;
+}

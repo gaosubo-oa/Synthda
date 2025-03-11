@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.surface.SurfaceMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.surface.Surface" >
+    <result column="IE_TITLE" property="ieTitle" jdbcType="VARCHAR" />
+        <result column="STATUS_TEXT" property="statusText" jdbcType="VARCHAR" />
+    <result column="BANNER_TEXT" property="bannerText" jdbcType="VARCHAR" />
+    <result column="BANNER_FONT" property="bannerFont" jdbcType="VARCHAR" />
+    <result column="ATTACHMENT_ID" property="attachmentId" jdbcType="VARCHAR" />
+    <result column="ATTACHMENT_NAME" property="attachmentName" jdbcType="VARCHAR" />
+    <result column="IMG_WIDTH" property="imgWidth" jdbcType="INTEGER" />
+    <result column="IMG_HEIGHT" property="imgHeight" jdbcType="INTEGER" />
+    <result column="ATTACHMENT_ID1" property="attachmentId1" jdbcType="VARCHAR" />
+    <result column="ATTACHMENT_NAME1" property="attachmentName1" jdbcType="VARCHAR" />
+    <result column="AVATAR_UPLOAD" property="avatarUpload" jdbcType="CHAR" />
+    <result column="AVATAR_WIDTH" property="avatarWidth" jdbcType="INTEGER" />
+    <result column="AVATAR_HEIGHT" property="avatarHeight" jdbcType="INTEGER" />
+    <result column="LOGIN_INTERFACE" property="loginInterface" jdbcType="VARCHAR" />
+    <result column="UI" property="ui" jdbcType="VARCHAR" />
+    <result column="THEME_SELECT" property="themeSelect" jdbcType="VARCHAR" />
+    <result column="THEME" property="theme" jdbcType="VARCHAR" />
+    <result column="TEMPLATE" property="template" jdbcType="VARCHAR" />
+    <result column="WEATHER_CITY" property="weatherCity" jdbcType="VARCHAR" />
+    <result column="SHOW_RSS" property="showRss" jdbcType="CHAR" />
+        <result column="NOTIFY_TEXT" property="notifyText" jdbcType="VARCHAR" />
+    <result column="IMG_TOS" property="imgTos" javaType="java.lang.Integer" />
+  </resultMap>
+  
+  <!-- <sql id="Blob_Column_List" >
+    STATUS_TEXT, NOTIFY_TEXT
+  </sql>-->
+  
+  
+  <select id="getIeTitle" resultMap="BaseResultMap">
+  select * from interface i  
+  </select>
+  
+  
+  <select id="getIeTitle1" resultMap="BaseResultMap">
+   SELECT STATUS_TEXT
+     from  interface where IE_TITLE=#{ieTitle} 
+  </select>
+  
+  
+  <update id="updateSysPara1" parameterType="com.xoa.model.surface.Surface" >
+    update interface
+     set STATUS_TEXT=#{statusText}  
+  </update>
+ 
+  <insert id="updateSurf" parameterType="com.xoa.model.surface.Surface" >
+    update interface
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ieTitle != null" >
+        IE_TITLE,
+      </if>
+      <if test="bannerText != null" >
+        BANNER_TEXT,
+      </if>
+      <if test="bannerFont != null" >
+        BANNER_FONT,
+      </if>
+      <if test="attachmentId != null" >
+        ATTACHMENT_ID,
+      </if>
+      <if test="attachmentName != null" >
+        ATTACHMENT_NAME,
+      </if>
+      <if test="imgWidth != null" >
+        IMG_WIDTH,
+      </if>
+      <if test="imgHeight != null" >
+        IMG_HEIGHT,
+      </if>
+      <if test="attachmentId1 != null" >
+        ATTACHMENT_ID1,
+      </if>
+      <if test="attachmentName1 != null" >
+        ATTACHMENT_NAME1,
+      </if>
+      <if test="avatarUpload != null" >
+        AVATAR_UPLOAD,
+      </if>
+      <if test="avatarWidth != null" >
+        AVATAR_WIDTH,
+      </if>
+      <if test="avatarHeight != null" >
+        AVATAR_HEIGHT,
+      </if>
+      <if test="loginInterface != null" >
+        LOGIN_INTERFACE,
+      </if>
+      <if test="ui != null" >
+        UI,
+      </if>
+      <if test="themeSelect != null" >
+        THEME_SELECT,
+      </if>
+      <if test="theme != null" >
+        THEME,
+      </if>
+      <if test="template != null" >
+        TEMPLATE,
+      </if>
+      <if test="weatherCity != null" >
+        WEATHER_CITY,
+      </if>
+      <if test="showRss != null" >
+        SHOW_RSS,
+      </if>
+      <if test="imgTos != null" >
+        IMG_TOS,
+      </if>
+      <if test="statusText != null" >
+        STATUS_TEXT,
+      </if>
+      <if test="notifyText != null" >
+        NOTIFY_TEXT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ieTitle != null" >
+        #{ieTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerText != null" >
+        #{bannerText,jdbcType=VARCHAR},
+      </if>
+      <if test="bannerFont != null" >
+        #{bannerFont,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentId != null" >
+        #{attachmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentName != null" >
+        #{attachmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgWidth != null" >
+        #{imgWidth,jdbcType=INTEGER},
+      </if>
+      <if test="imgHeight != null" >
+        #{imgHeight,jdbcType=INTEGER},
+      </if>
+      <if test="attachmentId1 != null" >
+        #{attachmentId1,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentName1 != null" >
+        #{attachmentName1,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUpload != null" >
+        #{avatarUpload,jdbcType=CHAR},
+      </if>
+      <if test="avatarWidth != null" >
+        #{avatarWidth,jdbcType=INTEGER},
+      </if>
+      <if test="avatarHeight != null" >
+        #{avatarHeight,jdbcType=INTEGER},
+      </if>
+      <if test="loginInterface != null" >
+        #{loginInterface,jdbcType=VARCHAR},
+      </if>
+      <if test="ui != null" >
+        #{ui,jdbcType=VARCHAR},
+      </if>
+      <if test="themeSelect != null" >
+        #{themeSelect,jdbcType=VARCHAR},
+      </if>
+      <if test="theme != null" >
+        #{theme,jdbcType=VARCHAR},
+      </if>
+      <if test="template != null" >
+        #{template,jdbcType=VARCHAR},
+      </if>
+      <if test="weatherCity != null" >
+        #{weatherCity,jdbcType=VARCHAR},
+      </if>
+      <if test="showRss != null" >
+        #{showRss,jdbcType=CHAR},
+      </if>
+      <if test="imgTos != null" >
+        #{imgTos,jdbcType=BIT},
+      </if>
+      <if test="statusText != null" >
+        #{statusText,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="notifyText != null" >
+        #{notifyText,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

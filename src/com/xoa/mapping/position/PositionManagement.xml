@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.position.PositionManagementMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.position.UserJob">
+        <result column="JOB_ID" property="jobId" />
+        <result column="JOB_NAME" property="jobName" />
+        <result column="TYPE" property="type" />
+        <result column="LEVEL" property="level" />
+        <result column="JOB_NO" property="jobNo" />
+        <result column="DEPT_ID" property="deptId" />
+        <result column="JOB_PLAN" property="jobPlan" />
+        <result column="DUTY" property="duty" />
+        <result column="DESCRIPTION" property="description" />
+        <result column="ATTACHMENT_ID" property="attachmentId" />
+        <result column="ATTACHMENT_NAME" property="attachmentName" />
+    </resultMap>
+<select id="selectUserJobList" parameterType="com.xoa.model.position.UserJob" resultMap="BaseResultMap">
+    SELECT
+    JOB_ID,
+    JOB_NAME,
+    TYPE,
+    LEVEL,
+    JOB_NO,
+    DEPT_ID,
+    JOB_PLAN,
+    DUTY,
+    DESCRIPTION,
+    ATTACHMENT_ID,
+    ATTACHMENT_NAME
+    FROM user_job
+    <where>
+        <if test="deptId != null" >
+            DEPT_ID is null or DEPT_ID = #{deptId}
+        </if>
+    </where>
+    ORDER  by JOB_NO ASC
+</select>
+    <select id="selectUserJobList" parameterType="com.xoa.model.position.UserJob" resultMap="BaseResultMap" databaseId="oracle">
+        SELECT
+        JOB_ID,
+        JOB_NAME,
+        "TYPE",
+        "LEVEL",
+        JOB_NO,
+        DEPT_ID,
+        JOB_PLAN,
+        DUTY,
+        DESCRIPTION,
+        ATTACHMENT_ID,
+        ATTACHMENT_NAME
+        FROM user_job ORDER  by JOB_NO ASC
+    </select>
+
+    <select id="selectUserJobList" parameterType="com.xoa.model.position.UserJob" resultMap="BaseResultMap" databaseId="dm">
+        SELECT
+        JOB_ID,
+        JOB_NAME,
+        "TYPE",
+        "LEVEL",
+        JOB_NO,
+        DEPT_ID,
+        JOB_PLAN,
+        DUTY,
+        DESCRIPTION,
+        ATTACHMENT_ID,
+        ATTACHMENT_NAME
+        FROM user_job ORDER  by JOB_NO ASC
+    </select>
+
+    <select id="selectUserJobList" parameterType="com.xoa.model.position.UserJob" resultMap="BaseResultMap" databaseId="kingbase">
+        SELECT
+        JOB_ID,
+        JOB_NAME,
+        "TYPE",
+        "LEVEL",
+        JOB_NO,
+        DEPT_ID,
+        JOB_PLAN,
+        DUTY,
+        DESCRIPTION,
+        ATTACHMENT_ID,
+        ATTACHMENT_NAME
+        FROM user_job ORDER  by JOB_NO ASC
+    </select>
+
+  <!--修改-->
+    <update id="updateUserJob" parameterType="com.xoa.model.position.UserJob" >
+        UPDATE user_job
+        <set>
+            <if test="jobId != null" >
+                JOB_ID = #{jobId},
+            </if>
+            <if test="jobName != null" >
+                JOB_NAME = #{jobName},
+            </if>
+            <if test="type != null" >
+                TYPE = #{type},
+            </if>
+            <if test="level != null" >
+                LEVEL = #{level},
+            </if>
+            <if test="jobNo != null" >
+                JOB_NO = #{jobNo},
+            </if>
+            <if test="deptId != null" >
+                DEPT_ID = #{deptId},
+            </if>
+            <if test="jobPlan != null" >
+                JOB_PLAN = #{jobPlan},
+            </if>
+            <if test="duty != null" >
+                DUTY = #{duty},
+            </if>
+            <if test="description != null" >
+                DESCRIPTION = #{description},
+            </if>
+            <if test="attachmentId != null" >
+                ATTACHMENT_ID = #{attachmentId},
+            </if>
+            <if test="attachmentName != null" >
+                ATTACHMENT_NAME = #{attachmentName},
+            </if>
+        </set>
+        WHERE JOB_ID = #{jobId}
+    </update>
+    <!--通过 JOB_ID删除-->
+    <delete id="deleteUserJob" parameterType="java.lang.Integer">
+        delete from user_job
+        where JOB_ID = #{jobId,jdbcType=INTEGER}
+    </delete>
+    <insert id="addUserJob"  parameterType="com.xoa.model.position.UserJob">
+     INSERT  INTO user_job(JOB_ID,JOB_NAME,TYPE,
+                            LEVEL,JOB_NO,DEPT_ID,JOB_PLAN,DUTY,DESCRIPTION,
+                            ATTACHMENT_ID,ATTACHMENT_NAME)
+     VALUES (#{jobId,jdbcType=INTEGER},#{jobName,jdbcType=VARCHAR},
+              #{type,jdbcType=INTEGER},#{level,jdbcType=VARCHAR},
+              #{jobNo,jdbcType=VARCHAR},#{deptId,jdbcType=INTEGER},
+              #{jobPlan,jdbcType=VARCHAR},#{duty,jdbcType=VARCHAR},
+              #{description,jdbcType=VARCHAR},#{attachmentId,jdbcType=VARCHAR},
+              #{attachmentName,jdbcType=VARCHAR}
+     )
+    </insert>
+
+    <insert id="addUserJob"  parameterType="com.xoa.model.position.UserJob" databaseId="kingbase">
+     INSERT  INTO user_job(JOB_NAME,TYPE,
+                            "LEVEL",JOB_NO,DEPT_ID,JOB_PLAN,DUTY,DESCRIPTION,
+                            ATTACHMENT_ID,ATTACHMENT_NAME)
+     VALUES (#{jobName,jdbcType=VARCHAR},
+              #{type,jdbcType=INTEGER},#{level,jdbcType=VARCHAR},
+              #{jobNo,jdbcType=VARCHAR},#{deptId,jdbcType=INTEGER},
+              #{jobPlan,jdbcType=VARCHAR},#{duty,jdbcType=VARCHAR},
+              #{description,jdbcType=VARCHAR},#{attachmentId,jdbcType=VARCHAR},
+              #{attachmentName,jdbcType=VARCHAR}
+     )
+    </insert>
+
+    <!--通过jobId获取信息-->
+    <select id="getUserjobId" parameterType="com.xoa.model.position.UserJob"  resultMap="BaseResultMap" >
+     SELECT
+    JOB_ID,
+    JOB_NAME,
+     TYPE,
+     LEVEL,
+     JOB_NO,
+     DEPT_ID,
+     JOB_PLAN,
+     DUTY,
+     DESCRIPTION,
+     ATTACHMENT_ID,
+     ATTACHMENT_NAME
+      FROM user_job WHERE  JOB_ID=#{jobId}
+    </select>
+
+    <select id="getUserjobId" resultMap="BaseResultMap" databaseId="dm" >
+     SELECT
+    JOB_ID,
+    JOB_NAME,
+     "TYPE",
+     "LEVEL",
+     JOB_NO,
+     DEPT_ID,
+     JOB_PLAN,
+     DUTY,
+     DESCRIPTION,
+     ATTACHMENT_ID,
+     ATTACHMENT_NAME
+      FROM user_job WHERE  JOB_ID=#{jobId}
+    </select>
+
+    <select id="getUserjobId" resultMap="BaseResultMap" databaseId="kingbase" >
+     SELECT
+    JOB_ID,
+    JOB_NAME,
+     "TYPE",
+     "LEVEL",
+     JOB_NO,
+     DEPT_ID,
+     JOB_PLAN,
+     DUTY,
+     DESCRIPTION,
+     ATTACHMENT_ID,
+     ATTACHMENT_NAME
+      FROM user_job WHERE  JOB_ID=#{jobId}
+    </select>
+<!--分页计数-->
+    <select id="getcount"  resultType="java.lang.Integer">
+        SELECT count(*)FROM  user_job
+
+    </select>
+
+    <select id="getJobNameByIds" resultType="string" parameterType="collection">
+        SELECT GROUP_CONCAT(JOB_NAME) as JOB_NAME FROM user_job where JOB_ID in
+        <foreach collection="jobIds" open="(" separator="," close=")" item="ids">
+            #{ids}
+        </foreach>
+    </select>
+
+
+
+
+<!--
+<insert id="addUserJob" parameterType="com.xoa.model.position.UserJob" >
+    <selectKey order="AFTER" keyProperty="jobId" resultType="int">
+        SELECT JOB_ID()
+    </selectKey>
+    INSERT INTO user_job
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="jobName != null" >
+            JOB_NAME,
+        </if>
+        <if test="type != null" >
+            TYPE,
+        </if>
+        <if test="level != null" >
+            LEVEL,
+        </if>
+        <if test="jobNo != null" >
+            JOB_NO,
+        </if>
+        <if test="deptId != null" >
+            DEPT_ID,
+        </if>
+        <if test="jobPlan != null" >
+            JOB_PLAN,
+        </if>
+        <if test="duty != null" >
+            DUTY,
+        </if>
+        <if test="description != null" >
+            DESCRIPTION,
+        </if>
+        <if test="attachmentId != null" >
+            ATTACHMENT_ID,
+        </if>
+        <if test="attachmentName != null" >
+            ATTACHMENT_NAME,
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="jobId != null" >
+            #{jobId},
+        </if>
+        <if test="jobName != null" >
+            #{jobName},
+        </if>
+        <if test="type != null" >
+            #{TYPE},
+        </if>
+        <if test="level != null" >
+            #{level},
+        </if>
+        <if test="jobNo != null" >
+            #{jobNo},
+        </if>
+        <if test="deptId != null" >
+            #{deptId},
+        </if>
+        <if test="jobPlan != null" >
+            #{jobPlan},
+        </if>
+        <if test="duty != null" >
+            #{duty},
+        </if>
+        <if test="description != null" >
+            #{description},
+        </if>
+        <if test="attachmentId != null" >
+            #{attachmentId},
+        </if>
+        <if test="attachmentName != null" >
+            #{attachmentName},
+        </if>
+    </trim>
+</insert>
+-->
+
+</mapper>

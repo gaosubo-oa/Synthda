@@ -1,0 +1,833 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.attend.AttendanceOvertimeMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.attend.AttendanceOvertime" >
+    <id column="OVERTIME_ID" property="overtimeId" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="APPROVE_ID" property="approveId" jdbcType="VARCHAR" />
+    <result column="RECORD_TIME" property="recordTime" jdbcType="TIMESTAMP" />
+    <result column="START_TIME" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="END_TIME" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="OVERTIME_HOURS" property="overtimeHours" jdbcType="VARCHAR" />
+    <result column="CONFIRM_TIME" property="confirmTime" jdbcType="TIMESTAMP" />
+    <result column="ALLOW" property="allow" jdbcType="CHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="REGISTER_IP" property="registerIp" jdbcType="VARCHAR" />
+    <result column="HANDLE_TIME" property="handleTime" jdbcType="TIMESTAMP" />
+    <result column="AGENT" property="agent" jdbcType="VARCHAR" />
+    <result column="ORDER_NO" property="orderNo" jdbcType="INTEGER" />
+    <result column="OVERTIME_CONTENT" property="overtimeContent" jdbcType="LONGVARCHAR" />
+    <result column="CONFIRM_VIEW" property="confirmView" jdbcType="LONGVARCHAR" />
+    <result column="REASON" property="reason" jdbcType="LONGVARCHAR" />
+    <result column="RUN_ID" property="runId" jdbcType="INTEGER" />
+    <result column="RUN_NAME" property="runName" jdbcType="VARCHAR" />
+  </resultMap>
+
+    <resultMap id="attendLeaveFlowRunPrcs" type="com.xoa.model.attend.AttendanceOvertimeFlowRunPrcs" extends="BaseResultMap" >
+        <result column="ID" property="id" javaType="int" />
+        <result column="flowId" property="flowId" javaType="string" />
+        <result column="createrName" property="createrName" javaType="string" />
+        <result column="prFlag" property="prFlag" javaType="int" />
+        <result column="PRCS_NAME" property="prcsName" javaType="string" />
+        <result column="endTime" property="endTime" javaType="date" />
+        <result column="realPrcsId" property="realPrcsId" javaType="int" />
+        <result column="step" property="step" javaType="int"/>
+        <result column="codeName" property="codeName" javaType="string"/>
+    </resultMap>
+  <select id="selectAttendanceOvertime" resultMap="BaseResultMap">
+    SELECT * from attendance_overtime WHERE USER_ID=#{userId} AND DATE(attendance_overtime.RECORD_TIME)=#{date}
+</select>
+  <select id="queryAttendanceOvertime" resultMap="BaseResultMap">
+     SELECT * from  attendance_overtime   WHERE USER_ID=#{userId} AND  #{date} BETWEEN  DATE(attendance_overtime.START_TIME) AND DATE(attendance_overtime.END_TIME)
+  </select>
+
+    <select id="queryAttendanceOvertimeByUserId" resultMap="BaseResultMap">
+        SELECT * from  attendance_overtime   WHERE USER_ID=#{userId}
+    </select>
+
+
+    <insert id="insertSelective" parameterType="com.xoa.model.attend.AttendanceOvertime" >
+   insert into attendance_overtime
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="overtimeId != null" >
+        OVERTIME_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="approveId != null" >
+        APPROVE_ID,
+      </if>
+      <if test="recordTime != null" >
+        RECORD_TIME,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="overtimeHours != null" >
+        OVERTIME_HOURS,
+      </if>
+      <if test="confirmTime != null" >
+        CONFIRM_TIME,
+      </if>
+      <if test="allow != null" >
+        ALLOW,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="registerIp != null" >
+        REGISTER_IP,
+      </if>
+      <if test="handleTime != null" >
+        HANDLE_TIME,
+      </if>
+      <if test="agent != null" >
+        AGENT,
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO,
+      </if>
+      <if test="overtimeContent != null" >
+        OVERTIME_CONTENT,
+      </if>
+      <if test="confirmView != null" >
+        CONFIRM_VIEW,
+      </if>
+      <if test="reason != null" >
+        REASON,
+      </if>
+      <if test="runId != null" >
+        RUN_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="overtimeId != null" >
+        #{overtimeId},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="approveId != null" >
+        #{approveId},
+      </if>
+      <if test="recordTime != null" >
+        #{recordTime},
+      </if>
+      <if test="startTime != null" >
+        #{startTime},
+      </if>
+      <if test="endTime != null" >
+        #{endTime},
+      </if>
+      <if test="overtimeHours != null" >
+        #{overtimeHours},
+      </if>
+      <if test="confirmTime != null" >
+        #{confirmTime},
+      </if>
+      <if test="allow != null" >
+        #{allow},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="registerIp != null" >
+        #{registerIp},
+      </if>
+      <if test="handleTime != null" >
+        #{handleTime},
+      </if>
+      <if test="agent != null" >
+        #{agent},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo},
+      </if>
+      <if test="overtimeContent != null" >
+        #{overtimeContent},
+      </if>
+      <if test="confirmView != null" >
+        #{confirmView},
+      </if>
+      <if test="reason != null" >
+        #{reason},
+      </if>
+      <if test="runId != null" >
+        #{runId},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByExampleSelective"  parameterType="com.xoa.model.attend.AttendanceOvertime">
+
+    update attendance_overtime
+    <set >
+     <if test="userId != null" >
+        USER_ID = #{userId},
+      </if>
+      <if test="approveId != null" >
+        APPROVE_ID = #{approveId},
+      </if>
+      <if test="recordTime != null" >
+        RECORD_TIME = #{recordTime},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime},
+      </if>
+      <if test="overtimeHours != null" >
+        OVERTIME_HOURS = #{overtimeHours},
+      </if>
+      <if test="confirmTime != null" >
+        CONFIRM_TIME = #{confirmTime},
+      </if>
+      <if test="allow != null" >
+        ALLOW = #{allow},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status},
+      </if>
+      <if test="registerIp != null" >
+        REGISTER_IP = #{registerIp},
+      </if>
+      <if test="handleTime != null" >
+        HANDLE_TIME = #{handleTime},
+      </if>
+      <if test="agent != null" >
+        AGENT = #{agent},
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO = #{orderNo},
+      </if>
+      <if test="overtimeContent != null" >
+        OVERTIME_CONTENT = #{overtimeContent},
+      </if>
+      <if test="confirmView != null" >
+        CONFIRM_VIEW = #{confirmView},
+      </if>
+      <if test="reason != null" >
+        REASON = #{reason},
+      </if>
+      <if test="runId != null" >
+        RUN_ID = #{runId},
+      </if>
+    </set>
+      WHERE   OVERTIME_ID = #{overtimeId},
+  </update>
+
+
+    <select id="queryAllAttendanceOvertime"  resultMap="attendLeaveFlowRunPrcs" parameterType="Map">
+        SELECT
+        al.*, u.USER_NAME createrName,
+        fr.FLOW_ID flowId,
+        frp.PRCS_FLAG prFlag,
+        fp.PRCS_NAME,
+        frp.ID id,
+        frp.FLOW_PRCS realPrcsId,
+        frp.PRCS_ID step,
+        frp.DELIVER_TIME endTime
+        FROM
+        attendance_overtime al
+        INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id
+        AND  frp.ID=(SELECT frp.ID FROM flow_run_prcs frp WHERE frp.RUN_ID =al.run_id   ORDER BY frp.ID DESC LIMIT 0,1 )
+        INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id
+        INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+        AND frp.FLOW_PRCS = fp.PRCS_ID
+        LEFT JOIN `user` u ON u.USER_ID = al.USER_ID
+        WHERE al.USER_ID=#{userId}
+        <if test="flowAllow == 0" >
+            AND  (select MAX(PRCS_ID) from flow_run_prcs where RUN_ID=al.RUN_ID)=1
+        </if>
+        <if test="flowAllow == 1" >
+            AND  (select MAX(PRCS_ID) from flow_run_prcs where RUN_ID=al.RUN_ID)!=1
+        </if>
+        GROUP BY frp.id ORDER BY  frp.CREATE_TIME DESC
+    </select>
+
+
+  <!--<sql id="Example_Where_Clause" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    OVERTIME_ID, USER_ID, APPROVE_ID, RECORD_TIME, START_TIME, END_TIME, OVERTIME_HOURS, 
+    CONFIRM_TIME, ALLOW, STATUS, REGISTER_IP, HANDLE_TIME, AGENT, ORDER_NO
+  </sql>
+  <sql id="Blob_Column_List" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    OVERTIME_CONTENT, CONFIRM_VIEW, REASON
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.xoa.model.attend.AttendanceOvertimeExample" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from attendance_overtime
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xoa.model.attend.AttendanceOvertimeExample" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from attendance_overtime
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from attendance_overtime
+    where OVERTIME_ID = #{overtimeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    delete from attendance_overtime
+    where OVERTIME_ID = #{overtimeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xoa.model.attend.AttendanceOvertimeExample" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    delete from attendance_overtime
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xoa.model.attend.AttendanceOvertimeWithBLOBs" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    insert into attendance_overtime (OVERTIME_ID, USER_ID, APPROVE_ID, 
+      RECORD_TIME, START_TIME, END_TIME, 
+      OVERTIME_HOURS, CONFIRM_TIME, ALLOW, 
+      STATUS, REGISTER_IP, HANDLE_TIME, 
+      AGENT, ORDER_NO, OVERTIME_CONTENT, 
+      CONFIRM_VIEW, REASON)
+    values (#{overtimeId,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{approveId,jdbcType=VARCHAR}, 
+      #{recordTime,jdbcType=TIMESTAMP}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{overtimeHours,jdbcType=VARCHAR}, #{confirmTime,jdbcType=TIMESTAMP}, #{allow,jdbcType=CHAR}, 
+      #{status,jdbcType=CHAR}, #{registerIp,jdbcType=VARCHAR}, #{handleTime,jdbcType=TIMESTAMP}, 
+      #{agent,jdbcType=VARCHAR}, #{orderNo,jdbcType=INTEGER}, #{overtimeContent,jdbcType=LONGVARCHAR}, 
+      #{confirmView,jdbcType=LONGVARCHAR}, #{reason,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xoa.model.attend.AttendanceOvertimeWithBLOBs" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    insert into attendance_overtime
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="overtimeId != null" >
+        OVERTIME_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="approveId != null" >
+        APPROVE_ID,
+      </if>
+      <if test="recordTime != null" >
+        RECORD_TIME,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="overtimeHours != null" >
+        OVERTIME_HOURS,
+      </if>
+      <if test="confirmTime != null" >
+        CONFIRM_TIME,
+      </if>
+      <if test="allow != null" >
+        ALLOW,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="registerIp != null" >
+        REGISTER_IP,
+      </if>
+      <if test="handleTime != null" >
+        HANDLE_TIME,
+      </if>
+      <if test="agent != null" >
+        AGENT,
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO,
+      </if>
+      <if test="overtimeContent != null" >
+        OVERTIME_CONTENT,
+      </if>
+      <if test="confirmView != null" >
+        CONFIRM_VIEW,
+      </if>
+      <if test="reason != null" >
+        REASON,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="overtimeId != null" >
+        #{overtimeId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="approveId != null" >
+        #{approveId,jdbcType=VARCHAR},
+      </if>
+      <if test="recordTime != null" >
+        #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overtimeHours != null" >
+        #{overtimeHours,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmTime != null" >
+        #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="allow != null" >
+        #{allow,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="registerIp != null" >
+        #{registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="handleTime != null" >
+        #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="agent != null" >
+        #{agent,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="overtimeContent != null" >
+        #{overtimeContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="confirmView != null" >
+        #{confirmView,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xoa.model.attend.AttendanceOvertimeExample" resultType="java.lang.Integer" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    select count(*) from attendance_overtime
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    update attendance_overtime
+    <set >
+      <if test="overtimeId != null" >
+        OVERTIME_ID = #{overtimeId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="approveId != null" >
+        APPROVE_ID = #{approveId,jdbcType=VARCHAR},
+      </if>
+      <if test="recordTime != null" >
+        RECORD_TIME = #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overtimeHours != null" >
+        OVERTIME_HOURS = #{overtimeHours,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmTime != null" >
+        CONFIRM_TIME = #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="allow != null" >
+        ALLOW = #{allow,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="registerIp != null" >
+        REGISTER_IP = #{registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="handleTime != null" >
+        HANDLE_TIME = #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="agent != null" >
+        AGENT = #{agent,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO = #{orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="overtimeContent != null" >
+        OVERTIME_CONTENT = #{overtimeContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="confirmView != null" >
+        CONFIRM_VIEW = #{confirmView,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="reason != null" >
+        REASON = #{reason,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    update attendance_overtime
+    set OVERTIME_ID = #{overtimeId,jdbcType=INTEGER},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      APPROVE_ID = #{approveId,jdbcType=VARCHAR},
+      RECORD_TIME = #{recordTime,jdbcType=TIMESTAMP},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      OVERTIME_HOURS = #{overtimeHours,jdbcType=VARCHAR},
+      CONFIRM_TIME = #{confirmTime,jdbcType=TIMESTAMP},
+      ALLOW = #{allow,jdbcType=CHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      REGISTER_IP = #{registerIp,jdbcType=VARCHAR},
+      HANDLE_TIME = #{handleTime,jdbcType=TIMESTAMP},
+      AGENT = #{agent,jdbcType=VARCHAR},
+      ORDER_NO = #{orderNo,jdbcType=INTEGER},
+      OVERTIME_CONTENT = #{overtimeContent,jdbcType=LONGVARCHAR},
+      CONFIRM_VIEW = #{confirmView,jdbcType=LONGVARCHAR},
+      REASON = #{reason,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    update attendance_overtime
+    set OVERTIME_ID = #{overtimeId,jdbcType=INTEGER},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      APPROVE_ID = #{approveId,jdbcType=VARCHAR},
+      RECORD_TIME = #{recordTime,jdbcType=TIMESTAMP},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      OVERTIME_HOURS = #{overtimeHours,jdbcType=VARCHAR},
+      CONFIRM_TIME = #{confirmTime,jdbcType=TIMESTAMP},
+      ALLOW = #{allow,jdbcType=CHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      REGISTER_IP = #{registerIp,jdbcType=VARCHAR},
+      HANDLE_TIME = #{handleTime,jdbcType=TIMESTAMP},
+      AGENT = #{agent,jdbcType=VARCHAR},
+      ORDER_NO = #{orderNo,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.attend.AttendanceOvertimeWithBLOBs" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    update attendance_overtime
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="approveId != null" >
+        APPROVE_ID = #{approveId,jdbcType=VARCHAR},
+      </if>
+      <if test="recordTime != null" >
+        RECORD_TIME = #{recordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overtimeHours != null" >
+        OVERTIME_HOURS = #{overtimeHours,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmTime != null" >
+        CONFIRM_TIME = #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="allow != null" >
+        ALLOW = #{allow,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="registerIp != null" >
+        REGISTER_IP = #{registerIp,jdbcType=VARCHAR},
+      </if>
+      <if test="handleTime != null" >
+        HANDLE_TIME = #{handleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="agent != null" >
+        AGENT = #{agent,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO = #{orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="overtimeContent != null" >
+        OVERTIME_CONTENT = #{overtimeContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="confirmView != null" >
+        CONFIRM_VIEW = #{confirmView,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="reason != null" >
+        REASON = #{reason,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where OVERTIME_ID = #{overtimeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xoa.model.attend.AttendanceOvertimeWithBLOBs" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    update attendance_overtime
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      APPROVE_ID = #{approveId,jdbcType=VARCHAR},
+      RECORD_TIME = #{recordTime,jdbcType=TIMESTAMP},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      OVERTIME_HOURS = #{overtimeHours,jdbcType=VARCHAR},
+      CONFIRM_TIME = #{confirmTime,jdbcType=TIMESTAMP},
+      ALLOW = #{allow,jdbcType=CHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      REGISTER_IP = #{registerIp,jdbcType=VARCHAR},
+      HANDLE_TIME = #{handleTime,jdbcType=TIMESTAMP},
+      AGENT = #{agent,jdbcType=VARCHAR},
+      ORDER_NO = #{orderNo,jdbcType=INTEGER},
+      OVERTIME_CONTENT = #{overtimeContent,jdbcType=LONGVARCHAR},
+      CONFIRM_VIEW = #{confirmView,jdbcType=LONGVARCHAR},
+      REASON = #{reason,jdbcType=LONGVARCHAR}
+    where OVERTIME_ID = #{overtimeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xoa.model.attend.AttendanceOvertime" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    update attendance_overtime
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      APPROVE_ID = #{approveId,jdbcType=VARCHAR},
+      RECORD_TIME = #{recordTime,jdbcType=TIMESTAMP},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      OVERTIME_HOURS = #{overtimeHours,jdbcType=VARCHAR},
+      CONFIRM_TIME = #{confirmTime,jdbcType=TIMESTAMP},
+      ALLOW = #{allow,jdbcType=CHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      REGISTER_IP = #{registerIp,jdbcType=VARCHAR},
+      HANDLE_TIME = #{handleTime,jdbcType=TIMESTAMP},
+      AGENT = #{agent,jdbcType=VARCHAR},
+      ORDER_NO = #{orderNo,jdbcType=INTEGER}
+    where OVERTIME_ID = #{overtimeId,jdbcType=INTEGER}
+  </update>-->
+
+
+   <!-- List<AttendanceOvertime> selectAttendanceOvertimeList(@Param("userId") String userId,
+    @Param("beginDate")String beginDate,
+    @Param("endDate") String endDate);-->
+
+    <select id="selectAttendanceOvertimeList" resultMap="BaseResultMap">
+    <!--         原版Sql
+            select
+            al.*,fr.RUN_NAME
+            from attendance_overtime al
+            left join flow_run fr on al.RUN_ID=fr.RUN_ID
+            where al.USER_ID=#{userId}
+            and (al.RECORD_TIME between  #{beginDate} and #{endDate})
+-->
+        SELECT
+        al.*,
+        fr.RUN_NAME
+        FROM
+        attendance_overtime al
+        LEFT JOIN flow_run fr ON al.RUN_ID = fr.RUN_ID
+        WHERE  ( (al.START_TIME &gt;#{beginDate} AND al.END_TIME &lt;#{endDate})
+        OR	(al.START_TIME &lt;#{beginDate} AND al.END_TIME &gt;#{beginDate} AND al.END_TIME &lt;#{endDate})
+        OR	(al.START_TIME &gt;#{beginDate} AND al.START_TIME &lt;#{endDate} AND al.END_TIME &gt;#{endDate})
+        OR (al.START_TIME &lt;#{beginDate} AND al.END_TIME &gt; #{endDate}) )
+        AND al.USER_ID = #{userId}
+    <!--    未转义版
+              SELECT
+        al.*,
+        fr.RUN_NAME
+        FROM
+        attendance_overtime al
+        LEFT JOIN flow_run fr ON al.RUN_ID = fr.RUN_ID
+        WHERE
+        (al.START_TIME >'2021-06-01' AND al.END_TIME <'2021-06-04')
+        OR	(al.START_TIME <'2021-06-01' AND al.END_TIME>'2021-06-01' AND al.END_TIME <'2021-06-04')
+        OR	(al.START_TIME >'2021-06-01' AND al.START_TIME<'2021-6-04' AND al.END_TIME >'2021-06-04')
+        AND al.USER_ID = '1120'
+        -->
+    </select>
+
+    <delete id="deleteAttendanceOvertimeById" >
+        delete from `attendance_overtime` where `OVERTIME_ID` = #{overtimeId};
+    </delete>
+
+    <select id="selectAttendanceOvertimeByUserId" resultMap="BaseResultMap" >
+        SELECT
+        *
+        FROM
+        `attendance_overtime`
+        WHERE
+        `USER_ID` = #{userId}
+        AND
+        `START_TIME` > DATE_ADD(now(),INTERVAL -3 month)
+    </select>
+    <select id="selAttendanceOvertimeByUserId" resultMap="BaseResultMap" >
+        SELECT
+        *
+        FROM
+        `attendance_overtime`
+        WHERE
+        `USER_ID` = #{userId}
+        AND
+        `START_TIME` > DATE_ADD(now(),INTERVAL -1 month)
+    </select>
+
+
+    <!--List<AttendanceOvertime> getAttendanceOvertimeListByMap(Map map);-->
+    <select id="getAttendanceOvertimeListByMap" resultMap="BaseResultMap" parameterType="map">
+        select * from attendance_overtime  where USER_ID=#{userId} and ALLOW='1' and RECORD_TIME between #{beginDate} and #{endDate}
+    </select>
+
+</mapper>

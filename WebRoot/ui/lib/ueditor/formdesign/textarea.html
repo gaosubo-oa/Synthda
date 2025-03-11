@@ -1,0 +1,238 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<title>多行文本框</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+	<link rel="stylesheet" href="../formdesign/bootstrap/css/bootstrap.css">
+	<script type="text/javascript" src="../dialogs/internal.js"></script>
+	<script type="text/javascript" src="/js/xoajq/xoajq3.js"></script>
+	<script type="text/javascript" src="/js/jquery/jquery-migrate-3.4.0.js"></script>
+	<script type="text/javascript" src="../../../js/base/base.js"></script>
+</head>
+<body>
+<div class="content">
+	<table class="table table-bordered table-striped table-hover">
+		<tr>
+			<th colspan="2"><span class="languageText" language="workform_formItem_name">控件名称</span><span class="label label-important">*</span></th>
+
+		</tr>
+		<tr>
+			<td colspan="2"><input type="text" id="orgname" placeholder="必填项" class="languagePlaceHolder" language="workform_formItem_btx">
+			</td>
+			<input type="hidden" id="fielid" placeholder="必填项" class="languagePlaceHolder" language="workform_formItem_btx"></td>
+
+		</tr>
+		<tr style="display: none;">
+			<th><span class="languageText" language="workform_formItem_zq">增强</span> </th>
+			<th><span class="languageText" language="workform_formItem_lcbl">流程变量</span> </th>
+		</tr>
+		<tr >
+			<td> <label class="checkbox"><input id="orgrich" type="checkbox" class="languageText" language="workform_formItem_fwbxs"/> 富文本形式 </label> </td>
+			<td>  </td>
+
+			<!--<td><label class="checkbox inline"><input id="fieldflow" type="checkbox"/> 流程变量</label></td>-->
+		</tr>
+		<tr>
+			<th><span class="languageText" language="workform_formItem_srkys">输入框样式</span> </th>
+			<th><span class="languageText" language="workform_formItem_ztdx">字体大小</span> </th>
+		</tr>
+		<tr>
+			<td style="width: 50%;">
+				<span class="languageText" language="workform_formItem_width">宽</span>
+				<input id="orgwidth" type="text" value="300" class="input-small span1" placeholder="auto"/> px
+				&nbsp;&nbsp;
+				<span class="languageText" language="workform_formItem_height">高</span>
+				<input id="orgheight" type="text" value="80" class="input-small span1" placeholder="auto"/> px
+			</td>
+			<td><input id="orgfontsize" type="text"  value="" class="input-small span1" placeholder="auto"/> px</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<label for="orgvalue" class="languageText" language="workform_formItem_mrz">默认值</label>
+				<textarea class="input-block-level" rows="3" id="orgvalue" placeholder="多行文本框默认值..."  class="languagePlaceHolder" language="workform_formItem_dhwbkmrz"></textarea>
+			</td>
+		</tr>
+	</table>
+</div>
+<script>
+	if(getCookie("language") != 'zh_CN'){
+		$('title').text(workform_formItem.workform_formItem_textarea);
+		var $languageText = $('.languageText');
+		var $languagePlaceHolder = $('.languagePlaceHolder');
+		for(var i = 0; i < $languageText.length; i++){
+			var language = $languageText.eq(i).attr('language');
+			$('*[language='+ language +']').text(workform_formItem[language]);
+		}
+		for(var i = 0; i < $languagePlaceHolder.length; i++){
+			var language = $languagePlaceHolder.eq(i).attr('language');
+			$('*[language='+ language +']').prop('placeholder', workform_formItem[language]);
+		}
+	}
+
+</script>
+<script type="text/javascript">
+	$(function () {
+        var dataid = $.getQueryString('dataid');
+        var dataNumber=parent.pluginId;
+        var oNode = null,thePlugins = 'textarea';;
+            if( UE.plugins[thePlugins].editdom ){
+                oNode = UE.plugins[thePlugins].editdom;
+                var gValue = '';
+                if(oNode.getAttribute('value')){
+                    gValue = oNode.getAttribute('value').replace(/&quot;/g,"\"");
+                }
+				var gName=oNode.getAttribute('name'),
+					gFlow=oNode.getAttribute('fieldflow'),
+					gTitle=oNode.getAttribute('title').replace(/&quot;/g,"\""),
+					gFontSize=oNode.getAttribute('orgfontsize'),
+					gWidth = oNode.getAttribute('orgwidth') || oNode.getAttribute('rich_width'),
+					gHeight = oNode.getAttribute('orgheight') || oNode.getAttribute('rich_height'),
+					gRich=oNode.getAttribute('gRich') || oNode.getAttribute('rich');
+
+                gValue = gValue==null ? '' : gValue;
+                gTitle = gTitle==null ? '' : gTitle;
+                gName = gName == null ? '' : gName;
+                $G('orgvalue').value = gValue;
+
+                $G('fielid').value = gName;
+                $G('orgname').value = gTitle;
+                if (gFlow == '1')
+                {
+                    $G('fieldflow').checked = true;
+                }
+                if ( gRich == '1' ) {
+                    $G('orgrich').checked = true ;
+                }
+                $G('orgfontsize').value = gFontSize;
+                $G('orgwidth').value = gWidth;
+                $G('orgheight').value = gHeight;
+            }
+
+        dialog.oncancel = function () {
+            if( UE.plugins[thePlugins].editdom ) {
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+        dialog.onok = function (){
+            if($G('orgname').value==''){
+				if(workform_formItem){
+					alert(workform_formItem.workform_formItem_qsrkjmc);
+				}else{
+					alert('请输入控件名称');
+				}
+                return false;
+            }
+            var gValue=$G('orgvalue').value.replace(/\"/g,"&quot;"),
+				gTitle=$G('orgname').value.replace(/\"/g,"&quot;"),
+                gid=$G('fielid').value,
+				gFontSize=$G('orgfontsize').value,
+				gWidth=$G('orgwidth').value,
+				gHeight=$G('orgheight').value;
+
+            if( !oNode ) {
+                try {
+                    var html = '<textarea ';
+                    html += ' name =  "' + 'DATA_'+dataNumber + '"';
+                    html += ' id =  "' + 'DATA_'+dataNumber + '"';
+                    html += ' class = "' + 'form_item' + '"';
+                    html += ' data-type = "' + 'textarea' + '"';
+                    html += ' title = "' + gTitle + '"';
+                    html += ' value = "' + gValue + '"';
+
+                    if ( $G('orgrich').checked ) {
+                        html += ' rich = "1"';
+                    } else {
+                        html += ' rich = "0"';
+                    }
+                    if( gFontSize != '' ) {
+                        html += ' orgfontsize = "' + gFontSize + '"';
+                    } else {
+                        html += ' orgfontsize = ""';
+                    }
+                   if( gWidth != '' ) {
+                        html += ' orgwidth = "' + gWidth + '"';
+                    } else {
+                        html += ' orgwidth = ""';
+                    }
+                    if(gHeight != '') {
+                        html += ' orgheight = "' + gHeight + '"';
+                    } else {
+                        html += ' orgheight = ""';
+                    }
+
+                    html += ' style = "';
+                    if( gFontSize != '' ) {
+                        html += 'font-size:' + gFontSize + 'px;';
+                    }
+                    if( gWidth != '' ) {
+                        html += 'width:' + gWidth + 'px;';
+                    }
+                    if( gHeight != '' ) {
+                        html += 'height:' + gHeight + 'px;';
+                    }
+                    html += '">';
+                    html += gValue + '</textarea>';
+                    console.log(html);
+                    editor.execCommand('insertHtml',html);
+                } catch (e) {
+                    try {
+                        editor.execCommand('error');
+                    } catch ( e ) {
+                    	if(workform_formItem){
+							alert(workform_formItem.workform_formItem_kjycqlxjszc);
+						}else{
+							alert('控件异常，请联系技术支持');
+						}
+
+                    }
+                    return false;
+                }
+            } else {
+
+                oNode.setAttribute('class', "form_item");
+                oNode.setAttribute('data-type', "textarea");
+                oNode.setAttribute('title', gTitle);
+                oNode.setAttribute('value',$G('orgvalue').value);
+
+                oNode.setAttribute('name',gid);
+                oNode.setAttribute('id',gid);
+                oNode.innerHTML = gValue;
+                if( $G('orgrich').checked ) {
+                    oNode.setAttribute('rich', 1);
+                } else {
+                    oNode.setAttribute('rich', 0);
+                }
+             /*   if ( $G('fieldflow').checked ) {
+                    oNode.setAttribute('fieldflow',1);
+                } else {
+                    oNode.setAttribute('fieldflow',0);
+                }*/
+                if( gFontSize != '' ) {
+                    oNode.style.fontSize = gFontSize+ 'px';
+                    oNode.setAttribute('orgfontsize',gFontSize );
+                }else{
+                    oNode.setAttribute('orgfontsize', '');
+                }
+                console.log(oNode);
+                if( gWidth != '' ) {
+                    oNode.style.width = gWidth+ 'px';
+                    oNode.setAttribute('orgwidth',gWidth );
+                }else{
+                    oNode.setAttribute('orgwidth', '');
+                }
+                if( gHeight != '' ) {
+                    oNode.style.height = gHeight+ 'px';
+                    oNode.setAttribute('orgheight',gHeight );
+                }else{
+                    oNode.setAttribute('orgheight', '');
+                }
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+
+    })
+
+</script>
+</body>
+</html>

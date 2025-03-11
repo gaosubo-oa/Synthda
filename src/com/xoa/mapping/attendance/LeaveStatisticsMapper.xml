@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+  <mapper namespace="com.xoa.dao.attendance.LeaveStatisticsMapper" >
+  <!--班主任-->
+  <select id="leaveStatisticsHeadTeacherQuery" parameterType="map" resultType="com.xoa.model.attendance.LeaveStatistics">
+     SELECT
+      fr.RUN_ID,
+      data5.DATA_154,
+      data5.DATA_164,
+      data5.DATA_174,
+      data5.DATA_95,
+      data5.DATA_162,
+      data5.DATA_163,
+      data5.DATA_17
+      FROM
+      flow_run fr
+      INNER JOIN flow_data_5 data5 ON fr.RUN_ID = data5.run_id
+      INNER JOIN USER u ON u.USER_NAME = data5.data_154
+      <where>
+          <if test="DATA_162!=null and DATA_163!=null and DATA_162!='' and DATA_163!='' ">
+              and data5.begin_time <![CDATA[ >= ]]> #{DATA_162}
+              and data5.begin_time <![CDATA[ <= ]]> #{DATA_163}
+          </if>
+          <if test="DATA_162!='' and DATA_163=='' "  >
+              and data5.begin_time <![CDATA[ >= ]]> #{DATA_162}
+          </if>
+          <if test="DATA_162=='' and DATA_163!='' ">
+              and data5.begin_time <![CDATA[ <= ]]> #{DATA_163}
+          </if>
+      </where>
+      ORDER BY data5.data_154
+
+  </select>
+
+
+
+    <!--非班主任-->
+ <select id="leaveStatisticsNoHeadTeacherQuery" parameterType="map" resultType="com.xoa.model.attendance.LeaveStatistics">
+    SELECT
+    fr.RUN_ID,
+    data8.DATA_154,
+    data8.DATA_164,
+    data8.DATA_173,
+    data8.DATA_95,
+    data8.DATA_162,
+    data8.DATA_163,
+    data8.DATA_17
+    FROM
+    flow_run fr
+    INNER JOIN flow_data_8 data8 ON fr.RUN_ID = data8.run_id
+    INNER JOIN USER u ON u.USER_NAME = data8.data_154
+    <where>
+      <if test="DATA_162!=null and DATA_163!=null and DATA_162!='' and DATA_163!='' ">
+        and data8.begin_time <![CDATA[ >= ]]> #{DATA_162}
+        and data8.begin_time <![CDATA[ <= ]]> #{DATA_163}
+      </if>
+      <if test="DATA_162!='' and DATA_163=='' ">
+        and data8.begin_time <![CDATA[ >= ]]> #{DATA_162}
+      </if>
+      <if test="DATA_162=='' and DATA_163!='' ">
+        and data8.begin_time <![CDATA[ <= ]]> #{DATA_163}
+      </if>
+    </where>
+    ORDER BY data8.data_154
+
+  </select>
+
+
+<!--总务后勤-->
+  <select id="leaveStatisticsGeneralLogisticsQuery" parameterType="map" resultType="com.xoa.model.attendance.LeaveStatistics">
+    SELECT
+    fr.RUN_ID,
+    data7.DATA_154,
+    data7.DATA_164,
+    data7.DATA_95,
+    data7.DATA_162,
+    data7.DATA_163,
+    data7.DATA_17
+    FROM
+    flow_run fr
+    INNER JOIN flow_data_7 data7 ON fr.RUN_ID = data7.run_id
+    INNER JOIN USER u ON u.USER_NAME = data7.data_154
+    <where>
+      <if test="DATA_162!=null and DATA_163!=null and DATA_162!='' and DATA_163!='' ">
+        and data7.begin_time <![CDATA[ >= ]]> #{DATA_162}
+        and data7.begin_time <![CDATA[ <= ]]> #{DATA_163}
+      </if>
+      <if test="DATA_162!='' and DATA_163=='' ">
+        and data7.begin_time <![CDATA[ >= ]]> #{DATA_162}
+      </if>
+      <if test="DATA_162=='' and DATA_163!='' ">
+        and data7.begin_time <![CDATA[ <= ]]> #{DATA_163}
+      </if>
+    </where>
+    ORDER BY data7.data_154
+  </select>
+
+
+
+   <!--行政-->
+  <select id="leaveStatisticsAdministrativeQuery" parameterType="map" resultType="com.xoa.model.attendance.LeaveStatistics">
+    SELECT
+    fr.RUN_ID,
+    data11.DATA_154,
+    data11.DATA_164,
+    data11.DATA_169,
+    data11.DATA_95,
+    data11.DATA_162,
+    data11.DATA_163,
+    data11.DATA_17
+    FROM
+    flow_run fr
+    INNER JOIN flow_data_11 data11 ON fr.RUN_ID = data11.run_id
+    INNER JOIN USER u ON u.USER_NAME = data11.data_154
+    <where>
+      <if test="DATA_162!=null and DATA_163!=null and DATA_162!='' and DATA_163!='' ">
+        and data11.begin_time <![CDATA[ >= ]]> #{DATA_162}
+        and data11.begin_time <![CDATA[ <= ]]> #{DATA_163}
+      </if>
+      <if test="DATA_162!='' and DATA_163=='' ">
+        and data11.begin_time <![CDATA[ >= ]]> #{DATA_162}
+      </if>
+      <if test="DATA_162=='' and DATA_163!='' ">
+        and data11.begin_time <![CDATA[ <= ]]> #{DATA_163}
+      </if>
+    </where>
+    ORDER BY data11.data_154
+
+  </select>
+
+
+</mapper>

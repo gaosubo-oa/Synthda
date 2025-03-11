@@ -1,0 +1,632 @@
+.mouldOne .mainCon {
+    height: 83%;
+    background: url(/img/default/theme1/background.jpg) no-repeat;
+    background-size: 100% 100%;
+}
+.mouldTwo .mainCon {
+    height: 83%;
+    background: url(/img/default/theme2/background.jpg) no-repeat;
+    background-size: 100% 100%;
+}
+.mouldThree .mainCon {
+    height: 83%;
+    background: url(/img/default/theme3/background.jpg) no-repeat;
+    background-size: 100% 100%;
+}
+.mouldFour .mainCon {
+    height: 83%;
+    background: url(/img/default/theme4/background.jpg) no-repeat;
+    background-size: 100% 100%;
+}
+.mouldFive .mainCon {
+    height: 83%;
+    background: url(/img/default/theme5/background.jpg) no-repeat;
+    background-size: 100% 100%;
+}
+.mouldSix .mainCon {
+    height: 83%;
+    background: url(/img/default/theme6/background.jpg) no-repeat;
+    background-size: 100% 100%;
+}
+.mouldSeven .mainCon {
+    height: 83%;
+    background: url(/img/default/theme7/background.jpg) no-repeat;
+    background-size: 100% 100%;
+}
+.mouldEight .mainCon {
+    height: 83%;
+    background: url(/img/default/theme8/background.jpg) no-repeat;
+    background-size: 100% 100%;
+}
+.mouldNine .mainCon {
+    height: 83%;
+    background: url(/img/default/theme9/background.jpg) no-repeat;
+    background-size: 100% 100%;
+}
+.mouldTen .mainCon {
+    height: 83%;
+    background: url(/img/default/theme10/background.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    border: solid 1px transparent;
+}
+.mouldTen .mainCon .title {
+    font-size: 38px;
+    margin: 0 auto;
+    font-weight: bold;
+    color: #fff;
+    background-image: -webkit-gradient(linear,0 20, 1 bottom, from(rgba(255, 255, 255, 1)), to(rgba(167, 194, 244, 1)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-top: 110px;
+}
+.mouldTen .mainCon .entry {
+    width: 550px;
+    height: 342px;
+    background: url(/img/default/theme10/loginBackground.png) no-repeat;
+    background-size: 100% 100%;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 20px;
+}
+.mouldTen .mainCon .entry .entryTwo .txt img {
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.mouldTen .mainCon .entry .entryTwo .txt input {
+    height: 29px;
+    width: 255px;
+    border-radius: 5px;
+    border: none;
+    margin-top: 20px;
+    padding-left: 10px;
+    font-size: 14px;
+    line-height: 29px;
+}
+.mouldEleven .mainCon {
+    background: url(/img/default/theme11/background.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    border: solid 1px transparent;
+}
+.mouldEleven .mainCon .title {
+    font-size: 34px;
+    margin: 0 auto;
+    font-weight: bold;
+    color: #fff;
+    background-image: -webkit-gradient(linear,0 20, 1 bottom, from(rgba(255, 255, 255, 1)), to(rgba(167, 194, 244, 1)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-top: 126px;
+}
+.mouldEleven .mainCon .entry {
+    width: 448px;
+    height: 261px;
+    background: url(/img/default/theme11/loginBackgroundbox.png) no-repeat;
+    background-size: 100% 100%;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 54px;
+}
+.mouldEleven .entryTwo .txt {
+    position: relative;
+}
+.mouldEleven .mainCon .entry .entryTwo .txt img.img {
+    position: absolute;
+    z-index: 2;
+    top: 29px;
+    width: 15px;
+    left: 20px;
+}
+.mouldEleven .mainCon .entry .entryTwo .txt input {
+    height: 34px;
+    line-height: 34px;
+    width: 88%;
+    border-radius: 5px;
+    border: none;
+    margin: 20px 5px auto 5px;
+    padding-left: 38px;
+    font-size: 14px;
+    width: 357px\9;
+}
+.mouldTwelve .mainCon {
+    height: 83%;
+    background: url(/img/default/theme12/background.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    border: solid 1px transparent;
+}
+.mouldTwelve .mainCon .title {
+    font-size: 38px;
+    margin: 0 auto;
+    font-weight: bold;
+    color: #fff;
+    background-image: -webkit-gradient(linear,0 20, 1 bottom, from(rgba(255, 255, 255, 1)), to(rgba(167, 194, 244, 1)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-top: 110px;
+    -webkit-text-fill-color: #9b5d3d;
+}
+.mouldTwelve .mainCon .entry {
+    width: 550px;
+    height: 342px;
+    background: url(/img/default/theme12/loginBackground.png) no-repeat;
+    background-size: 100% 100%;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 20px;
+}
+.mouldTwelve .mainCon .entry .entryTwo {
+    position: absolute;
+    top: 64px;
+    left: 100px;
+}
+.mouldTwelve .mainCon .entry .entryTwo .txt img {
+    margin-right: 10px;
+    vertical-align: text-top;
+}
+.mouldTwelve .mainCon .entry .entryTwo .txt input {
+    height: 29px;
+    width: 246px;
+    border-radius: 5px;
+    border: none;
+    margin-top: 20px;
+    padding-left: 10px;
+    font-size: 14px;
+    line-height: 29px;
+}
+.mouldTwelve .mainCon .entry .entryTwo .loginBtn {
+    width: 179px;
+    height: 40px;
+    margin: 27px auto;
+    background: url(/img/default/theme12/loginback.png) no-repeat;
+    background-size: 100% 100%;
+    color: #FFFFFF;
+    line-height: 40px;
+    font-size: 18px;
+    cursor: pointer;
+}
+.mouldThirteen .mainCon {
+    height: 83%;
+    background: url(/img/default/theme13/background.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    border: solid 1px transparent;
+}
+.mouldThirteen .mainCon .title {
+    font-size: 38px;
+    margin: 0 auto;
+    font-weight: bold;
+    color: #fff;
+    background-image: -webkit-gradient(linear,0 20, 1 bottom, from(rgba(255, 255, 255, 1)), to(rgba(167, 194, 244, 1)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-top: 110px;
+    -webkit-text-fill-color: #e7db24;
+}
+.mouldThirteen .mainCon .entry {
+    width: 550px;
+    height: 342px;
+    background: url(/img/default/theme13/loginBackground.png) no-repeat;
+    background-size: 100% 100%;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 20px;
+}
+.mouldThirteen .mainCon .entry .entryTwo .txt img {
+    margin-right: 10px;
+    vertical-align: text-top;
+}
+.mouldThirteen .spanColor {
+    color: red!important;
+}
+.mouldThirteen .mainCon .entry .entryTwo .txt input {
+    height: 29px;
+    width: 250px;
+    border-radius: 5px;
+    border: none;
+    margin-top: 20px;
+    padding-left: 10px;
+    font-size: 14px;
+    line-height: 29px;
+}
+.mouldThirteen .mainCon .entry .entryTwo .loginBtn {
+    width: 179px;
+    height: 38px;
+    margin: 27px auto;
+    background: url(/img/default/theme13/loginback.png) no-repeat;
+    background-size: 100% 100%;
+    color: #FFFFFF;
+    line-height: 38px;
+    font-size: 18px;
+    cursor: pointer;
+}
+.mouldFourteen .mainCon {
+    height: 83%;
+    background: url(/img/default/theme14/background.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    border: solid 1px transparent;
+}
+.mouldFourteen .mainCon .title {
+    font-size: 38px;
+    margin: 0 auto;
+    font-weight: bold;
+    color: #fff;
+    background-image: -webkit-gradient(linear,0 20, 1 bottom, from(rgba(255, 255, 255, 1)), to(rgba(167, 194, 244, 1)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-top: 110px;
+    -webkit-text-fill-color: #d73c3d;
+}
+.mouldFourteen .mainCon .entry {
+    width: 550px;
+    height: 342px;
+    background: url(/img/default/theme14/loginBackground.png) no-repeat;
+    background-size: 100% 100%;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 20px;
+}
+.mouldFourteen .mainCon .entry .entryTwo .txt img {
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-left: 3px;
+}
+.mouldFourteen .spanColor {
+    color: red!important;
+}
+.mouldFourteen .mainCon .entry .entryTwo .txt input {
+    height: 29px;
+    width: 250px;
+    border-radius: 5px;
+    border: none;
+    margin-top: 20px;
+    padding-left: 10px;
+    font-size: 14px;
+    line-height: 29px;
+}
+.mouldFourteen .mainCon .entry .entryTwo .loginBtn {
+    width: 176px;
+    height: 38px;
+    margin: 27px auto;
+    background: url(/img/default/theme14/login.png) no-repeat;
+    background-size: 100% 100%;
+    color: #FFFFFF;
+    line-height: 38px;
+    font-size: 18px;
+    cursor: pointer;
+}
+.mouldFifteen .mainCon {
+    background: url(/img/default/theme15/background.png) no-repeat;
+    background-size: 100% 100%;
+    height: 83%;
+    background-size: 100% 100vh;
+    position: relative;
+    border: solid 1px transparent;
+    width: 100%;
+    overflow-y: auto;
+}
+.mouldFifteen .mainCon .title {
+    font-size: 38px;
+    margin: 0 auto;
+    font-weight: bold;
+    color: #fff;
+    background-image: -webkit-gradient(linear,0 20, 1 bottom, from(rgba(255, 255, 255, 1)), to(rgba(167, 194, 244, 1)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-top: 110px;
+    -webkit-text-fill-color: #d73c3d;
+}
+.mouldFifteen .mainCon .entry {
+    width: 460px;
+    height: 420px;
+    background: white;
+    background-size: 100% 100%;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 20px;
+    background: url(/img/default/theme14/loginBackground.png) no-repeat 460px 420px;
+    border-radius: 5px;
+    box-shadow: 2px -2px 26px rgba(0,0,0,.2);
+}
+.mouldFifteen .selectedSpan {
+    color: #bd2323;
+}
+.mouldFifteen .waySpan {
+    display: inline-block;
+    height: 40px;
+}
+.mouldFifteen .input-wrap {
+    height: 40px;
+    color: #666;
+    margin: 30px auto;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    padding-left: 15px;
+}
+.mouldFifteen .mainCon .entry .entryTwo .txt img {
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.mouldFifteen .input-wrap span.split {
+    height: 20px;
+    width: 1px;
+    background: #ccc;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 5px;
+}
+.mouldFifteen .input-wrap input {
+    border: none;
+    width: 200px;
+    height: 30px;
+    line-height: 30px;
+    outline: none;
+    font-size: 14px;
+    background: transparent;
+}
+.mouldFifteen .mainCon .entry .entryTwo .loginBtn {
+    width: 176px;
+    height: 38px;
+    margin: 27px auto;
+    background-size: 100% 100%;
+    color: #FFFFFF;
+    line-height: 38px;
+    font-size: 18px;
+    cursor: pointer;
+    background: red;
+    border-radius: 10px;
+}
+.mouldSixteen .mainCon {
+    background: url(/img/default/theme11/background.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    border: solid 1px transparent;
+}
+.mouldSixteen .header {
+    width: 100%;
+    min-width: 1100px;
+    /* height: 17%; */
+    height: 70px;
+    background: url(../../img/default/backgroundHeader.png) no-repeat;
+    background-size: 100% 100%;
+    max-height: 148px;
+}
+.mouldSixteen .mainCon .entry {
+    width: 448px;
+    height: 261px;
+    background: url(/img/default/theme11/loginBackgroundbox.png) no-repeat;
+    background-size: 100% 100%;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 54px;
+}
+.mouldSixteen .mainCon .entry .entryTwo {
+    position: absolute;
+    top: 8px;
+    left: 20px;
+}
+.mouldSixteen .mainCon .entry .entryTwo .txt input {
+    height: 34px;
+    line-height: 34px;
+    width: 80%;
+    margin: 20px 5px auto 0px;
+    padding-left: 55px;
+    font-size: 14px;
+    width: 357px\9;
+    background-color: rgba(0,0,0,0);
+    border: none;
+    border-bottom: 1px solid white;
+    box-shadow: none;
+    outline: none;
+    color: white;
+    border-radius: 0px;
+}
+.mouldSixteen .mainCon .entry .entryTwo .txt img.img {
+    position: absolute;
+    z-index: 2;
+    top: 25px;
+    width: 25px;
+    left: 20px;
+}
+.mouldSixteen .entryTwo .txt {
+    position: relative;
+}
+.mouldSixteen .mainCon .entry .entryTwo .loginBtn {
+    width: 104%;
+    height: 40px;
+    margin: 23px 0px;
+    color: #FFFFFF;
+    line-height: 40px;
+    font-size: 17px;
+    cursor: pointer;
+    text-align: center;
+    background: none;
+    background-color: blue;
+}
+.mouldSeventeen .header {
+    width: 100%;
+    min-width: 1100px;
+    /* height: 17%; */
+    height: 70px;
+    background: url(../../img/default/backgroundHeader.png) no-repeat;
+    background-size: 100% 100%;
+    max-height: 148px;
+}
+.mouldSeventeen .mainCon {
+    background: url(/img/default/theme11/background.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    border: solid 1px transparent;
+}
+.mouldSeventeen .mainCon .entry {
+    width: 448px;
+    height: 261px;
+    background: url(/img/default/theme11/loginBackgroundbox.png) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    margin-top: 75px;
+    margin-left: 200px;
+}
+.mouldSeventeen .mainCon .entry .entryTwo {
+    position: absolute;
+    top: 8px;
+    left: 20px;
+}
+.mouldSeventeen .mainCon .entry .entryTwo .txt input {
+    height: 34px;
+    line-height: 34px;
+    width: 100%;
+    margin: 20px 5px auto 0px;
+    /* padding-left: 55px; */
+    font-size: 14px;
+    width: 357px\9;
+    background-color: rgba(0,0,0,0);
+    border: none;
+    border-bottom: 2px solid #b52222;
+    box-shadow: none;
+    outline: none;
+    color: #b52222;
+    border-radius: 0px;
+}
+.mouldSeventeen .mainCon .entry .entryTwo .loginBtn {
+    width: 100%;
+    height: 40px;
+    margin: 23px 0px;
+    color: #FFFFFF;
+    line-height: 40px;
+    font-size: 17px;
+    cursor: pointer;
+    text-align: center;
+    background: none;
+    background-color: #b52222;
+    border-radius: 10px;
+}
+.mouldEighteen .mainCon {
+    height: 83%;
+    background: url(/img/default/theme18/background.png) no-repeat;
+    background-size: 100% 100%;
+}
+.mouldEighteen .mainCon .entry .entryBg{
+    width: 736px;
+    height:370px;
+    margin: 0 auto;
+    position: relative;
+    background: none;
+}
+.mouldEighteen .mainRight {
+    position: absolute;
+    right: 60px;
+    width: 360px;
+    height: 400px;
+    margin: 0 auto;
+    background: url(/img/default/theme18/loginpanel2.png) no-repeat;
+    background-size: 360px;
+}
+.mouldEighteen .mainCon .entry .txt input {
+    height: 45px;
+    line-height: 34px;
+    width: 79%;
+    border-radius: 15px;
+    margin: 20px 5px auto 5px;
+    padding-left: 46px;
+    font-size: 14px;
+}
+.mouldEighteen .mainCon .entry .txt img.img {
+    position: absolute;
+    z-index: 2;
+    top: 36px;
+    width: 15px;
+    left: 20px;
+}
+.mouldEighteen .mainCon .entry .txt {
+    position: relative;
+    margin-left: 20px;
+}
+.mouldEighteen .loginBtn{
+    width: 319px;
+    height: 45px;
+    margin: 27px auto 27px 24px;
+    color: #FFFFFF;
+    line-height: 45px;
+    font-size: 16px;
+    cursor: pointer;
+    background: none;
+    background-color: #0076fe;
+    border-radius: 15px;
+    text-align: center;
+}
+.mouldNinteen .header {
+    width: 100%;
+    min-width: 1100px;
+    /* height: 17%; */
+    height: 70px;
+    background: url(/img/default/theme1/backgroundHeader.png) no-repeat;
+    background-size: 100% 100%;
+    max-height: 148px;
+}
+.mouldNinteen .mainCon {
+    height: 83%;
+    background: url(/img/default/theme19/background.png) no-repeat;
+    background-size: 100% 100%;
+}
+.mouldNinteen .mainCon .entry {
+    height: 100%;
+    position: relative;
+}
+.mouldNinteen .mainCon .entry .entryBg {
+    width: 736px;
+    height: 370px;
+    margin: 0 auto;
+    position: relative;
+    background: none;
+}
+.mouldNinteen .mainRight {
+    position: absolute;
+    right: 30px;
+    width: 360px;
+    height: 400px;
+    margin: 0 auto;
+    background: url(/img/default/theme19/loginpanel3.png) no-repeat;
+    background-size: 360px;
+}
+.mouldNinteen .mainCon .entry .txt input {
+    height: 45px;
+    line-height: 34px;
+    width: 79%;
+    border-radius: 15px;
+    margin: 0px 5px auto 5px;
+    padding-left: 46px;
+    font-size: 14px;
+}
+.mouldNinteen .mainCon .entry .txt img.img {
+    position: absolute;
+    z-index: 2;
+    top: 39px;
+    width: 15px;
+    left: 20px;
+}
+.mouldNinteen .mainCon .entry .txt {
+    position: relative;
+    margin-left: 20px;
+}
+.mouldNinteen .mainRight .loginBtn {
+    width: 319px;
+    height: 45px;
+    margin: 40px auto 27px 24px;
+    color: #FFFFFF;
+    line-height: 45px;
+    font-size: 16px;
+    cursor: pointer;
+    background: none;
+    background-color: #e81f1f;
+    border-radius: 15px;
+    text-align: center;
+}

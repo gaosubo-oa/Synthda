@@ -1,0 +1,109 @@
+*{
+	margin:0;
+	padding: 0;
+}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend {
+	margin:0;
+	padding:0;
+	border:0;
+	outline:0;
+	font-weight:inherit;
+	font-style:inherit;
+	font-size:100%;
+	font-family:inherit;
+	vertical-align:baseline;
+	-webkit-text-size-adjust:100%;
+}
+html, body, ul, li {
+	margin:0;
+	padding:0;
+	font-family:"Microsoft YaHei";
+	font-size:12px;
+}
+ul, li {
+	list-style-type:none
+}
+caption, th, td {
+	text-align:left;
+	font-weight:normal;
+}
+html {
+	background: #fff;
+	margin: 0;
+	padding: 0;
+	border:0;
+	height:100%;
+	max-height:100%;
+	width: 100%;
+	height: 100%;
+}
+body {
+	height:100%;
+	max-height:100%;
+	background:#FFF;
+	width: 100%;
+	height: 100%;
+	box-sizing:border-box;
+}
+ul, ol {
+	list-style:none
+}
+.clear {
+	clear:both;
+	overflow:hidden;
+	height:0
+}
+.fl{
+	float:left;
+}
+.fr {
+	float:right;
+}
+.tac {
+	text-align:center;
+}
+a {
+	color:#0f92d8;
+	text-decoration:none;
+	font-family:"Microsoft YaHei"
+}
+a:hover{
+	color:#0000ee;
+}
+a:hover,a:focus {
+	text-decoration:none;
+}
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix{
+	zoom: 1;
+}
+input[type=text],textarea{
+	border:1px solid #dadada;
+}
+input[type=text]:focus,textarea:focus{
+	border:1px solid #30b5ff;
+}
+input[type=checkbox]{
+	border:1px solid #bfbfbf;
+	background-color: #f6f6f6;
+}
+select{
+	border:1px solid #dadada;
+}
+body,html {
+	scrollbar-arrow-color: #a3a3a3;  /*图6,三角箭头的颜色*/
+	scrollbar-face-color: #bcbcbc;  /*图5,立体滚动条的颜色*/
+	scrollbar-3dlight-color: #b2b2b2;  /*图1,立体滚动条亮边的颜色*/
+	scrollbar-highlight-color: #e9e9e9;  /*图2,滚动条空白部分的颜色*/
+	scrollbar-shadow-color: #b2b2b2;  /*图3,立体滚动条阴影的颜色*/
+	scrollbar-darkshadow-color: #666;  /*图4,立体滚动条强阴影的颜色*/
+	scrollbar-track-color: #f1f1f1;  /*图7,立体滚动条背景颜色*/
+	scrollbar-base-color:#bcbcbc;  /*滚动条的基本颜色*/
+}

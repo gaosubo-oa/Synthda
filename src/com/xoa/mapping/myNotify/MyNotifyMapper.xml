@@ -1,0 +1,4172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.myNotify.MyNotifyMapper">
+	<resultMap id="BaseResultMap" type="com.xoa.model.myNotify.MyNotify">
+		<result column="NOTIFY_ID" property="notifyId" javaType="int" />
+		<result column="FROM_DEPT" property="fromDept" javaType="java.lang.Integer" />
+		<result column="FROM_ID" property="fromId" javaType="String" />
+		<result column="SUBJECT" property="subject" javaType="String" />
+		<result column="SEND_TIME" property="sendTime" javaType="Date" />
+		<result column="BEGIN_DATE" property="beginDate" javaType="int" />
+		<result column="END_DATE" property="endDate" javaType="int" />
+		<result column="PRINT" property="print" javaType="String" />
+		<result column="TYPE_ID" property="typeId" javaType="String" />
+		<result column="TOP" property="top" javaType="String" />
+		<result column="TOP_DAYS" property="topDays" javaType="int" />
+		<result column="FORMAT" property="format" javaType="String" />
+		<result column="PUBLISH" property="publish" javaType="String" />
+		<result column="AUDITER" property="auditer" javaType="String" />
+		<result column="AUDIT_DATE" property="auditDate" javaType="Date"   />
+		<result column="DOWNLOAD" property="download" javaType="String" />
+		<result column="LAST_EDITOR" property="lastEditor" javaType="String" />
+		<result column="LAST_EDIT_TIME" property="lastEditTime"
+				javaType="Date" />
+		<result column="SUBJECT_COLOR" property="subjectColor"
+				javaType="String" />
+		<result column="KEYWORD" property="keyword" javaType="String" />
+		<result column="IS_FW" property="isFw" javaType="String" />
+		<result column="TO_ID" property="toId" javaType="String" />
+		<result column="CONTENT" property="content" javaType="String" />
+		<result column="ATTACHMENT_ID" property="attachmentId"
+				javaType="String" />
+		<result column="ATTACHMENT_NAME" property="attachmentName"
+				javaType="String" />
+		<result column="READERS" property="readers" javaType="String" />
+		<result column="PRIV_ID" property="privId" javaType="String" />
+		<result column="USER_ID" property="userId" javaType="String" />
+		<result column="REASON" property="reason" javaType="String" />
+		<result column="COMPRESS_CONTENT" property="compressContent"/>
+		<result column="SUMMARY" property="summary" javaType="String" />
+		<result column="HOW_RENIND" property="howRenind" javaType="String"/>
+		<result column="IS_OPIN" property="isOpin" javaType="String"/>
+		<result column="OPINION_FIELDS" property="opinionFields" javaType="String"/>
+		<result column="OPIN_USERS" property="opinUsers" javaType="String"/>
+		<result column="DRAFT_DEPT" property="draftDept" javaType="String"/>
+		<result column="USER_TYPE" property="userType" javaType="String" />
+
+		<association javaType="com.xoa.model.users.Users"
+					 property="users">
+			<id javaType="int" property="uid" column="UID" />
+			<result javaType="string" property="userId" column="USER_ID" />
+			<result javaType="string" property="userName" column="USER_NAME" />
+			<result column="SEX" property="sex" javaType="string"/>
+			<result column="AVATAR" property="avatar" javaType="string"/>
+		</association>
+
+		<association property="codes" javaType="com.xoa.model.common.SysCode">
+			<id column="CODE_ID" property="codeId" javaType="int" />
+			<result column="CODE_NO" property="codeNo" javaType="String" />
+			<result column="CODE_NAME" property="codeName" javaType="String" />
+			<result column="CODE_ORDER" property="codeOrder" javaType="String" />
+			<result column="PARENT_NO" property="parentNo" javaType="String" />
+		</association>
+	</resultMap>
+	<resultMap id="DeptResultMap" type="com.xoa.model.department.Department">
+		<id column="DEPT_ID" property="deptId" javaType="int"/>
+		<result column="DEPT_NAME" property="deptName" javaType="string"/>
+	</resultMap>
+	<sql id="columns">
+		n.NOTIFY_ID,n.SEND_TIME,n.TYPE_ID,n.`SUBJECT`,n.BEGIN_DATE,n.PUBLISH,n.TOP_DAYS,
+		n.ATTACHMENT_ID,n.ATTACHMENT_NAME,n.END_DATE,n.FROM_ID,n.FROM_DEPT,n.CONTENT,
+		n.FORMAT,n.TO_ID,n.PRIV_ID,n.USER_ID, n.READERS,u.USER_NAME,u.AVATAR,u.SEX,n.TOP,
+		u.UID,n.HOW_RENIND,n.IS_OPIN,n.OPINION_FIELDS,n.OPIN_USERS,n.DRAFT_DEPT,n.USER_TYPE
+	</sql>
+
+	<sql id="columnsDM">
+		n.NOTIFY_ID,n.SEND_TIME,n.TYPE_ID,n."SUBJECT",n.BEGIN_DATE,n.PUBLISH,n.TOP_DAYS,
+		n.ATTACHMENT_ID,n.ATTACHMENT_NAME,n.END_DATE,n.FROM_ID,n.FROM_DEPT,n.CONTENT,
+		n.FORMAT,n.TO_ID,n.PRIV_ID,n.USER_ID, n.READERS,u.USER_NAME,u.AVATAR,u.SEX,n."TOP",
+		u.UID,n.HOW_RENIND,n.IS_OPIN,n.OPINION_FIELDS,n.OPIN_USERS,n.DRAFT_DEPT,n.USER_TYPE
+	</sql>
+	<sql id="columnsOracle">
+		n.NOTIFY_ID,n.SEND_TIME,n.TYPE_ID,n."SUBJECT",n.BEGIN_DATE,n.PUBLISH,n.TOP_DAYS,
+		n.ATTACHMENT_ID,n.ATTACHMENT_NAME,n.END_DATE,n.FROM_ID,n.FROM_DEPT,n.CONTENT,
+		n.FORMAT,n.TO_ID,n.PRIV_ID,n.USER_ID, n.READERS,u.USER_NAME,u.AVATAR,u.SEX,n."TOP",n.HOW_RENIND
+	</sql>
+	<sql id="columnsKingBase">
+		n.NOTIFY_ID,n.SEND_TIME,n.TYPE_ID,n."SUBJECT",n.BEGIN_DATE,n.PUBLISH,n.TOP_DAYS,
+		n.ATTACHMENT_ID,n.ATTACHMENT_NAME,n.END_DATE,n.FROM_ID,n.FROM_DEPT,n.CONTENT,
+		n.FORMAT,n.TO_ID,n.PRIV_ID,n.USER_ID, n.READERS,u.USER_NAME,u.AVATAR,u.SEX,n."TOP",
+		u.UID,n.HOW_RENIND,n.IS_OPIN,n.OPINION_FIELDS,n.OPIN_USERS,n.DRAFT_DEPT,n.USER_TYPE
+	</sql>
+
+	<select id="queryPublishTop" resultMap="BaseResultMap" parameterType="Map">
+		SELECT NOTIFY_ID,TOP,PUBLISH,SEND_TIME,BEGIN_DATE FROM notify
+	</select>
+
+	<!-- 条件查询 -->
+	<select id="selectNotify" resultMap="BaseResultMap" parameterType="Map">
+		SELECT
+		n.*
+		FROM ${tableName} n
+		LEFT JOIN `user` u ON n.FROM_ID = u.USER_ID
+		LEFT JOIN department d ON u.DEPT_ID = d.DEPT_ID
+		<where>
+			<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+			<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+			<if test="typeId == '-1' "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+			<if test="typeId != null and typeId != '-1' and typeId != '0' "> AND n.TYPE_ID = #{typeId} </if>
+			<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT('%',#{subject}::VARCHAR,'%') </if>
+			<if test="sendTime != null and sendTime != ''">
+				AND DATE(n.SEND_TIME) = #{sendTime}
+			</if>
+			<if test="publish != null and publish != ''">
+				AND n.PUBLISH = #{publish}
+			</if>
+			<if test="newStr != null and newStr.length!=0 ">
+				<foreach collection="newStr" item="str" open=" AND n.FROM_ID in (" close=")" separator="," >
+					<if test="str!=null and str!=''">
+						#{str}
+					</if>
+				</foreach>
+			</if>
+			<if test="fromId!=null and fromId!=''">
+				AND n.FROM_ID = #{fromId}
+			</if>
+			<if test="fromDept != null and fromDept != ''">
+				AND n.FROM_DEPT = #{fromDept}
+			</if>
+			<if test="top != null and top != ''">
+				AND n.TOP = #{top}
+			</if>
+			<if	test="beginDate != null and beginDate != '' ">
+				AND n.SEND_TIME &gt;= #{beginDate}
+			</if>
+			<if	test="endDate != null and endDate != '' ">
+				AND n.SEND_TIME &lt;= #{endDate}
+			</if>
+			<if test="content != null and content != ''"> AND n.CONTENT like CONCAT('%',#{content}::VARCHAR,'%') </if>
+			<if test="deptIds != null and deptIds.size() > 0">
+				AND u.DEPT_ID IN
+				<foreach collection="deptIds" open="(" close=")" separator="," item="deptId">
+					#{deptId}
+				</foreach>
+			</if>
+		</where>
+		ORDER BY n.TOP DESC , n.SEND_TIME DESC
+	</select>
+
+	<!-- 条件查询 -->
+	<select id="selectNotify" resultMap="BaseResultMap" parameterType="Map" databaseId="kingbase">
+		SELECT
+		n.*,
+		u.UID,
+		u.USER_ID,
+		u.USER_NAME,
+		u.SEX,
+		u.AVATAR
+		FROM ${tableName} n
+		LEFT JOIN "user" u ON n.FROM_ID = u.USER_ID
+		LEFT JOIN department d ON u.DEPT_ID = d.DEPT_ID
+		<where>
+			<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+			<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+			<if test="typeId == '-1' "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+			<if test="typeId != null and typeId != '-1' and typeId != '0' "> AND n.TYPE_ID = #{typeId} </if>
+			<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT('%',#{subject}::VARCHAR,'%') </if>
+			<if test="sendTime != null and sendTime != ''">
+				AND DATE(n.SEND_TIME) = #{sendTime}
+			</if>
+			<if test="publish != null and publish != ''">
+				AND n.PUBLISH = #{publish}
+			</if>
+			<if test="newStr != null and newStr.length!=0 ">
+				<foreach collection="newStr" item="str" open=" AND n.FROM_ID in (" close=")" separator="," >
+					<if test="str!=null and str!=''">
+						#{str}
+					</if>
+				</foreach>
+			</if>
+			<if test="fromId!=null and fromId!=''">
+				AND n.FROM_ID = #{fromId}
+			</if>
+			<if test="fromDept != null and fromDept != ''">
+				AND n.FROM_DEPT = #{fromDept}
+			</if>
+			<if test="top != null and top != ''">
+				AND n."TOP" = #{top}
+			</if>
+			<if	test="beginDate != null and beginDate != '' ">
+				AND n.SEND_TIME &gt;= #{beginDate}
+			</if>
+			<if	test="endDate != null and endDate != '' ">
+				AND n.SEND_TIME &lt;= #{endDate}
+			</if>
+			<if test="content != null and content != ''"> AND n.CONTENT like CONCAT('%',#{content}::VARCHAR,'%') </if>
+			<if test="deptIds != null and deptIds.size() > 0">
+				AND u.DEPT_ID IN
+				<foreach collection="deptIds" open="(" close=")" separator="," item="deptId">
+					#{deptId}
+				</foreach>
+			</if>
+		</where>
+		ORDER BY n."TOP" DESC , n.SEND_TIME DESC
+	</select>
+
+	<!--<select id="selectNotify" resultMap="BaseResultMap" parameterType="Map" databaseId="dm">
+	SELECT
+	<include refid="columnsDM"/>
+	FROM    ${tableName} n,"USER" u WHERE n.FROM_ID=u.USER_ID
+
+	<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+	<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+
+
+	<if test="typeId == -1 "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+	<if test="typeId != null and typeId != -1 "> AND n.TYPE_ID = #{typeId} </if>
+
+
+	<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT('%',#{subject},'%') </if>
+	<if test="sendTime != null and sendTime != ''">
+		AND DATE(n.SEND_TIME) = #{sendTime}
+	</if>
+	<if test="publish != null and publish != ''">
+		AND n.PUBLISH = #{publish}
+	</if>
+	<if test="fromId != null and fromId != ''">
+		AND n.FROM_ID = #{fromId}
+	</if>
+	<if test="fromDept != null and fromDept != ''">
+		AND n.FROM_DEPT = #{fromDept}
+	</if>
+	<if test="top != null and top != ''">
+		AND n.TOP = #{top}
+	</if>
+		<if	test="beginDate != null and beginDate != '' ">
+			AND n.SEND_TIME &gt;= #{beginDate}
+		</if>
+		<if	test="endDate != null and endDate != '' ">
+			AND n.SEND_TIME &lt;= #{endDate}
+		</if>
+	<if test="content != null and content != ''"> AND n.CONTENT like CONCAT('%',#{content},'%') </if>
+	ORDER BY n."TOP" DESC ,n.SEND_TIME DESC
+</select>
+
+
+	<select id="selectNotify" resultMap="BaseResultMap" parameterType="Map" databaseId="oracle">
+		SELECT
+		<include refid="columnsOracle"/>
+		FROM    ${tableName} n,"USER" u WHERE n.FROM_ID=u.USER_ID
+
+		<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+		<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+
+
+		<if test="typeId == -1 "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != -1 "> AND n.TYPE_ID = #{typeId} </if>
+
+
+		<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT('%',#{subject},'%') </if>
+		<if test="sendTime != null and sendTime != ''">
+			AND DATE(n.SEND_TIME) = #{sendTime}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="fromId != null and fromId != ''">
+			AND n.FROM_ID = #{fromId}
+		</if>
+		<if test="fromDept != null and fromDept != ''">
+			AND n.FROM_DEPT = #{fromDept}
+		</if>
+		<if test="top != null and top != ''">
+			AND n.TOP = #{top}
+		</if>
+		<if	test="beginDate != null and beginDate != '' ">
+			AND n.SEND_TIME &gt;= #{beginDate}
+		</if>
+		<if	test="endDate != null and endDate != '' ">
+			AND n.SEND_TIME &lt;= #{endDate}
+		</if>
+		<if test="content != null and content != ''"> AND n.CONTENT like CONCAT('%',#{content},'%') </if>
+		ORDER BY n."TOP" DESC ,n.SEND_TIME DESC
+	</select>
+
+	&lt;!&ndash; 条件查询 &ndash;&gt;
+	<select id="selectNotify" resultMap="BaseResultMap" parameterType="Map" databaseId="kingbase">
+		SELECT
+		<include refid="columnsOracle"/>
+		FROM   ${tableName} n,"user" u WHERE n.FROM_ID=u.USER_ID
+
+		<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+		<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+
+
+		<if test="typeId == '-1' "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != '-1' and typeId != '0' "> AND n.TYPE_ID = #{typeId} </if>
+
+
+
+		<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT(CONCAT('%',#{subject}),'%') </if>
+		<if test="sendTime != null and sendTime != ''">
+			AND DATE(n.SEND_TIME) = #{sendTime}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="newStr != null and newStr.length!=0 ">
+			<foreach collection="newStr" item="str" open=" AND n.FROM_ID in (" close=")" separator="," >
+				<if test="str!=null and str!=''">
+					#{str}
+				</if>
+			</foreach>
+		</if>
+		<if test="fromId!=null and fromId!=''">
+			AND n.FROM_ID = #{fromId}
+		</if>
+		<if test="fromDept != null and fromDept != ''">
+			AND n.FROM_DEPT = #{fromDept}
+		</if>
+		<if test="top != null and top != ''">
+			AND n.TOP = #{top}
+		</if>
+		<if	test="beginDate != null and beginDate != '' ">
+			AND n.SEND_TIME &gt;= #{beginDate}
+		</if>
+		<if	test="endDate != null and endDate != '' ">
+			AND n.SEND_TIME &lt;= #{endDate}
+		</if>
+
+		<if test="content != null and content != ''"> AND n.CONTENT like CONCAT(CONCAT('%',#{content}),'%') </if>
+		ORDER BY n.TOP DESC ,n.SEND_TIME DESC
+	</select>
+
+-->
+	<!-- 条件查询 -->
+	<select id="selectCountNumNotify" resultType="java.lang.Integer" parameterType="Map">
+		SELECT count(*)
+		FROM    ${tableName} n,`user` u WHERE n.FROM_ID=u.USER_ID
+
+		<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+		<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+
+
+		<if test="typeId == -1 "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != -1 "> AND n.TYPE_ID = #{typeId} </if>
+
+
+		<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT('%',#{subject},'%') </if>
+		<if test="sendTime != null and sendTime != ''">
+			AND DATE(n.SEND_TIME) = #{sendTime}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="newStr != null and newStr.length!=0 ">
+			<foreach collection="newStr" item="str" open=" AND n.FROM_ID in (" close=")" separator="," >
+				<if test="str!=null and str!=''">
+					#{str}
+				</if>
+			</foreach>
+		</if>
+		<if test="fromDept != null and fromDept != ''">
+			AND n.FROM_DEPT = #{fromDept}
+		</if>
+		<if test="top != null and top != ''">
+			AND n.TOP = #{top}
+		</if>
+		<if	test="beginDate != null and beginDate != '' ">
+			AND n.SEND_TIME &gt;= #{beginDate}
+		</if>
+		<if	test="endDate != null and endDate != '' ">
+			AND n.SEND_TIME &lt;= #{endDate}
+		</if>
+
+		<if test="content != null and content != ''"> AND n.CONTENT like CONCAT('%',#{content},'%') </if>
+		ORDER BY n.TOP DESC ,n.SEND_TIME DESC
+	</select>
+
+	<select id="selectCountNotify" resultType="java.lang.Integer" parameterType="Map" databaseId="dm">
+		SELECT count(*)
+		FROM    notify n,"USER" u WHERE n.FROM_ID=u.USER_ID
+
+		<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+		<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+
+
+		<if test="typeId == -1 "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != -1 "> AND n.TYPE_ID = #{typeId} </if>
+
+
+		<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT('%',#{subject},'%') </if>
+		<if test="sendTime != null and sendTime != ''">
+			AND DATE(n.SEND_TIME) = #{sendTime}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="fromId != null and fromId != ''">
+			AND n.FROM_ID = #{fromId}
+		</if>
+		<if test="fromDept != null and fromDept != ''">
+			AND n.FROM_DEPT = #{fromDept}
+		</if>
+		<if test="top != null and top != ''">
+			AND n.TOP = #{top}
+		</if>
+		<if	test="beginDate != null and beginDate != '' ">
+			AND n.SEND_TIME &gt;= #{beginDate}
+		</if>
+		<if	test="endDate != null and endDate != '' ">
+			AND n.SEND_TIME &lt;= #{endDate}
+		</if>
+		<if test="content != null and content != ''"> AND n.CONTENT like CONCAT('%',#{content},'%') </if>
+		ORDER BY n."TOP" DESC ,n.SEND_TIME DESC
+	</select>
+
+
+	<select id="selectCountNumNotify" resultType="java.lang.Integer" parameterType="Map" databaseId="oracle">
+		SELECT count(*)
+		FROM    notify n,"USER" u WHERE n.FROM_ID=u.USER_ID
+
+		<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+		<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+
+
+		<if test="typeId == -1 "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != -1 "> AND n.TYPE_ID = #{typeId} </if>
+
+
+		<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT('%',#{subject},'%') </if>
+		<if test="sendTime != null and sendTime != ''">
+			AND DATE(n.SEND_TIME) = #{sendTime}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="fromId != null and fromId != ''">
+			AND n.FROM_ID = #{fromId}
+		</if>
+		<if test="fromDept != null and fromDept != ''">
+			AND n.FROM_DEPT = #{fromDept}
+		</if>
+		<if test="top != null and top != ''">
+			AND n.TOP = #{top}
+		</if>
+		<if	test="beginDate != null and beginDate != '' ">
+			AND n.SEND_TIME &gt;= #{beginDate}
+		</if>
+		<if	test="endDate != null and endDate != '' ">
+			AND n.SEND_TIME &lt;= #{endDate}
+		</if>
+		<if test="content != null and content != ''"> AND n.CONTENT like CONCAT('%',#{content},'%') </if>
+		ORDER BY n."TOP" DESC ,n.SEND_TIME DESC
+	</select>
+
+
+
+
+
+
+
+
+	<!-- 查询所有公告信息 -->
+	<!--<select id="selectCountNotify" parameterType="com.xoa.model.notify.Notify"
+		resultMap="BaseResultMap"> SELECT NOTIFY_ID,FROM_DEPT,FROM_ID,TO_ID,SUBJECT,CONTENT,
+		BEGIN_DATE,END_DATE,ATTACHMENT_ID, ATTACHMENT_NAME,READERS,PRINT,PRIV_ID,USER_ID,
+		TYPE_ID,TOP,TOP_DAYS,FORMAT,PUBLISH,AUDITER,REASON, AUDIT_DATE, COMPRESS_CONTENT,DOWNLOAD,LAST_EDITOR,
+		SUBJECT_COLOR,SUMMARY,KEYWORD,IS_FW from notify where <if test="typeId !=
+		null and typeId != ''"> TYPE_ID = #{typeId} </if> <if test="sendTime != null
+		and sendTime != ''"> AND SEND_TIME = #{sendTime} </if> </select> -->
+
+	<!-- 查询公告管理信息 -->
+	<select id="selectNotifyManage" parameterType="Map" resultMap="BaseResultMap">
+		SELECT
+		<include refid="columns"/>
+		FROM    ${tableName} n,`user` u WHERE n.FROM_ID=u.USER_ID  AND  n.PUBLISH=1
+		<if test="adminPermissions != null and adminPermissions == 1">
+		and (
+		<trim suffixOverrides="OR">
+			<if test="userPriv != null and userPriv != ''">
+				(n.PRIV_ID LIKE concat('%,',#{userPriv},',%')
+				OR n.PRIV_ID LIKE concat(#{userPriv},',%')
+				)OR
+			</if>
+			<if test="deptId != null and deptId != ''">
+				(n.TO_ID LIKE concat('%,',#{deptId},',%')
+				OR n.TO_ID LIKE concat(#{deptId},',%')
+				)OR
+				(n.TO_ID LIKE concat('%,',#{deptIdOther},',%')
+				OR n.TO_ID LIKE concat(#{deptIdOther},',%')
+				)OR
+			</if>
+			<if test="deptIdOthers != null and deptIdOthers != ''">
+				<foreach collection="deptIdOthers" close="" open="" item="tiem" separator="or">
+					(n.TO_ID LIKE concat('%,',#{tiem},',%')
+					OR n.TO_ID LIKE concat(#{tiem},',%')
+					)
+				</foreach>
+				OR
+			</if>
+			<if test="PrivOthers != null and PrivOthers != ''">
+				<foreach collection="PrivOthers" close="" open="" item="tiem" separator="or">
+					(n.PRIV_ID LIKE concat('%,',#{tiem},',%')
+					OR n.PRIV_ID LIKE concat(#{tiem},',%')
+					)
+				</foreach>
+				OR
+			</if>
+			<if test="userId != null and userId != ''">
+				(n.USER_ID LIKE concat('%,',#{userId},',%')
+				OR n.USER_ID LIKE concat(#{userId},',%')
+				)OR
+			</if>
+			n.TO_ID='ALL_DEPT'
+		</trim>)
+		</if>
+		<if test="notifyTime != null and notifyTime != ''">AND BEGIN_DATE  &lt;= unix_timestamp(date(#{notifyTime})) AND (n.END_DATE>unix_timestamp(date(#{notifyTime})) or n.END_DATE=0) </if>
+		<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+		<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+		<if test="typeId == '-1' "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != '-1' "> AND n.TYPE_ID = #{typeId} </if>
+		<if test="typeId == null "> AND n.TYPE_ID &lt;&gt; 'LDZSJS' </if>
+		<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT('%',#{subject},'%') </if>
+		<if test="sendTime != null and sendTime != ''">
+			AND DATE(n.SEND_TIME) = #{sendTime}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="newStr != null and newStr.length!=0 ">
+			<foreach collection="newStr" item="str" open=" AND n.FROM_ID in (" close=")" separator="," >
+				<if test="str!=null and str!=''">
+					#{str}
+				</if>
+			</foreach>
+		</if>
+		<if test="typeIds!=null and typeIds.length!=0">
+			<foreach collection="typeIds" item="typeId2" separator="," open=" and n.type_Id in (" close=")">
+				<if test="typeId2!=null and typeId2!='' ">
+					#{typeId2}
+				</if>
+			</foreach>
+		</if>
+		<!--<if test="fromId!=null and fromId!=''">
+			AND n.FROM_ID = #{fromId}
+		</if>-->
+		<if test="fromDept != null and fromDept != ''">
+			AND n.FROM_DEPT = #{fromDept}
+		</if>
+		<if test="top != null and top != ''">
+			AND n.TOP = #{top}
+		</if>
+		<if
+				test="beginDate != null and beginDate != '' and endDate != null and endDate != ''">
+			AND DATE(n.SEND_TIME) between #{beginDate} and #{endDate}
+		</if>
+		<if test="content != null and content != ''"> AND n.CONTENT like CONCAT('%',#{content},'%') </if>
+		<if test="queryField != null and queryField != ''">
+			AND (u.USER_NAME  like CONCAT('%',#{queryField},'%') OR n.CONTENT like CONCAT('%',#{queryField},'%') OR n.`SUBJECT` like CONCAT('%',#{queryField},'%'))
+		</if>
+		<choose>
+			<when test="userType != null and userType != ''">
+				AND (n.USER_TYPE LIKE concat(#{userType},',%') or n.USER_TYPE LIKE concat('%,',#{userType},',%')  or n.USER_TYPE is null or n.USER_TYPE = '')
+			</when>
+			<when test="userType == null or userType == ''">
+				AND (n.USER_TYPE is null or n.USER_TYPE = '')
+			</when>
+		</choose>
+		ORDER BY n.TOP DESC ,n.SEND_TIME DESC
+	</select>
+
+	<select id="selectNotifyManage" parameterType="Map" resultMap="BaseResultMap" databaseId="dm">
+		SELECT
+		<include refid="columnsDM"/>
+		FROM    ${tableName} n,"USER" u WHERE n.FROM_ID=u.USER_ID AND  n.PUBLISH=1  and (
+		<trim suffixOverrides="OR">
+			<if test="userPriv != null and userPriv != ''">
+				(n.PRIV_ID LIKE concat('%,',#{userPriv},',%')
+				OR n.PRIV_ID LIKE concat(#{userPriv},',%')
+				)OR
+			</if>
+			<if test="deptId != null and deptId != ''">
+				(n.TO_ID LIKE concat('%,',#{deptId},',%')
+				OR n.TO_ID LIKE concat(#{deptId},',%')
+				)OR
+			</if>
+			<if test="userId != null and userId != ''">
+				(n.USER_ID LIKE concat('%,',#{userId},',%')
+				OR n.USER_ID LIKE concat(#{userId},',%')
+				)OR
+			</if>
+			n.TO_ID='ALL_DEPT'
+		</trim>)
+		<if test="notifyTime != null and notifyTime != ''"> AND  (n.END_DATE>TO_NUMBER((TO_DATE(#{notifyTime})-TO_DATE('1970-01-01'))* 24 * 60 * 60 ) or n.END_DATE=0) </if>
+		<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+		<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+		<if test="typeId == -1 "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != -1 "> AND n.TYPE_ID = #{typeId} </if>
+		<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT('%',#{subject},'%') </if>
+		<if test="sendTime != null and sendTime != ''">
+			AND DATE(n.SEND_TIME) = #{sendTime}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="newStr != null and newStr.length!=0 ">
+			<foreach collection="newStr" item="str" open=" AND n.FROM_ID in (" close=")" separator="," >
+				<if test="str!=null and str!=''">
+					#{str}
+				</if>
+			</foreach>
+		</if>
+		<!--<if test="fromId != null and fromId != ''">
+			AND n.FROM_ID = #{fromId}
+		</if>-->
+		<if test="fromDept != null and fromDept != ''">
+			AND n.FROM_DEPT = #{fromDept}
+		</if>
+		<if test="top != null and top != ''">
+			AND n."TOP" = #{top}
+		</if>
+		<if
+				test="beginDate != null and beginDate != '' and endDate != null and endDate != ''">
+			AND DATE(n.SEND_TIME) between #{beginDate} and #{endDate}
+		</if>
+		<if test="content != null and content != ''"> AND n.CONTENT like CONCAT('%',#{content},'%') </if>
+		ORDER BY n."TOP" DESC ,n.SEND_TIME DESC
+	</select>
+
+	<select id="selectNotifyManage" parameterType="Map" resultMap="BaseResultMap" databaseId="oracle">
+		SELECT
+		<include refid="columnsOracle"/>
+		FROM    ${tableName} n,"USER" u WHERE n.FROM_ID=u.USER_ID AND  n.PUBLISH=1  and (
+		<trim suffixOverrides="OR">
+			<if test="userPriv != null and userPriv != ''">
+				(n.PRIV_ID LIKE concat(concat('%,',#{userPriv}),',%')
+				OR n.PRIV_ID LIKE concat(#{userPriv},',%')
+				)OR
+			</if>
+			<if test="deptId != null and deptId != ''">
+				(n.TO_ID LIKE concat(concat('%,',#{deptId}),',%')
+				OR n.TO_ID LIKE concat(#{deptId},',%')
+				)OR
+			</if>
+			<if test="userId != null and userId != ''">
+				(n.USER_ID LIKE concat(concat('%,',#{userId}),',%')
+				OR n.USER_ID LIKE concat(#{userId},',%')
+				)OR
+			</if>
+			to_char(n.TO_ID) = 'ALL_DEPT'
+		</trim>)
+		<if test="notifyTime != null and notifyTime != ''"> AND  (n.END_DATE>TO_NUMBER((TO_DATE(#{notifyTime},'yyyy-MM-dd')-TO_DATE('1970-01-01','yyyy-MM-dd'))* 24 * 60 * 60 ) or n.END_DATE=0) </if>
+		<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+		<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+		<if test="typeId == -1 "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != -1 "> AND n.TYPE_ID = #{typeId} </if>
+		<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT('%',#{subject},'%') </if>
+		<if test="sendTime != null and sendTime != ''">
+			AND DATE(n.SEND_TIME) = #{sendTime}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="newStr != null and newStr.length!=0 ">
+			<foreach collection="newStr" item="str" open=" AND n.FROM_ID in (" close=")" separator="," >
+				<if test="str!=null and str!=''">
+					#{str}
+				</if>
+			</foreach>
+		</if>
+		<!--<if test="fromId != null and fromId != ''">
+			AND n.FROM_ID = #{fromId}
+		</if>-->
+		<if test="fromDept != null and fromDept != ''">
+			AND n.FROM_DEPT = #{fromDept}
+		</if>
+		<if test="top != null and top != ''">
+			AND n."TOP" = #{top}
+		</if>
+		<if
+				test="beginDate != null and beginDate != '' and endDate != null and endDate != ''">
+			AND DATE(n.SEND_TIME) between #{beginDate} and #{endDate}
+		</if>
+		<if test="content != null and content != ''"> AND n.CONTENT like CONCAT('%',#{content},'%') </if>
+		ORDER BY n."TOP" DESC ,n.SEND_TIME DESC
+	</select>
+
+	<select id="selectNotifyManage" parameterType="Map" resultMap="BaseResultMap" databaseId="kingbase">
+		SELECT
+		<include refid="columnsDM"/>
+		FROM    ${tableName} n,"USER" u WHERE n.FROM_ID=u.USER_ID AND  n.PUBLISH=1  and (
+		<trim suffixOverrides="OR">
+			<if test="userPriv != null and userPriv != ''">
+				(n.PRIV_ID LIKE concat(concat('%,',#{userPriv}),',%')
+				OR n.PRIV_ID LIKE concat(#{userPriv},',%')
+				)OR
+			</if>
+			<if test="deptId != null and deptId != ''">
+				(n.TO_ID LIKE concat(concat('%,',#{deptId}),',%')
+				OR n.TO_ID LIKE concat(#{deptId},',%')
+				)OR
+			</if>
+			<if test="userId != null and userId != ''">
+				(n.USER_ID LIKE concat(concat('%,',#{userId}),',%')
+				OR n.USER_ID LIKE concat(#{userId},',%')
+				)OR
+			</if>
+			n.TO_ID='ALL_DEPT'
+		</trim>)
+		<if test="notifyTime != null and notifyTime != ''"> AND  (n.END_DATE>TO_NUMBER((TO_DATE(#{notifyTime})-TO_DATE('1970-01-01'))* 24 * 60 * 60 ) or n.END_DATE=0) </if>
+		<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+		<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+		<if test="typeId == -1 "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != -1 "> AND n.TYPE_ID = #{typeId} </if>
+		<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT(concat('%',#{subject}),'%') </if>
+		<if test="sendTime != null and sendTime != ''">
+			AND DATE(n.SEND_TIME) = #{sendTime}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="newStr != null and newStr.length!=0 ">
+			<foreach collection="newStr" item="str" open=" AND n.FROM_ID in (" close=")" separator="," >
+				<if test="str!=null and str!=''">
+					#{str}
+				</if>
+			</foreach>
+		</if>
+		<!--<if test="fromId != null and fromId != ''">
+			AND n.FROM_ID = #{fromId}
+		</if>-->
+		<if test="fromDept != null and fromDept != ''">
+			AND n.FROM_DEPT = #{fromDept}
+		</if>
+		<if test="top != null and top != ''">
+			AND n."TOP" = #{top}
+		</if>
+		<if
+				test="beginDate != null and beginDate != '' and endDate != null and endDate != ''">
+			AND DATE(n.SEND_TIME) between #{beginDate} and #{endDate}
+		</if>
+		<if test="content != null and content != ''"> AND n.CONTENT like CONCAT(concat('%',#{content}),'%') </if>
+		ORDER BY n."TOP" DESC ,n.SEND_TIME DESC
+	</select>
+
+
+
+	<!-- 查询公告管理信息 -->
+	<select id="selectCountNotifyManage" parameterType="Map" resultType="java.lang.Integer">
+		SELECT count(*)
+		FROM   ${tableName} n,`user` u WHERE n.FROM_ID=u.USER_ID  AND  n.PUBLISH=1
+		<if test="adminPermissions != null and adminPermissions == 1">
+			and (
+			<trim suffixOverrides="OR">
+				<if test="userPriv != null and userPriv != ''">
+					(n.PRIV_ID LIKE concat('%,',#{userPriv},',%')
+					OR n.PRIV_ID LIKE concat(#{userPriv},',%')
+					)OR
+				</if>
+				<if test="deptId != null and deptId != ''">
+					(n.TO_ID LIKE concat('%,',#{deptId},',%')
+					OR n.TO_ID LIKE concat(#{deptId},',%')
+					)OR
+					(n.TO_ID LIKE concat('%,',#{deptIdOther},',%')
+					OR n.TO_ID LIKE concat(#{deptIdOther},',%')
+					)OR
+				</if>
+				<if test="userId != null and userId != ''">
+					(n.USER_ID LIKE concat('%,',#{userId},',%')
+					OR n.USER_ID LIKE concat(#{userId},',%')
+					)OR
+				</if>
+				n.TO_ID='ALL_DEPT'
+			</trim>)
+		</if>
+		<if test="notifyTime != null and notifyTime != ''">AND BEGIN_DATE  &lt;= unix_timestamp(date(#{notifyTime})) AND (n.END_DATE>unix_timestamp(date(#{notifyTime})) or n.END_DATE=0) </if>
+		<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+		<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+		<if test="typeId == -1 "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != -1 "> AND n.TYPE_ID = #{typeId} </if>
+		<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT('%',#{subject},'%') </if>
+		<if test="sendTime != null and sendTime != ''">
+			AND DATE(n.SEND_TIME) = #{sendTime}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="newStr != null and newStr.length!=0 ">
+			<foreach collection="newStr" item="str" open=" AND n.FROM_ID in (" close=")" separator="," >
+				<if test="str!=null and str!=''">
+					#{str}
+				</if>
+			</foreach>
+		</if>
+		<if test="fromDept != null and fromDept != ''">
+			AND n.FROM_DEPT = #{fromDept}
+		</if>
+		<if test="top != null and top != ''">
+			AND n.TOP = #{top}
+		</if>
+		<if
+				test="beginDate != null and beginDate != '' and endDate != null and endDate != ''">
+			AND DATE(n.SEND_TIME) between #{beginDate} and #{endDate}
+		</if>
+		<if test="content != null and content != ''"> AND n.CONTENT like CONCAT('%',#{content},'%') </if>
+		<if test="queryField != null and queryField != ''">
+			AND (u.USER_NAME  like CONCAT('%',#{queryField},'%') OR n.CONTENT like CONCAT('%',#{queryField},'%') OR n.`SUBJECT` like CONCAT('%',#{queryField},'%'))
+		</if>
+
+		ORDER BY n.TOP DESC ,n.SEND_TIME DESC
+	</select>
+
+	<select id="selectCountNotifyManage" parameterType="Map" resultType="java.lang.Integer" databaseId="dm">
+		SELECT count(*)
+		FROM   ${tableName} n,"USER" u WHERE n.FROM_ID=u.USER_ID AND  n.PUBLISH=1  and (
+		<trim suffixOverrides="OR">
+			<if test="userPriv != null and userPriv != ''">
+				(n.PRIV_ID LIKE concat('%,',#{userPriv},',%')
+				OR n.PRIV_ID LIKE concat(#{userPriv},',%')
+				)OR
+			</if>
+			<if test="deptId != null and deptId != ''">
+				(n.TO_ID LIKE concat('%,',#{deptId},',%')
+				OR n.TO_ID LIKE concat(#{deptId},',%')
+				)OR
+			</if>
+			<if test="userId != null and userId != ''">
+				(n.USER_ID LIKE concat('%,',#{userId},',%')
+				OR n.USER_ID LIKE concat(#{userId},',%')
+				)OR
+			</if>
+			n.TO_ID='ALL_DEPT'
+		</trim>)
+		<if test="notifyTime != null and notifyTime != ''"> AND  (n.END_DATE>TO_NUMBER((TO_DATE(#{notifyTime})-TO_DATE('1970-01-01'))* 24 * 60 * 60 ) or n.END_DATE=0) </if>
+		<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+		<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+		<if test="typeId == -1 "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != -1 "> AND n.TYPE_ID = #{typeId} </if>
+		<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT('%',#{subject},'%') </if>
+		<if test="sendTime != null and sendTime != ''">
+			AND DATE(n.SEND_TIME) = #{sendTime}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="newStr != null and newStr.length!=0 ">
+			<foreach collection="newStr" item="str" open=" AND n.FROM_ID in (" close=")" separator="," >
+				<if test="str!=null and str!=''">
+					#{str}
+				</if>
+			</foreach>
+		</if>
+		<if test="fromDept != null and fromDept != ''">
+			AND n.FROM_DEPT = #{fromDept}
+		</if>
+		<if test="top != null and top != ''">
+			AND n."TOP" = #{top}
+		</if>
+		<if
+				test="beginDate != null and beginDate != '' and endDate != null and endDate != ''">
+			AND DATE(n.SEND_TIME) between #{beginDate} and #{endDate}
+		</if>
+		<if test="content != null and content != ''"> AND n.CONTENT like CONCAT('%',#{content},'%') </if>
+		ORDER BY n."TOP" DESC ,n.SEND_TIME DESC
+	</select>
+
+	<select id="selectCountNotifyManage" parameterType="Map" resultType="java.lang.Integer" databaseId="oracle">
+		SELECT count(*)
+		FROM   ${tableName} n,"USER" u WHERE n.FROM_ID=u.USER_ID AND  n.PUBLISH=1  and (
+		<trim suffixOverrides="OR">
+			<if test="userPriv != null and userPriv != ''">
+				(n.PRIV_ID LIKE concat(concat('%,',#{userPriv}),',%')
+				OR n.PRIV_ID LIKE concat(#{userPriv},',%')
+				)OR
+			</if>
+			<if test="deptId != null and deptId != ''">
+				(n.TO_ID LIKE concat(concat('%,',#{deptId}),',%')
+				OR n.TO_ID LIKE concat(#{deptId},',%')
+				)OR
+			</if>
+			<if test="userId != null and userId != ''">
+				(n.USER_ID LIKE concat(concat('%,',#{userId}),',%')
+				OR n.USER_ID LIKE concat(#{userId},',%')
+				)OR
+			</if>
+			to_char(n.TO_ID) = 'ALL_DEPT'
+		</trim>)
+		<if test="notifyTime != null and notifyTime != ''"> AND  (n.END_DATE>TO_NUMBER((TO_DATE(#{notifyTime},'yyyy-MM-dd')-TO_DATE('1970-01-01','yyyy-MM-dd'))* 24 * 60 * 60 ) or n.END_DATE=0) </if>
+		<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+		<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+		<if test="typeId == -1 "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != -1 "> AND n.TYPE_ID = #{typeId} </if>
+		<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT('%',#{subject},'%') </if>
+		<if test="sendTime != null and sendTime != ''">
+			AND DATE(n.SEND_TIME) = #{sendTime}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="newStr != null and newStr.length!=0 ">
+			<foreach collection="newStr" item="str" open=" AND n.FROM_ID in (" close=")" separator="," >
+				<if test="str!=null and str!=''">
+					#{str}
+				</if>
+			</foreach>
+		</if>
+		<if test="fromDept != null and fromDept != ''">
+			AND n.FROM_DEPT = #{fromDept}
+		</if>
+		<if test="top != null and top != ''">
+			AND n."TOP" = #{top}
+		</if>
+		<if
+				test="beginDate != null and beginDate != '' and endDate != null and endDate != ''">
+			AND DATE(n.SEND_TIME) between #{beginDate} and #{endDate}
+		</if>
+		<if test="content != null and content != ''"> AND n.CONTENT like CONCAT('%',#{content},'%') </if>
+		ORDER BY n."TOP" DESC ,n.SEND_TIME DESC
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- 查询未读信息并返回 列表 -->
+	<select id="unreadNotify" parameterType="Map" resultMap="BaseResultMap">
+		SELECT
+		<include refid="columns"/>
+		FROM    ${tableName} n,`user` u WHERE n.FROM_ID=u.USER_ID AND  n.PUBLISH=1
+		<if test="adminPermissions != null and adminPermissions == 1">
+		and (
+		<trim suffixOverrides="OR">
+			<if test="userPriv != null and userPriv != ''">
+				(n.PRIV_ID LIKE concat('%,',#{userPriv},',%')
+				OR n.PRIV_ID LIKE concat(#{userPriv},',%')
+				)OR
+			</if>
+			<if test="deptId != null and deptId != ''">
+				(n.TO_ID LIKE concat('%,',#{deptId},',%')
+				OR n.TO_ID LIKE concat(#{deptId},',%')
+				)OR
+			</if>
+			<if test="deptIdOthers != null and deptIdOthers != ''">
+				<foreach collection="deptIdOthers" close="" open="" item="tiem" separator="or">
+					(n.TO_ID LIKE concat('%,',#{tiem},',%')
+					OR n.TO_ID LIKE concat(#{tiem},',%')
+					)
+				</foreach>
+				OR
+			</if>
+			<if test="PrivOthers != null and PrivOthers != ''">
+				<foreach collection="PrivOthers" close="" open="" item="tiem" separator="or">
+					(n.PRIV_ID LIKE concat('%,',#{tiem},',%')
+					OR n.PRIV_ID LIKE concat(#{tiem},',%')
+					)
+				</foreach>
+				OR
+			</if>
+			<if test="userId != null and userId != ''">
+				(n.USER_ID LIKE concat('%,',#{userId},',%')
+				OR n.USER_ID LIKE concat(#{userId},',%')
+				)OR
+			</if>
+			n.TO_ID='ALL_DEPT'
+		</trim>)
+	 </if>
+		<if test="notifyTime != null and notifyTime != ''"> AND BEGIN_DATE  &lt;= unix_timestamp(date(#{notifyTime})) AND (n.END_DATE>unix_timestamp(date(#{notifyTime})) or n.END_DATE=0)
+			 </if>
+		<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+		<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+		<if test="typeId == '-1' "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != '-1' "> AND n.TYPE_ID = #{typeId} </if>
+		<if test="typeId == null "> AND n.TYPE_ID &lt;&gt; 'LDZSJS' </if>
+		<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT('%',#{subject},'%') </if>
+		<if test="sendTime != null and sendTime != ''">
+			AND DATE(n.SEND_TIME) = #{sendTime}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="fromDept != null and fromDept != ''">
+			AND n.FROM_DEPT = #{fromDept}
+		</if>
+		<if test="top != null and top != ''">
+			AND n.TOP = #{top}
+		</if>
+		<if test="beginDate != null and beginDate != '' and endDate != null and endDate != ''">
+			AND DATE(n.SEND_TIME) between #{beginDate} and #{endDate}
+		</if>
+		<if test="content != null and content != ''"> AND n.CONTENT like CONCAT('%',#{content},'%') </if>
+		<if test="queryField != null and queryField != ''">
+			AND (u.USER_NAME  like CONCAT('%',#{queryField},'%') OR n.CONTENT like CONCAT('%',#{queryField},'%') OR n.`SUBJECT` like CONCAT('%',#{queryField},'%'))
+		</if>
+		AND 	( n.READERS NOT LIKE concat('%,',#{name},',%')
+		AND  n.READERS NOT LIKE concat(#{name},',%')
+		AND  n.READERS NOT LIKE concat('%,',#{name})
+		)
+		<choose>
+			<when test="userType != null and userType != ''">
+				AND (n.USER_TYPE LIKE concat(#{userType},',%') or n.USER_TYPE LIKE concat('%,',#{userType},',%')  or n.USER_TYPE is null or n.USER_TYPE = '')
+			</when>
+			<when test="userType == null or userType == ''">
+				AND (n.USER_TYPE is null or n.USER_TYPE = '')
+			</when>
+		</choose>
+		ORDER BY n.TOP DESC ,n.SEND_TIME DESC
+	</select>
+	<select id="unreadNotifyPlus" parameterType="Map" resultMap="BaseResultMap">
+		SELECT
+		n.NOTIFY_ID,n.SEND_TIME,n.TYPE_ID,n.SUBJECT,n.BEGIN_DATE,n.PUBLISH,n.TOP_DAYS,
+		n.END_DATE,n.FROM_ID,n.FROM_DEPT,
+		n.FORMAT,n.TO_ID,n.PRIV_ID,n.USER_ID, n.READERS,n.HOW_RENIND,n.IS_OPIN,n.OPINION_FIELDS,n.OPIN_USERS
+		FROM    ${tableName} n,`user` u WHERE n.FROM_ID=u.USER_ID AND  n.PUBLISH=1
+		<if test="adminPermissions != null and adminPermissions == 1">
+			and (
+			<trim suffixOverrides="OR">
+				n.TO_ID='ALL_DEPT' OR
+				<if test="userPriv != null and userPriv != ''">
+					(n.PRIV_ID LIKE concat('%,',#{userPriv},',%')
+					OR n.PRIV_ID LIKE concat(#{userPriv},',%')
+					)OR
+				</if>
+				<if test="deptId != null and deptId != ''">
+					(n.TO_ID LIKE concat('%,',#{deptId},',%')
+					OR n.TO_ID LIKE concat(#{deptId},',%')
+					)OR
+				</if>
+				<if test="deptIdOthers != null and deptIdOthers != ''">
+					<foreach collection="deptIdOthers" close="" open="" item="tiem" separator="or">
+						(n.TO_ID LIKE concat('%,',#{tiem},',%')
+						OR n.TO_ID LIKE concat(#{tiem},',%')
+						)
+					</foreach>
+					OR
+				</if>
+				<if test="PrivOthers != null and PrivOthers != ''">
+					<foreach collection="PrivOthers" close="" open="" item="tiem" separator="or">
+						(n.PRIV_ID LIKE concat('%,',#{tiem},',%')
+						OR n.PRIV_ID LIKE concat(#{tiem},',%')
+						)
+					</foreach>
+					OR
+				</if>
+				<if test="userId != null and userId != ''">
+					(n.USER_ID LIKE concat('%,',#{userId},',%')
+					OR n.USER_ID LIKE concat(#{userId},',%')
+					)
+				</if>
+			</trim>)
+		</if>
+		<if test="notifyTime != null and notifyTime != ''"> AND BEGIN_DATE  &lt;= unix_timestamp(date(#{notifyTime})) AND (n.END_DATE>unix_timestamp(date(#{notifyTime})) or n.END_DATE=0)
+		</if>
+		<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+		<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+		<if test="typeId == -1 "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != -1 "> AND n.TYPE_ID = #{typeId} </if>
+		<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT('%',#{subject},'%') </if>
+		<if test="queryField != null and queryField != ''">
+			AND (u.USER_NAME  like CONCAT('%',#{queryField},'%') OR n.CONTENT like CONCAT('%',#{queryField},'%') OR n.`SUBJECT` like CONCAT('%',#{queryField},'%'))
+		</if>
+		AND 	( n.READERS NOT LIKE concat('%,',#{name},',%')
+		AND  n.READERS NOT LIKE concat(#{name},',%')
+		AND  n.READERS NOT LIKE concat('%,',#{name})
+		)
+		<choose>
+			<when test="userType != null and userType != ''">
+				AND (n.USER_TYPE LIKE concat(#{userType},',%') or n.USER_TYPE LIKE concat('%,',#{userType},',%') or n.USER_TYPE is null or n.USER_TYPE = '')
+			</when>
+			<when test="userType == null or userType == ''">
+				AND (n.USER_TYPE is null or n.USER_TYPE = '')
+			</when>
+		</choose>
+		ORDER BY n.TOP DESC ,n.SEND_TIME DESC
+	</select>
+	<select id="unreadNotify" parameterType="Map" resultMap="BaseResultMap" databaseId="dm">
+		SELECT
+		<include refid="columnsDM"/>
+		FROM    notify n,"USER" u WHERE n.FROM_ID=u.USER_ID AND  n.PUBLISH=1
+		and (
+		<trim suffixOverrides="OR">
+			<if test="userPriv != null and userPriv != ''">
+				(n.PRIV_ID LIKE concat('%,',#{userPriv},',%')
+				OR n.PRIV_ID LIKE concat(#{userPriv},',%')
+				)OR
+			</if>
+			<if test="deptId != null and deptId != ''">
+				(n.TO_ID LIKE concat('%,',#{deptId},',%')
+				OR n.TO_ID LIKE concat(#{deptId},',%')
+				)OR
+			</if>
+			<if test="userId != null and userId != ''">
+				(n.USER_ID LIKE concat('%,',#{userId},',%')
+				OR n.USER_ID LIKE concat(#{userId},',%')
+				)OR
+			</if>
+			n.TO_ID='ALL_DEPT'
+		</trim>)
+		<if test="notifyTime != null and notifyTime != ''"> AND  (n.END_DATE>TO_NUMBER((TO_DATE(#{notifyTime})-TO_DATE('1970-01-01'))* 24 * 60 * 60 ) or n.END_DATE=0) </if>
+		<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+		<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+		<if test="typeId == -1 "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != -1 "> AND n.TYPE_ID = #{typeId} </if>
+		<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT('%',#{subject},'%') </if>
+		<if test="sendTime != null and sendTime != ''">
+			AND DATE(n.SEND_TIME) = #{sendTime}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="fromDept != null and fromDept != ''">
+			AND n.FROM_DEPT = #{fromDept}
+		</if>
+		<if test="top != null and top != ''">
+			AND n.TOP = #{top}
+		</if>
+		<if
+				test="beginDate != null and beginDate != '' and endDate != null and endDate != ''">
+			AND DATE(n.SEND_TIME) between #{beginDate} and #{endDate}
+		</if>
+		<if test="content != null and content != ''"> AND n.CONTENT like CONCAT('%',#{content},'%') </if>
+
+		ORDER BY n."TOP" DESC ,n.SEND_TIME DESC
+	</select>
+
+	<select id="unreadNotify" parameterType="Map" resultMap="BaseResultMap" databaseId="kingbase">
+		SELECT
+		<include refid="columnsKingBase"/>
+		FROM    ${tableName} n,"user" u WHERE n.FROM_ID=u.USER_ID AND  n.PUBLISH=1
+		<if test="adminPermissions != null and adminPermissions == 1">
+			and (
+			<trim suffixOverrides="OR">
+				<if test="userPriv != null and userPriv != ''">
+					(n.PRIV_ID LIKE concat('%,',#{userPriv}::VARCHAR,',%')
+					OR n.PRIV_ID LIKE concat(#{userPriv}::VARCHAR,',%')
+					)OR
+				</if>
+				<if test="deptId != null and deptId != ''">
+					(n.TO_ID LIKE concat('%,',#{deptId}::VARCHAR,',%')
+					OR n.TO_ID LIKE concat(#{deptId}::VARCHAR,',%')
+					)OR
+				</if>
+				<if test="deptIdOthers != null and deptIdOthers != ''">
+					<foreach collection="deptIdOthers" close="" open="" item="tiem" separator="or">
+						(n.TO_ID LIKE concat('%,',#{tiem}::VARCHAR,',%')
+						OR n.TO_ID LIKE concat(#{tiem}::VARCHAR,',%')
+						)
+					</foreach>
+					OR
+				</if>
+				<if test="PrivOthers != null and PrivOthers != ''">
+					<foreach collection="PrivOthers" close="" open="" item="tiem" separator="or">
+						(n.PRIV_ID LIKE concat('%,',#{tiem}::VARCHAR,',%')
+						OR n.PRIV_ID LIKE concat(#{tiem}::VARCHAR,',%')
+						)
+					</foreach>
+					OR
+				</if>
+				<if test="userId != null and userId != ''">
+					(n.USER_ID LIKE concat('%,',#{userId}::VARCHAR,',%')
+					OR n.USER_ID LIKE concat(#{userId}::VARCHAR,',%')
+					)OR
+				</if>
+				n.TO_ID='ALL_DEPT'
+			</trim>)
+		</if>
+		<if test="notifyTime != null and notifyTime != ''"> AND BEGIN_DATE  &lt;= unix_timestamp(#{notifyTime}::VARCHAR) AND (n.END_DATE>unix_timestamp(#{notifyTime}::VARCHAR) or n.END_DATE=0)
+		</if>
+		<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+		<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+		<if test="typeId == '-1' "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != '-1' "> AND n.TYPE_ID = #{typeId} </if>
+		<if test="typeId == null "> AND n.TYPE_ID &lt;&gt; 'LDZSJS' </if>
+		<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT('%',#{subject}::VARCHAR,'%') </if>
+		<if test="sendTime != null and sendTime != ''">
+			AND DATE(n.SEND_TIME) = #{sendTime}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="fromDept != null and fromDept != ''">
+			AND n.FROM_DEPT = #{fromDept}
+		</if>
+		<if test="top != null and top != ''">
+			AND n.TOP = #{top}
+		</if>
+		<if test="beginDate != null and beginDate != '' and endDate != null and endDate != ''">
+			AND DATE(n.SEND_TIME) between #{beginDate} and #{endDate}
+		</if>
+		<if test="content != null and content != ''"> AND n.CONTENT like CONCAT('%',#{content},'%') </if>
+		<if test="queryField != null and queryField != ''">
+			AND (u.USER_NAME  like CONCAT('%',#{queryField}::VARCHAR,'%') OR n.CONTENT like CONCAT('%',#{queryField}::VARCHAR,'%') OR n."SUBJECT" like CONCAT('%',#{queryField}::VARCHAR,'%'))
+		</if>
+		AND 	( n.READERS NOT LIKE concat('%,',#{name}::VARCHAR,',%')
+		AND  n.READERS NOT LIKE concat(#{name}::VARCHAR,',%')
+		AND  n.READERS NOT LIKE concat('%,',#{name}::VARCHAR)
+		)
+		<choose>
+			<when test="userType != null and userType != ''">
+				AND (n.USER_TYPE LIKE concat(#{userType}::VARCHAR,',%') or n.USER_TYPE LIKE concat('%,',#{userType}::VARCHAR,',%')  or n.USER_TYPE is null or n.USER_TYPE = '')
+			</when>
+			<when test="userType == null or userType == ''">
+				AND (n.USER_TYPE is null or n.USER_TYPE = '')
+			</when>
+		</choose>
+		ORDER BY n."TOP" DESC ,n.SEND_TIME DESC
+	</select>
+
+
+	<select id="unreadNotify" parameterType="Map" resultMap="BaseResultMap" databaseId="oracle">
+		SELECT
+		<include refid="columnsOracle"/>
+		FROM    notify n,"USER" u WHERE n.FROM_ID=u.USER_ID AND  n.PUBLISH=1  and (
+		<trim suffixOverrides="OR">
+			<if test="userPriv != null and userPriv != ''">
+				(n.PRIV_ID LIKE concat(concat('%,',#{userPriv}),',%')
+				OR n.PRIV_ID LIKE concat(#{userPriv},',%')
+				)OR
+			</if>
+			<if test="deptId != null and deptId != ''">
+				(n.TO_ID LIKE concat(concat('%,',#{deptId}),',%')
+				OR n.TO_ID LIKE concat(#{deptId},',%')
+				)OR
+			</if>
+			<if test="userId != null and userId != ''">
+				(n.USER_ID LIKE concat(concat('%,',#{userId}),',%')
+				OR n.USER_ID LIKE concat(#{userId},',%')
+				)OR
+			</if>
+			to_char(n.TO_ID) = 'ALL_DEPT'
+		</trim>)
+		<if test="notifyTime != null and notifyTime != ''"> AND BEGIN_DATE  &lt;= TO_NUMBER((TO_DATE(#{notifyTime},'yyyy-MM-dd')-TO_DATE('1970-01-01','yyyy-MM-dd'))* 24 * 60 * 60 ) AND  (n.END_DATE>TO_NUMBER((TO_DATE(#{notifyTime},'yyyy-MM-dd')-TO_DATE('1970-01-01','yyyy-MM-dd'))* 24 * 60 * 60 ) or n.END_DATE=0) </if>
+		<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+		<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+		<if test="typeId == -1 "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != -1 "> AND n.TYPE_ID = #{typeId} </if>
+		<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT('%',#{subject},'%') </if>
+		<if test="sendTime != null and sendTime != ''">
+			AND DATE(n.SEND_TIME) = #{sendTime}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="fromDept != null and fromDept != ''">
+			AND n.FROM_DEPT = #{fromDept}
+		</if>
+		<if test="top != null and top != ''">
+			AND n.TOP = #{top}
+		</if>
+		<if
+				test="beginDate != null and beginDate != '' and endDate != null and endDate != ''">
+			AND DATE(n.SEND_TIME) between #{beginDate} and #{endDate}
+		</if>
+		<if test="content != null and content != ''"> AND n.CONTENT like CONCAT('%',#{content},'%') </if>
+
+		ORDER BY n."TOP" DESC ,n.SEND_TIME DESC
+	</select>
+
+	<!-- 查询已读信息并返回 列表 -->
+	<select id="readNotify" parameterType="Map" resultMap="BaseResultMap">
+		SELECT
+		<include refid="columns"/>
+		FROM   $(tableName) n,`user` u WHERE n.FROM_ID=u.USER_ID   AND  n.PUBLISH=1
+		<if test="adminPermissions != null and adminPermissions == 1">
+			and (
+			<trim suffixOverrides="OR">
+				<if test="userPriv != null and userPriv != ''">
+					(n.PRIV_ID LIKE concat('%,',#{userPriv},',%')
+					OR n.PRIV_ID LIKE concat(#{userPriv},',%')
+					)OR
+				</if>
+				<if test="deptId != null and deptId != ''">
+					(n.TO_ID LIKE concat('%,',#{deptId},',%')
+					OR n.TO_ID LIKE concat(#{deptId},',%')
+					)OR
+				</if>
+				<if test="deptIdOthers != null and deptIdOthers != ''">
+					<foreach collection="deptIdOthers" close="" open="" item="tiem" separator="or">
+						(n.TO_ID LIKE concat('%,',#{tiem},',%')
+						OR n.TO_ID LIKE concat(#{tiem},',%')
+						)
+					</foreach>
+					OR
+				</if>
+				<if test="PrivOthers != null and PrivOthers != ''">
+					<foreach collection="PrivOthers" close="" open="" item="tiem" separator="or">
+						(n.PRIV_ID LIKE concat('%,',#{tiem},',%')
+						OR n.PRIV_ID LIKE concat(#{tiem},',%')
+						)
+					</foreach>
+					OR
+				</if>
+				<if test="userId != null and userId != ''">
+					(n.USER_ID LIKE concat('%,',#{userId},',%')
+					OR n.USER_ID LIKE concat(#{userId},',%')
+					)OR
+				</if>
+				n.TO_ID='ALL_DEPT'
+			</trim>)
+		</if>
+		<if test="notifyTime != null and notifyTime != ''"> AND BEGIN_DATE  &lt;= unix_timestamp(date(#{notifyTime})) AND (n.END_DATE>unix_timestamp(date(#{notifyTime})) or n.END_DATE=0) </if>
+		<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+		<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+		<if test="typeId == '-1' "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != '-1' "> AND n.TYPE_ID = #{typeId} </if>
+		<if test="typeId == null "> AND n.TYPE_ID &lt;&gt; 'LDZSJS' </if>
+		<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT('%',#{subject},'%') </if>
+		<if test="sendTime != null and sendTime != ''">
+			AND DATE(n.SEND_TIME) = #{sendTime}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="fromId != null and fromId != ''">
+			AND n.FROM_ID = #{fromId}
+		</if>
+		<if test="fromDept != null and fromDept != ''">
+			AND n.FROM_DEPT = #{fromDept}
+		</if>
+		<if test="top != null and top != ''">
+			AND n.TOP = #{top}
+		</if>
+		<if test="beginDate != null and beginDate != '' and endDate != null and endDate != ''">
+			AND DATE(n.SEND_TIME) between #{beginDate} and #{endDate}
+		</if>
+		<if test="content != null and content != ''"> AND n.CONTENT like CONCAT('%',#{content},'%') </if>
+		<if test="queryField != null and queryField != ''">
+			AND (u.USER_NAME  like CONCAT('%',#{queryField},'%') OR n.CONTENT like CONCAT('%',#{queryField},'%') OR n.`SUBJECT` like CONCAT('%',#{queryField},'%'))
+		</if>
+		AND 	( n.READERS LIKE concat('%,',#{name},',%')
+		OR  n.READERS LIKE concat(#{name},',%')
+		)
+		<choose>
+			<when test="userType != null and userType != ''">
+				AND (n.USER_TYPE LIKE concat(#{userType},',%') or n.USER_TYPE LIKE concat('%,',#{userType},',%')  or n.USER_TYPE is null or n.USER_TYPE = '')
+			</when>
+			<when test="userType == null or userType == ''">
+				AND (n.USER_TYPE is null or n.USER_TYPE = '')
+			</when>
+		</choose>
+		ORDER BY n.TOP DESC ,n.SEND_TIME DESC
+	</select>
+
+	<select id="readNotify" parameterType="Map" resultMap="BaseResultMap" databaseId="kingbase">
+		SELECT
+		<include refid="columnsKingBase"/>
+		FROM   $(tableName) n,"user" u WHERE n.FROM_ID=u.USER_ID   AND  n.PUBLISH=1
+		<if test="adminPermissions != null and adminPermissions == 1">
+			and (
+			<trim suffixOverrides="OR">
+				<if test="userPriv != null and userPriv != ''">
+					(n.PRIV_ID LIKE concat('%,',#{userPriv}::VARCHAR,',%')
+					OR n.PRIV_ID LIKE concat(#{userPriv}::VARCHAR,',%')
+					)OR
+				</if>
+				<if test="deptId != null and deptId != ''">
+					(n.TO_ID LIKE concat('%,',#{deptId}::VARCHAR,',%')
+					OR n.TO_ID LIKE concat(#{deptId}::VARCHAR,',%')
+					)OR
+				</if>
+				<if test="deptIdOthers != null and deptIdOthers != ''">
+					<foreach collection="deptIdOthers" close="" open="" item="tiem" separator="or">
+						(n.TO_ID LIKE concat('%,',#{tiem}::VARCHAR,',%')
+						OR n.TO_ID LIKE concat(#{tiem}::VARCHAR,',%')
+						)
+					</foreach>
+					OR
+				</if>
+				<if test="PrivOthers != null and PrivOthers != ''">
+					<foreach collection="PrivOthers" close="" open="" item="tiem" separator="or">
+						(n.PRIV_ID LIKE concat('%,',#{tiem}::VARCHAR,',%')
+						OR n.PRIV_ID LIKE concat(#{tiem}::VARCHAR,',%')
+						)
+					</foreach>
+					OR
+				</if>
+				<if test="userId != null and userId != ''">
+					(n.USER_ID LIKE concat('%,',#{userId}::VARCHAR,',%')
+					OR n.USER_ID LIKE concat(#{userId}::VARCHAR,',%')
+					)OR
+				</if>
+				n.TO_ID='ALL_DEPT'
+			</trim>)
+		</if>
+		<if test="notifyTime != null and notifyTime != ''"> AND BEGIN_DATE  &lt;= unix_timestamp(#{notifyTime}) AND (n.END_DATE>unix_timestamp(#{notifyTime}) or n.END_DATE=0) </if>
+		<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+		<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+		<if test="typeId == '-1' "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != '-1' "> AND n.TYPE_ID = #{typeId} </if>
+		<if test="typeId == null "> AND n.TYPE_ID &lt;&gt; 'LDZSJS' </if>
+		<if test="subject != null and subject != ''"> AND n."SUBJECT" like CONCAT('%',#{subject}::VARCHAR,'%') </if>
+		<if test="sendTime != null and sendTime != ''">
+			AND DATE(n.SEND_TIME) = #{sendTime}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="fromId != null and fromId != ''">
+			AND n.FROM_ID = #{fromId}
+		</if>
+		<if test="fromDept != null and fromDept != ''">
+			AND n.FROM_DEPT = #{fromDept}
+		</if>
+		<if test="top != null and top != ''">
+			AND n.TOP = #{top}
+		</if>
+		<if test="beginDate != null and beginDate != '' and endDate != null and endDate != ''">
+			AND DATE(n.SEND_TIME) between #{beginDate} and #{endDate}
+		</if>
+		<if test="content != null and content != ''"> AND n.CONTENT like CONCAT('%',#{content}::VARCHAR,'%') </if>
+		<if test="queryField != null and queryField != ''">
+			AND (u.USER_NAME  like CONCAT('%',#{queryField}::VARCHAR,'%') OR n.CONTENT like CONCAT('%',#{queryField}::VARCHAR,'%') OR n."SUBJECT" like CONCAT('%',#{queryField}::VARCHAR,'%'))
+		</if>
+		AND 	( n.READERS LIKE concat('%,',#{name}::VARCHAR,',%')
+		OR  n.READERS LIKE concat(#{name}::VARCHAR,',%')
+		)
+		<choose>
+			<when test="userType != null and userType != ''">
+				AND (n.USER_TYPE LIKE concat(#{userType}::VARCHAR,',%') or n.USER_TYPE LIKE concat('%,',#{userType}::VARCHAR,',%')  or n.USER_TYPE is null or n.USER_TYPE = '')
+			</when>
+			<when test="userType == null or userType == ''">
+				AND (n.USER_TYPE is null or n.USER_TYPE = '')
+			</when>
+		</choose>
+		ORDER BY n."TOP" DESC ,n.SEND_TIME DESC
+	</select>
+
+	<select id="readNotifyPlus" resultMap="BaseResultMap"  parameterType="Map">
+		SELECT
+		n.NOTIFY_ID,n.SEND_TIME,n.TYPE_ID,n.SUBJECT,n.BEGIN_DATE,n.PUBLISH,n.TOP_DAYS,
+		n.END_DATE,n.FROM_ID,n.FROM_DEPT,
+		n.FORMAT,n.TO_ID,n.PRIV_ID,n.USER_ID, n.READERS,n.HOW_RENIND,n.IS_OPIN,n.OPINION_FIELDS,n.OPIN_USERS
+		FROM   ${tableName} n,`user` u WHERE n.FROM_ID=u.USER_ID   AND  n.PUBLISH=1
+		<if test="adminPermissions != null and adminPermissions == 1">
+			and (
+			<trim suffixOverrides="OR">
+				n.TO_ID='ALL_DEPT' OR
+				<if test="userPriv != null and userPriv != ''">
+					(n.PRIV_ID LIKE concat('%,',#{userPriv},',%')
+					OR n.PRIV_ID LIKE concat(#{userPriv},',%')
+					)OR
+				</if>
+				<if test="deptId != null and deptId != ''">
+					(n.TO_ID LIKE concat('%,',#{deptId},',%')
+					OR n.TO_ID LIKE concat(#{deptId},',%')
+					)OR
+				</if>
+				<if test="deptIdOthers != null and deptIdOthers != ''">
+					<foreach collection="deptIdOthers" close="" open="" item="tiem" separator="or">
+						(n.TO_ID LIKE concat('%,',#{tiem},',%')
+						OR n.TO_ID LIKE concat(#{tiem},',%')
+						)
+					</foreach>
+					OR
+				</if>
+				<if test="PrivOthers != null and PrivOthers != ''">
+					<foreach collection="PrivOthers" close="" open="" item="tiem" separator="or">
+						(n.PRIV_ID LIKE concat('%,',#{tiem},',%')
+						OR n.PRIV_ID LIKE concat(#{tiem},',%')
+						)
+					</foreach>
+					OR
+				</if>
+				<if test="userId != null and userId != ''">
+					(n.USER_ID LIKE concat('%,',#{userId},',%')
+					OR n.USER_ID LIKE concat(#{userId},',%')
+					)
+				</if>
+			</trim>)
+		</if>
+		<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+		<if test="typeId == -1 "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != -1 "> AND n.TYPE_ID = #{typeId} </if>
+		<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT('%',#{subject},'%') </if>
+		AND 	( n.READERS LIKE concat('%,',#{name},',%')
+		OR  n.READERS LIKE concat(#{name},',%')
+		)
+		<choose>
+			<when test="userType != null and userType != ''">
+				AND (n.USER_TYPE LIKE concat(#{userType},',%') or n.USER_TYPE LIKE concat('%,',#{userType},',%')  or n.USER_TYPE is null or n.USER_TYPE = '')
+			</when>
+			<when test="userType == null or userType == ''">
+				AND (n.USER_TYPE is null or n.USER_TYPE = '')
+			</when>
+		</choose>
+		ORDER BY n.TOP DESC ,n.SEND_TIME DESC
+	</select>
+	<!-- 公告详情查询 -->
+	<select id="detailedNotify" resultMap="BaseResultMap"  parameterType="Map">
+		SELECT
+		n.NOTIFY_ID,
+		n.SEND_TIME,
+		n.TYPE_ID,
+		n.`SUBJECT`,
+		n.BEGIN_DATE,
+		n.PUBLISH,
+		n.ATTACHMENT_ID,
+		n.ATTACHMENT_NAME,
+		n.END_DATE,
+		n.FROM_ID,
+		n.FROM_DEPT,
+		n.CONTENT,
+		n.FORMAT,
+		n.TO_ID,
+		n.PRIV_ID,
+		n.USER_ID,
+		n.READERS,
+		n.SUMMARY,
+		n.PRINT,
+		n.TOP,
+		n.TOP_DAYS,
+		n.KEYWORD,
+		n.download,
+		n.AUDITER,
+		u.USER_NAME,
+		u.AVATAR,
+		u.SEX,
+		n.AUDIT_DATE,
+		n.HOW_RENIND,
+		n.IS_OPIN,
+		n.OPINION_FIELDS,
+		n.OPIN_USERS,
+		n.DRAFT_DEPT,
+		n.USER_TYPE
+		FROM ${tableName} as n, user as u ,user_function as uf  WHERE (n.FROM_ID=u.USER_ID
+		and uf.user_id=u.USER_ID
+		and (
+		<trim suffixOverrides="OR">
+			<if test="userPriv != null and userPriv != ''">
+				(n.PRIV_ID LIKE concat('%,',#{userPriv},',%')
+				OR n.PRIV_ID LIKE concat(#{userPriv},',%')
+				)OR
+			</if>
+			<if test="deptId != null and deptId != ''">
+				(n.TO_ID LIKE concat('%,',#{deptId},',%')
+				OR n.TO_ID LIKE concat(#{deptId},',%')
+				)OR
+			</if>
+			<if test="deptIdOthers!=null and deptIdOthers!='' ">
+				<foreach collection="deptIdOthers" item="id" open="" close="" separator="or">
+					(n.TO_ID LIKE concat('%,',#{id},',%')
+					OR n.TO_ID LIKE concat(#{id},',%')
+					)
+				</foreach>
+				or
+			</if>
+			<if test="userPrivOthers!=null and userPrivOthers!='' ">
+				<foreach collection="userPrivOthers" item="id" open="" close="" separator="or">
+					(n.PRIV_ID LIKE concat('%,',#{id},',%')
+					OR n.PRIV_ID LIKE concat(#{id},',%')
+					)
+				</foreach>
+				or
+			</if>
+			<if test="userId != null and userId != ''">
+				(n.USER_ID LIKE concat('%,',#{userId},',%')
+				OR n.USER_ID LIKE concat(#{userId},',%')
+				)OR n.AUDITER = #{userId} OR
+			</if>
+			n.TO_ID='ALL_DEPT' OR
+			(uf.user_func_id_str LIKE concat('%,','24',',%')
+			OR uf.user_func_id_str LIKE concat('24',',%')
+			)OR
+		</trim>)
+		and n.NOTIFY_ID=#{notifyId})
+
+
+
+	</select>
+
+	<select id="detailedNotify" resultMap="BaseResultMap"  parameterType="Map" databaseId="kingbase">
+		SELECT
+		n.NOTIFY_ID,
+		n.SEND_TIME,
+		n.TYPE_ID,
+		n."SUBJECT",
+		n.BEGIN_DATE,
+		n.PUBLISH,
+		n.ATTACHMENT_ID,
+		n.ATTACHMENT_NAME,
+		n.END_DATE,
+		n.FROM_ID,
+		n.FROM_DEPT,
+		n.CONTENT,
+		n.FORMAT,
+		n.TO_ID,
+		n.PRIV_ID,
+		n.USER_ID,
+		n.READERS,
+		n.SUMMARY,
+		n.PRINT,
+		n."TOP",
+		n.TOP_DAYS,
+		n.KEYWORD,
+		n.download,
+		n.AUDITER,
+		u.USER_NAME,
+		u.AVATAR,
+		u.SEX,
+		n.AUDIT_DATE,
+		n.HOW_RENIND,
+		n.IS_OPIN,
+		n.OPINION_FIELDS,
+		n.OPIN_USERS,
+		n.DRAFT_DEPT,
+		n.USER_TYPE
+		FROM ${tableName} as n, "user" as u ,user_function as uf  WHERE (n.FROM_ID=u.USER_ID
+		and uf.user_id=u.USER_ID
+		and (
+		<trim suffixOverrides="OR">
+			<if test="userPriv != null and userPriv != ''">
+				(n.PRIV_ID LIKE concat('%,',#{userPriv}::VARCHAR,',%')
+				OR n.PRIV_ID LIKE concat(#{userPriv}::VARCHAR,',%')
+				)OR
+			</if>
+			<if test="deptId != null and deptId != ''">
+				(n.TO_ID LIKE concat('%,',#{deptId}::VARCHAR,',%')
+				OR n.TO_ID LIKE concat(#{deptId}::VARCHAR,',%')
+				)OR
+			</if>
+			<if test="deptIdOthers!=null and deptIdOthers!='' ">
+				<foreach collection="deptIdOthers" item="id" open="" close="" separator="or">
+					(n.TO_ID LIKE concat('%,',#{id}::VARCHAR,',%')
+					OR n.TO_ID LIKE concat(#{id}::VARCHAR,',%')
+					)
+				</foreach>
+				or
+			</if>
+			<if test="userPrivOthers!=null and userPrivOthers!='' ">
+				<foreach collection="userPrivOthers" item="id" open="" close="" separator="or">
+					(n.PRIV_ID LIKE concat('%,',#{id}::VARCHAR,',%')
+					OR n.PRIV_ID LIKE concat(#{id}::VARCHAR,',%')
+					)
+				</foreach>
+				or
+			</if>
+			<if test="userId != null and userId != ''">
+				(n.USER_ID LIKE concat('%,',#{userId}::VARCHAR,',%')
+				OR n.USER_ID LIKE concat(#{userId}::VARCHAR,',%')
+				)OR n.AUDITER = #{userId} OR
+			</if>
+			n.TO_ID='ALL_DEPT' OR
+			(uf.user_func_id_str LIKE concat('%,','24',',%')
+			OR uf.user_func_id_str LIKE concat('24',',%')
+			)OR
+		</trim>)
+		and n.NOTIFY_ID=#{notifyId})
+
+
+
+	</select>
+
+	<!--<select id="detailedNotify" resultMap="BaseResultMap"  parameterType="Map" databaseId="dm">
+		SELECT
+		n.NOTIFY_ID,
+		n.SEND_TIME,
+		n.TYPE_ID,
+		n."SUBJECT",
+		n.BEGIN_DATE,
+		n.PUBLISH,
+		n.ATTACHMENT_ID,
+		n.ATTACHMENT_NAME,
+		n.END_DATE,
+		n.FROM_ID,
+		n.FROM_DEPT,
+		n.CONTENT,
+		n.FORMAT,
+		n.TO_ID,
+		n.PRIV_ID,
+		n.USER_ID,
+		n.READERS,
+		n.SUMMARY,
+		n."PRINT",
+		n."TOP",
+		n.TOP_DAYS,
+		n.KEYWORD,
+		u.USER_NAME,u.AVATAR,u.SEX,
+		n.HOW_RENIND,
+		n.DRAFT_DEPT,
+		n.USER_TYPE
+		FROM  ${tableName} n,"USER" u ,user_function uf  WHERE n.FROM_ID=u.USER_ID
+		and uf.user_id=u.USER_ID
+		and (
+		<trim suffixOverrides="OR">
+			<if test="userPriv != null and userPriv != ''">
+				(n.PRIV_ID LIKE concat('%,',#{userPriv},',%')
+				OR n.PRIV_ID LIKE concat(#{userPriv},',%')
+				)OR
+			</if>
+			<if test="deptId != null and deptId != ''">
+				(n.TO_ID LIKE concat('%,',#{deptId},',%')
+				OR n.TO_ID LIKE concat(#{deptId},',%')
+				)OR
+			</if>
+			<if test="userId != null and userId != ''">
+				(n.USER_ID LIKE concat('%,',#{userId},',%')
+				OR n.USER_ID LIKE concat(#{userId},',%')
+				)OR
+			</if>
+			n.TO_ID='ALL_DEPT' OR
+			(uf.user_func_id_str LIKE concat('%,','24',',%')
+			OR uf.user_func_id_str LIKE concat('24',',%')
+			)OR
+		</trim>)
+
+		and n.NOTIFY_ID=#{notifyId}
+
+
+
+
+	</select>
+
+
+	<select id="detailedNotify" resultMap="BaseResultMap"  parameterType="Map" databaseId="oracle">
+		SELECT
+		n.NOTIFY_ID,
+		n.SEND_TIME,
+		n.TYPE_ID,
+		n."SUBJECT",
+		n.BEGIN_DATE,
+		n.PUBLISH,
+		n.ATTACHMENT_ID,
+		n.ATTACHMENT_NAME,
+		n.END_DATE,
+		n.FROM_ID,
+		n.FROM_DEPT,
+		n.CONTENT,
+		n.FORMAT,
+		n.TO_ID,
+		n.PRIV_ID,
+		n.USER_ID,
+		n.READERS,
+		n.SUMMARY,
+		n."PRINT",
+		n."TOP",
+		n.TOP_DAYS,
+		n.KEYWORD,
+		u.USER_NAME,
+		u.AVATAR,
+		u.SEX,
+		n.HOW_RENIND,
+		n.DRAFT_DEPT,
+		n.USER_TYPE
+		FROM  ${tableName} n,"USER" u ,user_function uf  WHERE n.FROM_ID=u.USER_ID
+		and uf.user_id=u.USER_ID
+		and (
+		<trim suffixOverrides="OR">
+			<if test="userPriv != null and userPriv != ''">
+				(n.PRIV_ID LIKE concat(concat('%,',#{userPriv}),',%')
+				OR n.PRIV_ID LIKE concat(#{userPriv},',%')
+				)OR
+			</if>
+			<if test="deptId != null and deptId != ''">
+				(n.TO_ID LIKE concat(concat('%,',#{deptId}),',%')
+				OR n.TO_ID LIKE concat(#{deptId},',%')
+				)OR
+			</if>
+			<if test="userId != null and userId != ''">
+				(n.USER_ID LIKE concat(concat('%,',#{userId}),',%')
+				OR n.USER_ID LIKE concat(#{userId},',%')
+				)OR
+			</if>
+			to_char(n.TO_ID) = 'ALL_DEPT'OR
+			(uf.user_func_id_str LIKE  concat(concat('%,','24'),',%')
+			OR uf.user_func_id_str LIKE concat('24',',%')
+			)OR
+		</trim>)
+
+		and n.NOTIFY_ID=#{notifyId}
+
+
+
+
+	</select>
+
+	<select id="detailedNotify" resultMap="BaseResultMap"  parameterType="Map" databaseId="kingbase">
+		SELECT
+		n.NOTIFY_ID,
+		n.SEND_TIME,
+		n.TYPE_ID,
+		n.SUBJECT,
+		n.BEGIN_DATE,
+		n.PUBLISH,
+		n.ATTACHMENT_ID,
+		n.ATTACHMENT_NAME,
+		n.END_DATE,
+		n.FROM_ID,
+		n.FROM_DEPT,
+		n.CONTENT,
+		n.FORMAT,
+		n.TO_ID,
+		n.PRIV_ID,
+		n.USER_ID,
+		n.READERS,
+		n.SUMMARY,
+		n.PRINT,
+		n.TOP,
+		n.TOP_DAYS,
+		n.KEYWORD,
+		n.download,
+		n.AUDITER,
+		u.USER_NAME,
+		u.AVATAR,
+		u.SEX,
+		n.AUDIT_DATE,
+		n.HOW_RENIND,
+		n.IS_OPIN,
+		n.OPINION_FIELDS,
+		n.OPIN_USERS,
+		n.DRAFT_DEPT,
+		n.USER_TYPE
+		FROM  ${tabelName} n,"user" u ,user_function uf  WHERE n.FROM_ID=u.USER_ID
+		and uf.user_id=u.USER_ID
+		and (
+		<trim suffixOverrides="OR">
+			<if test="userPriv != null and userPriv != ''">
+				(n.PRIV_ID LIKE concat(concat('%,',#{userPriv}),',%')
+				OR n.PRIV_ID LIKE concat(#{userPriv},',%')
+				)OR
+			</if>
+			<if test="deptId != null and deptId != ''">
+				(n.TO_ID LIKE concat(concat('%,',#{deptId}),',%')
+				OR n.TO_ID LIKE concat(#{deptId},',%')
+				)OR
+			</if>
+			<if test="deptIdOthers!=null and deptIdOthers!='' ">
+				<foreach collection="deptIdOthers" item="id" open="" close="" separator="or">
+					(n.TO_ID LIKE concat(concat('%,',#{id}),',%')
+					OR n.TO_ID LIKE concat(#{id},',%')
+					)
+				</foreach>
+				or
+			</if>
+			<if test="userPrivOthers!=null and userPrivOthers!='' ">
+				<foreach collection="userPrivOthers" item="id" open="" close="" separator="or">
+					(n.PRIV_ID LIKE concat(concat('%,',#{id}),',%')
+					OR n.PRIV_ID LIKE concat(#{id},',%')
+					)
+				</foreach>
+				or
+			</if>
+			<if test="userId != null and userId != ''">
+				(n.USER_ID LIKE concat(concat('%,',#{userId}),',%')
+				OR n.USER_ID LIKE concat(#{userId},',%')
+				)OR n.AUDITER = #{userId} OR
+			</if>
+			n.TO_ID='ALL_DEPT' OR
+			(uf.user_func_id_str LIKE concat(concat('%,','24'),',%')
+			OR uf.user_func_id_str LIKE concat('24',',%')
+			)OR
+		</trim>)
+		and n.NOTIFY_ID=#{notifyId}
+
+
+
+	</select>
+
+-->
+	<!-- 保存公告信息 -->
+	<insert id="addNotify" useGeneratedKeys="true" keyProperty="notifyId" parameterType="com.xoa.model.myNotify.MyNotify" >
+		<selectKey order="AFTER" keyProperty="notifyId" resultType="int">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into ${tableName}
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="fromId != null">
+				FROM_ID,
+			</if>
+			<if test="fromDept != null">
+				FROM_DEPT ,
+			</if>
+			<if test="toId != null">
+				TO_ID ,
+			</if>
+			<if test="format != null">
+				FORMAT,
+			</if>
+			<if test="typeId != null">
+				TYPE_ID ,
+			</if>
+			<if test="subject != null">
+				SUBJECT ,
+			</if>
+			<if test="sendTime != null">
+				SEND_TIME ,
+			</if>
+			<if test="content != null">
+				CONTENT ,
+			</if>
+			<if test="beginDate != null">
+				BEGIN_DATE ,
+			</if>
+			<if test="attachmentId != null">
+				ATTACHMENT_ID,
+			</if>
+			<if test="readers != null">
+				READERS ,
+			</if>
+			<if test="privId != null">
+				PRIV_ID ,
+			</if>
+			<if test="top != null">
+				TOP ,
+			</if>
+			<if test="topDays != null">
+				TOP_DAYS ,
+			</if>
+			<if test="publish != null">
+				PUBLISH ,
+			</if>
+			<if test="reason != null">
+				REASON,
+			</if>
+			<if test="compressContent != null">
+				COMPRESS_CONTENT ,
+			</if>
+			<if test="lastEditor != null">
+				LAST_EDITOR,
+			</if>
+			<if test="subjectColor != null">
+				SUBJECT_COLOR ,
+			</if>
+			<if test="keyword != null">
+				KEYWORD ,
+			</if>
+			<if test="endDate != null">
+				END_DATE ,
+			</if>
+			<if test="attachmentName != null">
+				ATTACHMENT_NAME,
+			</if>
+			<if test="print != null">
+				PRINT ,
+			</if>
+			<if test="userId != null">
+				USER_ID ,
+			</if>
+			<if test="auditer != null">
+				AUDITER ,
+			</if>
+			<if test="auditDate != null">
+				AUDIT_DATE ,
+			</if>
+			<if test="download != null">
+				DOWNLOAD ,
+			</if>
+			<if test="lastEditTime != null">
+				LAST_EDIT_TIME ,
+			</if>
+			<if test="summary != null">
+				SUMMARY ,
+			</if>
+			<if test="isFw != null">
+				IS_FW ,
+			</if>
+			<if test="howRenind !=null">
+				HOW_RENIND,
+			</if>
+			<if test="isOpin !=null">
+				IS_OPIN,
+			</if>
+			<if test="opinionFields !=null">
+				OPINION_FIELDS,
+			</if>
+			<if test="opinUsers !=null">
+				OPIN_USERS,
+			</if>
+			<if test="draftDept != null">
+				DRAFT_DEPT,
+			</if>
+			<if test="userType != null">
+				USER_TYPE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="fromId != null">
+				#{fromId},
+			</if>
+			<if test="fromDept != null">
+				#{fromDept} ,
+			</if>
+			<if test="toId != null">
+				#{toId} ,
+			</if>
+			<if test="format != null">
+				#{format},
+			</if>
+			<if test="typeId != null">
+				#{typeId} ,
+			</if>
+			<if test="subject != null">
+				#{subject} ,
+			</if>
+			<if test="sendTime != null">
+				#{sendTime},
+			</if>
+			<if test="content != null">
+				#{content} ,
+			</if>
+			<if test="beginDate != null">
+				#{beginDate} ,
+			</if>
+			<if test="attachmentId != null">
+				#{attachmentId},
+			</if>
+			<if test="readers != null">
+				#{readers} ,
+			</if>
+			<if test="privId != null">
+				#{privId },
+			</if>
+			<if test="top != null">
+				#{top} ,
+			</if>
+			<if test="topDays != null">
+				#{topDays} ,
+			</if>
+			<if test="publish != null">
+				#{publish} ,
+			</if>
+			<if test="reason != null">
+				#{reason},
+			</if>
+			<if test="compressContent != null">
+				#{compressContent} ,
+			</if>
+			<if test="lastEditor != null">
+				#{lastEditor},
+			</if>
+			<if test="subjectColor != null">
+				#{subjectColor },
+			</if>
+			<if test="keyword != null">
+				#{keyword} ,
+			</if>
+			<if test="endDate != null">
+				#{endDate} ,
+			</if>
+			<if test="attachmentName != null">
+				#{attachmentName},
+			</if>
+			<if test="print != null">
+				#{print} ,
+			</if>
+			<if test="userId != null">
+				#{userId} ,
+			</if>
+			<if test="auditer != null">
+				#{auditer} ,
+			</if>
+			<if test="auditDate != null">
+				#{auditDate} ,
+			</if>
+			<if test="download != null">
+				#{download} ,
+			</if>
+			<if test="lastEditTime != null">
+				#{lastEditTime} ,
+			</if>
+			<if test="summary != null">
+				#{summary} ,
+			</if>
+			<if test="isFw != null">
+				#{isFw} ,
+			</if>
+			<if test="howRenind!=null">
+				#{howRenind},
+			</if>
+			<if test="isOpin !=null">
+				#{isOpin},
+			</if>
+			<if test="opinionFields !=null">
+				#{opinionFields},
+			</if>
+			<if test="opinUsers !=null">
+				#{opinUsers},
+			</if>
+			<if test="draftDept != null">
+				#{draftDept},
+			</if>
+			<if test="userType != null">
+				#{userType},
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="addNotify" useGeneratedKeys="true" keyProperty="notifyId" parameterType="com.xoa.model.myNotify.MyNotify" databaseId="dm">
+		<selectKey order="AFTER" keyProperty="notifyId" resultType="int">
+			SELECT IDENT_CURRENT('NOTIFY');
+		</selectKey>
+		insert into ${tableName}
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="fromId != null">
+				FROM_ID,
+			</if>
+			<if test="fromDept != null">
+				FROM_DEPT ,
+			</if>
+			<if test="toId != null">
+				TO_ID ,
+			</if>
+			<if test="format != null">
+				FORMAT,
+			</if>
+			<if test="typeId != null">
+				TYPE_ID ,
+			</if>
+			<if test="subject != null">
+				SUBJECT ,
+			</if>
+			<if test="sendTime != null">
+				SEND_TIME ,
+			</if>
+			<if test="content != null">
+				CONTENT ,
+			</if>
+			<if test="beginDate != null">
+				BEGIN_DATE ,
+			</if>
+			<if test="attachmentId != null">
+				ATTACHMENT_ID,
+			</if>
+			<if test="readers != null">
+				READERS ,
+			</if>
+			<if test="privId != null">
+				PRIV_ID ,
+			</if>
+			<if test="top != null">
+				"TOP",
+			</if>
+			<if test="topDays != null">
+				TOP_DAYS ,
+			</if>
+			<if test="publish != null">
+				"PUBLISH",
+			</if>
+			<if test="reason != null">
+				REASON,
+			</if>
+			<if test="compressContent != null">
+				COMPRESS_CONTENT ,
+			</if>
+			<if test="lastEditor != null">
+				LAST_EDITOR,
+			</if>
+			<if test="subjectColor != null">
+				SUBJECT_COLOR ,
+			</if>
+			<if test="keyword != null">
+				KEYWORD ,
+			</if>
+			<if test="endDate != null">
+				END_DATE ,
+			</if>
+			<if test="attachmentName != null">
+				ATTACHMENT_NAME,
+			</if>
+			<if test="print != null">
+				"PRINT",
+			</if>
+			<if test="userId != null">
+				"USER_ID",
+			</if>
+			<if test="auditer != null">
+				AUDITER ,
+			</if>
+			<if test="auditDate != null">
+				AUDIT_DATE ,
+			</if>
+			<if test="download != null">
+				DOWNLOAD ,
+			</if>
+			<if test="lastEditTime != null">
+				LAST_EDIT_TIME ,
+			</if>
+			<if test="summary != null">
+				SUMMARY ,
+			</if>
+			<if test="isFw != null">
+				IS_FW ,
+			</if>
+			<if test="howRenind !=null">
+				HOW_RENIND,
+			</if>
+			<if test="isOpin !=null">
+				IS_OPIN,
+			</if>
+			<if test="opinionFields !=null">
+				OPINION_FIELDS,
+			</if>
+			<if test="opinUsers !=null">
+				OPIN_USERS,
+			</if>
+			<if test="draftDept != null">
+				DRAFT_DEPT,
+			</if>
+			<if test="userType != null">
+				USER_TYPE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="fromId != null">
+				#{fromId},
+			</if>
+			<if test="fromDept != null">
+				#{fromDept} ,
+			</if>
+			<if test="toId != null">
+				#{toId} ,
+			</if>
+			<if test="format != null">
+				#{format},
+			</if>
+			<if test="typeId != null">
+				#{typeId} ,
+			</if>
+			<if test="subject != null">
+				#{subject} ,
+			</if>
+			<if test="sendTime != null">
+				#{sendTime},
+			</if>
+			<if test="content != null">
+				#{content} ,
+			</if>
+			<if test="beginDate != null">
+				#{beginDate} ,
+			</if>
+			<if test="attachmentId != null">
+				#{attachmentId},
+			</if>
+			<if test="readers != null">
+				#{readers} ,
+			</if>
+			<if test="privId != null">
+				#{privId },
+			</if>
+			<if test="top != null">
+				#{top} ,
+			</if>
+			<if test="topDays != null">
+				#{topDays} ,
+			</if>
+			<if test="publish != null">
+				#{publish} ,
+			</if>
+			<if test="reason != null">
+				#{reason},
+			</if>
+			<if test="compressContent != null">
+				#{compressContent} ,
+			</if>
+			<if test="lastEditor != null">
+				#{lastEditor},
+			</if>
+			<if test="subjectColor != null">
+				#{subjectColor },
+			</if>
+			<if test="keyword != null">
+				#{keyword} ,
+			</if>
+			<if test="endDate != null">
+				#{endDate} ,
+			</if>
+			<if test="attachmentName != null">
+				#{attachmentName},
+			</if>
+			<if test="print != null">
+				#{print} ,
+			</if>
+			<if test="userId != null">
+				#{userId} ,
+			</if>
+			<if test="auditer != null">
+				#{auditer} ,
+			</if>
+			<if test="auditDate != null">
+				#{auditDate} ,
+			</if>
+			<if test="download != null">
+				#{download} ,
+			</if>
+			<if test="lastEditTime != null">
+				#{lastEditTime} ,
+			</if>
+			<if test="summary != null">
+				#{summary} ,
+			</if>
+			<if test="isFw != null">
+				#{isFw} ,
+			</if>
+			<if test="howRenind!=null">
+				#{howRenind},
+			</if>
+			<if test="isOpin !=null">
+				#{isOpin},
+			</if>
+			<if test="opinionFields !=null">
+				#{opinionFields},
+			</if>
+			<if test="opinUsers !=null">
+				#{opinUsers},
+			</if>
+			<if test="draftDept != null">
+				#{draftDept},
+			</if>
+			<if test="userType != null">
+				#{userType},
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="addNotify" useGeneratedKeys="true" keyProperty="notifyId" parameterType="com.xoa.model.myNotify.MyNotify" databaseId="oracle">
+		<selectKey keyProperty="notifyId"  order="BEFORE" resultType="int">
+			select NOTIFY_NOTIFY_ID_SEQ.nextval as notifyId from  dual
+		</selectKey>
+		insert into ${tableName}
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			NOTIFY_ID,
+			<if test="fromId != null">
+				FROM_ID,
+			</if>
+			<if test="fromDept != null">
+				FROM_DEPT ,
+			</if>
+			<if test="toId != null">
+				TO_ID ,
+			</if>
+			<if test="format != null">
+				FORMAT,
+			</if>
+			<if test="typeId != null">
+				TYPE_ID ,
+			</if>
+			<if test="subject != null">
+				SUBJECT ,
+			</if>
+			<if test="sendTime != null">
+				SEND_TIME ,
+			</if>
+			<if test="content != null">
+				CONTENT ,
+			</if>
+			<if test="beginDate != null">
+				BEGIN_DATE ,
+			</if>
+			<if test="attachmentId != null">
+				ATTACHMENT_ID,
+			</if>
+			<if test="readers != null">
+				READERS ,
+			</if>
+			<if test="privId != null">
+				PRIV_ID ,
+			</if>
+			<if test="top != null">
+				"TOP" ,
+			</if>
+			<if test="topDays != null">
+				TOP_DAYS ,
+			</if>
+			<if test="publish != null">
+				PUBLISH ,
+			</if>
+			<if test="reason != null">
+				REASON,
+			</if>
+			<if test="compressContent != null">
+				COMPRESS_CONTENT ,
+			</if>
+			<if test="lastEditor != null">
+				LAST_EDITOR,
+			</if>
+			<if test="subjectColor != null">
+				SUBJECT_COLOR ,
+			</if>
+			<if test="keyword != null">
+				KEYWORD ,
+			</if>
+			<if test="endDate != null">
+				END_DATE ,
+			</if>
+			<if test="attachmentName != null">
+				ATTACHMENT_NAME,
+			</if>
+			<if test="print != null">
+				"PRINT" ,
+			</if>
+			<if test="userId != null">
+				USER_ID ,
+			</if>
+			<if test="auditer != null">
+				AUDITER ,
+			</if>
+			<if test="auditDate != null">
+				AUDIT_DATE ,
+			</if>
+			<if test="download != null">
+				DOWNLOAD ,
+			</if>
+			<if test="lastEditTime != null">
+				LAST_EDIT_TIME ,
+			</if>
+			<if test="summary != null">
+				SUMMARY ,
+			</if>
+			<if test="isFw != null">
+				IS_FW ,
+			</if>
+			<if test="howRenind !=null">
+				HOW_RENIND,
+			</if>
+			<if test="draftDept != null">
+				DRAFT_DEPT,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+		     	#{notifyId},
+			<if test="fromId != null">
+				#{fromId},
+			</if>
+			<if test="fromDept != null">
+				#{fromDept} ,
+			</if>
+			<if test="toId != null">
+				#{toId} ,
+			</if>
+			<if test="format != null">
+				#{format},
+			</if>
+			<if test="typeId != null">
+				#{typeId} ,
+			</if>
+			<if test="subject != null">
+				#{subject} ,
+			</if>
+			<if test="sendTime != null">
+				#{sendTime},
+			</if>
+			<if test="content != null">
+				#{content} ,
+			</if>
+			<if test="beginDate != null">
+				#{beginDate} ,
+			</if>
+			<if test="attachmentId != null">
+				#{attachmentId},
+			</if>
+			<if test="readers != null">
+				#{readers} ,
+			</if>
+			<if test="privId != null">
+				#{privId },
+			</if>
+			<if test="top != null">
+				#{top} ,
+			</if>
+			<if test="topDays != null">
+				#{topDays} ,
+			</if>
+			<if test="publish != null">
+				#{publish} ,
+			</if>
+			<if test="reason != null">
+				#{reason},
+			</if>
+			<if test="compressContent != null">
+				#{compressContent} ,
+			</if>
+			<if test="lastEditor != null">
+				#{lastEditor},
+			</if>
+			<if test="subjectColor != null">
+				#{subjectColor },
+			</if>
+			<if test="keyword != null">
+				#{keyword} ,
+			</if>
+			<if test="endDate != null">
+				#{endDate} ,
+			</if>
+			<if test="attachmentName != null">
+				#{attachmentName},
+			</if>
+			<if test="print != null">
+				#{print} ,
+			</if>
+			<if test="userId != null">
+				#{userId} ,
+			</if>
+			<if test="auditer != null">
+				#{auditer} ,
+			</if>
+			<if test="auditDate != null">
+				#{auditDate} ,
+			</if>
+			<if test="download != null">
+				#{download} ,
+			</if>
+			<if test="lastEditTime != null">
+				#{lastEditTime} ,
+			</if>
+			<if test="summary != null">
+				#{summary} ,
+			</if>
+			<if test="isFw != null">
+				#{isFw} ,
+			</if>
+			<if test="howRenind !=null">
+				#{howRenind},
+			</if>
+			<if test="draftDept != null">
+				#{draftDept},
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="addNotify" useGeneratedKeys="true" keyProperty="notifyId" parameterType="com.xoa.model.myNotify.MyNotify" databaseId="kingbase">
+		<selectKey keyProperty="notifyId"  order="BEFORE" resultType="int">
+			select NOTIFY_NOTIFY_ID_SEQ.nextval as notifyId from  dual
+		</selectKey>
+		insert into ${tableName}
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			NOTIFY_ID,
+			<if test="fromId != null">
+				FROM_ID,
+			</if>
+			<if test="fromDept != null">
+				FROM_DEPT ,
+			</if>
+			<if test="toId != null">
+				TO_ID ,
+			</if>
+			<if test="format != null">
+				FORMAT,
+			</if>
+			<if test="typeId != null">
+				TYPE_ID ,
+			</if>
+			<if test="subject != null">
+				SUBJECT ,
+			</if>
+			<if test="sendTime != null">
+				SEND_TIME ,
+			</if>
+			<if test="content != null">
+				CONTENT ,
+			</if>
+			<if test="beginDate != null">
+				BEGIN_DATE ,
+			</if>
+			<if test="attachmentId != null">
+				ATTACHMENT_ID,
+			</if>
+			<if test="readers != null">
+				READERS ,
+			</if>
+			<if test="privId != null">
+				PRIV_ID ,
+			</if>
+			<if test="top != null">
+				"TOP" ,
+			</if>
+			<if test="topDays != null">
+				TOP_DAYS ,
+			</if>
+			<if test="publish != null">
+				PUBLISH ,
+			</if>
+			<if test="reason != null">
+				REASON,
+			</if>
+			<if test="compressContent != null">
+				COMPRESS_CONTENT ,
+			</if>
+			<if test="lastEditor != null">
+				LAST_EDITOR,
+			</if>
+			<if test="subjectColor != null">
+				SUBJECT_COLOR ,
+			</if>
+			<if test="keyword != null">
+				KEYWORD ,
+			</if>
+			<if test="endDate != null">
+				END_DATE ,
+			</if>
+			<if test="attachmentName != null">
+				ATTACHMENT_NAME,
+			</if>
+			<if test="print != null">
+				"PRINT" ,
+			</if>
+			<if test="userId != null">
+				USER_ID ,
+			</if>
+			<if test="auditer != null">
+				AUDITER ,
+			</if>
+			<if test="auditDate != null">
+				AUDIT_DATE ,
+			</if>
+			<if test="download != null">
+				DOWNLOAD ,
+			</if>
+			<if test="lastEditTime != null">
+				LAST_EDIT_TIME ,
+			</if>
+			<if test="summary != null">
+				SUMMARY ,
+			</if>
+			<if test="isFw != null">
+				IS_FW ,
+			</if>
+			<if test="howRenind !=null">
+				HOW_RENIND,
+			</if>
+			<if test="isOpin !=null">
+				IS_OPIN,
+			</if>
+			<if test="opinionFields !=null">
+				OPINION_FIELDS,
+			</if>
+			<if test="opinUsers !=null">
+				OPIN_USERS,
+			</if>
+			<if test="draftDept != null">
+				DRAFT_DEPT,
+			</if>
+			<if test="userType != null">
+				USER_TYPE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			#{notifyId},
+			<if test="fromId != null">
+				#{fromId},
+			</if>
+			<if test="fromDept != null">
+				#{fromDept} ,
+			</if>
+			<if test="toId != null">
+				#{toId} ,
+			</if>
+			<if test="format != null">
+				#{format},
+			</if>
+			<if test="typeId != null">
+				#{typeId} ,
+			</if>
+			<if test="subject != null">
+				#{subject} ,
+			</if>
+			<if test="sendTime != null">
+				#{sendTime},
+			</if>
+			<if test="content != null">
+				#{content} ,
+			</if>
+			<if test="beginDate != null">
+				#{beginDate} ,
+			</if>
+			<if test="attachmentId != null">
+				#{attachmentId},
+			</if>
+			<if test="readers != null">
+				#{readers} ,
+			</if>
+			<if test="privId != null">
+				#{privId },
+			</if>
+			<if test="top != null">
+				#{top} ,
+			</if>
+			<if test="topDays != null">
+				#{topDays} ,
+			</if>
+			<if test="publish != null">
+				#{publish} ,
+			</if>
+			<if test="reason != null">
+				#{reason},
+			</if>
+			<if test="compressContent != null">
+				#{compressContent} ,
+			</if>
+			<if test="lastEditor != null">
+				#{lastEditor},
+			</if>
+			<if test="subjectColor != null">
+				#{subjectColor },
+			</if>
+			<if test="keyword != null">
+				#{keyword} ,
+			</if>
+			<if test="endDate != null">
+				#{endDate} ,
+			</if>
+			<if test="attachmentName != null">
+				#{attachmentName},
+			</if>
+			<if test="print != null">
+				#{print} ,
+			</if>
+			<if test="userId != null">
+				#{userId} ,
+			</if>
+			<if test="auditer != null">
+				#{auditer} ,
+			</if>
+			<if test="auditDate != null">
+				#{auditDate} ,
+			</if>
+			<if test="download != null">
+				#{download} ,
+			</if>
+			<if test="lastEditTime != null">
+				#{lastEditTime} ,
+			</if>
+			<if test="summary != null">
+				#{summary} ,
+			</if>
+			<if test="isFw != null">
+				#{isFw} ,
+			</if>
+			<if test="howRenind !=null">
+				#{howRenind},
+			</if>
+			<if test="isOpin !=null">
+				#{isOpin},
+			</if>
+			<if test="opinionFields !=null">
+				#{opinionFields},
+			</if>
+			<if test="opinUsers !=null">
+				#{opinUsers},
+			</if>
+			<if test="draftDept != null">
+				#{draftDept},
+			</if>
+			<if test="userType != null">
+				#{userType},
+			</if>
+		</trim>
+	</insert>
+
+	<!--根据Id修改公告 -->
+	<update id="updateNotify" parameterType="com.xoa.model.myNotify.MyNotify">
+		update ${tableName}
+		<set >
+			<trim suffixOverrides=",">
+				<if test="fromId != null and fromId != ''">
+					FROM_ID = #{fromId},
+				</if>
+				<if test="fromDept != null and fromDept != ''">
+					FROM_DEPT = #{fromDept},
+				</if>
+				<if test="toId != null and toId != ''">
+					TO_ID = #{toId},
+				</if>
+				<if test="format != null and format != ''">
+					FORMAT = #{format},
+				</if>
+					TYPE_ID = #{typeId},
+				<if test="subject != null and subject != ''">
+					SUBJECT = #{subject},
+				</if>
+				<if test="sendTime != null">
+					SEND_TIME = #{sendTime},
+				</if>
+				<if test="content != null and content != ''">
+					CONTENT = #{content},
+				</if>
+				<if test="beginDate != null and beginDate != ''">
+					BEGIN_DATE = #{beginDate},
+				</if>
+				<if test="attachmentId != null ">
+					ATTACHMENT_ID = #{attachmentId},
+				</if>
+
+				READERS = #{readers},
+
+				<if test="privId != null and privId != ''">
+					PRIV_ID = #{privId},
+				</if>
+				<if test="top != null and top != ''">
+					TOP = #{top},
+				</if>
+				<if test="topDays != null and topDays != ''">
+					TOP_DAYS = #{topDays},
+				</if>
+				<if test="publish != null and publish != ''">
+					PUBLISH = #{publish},
+				</if>
+				<if test="reason != null and reason != '' ">
+					REASON = #{reason},
+				</if>
+				<if test="compressContent != null and compressContent != ''">
+					COMPRESS_CONTENT = #{compressContent},
+				</if>
+				<if test="lastEditor != null and lastEditor != ''">
+					LAST_EDITOR = #{lastEditor},
+				</if>
+				<if test="subjectColor != null and subjectColor != ''">
+					SUBJECT_COLOR = #{subjectColor},
+				</if>
+				<if test="keyword != null and keyword != ''">
+					KEYWORD = #{keyword},
+				</if>
+				<if test="endDate != null">
+					END_DATE = #{endDate},
+				</if>
+				<if test="attachmentName != null ">
+					ATTACHMENT_NAME = #{attachmentName},
+				</if>
+				<if test="print != null and print != ''">
+					PRINT = #{print},
+				</if>
+				<if test="userId != null and userId != ''">
+					USER_ID = #{userId},
+				</if>
+				<if test="auditer != null and auditer != ''">
+					AUDITER = #{auditer},
+				</if>
+				<if test="auditDate != null">
+					AUDIT_DATE = #{auditDate},
+				</if>
+				<if test="download != null and download != ''">
+					DOWNLOAD = #{download},
+				</if>
+				<if test="lastEditTime != null">
+					LAST_EDIT_TIME = #{lastEditTime},
+				</if>
+				<if test="summary != null and summary != ''">
+					SUMMARY = #{summary},
+				</if>
+				<if test="isFw != null and isFw != ''">
+					IS_FW = #{isFw},
+				</if>
+				<if test="howRenind !=null and howRenind!=''">
+					HOW_RENIND =#{howRenind},
+				</if>
+				<if test="isOpin !=null and isOpin!=''">
+					IS_OPIN =#{isOpin},
+				</if>
+				<if test="opinionFields !=null and opinionFields!=''">
+					OPINION_FIELDS =#{opinionFields},
+				</if>
+				<if test="opinUsers !=null">
+					OPIN_USERS =#{opinUsers},
+				</if>
+					DRAFT_DEPT = #{draftDept},
+				<if test="userType != null">
+					USER_TYPE =#{userType},
+				</if>
+			</trim>
+			where NOTIFY_ID = #{notifyId}
+		</set>
+	</update>
+
+	<update id="updateNotify" parameterType="com.xoa.model.myNotify.MyNotify" databaseId="dm">
+		update notify
+		<set >
+			<trim suffixOverrides=",">
+				<if test="fromId != null and fromId != ''">
+					FROM_ID = #{fromId},
+				</if>
+				<if test="fromDept != null and fromDept != ''">
+					FROM_DEPT = #{fromDept},
+				</if>
+				<if test="toId != null and toId != ''">
+					TO_ID = #{toId},
+				</if>
+				<if test="format != null and format != ''">
+					FORMAT = #{format},
+				</if>
+				<if test="typeId != null and typeId != ''">
+					TYPE_ID = #{typeId},
+				</if>
+				<if test="subject != null and subject != ''">
+					SUBJECT = #{subject},
+				</if>
+				<if test="sendTime != null and sendTime != ''">
+					SEND_TIME = #{sendTime},
+				</if>
+				<if test="content != null and content != ''">
+					CONTENT = #{content},
+				</if>
+				<if test="beginDate != null and beginDate != ''">
+					BEGIN_DATE = #{beginDate},
+				</if>
+				<if test="attachmentId != null ">
+					ATTACHMENT_ID = #{attachmentId},
+				</if>
+
+				READERS = #{readers},
+
+				<if test="privId != null and privId != ''">
+					PRIV_ID = #{privId},
+				</if>
+				<if test="top != null and top != ''">
+					"TOP" = #{top},
+				</if>
+				<if test="topDays != null and topDays != ''">
+					TOP_DAYS = #{topDays},
+				</if>
+				<if test="publish != null and publish != ''">
+					PUBLISH = #{publish},
+				</if>
+				<if test="reason != null and reason != '' ">
+					REASON = #{reason},
+				</if>
+				<if test="compressContent != null and compressContent != ''">
+					COMPRESS_CONTENT = #{compressContent},
+				</if>
+				<if test="lastEditor != null and lastEditor != ''">
+					LAST_EDITOR = #{lastEditor},
+				</if>
+				<if test="subjectColor != null and subjectColor != ''">
+					SUBJECT_COLOR = #{subjectColor},
+				</if>
+				<if test="keyword != null and keyword != ''">
+					KEYWORD = #{keyword},
+				</if>
+				<if test="endDate != null and endDate != ''">
+					END_DATE = #{endDate},
+				</if>
+				<if test="attachmentName != null ">
+					ATTACHMENT_NAME = #{attachmentName},
+				</if>
+				<if test="print != null and print != ''">
+					PRINT = #{print},
+				</if>
+				<if test="userId != null and userId != ''">
+					USER_ID = #{userId},
+				</if>
+				<if test="auditer != null and auditer != ''">
+					AUDITER = #{auditer},
+				</if>
+				<if test="auditDate != null and auditDate != ''">
+					AUDIT_DATE = #{auditDate},
+				</if>
+				<if test="download != null and download != ''">
+					DOWNLOAD = #{download},
+				</if>
+				<if test="lastEditTime != null and lastEditTime != ''">
+					LAST_EDIT_TIME = #{lastEditTime},
+				</if>
+				<if test="summary != null and summary != ''">
+					SUMMARY = #{summary},
+				</if>
+				<if test="isFw != null and isFw != ''">
+					IS_FW = #{isFw},
+				</if>
+				<if test="howRenind !=null and howRenind!=''">
+					HOW_RENIND =#{howRenind},
+				</if>
+				DRAFT_DEPT = #{draftDept},
+				<if test="userType != null">
+					USER_TYPE = #{userType},
+				</if>
+			</trim>
+			where NOTIFY_ID = #{notifyId}
+		</set>
+	</update>
+
+	<update id="updateNotify" parameterType="com.xoa.model.myNotify.MyNotify" databaseId="kingbase">
+		update ${tableName}
+		<set >
+			<trim suffixOverrides=",">
+				<if test="fromId != null and fromId != ''">
+					FROM_ID = #{fromId},
+				</if>
+				<if test="fromDept != null and fromDept != ''">
+					FROM_DEPT = #{fromDept},
+				</if>
+				<if test="toId != null and toId != ''">
+					TO_ID = #{toId},
+				</if>
+				<if test="format != null and format != ''">
+					FORMAT = #{format},
+				</if>
+				TYPE_ID = #{typeId},
+				<if test="subject != null and subject != ''">
+					SUBJECT = #{subject},
+				</if>
+				<if test="sendTime != null">
+					SEND_TIME = #{sendTime},
+				</if>
+				<if test="content != null and content != ''">
+					CONTENT = #{content},
+				</if>
+				<if test="beginDate != null and beginDate != ''">
+					BEGIN_DATE = #{beginDate},
+				</if>
+				<if test="attachmentId != null ">
+					ATTACHMENT_ID = #{attachmentId},
+				</if>
+
+				READERS = #{readers},
+
+				<if test="privId != null and privId != ''">
+					PRIV_ID = #{privId},
+				</if>
+				<if test="top != null and top != ''">
+					"TOP" = #{top},
+				</if>
+				<if test="topDays != null and topDays != ''">
+					TOP_DAYS = #{topDays},
+				</if>
+				<if test="publish != null and publish != ''">
+					PUBLISH = #{publish},
+				</if>
+				<if test="reason != null and reason != '' ">
+					REASON = #{reason},
+				</if>
+				<if test="compressContent != null and compressContent != ''">
+					COMPRESS_CONTENT = #{compressContent},
+				</if>
+				<if test="lastEditor != null and lastEditor != ''">
+					LAST_EDITOR = #{lastEditor},
+				</if>
+				<if test="subjectColor != null and subjectColor != ''">
+					SUBJECT_COLOR = #{subjectColor},
+				</if>
+				<if test="keyword != null and keyword != ''">
+					KEYWORD = #{keyword},
+				</if>
+				<if test="endDate != null">
+					END_DATE = #{endDate},
+				</if>
+				<if test="attachmentName != null ">
+					ATTACHMENT_NAME = #{attachmentName},
+				</if>
+				<if test="print != null and print != ''">
+					PRINT = #{print},
+				</if>
+				<if test="userId != null and userId != ''">
+					USER_ID = #{userId},
+				</if>
+				<if test="auditer != null and auditer != ''">
+					AUDITER = #{auditer},
+				</if>
+				<if test="auditDate != null">
+					AUDIT_DATE = #{auditDate},
+				</if>
+				<if test="download != null and download != ''">
+					DOWNLOAD = #{download},
+				</if>
+				<if test="lastEditTime != null">
+					LAST_EDIT_TIME = #{lastEditTime},
+				</if>
+				<if test="summary != null and summary != ''">
+					SUMMARY = #{summary},
+				</if>
+				<if test="isFw != null and isFw != ''">
+					IS_FW = #{isFw},
+				</if>
+				<if test="howRenind !=null and howRenind!=''">
+					HOW_RENIND =#{howRenind},
+				</if>
+				<if test="isOpin !=null and isOpin!=''">
+					IS_OPIN =#{isOpin},
+				</if>
+				<if test="opinionFields !=null and opinionFields!=''">
+					OPINION_FIELDS =#{opinionFields},
+				</if>
+				<if test="opinUsers !=null">
+					OPIN_USERS =#{opinUsers},
+				</if>
+				DRAFT_DEPT = #{draftDept},
+				<if test="userType != null">
+					USER_TYPE =#{userType},
+				</if>
+			</trim>
+			where NOTIFY_ID = #{notifyId}
+		</set>
+	</update>
+
+	<!--根据Id修改公告 -->
+	<update id="updateNotifyStatus" parameterType="com.xoa.model.myNotify.MyNotify">
+		update ${tableName}
+		<set >
+			<trim suffixOverrides=",">
+				<if test="fromId != null and fromId != ''">
+					FROM_ID = #{fromId},
+				</if>
+				<if test="fromDept != null and fromDept != ''">
+					FROM_DEPT = #{fromDept},
+				</if>
+				<if test="toId != null and toId != ''">
+					TO_ID = #{toId},
+				</if>
+				<if test="format != null and format != ''">
+					FORMAT = #{format},
+				</if>
+				TYPE_ID = #{typeId},
+				<if test="subject != null and subject != ''">
+					SUBJECT = #{subject},
+				</if>
+				<if test="sendTime != null">
+					SEND_TIME = #{sendTime},
+				</if>
+				<if test="content != null and content != ''">
+					CONTENT = #{content},
+				</if>
+				<if test="beginDate != null">
+					BEGIN_DATE = #{beginDate},
+				</if>
+				<if test="privId != null and privId != ''">
+					PRIV_ID = #{privId},
+				</if>
+				<if test="top != null and top != ''">
+					TOP = #{top},
+				</if>
+				<if test="topDays != null and topDays != ''">
+					TOP_DAYS = #{topDays},
+				</if>
+				<if test="publish != null and publish != ''">
+					PUBLISH = #{publish},
+				</if>
+				<if test="reason != null and reason != '' ">
+					REASON = #{reason},
+				</if>
+				<if test="compressContent != null and compressContent != ''">
+					COMPRESS_CONTENT = #{compressContent},
+				</if>
+				<if test="lastEditor != null and lastEditor != ''">
+					LAST_EDITOR = #{lastEditor},
+				</if>
+				<if test="subjectColor != null and subjectColor != ''">
+					SUBJECT_COLOR = #{subjectColor},
+				</if>
+				<if test="keyword != null and keyword != ''">
+					KEYWORD = #{keyword},
+				</if>
+				<if test="endDate != null">
+					END_DATE = #{endDate},
+				</if>
+				<if test="print != null and print != ''">
+					PRINT = #{print},
+				</if>
+				<if test="userId != null and userId != ''">
+					USER_ID = #{userId},
+				</if>
+				<if test="auditer != null and auditer != ''">
+					AUDITER = #{auditer},
+				</if>
+				<if test="auditDate != null">
+					AUDIT_DATE = #{auditDate},
+				</if>
+				<if test="download != null and download != ''">
+					DOWNLOAD = #{download},
+				</if>
+				<if test="lastEditTime != null">
+					LAST_EDIT_TIME = #{lastEditTime},
+				</if>
+				<if test="summary != null and summary != ''">
+					SUMMARY = #{summary},
+				</if>
+				<if test="isFw != null and isFw != ''">
+					IS_FW = #{isFw},
+				</if>
+				<if test="howRenind !=null and howRenind!=''">
+					HOW_RENIND =#{howRenind},
+				</if>
+				DRAFT_DEPT = #{draftDept},
+				<if test="userType != null">
+					USER_TYPE = #{userType},
+				</if>
+			</trim>
+			where NOTIFY_ID = #{notifyId}
+		</set>
+	</update>
+
+	<update id="updateNotifyStatus" parameterType="com.xoa.model.myNotify.MyNotify" databaseId="dm">
+		update ${tableName}
+		<set >
+			<trim suffixOverrides=",">
+				<if test="fromId != null and fromId != ''">
+					FROM_ID = #{fromId},
+				</if>
+				<if test="fromDept != null and fromDept != ''">
+					FROM_DEPT = #{fromDept},
+				</if>
+				<if test="toId != null and toId != ''">
+					TO_ID = #{toId},
+				</if>
+				<if test="format != null and format != ''">
+					FORMAT = #{format},
+				</if>
+				<if test="typeId != null and typeId != ''">
+					TYPE_ID = #{typeId},
+				</if>
+				<if test="subject != null and subject != ''">
+					SUBJECT = #{subject},
+				</if>
+				<if test="sendTime != null and sendTime != ''">
+					SEND_TIME = #{sendTime},
+				</if>
+				<if test="content != null and content != ''">
+					CONTENT = #{content},
+				</if>
+				<if test="beginDate != null and beginDate != ''">
+					BEGIN_DATE = #{beginDate},
+				</if>
+
+				<if test="privId != null and privId != ''">
+					PRIV_ID = #{privId},
+				</if>
+				<if test="top != null and top != ''">
+					"TOP" = #{top},
+				</if>
+				<if test="topDays != null and topDays != ''">
+					TOP_DAYS = #{topDays},
+				</if>
+				<if test="publish != null and publish != ''">
+					PUBLISH = #{publish},
+				</if>
+				<if test="reason != null and reason != '' ">
+					REASON = #{reason},
+				</if>
+				<if test="compressContent != null and compressContent != ''">
+					COMPRESS_CONTENT = #{compressContent},
+				</if>
+				<if test="lastEditor != null and lastEditor != ''">
+					LAST_EDITOR = #{lastEditor},
+				</if>
+				<if test="subjectColor != null and subjectColor != ''">
+					SUBJECT_COLOR = #{subjectColor},
+				</if>
+				<if test="keyword != null and keyword != ''">
+					KEYWORD = #{keyword},
+				</if>
+				<if test="endDate != null and endDate != ''">
+					END_DATE = #{endDate},
+				</if>
+				<if test="print != null and print != ''">
+					PRINT = #{print},
+				</if>
+				<if test="userId != null and userId != ''">
+					USER_ID = #{userId},
+				</if>
+				<if test="auditer != null and auditer != ''">
+					AUDITER = #{auditer},
+				</if>
+				<if test="auditDate != null and auditDate != ''">
+					AUDIT_DATE = #{auditDate},
+				</if>
+				<if test="download != null and download != ''">
+					DOWNLOAD = #{download},
+				</if>
+				<if test="lastEditTime != null and lastEditTime != ''">
+					LAST_EDIT_TIME = #{lastEditTime},
+				</if>
+				<if test="summary != null and summary != ''">
+					SUMMARY = #{summary},
+				</if>
+				<if test="isFw != null and isFw != ''">
+					IS_FW = #{isFw},
+				</if>
+				<if test="howRenind !=null and howRenind!=''">
+					HOW_RENIND =#{howRenind},
+				</if>
+				DRAFT_DEPT = #{draftDept},
+				<if test="userType != null">
+					USER_TYPE = #{userType},
+				</if>
+			</trim>
+			where NOTIFY_ID = #{notifyId}
+		</set>
+	</update>
+
+	<!--根据Id修改公告 -->
+	<update id="newUpdateNotify" parameterType="com.xoa.model.myNotify.MyNotify">
+		update ${tableName}
+		<set >
+			<trim suffixOverrides=",">
+				<if test="fromId != null and fromId != ''">
+					FROM_ID = #{fromId},
+				</if>
+				<if test="fromDept != null and fromDept != ''">
+					FROM_DEPT = #{fromDept},
+				</if>
+				<if test="toId != null">
+					TO_ID = #{toId},
+				</if>
+				<if test="format != null and format != ''">
+					FORMAT = #{format},
+				</if>
+				TYPE_ID = #{typeId},
+				<if test="subject != null and subject != ''">
+					SUBJECT = #{subject},
+				</if>
+				<if test="sendTime != null">
+					SEND_TIME = #{sendTime},
+				</if>
+				<if test="content != null and content != ''">
+					CONTENT = #{content},
+				</if>
+				<if test="beginDate != null and beginDate != ''">
+					BEGIN_DATE = #{beginDate},
+				</if>
+				<if test="attachmentId != null ">
+					ATTACHMENT_ID = #{attachmentId},
+				</if>
+
+				READERS = #{readers},
+
+				<if test="privId != null ">
+					PRIV_ID = #{privId},
+				</if>
+				<if test="top != null and top != ''">
+					TOP = #{top},
+				</if>
+				<if test="topDays != null and topDays != ''">
+					TOP_DAYS = #{topDays},
+				</if>
+				<if test="publish != null and publish != ''">
+					PUBLISH = #{publish},
+				</if>
+				<if test="reason != null and reason != '' ">
+					REASON = #{reason},
+				</if>
+				<if test="compressContent != null and compressContent != ''">
+					COMPRESS_CONTENT = #{compressContent},
+				</if>
+				<if test="lastEditor != null and lastEditor != ''">
+					LAST_EDITOR = #{lastEditor},
+				</if>
+				<if test="subjectColor != null and subjectColor != ''">
+					SUBJECT_COLOR = #{subjectColor},
+				</if>
+				<if test="keyword != null and keyword != ''">
+					KEYWORD = #{keyword},
+				</if>
+
+					END_DATE = #{endDate},
+
+				<if test="attachmentName != null ">
+					ATTACHMENT_NAME = #{attachmentName},
+				</if>
+				<if test="print != null and print != ''">
+					PRINT = #{print},
+				</if>
+				<if test="userId != null">
+					USER_ID = #{userId},
+				</if>
+				<if test="auditer != null and auditer != ''">
+					AUDITER = #{auditer},
+				</if>
+				<if test="auditDate != null">
+					AUDIT_DATE = #{auditDate},
+				</if>
+				<if test="download != null and download != ''">
+					DOWNLOAD = #{download},
+				</if>
+				<if test="lastEditTime != null ">
+					LAST_EDIT_TIME = #{lastEditTime},
+				</if>
+				<if test="summary != null and summary != ''">
+					SUMMARY = #{summary},
+				</if>
+				<if test="isFw != null and isFw != ''">
+					IS_FW = #{isFw},
+				</if>
+				<if test="howRenind !=null">
+					HOW_RENIND =#{howRenind},
+				</if>
+				<if test="isOpin !=null">
+					IS_OPIN = #{isOpin},
+				</if>
+				<if test="opinionFields !=null">
+					OPINION_FIELDS = #{opinionFields},
+				</if>
+					DRAFT_DEPT = #{draftDept},
+				<if test="userType != null">
+					USER_TYPE = #{userType},
+				</if>
+			</trim>
+			where NOTIFY_ID = #{notifyId}
+		</set>
+	</update>
+
+	<update id="newUpdateNotify" parameterType="com.xoa.model.myNotify.MyNotify" databaseId="dm">
+		update ${tableName}
+		<set >
+			<trim suffixOverrides=",">
+				<if test="fromId != null and fromId != ''">
+					FROM_ID = #{fromId},
+				</if>
+				<if test="fromDept != null and fromDept != ''">
+					FROM_DEPT = #{fromDept},
+				</if>
+				<if test="toId != null and toId != ''">
+					TO_ID = #{toId},
+				</if>
+				<if test="format != null and format != ''">
+					FORMAT = #{format},
+				</if>
+				<if test="typeId != null and typeId != ''">
+					TYPE_ID = #{typeId},
+				</if>
+				<if test="subject != null and subject != ''">
+					SUBJECT = #{subject},
+				</if>
+				<if test="sendTime != null and sendTime != ''">
+					SEND_TIME = #{sendTime},
+				</if>
+				<if test="content != null and content != ''">
+					CONTENT = #{content},
+				</if>
+				<if test="beginDate != null and beginDate != ''">
+					BEGIN_DATE = #{beginDate},
+				</if>
+				<if test="attachmentId != null ">
+					ATTACHMENT_ID = #{attachmentId},
+				</if>
+
+				READERS = #{readers},
+
+				<if test="privId != null and privId != ''">
+					PRIV_ID = #{privId},
+				</if>
+				<if test="top != null and top != ''">
+					"TOP" = #{top},
+				</if>
+				<if test="topDays != null and topDays != ''">
+					TOP_DAYS = #{topDays},
+				</if>
+				<if test="publish != null and publish != ''">
+					PUBLISH = #{publish},
+				</if>
+				<if test="reason != null and reason != '' ">
+					REASON = #{reason},
+				</if>
+				<if test="compressContent != null and compressContent != ''">
+					COMPRESS_CONTENT = #{compressContent},
+				</if>
+				<if test="lastEditor != null and lastEditor != ''">
+					LAST_EDITOR = #{lastEditor},
+				</if>
+				<if test="subjectColor != null and subjectColor != ''">
+					SUBJECT_COLOR = #{subjectColor},
+				</if>
+				<if test="keyword != null and keyword != ''">
+					KEYWORD = #{keyword},
+				</if>
+				<if test="endDate != null and endDate != ''">
+					END_DATE = #{endDate},
+				</if>
+				<if test="attachmentName != null ">
+					ATTACHMENT_NAME = #{attachmentName},
+				</if>
+				<if test="print != null and print != ''">
+					PRINT = #{print},
+				</if>
+				<if test="userId != null and userId != ''">
+					USER_ID = #{userId},
+				</if>
+				<if test="auditer != null and auditer != ''">
+					AUDITER = #{auditer},
+				</if>
+				<if test="auditDate != null and auditDate != ''">
+					AUDIT_DATE = #{auditDate},
+				</if>
+				<if test="download != null and download != ''">
+					DOWNLOAD = #{download},
+				</if>
+				<if test="lastEditTime != null and lastEditTime != ''">
+					LAST_EDIT_TIME = #{lastEditTime},
+				</if>
+				<if test="summary != null and summary != ''">
+					SUMMARY = #{summary},
+				</if>
+				<if test="isFw != null and isFw != ''">
+					IS_FW = #{isFw},
+				</if>
+				<if test="howRenind !=null and howRenind!=''">
+					HOW_RENIND =#{howRenind},
+				</if>
+					DRAFT_DEPT = #{draftDept},
+				<if test="userType != null">
+					USER_TYPE = #{userType},
+				</if>
+			</trim>
+			where NOTIFY_ID = #{notifyId}
+		</set>
+	</update>
+
+
+	<update id="updateReaders" parameterType="com.xoa.model.myNotify.MyNotify">
+		update ${tableName} set READERS = #{readers} where NOTIFY_ID = #{notifyId}
+	</update>
+
+	<update id="updatePublish" parameterType="com.xoa.model.myNotify.MyNotify">
+		update ${tableName} set PUBLISH = #{publish} where NOTIFY_ID = #{notifyId}
+	</update>
+
+	<!-- 根据id删除 -->
+	<delete id="deleteById" parameterType="com.xoa.model.myNotify.MyNotify">
+		delete from  $(tableName)   where
+		NOTIFY_ID = #{notifyId}
+	</delete>
+
+	<delete id="deleteByids"   parameterType="string">
+		DELETE FROM ${tableName} WHERE NOTIFY_ID in
+		<foreach item="ids" collection="ids" open="(" separator="," close=")">
+			#{ids}
+		</foreach>
+	</delete>
+	<delete id="deleteById1">
+		DELETE FROM ${tableName} WHERE NOTIFY_ID =#{notifyId}
+	</delete>
+	<update id="updateByIds"  parameterType="string">
+		UPDATE ${tableName}  set
+		<if test="top != null and top != ''">
+			TOP = #{top}
+		</if>
+		WHERE  NOTIFY_ID in
+		<foreach item="id" collection="ids" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</update>
+
+
+	<select id="getNotifyGroupFromDept" resultMap="DeptResultMap"  parameterType="com.xoa.model.myNotify.MyNotify">
+		select *
+		from department
+		where dept_id in
+		(select  FROM_DEPT from ${tableName}
+		<where>
+			<if test="sendTimeStr!=null and sendTimeStr!=''">
+				and  DATE(SEND_TIME)=#{sendTimeStr}
+			</if>
+			<if test="beginTime!=null and beginTime!=''">
+				and SEND_TIME &gt;= #{beginTime}
+			</if>
+			<if test="endTime!=null and endTime!=''">
+				and #{endTime} >= SEND_TIME
+			</if>
+			<!--<if test="beginTime != null and beginTime != '' and endTime != null and endTime != ''">
+                AND DATE(SEND_TIME) between #{beginTime} and #{endTime}
+            </if>-->
+			<if test="fromDept!=null and fromDept!=0">
+				and FROM_DEPT=#{fromDept}
+			</if>
+		</where>
+		group by FROM_DEPT
+		)
+	</select>
+
+	<select id="getNotifyGroupFromDept" resultMap="DeptResultMap"  parameterType="com.xoa.model.myNotify.MyNotify" databaseId="dm">
+		select *
+		from department
+		where dept_id in
+		(select  FROM_DEPT from ${tableName}
+		<where>
+			<if test="sendTimeStr!=null and sendTimeStr!=''">
+				and  DATE(SEND_TIME)=#{sendTimeStr}
+			</if>
+			<if test="beginTime!=null and beginTime!=''">
+				and  SEND_TIME  &gt;= #{beginTime}
+			</if>
+			<if test="endTime!=null and endTime!=''">
+				and  SEND_TIME  &lt;= #{endTime}
+			</if>
+			<!--<if test="beginTime != null and beginTime != '' and endTime != null and endTime != ''">
+                AND DATE(SEND_TIME) between #{beginTime} and #{endTime}
+            </if>-->
+			<if test="fromDept!=null and fromDept!=0">
+				and FROM_DEPT=#{fromDept}
+			</if>
+		</where>
+		group by FROM_DEPT
+		)
+	</select>
+
+	<select id="getCountByFromDept" parameterType="com.xoa.model.myNotify.MyNotify" resultType="Integer">
+		select count(*) from ${tableName} where FROM_DEPT=#{fromDept}
+		<if test="sendTimeStr!=null and sendTimeStr!=''">
+			and  DATE(SEND_TIME)=#{sendTimeStr}
+		</if>
+		<if test="beginTime!=null and beginTime!=''">
+			and SEND_TIME &gt;= #{beginTime}
+		</if>
+		<if test="endTime!=null and endTime!=''">
+			and SEND_TIME &lt;= #{endTime}
+		</if>
+	</select>
+
+	<select id="getCountByFromDept" parameterType="com.xoa.model.myNotify.MyNotify" resultType="Integer" databaseId="dm">
+		select count(*) from ${tabelName} where FROM_DEPT=#{fromDept}
+		<if test="sendTimeStr!=null and sendTimeStr!=''">
+			and  DATE(SEND_TIME)=#{sendTimeStr}
+		</if>
+		<if test="beginTime!=null and beginTime!=''">
+			and SEND_TIME &gt;= #{beginTime}
+		</if>
+		<if test="endTime!=null and endTime!=''">
+			and SEND_TIME &lt;= #{endTime}
+		</if>
+	</select>
+
+	<select id="getNotifyByFromDept" resultMap="BaseResultMap" parameterType="com.xoa.model.myNotify.MyNotify">
+		select DISTINCT FROM_ID,FROM_DEPT  from ${tableName}
+		<where>
+			<if test="sendTime!=null">
+				and  DATE(SEND_TIME)=#{sendTime}
+			</if>
+			<if test="beginTime!=null">
+				and DATE(SEND_TIME) &gt;= #{beginTime}
+			</if>
+			<if test="endTime!=null">
+				and DATE(SEND_TIME) &lt;= #{endTime}
+			</if>
+			<if test="fromDept!=null and fromDept!=0">
+				and FROM_DEPT=#{fromDept}
+			</if>
+		</where>
+	</select>
+
+	<select id="getCountByFromIdAndDept" resultType="Integer"  parameterType="com.xoa.model.myNotify.MyNotify">
+		select count(*)  from ${tableName} WHERE FROM_DEPT=#{fromDept} and FROM_ID=#{fromId}
+		<if test="sendTime!=null">
+			and  DATE(SEND_TIME)=#{sendTime}
+		</if>
+		<if test="beginTime!=null">
+			and DATE(SEND_TIME) &gt;= #{beginTime}
+		</if>
+		<if test="endTime!=null">
+			and DATE(SEND_TIME) &lt;= #{endTime}
+		</if>
+	</select>
+
+	<select id="getNotifyByFromIdAndDept"  parameterType="com.xoa.model.myNotify.MyNotify" resultMap="BaseResultMap">
+		select NOTIFY_ID,FROM_DEPT,FROM_ID,TO_ID,SUBJECT,CONTENT,SEND_TIME,BEGIN_DATE,END_DATE,PRIV_ID,USER_ID,TYPE_ID,SUMMARY,PUBLISH,KEYWORD  from ${tableName} WHERE FROM_DEPT=#{fromDept} and FROM_ID=#{fromId}
+	</select>
+
+	<select id="getNotifyByNotifyId" parameterType="Integer" resultMap="BaseResultMap">
+		SELECT NOTIFY_ID,FROM_DEPT,ATTACHMENT_ID,ATTACHMENT_NAME,FROM_ID,TO_ID,SUBJECT,CONTENT,SEND_TIME,BEGIN_DATE,END_DATE,PRIV_ID,USER_ID,TYPE_ID,SUMMARY,KEYWORD,PUBLISH,HOW_RENIND,IS_OPIN,OPIN_USERS,OPINION_FIELDS  FROM  ${tableName}  where NOTIFY_ID=#{notifyId}
+	</select>
+
+	<!-- 按照类型统计通知，返回List-->
+	<select id="selectByType" resultMap="BaseResultMap">
+	SELECT
+	n.NOTIFY_ID,
+	n.TYPE_ID,
+	a.CODE_NO,
+	a.CODE_NAME
+FROM
+	${tabelName} AS n
+LEFT JOIN (
+	SELECT
+		CODE_NO,
+		CODE_NAME
+	FROM
+		sys_code
+	WHERE
+		sys_code.PARENT_NO = "NOTIFY"
+) AS a ON n.TYPE_ID = a.CODE_NO
+WHERE n.PUBLISH =1
+	</select>
+
+	<select id="selectByType" resultMap="BaseResultMap" databaseId="oracle">
+		SELECT
+		n.NOTIFY_ID,
+		n.TYPE_ID,
+		a.CODE_NO,
+		a.CODE_NAME
+		FROM
+		${tableName}  n
+		LEFT JOIN (
+		SELECT
+		CODE_NO,
+		CODE_NAME
+		FROM
+		sys_code
+		WHERE
+		sys_code.PARENT_NO = 'NOTIFY'
+		)  a ON n.TYPE_ID = a.CODE_NO
+		WHERE n.PUBLISH =1
+	</select>
+
+	<select id="selectByType" resultMap="BaseResultMap" databaseId="dm">
+		SELECT
+		n.NOTIFY_ID,
+		n.TYPE_ID,
+		a.CODE_NO,
+		a.CODE_NAME
+		FROM
+		${tableName}  n
+		LEFT JOIN (
+		SELECT
+		CODE_NO,
+		CODE_NAME
+		FROM
+		sys_code
+		WHERE
+		sys_code.PARENT_NO = 'NOTIFY'
+		)  a ON n.TYPE_ID = a.CODE_NO
+		WHERE n.PUBLISH =1
+	</select>
+
+	<select id="selectApprovedNotifyByTypeId" resultMap="BaseResultMap" parameterType="Map">
+		select n.*
+		from ${tableName} as n ,`user` u
+		WHERE n.FROM_ID=u.USER_ID and
+	   (n.PUBLISH = '1' OR n.PUBLISH = '3' OR n.PUBLISH = '4' OR n.PUBLISH = '5')
+		<if test="typeId != null and typeId != ''">
+			and n.TYPE_ID = #{typeId}
+		</if>
+		<if test="auditer !=null and auditer !=''">
+			and (
+			 AUDITER = #{auditer}
+			or AUDITER like concat('%', #{auditer},',%')
+			or AUDITER like concat( #{auditer},',%')
+			)
+		</if>
+		ORDER BY n.TOP DESC ,n.SEND_TIME DESC
+		<if test="(start != null and start != '' or start == 0) and size != null and size != ''">
+			limit #{start}, #{size}
+		</if>
+
+	</select>
+
+	<select id="selectApprovedNotifyByTypeId" resultMap="BaseResultMap" parameterType="Map" databaseId="oracle">
+		select n.*
+		from ${tableName},"user" u
+		WHERE n.FROM_ID=u.USER_ID and
+		(n.PUBLISH = '1' OR n.PUBLISH = '3' OR n.PUBLISH = '4' OR n.PUBLISH = '5')
+		<if test="typeId != null and typeId != ''">
+			and n.TYPE_ID = #{typeId}
+		</if>
+		<if test="auditer !=null and auditer !=''">
+			and (
+			AUDITER = #{auditer}
+			or AUDITER like concat(concat('%', #{auditer}),',%')
+			or AUDITER like concat( #{auditer},',%')
+			)
+		</if>
+		ORDER BY n."TOP" DESC ,n."SEND_TIME" DESC
+		<if test="(start != null and start != '' or start == 0) and size != null and size != ''">
+			limit #{start}, #{size}
+		</if>
+
+	</select>
+
+	<select id="selectApprovedNotifyByTypeId" resultMap="BaseResultMap" parameterType="Map" databaseId="dm">
+		select n.*
+		from ${tableName},"user" u
+		WHERE n.FROM_ID=u.USER_ID and
+		(n.PUBLISH = '1' OR n.PUBLISH = '3' OR n.PUBLISH = '4' OR n.PUBLISH = '5')
+		<if test="typeId != null and typeId != ''">
+			and n.TYPE_ID = #{typeId}
+		</if>
+		<if test="auditer !=null and auditer !=''">
+			and (
+			AUDITER = #{auditer}
+			or AUDITER like concat(concat('%', #{auditer}),',%')
+			or AUDITER like concat( #{auditer},',%')
+			)
+		</if>
+		ORDER BY n."TOP" DESC ,n."SEND_TIME" DESC
+		<if test="(start != null and start != '' or start == 0) and size != null and size != ''">
+			limit #{start}, #{size}
+		</if>
+
+	</select>
+
+	<select id="selectApprovedNotifyByTypeId" resultMap="BaseResultMap" parameterType="Map" databaseId="kingbase">
+		select n.*
+		from ${tableName} n,"user" u
+		WHERE n.FROM_ID=u.USER_ID and
+		(n.PUBLISH = '1' OR n.PUBLISH = '3' OR n.PUBLISH = '4' OR n.PUBLISH = '5')
+		<if test="typeId != null and typeId != ''">
+			and n.TYPE_ID = #{typeId}
+		</if>
+		<if test="auditer !=null and auditer !=''">
+			and (
+			AUDITER = #{auditer}
+			or AUDITER like concat(concat('%', #{auditer}),',%')
+			or AUDITER like concat( #{auditer},',%')
+			)
+		</if>
+		ORDER BY n."TOP" DESC ,n."SEND_TIME" DESC
+		<if test="(start != null and start != '' or start == 0) and size != null and size != ''">
+			limit #{start}, #{size}
+		</if>
+
+	</select>
+
+
+
+	<select id="selectPendingNotifyByTypeId" resultMap="BaseResultMap" parameterType="Map">
+		select *
+		from ${tableName}
+		where PUBLISH = '2'
+		<if test="typeId != null and typeId != ''">
+			and TYPE_ID = #{typeId}
+		</if>
+		<if test="auditer !=null and auditer !=''">
+			and (
+				AUDITER like concat('%',#{auditer},',%')
+				or AUDITER like concat(#{auditer},',%')
+				or AUDITER = #{auditer}
+			 )
+		</if>
+		ORDER BY TOP DESC ,SEND_TIME DESC
+		<if test="(start != null and start != '' or start == 0) and size != null and size != ''">
+			limit #{start}, #{size}
+		</if>
+	</select>
+
+	<select id="selectPendingNotifyByTypeId" resultMap="BaseResultMap" parameterType="Map" databaseId="oracle">
+		select *
+		from ${tableName}
+		where PUBLISH = '2'
+		<if test="typeId != null and typeId != ''">
+			and TYPE_ID = #{typeId}
+		</if>
+		<if test="auditer !=null and auditer !=''">
+			and (
+			AUDITER like CONCAT(CONCAT('%',#{auditer}),',%')
+			or AUDITER like CONCAT(#{auditer},',%')
+			or AUDITER = #{auditer}
+			)
+		</if>
+		ORDER BY "TOP" DESC ,SEND_TIME DESC
+		<if test="(start != null and start != '' or start == 0) and size != null and size != ''">
+			limit #{start}, #{size}
+		</if>
+	</select>
+
+	<select id="selectPendingNotifyByTypeId" resultMap="BaseResultMap" parameterType="Map" databaseId="dm">
+		select *
+		from ${tableName}
+		where PUBLISH = '2'
+		<if test="typeId != null and typeId != ''">
+			and TYPE_ID = #{typeId}
+		</if>
+		<if test="auditer !=null and auditer !=''">
+			and (
+			AUDITER like CONCAT(CONCAT('%',#{auditer}),',%')
+			or AUDITER like CONCAT(#{auditer},',%')
+			or AUDITER = #{auditer}
+			)
+		</if>
+		ORDER BY "TOP" DESC ,SEND_TIME DESC
+		<if test="(start != null and start != '' or start == 0) and size != null and size != ''">
+			limit #{start}, #{size}
+		</if>
+	</select>
+
+	<select id="selectPendingNotifyByTypeId" resultMap="BaseResultMap" parameterType="Map" databaseId="kingbase">
+		select *
+		from ${tableName}
+		where PUBLISH = '2'
+		<if test="typeId != null and typeId != ''">
+			and TYPE_ID = #{typeId}
+		</if>
+		<if test="auditer !=null and auditer !=''">
+			and (
+			AUDITER like CONCAT(CONCAT('%',#{auditer}),',%')
+			or AUDITER like CONCAT(#{auditer},',%')
+			or AUDITER = #{auditer}
+			)
+		</if>
+		ORDER BY "TOP" DESC ,SEND_TIME DESC
+		<if test="(start != null and start != '' or start == 0) and size != null and size != ''">
+			limit #{start}, #{size}
+		</if>
+	</select>
+
+	<select id="selectNotifyEndTime" resultMap="BaseResultMap" >
+		SELECT
+		*
+		FROM
+		notify n
+		WHERE
+		n.END_DATE &lt;unix_timestamp(date(#{dateTime})) AND  n.END_DATE!=0
+	</select>
+
+
+	<!-- 查询公告管理信息 -->
+	<select id="queryNotifyBySubject" parameterType="Map" resultMap="BaseResultMap">
+		SELECT
+		<include refid="columns"/>
+		FROM    ${tableName} n,`user` u WHERE n.FROM_ID=u.USER_ID AND  n.PUBLISH=1  and (
+		<trim suffixOverrides="OR">
+			<if test="userPriv != null and userPriv != ''">
+				(n.PRIV_ID LIKE concat('%,',#{userPriv},',%')
+				OR n.PRIV_ID LIKE concat(#{userPriv},',%')
+				)OR
+			</if>
+			<if test="deptId != null and deptId != ''">
+				(n.TO_ID LIKE concat('%,',#{deptId},',%')
+				OR n.TO_ID LIKE concat(#{deptId},',%')
+				)OR
+			</if>
+			<if test="userId != null and userId != ''">
+				(n.USER_ID LIKE concat('%,',#{userId},',%')
+				OR n.USER_ID LIKE concat(#{userId},',%')
+				)OR
+			</if>
+			n.TO_ID='ALL_DEPT'
+		</trim>)
+		<!--<if test="notifyTime != null and notifyTime != ''"> AND  (n.END_DATE>unix_timestamp(date(#{notifyTime})) or n.END_DATE=0) </if>
+		<if test="format != null and format != ''"> AND n.FORMAT = #{format} </if>
+		<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+		<if test="typeId == -1 "> AND (n.TYPE_ID = '' OR  n.TYPE_ID IS  NULL ) </if>
+		<if test="typeId != null and typeId != -1 "> AND n.TYPE_ID = #{typeId} </if>-->
+		<!--<if test="subject != null and subject != ''"> AND n.SUBJECT like CONCAT('%',#{subject},'%') </if>-->
+		<!--<if test="sendTime != null and sendTime != ''">
+			AND DATE(n.SEND_TIME) = #{sendTime}
+		</if>
+		<if test="publish != null and publish != ''">
+			AND n.PUBLISH = #{publish}
+		</if>
+		<if test="fromId != null and fromId != ''">
+			AND n.FROM_ID = #{fromId}
+		</if>
+		<if test="fromDept != null and fromDept != ''">
+			AND n.FROM_DEPT = #{fromDept}
+		</if>
+		<if test="top != null and top != ''">
+			AND n.TOP = #{top}
+		</if>
+		<if
+				test="beginDate != null and beginDate != '' and endDate != null and endDate != ''">
+			AND DATE(n.SEND_TIME) between #{beginDate} and #{endDate}
+		</if>-->
+		<!--<if test="content != null and content != ''"> AND n.CONTENT like CONCAT('%',#{content},'%') </if>-->
+		<!--<if test="queryField != null and queryField != ''">
+			AND (u.USER_NAME  like CONCAT('%',#{queryField},'%') OR n.CONTENT like CONCAT('%',#{queryField},'%') OR n.`SUBJECT` like CONCAT('%',#{queryField},'%'))
+		</if>-->
+		AND n.SUBJECT LIKE '%',#{subject},'%' OR n.CONTENT LIKE '%',#{content},'%'
+		ORDER BY n.TOP DESC ,n.SEND_TIME DESC
+	</select>
+
+
+	<update id="updateTop" parameterType="com.xoa.model.myNotify.MyNotify">
+		UPDATE ${tableName} SET TOP = 0 WHERE
+		 NOTIFY_ID =#{notifyId}
+	</update>
+
+	<update id="updateTop" parameterType="com.xoa.model.myNotify.MyNotify" databaseId="oracle">
+		UPDATE ${tableName} SET TOP = 0 WHERE
+		 NOTIFY_ID =#{notifyId}
+	</update>
+
+	<update id="updatePublishByBeginDate" parameterType="com.xoa.model.myNotify.MyNotify">
+      UPDATE ${tableName} SET PUBLISH =1 WHERE
+           (
+	   UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(SEND_TIME)
+               ) >= 0
+		AND NOTIFY_ID =#{notifyId}
+	</update>
+
+	<update id="updatePublishBySendTime" parameterType="com.xoa.model.myNotify.MyNotify">
+		UPDATE notify SET PUBLISH =1 WHERE
+           (
+	   UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(SEND_TIME)
+               ) >= 0
+		AND NOTIFY_ID =#{notifyId}
+	</update>
+
+	<update id="updatePublishByEndDate" parameterType="com.xoa.model.myNotify.MyNotify">
+		UPDATE notify SET PUBLISH =5 WHERE
+		NOTIFY_ID =#{notifyId}
+	</update>
+
+	<update id="newUpdateTop"  parameterType="com.xoa.model.myNotify.MyNotify">
+		UPDATE ${tableName} SET TOP = 0 WHERE
+		(
+			TOP = 1
+          AND (
+	   UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(SEND_TIME)
+               ) / 86400 >= TOP_DAYS
+		)
+		AND NOTIFY_ID =#{notifyId}
+	</update>
+
+	<update id="newUpdateTop"  parameterType="com.xoa.model.myNotify.MyNotify" databaseId="oracle">
+		UPDATE notify SET TOP = 0 WHERE
+		(
+		(SELECT SUBSTR((SYSDATE - TO_DATE('1970-1-1 8', 'YYYY-MM-DD HH24')) * 86400000 + TO_NUMBER(TO_CHAR(SYSTIMESTAMP(3), 'FF')),1,10) AS MILLIONS FROM DUAL)
+         -   TO_NUMBER(TO_CHAR(SEND_TIME, 'FF')),1,10)
+        ) / 86400 >= TOP_DAYS
+		)
+		AND NOTIFY_ID =#{notifyId}
+	</update>
+
+	<update id="newUpdateTop"  parameterType="com.xoa.model.myNotify.MyNotify" databaseId="kingbase">
+		UPDATE notify SET TOP = 0 WHERE
+		(
+		(SELECT SUBSTR((SYSDATE - TO_DATE('1970-1-1 8', 'YYYY-MM-DD HH24')) * 86400000 + TO_NUMBER(TO_CHAR(SYSTIMESTAMP(3), 'FF')),1,10) AS MILLIONS FROM DUAL)
+         -   TO_NUMBER(TO_CHAR(SEND_TIME, 'FF')),1,10)
+        ) / 86400 >= TOP_DAYS
+		)
+		AND NOTIFY_ID =#{notifyId}
+	</update>
+
+	<select id="getAll" resultMap="BaseResultMap">
+		SELECT n.NOTIFY_ID ,n.CONTENT from ${tabelName} as n
+	</select>
+
+
+	<update id="updateDate" parameterType="com.xoa.model.myNotify.MyNotify">
+		update ${tableName}
+		<set >
+				<if test="content != null and content != ''">
+					CONTENT = #{content}
+				</if>
+			where NOTIFY_ID = #{notifyId}
+		</set>
+	</update>
+
+
+
+
+	<!-- 公告过期查询 -->
+	<select id="selectNotifyOverTime" resultMap="BaseResultMap" parameterType="Map">
+		SELECT
+		<include refid="columns"/>
+		FROM    ${tableName} n,`user` u WHERE n.FROM_ID=u.USER_ID and n.END_DATE is not null and n.END_DATE !='0' and n.END_DATE != ''
+		<if test="toId != null and toId != ''"> AND n.TO_ID = #{toId} </if>
+
+		<if test="newStr != null and newStr.length!=0 ">
+			<foreach collection="newStr" item="str" open=" AND n.FROM_ID in (" close=")" separator="," >
+				<if test="str!=null and str!=''">
+					#{str}
+				</if>
+			</foreach>
+		</if>
+		<if test="fromId!=null and fromId!=''">
+			AND n.FROM_ID = #{fromId}
+		</if>
+
+		<if	test="beginDate != null and beginDate != '' ">
+			AND n.END_DATE &lt; #{beginDate}
+		</if>
+
+		ORDER BY n.TOP DESC ,n.SEND_TIME DESC
+	</select>
+
+	<update id="updateNotifys" parameterType="com.xoa.model.myNotify.MyNotify">
+		update ${tableName}
+		<set >
+			<trim suffixOverrides=",">
+				<if test="fromId != null and fromId != ''">
+					FROM_ID = #{fromId},
+				</if>
+				<if test="fromDept != null and fromDept != ''">
+					FROM_DEPT = #{fromDept},
+				</if>
+				<if test="toId != null and toId != ''">
+					TO_ID = #{toId},
+				</if>
+				<if test="format != null and format != ''">
+					FORMAT = #{format},
+				</if>
+				TYPE_ID = #{typeId},
+				<if test="subject != null and subject != ''">
+					SUBJECT = #{subject},
+				</if>
+				<if test="sendTime != null">
+					SEND_TIME = #{sendTime},
+				</if>
+
+					CONTENT = #{content},
+
+				<if test="beginDate != null">
+					BEGIN_DATE = #{beginDate},
+				</if>
+				<if test="attachmentId != null ">
+					ATTACHMENT_ID = #{attachmentId},
+				</if>
+
+				READERS = #{readers},
+
+				<if test="privId != null and privId != ''">
+					PRIV_ID = #{privId},
+				</if>
+				<if test="top != null and top != ''">
+					TOP = #{top},
+				</if>
+				<!-- integer类型的level为0时，当作了‘’（空串） https://blog.csdn.net/zcl_love_wx/article/details/78799719 -->
+				<if test="topDays != null and topDays != '' or topDays == 0">
+					TOP_DAYS = #{topDays},
+				</if>
+				<if test="publish != null and publish != ''">
+					PUBLISH = #{publish},
+				</if>
+				<if test="reason != null and reason != '' ">
+					REASON = #{reason},
+				</if>
+				<if test="compressContent != null and compressContent != ''">
+					COMPRESS_CONTENT = #{compressContent},
+				</if>
+				<if test="lastEditor != null and lastEditor != ''">
+					LAST_EDITOR = #{lastEditor},
+				</if>
+				<if test="subjectColor != null and subjectColor != ''">
+					SUBJECT_COLOR = #{subjectColor},
+				</if>
+				<if test="keyword != null and keyword != ''">
+					KEYWORD = #{keyword},
+				</if>
+					END_DATE = #{endDate},
+				<if test="attachmentName != null ">
+					ATTACHMENT_NAME = #{attachmentName},
+				</if>
+				<if test="print != null and print != ''">
+					PRINT = #{print},
+				</if>
+				<if test="userId != null and userId != ''">
+					USER_ID = #{userId},
+				</if>
+				<if test="auditer != null and auditer != ''">
+					AUDITER = #{auditer},
+				</if>
+				<if test="auditDate != null">
+					AUDIT_DATE = #{auditDate},
+				</if>
+				<if test="download != null and download != ''">
+					DOWNLOAD = #{download},
+				</if>
+				<if test="lastEditTime != null and lastEditTime != ''">
+					LAST_EDIT_TIME = #{lastEditTime},
+				</if>
+				<if test="summary != null and summary != ''">
+					SUMMARY = #{summary},
+				</if>
+				<if test="isFw != null and isFw != ''">
+					IS_FW = #{isFw},
+				</if>
+				<if test="howRenind !=null and howRenind!=''">
+					HOW_RENIND =#{howRenind},
+				</if>
+				<if test="isOpin !=null and isOpin!=''">
+					IS_OPIN =#{isOpin},
+				</if>
+				<if test="opinionFields !=null and opinionFields!=''">
+					OPINION_FIELDS =#{opinionFields},
+				</if>
+				<if test="opinUsers !=null">
+					OPIN_USERS =#{opinUsers},
+				</if>
+					DRAFT_DEPT = #{draftDept},
+				<if test="userType != null">
+					USER_TYPE = #{userType},
+				</if>
+			</trim>
+			where NOTIFY_ID = #{notifyId}
+		</set>
+	</update>
+	<select id="selectById" parameterType="integer" resultMap="BaseResultMap">
+		SELECT * FROM  ${tableName}  WHERE NOTIFY_ID = #{notifyId}
+	</select>
+    <select id="selectTop" resultMap="BaseResultMap">
+		SELECT * FROM  ${tableName}  WHERE TOP = 1 and TOP_DAYS != 0
+	</select>
+</mapper>

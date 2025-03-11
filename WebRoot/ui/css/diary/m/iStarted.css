@@ -1,0 +1,112 @@
+
+/*我发起的*/
+li.mui-table-view-cell {
+    padding: 11px 15px 11px 25px;
+
+
+}
+html,body {
+	  height:100%;
+}
+.mui-content {
+	/*height:calc(100% - 50px);*/
+    margin-bottom: 50px;
+	  background-color: #f5f5f5;
+}
+.stat_sear {
+	background-color: #f5f5f5;
+	margin-top:8px;
+}
+.started_me {
+	font-weight: bold;
+	height:40px;
+	line-height: 40px;
+	color:#3582c9;
+	text-align: center;
+    letter-spacing: 2px;
+    border-bottom:1px solid #d9d9d9;;
+    margin-bottom: 8px;
+}
+.diarySearch {
+    width: 94%;
+    margin-left: auto;
+    margin-right: auto;
+}
+input[type=search] {
+    background-color: #fff;
+    margin-bottom: 8px;
+}
+.mui-search:before {
+    top: 60%;
+}
+.list h4 {
+    position: relative;
+    color: #333;
+    font-size: 16px;
+}
+.tit_nane {
+    display: inline-block;
+    /* width: 98%; */
+    /* overflow: hidden; */
+    /* text-overflow: ellipsis; */
+    /* white-space: nowrap; */
+	line-height: 20px;
+}
+.list .spot {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #e36042;
+    left: -18px;
+    top: 3px;
+}
+.list p {
+    color: #666;
+    margin-bottom: 10px;
+    margin-top: 6px;
+    width:90%;
+    overflow:hidden;
+	  text-overflow:ellipsis;
+	  white-space:nowrap;
+}
+.time {
+	float:left;
+}
+.comment {
+    float: right;
+    margin-left: 20px;
+    padding-left: 24px;
+    background: url(../../../img/diary/m/icon_comment.png) no-repeat 0px 0px;
+    background-size: 22px 22px;
+}
+.consult {
+	float: right;
+    padding-left: 26px;
+    background: url(../../../img/diary/m/icon_consult.png) no-repeat 0px 0px;
+    background-size: 22px 22px;
+}
+.bt_dir {
+    font-size: 13px;
+    color: #999;
+}
+.box_bt {
+	color:#333;
+	font-size:14px;
+	text-align: center;
+	width:94%;
+	margin-left:auto;
+	margin-right:auto;
+	border:1px solid #d9d9d9;
+    height: 38px;
+    line-height: 38px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+.log {
+	background-color: #598fde;
+	color:#fff;
+}
+.spac_left {
+	margin-left:10px;
+}

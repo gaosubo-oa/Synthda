@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.diary.DiaryCommentReplyModelMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.diary.DiaryCommentReplyModel" >
+    <id column="REPLY_ID" property="replyId" javaType="int" />
+    <result column="REPLY_TIME" property="replyTime" javaType="string" />
+    <result column="REPLYER" property="replyer" javaType="string" />
+    <result column="COMMENT_ID" property="commentId" javaType="int" />
+    <result column="TO_ID" property="toId" javaType="string" />
+    <result column="REPLY_COMMENT" property="replyComment" javaType="string" />
+    <result column="REPLY_COM_ID" property="replyComId" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    REPLY_ID, REPLY_TIME, REPLYER, COMMENT_ID, TO_ID,REPLY_COM_ID
+  </sql>
+  <sql id="Blob_Column_List" >
+    REPLY_COMMENT
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from diary_comment_reply
+    where REPLY_ID = #{replyId,jdbcType=INTEGER}
+  </select>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.diary.DiaryCommentReplyModel" >
+    update diary_comment_reply
+    <set >
+      <if test="replyTime != null" >
+        REPLY_TIME = #{replyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyer != null" >
+        REPLYER = #{replyer,jdbcType=VARCHAR},
+      </if>
+      <if test="commentId != null" >
+        COMMENT_ID = #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="toId != null" >
+        TO_ID = #{toId,jdbcType=VARCHAR},
+      </if>
+      <if test="replyComment != null" >
+        REPLY_COMMENT = #{replyComment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where REPLY_ID = #{replyId,jdbcType=INTEGER}
+  </update>
+
+  <!--
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from diary_comment_reply
+    where REPLY_ID = #{replyId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xoa.model.diary.DiaryCommentReplyModel" >
+    insert into diary_comment_reply (REPLY_ID, REPLY_TIME, REPLYER, 
+      COMMENT_ID, TO_ID, REPLY_COMMENT
+      )
+    values (#{replyId,jdbcType=INTEGER}, #{replyTime,jdbcType=TIMESTAMP}, #{replyer,jdbcType=VARCHAR}, 
+      #{commentId,jdbcType=INTEGER}, #{toId,jdbcType=VARCHAR}, #{replyComment,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xoa.model.diary.DiaryCommentReplyModel" >
+    insert into diary_comment_reply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="replyId != null" >
+        REPLY_ID,
+      </if>
+      <if test="replyTime != null" >
+        REPLY_TIME,
+      </if>
+      <if test="replyer != null" >
+        REPLYER,
+      </if>
+      <if test="commentId != null" >
+        COMMENT_ID,
+      </if>
+      <if test="toId != null" >
+        TO_ID,
+      </if>
+      <if test="replyComment != null" >
+        REPLY_COMMENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="replyId != null" >
+        #{replyId,jdbcType=INTEGER},
+      </if>
+      <if test="replyTime != null" >
+        #{replyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyer != null" >
+        #{replyer,jdbcType=VARCHAR},
+      </if>
+      <if test="commentId != null" >
+        #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="toId != null" >
+        #{toId,jdbcType=VARCHAR},
+      </if>
+      <if test="replyComment != null" >
+        #{replyComment,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xoa.model.diary.DiaryCommentReplyModel" >
+    update diary_comment_reply
+    set REPLY_TIME = #{replyTime,jdbcType=TIMESTAMP},
+      REPLYER = #{replyer,jdbcType=VARCHAR},
+      COMMENT_ID = #{commentId,jdbcType=INTEGER},
+      TO_ID = #{toId,jdbcType=VARCHAR},
+      REPLY_COMMENT = #{replyComment,jdbcType=LONGVARCHAR}
+    where REPLY_ID = #{replyId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xoa.model.diary.DiaryCommentReplyModel" >
+    update diary_comment_reply
+    set REPLY_TIME = #{replyTime,jdbcType=TIMESTAMP},
+      REPLYER = #{replyer,jdbcType=VARCHAR},
+      COMMENT_ID = #{commentId,jdbcType=INTEGER},
+      TO_ID = #{toId,jdbcType=VARCHAR}
+    where REPLY_ID = #{replyId,jdbcType=INTEGER}
+  </update> -->
+
+  <insert id="insertCommentReply" parameterType="com.xoa.model.diary.DiaryCommentReplyModel" >
+    insert into diary_comment_reply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="replyId != null" >
+        REPLY_ID,
+      </if>
+      <if test="replyTime != null" >
+        REPLY_TIME,
+      </if>
+      <if test="replyer != null" >
+        REPLYER,
+      </if>
+      <if test="commentId != null" >
+        COMMENT_ID,
+      </if>
+      <if test="toId != null" >
+        TO_ID,
+      </if>
+      <if test="replyComment != null" >
+        REPLY_COMMENT,
+      </if>
+      <if test="replyComId != null" >
+        REPLY_COM_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="replyId != null" >
+        #{replyId,jdbcType=INTEGER},
+      </if>
+      <if test="replyTime != null" >
+        #{replyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyer != null" >
+        #{replyer,jdbcType=VARCHAR},
+      </if>
+      <if test="commentId != null" >
+        #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="toId != null" >
+        #{toId,jdbcType=VARCHAR},
+      </if>
+      <if test="replyComment != null" >
+        #{replyComment,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="replyComId != null" >
+        #{replyComId},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="insertCommentReply" parameterType="com.xoa.model.diary.DiaryCommentReplyModel" databaseId="oracle">
+    <selectKey keyProperty="replyId"  order="BEFORE" resultType="int">
+      select DIARY_COMMENT_REPLY_REPLY_ID.nextval as replyId from  dual
+    </selectKey>
+    insert into diary_comment_reply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="replyId != null" >
+        REPLY_ID,
+      </if>
+      <if test="replyTime != null" >
+        REPLY_TIME,
+      </if>
+      <if test="replyer != null" >
+        REPLYER,
+      </if>
+      <if test="commentId != null" >
+        COMMENT_ID,
+      </if>
+      <if test="toId != null" >
+        TO_ID,
+      </if>
+      <if test="replyComment != null" >
+        REPLY_COMMENT,
+      </if>
+      <if test="replyComId != null" >
+        REPLY_COM_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="replyId != null" >
+        #{replyId,jdbcType=INTEGER},
+      </if>
+      <if test="replyTime != null" >
+        to_date(#{replyTime,jdbcType=TIMESTAMP},'yyyy-mm-dd hh24:mi:ss'),
+      </if>
+      <if test="replyer != null" >
+        #{replyer,jdbcType=VARCHAR},
+      </if>
+      <if test="commentId != null" >
+        #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="toId != null" >
+        #{toId,jdbcType=VARCHAR},
+      </if>
+      <if test="replyComment != null" >
+        #{replyComment,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="replyComId != null" >
+        #{replyComId},
+      </if>
+    </trim>
+  </insert>
+
+  <insert id="insertCommentReply" parameterType="com.xoa.model.diary.DiaryCommentReplyModel" databaseId="dm">
+    <selectKey keyProperty="replyId"  order="BEFORE" resultType="int">
+      select DIARY_COMMENT_REPLY_REPLY_ID.nextval as replyId from  dual
+    </selectKey>
+    insert into diary_comment_reply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="replyId != null" >
+        REPLY_ID,
+      </if>
+      <if test="replyTime != null" >
+        REPLY_TIME,
+      </if>
+      <if test="replyer != null" >
+        REPLYER,
+      </if>
+      <if test="commentId != null" >
+        COMMENT_ID,
+      </if>
+      <if test="toId != null" >
+        TO_ID,
+      </if>
+      <if test="replyComment != null" >
+        REPLY_COMMENT,
+      </if>
+      <if test="replyComId != null" >
+        REPLY_COM_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="replyId != null" >
+        #{replyId,jdbcType=INTEGER},
+      </if>
+      <if test="replyTime != null" >
+        to_date(#{replyTime,jdbcType=TIMESTAMP},'yyyy-mm-dd hh24:mi:ss'),
+      </if>
+      <if test="replyer != null" >
+        #{replyer,jdbcType=VARCHAR},
+      </if>
+      <if test="commentId != null" >
+        #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="toId != null" >
+        #{toId,jdbcType=VARCHAR},
+      </if>
+      <if test="replyComment != null" >
+        #{replyComment,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="replyComId != null" >
+        #{replyComId},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="getCommentReplyByCommentId" parameterType="String" resultMap="BaseResultMap">
+     SELECT
+       <include refid="Base_Column_List" />
+        ,
+       <include refid="Blob_Column_List" />
+    FROM
+      diary_comment_reply
+    WHERE
+      COMMENT_ID=#{commentId}
+    ORDER  by REPLY_TIME
+  </select>
+
+  <delete id="delCommentReplyByCommentId" parameterType="String">
+    DELETE  FROM  diary_comment_reply WHERE  COMMENT_ID=#{commentId}
+  </delete>
+
+  <delete id="delCommentReplyByReplyId" parameterType="String">
+    DELETE  FROM  diary_comment_reply WHERE  REPLY_ID=#{replyId}
+  </delete>
+
+  <select id="selectNumberOfReplies" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM
+      diary_refer
+    WHERE
+      DIA_ID = #{diaId}
+  </select>
+
+  <select id="getCommentReplyDiary" resultMap="BaseResultMap">
+    SELECT
+      COMMENT_ID
+    FROM
+      diary_comment_reply
+    WHERE
+      COMMENT_ID IN
+      <foreach collection="commIdsNotSelf" item="commentId" open="(" separator="," close=")">
+        #{commentId}
+      </foreach>
+      AND REPLYER = #{userId}
+  </select>
+</mapper>

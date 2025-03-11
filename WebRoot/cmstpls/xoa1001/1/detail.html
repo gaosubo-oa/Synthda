@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="<@Rootpath src='index.css'/>" />
+  <script type="text/javascript" src="/js/xoajq/xoajq1.js"></script>
+  <script type="text/javascript" src="/js/base/base.js"></script>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <style media="screen">
+    .listBox {
+      width: 1200px;
+      margin: 0 auto;
+      background-color: #fff;
+    }
+
+    .list {
+      width: 1000px;
+      margin: 0 auto;
+      padding: 32px 0 27px 0;
+      border-bottom: 1px dashed #dcdcdc;
+    }
+
+    .list li {
+      position: relative;
+      font-size: 16px;
+      line-height: 38px;
+      color: #404040;
+      padding-left: 1.3%;
+      width: 98.7%;
+    }
+
+    .list li a {
+      padding-right: 80px;
+      color: #404040;
+    }
+
+    #changepage {
+      width: 100%;
+      text-align: center;
+      overflow: hidden;
+      font-size: 14px;
+      padding: 20px 0;
+      margin-top: -1px;
+      border-top: 1px solid #fff;
+    }
+
+    #changepage .up_page,
+    #changepage .down_page {
+      display: inline-block;
+      color: #1b242f;
+      text-align: center;
+      padding: 6px 4px;
+      border: 1px solid #e8e8e8;
+      margin: 0 12px;
+    }
+
+    .list li span {
+      position: absolute;
+      right: 0px;
+      bottom: 0px;
+      display: inline-block;
+    }
+
+    .crumbsBox {
+      width: 1178px;
+      margin: 0 auto;
+      background-color: #fff;
+    }
+
+    .crumbsBox .crumbs {
+      width: 1000px;
+      height: 64px;
+      margin: 0 auto;
+    }
+
+    #breadcrumb {
+      width: 100%;
+      line-height: 56px;
+      font-size: 14px;
+      color: #333;
+    }
+
+
+    #breadcrumb a {
+      color: #333;
+    }
+
+    .repeatX {
+      width: 100%;
+      background: url(http://www.beijing.gov.cn/images/repeatBg_xb_20181026.png) 0 0 repeat-x;
+      height: 8px;
+    }
+
+    .headerBox {
+      width: 1178px;
+      margin: 0 auto;
+      background-color: #fff;
+    }
+
+    .header {
+      width: 1000px;
+      margin: 0 auto;
+      padding-top: 0px;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      margin: 0;
+      padding: 0;
+      color: #000;
+      font-weight: normal;
+    }
+
+    .header h1 {
+      margin-bottom: 5px;
+    }
+    .header h4 {
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    #othermessage {
+      font-size: 14px;
+      line-height: 14px;
+      color: #999;
+      width: 100%;
+      margin: 0 auto 30px;
+    }
+
+
+    .fl {
+      float: left;
+    }
+
+    .fr {
+      float: right;
+    }
+
+    .bdshare-button-style0-16 {
+      zoom: 1;
+    }
+
+    #mainText p {
+      outline: none;
+    }
+
+    #mainText {
+      width: 1000px;
+      padding: 35px 0 25px 0;
+      margin: 0 auto;
+      color: #404040;
+      font-size: 16px;
+      line-height: 200%;
+    }
+
+    .header h1 p {
+      font-size: 28px;
+      line-height: 40px;
+      color: #333;
+      text-align: center;
+      outline: none;
+    }
+
+    .clearfix:after {
+      content: '';
+      display: block;
+      clear: both;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    #breadcrumb a{
+      font-size: 20px ;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="bd">
+
+    <!-- 头部 -->
+    <div class="w">
+      <div class="top">
+        <div class="left" style="height:78px;">
+
+          <img src='<@Rootpath src="images/gh.png"/>'>
+        </div>
+        <span class="head_title"></span>
+      </div>
+      <!--top-->
+    </div><!-- w -->
+
+    <!-- 导航 -->
+    <div class="nav">
+      <div class="w">
+        <ul class="navbox">
+
+
+        </ul>
+      </div>
+      <!--w-->
+    </div>
+    <!--nav-->
+
+    <!-- 中间内容 -->
+    <div class="w m">
+      <div class="crumbsBox">
+        <div class="crumbs">
+          <div id="breadcrumb">
+
+          </div>
+        </div>
+      </div>
+      <div class="headerBox">
+        <div class="header">
+          <h1>
+          </h1>
+          <h4></h4>
+          <div id="othermessage" class="clearfix">
+            <p class="fl doc_date">
+              日期：<span id="doc_date"></span>
+            </p>
+            <p class="fl" style="margin-left: 100px" id="author1">
+              作者：<span id="author"></span>
+            </p>
+            <p class="fl" style="margin-left: 100px" id="source1">
+              来源：<span id="source"></span>
+            </p>
+
+            <dl class="fr" id="fontSize">
+              <script language="JavaScript" type="text/javascript">
+                function changeSize(size) {
+                  document.getElementById('mainText').style.fontSize = size + 'px'
+                }
+              </script>
+              字号：&nbsp;&nbsp;
+              <a href="javascript:changeSize(18)">大</a>&nbsp;&nbsp;
+              <a href="javascript:changeSize(16)" class="on">中</a>&nbsp;&nbsp;
+              <a href="javascript:changeSize(14)">小</a>
+            </dl>
+          </div>
+          <div class="repeatX"></div>
+          <div style="border: 1px solid;margin-top: 5px;border-radius: 5px;" id="abstracts1">摘要：<span id="abstracts"></span></div>
+        </div>
+      </div>
+      <div class="mainTextBox">
+        <div id="mainText">
+
+          <div class="TRS_Editor">
+
+          </div>
+          <div id="filerider" style="height: 80px">
+            <div class="filelink" style="margin:10px 0 0 0;">
+              <p id="keyWords"></p>
+              <p>附件：</p>
+              <p>1.docx</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- w-->
+
+    <div class="bottom">
+      <div class="w">
+        <div class="botbox">
+          <div class="botf left"></div>
+          <div class="bort left">
+            <div>滨海省人民政府 主办 滨海市人民政府办公室承办 滨海市政府办公室负责日常管理与维护</div>
+            <div>邮编：888888 联系电话：0310-88888888 邮箱：88888888@888.com</div>
+            <div>版权所有 ICP备案/许可证编号为：京ICP备66666666号</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script type="application/javascript" >
+  $(function () {
+          // 获取主页信息
+          $.ajax({
+            url: "/cmsSite/getSiteInfoBySiteId",
+            type: "get",
+            data:{
+              siteId:$.GetRequest().siteId
+            },
+            dataType: 'json',
+            success: function (json) {
+              if (json.flag) {
+                var obj = json.data;
+                $('.head_title').html(obj.siteName)
+              }
+            }
+          })
+
+          // 获取栏目
+          $.ajax({
+            url: "/cmsChannel/getChannelInfos",
+            type: "get",
+            data:{
+              'siteId':$.GetRequest().siteId
+            },
+            dataType: 'json',
+            success: function (json) {
+              if (json.flag) {
+                var obj = json.data;
+                var str='<li><a class="node" href="/cmsPub/portal?siteId='+$.GetRequest().siteId+'">首页</a></li>';
+                for(var i = 0; i < obj.length; i ++) {
+                  if($.GetRequest().channelId==obj[i].sid){
+                    str+= '<li class="focus">'
+                  }else {
+                    str+='<li>'
+                  }
+                  str+= '<a class="node" href="/cmsPub/portal?siteId='+$.GetRequest().siteId+'&channelId='+obj[i].sid+'">'+obj[i].chnlName+'</a></li>'
+                }
+                $('.navbox').append(str)
+              }
+            }
+          })
+
+          // 获取当前栏目信息
+          $.ajax({
+            url: "/cmsChannel/geiChannelInfoById",
+            type: "get",
+            data:{
+              channelId:$.GetRequest().channelId
+            },
+            dataType: 'json',
+            success: function (json) {
+              if (json.flag) {
+                var obj = json.data;
+                $('#breadcrumb').html('<a href="/cmsPub/portal?siteId='+$.GetRequest().siteId+'&channelId='+obj.sid+'" title="'+obj.chnlName+'" class="CurrChnlCls">'+obj.chnlName+'</a>');
+              }
+            }
+          })
+
+          // 获取当前文档信息
+          $.ajax({
+            url: "/cmsDocument/getDocument",
+            type: "get",
+            data:{
+              docId:$.GetRequest().chnlDocId
+            },
+            dataType: 'json',
+            success: function (json) {
+              if (json.flag) {
+                var obj = json.data;
+                $('.header h1').html('<p>'+obj.docTitle+'</p>')
+                $('.header h4').html('<p>'+obj.subTitle+'</p>')
+                $('#doc_date').html(obj.crTime)
+                if(obj.author==undefined||obj.author==''){
+                  $('#author1').hide()
+                }else {
+                  $('#author').html(obj.author)
+                }
+                if(obj.source==undefined||obj.source==''){
+                  $('#source1').hide()
+                }else {
+                  $('#source').html(obj.source)
+                }
+                if(obj.abstracts==undefined||obj.abstracts==''){
+                  $('#abstracts1').hide()
+                }else {
+                  $('#abstracts').html(obj.abstracts)
+                }
+                $('#keyWords').html(obj.keyWords)
+                $('#mainText .TRS_Editor').html(obj.htmlContent)
+                $('title').html(obj.docTitle)
+              }
+            }
+          })
+  })
+
+</script>
+
+</html>

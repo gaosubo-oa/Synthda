@@ -1,0 +1,876 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.gw_device.GwDeviceWorkstationMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.gw_device.GwDeviceWorkstation" >
+    <id column="STATION_ID" property="stationId" jdbcType="INTEGER" />
+    <result column="NODE_ID" property="nodeId" jdbcType="VARCHAR" />
+    <result column="NODE_NAME" property="nodeName" jdbcType="VARCHAR" />
+    <result column="SAFE_AREA" property="safeArea" jdbcType="VARCHAR" />
+    <result column="OPERATION_MANAGEMENT_IP" property="operationManagementIp" jdbcType="VARCHAR" />
+    <result column="UPDATE_FLAG" property="updateFlag" jdbcType="VARCHAR" />
+    <result column="SEND_UP_FLAG" property="sendUpFlag" jdbcType="VARCHAR" />
+    <result column="REPORT_FLAG" property="reportFlag" jdbcType="VARCHAR" />
+    <result column="REGULATION_MARK" property="regulationMark" jdbcType="VARCHAR" />
+    <result column="EQUIP_NAME" property="equipName" jdbcType="VARCHAR" />
+    <result column="FULL_PATH_NAME" property="fullPathName" jdbcType="VARCHAR" />
+    <result column="EQUIP_TYPE" property="equipType" jdbcType="VARCHAR" />
+    <result column="MANUFACTURER" property="manufacturer" jdbcType="VARCHAR" />
+    <result column="EQUIP_MODDEL" property="equipModdel" jdbcType="VARCHAR" />
+    <result column="INSTALLATION_SITE" property="installationSite" jdbcType="VARCHAR" />
+    <result column="RUNNING_STATE" property="runningState" jdbcType="VARCHAR" />
+    <result column="DEVICES_NUMBER" property="devicesNumber" jdbcType="INTEGER" />
+    <result column="START_U_BIT" property="startUBit" jdbcType="VARCHAR" />
+    <result column="COMMISSIONING_DATE" property="commissioningDate" jdbcType="DATE" />
+    <result column="RETURN_DATE" property="returnDate" jdbcType="DATE" />
+    <result column="PERSON_LIABLE" property="personLiable" jdbcType="VARCHAR" />
+    <result column="WARRANTY_EXPIRATION_DATE" property="warrantyExpirationDate" jdbcType="DATE" />
+    <result column="ASSET_NUMBER" property="assetNumber" jdbcType="VARCHAR" />
+    <result column="SEQUENCE_CODE" property="sequenceCode" jdbcType="VARCHAR" />
+    <result column="CPU_MODEL" property="cpuModel" jdbcType="VARCHAR" />
+    <result column="CPU_WORD_LENGTH" property="cpuWordLength" jdbcType="VARCHAR" />
+    <result column="MAIN_FREQUENCY_OF_CPU" property="mainFrequencyOfCpu" jdbcType="VARCHAR" />
+    <result column="CPU_NUMBER" property="cpuNumber" jdbcType="INTEGER" />
+    <result column="NUMBER_OF_CPU_CORES" property="numberOfCpuCores" jdbcType="INTEGER" />
+    <result column="MEMORY_SIZE" property="memorySize" jdbcType="VARCHAR" />
+    <result column="HARD_DISK_CAPACITY" property="hardDiskCapacity" jdbcType="VARCHAR" />
+    <result column="NUMBER_OF_SCREENS" property="numberOfScreens" jdbcType="INTEGER" />
+    <result column="OPERATING_SYSTEM_TYPE" property="operatingSystemType" jdbcType="VARCHAR" />
+    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.xoa.model.gw_device.GwDeviceWorkstation" extends="BaseResultMap" >
+    <result column="FUNC_INFO" property="funcInfo" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    STATION_ID, NODE_ID, NODE_NAME, SAFE_AREA, OPERATION_MANAGEMENT_IP, UPDATE_FLAG, 
+    SEND_UP_FLAG, REPORT_FLAG, REGULATION_MARK, EQUIP_NAME, FULL_PATH_NAME, EQUIP_TYPE, 
+    MANUFACTURER, EQUIP_MODDEL, INSTALLATION_SITE, RUNNING_STATE, DEVICES_NUMBER, START_U_BIT, 
+    COMMISSIONING_DATE, RETURN_DATE, PERSON_LIABLE, WARRANTY_EXPIRATION_DATE, ASSET_NUMBER, 
+    SEQUENCE_CODE, CPU_MODEL, CPU_WORD_LENGTH, MAIN_FREQUENCY_OF_CPU, CPU_NUMBER, NUMBER_OF_CPU_CORES, 
+    MEMORY_SIZE, HARD_DISK_CAPACITY, NUMBER_OF_SCREENS, OPERATING_SYSTEM_TYPE, CREATE_USER_ID, 
+    CREATE_TIME
+  </sql>
+  <sql id="Blob_Column_List" >
+    FUNC_INFO
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from gw_device_workstation
+    where STATION_ID = #{stationId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from gw_device_workstation
+    where STATION_ID = #{stationId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xoa.model.gw_device.GwDeviceWorkstation" >
+    insert into gw_device_workstation (STATION_ID, NODE_ID, NODE_NAME, 
+      SAFE_AREA, OPERATION_MANAGEMENT_IP, UPDATE_FLAG, 
+      SEND_UP_FLAG, REPORT_FLAG, REGULATION_MARK, 
+      EQUIP_NAME, FULL_PATH_NAME, EQUIP_TYPE, 
+      MANUFACTURER, EQUIP_MODDEL, INSTALLATION_SITE, 
+      RUNNING_STATE, DEVICES_NUMBER, START_U_BIT, 
+      COMMISSIONING_DATE, RETURN_DATE, PERSON_LIABLE, 
+      WARRANTY_EXPIRATION_DATE, ASSET_NUMBER, SEQUENCE_CODE, 
+      CPU_MODEL, CPU_WORD_LENGTH, MAIN_FREQUENCY_OF_CPU, 
+      CPU_NUMBER, NUMBER_OF_CPU_CORES, MEMORY_SIZE, 
+      HARD_DISK_CAPACITY, NUMBER_OF_SCREENS, OPERATING_SYSTEM_TYPE, 
+      CREATE_USER_ID, CREATE_TIME, FUNC_INFO
+      )
+    values (#{stationId,jdbcType=INTEGER}, #{nodeId,jdbcType=VARCHAR}, #{nodeName,jdbcType=VARCHAR}, 
+      #{safeArea,jdbcType=VARCHAR}, #{operationManagementIp,jdbcType=VARCHAR}, #{updateFlag,jdbcType=VARCHAR}, 
+      #{sendUpFlag,jdbcType=VARCHAR}, #{reportFlag,jdbcType=VARCHAR}, #{regulationMark,jdbcType=VARCHAR}, 
+      #{equipName,jdbcType=VARCHAR}, #{fullPathName,jdbcType=VARCHAR}, #{equipType,jdbcType=VARCHAR}, 
+      #{manufacturer,jdbcType=VARCHAR}, #{equipModdel,jdbcType=VARCHAR}, #{installationSite,jdbcType=VARCHAR}, 
+      #{runningState,jdbcType=VARCHAR}, #{devicesNumber,jdbcType=INTEGER}, #{startUBit,jdbcType=VARCHAR}, 
+      #{commissioningDate,jdbcType=DATE}, #{returnDate,jdbcType=DATE}, #{personLiable,jdbcType=VARCHAR}, 
+      #{warrantyExpirationDate,jdbcType=DATE}, #{assetNumber,jdbcType=VARCHAR}, #{sequenceCode,jdbcType=VARCHAR}, 
+      #{cpuModel,jdbcType=VARCHAR}, #{cpuWordLength,jdbcType=VARCHAR}, #{mainFrequencyOfCpu,jdbcType=VARCHAR}, 
+      #{cpuNumber,jdbcType=INTEGER}, #{numberOfCpuCores,jdbcType=INTEGER}, #{memorySize,jdbcType=VARCHAR}, 
+      #{hardDiskCapacity,jdbcType=VARCHAR}, #{numberOfScreens,jdbcType=INTEGER}, #{operatingSystemType,jdbcType=VARCHAR}, 
+      #{createUserId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{funcInfo,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xoa.model.gw_device.GwDeviceWorkstation" >
+    insert into gw_device_workstation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stationId != null" >
+        STATION_ID,
+      </if>
+      <if test="nodeId != null" >
+        NODE_ID,
+      </if>
+      <if test="nodeName != null" >
+        NODE_NAME,
+      </if>
+      <if test="safeArea != null" >
+        SAFE_AREA,
+      </if>
+      <if test="operationManagementIp != null" >
+        OPERATION_MANAGEMENT_IP,
+      </if>
+      <if test="updateFlag != null" >
+        UPDATE_FLAG,
+      </if>
+      <if test="sendUpFlag != null" >
+        SEND_UP_FLAG,
+      </if>
+      <if test="reportFlag != null" >
+        REPORT_FLAG,
+      </if>
+      <if test="regulationMark != null" >
+        REGULATION_MARK,
+      </if>
+      <if test="equipName != null" >
+        EQUIP_NAME,
+      </if>
+      <if test="fullPathName != null" >
+        FULL_PATH_NAME,
+      </if>
+      <if test="equipType != null" >
+        EQUIP_TYPE,
+      </if>
+      <if test="manufacturer != null" >
+        MANUFACTURER,
+      </if>
+      <if test="equipModdel != null" >
+        EQUIP_MODDEL,
+      </if>
+      <if test="installationSite != null" >
+        INSTALLATION_SITE,
+      </if>
+      <if test="runningState != null" >
+        RUNNING_STATE,
+      </if>
+      <if test="devicesNumber != null" >
+        DEVICES_NUMBER,
+      </if>
+      <if test="startUBit != null" >
+        START_U_BIT,
+      </if>
+      <if test="commissioningDate != null" >
+        COMMISSIONING_DATE,
+      </if>
+      <if test="returnDate != null" >
+        RETURN_DATE,
+      </if>
+      <if test="personLiable != null" >
+        PERSON_LIABLE,
+      </if>
+      <if test="warrantyExpirationDate != null" >
+        WARRANTY_EXPIRATION_DATE,
+      </if>
+      <if test="assetNumber != null" >
+        ASSET_NUMBER,
+      </if>
+      <if test="sequenceCode != null" >
+        SEQUENCE_CODE,
+      </if>
+      <if test="cpuModel != null" >
+        CPU_MODEL,
+      </if>
+      <if test="cpuWordLength != null" >
+        CPU_WORD_LENGTH,
+      </if>
+      <if test="mainFrequencyOfCpu != null" >
+        MAIN_FREQUENCY_OF_CPU,
+      </if>
+      <if test="cpuNumber != null" >
+        CPU_NUMBER,
+      </if>
+      <if test="numberOfCpuCores != null" >
+        NUMBER_OF_CPU_CORES,
+      </if>
+      <if test="memorySize != null" >
+        MEMORY_SIZE,
+      </if>
+      <if test="hardDiskCapacity != null" >
+        HARD_DISK_CAPACITY,
+      </if>
+      <if test="numberOfScreens != null" >
+        NUMBER_OF_SCREENS,
+      </if>
+      <if test="operatingSystemType != null" >
+        OPERATING_SYSTEM_TYPE,
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="funcInfo != null" >
+        FUNC_INFO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stationId != null" >
+        #{stationId,jdbcType=INTEGER},
+      </if>
+      <if test="nodeId != null" >
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeName != null" >
+        #{nodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="safeArea != null" >
+        #{safeArea,jdbcType=VARCHAR},
+      </if>
+      <if test="operationManagementIp != null" >
+        #{operationManagementIp,jdbcType=VARCHAR},
+      </if>
+      <if test="updateFlag != null" >
+        #{updateFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="sendUpFlag != null" >
+        #{sendUpFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="reportFlag != null" >
+        #{reportFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="regulationMark != null" >
+        #{regulationMark,jdbcType=VARCHAR},
+      </if>
+      <if test="equipName != null" >
+        #{equipName,jdbcType=VARCHAR},
+      </if>
+      <if test="fullPathName != null" >
+        #{fullPathName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipType != null" >
+        #{equipType,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null" >
+        #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="equipModdel != null" >
+        #{equipModdel,jdbcType=VARCHAR},
+      </if>
+      <if test="installationSite != null" >
+        #{installationSite,jdbcType=VARCHAR},
+      </if>
+      <if test="runningState != null" >
+        #{runningState,jdbcType=VARCHAR},
+      </if>
+      <if test="devicesNumber != null" >
+        #{devicesNumber,jdbcType=INTEGER},
+      </if>
+      <if test="startUBit != null" >
+        #{startUBit,jdbcType=VARCHAR},
+      </if>
+      <if test="commissioningDate != null" >
+        #{commissioningDate,jdbcType=DATE},
+      </if>
+      <if test="returnDate != null" >
+        #{returnDate,jdbcType=DATE},
+      </if>
+      <if test="personLiable != null" >
+        #{personLiable,jdbcType=VARCHAR},
+      </if>
+      <if test="warrantyExpirationDate != null" >
+        #{warrantyExpirationDate,jdbcType=DATE},
+      </if>
+      <if test="assetNumber != null" >
+        #{assetNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sequenceCode != null" >
+        #{sequenceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuModel != null" >
+        #{cpuModel,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuWordLength != null" >
+        #{cpuWordLength,jdbcType=VARCHAR},
+      </if>
+      <if test="mainFrequencyOfCpu != null" >
+        #{mainFrequencyOfCpu,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuNumber != null" >
+        #{cpuNumber,jdbcType=INTEGER},
+      </if>
+      <if test="numberOfCpuCores != null" >
+        #{numberOfCpuCores,jdbcType=INTEGER},
+      </if>
+      <if test="memorySize != null" >
+        #{memorySize,jdbcType=VARCHAR},
+      </if>
+      <if test="hardDiskCapacity != null" >
+        #{hardDiskCapacity,jdbcType=VARCHAR},
+      </if>
+      <if test="numberOfScreens != null" >
+        #{numberOfScreens,jdbcType=INTEGER},
+      </if>
+      <if test="operatingSystemType != null" >
+        #{operatingSystemType,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="funcInfo != null" >
+        #{funcInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.gw_device.GwDeviceWorkstation" >
+    update gw_device_workstation
+    <set >
+      <if test="nodeId != null" >
+        NODE_ID = #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeName != null" >
+        NODE_NAME = #{nodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="safeArea != null" >
+        SAFE_AREA = #{safeArea,jdbcType=VARCHAR},
+      </if>
+      <if test="operationManagementIp != null" >
+        OPERATION_MANAGEMENT_IP = #{operationManagementIp,jdbcType=VARCHAR},
+      </if>
+      <if test="updateFlag != null" >
+        UPDATE_FLAG = #{updateFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="sendUpFlag != null" >
+        SEND_UP_FLAG = #{sendUpFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="reportFlag != null" >
+        REPORT_FLAG = #{reportFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="regulationMark != null" >
+        REGULATION_MARK = #{regulationMark,jdbcType=VARCHAR},
+      </if>
+      <if test="equipName != null" >
+        EQUIP_NAME = #{equipName,jdbcType=VARCHAR},
+      </if>
+      <if test="fullPathName != null" >
+        FULL_PATH_NAME = #{fullPathName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipType != null" >
+        EQUIP_TYPE = #{equipType,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null" >
+        MANUFACTURER = #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="equipModdel != null" >
+        EQUIP_MODDEL = #{equipModdel,jdbcType=VARCHAR},
+      </if>
+      <if test="installationSite != null" >
+        INSTALLATION_SITE = #{installationSite,jdbcType=VARCHAR},
+      </if>
+      <if test="runningState != null" >
+        RUNNING_STATE = #{runningState,jdbcType=VARCHAR},
+      </if>
+      <if test="devicesNumber != null" >
+        DEVICES_NUMBER = #{devicesNumber,jdbcType=INTEGER},
+      </if>
+      <if test="startUBit != null" >
+        START_U_BIT = #{startUBit,jdbcType=VARCHAR},
+      </if>
+      <if test="commissioningDate != null" >
+        COMMISSIONING_DATE = #{commissioningDate,jdbcType=DATE},
+      </if>
+      <if test="returnDate != null" >
+        RETURN_DATE = #{returnDate,jdbcType=DATE},
+      </if>
+      <if test="personLiable != null" >
+        PERSON_LIABLE = #{personLiable,jdbcType=VARCHAR},
+      </if>
+      <if test="warrantyExpirationDate != null" >
+        WARRANTY_EXPIRATION_DATE = #{warrantyExpirationDate,jdbcType=DATE},
+      </if>
+      <if test="assetNumber != null" >
+        ASSET_NUMBER = #{assetNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sequenceCode != null" >
+        SEQUENCE_CODE = #{sequenceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuModel != null" >
+        CPU_MODEL = #{cpuModel,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuWordLength != null" >
+        CPU_WORD_LENGTH = #{cpuWordLength,jdbcType=VARCHAR},
+      </if>
+      <if test="mainFrequencyOfCpu != null" >
+        MAIN_FREQUENCY_OF_CPU = #{mainFrequencyOfCpu,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuNumber != null" >
+        CPU_NUMBER = #{cpuNumber,jdbcType=INTEGER},
+      </if>
+      <if test="numberOfCpuCores != null" >
+        NUMBER_OF_CPU_CORES = #{numberOfCpuCores,jdbcType=INTEGER},
+      </if>
+      <if test="memorySize != null" >
+        MEMORY_SIZE = #{memorySize,jdbcType=VARCHAR},
+      </if>
+      <if test="hardDiskCapacity != null" >
+        HARD_DISK_CAPACITY = #{hardDiskCapacity,jdbcType=VARCHAR},
+      </if>
+      <if test="numberOfScreens != null" >
+        NUMBER_OF_SCREENS = #{numberOfScreens,jdbcType=INTEGER},
+      </if>
+      <if test="operatingSystemType != null" >
+        OPERATING_SYSTEM_TYPE = #{operatingSystemType,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="funcInfo != null" >
+        FUNC_INFO = #{funcInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where STATION_ID = #{stationId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xoa.model.gw_device.GwDeviceWorkstation" >
+    update gw_device_workstation
+    set NODE_ID = #{nodeId,jdbcType=VARCHAR},
+      NODE_NAME = #{nodeName,jdbcType=VARCHAR},
+      SAFE_AREA = #{safeArea,jdbcType=VARCHAR},
+      OPERATION_MANAGEMENT_IP = #{operationManagementIp,jdbcType=VARCHAR},
+      UPDATE_FLAG = #{updateFlag,jdbcType=VARCHAR},
+      SEND_UP_FLAG = #{sendUpFlag,jdbcType=VARCHAR},
+      REPORT_FLAG = #{reportFlag,jdbcType=VARCHAR},
+      REGULATION_MARK = #{regulationMark,jdbcType=VARCHAR},
+      EQUIP_NAME = #{equipName,jdbcType=VARCHAR},
+      FULL_PATH_NAME = #{fullPathName,jdbcType=VARCHAR},
+      EQUIP_TYPE = #{equipType,jdbcType=VARCHAR},
+      MANUFACTURER = #{manufacturer,jdbcType=VARCHAR},
+      EQUIP_MODDEL = #{equipModdel,jdbcType=VARCHAR},
+      INSTALLATION_SITE = #{installationSite,jdbcType=VARCHAR},
+      RUNNING_STATE = #{runningState,jdbcType=VARCHAR},
+      DEVICES_NUMBER = #{devicesNumber,jdbcType=INTEGER},
+      START_U_BIT = #{startUBit,jdbcType=VARCHAR},
+      COMMISSIONING_DATE = #{commissioningDate,jdbcType=DATE},
+      RETURN_DATE = #{returnDate,jdbcType=DATE},
+      PERSON_LIABLE = #{personLiable,jdbcType=VARCHAR},
+      WARRANTY_EXPIRATION_DATE = #{warrantyExpirationDate,jdbcType=DATE},
+      ASSET_NUMBER = #{assetNumber,jdbcType=VARCHAR},
+      SEQUENCE_CODE = #{sequenceCode,jdbcType=VARCHAR},
+      CPU_MODEL = #{cpuModel,jdbcType=VARCHAR},
+      CPU_WORD_LENGTH = #{cpuWordLength,jdbcType=VARCHAR},
+      MAIN_FREQUENCY_OF_CPU = #{mainFrequencyOfCpu,jdbcType=VARCHAR},
+      CPU_NUMBER = #{cpuNumber,jdbcType=INTEGER},
+      NUMBER_OF_CPU_CORES = #{numberOfCpuCores,jdbcType=INTEGER},
+      MEMORY_SIZE = #{memorySize,jdbcType=VARCHAR},
+      HARD_DISK_CAPACITY = #{hardDiskCapacity,jdbcType=VARCHAR},
+      NUMBER_OF_SCREENS = #{numberOfScreens,jdbcType=INTEGER},
+      OPERATING_SYSTEM_TYPE = #{operatingSystemType,jdbcType=VARCHAR},
+      CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      FUNC_INFO = #{funcInfo,jdbcType=LONGVARCHAR}
+    where STATION_ID = #{stationId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xoa.model.gw_device.GwDeviceWorkstation" >
+    update gw_device_workstation
+    set NODE_ID = #{nodeId,jdbcType=VARCHAR},
+      NODE_NAME = #{nodeName,jdbcType=VARCHAR},
+      SAFE_AREA = #{safeArea,jdbcType=VARCHAR},
+      OPERATION_MANAGEMENT_IP = #{operationManagementIp,jdbcType=VARCHAR},
+      UPDATE_FLAG = #{updateFlag,jdbcType=VARCHAR},
+      SEND_UP_FLAG = #{sendUpFlag,jdbcType=VARCHAR},
+      REPORT_FLAG = #{reportFlag,jdbcType=VARCHAR},
+      REGULATION_MARK = #{regulationMark,jdbcType=VARCHAR},
+      EQUIP_NAME = #{equipName,jdbcType=VARCHAR},
+      FULL_PATH_NAME = #{fullPathName,jdbcType=VARCHAR},
+      EQUIP_TYPE = #{equipType,jdbcType=VARCHAR},
+      MANUFACTURER = #{manufacturer,jdbcType=VARCHAR},
+      EQUIP_MODDEL = #{equipModdel,jdbcType=VARCHAR},
+      INSTALLATION_SITE = #{installationSite,jdbcType=VARCHAR},
+      RUNNING_STATE = #{runningState,jdbcType=VARCHAR},
+      DEVICES_NUMBER = #{devicesNumber,jdbcType=INTEGER},
+      START_U_BIT = #{startUBit,jdbcType=VARCHAR},
+      COMMISSIONING_DATE = #{commissioningDate,jdbcType=DATE},
+      RETURN_DATE = #{returnDate,jdbcType=DATE},
+      PERSON_LIABLE = #{personLiable,jdbcType=VARCHAR},
+      WARRANTY_EXPIRATION_DATE = #{warrantyExpirationDate,jdbcType=DATE},
+      ASSET_NUMBER = #{assetNumber,jdbcType=VARCHAR},
+      SEQUENCE_CODE = #{sequenceCode,jdbcType=VARCHAR},
+      CPU_MODEL = #{cpuModel,jdbcType=VARCHAR},
+      CPU_WORD_LENGTH = #{cpuWordLength,jdbcType=VARCHAR},
+      MAIN_FREQUENCY_OF_CPU = #{mainFrequencyOfCpu,jdbcType=VARCHAR},
+      CPU_NUMBER = #{cpuNumber,jdbcType=INTEGER},
+      NUMBER_OF_CPU_CORES = #{numberOfCpuCores,jdbcType=INTEGER},
+      MEMORY_SIZE = #{memorySize,jdbcType=VARCHAR},
+      HARD_DISK_CAPACITY = #{hardDiskCapacity,jdbcType=VARCHAR},
+      NUMBER_OF_SCREENS = #{numberOfScreens,jdbcType=INTEGER},
+      OPERATING_SYSTEM_TYPE = #{operatingSystemType,jdbcType=VARCHAR},
+      CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where STATION_ID = #{stationId,jdbcType=INTEGER}
+  </update>
+
+  <select id="serch" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from gw_device_workstation
+    <where>
+      <if test="model.nodeId!=null and model.nodeId!=''">
+        and NODE_ID LIKE concat('%', #{model.nodeId}, '%')
+      </if>
+      <if test="model.nodeName!=null and model.nodeName!=''">
+        and NODE_NAME LIKE concat('%', #{model.nodeName}, '%')
+      </if>
+      <if test="model.safeArea!=null and model.safeArea!=''">
+        and SAFE_AREA = #{model.safeArea}
+      </if>
+      <if test="model.operationManagementIp!=null and model.operationManagementIp!=''">
+        and OPERATION_MANAGEMENT_IP LIKE concat('%', #{model.operationManagementIp}, '%')
+      </if>
+      <if test="model.equipName!=null and model.equipName!=''">
+        and EQUIP_NAME LIKE concat('%', #{model.equipName}, '%')
+      </if>
+      <if test="model.equipType!=null and model.equipType!=''">
+        and EQUIP_TYPE =  #{model.equipType}
+      </if>
+      <if test="model.runningState!=null and model.runningState!=''">
+        and RUNNING_STATE =  #{model.runningState}
+      </if>
+      <if test="model.assetNumber!=null and model.assetNumber!=''">
+        and ASSET_NUMBER LIKE concat('%', #{model.assetNumber}, '%')
+      </if>
+    </where>
+  </select>
+
+  <insert id="insertByObject" parameterType="com.xoa.model.gw_device.GwDeviceAll" >
+    insert into gw_device_workstation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stationId != null" >
+        STATION_ID,
+      </if>
+      <if test="nodeId != null" >
+        NODE_ID,
+      </if>
+      <if test="nodeName != null" >
+        NODE_NAME,
+      </if>
+      <if test="safeArea != null" >
+        SAFE_AREA,
+      </if>
+      <if test="operationManagementIp != null" >
+        OPERATION_MANAGEMENT_IP,
+      </if>
+      <if test="updateFlag != null" >
+        UPDATE_FLAG,
+      </if>
+      <if test="sendUpFlag != null" >
+        SEND_UP_FLAG,
+      </if>
+      <if test="reportFlag != null" >
+        REPORT_FLAG,
+      </if>
+      <if test="regulationMark != null" >
+        REGULATION_MARK,
+      </if>
+      <if test="equipName != null" >
+        EQUIP_NAME,
+      </if>
+      <if test="fullPathName != null" >
+        FULL_PATH_NAME,
+      </if>
+      <if test="equipType != null" >
+        EQUIP_TYPE,
+      </if>
+      <if test="manufacturer != null" >
+        MANUFACTURER,
+      </if>
+      <if test="equipModdel != null" >
+        EQUIP_MODDEL,
+      </if>
+      <if test="installationSite != null" >
+        INSTALLATION_SITE,
+      </if>
+      <if test="runningState != null" >
+        RUNNING_STATE,
+      </if>
+      <if test="devicesNumber != null" >
+        DEVICES_NUMBER,
+      </if>
+      <if test="startUBit != null" >
+        START_U_BIT,
+      </if>
+      <if test="commissioningDate != null" >
+        COMMISSIONING_DATE,
+      </if>
+      <if test="returnDate != null" >
+        RETURN_DATE,
+      </if>
+      <if test="personLiable != null" >
+        PERSON_LIABLE,
+      </if>
+      <if test="warrantyExpirationDate != null" >
+        WARRANTY_EXPIRATION_DATE,
+      </if>
+      <if test="assetNumber != null" >
+        ASSET_NUMBER,
+      </if>
+      <if test="sequenceCode != null" >
+        SEQUENCE_CODE,
+      </if>
+      <if test="cpuModel != null" >
+        CPU_MODEL,
+      </if>
+      <if test="cpuWordLength != null" >
+        CPU_WORD_LENGTH,
+      </if>
+      <if test="mainFrequencyOfCpu != null" >
+        MAIN_FREQUENCY_OF_CPU,
+      </if>
+      <if test="cpuNumber != null" >
+        CPU_NUMBER,
+      </if>
+      <if test="numberOfCpuCores != null" >
+        NUMBER_OF_CPU_CORES,
+      </if>
+      <if test="memorySize != null" >
+        MEMORY_SIZE,
+      </if>
+      <if test="hardDiskCapacity != null" >
+        HARD_DISK_CAPACITY,
+      </if>
+      <if test="numberOfScreens != null" >
+        NUMBER_OF_SCREENS,
+      </if>
+      <if test="operatingSystemType != null" >
+        OPERATING_SYSTEM_TYPE,
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="funcInfo != null" >
+        FUNC_INFO,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stationId != null" >
+        #{stationId,jdbcType=INTEGER},
+      </if>
+      <if test="nodeId != null" >
+        #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeName != null" >
+        #{nodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="safeArea != null" >
+        #{safeArea,jdbcType=VARCHAR},
+      </if>
+      <if test="operationManagementIp != null" >
+        #{operationManagementIp,jdbcType=VARCHAR},
+      </if>
+      <if test="updateFlag != null" >
+        #{updateFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="sendUpFlag != null" >
+        #{sendUpFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="reportFlag != null" >
+        #{reportFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="regulationMark != null" >
+        #{regulationMark,jdbcType=VARCHAR},
+      </if>
+      <if test="equipName != null" >
+        #{equipName,jdbcType=VARCHAR},
+      </if>
+      <if test="fullPathName != null" >
+        #{fullPathName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipType != null" >
+        #{equipType,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null" >
+        #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="equipModdel != null" >
+        #{equipModdel,jdbcType=VARCHAR},
+      </if>
+      <if test="installationSite != null" >
+        #{installationSite,jdbcType=VARCHAR},
+      </if>
+      <if test="runningState != null" >
+        #{runningState,jdbcType=VARCHAR},
+      </if>
+      <if test="devicesNumber != null" >
+        #{devicesNumber,jdbcType=INTEGER},
+      </if>
+      <if test="startUBit != null" >
+        #{startUBit,jdbcType=VARCHAR},
+      </if>
+      <if test="commissioningDate != null" >
+        #{commissioningDate,jdbcType=DATE},
+      </if>
+      <if test="returnDate != null" >
+        #{returnDate,jdbcType=DATE},
+      </if>
+      <if test="personLiable != null" >
+        #{personLiable,jdbcType=VARCHAR},
+      </if>
+      <if test="warrantyExpirationDate != null" >
+        #{warrantyExpirationDate,jdbcType=DATE},
+      </if>
+      <if test="assetNumber != null" >
+        #{assetNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sequenceCode != null" >
+        #{sequenceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuModel != null" >
+        #{cpuModel,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuWordLength != null" >
+        #{cpuWordLength,jdbcType=VARCHAR},
+      </if>
+      <if test="mainFrequencyOfCpu != null" >
+        #{mainFrequencyOfCpu,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuNumber != null" >
+        #{cpuNumber,jdbcType=INTEGER},
+      </if>
+      <if test="numberOfCpuCores != null" >
+        #{numberOfCpuCores,jdbcType=INTEGER},
+      </if>
+      <if test="memorySize != null" >
+        #{memorySize,jdbcType=VARCHAR},
+      </if>
+      <if test="hardDiskCapacity != null" >
+        #{hardDiskCapacity,jdbcType=VARCHAR},
+      </if>
+      <if test="numberOfScreens != null" >
+        #{numberOfScreens,jdbcType=INTEGER},
+      </if>
+      <if test="operatingSystemType != null" >
+        #{operatingSystemType,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="funcInfo != null" >
+        #{funcInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByObject" parameterType="com.xoa.model.gw_device.GwDeviceAll" >
+    update gw_device_workstation
+    <set >
+      <if test="nodeId != null" >
+        NODE_ID = #{nodeId,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeName != null" >
+        NODE_NAME = #{nodeName,jdbcType=VARCHAR},
+      </if>
+      <if test="safeArea != null" >
+        SAFE_AREA = #{safeArea,jdbcType=VARCHAR},
+      </if>
+      <if test="operationManagementIp != null" >
+        OPERATION_MANAGEMENT_IP = #{operationManagementIp,jdbcType=VARCHAR},
+      </if>
+      <if test="updateFlag != null" >
+        UPDATE_FLAG = #{updateFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="sendUpFlag != null" >
+        SEND_UP_FLAG = #{sendUpFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="reportFlag != null" >
+        REPORT_FLAG = #{reportFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="regulationMark != null" >
+        REGULATION_MARK = #{regulationMark,jdbcType=VARCHAR},
+      </if>
+      <if test="equipName != null" >
+        EQUIP_NAME = #{equipName,jdbcType=VARCHAR},
+      </if>
+      <if test="fullPathName != null" >
+        FULL_PATH_NAME = #{fullPathName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipType != null" >
+        EQUIP_TYPE = #{equipType,jdbcType=VARCHAR},
+      </if>
+      <if test="manufacturer != null" >
+        MANUFACTURER = #{manufacturer,jdbcType=VARCHAR},
+      </if>
+      <if test="equipModdel != null" >
+        EQUIP_MODDEL = #{equipModdel,jdbcType=VARCHAR},
+      </if>
+      <if test="installationSite != null" >
+        INSTALLATION_SITE = #{installationSite,jdbcType=VARCHAR},
+      </if>
+      <if test="runningState != null" >
+        RUNNING_STATE = #{runningState,jdbcType=VARCHAR},
+      </if>
+      <if test="devicesNumber != null" >
+        DEVICES_NUMBER = #{devicesNumber,jdbcType=INTEGER},
+      </if>
+      <if test="startUBit != null" >
+        START_U_BIT = #{startUBit,jdbcType=VARCHAR},
+      </if>
+      <if test="commissioningDate != null" >
+        COMMISSIONING_DATE = #{commissioningDate,jdbcType=DATE},
+      </if>
+      <if test="returnDate != null" >
+        RETURN_DATE = #{returnDate,jdbcType=DATE},
+      </if>
+      <if test="personLiable != null" >
+        PERSON_LIABLE = #{personLiable,jdbcType=VARCHAR},
+      </if>
+      <if test="warrantyExpirationDate != null" >
+        WARRANTY_EXPIRATION_DATE = #{warrantyExpirationDate,jdbcType=DATE},
+      </if>
+      <if test="assetNumber != null" >
+        ASSET_NUMBER = #{assetNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="sequenceCode != null" >
+        SEQUENCE_CODE = #{sequenceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuModel != null" >
+        CPU_MODEL = #{cpuModel,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuWordLength != null" >
+        CPU_WORD_LENGTH = #{cpuWordLength,jdbcType=VARCHAR},
+      </if>
+      <if test="mainFrequencyOfCpu != null" >
+        MAIN_FREQUENCY_OF_CPU = #{mainFrequencyOfCpu,jdbcType=VARCHAR},
+      </if>
+      <if test="cpuNumber != null" >
+        CPU_NUMBER = #{cpuNumber,jdbcType=INTEGER},
+      </if>
+      <if test="numberOfCpuCores != null" >
+        NUMBER_OF_CPU_CORES = #{numberOfCpuCores,jdbcType=INTEGER},
+      </if>
+      <if test="memorySize != null" >
+        MEMORY_SIZE = #{memorySize,jdbcType=VARCHAR},
+      </if>
+      <if test="hardDiskCapacity != null" >
+        HARD_DISK_CAPACITY = #{hardDiskCapacity,jdbcType=VARCHAR},
+      </if>
+      <if test="numberOfScreens != null" >
+        NUMBER_OF_SCREENS = #{numberOfScreens,jdbcType=INTEGER},
+      </if>
+      <if test="operatingSystemType != null" >
+        OPERATING_SYSTEM_TYPE = #{operatingSystemType,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="funcInfo != null" >
+        FUNC_INFO = #{funcInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where STATION_ID = #{stationId,jdbcType=INTEGER}
+  </update>
+</mapper>

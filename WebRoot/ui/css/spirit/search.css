@@ -1,0 +1,117 @@
+.searchBox{
+    width:100%;
+    height:100%;
+}
+.title{
+    width:100%;
+    height:45px;
+    background:#fff;
+    border-bottom:1px solid #ccc;
+}
+.searchText{
+    width:100%;
+    height:100%;
+    text-align:center;
+    line-height:45px;
+    font-size:10pt;
+    font-weight:bold;
+    float:left;
+    background:#fff;
+}
+.back{
+    float:right;
+    margin-top:15px;
+    margin-right:1em;
+    width:20px;
+    height:14px;
+}
+.aside{
+    width:100%;
+    height:100%;
+    background:#f0f0f0;
+}
+.search_custom{
+    width:100%;
+    background:#fff;
+}
+.apply_custom{
+    width:100%;
+    background:#fff;
+}
+.userTitle{
+    border-bottom:1px solid #ccc;
+}
+.userImg{
+    margin-left:16px;
+    float:left;
+}
+.user{
+    float:left;
+    line-height:27px;
+    width:8em;
+    text-align:left;
+    padding-left:10px;
+}
+.user_open{
+    float:right;
+    margin-right:1em;
+    margin-top:6px;
+}
+#userNum{
+    float:right;
+    width:6em;
+    line-height:24px;
+    text-align:right
+}
+#applyNum{
+    float:right;
+    width:6em;
+    line-height:39px;
+    text-align:right;
+}
+.applyImg{
+    margin:8px 0px 5px 16px;
+    float:left;
+}
+.apply{
+    line-height:39px;
+    width:3em;
+    text-align:center;
+    float:left;
+}
+.apply_open{
+    margin:15px 1em 0px 0px;
+    float:right;
+}
+.inputBox{
+    width:100%;
+    height:57px;
+    background:#fff;
+}
+#ipt{
+    border:1px solid #ccc;
+    float:left;
+    box-shadow:inset 0px 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow:inset 0px 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-box-shadow:inset 0px 1px 1px rgba(0, 0, 0, 0.075);
+    -o-box-shadow:inset 0px 1px 1px rgba(0, 0, 0, 0.075);
+    height:20px;
+    padding:4px 6px;
+    margin-bottom:10px;
+    font-size:14px;
+    line-height:20px;
+    color:#555555;
+    vertical-align:middle;
+    margin:10px 0px 0px 10px;
+}
+#btn{
+    width:6%;
+    height:30px;
+    background:#56a7ff;
+    color:#fff;
+    margin:10px 0px 0px 8px;
+    outline:none;
+    border-radius:3px;
+    border:none;
+    float:left;
+}

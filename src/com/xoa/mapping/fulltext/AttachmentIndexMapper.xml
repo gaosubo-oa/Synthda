@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.fulltext.AttachmentIndexMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.fulltext.AttachmentIndex">
+        <id column="AID" javaType="java.lang.Integer" property="aid"/>
+        <result column="ATTACH_KEYWORDS" jdbcType="LONGVARCHAR" property="AttachKeyWords"/>
+        <result column="ATTACH_CONTENT" jdbcType="LONGVARCHAR" property="AttachContent"/>
+    </resultMap>
+    <resultMap id="AttachMap" type="com.xoa.model.enclosure.Attachment">
+        <id column="AID" jdbcType="INTEGER" property="aid"/>
+        <result column="POSITION" javaType="java.lang.Integer" property="position"/>
+        <result column="MODULE" javaType="java.lang.Integer" property="module"/>
+        <result column="YM" jdbcType="CHAR" property="ym"/>
+        <result column="ATTACH_ID" jdbcType="VARCHAR" property="attachId"/>
+        <result column="ATTACH_FILE" jdbcType="VARCHAR" property="attachFile"/>
+        <result column="ATTACH_NAME" jdbcType="VARCHAR" property="attachName"/>
+        <result column="ATTACH_SIGN" jdbcType="BIGINT" property="attachSign"/>
+        <result column="DEL_FLAG" javaType="java.lang.Integer" property="delFlag"/>
+        <result column="SIZE" jdbcType="VARCHAR" property="size"/>
+    </resultMap>
+
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select *
+        from attachment_index
+    </select>
+
+    <select id="selectByStr" resultMap="AttachMap" parameterType="map">
+        select c.*
+        from attachment_index a
+        inner join attachment c on c.AID = a.AID
+        <where>
+            c.MODULE = #{moduleId}
+            and a.ATTACH_CONTENT != '文件不存在，未生成索引内容'
+            <if test="subject != null">
+                and (a.ATTACH_KEYWORDS like concat ('%',#{subject},'%')
+                or a.ATTACH_CONTENT like concat ('%',#{subject},'%')
+                or c.ATTACH_NAME like concat ('%',#{subject},'%')
+                <if test="strs != null">
+                    <foreach collection="strs" item="str" separator="or " open="or (" close=")">
+                        a.ATTACH_KEYWORDS like concat ('%',#{str},'%')
+                        or a.ATTACH_CONTENT like concat ('%',#{str},'%')
+                    </foreach>
+                </if>
+                )
+            </if>
+            <if test="aIds != null">
+                and c.AID in
+                <foreach collection="aIds" item="aId" separator="," open="(" close=")">
+                    #{aId}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <select id="selectPriv" resultType="integer" parameterType="map">
+        select MODULE_ID
+        from attachment_module
+        <where>
+            MODULE_NAME in
+            <foreach collection="privs" item="priv" open="(" separator="," close=")">
+                #{priv}
+            </foreach>
+        </where>
+    </select>
+
+    <select id="selectManager" resultType="integer" parameterType="map">
+        select module_id from attachment_index_priv
+        <where>
+            <if test="moduleIds != null">
+                module_id in
+                <foreach collection="moduleIds" item="moduleId" open="(" separator="," close=")">
+                    #{moduleId}
+                </foreach>
+                and
+            </if>
+            (
+            (
+            USER_IDS like CONCAT('%', #{userId}, ',%')
+            )
+            OR
+            (
+            DEPT_IDS like concat(CONCAT('%',(SELECT DEPT_ID FROM USER where USER_ID = #{userId})),',%')
+            )
+            OR
+            (
+            DEPT_IDS like concat(CONCAT('%',(SELECT DEPT_ID_OTHER FROM USER where USER_ID = #{userId})),',%')
+            )
+            OR
+            (
+            PRIV_IDS LIKE concat(CONCAT('%',(SELECT USER_PRIV FROM USER where USER_ID = #{userId})),',%')
+            )
+            )
+        </where>
+    </select>
+
+    <select id="selectIndexCount" resultType="java.util.Map">
+        select
+            (select count(*) from attachment a
+                                      inner join attachment_index_priv b on a.MODULE = b.MODULE_ID
+                                      inner join attachment_index c on c.AID = a.AID
+
+             where b.MODULE_ID ='1' ) as '电子邮件',
+            (select count(*) from attachment a
+                                      inner join attachment_index_priv b on a.MODULE = b.MODULE_ID
+                                      inner join attachment_index c on c.AID = a.AID
+             where b.MODULE_ID ='2')  as '流程中心',
+            (select count(*) from attachment a
+                                      inner join attachment_index_priv b on a.MODULE = b.MODULE_ID
+                                      inner join attachment_index c on c.AID = a.AID
+             where b.MODULE_ID ='3')  as '文件柜',
+            (select count(*) from attachment a
+                                      inner join attachment_index_priv b on a.MODULE = b.MODULE_ID
+                                      inner join attachment_index c on c.AID = a.AID
+             where b.MODULE_ID ='4' ) as '公告通知',
+            (select count(*) from attachment a
+                                      inner join attachment_index_priv b on a.MODULE = b.MODULE_ID
+                                      inner join attachment_index c on c.AID = a.AID
+             where  b.MODULE_ID ='5') as '新闻',
+            (select count(*) from attachment a
+                                      inner join attachment_index_priv b on a.MODULE = b.MODULE_ID
+                                      inner join attachment_index c on c.AID = a.AID
+             where  b.MODULE_ID ='6') as '工作日志',
+            (select count(*) from attachment a
+                                      inner join attachment_index_priv b on a.MODULE = b.MODULE_ID
+                                      inner join attachment_index c on c.AID = a.AID
+             where  b.MODULE_ID ='9') as 'crm',
+            (select count(*) from attachment a
+                                      inner join attachment_index_priv b on a.MODULE = b.MODULE_ID
+                                      inner join attachment_index c on c.AID = a.AID
+             where  b.MODULE_ID ='10') as '公文管理',
+            (select count(*) from attachment a
+                                      inner join attachment_index_priv b on a.MODULE = b.MODULE_ID
+                                      inner join attachment_index c on c.AID = a.AID
+             where  b.MODULE_ID ='12') as '人力资源',
+            (select count(*) from attachment a
+                                      inner join attachment_index_priv b on a.MODULE = b.MODULE_ID
+                                      inner join attachment_index c on c.AID = a.AID
+             where  b.MODULE_ID ='26') as '即时通讯',
+            count(*) as indexCount
+        from attachment_index
+    </select>
+    <select id="selectAttCount" resultType="java.util.Map">
+        select
+               count(*) as allcount
+        from attachment a
+                 inner join attachment_index_priv b
+                            on a.MODULE = b.MODULE_ID
+        where   a.MODULE !='7' and
+           ( a.ATTACH_FILE like '%.html'
+           or a.ATTACH_FILE like '%.txt'
+           or a.ATTACH_FILE like '%.pdf'
+           or a.ATTACH_FILE like '%.doc'
+           or a.ATTACH_FILE like '%.docx'
+           or a.ATTACH_FILE like '%.xlsx'
+           or a.ATTACH_FILE like '%.xls'
+           or a.ATTACH_FILE like '%.ppt'
+           or a.ATTACH_FILE like '%.pptx'
+           )
+    </select>
+
+    <insert id="insert" parameterType="com.xoa.model.fulltext.AttachmentIndex">
+        insert into attachment_index(AID, ATTACH_KEYWORDS, ATTACH_CONTENT)
+        values (#{aid}, #{AttachKeyWords}, #{AttachContent})
+    </insert>
+    <delete id="resetting">
+        delete
+        from attachment_index
+        where ATTACH_CONTENT = '文件不存在，未生成索引内容'
+    </delete>
+
+    <insert id="update" parameterType="com.xoa.model.fulltext.AttachmentIndex">
+        update attachment_index
+        set ATTACH_KEYWORDS=#{AttachKeyWords},
+            ATTACH_CONTENT=#{AttachContent}
+        where AID = #{aid}
+    </insert>
+
+    <select id="selectAttach" resultMap="AttachMap" parameterType="integer">
+        select a.*
+        from attachment a
+                 inner join attachment_index_priv b on a.MODULE = b.MODULE_ID
+                 left join attachment_index c on c.AID = a.AID
+        where c.AID is null and a.MODULE !='7'
+          and (
+          <trim prefixOverrides="or">
+            <if test="word==1">
+                 or a.ATTACH_FILE like '%.doc'
+                 or a.ATTACH_FILE like '%.docx'
+            </if>
+            <if test="txt==1">
+                or a.ATTACH_FILE like '%.txt'
+            </if>
+            <if test="excl==1">
+                or a.ATTACH_FILE like '%.xlsx'
+                or a.ATTACH_FILE like '%.xls'
+            </if>
+            <if test="ppt==1">
+                or a.ATTACH_FILE like '%.ppt'
+                or a.ATTACH_FILE like '%.pptx'
+            </if>
+            <if test="pdf==1">
+                or a.ATTACH_FILE like '%.pdf'
+            </if>
+            <if test="html==1">
+                or a.ATTACH_FILE like '%.html'
+            </if>
+          </trim>
+            )
+        order by a.AID desc LIMIT 0,#{num}
+    </select>
+</mapper>

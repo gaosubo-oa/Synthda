@@ -1,0 +1,27 @@
+
+li.mui-table-view-cell {
+    padding: 11px 15px 11px 16px;
+}
+#list img {
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+    margin-right: 2px;
+}
+.f_right {
+    float: right;
+}
+.end {
+    margin-right: 45px;
+}
+.time {
+    margin-right: 10px;
+    color:#999;
+}
+.con_bt {
+    margin-bottom: 8px;
+}
+.name {
+    font-size: 18px;
+    font-weight: 600;
+}

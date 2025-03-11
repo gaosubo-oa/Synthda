@@ -1,0 +1,454 @@
+*{
+	margin: 0;
+	padding: 0;	
+}
+html, body {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 99%;
+    background: #f0f4f7;
+    /*overflow: hidden;*/
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+}
+ul{
+	list-style: none;
+}
+.page{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background: #f0f4f7;
+}
+
+.page .page_left,.page .page_right{
+	float: left;
+}
+.page .page_left{
+	position: relative;
+	width: 15%;
+	background-color: #7eacdb;
+	color: #fff;
+	height: 100%;
+	overflow-y: auto;  
+    overflow-x: hidden;
+}
+.page .page_right{
+	width: 85%;
+	background-color: #f9fbff;
+	height: 100%;
+	overflow-y: auto;  
+    overflow-x: hidden;
+}
+.page .page_left .write{
+	height: 56px;
+	background-color: #719ac4;
+	overflow: hidden;
+}
+.page .page_left .write .d_im{
+	width: 80%;
+/*	height: 40px;*/
+	margin: 0 auto;
+	margin-top: 8px;
+}
+.page .page_left .write .d_im img{
+	width: 100%;
+	height: 100%;
+}
+/*收件箱*/
+.page .page_left .inBox{
+	width: 100%;
+	overflow: hidden;
+	border-bottom: rgba(0,0,0,0.12) 1px solid;
+}
+
+.page .page_left .inBox .ul_show li span{
+	float: right;
+	margin-right: 15%;		
+}
+
+/*其他邮箱*/
+.page .page_left .other{
+	width: 100%;
+	overflow: hidden;
+	border-bottom: rgba(0,0,0,0.12) 1px solid;
+}
+
+/*邮件智能分类*/
+.page .page_left .classify{
+	width: 100%;
+	overflow: hidden;
+	border-bottom: rgba(0,0,0,0.12) 1px solid;
+}
+.page .page_left .classify .ul_show li span{
+	margin-left: 14%;
+}
+
+/*邮箱设置*/
+.page .page_left .setUp{
+	width: 15%;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	height: 42px;
+	line-height: 42px;
+	background-color: #95c3f2;
+}
+.page .page_left .setUp a{
+	display: block;
+	text-decoration: none;
+	width: 100%;
+	color: #fff;
+}
+.page .page_left .setUp a img{
+	display: inline-block;
+	vertical-align: middle;
+}
+.page .page_left .setUp a span{
+	font-size: 16px;
+}
+.page .page_left .setUp a .setUp_img{
+	margin-left: 9%;
+	margin-right: 3%;
+}
+.page .page_left .setUp a .loding{
+	float: right;
+	margin-top: 10px;
+	margin-right: 10%;
+}
+
+
+/*左侧边栏公用样式*/
+.page .page_left .inbox_btn{
+	display: block;
+	text-decoration: none;
+	width: 100%;
+	height: 60px;
+	color: #fff;
+	line-height: 60px;
+	overflow: hidden;
+}
+.page .page_left .inbox_btn .inbox_btn_tim{
+	
+	margin-left: 9%;
+}
+.div_up{
+	background: url(../img/icon_more_shouqi_07.png) no-repeat 75% center;
+	background-size: 18px 15px;
+}
+.div_down{
+	background: url(../img/icon_more_dakai_07.png) no-repeat 75% center;
+	background-size: 18px 10px;
+}
+
+.page .page_left .ul_show{
+	display: none;
+	width: 100%;
+	overflow: hidden;
+}
+.page .page_left .spac_show{
+	margin-bottom: 52px;	
+}
+.page .page_left .ul_show li{
+	width: 100%;
+	height: 52px;
+	line-height: 52px;
+	font-size: 14px;
+}
+.page .page_left .ul_show li a{
+	display: block;
+	text-decoration: none;
+	color: #fff;
+}
+.page .page_left .ul_show li img{
+	margin-left: 14%;
+	margin-right: 7%;
+	vertical-align:middle;
+}
+
+.on{
+	background-color: #4a7aaa;
+	box-shadow:inset 0 0 10px #4a7aaa;
+}
+
+/*右侧区域样式*/
+.page .page_right .header{
+	width: 100%;
+	height: 56px;
+	border-bottom: #2f80d1 1px solid;
+	overflow: hidden;
+	padding-left: 2%;
+}
+.page .page_right .header .nav{
+	width: 65%;
+	float: left;
+	height: 100%;
+	overflow: hidden;
+}
+.page .page_right .header .nav li{
+	float: left;
+	height: 35px;
+	border: #d3d6d9 1px solid;
+	border-radius: 3px;
+	background: url(../img/btn_bg_03.png) no-repeat;
+	margin-top: 8px;
+	margin-right: 1%;
+	font-size: 14px;
+	line-height: 35px;
+	border-top: none;
+	border-left: none;
+	padding: 0 10px;
+}
+.page .page_right .header .nav li span{
+	display: block;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background-color: #f00;
+	text-align: center;
+	margin-left: 10px;
+	color: #fff;
+	float: right;
+	margin-top: 10px;
+	line-height: 16px;
+}
+.page .page_right .header .nav li img:not(.more_im){
+	width: 16px;
+	height: 16px;
+	vertical-align:middle;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+.page .page_right .header .searchs{
+	width: 35%;
+	float: right;
+	overflow: hidden;
+}
+.page .page_right .header .searchs .search_div{
+	width: 50%;
+	height: 35px;
+	background-color: #e3e3e3;
+	border-radius: 5px;
+	margin-top: 10px;
+	overflow: hidden;
+	float: left;
+	margin-right: 10px;
+}
+.page .page_right .header .searchs .search_div input{
+	float: left;
+	margin-top: 10px;
+	border: none;
+	outline: none;
+	background-color: #e3e3e3;
+	padding-left: 5px;
+}
+.page .page_right .header .searchs .search_div img{
+	display: block;
+	float: left;
+	margin-top: 11px;
+	margin-left: 15px;
+	height: 17px;
+}
+.page .page_right .header .searchs .format{
+	float: left;
+}
+.page .page_right .header .searchs .format ul{
+	width: 120px;
+
+	overflow: hidden;
+	border-radius: 3px;
+}
+.page .page_right .header .searchs .format ul li{
+	float: left;
+	width: 40px;
+	height: 35px;
+	margin-top: 10px;
+	background-color: #f6f6f6;
+	text-align: center;
+	overflow: hidden;
+}
+.page .page_right .header .searchs .format ul li img{
+	margin-top: 6px;
+}
+
+
+.for_on{
+	background-color: #fff !important;
+}
+/*表格区域*/
+.page .page_right .tab{
+	width: 100%;
+}
+.page .page_right .tab table{
+	width: 100%;
+}
+.page .page_right .tab table .theme{
+	text-align: left;
+}
+.page .page_right .tab table tr{
+	width: 100%;
+	border-bottom: #d3d6d9 1px solid;
+}
+.page .page_right .tab table tr th{
+	height: 60px;
+	background-color: #fff;
+}
+.page .page_right .tab table tr td{
+	font-size: 14px;
+	text-align: center;
+	height: 52px;
+	background-color: #fff;
+}
+.page .page_right .tab table tr td.title{
+	font-size: 16px;
+	text-align: left;
+	padding-left: 30px;
+	background-color: #f9fbff;
+}
+.page .page_right .tab .back{
+	width: 100%;
+	overflow: hidden;
+}
+.page .page_right .tab .back ul{
+	width: 50%;
+	overflow: hidden;
+	float: left;
+	padding-left: 2%;
+}
+.page .page_right .tab .back ul li{
+	float: left;
+	border: #d3d6d9 1px solid;
+	border-radius: 3px;
+	background: url(../img/btn_bg_03.png) no-repeat;
+	margin-top: 15px;
+	margin-right: 16px;
+	font-size: 14px;
+	border-top: none;
+	border-left: none;
+	padding: 5px 10px 5px 0 ;
+}
+.page .page_right .tab .back .replay,
+.page .page_right .tab .back .replayAll{
+	padding-right: 15px;
+}
+
+.page .page_right .tab .back ul li img:not(.more_im){
+	vertical-align:middle;
+	margin: 0 10px;
+}
+.more_im{
+	width: 10px;
+	height: 6px;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+
+.page .page_right .tab .back .pages{
+	width: 40%;
+	float: right;
+	margin-right: 1%;
+}
+.page .page_right .tab .back .pages ul{
+	width: 100%;
+}
+.page .page_right .tab .back .pages li{
+	float: right;
+	background-size: cover;
+}
+.page .page_right .tab .back .pages li.fulls{
+	width: 40px;
+	height: 30px;
+	padding: 0;
+}
+.page .page_right .tab .back .pages li.fulls>img{
+	width: 19px;
+	height: 19px;
+	display: block;
+	margin: 5px auto;
+}
+.page .page_right .tab .back .pages li img{
+	width: 10px;
+	vertical-align:middle;
+}
+.page .page_right .tab .back .pages li .one{
+	/*display: inline-block;*/
+	margin-right: 15px;
+	font-size: 14px;
+}
+.page .page_right .details{
+	width: 99%;
+	background-color: #fff;
+	position: relative;
+}
+.page .page_right .details table{
+	width: 80%;
+	margin-left: 2%;
+	margin-top: 13px;
+	line-height: 30px;
+}
+.page .page_right .details table tr td{
+	font-size: 14px;
+}
+.page .page_right .details table tr td>span{
+	display: block;
+	line-height: 22px;
+	float: left;
+	margin-right: 10px;
+	color: #2f80d1;
+}
+.page .page_right .details table tr td>span img{
+	display: block;
+	line-height: 22px;
+	float: left;
+	margin-right: 10px;
+}
+.page .page_right .details table tr td p span{
+	color: #2f80d1;
+}
+.page .page_right .details table tr td p img{
+	vertical-align: middle;
+	margin: 0 10px;
+}
+
+.page .page_right .details .span_hr{
+	display: inline-block;
+	position: absolute;
+	top: 35px;
+	right: 70px;
+	text-align: center;
+}
+.page .page_right .details .span_hr>div{
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	overflow: hidden;
+	margin: 0 auto;
+}
+.page .page_right .details .span_hr>div img{
+	width: 100%;
+	height: 100%;
+}
+.page .page_right .details .span_hr p{
+	margin-top: 5px;
+}
+.page .page_right .details .article{
+	margin-top: 10px;
+	width: 100%;
+	padding-left: 2%;
+	border-top: #ebebeb 1px solid;
+}
+.page .page_right .details .article p{
+	margin-right: 25px;
+	font-size: 14px;
+}
+.page .page_right .details .article p:first-of-type{
+	margin-top: 13px;
+}
+
+
+@media only screen and (min-width: 1680px) {
+	.page .page_left .write .d_im{
+		width: 60%;
+	}
+}

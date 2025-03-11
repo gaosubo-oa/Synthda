@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.users.OrgManageMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.users.OrgManage">
+        <id column="OID" property="oid" javaType="int"/>
+        <result column="VERSION" property="version" javaType="string"/>
+        <result column="IS_ORG" property="isOrg" javaType="string"/>
+        <result column="NAME" property="name" javaType="string"/>
+        <result column="EN_NAME" property="enName" javaType="string"/>
+        <result column="FT_NAME" property="ftName" javaType="string"/>
+        <result column="JP_NAME" property="jpName" javaType="string"/>
+        <result column="KR_NAME" property="krName" javaType="string"/>
+
+        <result column="LICENSE_USERS" property="licenseUsers" javaType="java.lang.Integer"/>
+        <result column="USED_USERS" property="usedUsers" javaType="java.lang.Integer"/>
+        <result column="LICENSE_SPACE" property="licenseSpace" javaType="java.lang.Integer"/>
+        <result column="USED_SPACE" property="usedSpace" javaType="java.lang.Integer"/>
+        <result column="REGIST_TIME" property="registTime" javaType="string"/>
+        <result column="END_TIME" property="endTime" javaType="string"/>
+        <result column="REMIND_TIME" property="remindTime" javaType="string"/>
+        <result column="AGENT_ID" property="agentId" javaType="java.lang.Integer"/>
+    </resultMap>
+
+    <select id="queryId" resultMap="BaseResultMap">
+        SELECT * FROM org_manage ORDER BY OID
+    </select>
+
+    <select id="getOrgManage" resultMap="BaseResultMap">
+        SELECT o.OID,o.`NAME`,o.VERSION,o.IS_ORG FROM org_manage o
+    </select>
+    <select id="getOrgManage" resultMap="BaseResultMap" databaseId="oracle">
+       SELECT o.OID,o."NAME",o.VERSION,o.IS_ORG FROM org_manage o
+    </select>
+    <select id="getOrgManage" resultMap="BaseResultMap" databaseId="dm">
+        SELECT o.OID,o.NAME,o.VERSION,o.IS_ORG FROM org_manage o
+    </select>
+    <select id="getOrgManage" resultMap="BaseResultMap" databaseId="kingbase">
+        SELECT o.OID,o.NAME,o.VERSION,o.IS_ORG FROM org_manage o
+    </select>
+
+
+
+    <select id="getOrgManageById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT o.OID,o.`NAME`,o.VERSION,o.IS_ORG FROM org_manage o WHERE o.OID =#{oid}
+    </select>
+
+    <select id="getOrgManageById" parameterType="java.lang.Integer" resultMap="BaseResultMap" databaseId="kingbase">
+        SELECT o.OID,o.NAME,o.VERSION,o.IS_ORG FROM org_manage o WHERE o.OID =#{oid}
+    </select>
+
+
+    <update id="editOrgManage" parameterType="com.xoa.model.users.OrgManage" >
+        update org_manage
+        <set>
+            <if test="version != null">
+                VERSION = #{version},
+            </if>
+            <if test="isOrg != null">
+                IS_ORG = #{isOrg},
+            </if>
+            <if test="name != null">
+                NAME = #{name},
+            </if>
+            <if test="licenseUsers != null">
+                LICENSE_USERS = #{licenseUsers},
+            </if>
+            <if test="licenseSpace != null">
+                LICENSE_SPACE = #{licenseSpace},
+            </if>
+            <if test="endTime != null and endTime != ''">
+                END_TIME = #{endTime},
+            </if>
+            <if test="remindTime != null and remindTime != ''">
+                REMIND_TIME = #{remindTime},
+            </if>
+        </set>
+        where OID = #{oid}
+    </update>
+
+    <insert id="addOrgManage" parameterType="com.xoa.model.users.OrgManage">
+        insert into org_manage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="oid != null">
+                OID,
+            </if>
+            <if test="version != null">
+                VERSION,
+            </if>
+
+
+                IS_ORG,
+
+            <if test="name != null">
+                NAME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="oid != null">
+                #{oid,jdbcType=INTEGER},
+            </if>
+            <if test="version != null">
+            #{version,jdbcType=VARCHAR},
+            </if>
+
+                #{isOrg,jdbcType=CHAR},
+
+            <if test="name != null">
+                #{name,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="editOid" parameterType="com.xoa.model.users.OrgManage">
+        UPDATE  org_manage
+        SET OID=#{oid}
+    </update>
+    <select id="selOrgManageIsOrg" resultMap="BaseResultMap" >
+        SELECT o.OID,o.NAME,o.VERSION,o.IS_ORG FROM org_manage o WHERE o.IS_ORG =1
+    </select>
+
+    <select id="selOrgManageIsOrg" resultMap="BaseResultMap" databaseId="kingbase" >
+        SELECT o.OID,o.NAME,o.VERSION,o.IS_ORG FROM org_manage o WHERE o.IS_ORG =1
+    </select>
+
+    <select id="selFirstOrg" resultMap="BaseResultMap" >
+        SELECT o.OID,o.NAME,o.VERSION,o.IS_ORG FROM org_manage o limit 1
+    </select>
+
+    <select id="selFirstOrg" resultMap="BaseResultMap" databaseId="kingbase" >
+        SELECT o.OID,o.NAME,o.VERSION,o.IS_ORG FROM org_manage o limit 1
+    </select>
+
+    <select id="querylistId" resultMap="BaseResultMap" parameterType="list">
+        SELECT * FROM org_manage
+        WHERE org_manage.OID NOT IN
+         <foreach collection="Ids" item="ids" open="(" close=")" separator=",">
+            #{ids}
+         </foreach>
+         ORDER BY OID
+    </select>
+
+
+    <select id="selOrgInIds" resultMap="BaseResultMap" parameterType="list">
+        SELECT * FROM org_manage
+        WHERE org_manage.OID IN
+        <foreach collection="Ids" item="ids" open="(" close=")" separator=",">
+            #{ids}
+        </foreach>
+        ORDER BY OID
+    </select>
+
+    <select id="getOrgManageByAgentId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        SELECT * FROM xoa1001.org_manage
+        WHERE org_manage.AGENT_ID = #{agentId}
+        ORDER BY OID
+    </select>
+
+    <update id="updateDirectorySize" parameterType="com.xoa.model.users.OrgManage">
+        UPDATE  xoa1001.org_manage SET USED_SPACE = #{usedSpace},USED_USERS = #{usedUsers}
+        where OID = #{oid}
+    </update>
+
+    <insert id="insertSelective" parameterType="com.xoa.model.users.OrgManage" useGeneratedKeys="true" keyProperty="oid">
+        insert into xoa1001.org_manage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="oid != null">
+                OID,
+            </if>
+            <if test="version != null">
+                VERSION,
+            </if>
+            IS_ORG,
+            <if test="name != null">
+                NAME,
+            </if>
+            <if test="enName != null">
+                EN_NAME,
+            </if>
+            <if test="ftName != null">
+                FT_NAME,
+            </if>
+            <if test="jpName != null">
+                JP_NAME,
+            </if>
+            <if test="krName != null">
+                KR_NAME,
+            </if>
+            <if test="licenseUsers != null">
+                LICENSE_USERS,
+            </if>
+            <if test="usedUsers != null">
+                USED_USERS,
+            </if>
+            <if test="licenseSpace != null">
+                LICENSE_SPACE,
+            </if>
+            <if test="usedSpace != null">
+                USED_SPACE,
+            </if>
+            <if test="registTime != null">
+                REGIST_TIME,
+            </if>
+            <if test="endTime != null">
+                END_TIME,
+            </if>
+            <if test="remindTime != null">
+                REMIND_TIME,
+            </if>
+            <if test="agentId != null">
+                AGENT_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="oid != null">
+                #{oid},
+            </if>
+            <if test="version != null">
+                #{version},
+            </if>
+            #{isOrg},
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="enName != null">
+                #{enName},
+            </if>
+            <if test="ftName != null">
+                #{ftName},
+            </if>
+            <if test="jpName != null">
+                #{jpName},
+            </if>
+            <if test="krName != null">
+                #{krName},
+            </if>
+            <if test="licenseUsers != null">
+                #{licenseUsers},
+            </if>
+            <if test="usedUsers != null">
+                #{usedUsers},
+            </if>
+            <if test="licenseSpace != null">
+                #{licenseSpace},
+            </if>
+            <if test="usedSpace != null">
+                #{usedSpace},
+            </if>
+            <if test="registTime != null">
+                #{registTime},
+            </if>
+            <if test="endTime != null">
+                #{endTime},
+            </if>
+            <if test="remindTime != null">
+                #{remindTime},
+            </if>
+            <if test="agentId != null">
+                #{agentId},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectUsedUsers" resultType="java.lang.Integer">
+        select count(u.UID) from ${xoa}.user u;
+    </select>
+
+    <select id="selectOrgManageByOid" resultMap="BaseResultMap">
+        select * from ${xoa}.org_manage WHERE OID =#{oid}
+    </select>
+
+    <select id="queryAll" resultMap="BaseResultMap">
+        SELECT * FROM xoa1001.org_manage ORDER BY OID
+    </select>
+</mapper>

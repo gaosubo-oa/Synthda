@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.mealmanage.MealManageMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.mealmanage.MealManage" >
+    <id column="MEAL_ID" property="mealId" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="DEPT_ID" property="deptId" jdbcType="INTEGER" />
+    <result column="BREAKFAST_NUM" property="breakfastNum" jdbcType="INTEGER" />
+    <result column="LUNCH_NUM" property="lunchNum" jdbcType="INTEGER" />
+    <result column="DINNER_NUM" property="dinnerNum" jdbcType="INTEGER" />
+    <result column="COLLEGE" property="college" jdbcType="CHAR" />
+    <result column="MEAL_TYPE" property="mealType" jdbcType="VARCHAR" />
+    <result column="PREDESTINE_TIME" property="predestineTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    MEAL_ID, `meal_manage`.USER_ID, `meal_manage`.DEPT_ID, BREAKFAST_NUM, LUNCH_NUM, DINNER_NUM , COLLEGE, MEAL_TYPE, PREDESTINE_TIME
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from meal_manage
+    where MEAL_ID = #{mealId,jdbcType=INTEGER}
+  </select>
+
+  <select id="getMealMap" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    u.USER_NAME
+    from `meal_manage`
+    left join `user` as u on `meal_manage`.USER_ID = u.USER_ID
+    <where>
+      <if test="mealId != null ">
+        and MEAL_ID = #{mealId}
+      </if>
+      <if test="userId != null and userId != '' ">
+        and `meal_manage`.USER_ID = #{userId}
+      </if>
+      <if test="userName != null and userName != '' ">
+        and u.USER_NAME like CONCAT('%', #{userName} ,'%')
+      </if>
+      <if test="deptId != null and deptId != '' ">
+        and `meal_manage`.DEPT_ID = #{deptId}
+      </if>
+      <if test="mealType != null and mealType != '' ">
+        and MEAL_TYPE = #{mealType}
+      </if>
+      <if test="college != null ">
+        and COLLEGE = #{college}
+      </if>
+      <if test="stadate != null and stadate != '' and enddate != null and enddate != ''">
+        and
+        ( PREDESTINE_TIME &gt; #{stadate}
+        or PREDESTINE_TIME like concat(#{stadate},'%')
+        )
+        AND (
+        PREDESTINE_TIME &lt; #{enddate}
+        or PREDESTINE_TIME like concat(#{enddate},'%')
+        )
+      </if>
+      <if test="predestineTime != null ">
+        and PREDESTINE_TIME like concat(#{predestineTime},'%')
+      </if>
+    </where>
+  </select>
+
+  <select id="getCount" resultMap="BaseResultMap">
+    SELECT
+    SUM( BREAKFAST_NUM ) AS BREAKFAST_NUM ,
+    SUM( LUNCH_NUM ) AS LUNCH_NUM,
+    SUM( DINNER_NUM ) AS DINNER_NUM
+    FROM
+    meal_manage
+    left join `user` as u on `meal_manage`.USER_ID = u.USER_ID
+    <where>
+      <if test="mealId != null ">
+        and MEAL_ID = #{mealId}
+      </if>
+      <if test="userId != null and userId != '' ">
+        and `meal_manage`.USER_ID = #{userId}
+      </if>
+      <if test="userName != null and userName != '' ">
+        and u.USER_NAME like CONCAT('%', #{userName} ,'%')
+      </if>
+      <if test="deptId != null and deptId != '' ">
+        and `meal_manage`.DEPT_ID = #{deptId}
+      </if>
+      <if test="mealType != null and mealType != '' ">
+        and MEAL_TYPE = #{mealType}
+      </if>
+      <if test="college != null ">
+        and COLLEGE = #{college}
+      </if>
+      <if test="stadate != null and stadate != '' and enddate != null and enddate != ''">
+        and
+        ( PREDESTINE_TIME &gt; #{stadate}
+        or PREDESTINE_TIME like concat(#{stadate},'%')
+        )
+        AND (
+        PREDESTINE_TIME &lt; #{enddate}
+        or PREDESTINE_TIME like concat(#{enddate},'%')
+        )
+      </if>
+      <if test="predestineTime != null ">
+        and PREDESTINE_TIME = #{predestineTime}
+      </if>
+    </where>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from meal_manage
+    where MEAL_ID = #{mealId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.xoa.model.mealmanage.MealManage" >
+    insert into meal_manage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mealId != null" >
+        MEAL_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID,
+      </if>
+      <if test="breakfastNum != null" >
+        BREAKFAST_NUM,
+      </if>
+      <if test="lunchNum != null" >
+        LUNCH_NUM,
+      </if>
+      <if test="dinnerNum != null" >
+        DINNER_NUM,
+      </if>
+      <if test="college != null" >
+        COLLEGE,
+      </if>
+      <if test="mealType != null" >
+        MEAL_TYPE,
+      </if>
+      <if test="predestineTime != null" >
+        PREDESTINE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mealId != null" >
+        #{mealId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="breakfastNum != null" >
+        #{breakfastNum,jdbcType=INTEGER},
+      </if>
+      <if test="lunchNum != null" >
+        #{lunchNum,jdbcType=INTEGER},
+      </if>
+      <if test="dinnerNum != null" >
+        #{dinnerNum,jdbcType=INTEGER},
+      </if>
+      <if test="college != null" >
+        #{college,jdbcType=CHAR},
+      </if>
+      <if test="mealType != null" >
+        #{mealType,jdbcType=VARCHAR},
+      </if>
+      <if test="predestineTime != null" >
+        #{predestineTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.mealmanage.MealManage" >
+    update meal_manage
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="deptId != null" >
+        DEPT_ID = #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="breakfastNum != null" >
+        BREAKFAST_NUM = #{breakfastNum,jdbcType=INTEGER},
+      </if>
+      <if test="lunchNum != null" >
+        LUNCH_NUM = #{lunchNum,jdbcType=INTEGER},
+      </if>
+      <if test="dinnerNum != null" >
+        DINNER_NUM = #{dinnerNum,jdbcType=INTEGER},
+      </if>
+      <if test="college != null" >
+        COLLEGE = #{college,jdbcType=CHAR},
+      </if>
+      <if test="mealType != null" >
+        MEAL_TYPE = #{mealType,jdbcType=VARCHAR},
+      </if>
+      <if test="predestineTime != null" >
+        PREDESTINE_TIME = #{predestineTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where MEAL_ID = #{mealId,jdbcType=INTEGER}
+  </update>
+
+</mapper>

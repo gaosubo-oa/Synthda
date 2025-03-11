@@ -1,0 +1,164 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2014-6-5, 17:23:20
+    Author     : hf
+*/
+
+/* Header
+------------------------------------------------------------------------*/
+.fc-header-center {
+    text-align: center;
+}
+.fc-header-title {
+    display: inline-block;
+    vertical-align: top;
+    font-family:Helvetica,Arial;
+}
+
+.fc-header-title h2{
+    margin-top: 0;
+    white-space: nowrap;
+    font-size: 22px;
+    font-weight: normal;
+}
+#weekbtn{
+    width:65px;
+    line-height:28px;
+    display:inline-block;
+    z-index:3;
+    position:relative;
+    margin:5px 0px 0px 10px;
+    *+float:left;
+    border-radius:4px;
+    border:1px solid #fff;
+}
+#weekbtn .weekcurrent{
+    cursor:pointer;
+    font-size:18px;
+}
+#weekbtn .poparrow{
+    position: absolute;
+    top: -11px;
+    left: 25px;
+    width:35px;
+    height:18px;
+    background: url('/img/leader/images/poparrow.png') no-repeat;
+}
+.weekdropdown{
+    width: 255px;
+    height: 165px;
+    border: 1px solid #E4E4E4;
+    position: absolute;
+    top: 35px;
+    left: 0px;
+    background:#fff;
+    display:none;
+    padding:5px;
+    text-align:center;
+    border-radius:4px;
+}
+.weekdropdown .span2{
+    width:90px;
+    margin:0 auto;
+    margin-bottom:10px;
+}
+.weekdropdown #dropdownwrapper{
+    height:120px;
+    overflow:hidden;
+    position:relative;
+    padding-left:15px;
+}
+.weekdropdown .prebtn,.weekdropdown .nextbtn{
+    width:20px;
+    height:20px;
+    display:block;
+    position:absolute;
+    top:50%;
+    cursor:pointer;
+}
+.weekdropdown .prebtn{
+    left:5px;
+}
+.weekdropdown .nextbtn{
+    right:0px;
+}
+.weekdropdown .weekblock{
+    display:block;
+    width:50px;
+    height:25px;
+    line-height:25px;
+    float:left;
+    margin:0px 0px 5px 5px;
+    color:#000;
+    text-decoration:none;
+    cursor:pointer;
+}
+.weekdropdown .weekblock:hover{
+    background:#eee;
+    border-radius:4px;
+}
+.weekdropdown .currentblock,.weekdropdown .currentblock:hover{
+    background:#2A6CF0;
+    color:#fff;
+    border-radius:4px;
+}
+.weekselector{
+    width: 330px;
+    height: 165px;
+    border: 1px solid #E4E4E4;
+    position: relative;
+    background:#fff;
+    padding:5px;
+    text-align:center;
+    border-radius:4px;
+}
+.weekselector .span2{
+    width:90px;
+    margin:0 auto;
+    margin-bottom:10px;
+}
+.weekselector .weekwrapper{
+    height:120px;
+    overflow:hidden;
+    position:relative;
+    padding-left:25px;
+    padding-right:15px;
+}
+.weekselector .prebtn,.weekselector .nextbtn{
+    width:30px;
+    height:30px;
+    display:block;
+    position:absolute;
+    top:50%;
+    cursor:pointer;
+}
+.weekselector .prebtn{
+        left:5px;
+}
+.weekselector .nextbtn{
+        right:0px;
+}
+.weekselector .weekblock{
+    display:block;
+    width:50px;
+    height:25px;
+    line-height:25px;
+    float:left;
+    margin:0px 0px 5px 5px;
+    color:#000;
+    text-decoration:none;
+    cursor:pointer;
+}
+.weekselector .weekblock:hover{
+    background:#eee;
+    border-radius:4px;
+}
+.weekselector .selectedblock,.weekselector .selectedblock:hover{
+    background:#2A6CF0;
+    color:#fff;
+    border-radius:4px;
+}

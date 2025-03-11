@@ -1,0 +1,803 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.attend.AttendEvectionMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.attend.AttendEvection" >
+   <result column="EVECTION_ID" property="evectionId" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="EVECTION_DEST" property="evectionDest" jdbcType="VARCHAR" />
+    <result column="EVECTION_DATE1" property="evectionDate1" jdbcType="TIMESTAMP" />
+    <result column="EVECTION_DATE2" property="evectionDate2" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="LEADER_ID" property="leaderId" jdbcType="VARCHAR" />
+    <result column="ALLOW" property="allow" jdbcType="CHAR" />
+    <result column="REGISTER_IP" property="registerIp" jdbcType="VARCHAR" />
+    <result column="HANDLE_TIME" property="handleTime" jdbcType="TIMESTAMP" />
+    <result column="AGENT" property="agent" jdbcType="VARCHAR" />
+    <result column="RECORD_TIME" property="recordTime" jdbcType="TIMESTAMP" />
+    <result column="ORDER_NO" property="orderNo" jdbcType="INTEGER" />
+    <result column="EVEC_DAYS" property="evecDays" jdbcType="VARCHAR" />
+    <result column="REASON" property="reason" jdbcType="LONGVARCHAR" />
+    <result column="NOT_REASON" property="notReason" jdbcType="LONGVARCHAR" />
+   <result column="RUN_ID" property="runId" jdbcType="INTEGER" />
+   <result column="RUN_NAME" property="runName" jdbcType="VARCHAR" />
+   <result column="UID" property="uid" javaType="INTEGER" />
+   <result column="AVATAR" property="avatar" javaType="string" />
+   <result column="USER_NAME" property="userName" javaType="string" />
+   <result column="DEPT_NAME" property="deptName" javaType="string" />
+  </resultMap>
+ <resultMap id="attendLeaveFlowRunPrcs" type="com.xoa.model.attend.AttendEvectionFlowRunPrcs" extends="BaseResultMap" >
+  <result column="ID" property="id" javaType="int" />
+  <result column="flowId" property="flowId" javaType="string" />
+  <result column="createrName" property="createrName" javaType="string" />
+  <result column="prFlag" property="prFlag" javaType="int" />
+  <result column="PRCS_NAME" property="prcsName" javaType="string" />
+  <result column="endTime" property="endTime" javaType="date" />
+  <result column="realPrcsId" property="realPrcsId" javaType="int" />
+  <result column="step" property="step" javaType="int"/>
+  <result column="codeName" property="codeName" javaType="string"/>
+ </resultMap>
+ <select id="queryAttendEvection" resultMap="BaseResultMap">
+  SELECT * from  attend_evection   WHERE USER_ID=#{userId} AND  #{date} BETWEEN  DATE(attend_evection.EVECTION_DATE1) AND DATE(attend_evection.EVECTION_DATE2)
+ </select>
+ <select id="selectAttendEvection" resultMap="BaseResultMap">
+  SELECT * from  attend_evection   WHERE USER_ID=#{userId} AND  DATE(attend_evection.EVECTION_DATE1) =#{date}
+ </select>
+ <select id="selectAttendEvectionByUserId" resultMap="BaseResultMap">
+  SELECT * from  attend_evection   WHERE USER_ID=#{userId}
+ </select>
+ <select id="queryAllAttendEvection"  resultMap="attendLeaveFlowRunPrcs" parameterType="Map" databaseId="oracle">
+
+ SELECT
+  al.*, u.USER_NAME createrName,
+  fr.FLOW_ID flowId,
+  frp.PRCS_FLAG prFlag,
+  fp.PRCS_NAME,
+  frp.ID id,
+  frp.FLOW_PRCS realPrcsId,
+  frp.PRCS_ID step,
+  frp.DELIVER_TIME endTime
+  FROM
+  attend_evection al
+  INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id
+  AND frp."ID" = (
+  SELECT
+  "MAX"(frp."ID")
+  FROM
+  flow_run_prcs frp
+  WHERE
+  frp.RUN_ID = al.run_id  )
+  INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id
+  INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+  AND frp.FLOW_PRCS = fp.PRCS_ID
+  LEFT JOIN "USER" u ON u.USER_ID = al.USER_ID
+ WHERE al.USER_ID= #{userId}
+  <if test="flowAllow != null and flowAllow != '' and flowAllow==0" >
+   AND  (select MAX(PRCS_ID) from flow_run_prcs where RUN_ID=al.RUN_ID)=1
+  </if>
+  <if test="flowAllow != null and flowAllow != '' and flowAllow==1" >
+   AND  (select MAX(PRCS_ID) from flow_run_prcs where RUN_ID=al.RUN_ID)!=1
+  </if>
+  ORDER BY  frp.CREATE_TIME DESC
+ </select>
+
+ <select id="queryAllAttendEvection"  resultMap="attendLeaveFlowRunPrcs" parameterType="Map" >
+
+  SELECT
+  al.*, u.USER_NAME createrName,
+  fr.FLOW_ID flowId,
+  frp.PRCS_FLAG prFlag,
+  fp.PRCS_NAME,
+  frp.ID id,
+  frp.FLOW_PRCS realPrcsId,
+  frp.PRCS_ID step,
+  frp.DELIVER_TIME endTime
+  FROM
+  attend_evection al
+  INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id
+  AND frp.ID = (
+  SELECT
+  MAX(frp.ID)
+  FROM
+  flow_run_prcs frp
+  WHERE
+  frp.RUN_ID = al.run_id  )
+  INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id
+  INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+  AND frp.FLOW_PRCS = fp.PRCS_ID
+  LEFT JOIN `user` u ON u.USER_ID = al.USER_ID
+  WHERE al.USER_ID= #{userId}
+  <if test="flowAllow != null and flowAllow != '' and flowAllow==0" >
+   AND  (select MAX(PRCS_ID) from flow_run_prcs where RUN_ID=al.RUN_ID)=1
+  </if>
+  <if test="flowAllow != null and flowAllow != '' and flowAllow==1" >
+   AND  (select MAX(PRCS_ID) from flow_run_prcs where RUN_ID=al.RUN_ID)!=1
+  </if>
+  GROUP BY frp.id ORDER BY  frp.CREATE_TIME DESC
+ </select>
+
+ <select id="selectAttendEvectionModify" resultMap="BaseResultMap">
+  SELECT attend_evection.USER_ID,attend_evection.EVECTION_DATE1,attend_evection.EVECTION_DATE2,attend_evection.REASON,attend_evection.`STATUS`, attend_evection.EVECTION_DEST FROM attend_evection  where attend_evection.USER_ID=#{userId} AND #{date} BETWEEN attend_evection.EVECTION_DATE1 AND attend_evection.EVECTION_DATE2
+ </select>
+
+ <select id="selectAttendEvectionModify" resultMap="BaseResultMap" databaseId="oracle">
+ SELECT
+	"USER_ID",
+	EVECTION_DATE1,
+  EVECTION_DATE2,
+	REASON,
+	"STATUS",
+ EVECTION_DEST
+FROM
+	ATTEND_EVECTION
+WHERE
+	"USER_ID" = #{userId}
+AND #{date} BETWEEN to_date (EVECTION_DATE1,'yyyy-mm-dd hh24:mi:ss')
+AND to_date (EVECTION_DATE2,'yyyy-mm-dd hh24:mi:ss')
+</select>
+
+
+ <insert id="insertSelective" parameterType="com.xoa.model.attend.AttendEvection" keyProperty="evectionId" useGeneratedKeys="true">
+
+  insert into attend_evection
+  <trim prefix="(" suffix=")" suffixOverrides="," >
+   <if test="evectionId != null" >
+    EVECTION_ID,
+   </if>
+   <if test="userId != null" >
+    USER_ID,
+   </if>
+   <if test="evectionDest != null" >
+    EVECTION_DEST,
+   </if>
+   <if test="evectionDate1 != null" >
+    EVECTION_DATE1,
+   </if>
+   <if test="evectionDate2 != null" >
+    EVECTION_DATE2,
+   </if>
+   <if test="status != null" >
+    STATUS,
+   </if>
+   <if test="leaderId != null" >
+    LEADER_ID,
+   </if>
+   <if test="allow != null" >
+    ALLOW,
+   </if>
+   <if test="registerIp != null" >
+    REGISTER_IP,
+   </if>
+   <if test="handleTime != null" >
+    HANDLE_TIME,
+   </if>
+   <if test="agent != null" >
+    AGENT,
+   </if>
+   <if test="recordTime != null" >
+    RECORD_TIME,
+   </if>
+   <if test="orderNo != null" >
+    ORDER_NO,
+   </if>
+   <if test="evecDays != null" >
+    EVEC_DAYS,
+   </if>
+   <if test="reason != null" >
+    REASON,
+   </if>
+   <if test="notReason != null" >
+    NOT_REASON,
+   </if>
+   <if test="runId != null" >
+    RUN_ID,
+   </if>
+  </trim>
+  <trim prefix="values (" suffix=")" suffixOverrides="," >
+   <if test="evectionId != null" >
+    #{evectionId},
+   </if>
+   <if test="userId != null" >
+    #{userId},
+   </if>
+   <if test="evectionDest != null" >
+    #{evectionDest},
+   </if>
+   <if test="evectionDate1 != null" >
+    #{evectionDate1},
+   </if>
+   <if test="evectionDate2 != null" >
+    #{evectionDate2},
+   </if>
+   <if test="status != null" >
+    #{status},
+   </if>
+   <if test="leaderId != null" >
+    #{leaderId},
+   </if>
+   <if test="allow != null" >
+    #{allow},
+   </if>
+   <if test="registerIp != null" >
+    #{registerIp},
+   </if>
+   <if test="handleTime != null" >
+    #{handleTime},
+   </if>
+   <if test="agent != null" >
+    #{agent},
+   </if>
+   <if test="recordTime != null" >
+    #{recordTime},
+   </if>
+   <if test="orderNo != null" >
+    #{orderNo},
+   </if>
+   <if test="evecDays != null" >
+    #{evecDays},
+   </if>
+   <if test="reason != null" >
+    #{reason},
+   </if>
+   <if test="notReason != null" >
+    #{notReason},
+   </if>
+   <if test="runId != null" >
+    #{runId},
+   </if>
+  </trim>
+ </insert>
+ <insert id="insertSelective" parameterType="com.xoa.model.attend.AttendEvection" keyProperty="evectionId" useGeneratedKeys="true" databaseId="oracle">
+  <selectKey keyProperty="evectionId"  order="BEFORE" resultType="int">
+   select ATTEND_EVECTION_ID_SEQ.nextval as evectionId from  dual
+  </selectKey>
+  insert into attend_evection
+  <trim prefix="(" suffix=")" suffixOverrides="," >
+
+    EVECTION_ID,
+
+   <if test="userId != null" >
+    USER_ID,
+   </if>
+   <if test="evectionDest != null" >
+    EVECTION_DEST,
+   </if>
+   <if test="evectionDate1 != null" >
+    EVECTION_DATE1,
+   </if>
+   <if test="evectionDate2 != null" >
+    EVECTION_DATE2,
+   </if>
+   <if test="status != null" >
+    STATUS,
+   </if>
+   <if test="leaderId != null" >
+    LEADER_ID,
+   </if>
+   <if test="allow != null" >
+    ALLOW,
+   </if>
+   <if test="registerIp != null" >
+    REGISTER_IP,
+   </if>
+   <if test="handleTime != null" >
+    HANDLE_TIME,
+   </if>
+   <if test="agent != null" >
+    AGENT,
+   </if>
+   <if test="recordTime != null" >
+    RECORD_TIME,
+   </if>
+   <if test="orderNo != null" >
+    ORDER_NO,
+   </if>
+   <if test="evecDays != null" >
+    EVEC_DAYS,
+   </if>
+   <if test="reason != null" >
+    REASON,
+   </if>
+   <if test="notReason != null" >
+    NOT_REASON,
+   </if>
+   <if test="runId != null" >
+    RUN_ID,
+   </if>
+  </trim>
+  <trim prefix="values (" suffix=")" suffixOverrides="," >
+
+    #{evectionId},
+
+   <if test="userId != null" >
+    #{userId},
+   </if>
+   <if test="evectionDest != null" >
+    #{evectionDest},
+   </if>
+   <if test="evectionDate1 != null" >
+    #{evectionDate1},
+   </if>
+   <if test="evectionDate2 != null" >
+    #{evectionDate2},
+   </if>
+   <if test="status != null" >
+    #{status},
+   </if>
+   <if test="leaderId != null" >
+    #{leaderId},
+   </if>
+   <if test="allow != null" >
+    #{allow},
+   </if>
+   <if test="registerIp != null" >
+    #{registerIp},
+   </if>
+   <if test="handleTime != null" >
+    #{handleTime},
+   </if>
+   <if test="agent != null" >
+    #{agent},
+   </if>
+   <if test="recordTime != null" >
+    #{recordTime},
+   </if>
+   <if test="orderNo != null" >
+    #{orderNo},
+   </if>
+   <if test="evecDays != null" >
+    #{evecDays},
+   </if>
+   <if test="reason != null" >
+    #{reason},
+   </if>
+   <if test="notReason != null" >
+    #{notReason},
+   </if>
+   <if test="runId != null" >
+    #{runId},
+   </if>
+  </trim>
+ </insert>
+
+
+ <update id="updateByExampleSelective" parameterType="com.xoa.model.attend.AttendEvection" >
+
+  update attend_evection
+  <set >
+   <if test="userId != null" >
+    USER_ID = #{userId},
+   </if>
+   <if test="evectionDest != null" >
+    EVECTION_DEST = #{evectionDest},
+   </if>
+   <if test="evectionDate1 != null" >
+    EVECTION_DATE1 = #{evectionDate1},
+   </if>
+   <if test="evectionDate2 != null" >
+    EVECTION_DATE2 = #{evectionDate2},
+   </if>
+   <if test="status != null" >
+    STATUS = #{status},
+   </if>
+   <if test="leaderId != null" >
+    LEADER_ID = #{leaderId},
+   </if>
+   <if test="allow != null" >
+    ALLOW = #{allow},
+   </if>
+   <if test="registerIp != null" >
+    REGISTER_IP = #{registerIp},
+   </if>
+   <if test="handleTime != null" >
+    HANDLE_TIME = #{handleTime},
+   </if>
+   <if test="agent != null" >
+    AGENT = #{agent},
+   </if>
+   <if test="recordTime != null" >
+    RECORD_TIME = #{recordTime},
+   </if>
+   <if test="orderNo != null" >
+    ORDER_NO = #{orderNo},
+   </if>
+   <if test="evecDays != null" >
+    EVEC_DAYS = #{evecDays},
+   </if>
+   <if test="reason != null" >
+    REASON = #{reason},
+   </if>
+   <if test="notReason != null" >
+    NOT_REASON = #{notReason},
+   </if>
+  </set>
+      WHERE  RUN_ID = #{runId}
+ </update>
+
+
+ <select id="backlogAttendEvection"  resultMap="attendLeaveFlowRunPrcs" parameterType="Map">
+  SELECT
+  al.*, u.USER_NAME createrName,
+  fr.FLOW_ID flowId,
+  frp.PRCS_FLAG prFlag,
+  fp.PRCS_NAME,
+  frp.FLOW_PRCS realPrcsId,
+  frp.PRCS_ID step,
+  frp.DELIVER_TIME endTime
+  FROM
+  attend_evection al
+  INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id AND frp.USER_ID=#{userId}
+  AND
+  frp.PRCS_FLAG IN ('1', '2')
+  INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id
+  INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+  AND frp.FLOW_PRCS = fp.PRCS_ID
+  AND frp.FLOW_PRCS>1
+  LEFT JOIN `user` u ON u.USER_ID = al.USER_ID
+  GROUP BY frp.id ORDER BY  frp.CREATE_TIME DESC
+
+ </select>
+
+
+ <select id="backlogAttendEvection"  resultMap="attendLeaveFlowRunPrcs" parameterType="Map" databaseId="oracle">
+  SELECT
+  al.*, u.USER_NAME createrName,
+  fr.FLOW_ID flowId,
+  frp.PRCS_FLAG prFlag,
+  fp.PRCS_NAME,
+  frp.FLOW_PRCS realPrcsId,
+  frp.PRCS_ID step,
+  frp.DELIVER_TIME endTime
+  FROM
+  attend_evection al
+  INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id AND frp.USER_ID=#{userId}
+  AND
+  frp.PRCS_FLAG IN ('1', '2')
+  INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id
+  INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+  AND frp.FLOW_PRCS = fp.PRCS_ID
+  AND frp.FLOW_PRCS>1
+  LEFT JOIN "USER" u ON u.USER_ID = al.USER_ID
+   ORDER BY  frp.CREATE_TIME DESC
+
+ </select>
+
+ <select id="backlogAttendEvection"  resultMap="attendLeaveFlowRunPrcs" parameterType="Map" databaseId="dm">
+  SELECT
+  al.*, u.USER_NAME createrName,
+  fr.FLOW_ID flowId,
+  frp.PRCS_FLAG prFlag,
+  fp.PRCS_NAME,
+  frp.FLOW_PRCS realPrcsId,
+  frp.PRCS_ID step,
+  frp.DELIVER_TIME endTime
+  FROM
+  attend_evection al
+  INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id AND frp.USER_ID=#{userId}
+  AND
+  frp.PRCS_FLAG IN ('1', '2')
+  INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id
+  INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+  AND frp.FLOW_PRCS = fp.PRCS_ID
+  AND frp.FLOW_PRCS>1
+  LEFT JOIN "USER" u ON u.USER_ID = al.USER_ID
+  ORDER BY  frp.CREATE_TIME DESC
+
+ </select>
+
+ <select id="haveDoneAttendEvection"   resultMap="attendLeaveFlowRunPrcs" parameterType="Map">
+  SELECT
+  al.*, u.USER_NAME createrName,
+  fr.FLOW_ID flowId,
+  frp.PRCS_FLAG prFlag,
+  fp.PRCS_NAME,
+  frp.FLOW_PRCS realPrcsId,
+  frp.PRCS_ID step,
+  frp.DELIVER_TIME endTime
+  FROM
+  attend_evection al
+  INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id AND frp.USER_ID=#{userId}
+  AND
+  frp.PRCS_FLAG IN ('3', '4')
+  INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id
+  INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+  AND frp.FLOW_PRCS = fp.PRCS_ID
+  LEFT JOIN `user` u ON u.USER_ID = al.USER_ID
+  GROUP BY frp.id ORDER BY  frp.CREATE_TIME DESC
+
+ </select>
+
+ <select id="haveDoneAttendEvection"   resultMap="attendLeaveFlowRunPrcs" parameterType="Map" databaseId="oracle">
+  SELECT
+  al.*, u.USER_NAME createrName,
+  fr.FLOW_ID flowId,
+  frp.PRCS_FLAG prFlag,
+  fp.PRCS_NAME,
+  frp.FLOW_PRCS realPrcsId,
+  frp.PRCS_ID step,
+  frp.DELIVER_TIME endTime
+  FROM
+  attend_evection al
+  INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id AND frp.USER_ID=#{userId}
+  AND
+  frp.PRCS_FLAG IN ('3', '4')
+  INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id
+  INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+  AND frp.FLOW_PRCS = fp.PRCS_ID
+  LEFT JOIN "USER" u ON u.USER_ID = al.USER_ID
+ ORDER BY  frp.CREATE_TIME DESC
+
+ </select>
+
+ <select id="haveDoneAttendEvection"   resultMap="attendLeaveFlowRunPrcs" parameterType="Map" databaseId="dm">
+  SELECT
+  al.*, u.USER_NAME createrName,
+  fr.FLOW_ID flowId,
+  frp.PRCS_FLAG prFlag,
+  fp.PRCS_NAME,
+  frp.FLOW_PRCS realPrcsId,
+  frp.PRCS_ID step,
+  frp.DELIVER_TIME endTime
+  FROM
+  attend_evection al
+  INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id AND frp.USER_ID=#{userId}
+  AND
+  frp.PRCS_FLAG IN ('3', '4')
+  INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id
+  INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+  AND frp.FLOW_PRCS = fp.PRCS_ID
+  LEFT JOIN "USER" u ON u.USER_ID = al.USER_ID
+  ORDER BY  frp.CREATE_TIME DESC
+
+ </select>
+
+
+ <!-- <sql id="Example_Where_Clause" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    EVECTION_ID, USER_ID, EVECTION_DEST, EVECTION_DATE1, EVECTION_DATE2, STATUS, LEADER_ID, 
+    ALLOW, REGISTER_IP, HANDLE_TIME, AGENT, RECORD_TIME, ORDER_NO, EVEC_DAYS
+  </sql>
+  <sql id="Blob_Column_List" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    REASON, NOT_REASON
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.xoa.model.attend.AttendEvectionExample" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from attend_evection
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xoa.model.attend.AttendEvectionExample" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from attend_evection
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.xoa.model.attend.AttendEvectionExample" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    delete from attend_evection
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xoa.model.attend.AttendEvectionWithBLOBs" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    insert into attend_evection (EVECTION_ID, USER_ID, EVECTION_DEST, 
+      EVECTION_DATE1, EVECTION_DATE2, STATUS, 
+      LEADER_ID, ALLOW, REGISTER_IP, 
+      HANDLE_TIME, AGENT, RECORD_TIME, 
+      ORDER_NO, EVEC_DAYS, REASON, 
+      NOT_REASON)
+    values (#{evectionId,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{evectionDest,jdbcType=VARCHAR}, 
+      #{evectionDate1,jdbcType=TIMESTAMP}, #{evectionDate2,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, 
+      #{leaderId,jdbcType=VARCHAR}, #{allow,jdbcType=CHAR}, #{registerIp,jdbcType=VARCHAR}, 
+      #{handleTime,jdbcType=TIMESTAMP}, #{agent,jdbcType=VARCHAR}, #{recordTime,jdbcType=TIMESTAMP}, 
+      #{orderNo,jdbcType=INTEGER}, #{evecDays,jdbcType=VARCHAR}, #{reason,jdbcType=LONGVARCHAR}, 
+      #{notReason,jdbcType=LONGVARCHAR})
+  </insert>
+
+  <select id="countByExample" parameterType="com.xoa.model.attend.AttendEvectionExample" resultType="java.lang.Integer" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    select count(*) from attend_evection
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    update attend_evection
+    set EVECTION_ID = #{evectionId,jdbcType=INTEGER},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      EVECTION_DEST = #{evectionDest,jdbcType=VARCHAR},
+      EVECTION_DATE1 = #{evectionDate1,jdbcType=TIMESTAMP},
+      EVECTION_DATE2 = #{evectionDate2,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=CHAR},
+      LEADER_ID = #{leaderId,jdbcType=VARCHAR},
+      ALLOW = #{allow,jdbcType=CHAR},
+      REGISTER_IP = #{registerIp,jdbcType=VARCHAR},
+      HANDLE_TIME = #{handleTime,jdbcType=TIMESTAMP},
+      AGENT = #{agent,jdbcType=VARCHAR},
+      RECORD_TIME = #{recordTime,jdbcType=TIMESTAMP},
+      ORDER_NO = #{orderNo,jdbcType=INTEGER},
+      EVEC_DAYS = #{evecDays,jdbcType=VARCHAR},
+      REASON = #{reason,jdbcType=LONGVARCHAR},
+      NOT_REASON = #{notReason,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    update attend_evection
+    set EVECTION_ID = #{evectionId,jdbcType=INTEGER},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      EVECTION_DEST = #{evectionDest,jdbcType=VARCHAR},
+      EVECTION_DATE1 = #{evectionDate1,jdbcType=TIMESTAMP},
+      EVECTION_DATE2 = #{evectionDate2,jdbcType=TIMESTAMP},
+      STATUS = #{status,jdbcType=CHAR},
+      LEADER_ID = #{leaderId,jdbcType=VARCHAR},
+      ALLOW = #{allow,jdbcType=CHAR},
+      REGISTER_IP = #{registerIp,jdbcType=VARCHAR},
+      HANDLE_TIME = #{handleTime,jdbcType=TIMESTAMP},
+      AGENT = #{agent,jdbcType=VARCHAR},
+      RECORD_TIME = #{recordTime,jdbcType=TIMESTAMP},
+      ORDER_NO = #{orderNo,jdbcType=INTEGER},
+      EVEC_DAYS = #{evecDays,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>-->
+
+<!-- //通过条件查询记录
+ List<AttendEvection> selectAttendEvectionListByUserDd(@Param("userId") String userId,
+ @Param("beginDate")String beginDate,
+ @Param("endDate") String endDate);-->
+ <select id="selectAttendEvectionListByUserDd" resultMap="BaseResultMap">
+  select al.*,fr.RUN_NAME
+  from attend_evection al
+  left join flow_run fr on al.RUN_ID=fr.RUN_ID
+  where al.USER_ID=#{userId}
+    and (al.RECORD_TIME between  #{beginDate} and #{endDate})
+
+ </select>
+ <!--//获取当日所属统计
+ List<AttendEvection> getAttendLeaveByDateAndUids(Map map);-->
+ <select id="getAttendLeaveByDateAndUids" resultMap="BaseResultMap" parameterType="map">
+  SELECT
+  a.*,
+  u.USER_NAME,
+  u.UID,
+  u.AVATAR,
+  d.DEPT_NAME
+  FROM
+  attend_evection a
+  left join user u on u.USER_ID=a.USER_ID
+  left join department d on d.DEPT_ID=u.DEPT_ID
+  WHERE
+  EVECTION_DATE1&lt;#{endDate} and EVECTION_DATE2&gt;#{date}
+  and u.uid in
+  <foreach collection="uids" index="index" close=")" open="(" separator="," item="uid">
+   #{uid}
+  </foreach>
+  and ALLOW=1
+ </select>
+
+ <!--List<AttendEvection> getAttendEvectionListByMap(Map<String,Object> map);-->
+ <select id="getAttendEvectionListByMap" resultMap="BaseResultMap" parameterType="map">
+  select * from attend_evection where USER_ID=#{userId} and ALLOW='1' and RECORD_TIME between #{beginDate} and #{endDate}
+ </select>
+
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.email.WebmailBodyMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.email.WebmailBody" >
+    <id column="BODY_ID" property="bodyId" javaType="Integer" />
+    <result column="FROM_MAIL" property="fromMail" javaType="String" />
+    <result column="REPLY_MAIL" property="replyMail" javaType="String" />
+    <result column="SUBJECT" property="subject" javaType="String" />
+    <result column="IS_HTML" property="isHtml" javaType="String" />
+    <result column="LARGE_ATTACHMENT" property="largeAttachment" javaType="String" />
+    <result column="ATTACHMENT_ID" property="attachmentId" javaType="String" />
+    <result column="ATTACHMENT_NAME" property="attachmentName" javaType="String" />
+    <result column="WEBMAIL_UID" property="webmailUid" javaType="String" />
+    <result column="TO_MAIL" property="toMail" javaType="String" />
+    <result column="CC_MAIL" property="ccMail" javaType="String" />
+    <result column="CONTENT_HTML" property="contentHtml" javaType="String" />
+  </resultMap>
+
+
+
+</mapper>

@@ -1,0 +1,272 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>单行输入框</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <link rel="stylesheet" href="../formdesign/bootstrap/css/bootstrap.css">
+    <script type="text/javascript" src="../dialogs/internal.js"></script>
+    <script type="text/javascript" src="/js/xoajq/xoajq3.js"></script>
+    <script type="text/javascript" src="/js/jquery/jquery-migrate-3.4.0.js"></script>
+    <script type="text/javascript" src="../../../js/base/base.js"></script>
+    <script type="text/javascript">
+        /* Thank you by
+         http://www.alt-tag.com/blog/2006/02/ie-dom-bugs/ */
+        function createElement(type, name) {
+            var element = null;
+            try {
+                element = document.createElement('<' + type + ' name="' + name + '">');
+            } catch (e) {
+            }
+            if (element == null) {
+                element = document.createElement(type);
+                element.name = name;
+            }
+            return element;
+        }
+    </script>
+</head>
+<body>
+<div class="content">
+    <table class="table table-bordered table-striped table-hover">
+        <tr>
+            <th><span class="languageText" language="workform_formItem_name">控件名称</span><span class="label label-important">*</span></th>
+            <th colspan="2"><span class="languageText" language="workform_formItem_mrz">默认值</span></th>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" id="orgname" placeholder="必填项" class="languagePlaceHolder" language="workform_formItem_btx">
+                <input type="hidden" id="fielid" placeholder="必填项" class="languagePlaceHolder" language="workform_formItem_btx">
+            </td>
+            </td>
+
+            <td colspan="2"><input type="text" id="orgvalue" placeholder="无则不填" class="languagePlaceHolder" language="workform_formItem_wzbt"></td>
+
+        </tr>
+
+        <tr>
+            <th><span class="languageText" language="workform_formItem_sjlx">数据类型</span></th>
+            <th><span class="languageText" language="workform_formItem_dqfs">对齐方式</span></th>
+        </tr>
+        <tr>
+            <td>
+                <select id="orgtype">
+                    <option value="text" class="languageText" language="workform_formItem_ptwb">普通文本</option>
+                    <!--<option value="email" disabled>邮箱地址</option>-->
+                    <!--<option value="int" disabled>整数</option>-->
+                    <!--<option value="float" disabled>小数</option>-->
+                    <!--<option value="idcard" disabled>身份证号码</option>-->
+                </select>
+            </td>
+            <td>
+                <select id="orgalign">
+                    <option value="left" class="languageText" language="workform_formItem_zdq">左对齐</option>
+                    <option value="center" class="languageText" language="workform_formItem_jzdq">居中对齐</option>
+                    <option value="right" class="languageText" language="workform_formItem_ydq">右对齐</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th  >
+                <span language="workform_formItem_kgztsize" class="languageText">&nbsp;&nbsp;&nbsp;&nbsp;宽&nbsp;&nbsp;X&nbsp;&nbsp;高&nbsp;&nbsp;&nbsp;&&nbsp;&nbsp;&nbsp;字体大小</span>
+            </th>
+            <th><span language="workform_formItem_kjx" class="languageText">可见性</span></th>
+        </tr>
+        <tr>
+            <td  >
+                <input id="orgwidth" type="text" value="150" class="input-small span1" placeholder="auto"/>
+                X
+                <input id="orgheight" type="text" value="" class="input-small span1" placeholder="auto"/>
+                &
+                <input id="orgfontsize" type="text" value="" class="input-small span1" placeholder="auto"/> px
+
+            </td>
+            <td>
+                <label class="checkbox inline"><input id="orghide" class="languageText" type="checkbox" language="workform_formItem_hide"/> 隐藏 </label>
+            </td>
+        </tr>
+
+    </table>
+</div>
+<script>
+    if(getCookie("language") != 'zh_CN'){
+        $('title').text(workform_formItem.workform_formItem_textInput);
+        var $languageText = $('.languageText');
+        var $languagePlaceHolder = $('.languagePlaceHolder');
+        for(var i = 0; i < $languageText.length; i++){
+            var language = $languageText.eq(i).attr('language');
+            $('*[language='+ language +']').text(workform_formItem[language]);
+        }
+        for(var i = 0; i < $languagePlaceHolder.length; i++){
+            var language = $languagePlaceHolder.eq(i).attr('language');
+            $('*[language='+ language +']').prop('placeholder', workform_formItem[language]);
+        }
+    }
+
+</script>
+<script type="text/javascript">
+    $(function () {
+        var dataid = $.getQueryString('dataid');
+        var dataNumber = parent.pluginId;
+        var oNode = null, thePlugins = 'text';
+        if (UE.plugins[thePlugins].editdom) {
+            oNode = UE.plugins[thePlugins].editdom;
+
+            var gValue = oNode.value, gName = oNode.getAttribute('name'),
+                gTitle = oNode.getAttribute('title').replace(/&quot;/g, "\""),
+                gFontSize = oNode.getAttribute('orgfontsize'), gAlign = oNode.getAttribute('orgalign'),
+                gWidth = oNode.getAttribute('orgwidth'), gHeight = oNode.getAttribute('orgheight'),
+                gType = oNode.getAttribute('orgtype');
+                ghide = oNode.getAttribute('orghidden');
+
+            gValue = gValue == null ? '' : gValue;
+            gTitle = gTitle == null ? '' : gTitle;
+            gName = gName == null ? '' : gName;
+            $G('orgvalue').value = gValue;
+            $G('fielid').value = gName;
+            $G('orgname').value = gTitle;
+            if(gWidth != ''){
+                $G('orgwidth').value = gWidth;
+            }
+            $G('orgheight').value = gHeight;
+            $G('orgfontsize').value = gFontSize;
+            //$G('orgalign').val(gAlign);
+            if (ghide == '1')
+            {
+                $G('orghide').checked = true;
+            }
+        }
+
+        dialog.oncancel = function () {
+            if (UE.plugins[thePlugins].editdom) {
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+        dialog.onok = function () {
+
+            if ($G('orgname').value == '') {
+                if(workform_formItem){
+                    alert(workform_formItem.workform_formItem_qsrkjmc);
+                }else{
+                    alert('请输入控件名称');
+                }
+                return false;
+            }
+            var gValue = $G('orgvalue').value.replace(/\"/g, "&quot;"), gid = $G('fielid').value,
+                gTitle = $G('orgname').value.replace(/\"/g, "&quot;"),
+                gFontSize = $G('orgfontsize').value, gAlign = $G('orgalign').value, gWidth = $G('orgwidth').value,
+                gHeight = $G('orgheight').value, gType = $G('orgtype').value;
+
+
+            if (!oNode) {
+                try {
+                    oNode = createElement('input', 'NEWFIELD');
+                    oNode.setAttribute('class', "form_item");
+                    oNode.setAttribute('data-type', "text");
+                    oNode.setAttribute('type', gType);
+                    oNode.setAttribute('title', gTitle);
+                    oNode.setAttribute('value', gValue);
+                    oNode.setAttribute('name', 'DATA_' + dataNumber);
+                    oNode.setAttribute('id', 'DATA_' + dataNumber);
+                    oNode.setAttribute('orgfontsize',gFontSize);
+                    oNode.setAttribute('orgalign',gAlign);
+                    oNode.setAttribute('orgwidth',gWidth);
+                    oNode.setAttribute('orgheight',gHeight);
+
+
+                  if ($G('orghide').checked) {
+                       oNode.setAttribute('orghidden', 1);
+                   } else {
+                       oNode.setAttribute('orghidden', 0);
+                   }
+                    if (gFontSize != '') {
+                        oNode.style.fontSize = gFontSize + 'px';
+                    }
+                    if (gAlign != '') {
+                        //style += 'text-align:' + gAlign + ';';
+                        oNode.style.textAlign = gAlign;
+                        oNode.setAttribute('align', gAlign);
+                    }
+
+                    if (gHeight != '') {
+                        oNode.style.height = gHeight + 'px';
+                    }
+                    if (gWidth != '') {
+                        oNode.style.width = gWidth + 'px';
+                    }
+                    editor.execCommand('insertHtml', oNode.outerHTML);
+                } catch (e) {
+                    try {
+                        editor.execCommand('error');
+                    } catch (e) {
+                        if(workform_formItem){
+                            alert(workform_formItem.workform_formItem_kjycqlxjszc);
+                        }else{
+                            alert('控件异常，请联系技术支持');
+                        }
+                    }
+                    return false;
+                }
+            } else {
+                oNode.setAttribute('class', "form_item");
+                oNode.setAttribute('data-type', "text");
+                oNode.setAttribute('title', gTitle);
+                oNode.setAttribute('value', $G('orgvalue').value);
+                oNode.setAttribute('name', gid);
+                oNode.setAttribute('id', gid);
+                oNode.setAttribute('type', gType);
+                oNode.setAttribute('orgfontsize',gFontSize);
+                oNode.setAttribute('orgalign',gAlign);
+                oNode.setAttribute('orgwidth',gWidth);
+                oNode.setAttribute('orgheight',gHeight);
+
+               if ($G('orghide').checked) {
+                   oNode.setAttribute('orghidden', 1);
+               } else {
+                   oNode.setAttribute('orghidden', 0);
+               }
+//	        if ( $G('fieldflow').checked ) {
+//	            oNode.setAttribute('fieldflow',1);
+//	        } else {
+//	            oNode.setAttribute('fieldflow',0);
+//	        }
+                if (gFontSize != '') {
+                    oNode.style.fontSize = gFontSize + 'px';
+                    //oNode.setAttribute('orgfontsize',gFontSize );
+                } else {
+                    oNode.style.fontSize = '';
+                    // oNode.setAttribute('orgfontsize', '');
+                }
+                if (gAlign != '') {
+                    oNode.style.textAlign = gAlign;
+                    // oNode.setAttribute('orgalign',gAlign );
+                } else {
+                    // oNode.setAttribute('orgalign', '');
+                }
+                if (gWidth != '') {
+                    oNode.style.width = gWidth + 'px';
+                    //oNode.setAttribute('orgwidth',gWidth );
+                } else {
+                    oNode.style.width = '';
+                    // oNode.setAttribute('orgwidth', '');
+                }
+                if (gHeight != '') {
+                    oNode.style.height = gHeight + 'px';
+                    // oNode.setAttribute('orgheight',gHeight );
+                } else {
+                    oNode.style.height = '';
+                    // oNode.setAttribute('orgheight', '');
+                }
+                if (gType != '') {
+                    // oNode.setAttribute('orgtype',gType );
+                } else {
+                    // oNode.setAttribute('orgtype', '');
+                }
+                delete UE.plugins[thePlugins].editdom;
+            }
+        };
+    });
+
+</script>
+</body>
+</html>

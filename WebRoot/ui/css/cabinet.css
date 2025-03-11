@@ -1,0 +1,370 @@
+@charset "UTF-8";
+html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img {
+    margin: 0;
+    padding: 0; /*清除元素的内外边距*/
+}
+
+fieldset, img, input, button {
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+    border: none;
+    padding: 0;
+    margin: 0;
+    outline-style: none; /*外面环绕线*/
+}
+
+ul, ol {
+    list-style: none;
+}
+
+/*去掉原样式中的小黑点*/
+input {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+select, input {
+    vertical-align: middle;
+}
+
+/*输入字居中显示*/
+select, input, textarea {
+    font-size: 12px;
+    margin: 0;
+}
+
+/**/
+textarea {
+    resize: none; /*不可以随意拖动*/
+}
+
+/*防止拖动*/
+img {
+    border: 0;
+    vertical-align: middle; /*  去掉图片底部默认的3像素空白缝隙*/
+}
+
+table {
+    border-collapse: collapse; /*合并外连线*/
+}
+
+body {
+    font-size: 12px;
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+    color: #666; /*150%基于当前字体尺寸的百分比行间距*/
+    background: #fff;
+}
+
+.clearfix:before, .clearfix:after {
+    /*清除浮动，最好最标准的写法*/
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1; /*IE/7/6*/
+    /*兼容IE6下的写法*/
+}
+
+a {
+    color: #666; /*a 标签是不继承颜色 的*/
+    text-decoration: none;
+}
+
+a:hover {
+    color: #C81623;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 100%;
+}
+
+s, i, em {
+    /*一般是起装饰作用*/
+    font-style: normal; /*去掉原有的样式*/
+    text-decoration: none; /*去掉下划线或是删除线*/
+}
+
+.col-red {
+    color: #C81623 !important; /*京东主色调*/
+}
+
+/*公共类*/
+.w {
+    /*版心 提取 */
+    width: 99.7%;
+    margin: 0 auto;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.al {
+    text-align: left;
+}
+
+.ac {
+    text-align: center;
+}
+
+.ar {
+    text-align: right;
+}
+
+.hide {
+    display: none;
+}
+
+/*css初始化完成*/
+
+/*head开始*/
+.head {
+    height: 45px;
+    line-height: 45px;
+    border-bottom: 2px solid #A8C9EA;
+    background-color: #F0F4F7;
+}
+.head>div {
+    display: inline-block;
+    float: left;
+    margin-left: 10px;
+}
+.hideDiv{
+    position: absolute;
+    top:28px;
+    left:0;
+    z-index: 99;
+    background-color: #fff;
+    width: 120px;
+    border: #ccc 1px solid;
+    border-radius: 5px;
+}
+.hideDiv li{
+    height: 35px;
+    line-height: 35px;
+    padding-left: 15px;
+    cursor: pointer;
+}
+.hideDiv li:hover{
+    background-color: #c5e9fb;
+    /*background-color: #caf2ff;*/
+}
+/*.boto a.queryDelete{background: url("../img/file/cabinet12.png") no-repeat;}*/
+/*middle部分开始*/
+.w table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.w .th,
+.w td {
+    color: #404060;
+    padding: 5px;
+}
+
+.w .th {
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+    font-size: 13pt;
+    background-color: #fff;
+    color: #2F5C8F;
+    border: 0px;
+}
+
+.w td {
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+    font-size: 11pt;
+}
+
+.w tr {
+    border: 1px solid #c0c0c0;
+}
+.w tr:nth-child(even) {
+    background-color: #fff;
+}
+.w tr:nth-child(odd) {
+    background-color: #F6F7F9;
+}
+
+.w tr:hover {
+    background-color: #D3E7FA;
+}
+.bgcolor{
+    background-color: #D3E7FA !important;
+}
+/*bottom 部分开始*/
+.bottom {
+    height:40px;
+    line-height: 40px;
+    border: 1px solid #c0c0c0;
+    margin-top:10px;
+    background-color: #fff;
+}
+.bottom div {
+    display: inline-block;
+    float: left;
+    margin-left: 30px;
+}
+table{font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;}
+/*table tr{border: 1px solid #c0c0c0;}*/
+table tr td{padding: 5px;font-size: 11pt;
+    color: #333;}
+table tr td input{
+    height: 25px;
+    border: #ccc 1px solid;
+    padding-left: 5px;
+}
+table tr td a{
+    color: #1772c0;
+    /*margin-left: 10px;*/
+}
+.button{width: 100%;margin-top: 20px;}
+.backBtn{
+    width: 70px;
+    height: 28px;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 28px;
+    cursor: pointer;
+    background: url("../img/file/icon_backing.png") no-repeat;
+
+}
+.childFolder,.childFolders{
+    width: 99.7%;
+    margin: 40px auto;
+    height:40px;
+    line-height: 40px;
+    border: 1px solid #c0c0c0;
+    background-color: #fff;
+}
+.childFolders div{
+    float: left;
+    margin-right: 10px;
+}
+.childFolder div{
+    float: left;
+    margin-right: 10px;
+}
+.operation{
+    font-size: 14px;
+    color: #313131;
+    margin-left: 5px;
+}
+.newChildFolder{
+    width:120px;
+    height: 28px;
+    background: url("../img/file/btn_newfiles_03.png") no-repeat;
+    background-size: 100% 100%;
+    margin-top: 6px;
+}
+.newChildFolder a{
+    color: #fff;
+    line-height: 28px;
+    font-size: 11pt;
+}
+.newChildFolder a span{
+    margin-left: 30px;
+}
+.editFolder{
+    width: 68px;
+    height: 28px;
+    /*background: url("../img/file/btn_edit_03_05.png") no-repeat;*/
+    /*background-size: 100% 100%;*/
+    margin-top: 6px;
+}
+.editFolder a{
+    color: #ffffff;
+    line-height: 28px;
+    font-size: 11pt;
+}
+.editFolder a span{
+    margin-left: 30px;
+}
+.deleteFolder{
+    width: 99px;
+    height: 28px;
+    /*background: url("../img/file/btn_deletecontent_03.png") no-repeat;*/
+    /*background-size: 100% 100%;*/
+    margin-top: 6px;
+}
+.deleteFolder a{
+    color: #ffffff;
+    line-height: 28px;
+    font-size: 11pt;
+}
+.deleteFolder a span{
+    margin-left: 33px;
+}
+.addHeader{
+    width: 100%;
+    height: 45px;
+    /*border-bottom: #999 1px solid;
+    border-right: #999 1px solid;*/
+    overflow: hidden;
+}
+.addiv_Img{
+    float: left;
+    width: 23px;
+    height: 100%;
+    margin-left: 20px;
+}
+.addiv_Img img{
+    width: 23px;
+    height: 23px;
+    margin-top: 11px;
+}
+.divP{
+    float: left;
+    height: 45px;
+    line-height: 45px;
+    font-size: 11pt;
+    margin-left: 10px;
+    color:#494d59;
+}
+.tab{
+    width: 50%;
+    margin: 10px auto;
+}
+.tab tr th{
+    padding: 5px;
+    text-align: left;
+    font-size: 14px;
+    color: #2F5C8F;
+}
+.tab tr th:first-of-type{
+    border-right: #ccc 1px solid;
+}
+.tab tr td{
+    padding: 5px;
+}
+.tab tr td input{
+    width: 220px;
+}
+.typeButton{
+    width: 170px;
+    margin: 0 auto;
+}
+.typeButton div{
+    width: 70px;
+    height: 28px;
+    line-height: 28px;
+    margin-left: 10px;
+    float: left;
+    cursor: pointer;
+}
+.myTab tr{border:#ccc 1px solid;}
+#btnSure,#editSure{
+    background: url("../img/file/icon_confirm.png") no-repeat;
+}
+#btnBack,#editBack{
+    background: url("../img/file/icon_backing.png") no-repeat;
+}

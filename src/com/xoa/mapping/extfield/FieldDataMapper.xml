@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.extfield.FieldDataMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.extfield.FieldData">
+        <result column="TAB_NAME" property="tabName" jdbcType="VARCHAR"/>
+        <result column="FIELD_NO" property="fieldNo" jdbcType="VARCHAR"/>
+        <result column="IDENTY_ID" property="identyId" jdbcType="VARCHAR"/>
+        <result column="ITEM_DATA" property="itemData" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMap1" type="com.xoa.model.extfield.FieldDataSet">
+        <result column="TAB_NAME" property="tabName" jdbcType="VARCHAR"/>
+        <result column="FIELD_NO" property="fieldNo" jdbcType="VARCHAR"/>
+        <result column="IDENTY_ID" property="identyId" jdbcType="VARCHAR"/>
+        <result column="ITEM_DATA" property="itemData" jdbcType="VARCHAR"/>
+        <result column="TAB_NAME" property="tabName" jdbcType="VARCHAR"/>
+        <result column="FIELD_NAME" property="fieldName" jdbcType="VARCHAR"/>
+        <result column="ORDER_NO" property="orderNo" jdbcType="INTEGER"/>
+        <result column="STYPE" property="stype" jdbcType="VARCHAR"/>
+        <result column="CODE_TYPE" property="codeType" jdbcType="VARCHAR"/>
+        <result column="TYPE_VALUE" property="typeValue" jdbcType="VARCHAR"/>
+        <result column="TYPE_CODE" property="typeCode" jdbcType="VARCHAR"/>
+        <result column="IS_QUERY" property="isQuery" jdbcType="VARCHAR"/>
+        <result column="IS_GROUP" property="isGroup" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        TAB_NAME,
+        FIELD_NO,
+        IDENTY_ID,
+        ITEM_DATA
+    </sql>
+
+    <select id="selectFieldData" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM
+            field_data
+        WHERE
+            TAB_NAME = #{tabName}
+            AND FIELD_NO = #{fieldNo}
+            AND IDENTY_ID = #{identyId}
+    </select>
+
+    <update id="updateFieldData" parameterType="com.xoa.model.extfield.FieldData">
+        UPDATE
+            field_data
+        SET
+            ITEM_DATA = #{itemData}
+        WHERE
+            TAB_NAME = #{tabName}
+            AND FIELD_NO = #{fieldNo}
+            AND IDENTY_ID = #{identyId}
+    </update>
+
+    <insert id="addFieldData" parameterType="com.xoa.model.extfield.FieldData">
+        INSERT INTO field_data
+        (
+            TAB_NAME, FIELD_NO, IDENTY_ID, ITEM_DATA
+        )
+        VALUES
+        (
+            #{tabName}, #{fieldNo}, #{identyId}, #{itemData}
+        )
+    </insert>
+
+    <select id="selectFieldDataByidentyId" resultMap="BaseResultMap" parameterType="java.util.Map">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        field_data
+        WHERE IDENTY_ID = #{identyId} and TAB_NAME = #{tabName}
+    </select>
+    
+    <select id="selectFieldDataByidentyIdAndfieldNo" resultMap="BaseResultMap1" parameterType="java.util.Map">
+     SELECT
+	d.IDENTY_ID AS IDENTY_ID,d.ITEM_DATA AS ITEM_DATA,s.*
+FROM
+field_data AS d
+	LEFT JOIN field_set AS s ON s.FIELD_NO = d.FIELD_NO
+	WHERE d.IDENTY_ID = #{identyId} AND s.TAB_NAME= #{tabName}
+    </select>
+</mapper>

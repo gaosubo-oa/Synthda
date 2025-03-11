@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?> <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.timedTask.FlowWorkRemindMapper">
+    <sql id="Base_Column_List">
+  REMIND_ID,FLOW_ID,REMIND_USERS_FIELD,REMIND_TIME_FIELD,REMIND_CONTENT,REMIND_USER</sql>
+    <resultMap id="BaseResultMap" type="com.xoa.model.timedTask.FlowWorkRemindModel">
+        <id column="REMIND_ID" javaType="int" property="remindId"/>
+        <result column="FLOW_ID" javaType="int" property="flowId"/>
+        <result column="RUN_ID" javaType="int" property="runId"/>
+        <result column="REMIND_USERS_FIELD" javaType="string" property="remindUsersField"/>
+        <result column="REMIND_TIME_FIELD" javaType="string" property="remindTimeField"/>
+        <result column="REMIND_CONTENT" javaType="string" property="remindContent"/>
+        <result column="REMIND_USER" javaType="string" property="remindUser"/>
+        <result column="IS_DELETE" javaType="string" property="isDelete"/>
+    </resultMap>
+
+    <resultMap id="BaseResultUser" type="com.xoa.model.timedTask.FlowWorkUsers">
+        <id column="RUN_ID" javaType="int" property="runId"/>
+        <result column="RUN_NAME" javaType="string" property="runName"/>
+        <result column="timeField" javaType="string" property="timeField"/>
+        <result column="usersField" javaType="string" property="usersField"/>
+    </resultMap>
+    <select id="selectFlowWorkAll" resultMap="BaseResultMap">
+        select REMIND_ID,FLOW_ID,REMIND_USERS_FIELD,REMIND_TIME_FIELD,REMIND_CONTENT,REMIND_USER,RUN_ID,IS_DELETE from flow_work_remind where IS_DELETE!='3'
+    </select>
+    <select id="selectFlowRun" resultMap="BaseResultUser" parameterType="map">
+        SELECT
+        fr.RUN_ID,
+        fr.RUN_NAME,
+        ${data}
+        FROM
+        flow_run fr
+        inner join ${tableName} fd on fr.RUN_ID = fd.RUN_ID
+        where
+        fr.FLOW_ID = #{flowId}  and fd.RUN_ID = #{runId}
+        ORDER BY fr.RUN_ID desc
+    </select>
+
+    <select id="selectFlowBorrowing" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        fr.RUN_ID AS RUN_ID,
+        fr.FLOW_ID AS FLOW_ID,
+        fd.begin_user AS REMIND_USER,
+        ${DATA_time} AS REMIND_TIME_FIELD,
+        ${DATA_user} AS REMIND_USERS_FIELD
+        FROM
+        flow_run fr
+        INNER JOIN ${tableName} fd ON fr.RUN_ID = fd.RUN_ID
+        INNER JOIN flow_run_prcs fp on fp.RUN_ID = fr.RUN_ID
+        LEFT JOIN  flow_work_remind fw on fw.RUN_ID = fr.RUN_ID
+        WHERE
+        ifnull(${DATA_time},'') &lt;&gt; '' and ${DATA_time} &lt; NOW( )
+        AND ISNULL( fr.END_TIME ) and fw.RUN_ID is null and fp.FLOW_PRCS &gt;= 2
+        <if test="DATA_type!=null">
+            AND ${DATA_type} != "电子版"
+        </if>
+    <if test="DATA_num!=null">
+           and ${DATA_num} != "复印版"
+    </if>
+    </select>
+    <insert id="insertBorrowingAll">
+        insert  into   flow_work_remind (FLOW_ID,REMIND_USERS_FIELD,REMIND_TIME_FIELD,REMIND_CONTENT,REMIND_USER,RUN_ID)
+        values
+        <foreach collection="list" separator="," item="Borrowing" >
+           (#{Borrowing.flowId},#{Borrowing.remindUsersField},#{Borrowing.remindTimeField},#{Borrowing.remindContent},#{Borrowing.remindUser},#{Borrowing.runId})
+        </foreach>
+    </insert>
+    <update id="updateById" parameterType="com.xoa.model.timedTask.FlowWorkRemindModel">
+        update  flow_work_remind
+          set  IS_DELETE  = #{remindModel.isDelete}
+        where REMIND_ID = #{remindModel.remindId}
+    </update>
+</mapper>

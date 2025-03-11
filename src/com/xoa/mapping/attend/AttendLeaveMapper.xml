@@ -1,0 +1,1573 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.attend.AttendLeaveMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.attend.AttendLeave" >
+    <result column="LEAVE_ID" property="leaveId" jdbcType="INTEGER" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="LEADER_ID" property="leaderId" jdbcType="VARCHAR" />
+    <result column="LEAVE_DATE1" property="leaveDate1" jdbcType="TIMESTAMP" />
+    <result column="LEAVE_DATE2" property="leaveDate2" jdbcType="TIMESTAMP" />
+    <result column="ANNUAL_LEAVE" property="annualLeave" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="ALLOW" property="allow" jdbcType="CHAR" />
+    <result column="DESTROY_TIME" property="destroyTime" jdbcType="TIMESTAMP" />
+    <result column="REGISTER_IP" property="registerIp" jdbcType="VARCHAR" />
+    <result column="RECORD_TIME" property="recordTime" jdbcType="TIMESTAMP" />
+    <result column="LEAVE_TYPE2" property="leaveType2" jdbcType="CHAR" />
+    <result column="HANDLE_TIME" property="handleTime" jdbcType="TIMESTAMP" />
+    <result column="AGENT" property="agent" jdbcType="VARCHAR" />
+    <result column="ORDER_NO" property="orderNo" jdbcType="INTEGER" />
+   <result column="LEAVE_TYPE" property="leaveType" javaType="string" />
+    <result column="REASON" property="reason" jdbcType="LONGVARCHAR" />
+    <result column="RUN_ID" property="runId" jdbcType="INTEGER" />
+    <result column="RUN_NAME" property="runName" javaType="string" />
+    <result column="UID" property="uid" javaType="INTEGER" />
+    <result column="AVATAR" property="avatar" javaType="string" />
+      <result column="USER_NAME" property="userName" javaType="string" />
+      <result column="DEPT_NAME" property="deptName" javaType="string" />
+    <result column="monthname" property="monthname" />
+
+    <result column="id" property="id" />
+
+  </resultMap>
+
+    <resultMap id="attendLeaveFlowRunPrcs" type="com.xoa.model.attend.AttendFlowRunPrcs" extends="BaseResultMap" >
+        <result column="flowId" property="flowId" javaType="string" />
+        <result column="createrName" property="createrName" javaType="string" />
+        <result column="prFlag" property="prFlag" javaType="int" />
+        <result column="PRCS_NAME" property="prcsName" javaType="string" />
+        <result column="endTime" property="endTime" javaType="date" />
+        <result column="realPrcsId" property="realPrcsId" javaType="int" />
+        <result column="step" property="step" javaType="int"/>
+        <result column="codeName" property="codeName" javaType="string"/>
+        <result column="ID" property="id" javaType="int" />
+    </resultMap>
+
+    <resultMap id="AttendLeaves" type="com.xoa.model.users.Users" extends="BaseResultMap">
+        <id column="UID" property="uid" javaType="int"/>
+        <result column="USER_ID" property="userId" javaType="string"/>
+        <result column="USER_NAME" property="userName" javaType="string"/>
+        <result column="USER_NAME_INDEX" property="userNameIndex"
+                javaType="string"/>
+        <result column="BYNAME" property="byname" javaType="string"/>
+        <result column="USEING_KEY" property="useingKey" javaType="string"/>
+        <result column="USING_FINGER" property="usingFinger" javaType="string"/>
+        <result column="PASSWORD" property="password" javaType="string"/>
+        <result column="KEY_SN" property="keySn" javaType="string"/>
+        <result column="SECURE_KEY_SN" property="secureKeySn" javaType="string"/>
+        <result column="USER_PRIV" property="userPriv" javaType="int"/>
+        <result column="USER_PRIV_NO" property="userPrivNo" javaType="short"/>
+        <result column="USER_PRIV_NAME" property="userPrivName"
+                javaType="string"/>
+        <result column="POST_PRIV" property="postPriv" javaType="string"/>
+        <result column="POST_DEPT" property="postDept" javaType="string"/>
+        <result column="DEPT_ID" property="deptId" javaType="int"/>
+        <result column="DEPT_ID_OTHER" property="deptIdOther" javaType="string"/>
+        <result column="SEX" property="sex" javaType="string"/>
+        <result column="BIRTHDAY" property="birthday" />
+        <result column="IS_LUNAR" property="isLunar" javaType="string"/>
+        <result column="TEL_NO_DEPT" property="telNoDept" javaType="string"/>
+        <result column="FAX_NO_DEPT" property="faxNoDept" javaType="string"/>
+        <result column="ADD_HOME" property="addHome" javaType="string"/>
+        <result column="POST_NO_HOME" property="postNoHome" javaType="string"/>
+        <result column="TEL_NO_HOME" property="telNoHome" javaType="string"/>
+        <result column="MOBIL_NO" property="mobilNo" javaType="string"/>
+        <result column="BP_NO" property="bpNo" javaType="string"/>
+        <result column="EMAIL" property="email" javaType="string"/>
+        <result column="OICQ_NO" property="oicqNo" javaType="string"/>
+        <result column="ICQ_NO" property="icqNo" javaType="string"/>
+        <result column="MSN" property="msn" javaType="string"/>
+        <result column="AVATAR" property="avatar" javaType="string"/>
+        <result column="AVATAR_128" property="avatar128" javaType="string"/>
+        <result column="CALL_SOUND" property="callSound" javaType="string"/>
+        <result column="LAST_VISIT_TIME" property="lastVisitTime"
+                javaType="java.sql.Timestamp"/>
+        <result column="SMS_ON" property="smsOn" javaType="string"/>
+        <result column="MENU_TYPE" property="menuType" javaType="string"/>
+        <result column="LAST_PASS_TIME" property="lastPassTime"
+                javaType="java.sql.Timestamp"/>
+        <result column="THEME" property="theme" javaType="java.lang.Integer"/>
+        <result column="PORTAL" property="portal" javaType="string"/>
+        <result column="PANEL" property="panel" javaType="string"/>
+        <result column="ONLINE" property="online" javaType="int"/>
+        <result column="ON_STATUS" property="onStatus" javaType="string"/>
+        <result column="ATTEND_STATUS" property="attendStatus"
+                javaType="string"/>
+        <result column="MOBIL_NO_HIDDEN" property="mobilNoHidden"
+                javaType="string"/>
+        <result column="MYTABLE_LEFT" property="mytableLeft" javaType="string"/>
+        <result column="MYTABLE_RIGHT" property="mytableRight"
+                javaType="string"/>
+        <result column="USER_PRIV_OTHER" property="userPrivOther"
+                javaType="string"/>
+        <result column="USER_NO" property="userNo" javaType="short"/>
+        <result column="NOT_LOGIN" property="notLogin" javaType="java.lang.Integer"/>
+        <result column="NOT_VIEW_USER" property="notViewUser" javaType="string"/>
+        <result column="NOT_VIEW_TABLE" property="notViewTable"
+                javaType="string"/>
+        <result column="NOT_SEARCH" property="notSearch" javaType="string"/>
+        <result column="BKGROUND" property="bkground" javaType="string"/>
+        <result column="BIND_IP" property="bindIp" javaType="string"/>
+        <result column="LAST_VISIT_IP" property="lastVisitIp" javaType="string"/>
+        <result column="MENU_IMAGE" property="menuImage" javaType="string"/>
+        <result column="WEATHER_CITY" property="weatherCity" javaType="string"/>
+        <result column="SHOW_RSS" property="showRss" javaType="string"/>
+        <result column="MENU_EXPAND" property="menuExpand" javaType="string"/>
+        <result column="MY_STATUS" property="myStatus" javaType="string"/>
+        <result column="LIMIT_LOGIN" property="limitLogin" javaType="string"/>
+        <result column="PHOTO" property="photo" javaType="string"/>
+        <result column="IM_RANGE" property="imRange" javaType="java.lang.Integer"/>
+        <result column="LEAVE_TIME" property="leaveTime" javaType="java.sql.Timestamp"/>
+        <result column="SECRET_LEVEL" property="secretLevel" javaType="int"/>
+        <result column="NOT_MOBILE_LOGIN" property="notMobileLogin"
+        />
+        <result column="MANAGE_MODULE_TYPE" property="manageModuleType"
+                javaType="string"/>
+        <result column="USER_PRIV_TYPE" property="userPrivType"
+        />
+        <result column="USER_MANAGE_ORGS" property="userManageOrgs"
+                javaType="string"/>
+        <result column="SHORTCUT" property="shortcut" javaType="string"/>
+        <result column="MY_RSS" property="myRss" javaType="string"/>
+        <result column="REMARK" property="remark" javaType="string"/>
+        <result column="USER_PARA" property="userPara" javaType="string"/>
+        <result column="DEPT_NAME" property="deptName" javaType="string"/>
+        <result column="DUTY_TYPE" property="dutyType"  />
+        <result column="ID_NUMBER" property="idNumber"  javaType="string"/>
+        <result column="TRA_NUMBER" property="traNumber" javaType="string" />
+        <result column="SUBJECT" property="subject" javaType="string" />
+        <result column="POST" property="post" javaType="string" />
+        <result column="SETTLEMENT_NO" property="settlementNo" javaType="string"/>
+        <result column="deptName" property="deptName" jdbcType="VARCHAR"/>
+        <result column="POST_ID" property="postId" javaType="int" />
+        <result column="POST_NAME" property="postName" javaType="string" />
+        <result column="JOB_ID" property="jobId" javaType="int" />
+        <result column="JOB_NAME" property="jobName" javaType="string" />
+
+    </resultMap>
+
+  <select id="queryAttendLeave" resultMap="BaseResultMap">
+ SELECT * from   attend_leave WHERE USER_ID=#{userId} AND  #{date} BETWEEN  DATE(attend_leave.LEAVE_DATE1) AND DATE(attend_leave.LEAVE_DATE2)
+</select>
+
+  <select id="selectAttendLeave" resultMap="BaseResultMap">
+    SELECT * from   attend_leave WHERE USER_ID=#{userId} AND  DATE(attend_leave.LEAVE_DATE1) = #{date}
+  </select>
+
+    <select id="selectAttendLeaveByUserId" resultMap="BaseResultMap">
+        SELECT * from   attend_leave WHERE USER_ID=#{userId}
+    </select>
+
+    <select id="selectAttendLeaveModify" resultMap="BaseResultMap">
+        SELECT attend_leave.USER_ID,attend_leave.LEAVE_TYPE,attend_leave.LEAVE_DATE1,attend_leave.LEAVE_DATE2,attend_leave.LEAVE_TYPE2 from   attend_leave WHERE USER_ID=#{userId} AND #{date} BETWEEN DATE(attend_leave.LEAVE_DATE1) AND DATE(attend_leave.LEAVE_DATE2)
+    </select>
+    <select id="selectAttendLeaveModify" resultMap="BaseResultMap" databaseId="oracle">
+   SELECT
+	"USER_ID",
+	LEAVE_TYPE,
+	LEAVE_DATE1,
+	LEAVE_DATE2,
+	LEAVE_TYPE2
+FROM
+	ATTEND_LEAVE
+WHERE
+	"USER_ID" = #{userId}
+AND #{date} BETWEEN to_date (LEAVE_DATE1,'yyyy-MM-dd')
+AND to_date (LEAVE_DATE2,'yyyy-MM-dd')
+</select>
+
+  <select id="queryAllAttendLeaveFields"  resultMap="BaseResultMap" parameterType="Map">
+ select COLUMN_NAME as columnName,column_comment as columnComment from INFORMATION_SCHEMA.Columns where table_name=#{tableName} and table_schema=#{sqlType}
+  </select>
+    <select id="queryAllAttendLeaveFields"  resultMap="BaseResultMap" parameterType="Map" databaseId="oracle">
+        select COLUMN_NAME AS columnName,
+	    COMMENTS AS columnComment
+        from user_col_comments
+        where table_name=UPPER(#{tableName})
+    </select>
+
+    <insert id="addAttendLeave" parameterType="com.xoa.model.attend.AttendLeave" keyProperty="leaveId" useGeneratedKeys="true">
+        insert into attend_leave
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="leaveId != null" >
+                LEAVE_ID,
+            </if>
+            <if test="userId != null" >
+                USER_ID,
+            </if>
+            <if test="leaderId != null" >
+                LEADER_ID,
+            </if>
+            <if test="leaveDate1 != null" >
+                LEAVE_DATE1,
+            </if>
+            <if test="leaveDate2 != null" >
+                LEAVE_DATE2,
+            </if>
+            <if test="annualLeave != null" >
+                ANNUAL_LEAVE,
+            </if>
+            <if test="status != null" >
+                STATUS,
+            </if>
+            <if test="allow != null" >
+                ALLOW,
+            </if>
+            <if test="destroyTime != null" >
+                DESTROY_TIME,
+            </if>
+            <if test="registerIp != null" >
+                REGISTER_IP,
+            </if>
+            <if test="recordTime != null" >
+                RECORD_TIME,
+            </if>
+            <if test="leaveType2 != null" >
+                LEAVE_TYPE2,
+            </if>
+            <if test="handleTime != null" >
+                HANDLE_TIME,
+            </if>
+            <if test="agent != null" >
+                AGENT,
+            </if>
+            <if test="orderNo != null" >
+                ORDER_NO,
+            </if>
+            <if test="leaveType != null" >
+                LEAVE_TYPE,
+            </if>
+            <if test="reason != null" >
+                REASON,
+            </if>
+            <if test="runId != null" >
+                RUN_ID,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="leaveId != null" >
+                #{leaveId},
+            </if>
+            <if test="userId != null" >
+                #{userId},
+            </if>
+            <if test="leaderId != null" >
+                #{leaderId},
+            </if>
+            <if test="leaveDate1 != null" >
+                #{leaveDate1},
+            </if>
+            <if test="leaveDate2 != null" >
+                #{leaveDate2},
+            </if>
+            <if test="annualLeave != null" >
+                #{annualLeave},
+            </if>
+            <if test="status != null" >
+                #{status},
+            </if>
+            <if test="allow != null" >
+                #{allow},
+            </if>
+            <if test="destroyTime != null" >
+                #{destroyTime},
+            </if>
+            <if test="registerIp != null" >
+                #{registerIp},
+            </if>
+            <if test="recordTime != null" >
+                #{recordTime},
+            </if>
+            <if test="leaveType2 != null" >
+                #{leaveType2},
+            </if>
+            <if test="handleTime != null" >
+                #{handleTime},
+            </if>
+            <if test="agent != null" >
+                #{agent},
+            </if>
+            <if test="orderNo != null" >
+                #{orderNo},
+            </if>
+            <if test="leaveType != null" >
+                #{leaveType},
+            </if>
+            <if test="reason != null" >
+            #{reason},
+           </if>
+            <if test="runId != null" >
+                #{runId},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateAttendLeave"  parameterType="com.xoa.model.attend.AttendLeave" >
+
+        update attend_leave
+        <set >
+            <trim suffixOverrides=",">
+
+            <if test="userId != null and  userId != '' " >
+                USER_ID = #{userId},
+            </if>
+            <if test="leaderId != null  and  leaderId != ''" >
+                LEADER_ID = #{leaderId},
+            </if>
+            <if test="leaveDate1 != null and  leaveDate1 != ''" >
+                LEAVE_DATE1 = #{leaveDate1},
+            </if>
+            <if test="leaveDate2 != null and  leaveDate2 != ''" >
+                LEAVE_DATE2 = #{leaveDate2},
+            </if>
+            <if test="annualLeave != null and  annualLeave != ''" >
+                ANNUAL_LEAVE = #{annualLeave},
+            </if>
+            <if test="status != null and  status != ''" >
+                STATUS = #{status},
+            </if>
+            <if test="allow != null and  allow != ''" >
+                ALLOW = #{allow},
+            </if>
+            <if test="destroyTime != null and  destroyTime != ''" >
+                DESTROY_TIME = #{destroyTime},
+            </if>
+            <if test="registerIp != null and  registerIp != ''" >
+                REGISTER_IP = #{registerIp},
+            </if>
+            <if test="recordTime != null and  recordTime != ''" >
+                RECORD_TIME = #{recordTime},
+            </if>
+            <if test="leaveType2 != null and  leaveType2 != ''" >
+                LEAVE_TYPE2 = #{leaveType2},
+            </if>
+            <if test="handleTime != null and  handleTime != ''" >
+                HANDLE_TIME = #{handleTime},
+            </if>
+            <if test="agent != null and  agent != ''" >
+                AGENT = #{agent},
+            </if>
+            <if test="orderNo != null and  orderNo != ''" >
+                ORDER_NO = #{orderNo},
+            </if>
+            <if test="leaveType != null " >
+                LEAVE_TYPE = #{leaveType},
+            </if>
+            <if test="reason != null and  reason != ''" >
+                REASON = #{reason},
+            </if>
+            <if test="runId != null and  runId != ''" >
+                 RUN_ID = #{runId},
+            </if>
+            </trim>
+        </set>
+         WHERE   RUN_ID= #{runId}
+     </update>
+
+    <select id="backlogAttendList"  resultMap="attendLeaveFlowRunPrcs" parameterType="Map">
+        SELECT
+        al.*, u.USER_NAME createrName,
+        fr.FLOW_ID flowId,
+        frp.PRCS_FLAG prFlag,
+        fp.PRCS_NAME,
+        frp.FLOW_PRCS realPrcsId,
+        frp.PRCS_ID step,
+        frp.DELIVER_TIME endTime
+        FROM
+        attend_leave al
+        INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id AND frp.USER_ID=#{userId}
+        AND
+        frp.PRCS_FLAG IN ('1', '2')
+        INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id
+        INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+        AND frp.FLOW_PRCS = fp.PRCS_ID
+        AND frp.FLOW_PRCS>1
+        LEFT JOIN `user` u ON u.USER_ID = al.USER_ID
+        GROUP BY frp.id ORDER BY  frp.CREATE_TIME DESC
+
+    </select>
+
+
+    <select id="backlogAttendList"  resultMap="attendLeaveFlowRunPrcs" parameterType="Map" databaseId="oracle">
+        SELECT
+        al.*, u.USER_NAME createrName,
+        fr.FLOW_ID flowId,
+        frp.PRCS_FLAG prFlag,
+        fp.PRCS_NAME,
+        frp.FLOW_PRCS realPrcsId,
+        frp.PRCS_ID step,
+        frp.DELIVER_TIME endTime
+        FROM
+        attend_leave al
+        INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id AND frp.USER_ID=#{userId}
+        AND
+        frp.PRCS_FLAG IN ('1', '2')
+        INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id
+        INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+        AND frp.FLOW_PRCS = fp.PRCS_ID
+       AND frp.FLOW_PRCS>1
+        LEFT JOIN "USER" u ON u.USER_ID = al.USER_ID
+         ORDER BY  frp.CREATE_TIME DESC
+
+    </select>
+
+
+    <select id="backlogAttendList"  resultMap="attendLeaveFlowRunPrcs" parameterType="Map" databaseId="dm">
+        SELECT
+        al.*, u.USER_NAME createrName,
+        fr.FLOW_ID flowId,
+        frp.PRCS_FLAG prFlag,
+        fp.PRCS_NAME,
+        frp.FLOW_PRCS realPrcsId,
+        frp.PRCS_ID step,
+        frp.DELIVER_TIME endTime
+        FROM
+        attend_leave al
+        INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id AND frp.USER_ID=#{userId}
+        AND
+        frp.PRCS_FLAG IN ('1', '2')
+        INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id
+        INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+        AND frp.FLOW_PRCS = fp.PRCS_ID
+        AND frp.FLOW_PRCS>1
+        LEFT JOIN "USER" u ON u.USER_ID = al.USER_ID
+        ORDER BY  frp.CREATE_TIME DESC
+
+    </select>
+
+    <select id="haveDoneAttendList"   resultMap="attendLeaveFlowRunPrcs" parameterType="Map">
+        SELECT
+        al.*, u.USER_NAME createrName,
+         fr.FLOW_ID flowId,
+        frp.PRCS_FLAG prFlag,
+        fp.PRCS_NAME,
+        frp.FLOW_PRCS realPrcsId,
+        frp.PRCS_ID step,
+        frp.DELIVER_TIME endTime
+        FROM
+        attend_leave al
+        INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id AND frp.USER_ID=#{userId}
+        AND
+        frp.PRCS_FLAG IN ('3', '4')
+        INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id
+        INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+        AND frp.FLOW_PRCS = fp.PRCS_ID
+        LEFT JOIN `user` u ON u.USER_ID = al.USER_ID
+        GROUP BY frp.id ORDER BY  frp.CREATE_TIME DESC
+
+    </select>
+
+    <select id="haveDoneAttendList"   resultMap="attendLeaveFlowRunPrcs" parameterType="Map" databaseId="oracle">
+        SELECT
+        al.*, u.USER_NAME createrName,
+        fr.FLOW_ID flowId,
+        frp.PRCS_FLAG prFlag,
+        fp.PRCS_NAME,
+        frp.FLOW_PRCS realPrcsId,
+        frp.PRCS_ID step,
+        frp.DELIVER_TIME endTime
+        FROM
+        attend_leave al
+        INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id AND frp.USER_ID=#{userId}
+        AND
+        frp.PRCS_FLAG IN ('3', '4')
+        INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id
+        INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+        AND frp.FLOW_PRCS = fp.PRCS_ID
+        LEFT JOIN "USER" u ON u.USER_ID = al.USER_ID
+         ORDER BY  frp.CREATE_TIME DESC
+
+    </select>
+
+    <select id="haveDoneAttendList"   resultMap="attendLeaveFlowRunPrcs" parameterType="Map" databaseId="dm">
+        SELECT
+        al.*, u.USER_NAME createrName,
+        fr.FLOW_ID flowId,
+        frp.PRCS_FLAG prFlag,
+        fp.PRCS_NAME,
+        frp.FLOW_PRCS realPrcsId,
+        frp.PRCS_ID step,
+        frp.DELIVER_TIME endTime
+        FROM
+        attend_leave al
+        INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id AND frp.USER_ID=#{userId}
+        AND
+        frp.PRCS_FLAG IN ('3', '4')
+        INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id
+        INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+        AND frp.FLOW_PRCS = fp.PRCS_ID
+        LEFT JOIN "USER" u ON u.USER_ID = al.USER_ID
+        ORDER BY  frp.CREATE_TIME DESC
+
+    </select>
+ <!-- <sql id="Example_Where_Clause" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    LEAVE_ID, USER_ID, LEADER_ID, LEAVE_DATE1, LEAVE_DATE2, ANNUAL_LEAVE, STATUS, ALLOW, 
+    DESTROY_TIME, REGISTER_IP, RECORD_TIME, LEAVE_TYPE2, HANDLE_TIME, AGENT, ORDER_NO
+  </sql>
+  <sql id="Blob_Column_List" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    LEAVE_TYPE, REASON
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.xoa.model.attend.AttendLeaveExample" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from attend_leave
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xoa.model.attend.AttendLeaveExample" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from attend_leave
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.xoa.model.attend.AttendLeaveExample" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    delete from attend_leave
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xoa.model.attend.AttendLeaveWithBLOBs" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    insert into attend_leave (LEAVE_ID, USER_ID, LEADER_ID, 
+      LEAVE_DATE1, LEAVE_DATE2, ANNUAL_LEAVE, 
+      STATUS, ALLOW, DESTROY_TIME, 
+      REGISTER_IP, RECORD_TIME, LEAVE_TYPE2, 
+      HANDLE_TIME, AGENT, ORDER_NO, 
+      LEAVE_TYPE, REASON)
+    values (#{leaveId}, #{userId}, #{leaderId}, 
+      #{leaveDate1}, #{leaveDate2}, #{annualLeave}, 
+      #{status}, #{allow}, #{destroyTime}, 
+      #{registerIp}, #{recordTime}, #{leaveType2}, 
+      #{handleTime}, #{agent}, #{orderNo}, 
+      #{leaveType}, #{reason})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xoa.model.attend.AttendLeaveWithBLOBs" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    insert into attend_leave
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="leaveId != null" >
+        LEAVE_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="leaderId != null" >
+        LEADER_ID,
+      </if>
+      <if test="leaveDate1 != null" >
+        LEAVE_DATE1,
+      </if>
+      <if test="leaveDate2 != null" >
+        LEAVE_DATE2,
+      </if>
+      <if test="annualLeave != null" >
+        ANNUAL_LEAVE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="allow != null" >
+        ALLOW,
+      </if>
+      <if test="destroyTime != null" >
+        DESTROY_TIME,
+      </if>
+      <if test="registerIp != null" >
+        REGISTER_IP,
+      </if>
+      <if test="recordTime != null" >
+        RECORD_TIME,
+      </if>
+      <if test="leaveType2 != null" >
+        LEAVE_TYPE2,
+      </if>
+      <if test="handleTime != null" >
+        HANDLE_TIME,
+      </if>
+      <if test="agent != null" >
+        AGENT,
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO,
+      </if>
+      <if test="leaveType != null" >
+        LEAVE_TYPE,
+      </if>
+      <if test="reason != null" >
+        REASON,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="leaveId != null" >
+        #{leaveId},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="leaderId != null" >
+        #{leaderId},
+      </if>
+      <if test="leaveDate1 != null" >
+        #{leaveDate1},
+      </if>
+      <if test="leaveDate2 != null" >
+        #{leaveDate2},
+      </if>
+      <if test="annualLeave != null" >
+        #{annualLeave},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+      <if test="allow != null" >
+        #{allow},
+      </if>
+      <if test="destroyTime != null" >
+        #{destroyTime},
+      </if>
+      <if test="registerIp != null" >
+        #{registerIp},
+      </if>
+      <if test="recordTime != null" >
+        #{recordTime},
+      </if>
+      <if test="leaveType2 != null" >
+        #{leaveType2},
+      </if>
+      <if test="handleTime != null" >
+        #{handleTime},
+      </if>
+      <if test="agent != null" >
+        #{agent},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo},
+      </if>
+      <if test="leaveType != null" >
+        #{leaveType},
+      </if>
+      <if test="reason != null" >
+        #{reason},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xoa.model.attend.AttendLeaveExample" resultType="java.lang.Integer" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    select count(*) from attend_leave
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    update attend_leave
+    <set >
+      <if test="leaveId != null" >
+        LEAVE_ID = #{leaveId},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId},
+      </if>
+      <if test="leaderId != null" >
+        LEADER_ID = #{leaderId},
+      </if>
+      <if test="leaveDate1 != null" >
+        LEAVE_DATE1 = #{leaveDate1},
+      </if>
+      <if test="leaveDate2 != null" >
+        LEAVE_DATE2 = #{leaveDate2},
+      </if>
+      <if test="annualLeave != null" >
+        ANNUAL_LEAVE = #{annualLeave},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status},
+      </if>
+      <if test="allow != null" >
+        ALLOW = #{allow},
+      </if>
+      <if test="destroyTime != null" >
+        DESTROY_TIME = #{destroyTime},
+      </if>
+      <if test="registerIp != null" >
+        REGISTER_IP = #{registerIp},
+      </if>
+      <if test="recordTime != null" >
+        RECORD_TIME = #{recordTime},
+      </if>
+      <if test="leaveType2 != null" >
+        LEAVE_TYPE2 = #{leaveType2},
+      </if>
+      <if test="handleTime != null" >
+        HANDLE_TIME = #{handleTime},
+      </if>
+      <if test="agent != null" >
+        AGENT = #{agent},
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO = #{orderNo},
+      </if>
+      <if test="leaveType != null" >
+        LEAVE_TYPE = #{leaveType},
+      </if>
+      <if test="reason != null" >
+        REASON = #{reason},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    update attend_leave
+    set LEAVE_ID = #{leaveId},
+      USER_ID = #{userId},
+      LEADER_ID = #{leaderId},
+      LEAVE_DATE1 = #{leaveDate1},
+      LEAVE_DATE2 = #{leaveDate2},
+      ANNUAL_LEAVE = #{annualLeave},
+      STATUS = #{status},
+      ALLOW = #{allow},
+      DESTROY_TIME = #{destroyTime},
+      REGISTER_IP = #{registerIp},
+      RECORD_TIME = #{recordTime},
+      LEAVE_TYPE2 = #{leaveType2},
+      HANDLE_TIME = #{handleTime},
+      AGENT = #{agent},
+      ORDER_NO = #{orderNo},
+      LEAVE_TYPE = #{leaveType},
+      REASON = #{reason}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    &lt;!&ndash;
+      WARNING - @mbggenerated
+      This element is automatically generated by MyBatis Generator, do not modify.
+    &ndash;&gt;
+    update attend_leave
+    set LEAVE_ID = #{leaveId},
+      USER_ID = #{userId},
+      LEADER_ID = #{leaderId},
+      LEAVE_DATE1 = #{leaveDate1},
+      LEAVE_DATE2 = #{leaveDate2},
+      ANNUAL_LEAVE = #{annualLeave},
+      STATUS = #{status},
+      ALLOW = #{allow},
+      DESTROY_TIME = #{destroyTime},
+      REGISTER_IP = #{registerIp},
+      RECORD_TIME = #{recordTime},
+      LEAVE_TYPE2 = #{leaveType2},
+      HANDLE_TIME = #{handleTime},
+      AGENT = #{agent},
+      ORDER_NO = #{orderNo}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>-->
+  <select id="queryAllAttendLeave"  resultMap="attendLeaveFlowRunPrcs" parameterType="Map">
+SELECT
+        al.*, u.USER_NAME createrName,
+        fr.FLOW_ID flowId,
+        frp.PRCS_FLAG prFlag,
+        fp.PRCS_NAME,
+        frp.FLOW_PRCS realPrcsId,
+        frp.ID id,
+        frp.PRCS_ID step,
+        frp.DELIVER_TIME endTime
+        FROM
+        attend_leave al
+        INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id
+        AND  frp.ID=(SELECT frp.ID FROM flow_run_prcs frp WHERE frp.RUN_ID =al.run_id   ORDER BY frp.ID DESC LIMIT 0,1 )
+       INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id  and fr.BEGIN_USER = al.USER_ID
+        INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+        AND frp.FLOW_PRCS = fp.PRCS_ID
+        LEFT JOIN `user` u ON u.USER_ID = al.USER_ID
+        WHERE al.USER_ID=#{userId}
+      <if test="flowAllow != null and flowAllow != '' and flowAllow==0" >
+          AND  (select MAX(PRCS_ID) from flow_run_prcs where RUN_ID=al.RUN_ID)=1
+      </if>
+      <if test="flowAllow != null and flowAllow != '' and flowAllow==1" >
+          AND  (select MAX(PRCS_ID) from flow_run_prcs where RUN_ID=al.RUN_ID)!=1
+      </if>
+        GROUP BY frp.id ORDER BY  frp.CREATE_TIME DESC
+
+  </select>
+  <select id="queryAllAttendLeave"  resultMap="attendLeaveFlowRunPrcs" parameterType="Map" databaseId="oracle">
+SELECT
+        al.*, u.USER_NAME createrName,
+        fr.FLOW_ID flowId,
+        frp.PRCS_FLAG prFlag,
+        fp.PRCS_NAME,
+        frp.ID id,
+        frp.FLOW_PRCS realPrcsId,
+        frp.PRCS_ID step,
+        frp.DELIVER_TIME endTime
+        FROM
+        attend_leave al
+        INNER JOIN flow_run_prcs frp ON frp.RUN_ID = al.run_id
+         AND frp."ID" = (
+        SELECT
+        "MAX"(frp."ID")
+        FROM
+        flow_run_prcs frp
+        WHERE
+        frp.RUN_ID = al.run_id  )
+       INNER JOIN flow_run fr ON fr.RUN_ID = al.run_id
+        INNER JOIN flow_process fp ON fp.FLOW_ID = fr.FLOW_ID
+        AND frp.FLOW_PRCS = fp.PRCS_ID
+        LEFT JOIN "USER"  u ON u.USER_ID = al.USER_ID
+        WHERE al.USER_ID=#{userId}
+      <if test="flowAllow != null and flowAllow != '' and flowAllow==0" >
+          AND  (select MAX(PRCS_ID) from flow_run_prcs where RUN_ID=al.RUN_ID)=1
+      </if>
+      <if test="flowAllow != null and flowAllow != '' and flowAllow==1" >
+          AND  (select MAX(PRCS_ID) from flow_run_prcs where RUN_ID=al.RUN_ID)!=1
+      </if>
+         ORDER BY  frp.CREATE_TIME DESC
+
+  </select>
+
+
+    <!-- 按照日期统计请假数量 -->
+   <select id="getAllByDate" resultMap="BaseResultMap" parameterType="Map">
+       SELECT  * from attend_leave
+       <where>
+           <if test="startDate != null &amp;&amp; endDate !=null">
+               LEAVE_DATE1 BETWEEN  #{startDate} AND #{endDate}
+           </if>
+           <if test="user != null">
+               AND USER_ID = #{userId}
+           </if>
+       </where>
+   </select>
+    <select id="getAttendLeaveCount" resultMap="BaseResultMap">
+SELECT
+	COUNT(*) AS id,
+	'1月' AS monthname
+FROM
+	attend_leave
+INNER JOIN `user` u ON attend_leave.USER_ID = u.USER_ID
+WHERE
+	MONTH (attend_leave.RECORD_TIME) = 1
+AND YEAR (attend_leave.RECORD_TIME) = #{year}
+UNION ALL
+	SELECT
+		COUNT(*) AS id,
+		'2月' AS monthname
+	FROM
+		attend_leave
+	INNER JOIN `user` u ON attend_leave.USER_ID = u.USER_ID
+	WHERE
+		MONTH (attend_leave.RECORD_TIME) = 2
+	AND YEAR (attend_leave.RECORD_TIME) = #{year}
+	UNION ALL
+		SELECT
+			COUNT(*) AS id,
+			'3月' AS monthname
+		FROM
+			attend_leave
+		INNER JOIN `user` u ON attend_leave.USER_ID = u.USER_ID
+		WHERE
+			MONTH (attend_leave.RECORD_TIME) = 3
+		AND YEAR (attend_leave.RECORD_TIME) = #{year}
+		UNION ALL
+			SELECT
+				COUNT(*) AS id,
+				'4月' AS monthname
+			FROM
+				attend_leave
+			INNER JOIN `user` u ON attend_leave.USER_ID = u.USER_ID
+			WHERE
+				MONTH (attend_leave.RECORD_TIME) = 4
+			AND YEAR (attend_leave.RECORD_TIME) = #{year}
+			UNION ALL
+				SELECT
+					COUNT(*) AS id,
+					'5月' AS monthname
+				FROM
+					attend_leave
+				INNER JOIN `user` u ON attend_leave.USER_ID = u.USER_ID
+				WHERE
+					MONTH (attend_leave.RECORD_TIME) = 5
+				AND YEAR (attend_leave.RECORD_TIME) = #{year}
+				UNION ALL
+					SELECT
+						COUNT(*) AS id,
+						'6月' AS monthname
+					FROM
+						attend_leave
+					INNER JOIN `user` u ON attend_leave.USER_ID = u.USER_ID
+					WHERE
+						MONTH (attend_leave.RECORD_TIME) = 6
+					AND YEAR (attend_leave.RECORD_TIME) = #{year}
+					UNION ALL
+						SELECT
+							COUNT(*) AS id,
+							'7月' AS monthname
+						FROM
+							attend_leave
+						INNER JOIN `user` u ON attend_leave.USER_ID = u.USER_ID
+						WHERE
+							MONTH (attend_leave.RECORD_TIME) = 7
+						AND YEAR (attend_leave.RECORD_TIME) = #{year}
+						UNION ALL
+							SELECT
+								COUNT(*) AS id,
+								'8月' AS monthname
+							FROM
+								attend_leave
+							INNER JOIN `user` u ON attend_leave.USER_ID = u.USER_ID
+							WHERE
+								MONTH (attend_leave.RECORD_TIME) = 8
+							AND YEAR (attend_leave.RECORD_TIME) = #{year}
+							UNION ALL
+								SELECT
+									COUNT(*) AS id,
+									'9月' AS monthname
+								FROM
+									attend_leave
+								INNER JOIN `user` u ON attend_leave.USER_ID = u.USER_ID
+								WHERE
+									MONTH (attend_leave.RECORD_TIME) = 9
+								AND YEAR (attend_leave.RECORD_TIME) = #{year}
+								UNION ALL
+									SELECT
+										COUNT(*) AS id,
+										'10月' AS monthname
+									FROM
+										attend_leave
+									INNER JOIN `user` u ON attend_leave.USER_ID = u.USER_ID
+									WHERE
+										MONTH (attend_leave.RECORD_TIME) = 10
+									AND YEAR (attend_leave.RECORD_TIME) = #{year}
+									UNION ALL
+										SELECT
+											COUNT(*) AS id,
+											'11月' AS monthname
+										FROM
+											attend_leave
+										INNER JOIN `user` u ON attend_leave.USER_ID = u.USER_ID
+										WHERE
+											MONTH (attend_leave.RECORD_TIME) = 11
+										AND YEAR (attend_leave.RECORD_TIME) = #{year}
+										UNION ALL
+											SELECT
+												COUNT(*) AS id,
+												'12月' AS monthname
+											FROM
+												attend_leave
+											INNER JOIN `user` u ON attend_leave.USER_ID = u.USER_ID
+											WHERE
+												MONTH (attend_leave.RECORD_TIME) = 12
+											AND YEAR (attend_leave.RECORD_TIME) = #{year}
+
+    </select>
+
+    <select id="getAttendLeaveCount" resultMap="BaseResultMap" databaseId="kingbase">
+        SELECT
+            COUNT(*) AS id,
+            '1月' AS monthname
+        FROM
+            attend_leave
+                INNER JOIN "user" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+            MONTH (attend_leave.RECORD_TIME) = 1
+          AND YEAR (attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+            COUNT(*) AS id,
+            '2月' AS monthname
+        FROM
+            attend_leave
+                INNER JOIN "user" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+            MONTH (attend_leave.RECORD_TIME) = 2
+          AND YEAR (attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+            COUNT(*) AS id,
+            '3月' AS monthname
+        FROM
+            attend_leave
+                INNER JOIN "user" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+            MONTH (attend_leave.RECORD_TIME) = 3
+          AND YEAR (attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+            COUNT(*) AS id,
+            '4月' AS monthname
+        FROM
+            attend_leave
+                INNER JOIN "user" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+            MONTH (attend_leave.RECORD_TIME) = 4
+          AND YEAR (attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+            COUNT(*) AS id,
+            '5月' AS monthname
+        FROM
+            attend_leave
+                INNER JOIN "user" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+            MONTH (attend_leave.RECORD_TIME) = 5
+          AND YEAR (attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+            COUNT(*) AS id,
+            '6月' AS monthname
+        FROM
+            attend_leave
+                INNER JOIN "user" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+            MONTH (attend_leave.RECORD_TIME) = 6
+          AND YEAR (attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+            COUNT(*) AS id,
+            '7月' AS monthname
+        FROM
+            attend_leave
+                INNER JOIN "user" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+            MONTH (attend_leave.RECORD_TIME) = 7
+          AND YEAR (attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+            COUNT(*) AS id,
+            '8月' AS monthname
+        FROM
+            attend_leave
+                INNER JOIN "user" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+            MONTH (attend_leave.RECORD_TIME) = 8
+          AND YEAR (attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+            COUNT(*) AS id,
+            '9月' AS monthname
+        FROM
+            attend_leave
+                INNER JOIN "user" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+            MONTH (attend_leave.RECORD_TIME) = 9
+          AND YEAR (attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+            COUNT(*) AS id,
+            '10月' AS monthname
+        FROM
+            attend_leave
+                INNER JOIN "user" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+            MONTH (attend_leave.RECORD_TIME) = 10
+          AND YEAR (attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+            COUNT(*) AS id,
+            '11月' AS monthname
+        FROM
+            attend_leave
+                INNER JOIN "user" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+            MONTH (attend_leave.RECORD_TIME) = 11
+          AND YEAR (attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+            COUNT(*) AS id,
+            '12月' AS monthname
+        FROM
+            attend_leave
+                INNER JOIN "user" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+            MONTH (attend_leave.RECORD_TIME) = 12
+          AND YEAR (attend_leave.RECORD_TIME) = #{year}
+
+    </select>
+
+    <select id="getAttendLeaveCount" resultMap="BaseResultMap" databaseId="oracle">
+        SELECT
+        COUNT(*) AS id,
+        '1月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 1
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+        COUNT(*) AS id,
+        '2月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 2
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+        COUNT(*) AS id,
+        '3月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 3
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+        COUNT(*) AS id,
+        '4月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 4
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+        COUNT(*) AS id,
+        '5月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 5
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+        COUNT(*) AS id,
+        '6月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 6
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+        COUNT(*) AS id,
+        '7月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 7
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+        COUNT(*) AS id,
+        '8月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 8
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+        COUNT(*) AS id,
+        '9月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 9
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+        COUNT(*) AS id,
+        '10月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 10
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+        COUNT(*) AS id,
+        '11月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 11
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+        COUNT(*) AS id,
+        '12月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 12
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+
+    </select>
+
+    <select id="getAttendLeaveCount" resultMap="BaseResultMap" databaseId="dm">
+        SELECT
+        COUNT(*) AS id,
+        '1月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 1
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+        COUNT(*) AS id,
+        '2月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 2
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+        COUNT(*) AS id,
+        '3月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 3
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+        COUNT(*) AS id,
+        '4月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 4
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+        COUNT(*) AS id,
+        '5月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 5
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+        COUNT(*) AS id,
+        '6月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 6
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+        COUNT(*) AS id,
+        '7月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 7
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+        COUNT(*) AS id,
+        '8月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 8
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+        COUNT(*) AS id,
+        '9月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 9
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+        COUNT(*) AS id,
+        '10月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 10
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+        COUNT(*) AS id,
+        '11月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 11
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+        UNION ALL
+        SELECT
+        COUNT(*) AS id,
+        '12月' AS monthname
+        FROM
+        attend_leave
+        INNER JOIN "USER" u ON attend_leave.USER_ID = u.USER_ID
+        WHERE
+        EXTRACT( month from attend_leave.RECORD_TIME) = 12
+        AND EXTRACT( year from attend_leave.RECORD_TIME) = #{year}
+
+    </select>
+    <!--导出-->
+    <select id="queryAttendLeaves" resultMap="BaseResultMap" parameterType="map">
+  SELECT
+	u.USER_NAME,
+	d.DEPT_NAME,
+	a.LEAVE_TYPE2,
+	a.LEAVE_DATE1,
+	a.LEAVE_DATE2
+FROM
+	`USER` u
+	LEFT JOIN department d ON u.DEPT_ID = d.DEPT_ID
+	LEFT JOIN attend_leave a ON u.USER_ID = a.USER_ID
+WHERE
+     LEAVE_DATE1 LIKE concat('%',#{beginDate},'%') AND  ALLOW = 1
+ORDER BY
+	a.USER_ID
+</select>
+
+    <select id="selLeaveByDate" resultMap="BaseResultMap" parameterType="Map">
+        SELECT  * from attend_leave
+        <where>
+            <if test="startDate != null &amp;&amp; endDate !=null">
+                LEAVE_DATE1 &gt; #{startDate} AND LEAVE_DATE1 &lt; #{endDate}
+            </if>
+        </where>
+    </select>
+
+   <!-- List<AttendLeave> selectAttendLeaveList(@Param("userId") String userId,
+    @Param("beginDate")String beginDate,
+    @Param("endDate") String endDate);-->
+    <select id="selectAttendLeaveList" resultMap="BaseResultMap">
+        select
+        al.*,fr.RUN_NAME
+        from attend_leave al
+        left join flow_run fr on al.RUN_ID=fr.RUN_ID
+        where
+         al.USER_ID=#{userId}
+         and (al.RECORD_TIME between  #{beginDate} and #{endDate})
+    </select>
+
+
+    <select id="selAttendLeaveByUserId" resultMap="BaseResultMap" >
+        SELECT
+        *
+        FROM
+        `attend_leave`
+        WHERE
+        `USER_ID` = #{userId}
+        AND
+        `LEAVE_DATE1` > DATE_ADD(now(),INTERVAL -1 month)
+    </select>
+
+    <!--//获取当日所属请假统计
+    List<AttendLeave> getAttendLeaveByDateAndUids(Map map);-->
+    <select id="getAttendLeaveByDateAndUids" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+        a.*,
+        u.USER_NAME,
+        u.UID,
+        u.AVATAR,
+        d.DEPT_NAME
+        FROM
+        attend_leave a
+        left join user u on u.USER_ID=a.USER_ID
+        left join department d on d.DEPT_ID=u.DEPT_ID
+        WHERE
+        LEAVE_DATE1&lt;#{endDate} and LEAVE_DATE2&gt;#{date}
+        and u.uid in
+        <foreach collection="uids" index="index" close=")" open="(" separator="," item="uid">
+            #{uid}
+        </foreach>
+        and ALLOW=1
+    </select>
+
+    <select id="getAttendLeaveByDateAndUids" resultMap="BaseResultMap" parameterType="map" databaseId="kingbase">
+        SELECT
+        a.*,
+        u.USER_NAME,
+        u.UID,
+        u.AVATAR,
+        d.DEPT_NAME
+        FROM
+        attend_leave a
+        left join "user" u on u.USER_ID=a.USER_ID
+        left join department d on d.DEPT_ID=u.DEPT_ID
+        WHERE
+        LEAVE_DATE1&lt;#{endDate} and LEAVE_DATE2&gt;#{date}
+        and u.uid in
+        <foreach collection="uids" index="index" close=")" open="(" separator="," item="uid">
+            #{uid}
+        </foreach>
+        and ALLOW=1
+    </select>
+
+   <!-- //获取已经批准的假期
+    List<AttendLeave> getAttendLeaveListByMap(Map map);-->
+    <select id="getAttendLeaveListByMap" resultMap="BaseResultMap" parameterType="map">
+        SELECT
+            *
+        FROM
+            attend_leave
+        WHERE
+            USER_ID = #{userId}
+            AND ALLOW = '1'
+        AND RECORD_TIME BETWEEN #{beginDate} and #{endDate}
+    </select>
+
+    <select id="selectAttendByRunId" resultMap="BaseResultMap" parameterType="Integer">
+        select * FROM attend_leave
+        where
+         RUN_ID = #{runId}
+    </select>
+
+    <delete id="deleteAttendKey" parameterType="Integer">
+        DELETE from attend_leave
+         WHERE LEAVE_ID = #{leaveId}
+    </delete>
+
+</mapper>

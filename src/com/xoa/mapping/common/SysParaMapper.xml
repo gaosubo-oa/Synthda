@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.common.SysParaMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.common.SysPara">
+        <id column="PARA_NAME" property="paraName" javaType="string"/>
+        <result column="PARA_VALUE" property="paraValue" javaType="string"/>
+    </resultMap>
+
+
+    <select id="getSysPara" resultType="String">
+  SELECT s.PARA_VALUE FROM sys_para s WHERE s.PARA_NAME='MOBILE_SCREEN'
+  </select>
+
+    <select id="getTheSysParam" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT s.PARA_VALUE, s.PARA_NAME FROM sys_para s WHERE s.PARA_NAME=#{paraName}
+    </select>
+
+    <select id="selectSysPCAI" resultMap="BaseResultMap">
+       SELECT s.PARA_VALUE, s.PARA_NAME FROM sys_para s WHERE s.PARA_NAME='APP_Android_Version'
+    </select>
+    <select id="selectSysPCAI2" resultMap="BaseResultMap">
+       SELECT s.PARA_VALUE, s.PARA_NAME FROM sys_para s WHERE s.PARA_NAME='APP_IOS_Version'
+    </select>
+    <select id="selectSysPCAI3" resultMap="BaseResultMap">
+     SELECT s.PARA_VALUE, s.PARA_NAME FROM sys_para s WHERE s.PARA_NAME='APP_PC_Version'
+    </select>
+
+
+    <sql id="Base_Column_List">
+    PARA_NAME, PARA_VALUE
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.xoa.model.common.SysPara">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_para
+        where PARA_NAME = #{paraName,jdbcType=VARCHAR}
+    </select>
+
+
+    <select id="getIeTitle" resultMap="BaseResultMap">
+     SELECT  PARA_NAME,PARA_VALUE
+      FROM sys_para 
+      where PARA_NAME='STATUS_TEXT_MARQUEE'
+   
+  </select>
+    <select id="selectAttach" resultMap="BaseResultMap">
+        SELECT  *
+        FROM sys_para
+        where PARA_NAME='ALLDOC_INDEX_YN'
+        or PARA_NAME='ALLDOC_INDEX_DOTIME'
+        or PARA_NAME='ALLDOC_INDEX_FILENUM'
+        or PARA_NAME ='ALLDOC_INDEX_FILETYPE'
+    </select>
+    <update id="updateAttach"  parameterType="map">
+        update sys_para
+        <set>
+            PARA_VALUE= #{paraValue}
+        </set>
+        where PARA_NAME = #{paraName}
+    </update>
+    <select id="getVersion" resultMap="BaseResultMap">
+        SELECT  PARA_NAME,PARA_VALUE
+        FROM sys_para
+        where PARA_NAME='APP_Android_Version'
+
+    </select>
+    <select id="getVersionIos" resultMap="BaseResultMap">
+        SELECT  PARA_NAME,PARA_VALUE
+        FROM sys_para
+        where PARA_NAME='APP_IOS_Version'
+
+    </select>
+
+
+    <update id="updateSysPara" parameterType="com.xoa.model.common.SysPara">
+        update sys_para set PARA_VALUE = #{paraValue} where PARA_NAME = #{paraName}
+    </update>
+    <select id="querySysPara" resultMap="BaseResultMap">
+      SELECT  PARA_NAME,PARA_VALUE
+      FROM sys_para
+      where PARA_NAME=#{paraName}
+</select>
+    <select id="getStatus" resultMap="BaseResultMap">
+        select * from sys_para where PARA_NAME='EDU_STUDENT_UPGRADE'
+    </select>
+
+    <select id="selEduParam" resultMap="BaseResultMap">
+        SELECT * FROM sys_para
+        where
+        PARA_NAME='WINTER_VACATION_END'
+        OR
+        PARA_NAME='SUMMER_VACATION_END'
+        OR
+        PARA_NAME='EDU_DEFAULT_PASSWORD'
+    </select>
+
+    <select id="selectNotify" resultMap="BaseResultMap">
+         SELECT * FROM sys_para
+        where
+        PARA_NAME='NOTIFY_AUDITING_SINGLE_NEW'
+        OR
+        PARA_NAME='NOTIFY_AUDITING_MANAGER'
+        OR
+        PARA_NAME='NOTIFY_AUDITING_EDIT'
+        OR
+        PARA_NAME='NOTIFY_AUDITING_ALL'
+        OR
+        PARA_NAME='NOTIFY_AUDITING_EXCEPTION'
+    </select>
+    <select id="selectNotifySingleNew" resultType="string">
+        SELECT PARA_VALUE FROM sys_para
+        where
+        PARA_NAME='NOTIFY_AUDITING_SINGLE_NEW'
+    </select>
+    <select id="getEditFlag" resultType="string">
+        SELECT PARA_VALUE FROM sys_para
+        where PARA_NAME='NOTIFY_AUDITING_EDIT'
+
+    </select>
+
+    <select id="getAutidingUsers" resultType="string">
+        SELECT PARA_VALUE FROM sys_para
+        where PARA_NAME='NOTIFY_AUDITING_ALL'
+    </select>
+
+    <insert id="insertSysPara" parameterType="com.xoa.model.common.SysPara">
+        INSERT INTO sys_para
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="paraName != null">
+            PARA_NAME,
+        </if>
+        <if test="paraValue != null">
+            PARA_VALUE,
+        </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="paraName != null" >
+            #{paraName,jdbcType=VARCHAR},
+        </if>
+        <if test="paraValue != null" >
+            #{paraValue,jdbcType=VARCHAR},
+        </if>
+        </trim>
+    </insert>
+
+    <select id="getSysParaList" parameterType="java.util.List" resultMap="BaseResultMap">
+        SELECT * FROM sys_para WHERE PARA_NAME IN
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getSysParaList" parameterType="java.util.List" resultMap="BaseResultMap" databaseId="kingbase">
+        SELECT * FROM "SYS_PARA" WHERE "PARA_NAME" IN
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")">
+
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getSysParaByParaNameLike" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM sys_para WHERE PARA_NAME LIKE CONCAT('%',#{paraName},'%')
+    </select>
+
+    <select id="getSecGraphic" resultMap="BaseResultMap">
+        SELECT PARA_VALUE FROM xoa1001.sys_para WHERE PARA_NAME = 'SEC_GRAPHIC'
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT * from sys_para where para_name="SEC_RETRY_BAN" or para_name="SEC_RETRY_TIMES" or para_name="SEC_BAN_TIME" or para_name="SEC_INIT_PASS_SHOW"
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap" databaseId="oracle">
+        SELECT * from sys_para where para_name="SEC_RETRY_BAN" or para_name="SEC_RETRY_TIMES" or para_name="SEC_BAN_TIME" or para_name="SEC_INIT_PASS_SHOW"
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap" databaseId="dm">
+        SELECT * from sys_para where para_name='SEC_RETRY_BAN' or para_name='SEC_RETRY_TIMES' or para_name='SEC_BAN_TIME' or para_name="SEC_INIT_PASS_SHOW";
+    </select>
+    <select id="selectAll" resultMap="BaseResultMap" databaseId="kingbase">
+        SELECT * from "sys_para" where para_name='SEC_RETRY_BAN' or para_name='SEC_RETRY_TIMES' or para_name='SEC_BAN_TIME' or para_name='SEC_INIT_PASS_SHOW'
+    </select>
+
+    <select id="listSysPara" resultMap="BaseResultMap" >
+        select PARA_NAME ,PARA_VALUE from sys_para
+        WHERE
+        para_name="SEC_RETRY_BAN" or para_name="SEC_RETRY_TIMES" or para_name="SEC_BAN_TIME"
+        or para_name="SEC_GRAPHIC" or para_name="EDIT_BYNAME" or para_name="SEC_INIT_PASS"
+         or para_name="SEC_PASS_FLAG" or para_name="SEC_PASS_MIN" or para_name="SEC_PASS_MAX" OR para_name="SEC_PASS_SAFE"
+         or para_name="RETRIEVE_PWD" or para_name="SEC_USER_MEM" or para_name="ONE_USER_MUL_LOGIN"
+        or para_name="MOBILE_PC_OPTION" or para_name="LOGIN_KEY" or para_name="SEC_KEY_USER"
+        or para_name="LOGIN_SECURE_KEY" or para_name="LOGIN_USE_DOMAIN" or para_name="LOGIN_FINGER"
+         or para_name="SEC_SHOW_IP" or para_name="SEC_ON_STATUS" or para_name="SEC_OC_MARK"
+          or para_name="SEC_OC_REVISION " or para_name="PUSH_TD_NOTICE" or para_name="USE_DISCUZ"
+          or para_name="SEC_USE_RTX" or para_name="MOBILE_PUSH_OPTION" or para_name="PCONLINE_MOBILE_PUSH"
+          or para_name="SECURE_DOC_OPTION" or para_name="ISIMFRIENDS" or para_name="SEC_INIT_PASS_SHOW"
+          or para_name="AES_ENCRYPTION" or para_name="KEY_ENCRYPTION" or para_name="OFFICE_EDIT" or para_name="CAPTCHA"
+          or para_name="USER_DEPT_ORDER" or para_name="PRIV1_DELETE_USER" or para_name="OPENCACHE"
+          or para_name="WORD_TO_HTML_OPEN" or para_name="WORD_TO_HTML_ADDRESS" or para_name="PASSWORD_NULL_TIPS"
+        or para_name="QRCODE_LOGIN_SET" or para_name="PASSWORD_STRENGTH_CHECK" or para_name="PASSWORD_VALIDITY_CHECK"
+           or para_name="QRCODE_LOGIN_SECRET_KEY" or para_name="EDIT_BYNAME" or para_name="ONE_ATTACHMENT_SIZE"
+           or para_name="USERID_LOGIN_SET" or para_name="MSG_PUSH_SET" or para_name="PC_FAVORITE_MENU" or para_name="LOGIN_DISPLACE"
+           or para_name="SYS_SESSION_TIME"
+    </select>
+
+    <select id="listSysPara" resultMap="BaseResultMap" databaseId="kingbase">
+        select PARA_NAME ,PARA_VALUE from sys_para
+        WHERE
+            para_name='SEC_RETRY_BAN' or para_name='SEC_RETRY_TIMES' or para_name='SEC_BAN_TIME'
+           or para_name='SEC_GRAPHIC' or para_name='EDIT_BYNAME' or para_name='SEC_INIT_PASS'
+           or para_name='SEC_PASS_FLAG' or para_name='SEC_PASS_MIN' or para_name='SEC_PASS_MAX' OR para_name='SEC_PASS_SAFE'
+           or para_name='RETRIEVE_PWD' or para_name='SEC_USER_MEM' or para_name='ONE_USER_MUL_LOGIN'
+           or para_name='MOBILE_PC_OPTION' or para_name='LOGIN_KEY' or para_name='SEC_KEY_USER'
+           or para_name='LOGIN_SECURE_KEY' or para_name='LOGIN_USE_DOMAIN' or para_name='LOGIN_FINGER'
+           or para_name='SEC_SHOW_IP' or para_name='SEC_ON_STATUS' or para_name='SEC_OC_MARK'
+           or para_name='SEC_OC_REVISION ' or para_name='PUSH_TD_NOTICE' or para_name='USE_DISCUZ'
+           or para_name='SEC_USE_RTX' or para_name='MOBILE_PUSH_OPTION' or para_name='PCONLINE_MOBILE_PUSH'
+           or para_name='SECURE_DOC_OPTION' or para_name='ISIMFRIENDS' or para_name='SEC_INIT_PASS_SHOW'
+           or para_name='AES_ENCRYPTION' or para_name='KEY_ENCRYPTION' or para_name='OFFICE_EDIT' or para_name='CAPTCHA'
+           or para_name='USER_DEPT_ORDER' or para_name='PRIV1_DELETE_USER' or para_name='OPENCACHE'
+           or para_name='WORD_TO_HTML_OPEN' or para_name='WORD_TO_HTML_ADDRESS' or para_name='PASSWORD_NULL_TIPS'
+           or para_name='QRCODE_LOGIN_SET' or para_name='PASSWORD_STRENGTH_CHECK' or para_name='PASSWORD_VALIDITY_CHECK'
+           or para_name='QRCODE_LOGIN_SECRET_KEY' or para_name='EDIT_BYNAME' or para_name='ONE_ATTACHMENT_SIZE'
+           or para_name='USERID_LOGIN_SET' or para_name='MSG_PUSH_SET' or para_name='PC_FAVORITE_MENU' or para_name='LOGIN_DISPLACE'
+           or para_name='SYS_SESSION_TIME'
+    </select>
+
+    <update id="updateBatch"  parameterType="map">
+            update sys_para
+            <set>
+                PARA_VALUE= #{paraValue}
+            </set>
+            where PARA_NAME = #{paraName}
+    </update>
+
+    <select id="selectget111" resultMap="BaseResultMap">
+        SELECT  PARA_NAME,PARA_VALUE
+        FROM sys_para
+        where PARA_NAME='SEC_INIT_PASS'
+
+    </select>
+
+    <update id="upPreview"  parameterType="map">
+        update sys_para
+        <set>
+            PARA_VALUE= #{paraValue}
+        </set>
+        where PARA_NAME = #{paraName}
+    </update>
+
+    <select id="selectPreview" resultMap="BaseResultMap">
+        SELECT  PARA_NAME,PARA_VALUE
+        FROM sys_para
+        where PARA_NAME='DOCUMENT_PREVIEW'
+    </select>
+
+    <update id="upPreviewOpen"  parameterType="map">
+        update sys_para
+        <set>
+            PARA_VALUE= #{paraValue}
+        </set>
+        where PARA_NAME = #{paraName}
+    </update>
+
+    <select id="selectPreviewOpen" resultMap="BaseResultMap">
+        SELECT  PARA_NAME,PARA_VALUE
+        FROM sys_para
+        where PARA_NAME='DOCUMENT_PREVIEW_OPEN'
+    </select>
+    <select id="selectWebAddress" resultMap="BaseResultMap">
+        SELECT  PARA_NAME,PARA_VALUE
+        FROM sys_para
+        where PARA_NAME='OUTSIDE_ADDRESS'
+    </select>
+    <select id="getSelectPassword" resultMap="BaseResultMap">
+        SELECT  PARA_NAME,PARA_VALUE
+        FROM sys_para
+        where PARA_NAME='WEBSIGN_LICENSE'
+    </select>
+
+    <select id="getSelectLoginSecureKey" resultMap="BaseResultMap">
+        SELECT  PARA_NAME,PARA_VALUE
+        FROM sys_para
+        where PARA_NAME='LOGIN_SECURE_KEY'
+    </select>
+
+	<select id="getEncryption" resultMap="BaseResultMap">
+        SELECT  PARA_NAME,PARA_VALUE
+        FROM sys_para
+        where PARA_NAME='AES_ENCRYPTION'
+    </select>
+
+    <select id="getEncryptionKey" resultType="string">
+        SELECT  PARA_VALUE
+        FROM sys_para
+        where PARA_NAME='KEY_ENCRYPTION'
+    </select>
+    <select id="selectNtkoLicense" resultMap="BaseResultMap">
+        SELECT  PARA_NAME,PARA_VALUE
+        FROM sys_para
+        where PARA_NAME='NTKO_LICENSE'
+    </select>
+
+    <update id="setEncryptionKey" parameterType="string">
+       UPDATE sys_para
+        SET PARA_VALUE = #{key}
+        WHERE
+      	PARA_NAME = 'KEY_ENCRYPTION'
+    </update>
+
+    <update id="setEncryptionAes" parameterType="integer">
+       UPDATE sys_para
+        SET PARA_VALUE = #{aes}
+        WHERE
+      	PARA_NAME = 'AES_ENCRYPTION'
+    </update>
+
+    <update id="setBackupsEncryptionKEY" parameterType="integer">
+       UPDATE sys_para
+        SET PARA_VALUE = concat(PARA_VALUE,#{backupsKEY})
+        WHERE
+      	PARA_NAME = 'BACKUPS_KEY_ENCRYPTION'
+    </update>
+
+
+    <!--获取自定义公告栏内容-->
+    <select id="getSysParaPortal" resultMap="BaseResultMap" >
+    SELECT PARA_NAME,PARA_VALUE FROM sys_para WHERE PARA_NAME = #{paraName};
+    </select>
+    <!--更新自定义公告栏内容-->
+    <update id="setSysParaProtal"  parameterType="map">
+        UPDATE sys_para
+        SET PARA_VALUE = #{paraValue}
+        WHERE  PARA_NAME= #{paraName}
+    </update>
+    <update id="updateByParaName" parameterType="com.xoa.model.common.SysPara">
+        update sys_para set PARA_VALUE = #{paraValue} where PARA_NAME = #{paraName,jdbcType=VARCHAR}
+    </update>
+    <select id="selectByParaNames" resultMap="BaseResultMap" parameterType="java.lang.String">
+            SELECT PARA_VALUE FROM sys_para WHERE PARA_NAME = #{paraName,jdbcType=VARCHAR};
+    </select>
+
+    <select id="selectByParas" resultMap="BaseResultMap" parameterType="com.xoa.model.common.SysPara">
+        SELECT PARA_NAME,PARA_VALUE FROM sys_para WHERE PARA_NAME like concat (#{paraName},'%') and PARA_VALUE like concat (#{paraValue},'%');
+    </select>
+
+    <select id="selectSysPara" resultMap="BaseResultMap">
+        SELECT  PARA_NAME,PARA_VALUE
+        FROM ${xoa}.sys_para
+        where PARA_NAME=#{paraName}
+    </select>
+
+    <select id="querySecrecySysPara"  resultMap="BaseResultMap">
+        SELECT  PARA_NAME,PARA_VALUE
+        FROM sys_para
+        where PARA_NAME="IS_SHOW_JMJ" or PARA_NAME="IS_SHOW_SECRET" or PARA_NAME="IS_OPEN_GET_PASSWORD"
+                or PARA_NAME="SYSECURITY_MANAGE_PRIV" or PARA_NAME="SYSECURITY_SECRECY_PRIV" or PARA_NAME="SYSECURITY_AUDIT_PRIV"
+                or PARA_NAME="IS_OPEN_SANYUAN" or PARA_NAME="IS_USE_APP"
+    </select>
+
+    <select id="querySecrecySysPara"  resultMap="BaseResultMap" databaseId="kingbase">
+        SELECT  PARA_NAME,PARA_VALUE
+        FROM "sys_para"
+        where PARA_NAME='IS_SHOW_JMJ' or PARA_NAME='IS_SHOW_SECRET' or PARA_NAME='IS_OPEN_GET_PASSWORD'
+                or PARA_NAME='SYSECURITY_MANAGE_PRIV' or PARA_NAME='SYSECURITY_SECRECY_PRIV' or PARA_NAME='SYSECURITY_AUDIT_PRIV'
+                or PARA_NAME='IS_OPEN_SANYUAN' or PARA_NAME='IS_USE_APP'
+    </select>
+</mapper>

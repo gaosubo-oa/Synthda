@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.auth.AuthMapper">
+    <select id="getDeptName" resultType="String" parameterType="String">
+        SELECT department.DEPT_NAME FROM department WHERE
+        #{deptIds} LIKE CONCAT("%,",department.DEPT_ID,",%")
+        OR   #{deptIds} LIKE CONCAT(department.DEPT_ID,",%")
+    </select>
+    <select id="getDeptName" resultType="String" parameterType="String" databaseId="oracle">
+        SELECT department.DEPT_NAME FROM department WHERE
+        #{deptIds} LIKE CONCAT(concat('%,',department.DEPT_ID),',%')
+        OR   #{deptIds} LIKE CONCAT(department.DEPT_ID,',%')
+    </select>
+    <select id="getDeptName" resultType="String" parameterType="String" databaseId="kingbase">
+        SELECT department.DEPT_NAME FROM department WHERE
+            #{deptIds} LIKE CONCAT(concat('%,',department.DEPT_ID),',%')
+            OR   #{deptIds} LIKE CONCAT(department.DEPT_ID,',%')
+    </select>
+    <select id="getRoleName" resultType="String" parameterType="String">
+      SELECT user_priv.PRIV_NAME FROM user_priv WHERE
+       #{roleIds} LIKE CONCAT("%,",user_priv.USER_PRIV,",%") OR
+       #{roleIds} LIKE CONCAT(user_priv.USER_PRIV,",%")
+    </select>
+    <select id="getRoleName" resultType="String" parameterType="String" databaseId="oracle">
+        SELECT user_priv.PRIV_NAME FROM user_priv WHERE
+        #{roleIds} LIKE  CONCAT(concat('%,',user_priv.USER_PRIV),',%') OR
+        #{roleIds} LIKE CONCAT(user_priv.USER_PRIV,',%')
+    </select>
+    <select id="getRoleName" resultType="String" parameterType="String" databaseId="kingbase">
+        SELECT user_priv.PRIV_NAME FROM user_priv WHERE
+            #{roleIds} LIKE  CONCAT(concat('%,',user_priv.USER_PRIV),',%') OR
+            #{roleIds} LIKE CONCAT(user_priv.USER_PRIV,',%')
+    </select>
+    <select id="getUserName" resultType="String" parameterType="String">
+       SELECT `user`.USER_NAME FROM `user` WHERE
+          #{userIds} LIKE CONCAT("%,",`user`.USER_ID,",%") OR
+           #{userIds} LIKE CONCAT(`user`.USER_ID,",%")
+    </select>
+    <select id="getUserName" resultType="String" parameterType="String" databaseId="oracle">
+        SELECT U.USER_NAME FROM "USER" U WHERE
+        #{userIds} LIKE  CONCAT(concat('%,',U.USER_ID),',%') OR
+        #{userIds} LIKE CONCAT(U.USER_ID,',%')
+    </select>
+    <select id="getUserName" resultType="String" parameterType="String" databaseId="kingbase">
+        SELECT U.USER_NAME FROM "USER" U WHERE
+            #{userIds} LIKE  CONCAT(concat('%,',U.USER_ID),',%') OR
+            #{userIds} LIKE CONCAT(U.USER_ID,',%')
+    </select>
+</mapper>

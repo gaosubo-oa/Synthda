@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.wages_manage.WagesEmployeeSalaryMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.wages_manage.WagesEmployeeSalary">
+        <id column="SALARY_ID" jdbcType="INTEGER" property="salaryId"/>
+        <result column="USER_ID" jdbcType="VARCHAR" property="userId"/>
+        <result column="USER_NAME" jdbcType="VARCHAR" property="userName"/>
+        <result column="DEPT_ID" jdbcType="INTEGER" property="deptId"/>
+        <result column="DEPT_NAME" jdbcType="VARCHAR" property="deptName"/>
+        <result column="ID_NUMBER" jdbcType="VARCHAR" property="idNumber"/>
+        <result column="JOB_NUMBER" jdbcType="VARCHAR" property="jobNumber"/>
+        <result column="MOBIL_NO" jdbcType="VARCHAR" property="mobilNo"/>
+        <result column="MANAGE_ID" jdbcType="INTEGER" property="manageId"/>
+        <result column="JOB_RATIO" jdbcType="DECIMAL" property="jobRatio"/>
+        <result column="MANAGE_ID2" jdbcType="INTEGER" property="manageId2"/>
+        <result column="JOB_RATIO2" jdbcType="DECIMAL" property="jobRatio2"/>
+        <result column="MANAGE_ID3" jdbcType="INTEGER" property="manageId3"/>
+        <result column="JOB_RATIO3" jdbcType="DECIMAL" property="jobRatio3"/>
+        <result column="EMPLOYMENT_FORM" jdbcType="VARCHAR" property="employmentForm"/>
+        <result column="EMPLOYMENT_COMPANY" jdbcType="VARCHAR" property="employmentCompany"/>
+        <result column="EMPLOYMENT_COMPANY_BASE" jdbcType="DECIMAL" property="employmentCompanyBase"/>
+        <result column="ASSESSMENT_PROPORTION" jdbcType="DECIMAL" property="assessmentProportion"/>
+        <result column="ASSESSMENT_STATE" jdbcType="VARCHAR" property="assessmentState"/>
+        <result column="ASSESSMENT_SCORE" jdbcType="DECIMAL" property="assessmentScore"/>
+        <result column="ASSESSMENT_KEEP_SALARY" jdbcType="DECIMAL" property="assessmentKeepSalary"/>
+        <result column="PUBLIC_TIME_PAYMENT" jdbcType="DECIMAL" property="publicTimePayment"/>
+        <result column="PERFORMANCE_PAY1" jdbcType="DECIMAL" property="performancePay1"/>
+        <result column="PERFORMANCE_PAY2" jdbcType="DECIMAL" property="performancePay2"/>
+        <result column="PERFORMANCE_PAY3" jdbcType="DECIMAL" property="performancePay3"/>
+        <result column="REMARKS" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+    <insert id="insert" parameterType="com.xoa.model.wages_manage.WagesEmployeeSalary">
+   insert into wages_employee_salary(
+    SALARY_ID,
+    USER_ID,
+    USER_NAME,
+    DEPT_ID,
+    DEPT_NAME,
+    ID_NUMBER,
+    JOB_NUMBER,
+    MOBIL_NO,
+    MANAGE_ID,
+    JOB_RATIO,
+    MANAGE_ID2,
+    JOB_RATIO2,
+    MANAGE_ID3,
+    JOB_RATIO3,
+    EMPLOYMENT_FORM,
+    EMPLOYMENT_COMPANY,
+    EMPLOYMENT_COMPANY_BASE,
+    ASSESSMENT_PROPORTION,
+    ASSESSMENT_STATE,
+    ASSESSMENT_SCORE,
+    ASSESSMENT_KEEP_SALARY,
+    PUBLIC_TIME_PAYMENT,
+    PERFORMANCE_PAY1,
+    PERFORMANCE_PAY2,
+    PERFORMANCE_PAY3,
+    REMARKS
+   )values (
+  #{salaryId},
+   #{userId},
+   #{userName},
+   #{deptId},
+   #{deptName},
+   #{idNumber},
+   #{jobNumber},
+   #{mobilNo},
+   #{manageId},
+    #{jobRatio},
+   #{manageId2},
+    #{jobRatio2},
+   #{manageId3},
+    #{jobRatio3},
+   #{employmentForm},
+   #{employmentCompany},
+    #{employmentCompanyBase},
+    #{assessmentProportion},
+   #{assessmentState},
+    #{assessmentScore},
+    #{assessmentKeepSalary},
+    #{publicTimePayment},
+    #{performancePay1},
+    #{performancePay2},
+    #{performancePay3},
+   #{remarks}
+   )
+    </insert>
+    <select id="selectAll" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select * from wages_employee_salary
+        <where>
+            <if test="deptId!= null and  deptId!=''">
+                and DEPT_ID = #{deptId}
+            </if>
+            <if test=" userName!= null and  userName!= ''">
+                and USER_NAME like concat ('%',#{userName},'%')
+            </if>
+            <if test=" deptName!= null and  deptName!= ''">
+                and DEPT_NAME like concat ('%',#{deptName},'%')
+            </if>
+        </where>
+    </select>
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+       select * from wages_employee_salary where SALARY_ID = #{salaryId}
+    </select>
+    <update id="update" parameterType="com.xoa.model.wages_manage.WagesEmployeeSalary">
+        update wages_employee_salary
+        <set>
+            <if test=" deptId!= null">
+                DEPT_ID=#{deptId},
+            </if>
+            <if test=" deptName!= null">
+                DEPT_NAME=#{deptName},
+            </if>
+            <if test=" jobNumber!= null">
+                JOB_NUMBER=#{jobNumber},
+            </if>
+            <if test=" mobilNo!= null">
+                MOBIL_NO=#{mobilNo},
+            </if>
+                MANAGE_ID=#{manageId},
+
+                JOB_RATIO=#{jobRatio},
+
+                MANAGE_ID2=#{manageId2},
+
+                JOB_RATIO2=#{jobRatio2},
+
+                MANAGE_ID3=#{manageId3},
+
+                JOB_RATIO3=#{jobRatio3},
+
+
+                EMPLOYMENT_FORM=#{employmentForm},
+
+                EMPLOYMENT_COMPANY=#{employmentCompany},
+
+                EMPLOYMENT_COMPANY_BASE=#{employmentCompanyBase},
+
+                ASSESSMENT_PROPORTION=#{assessmentProportion},
+
+                ASSESSMENT_STATE=#{assessmentState},
+
+                ASSESSMENT_SCORE=#{assessmentScore},
+
+                ASSESSMENT_KEEP_SALARY=#{assessmentKeepSalary},
+
+                 PUBLIC_TIME_PAYMENT=#{publicTimePayment},
+
+
+                PERFORMANCE_PAY1=#{performancePay1},
+
+                PERFORMANCE_PAY2=#{performancePay2},
+
+                PERFORMANCE_PAY3=#{performancePay3},
+
+                REMARKS=#{remarks}
+
+        </set>
+        where SALARY_ID = #{salaryId}
+    </update>
+    <delete id="deleteById" parameterType="java.lang.Integer">
+         delete from wages_employee_salary where SALARY_ID = #{salaryId}
+    </delete>
+
+    <select id="selectOne" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select * from wages_employee_salary
+        <where>
+            <if test=" userName!= null and  userName!= ''">
+                and USER_NAME = #{userName}
+            </if>
+            <if test=" idNumber!= null and  idNumber!= ''">
+                and ID_NUMBER = #{idNumber}
+            </if>
+        </where>
+    </select>
+
+
+ 	<update id="updateSal" parameterType="com.xoa.model.wages_manage.WagesEmployeeSalary">
+        update wages_employee_salary
+        set
+            ASSESSMENT_SCORE=0,
+            ASSESSMENT_KEEP_SALARY=0,
+            PUBLIC_TIME_PAYMENT=0,
+            PERFORMANCE_PAY1=0,
+            PERFORMANCE_PAY2=0,
+            PERFORMANCE_PAY3=0,
+               REMARKS=null
+
+    </update>
+
+
+    <select id="selectEmployeeSalary" resultMap="BaseResultMap">
+        select wes.* from wages_employee_salary wes
+        inner JOIN wages_attendance_type wat on wes.USER_ID = wat.USER_ID
+        <if test="userId!= null and  userId!= ''">
+            WHERE wes.USER_ID = #{userId}
+        </if>
+        GROUP BY wes.USER_ID
+    </select></mapper>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.wages_manage.WagesAttendanceRecordMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.wages_manage.WagesAttendanceRecord">
+        <id column="ATTENDANCE_RECORD_ID" jdbcType="INTEGER" property="attendanceRecordId"/>
+        <result column="ATTENDANCE_RECORD_CLASSIFY" jdbcType="VARCHAR" property="attendanceRecordClassify"/>
+        <result column="ATTENDANCE_RECORD_TYPE" jdbcType="VARCHAR" property="attendanceRecordType"/>
+        <result column="TYPE_CODE" jdbcType="VARCHAR" property="typeCode"/>
+        <result column="FORMULA" jdbcType="VARCHAR" property="formula"/>
+        <result column="REMARKS" jdbcType="VARCHAR" property="remarks"/>
+    </resultMap>
+
+    <insert id="addAttendanceRecord" parameterType="com.xoa.model.wages_manage.WagesAttendanceRecord">
+        insert into wages_attendance_record(ATTENDANCE_RECORD_CLASSIFY, ATTENDANCE_RECORD_TYPE, TYPE_CODE, FORMULA,
+                                            REMARKS)
+        values (#{attendanceRecordClassify}, #{attendanceRecordType}, #{typeCode}, #{formula}, #{remarks})
+    </insert>
+
+    <delete id="deleteAttendanceRecordById" parameterType="java.lang.Integer">
+        delete
+        from wages_attendance_record
+        where ATTENDANCE_RECORD_ID = #{attendanceRecordId}
+    </delete>
+
+    <update id="updateAttendanceRecord" parameterType="com.xoa.model.wages_manage.WagesAttendanceRecord">
+        update wages_attendance_record
+        <set>
+            <if test="attendanceRecordClassify != null">
+                ATTENDANCE_RECORD_CLASSIFY = #{attendanceRecordClassify},
+            </if>
+            <if test="attendanceRecordType != null">
+                ATTENDANCE_RECORD_TYPE = #{attendanceRecordType},
+            </if>
+            <if test="typeCode != null">
+                TYPE_CODE = #{typeCode},
+            </if>
+            <if test="formula != null">
+                FORMULA = #{formula},
+            </if>
+            <if test="remarks != null">
+                REMARKS = #{remarks}
+            </if>
+        </set>
+        where ATTENDANCE_RECORD_ID = #{attendanceRecordId}
+    </update>
+
+    <select id="selectAllAttendanceRecord" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select *
+        from wages_attendance_record
+        <where>
+            <if test="attendanceRecordId != null and attendanceRecordId != ''">
+                ATTENDANCE_RECORD_ID = #{attendanceRecordId}
+            </if>
+        </where>
+        order by ATTENDANCE_RECORD_CLASSIFY
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select *
+        from wages_attendance_record
+        order by ATTENDANCE_RECORD_CLASSIFY
+    </select>
+</mapper>

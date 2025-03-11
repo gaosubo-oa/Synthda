@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.email.EmailBoxMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.email.EmailBoxModel" >
+    <id column="BOX_ID" property="boxId" javaType="INTEGER" />
+    <result column="BOX_NO" property="boxNo" javaType="INTEGER" />
+    <result column="BOX_NAME" property="boxName" javaType="String" />
+    <result column="USER_ID" property="userId" javaType="String" />
+    <result column="DEFAULT_COUNT" property="defaultCount" javaType="String" />
+  </resultMap>
+
+  <!-- 新建其他邮件组名 -->
+  <insert id="save" parameterType="com.xoa.model.email.EmailBoxModel" useGeneratedKeys="true" keyProperty="boxId">
+    insert into email_box (
+    BOX_ID,BOX_NO,BOX_NAME,USER_ID,DEFAULT_COUNT
+    )values(
+    #{boxId},#{boxNo},#{boxName},#{userId},#{defaultCount}
+    )
+  </insert >
+
+    <insert id="save" parameterType="com.xoa.model.email.EmailBoxModel" useGeneratedKeys="true" keyProperty="boxId" databaseId="kingbase">
+        insert into email_box(
+        <trim suffixOverrides=",">
+            <if test="boxNo != null">
+                BOX_NO,
+            </if>
+            <if test="boxName != null">
+                BOX_NAME,
+            </if>
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="defaultCount != null">
+                DEFAULT_COUNT,
+            </if>
+        </trim>
+        ) values(
+        <trim suffixOverrides=",">
+            <if test="boxNo != null">
+                #{boxNo},
+            </if>
+            <if test="boxName != null">
+                #{boxName},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="defaultCount != null">
+                #{defaultCount},
+            </if>
+        </trim>
+        )
+        RETURNING BOX_ID
+    </insert >
+
+  <!-- 其他邮箱 邮件名字和排序号是否重名验证 -->
+    <select id="selectNameCount" resultType="Integer">
+        SELECT  count(*)
+        FROM email_box
+        WHERE
+        BOX_NAME = #{boxName}
+        AND
+        USER_ID = #{userId}
+    </select>
+
+    <!-- 其他邮箱 邮件名字和排序号是否重名验证 -->
+    <select id="selectBoxIdCount" resultType="Integer">
+        SELECT  count(*)
+        FROM email_box
+        WHERE
+        BOX_NO = #{boxNo}
+        AND
+        USER_ID = #{userId}
+    </select>
+
+    <!-- 其他邮箱 邮件名字和排序号是否重名验证 -->
+    <select id="selectBoxUpdate" resultType="Integer">
+        SELECT  count(*)
+        FROM email_box
+        WHERE
+        BOX_NO = #{boxNo}
+        AND BOX_NAME = #{boxName}
+        AND USER_ID = #{userId}
+    </select>
+
+  <!-- 查询所有邮件组名 -->
+  <select id="selectObjcet" resultMap="BaseResultMap"  parameterType="Map">
+    SELECT  BOX_ID,BOX_NO,BOX_NAME,USER_ID,DEFAULT_COUNT
+    FROM  email_box WHERE USER_ID = #{userId}
+  </select>
+
+  <!-- 删除其他邮件组 -->
+  <delete id="deleteBox" parameterType="java.lang.Integer" >
+    DELETE FROM email_box  WHERE BOX_ID=#{boxId}
+  </delete>
+
+  <!-- 修改其他邮件名称和序号 -->
+  <update id="update" parameterType="com.xoa.model.email.EmailBoxModel"  >
+    UPDATE email_box SET
+   BOX_NO=#{boxNo},
+   BOX_NAME=#{boxName}
+    WHERE
+    BOX_ID = #{boxId}
+    AND
+    USER_ID = #{userId}
+  </update>
+
+
+
+</mapper>

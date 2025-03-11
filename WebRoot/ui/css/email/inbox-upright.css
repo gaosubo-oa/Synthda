@@ -1,0 +1,436 @@
+html,body{
+	font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+}
+.up_page_right{
+	/*width: 83%;*/
+	height: 100%;
+	overflow: hidden;
+	overflow-y: scroll;
+}
+.up_page_right .up_header{
+	width: 100%;
+	height: 55px;
+	border-bottom: #2f80d1 1px solid;
+	/*overflow: hidden;*/
+	padding-left: 1%;
+
+}
+.up_page_right .up_header .up_nav{
+	width: 85%;
+	float: left;
+	height: 100%;
+	/*overflow: hidden;*/
+}
+/*.up_page_right .up_header .up_nav ul{*/
+	/*overflow: hidden;*/
+/*}*/
+.up_page_right .up_header .up_nav>ul>li{
+	font-size: 10pt;
+    float: left;
+    padding: 0px 8px;
+    border: #ccc 1px solid;
+    margin-top: 12px;
+    margin-right: 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    height: 28px;
+    line-height: 28px;
+	background-color:#fff;
+}
+.up_page_right .up_header .up_nav ul li span{
+	display: inline-block;
+    width: 26px;
+    height: 14px;
+    background: url(../../img/icon_juxing.png) no-repeat;
+    text-align: center;
+    margin-left: 5px;
+    color: #fff;
+    margin-top: 7px;
+    line-height: 15px;
+    margin-right: 5px;
+    font-size:12px;
+	background-size: 100% 100%;
+	height: 23px;
+	width: 25px;
+	background-position-y: -4px;
+}
+/* .up_page_right .up_header .up_nav ul li:nth-child(2){
+	margin-right: 12px;
+
+} */
+.up_page_right .up_header .up_nav ul li img.im{
+	width: 16px;
+	height: 16px;
+	vertical-align: middle;
+	margin-right: 5px;
+}
+.up_page_right .up_header .up_nav ul li img.am{
+	width: 10px;
+	height: 6px;
+	vertical-align: middle;
+	margin-left: 5px;
+}
+.up_pages{
+	overflow: hidden;
+}
+.up_pages .up_div_pages{
+	float: left;
+	overflow: hidden;
+}
+.up_pages .up_div_pages ul li{
+	float: left;
+	font-size: 10pt;
+	border: #999 1px solid;
+	padding: 5px 0;
+	margin-top: 12px;
+	cursor: pointer;
+}
+.up_pages .up_div_pages ul li:first-of-type{
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+	border-right: none;
+}
+.up_pages .up_div_pages ul li:last-of-type{
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-left: none;
+}
+.up_pages .up_div_pages ul li span{
+	color: #ccc;
+	margin: 0 10px;
+}
+.up_pages .up_div_pages ul li img{
+	width: 6px;
+	height: 10px;
+	margin: 0 5px;
+}
+
+.up_pages .up_format{
+	float: right;
+    margin-right: 13%;
+    margin-top: 10px;
+    border-radius: 3px;
+    border: #ccc 1px solid;
+}
+.up_pages .up_format ul{
+	overflow: hidden;
+	border-radius: 3px;
+}
+.up_pages .up_format ul li{
+	float: left;
+    width: 40px;
+    height: 30px;
+    background-color: #f6f6f6;
+    text-align: center;
+    overflow: hidden;
+}
+.up_pages .up_format ul li img{
+	margin-top: 5px;
+}
+.main{
+	width: 100%;
+	/*overflow: auto;*/
+	height: 99%;
+	background-color: #fff;
+}
+.main .main_left{
+	float: left;
+	width: 28%;
+	border-right: #cee7ff 8px solid;
+	height: 100%;
+	overflow-y: auto;
+    overflow-x: hidden;
+    height: 93%;
+}
+.main .main_left>ul>li{
+	padding-left: 10px;
+	position: relative;
+	border-bottom: #ccc 1px solid;
+	font-size: 11pt;
+	overflow: hidden;
+
+}
+.main .main_left>ul>li.BTN{
+	padding-left: 0px;
+	padding: 6px 15px;
+	height: 50px!important;
+}
+.main .main_left .sort{
+	float: left;
+	margin: 20px 0;
+}
+.main .main_left .sort_right{
+	float: right;
+	margin-right: 15px;
+	border: #aaa 1px solid;
+	margin-top: 15px;
+	padding-right: 8px;
+	border-radius: 3px;
+	cursor: pointer;
+}
+.main .main_left .sort_right img{
+	margin: 5px 5px;
+	vertical-align: middle;
+}
+.main .main_left ul li.tile{
+	height: 52px;
+	line-height: 52px;
+	font-size: 16px;
+}
+.main .main_left ul li .shang{
+	margin: 8px 0;
+	display: inline;
+}
+.main .main_left ul li .xia{
+	/*margin-bottom: 8px;*/
+	margin-top: 5px;
+}
+.main .main_left img{
+	width: 15px;
+	height: 15px;
+	margin-left: 3px;
+}
+.main .main_left ul li .time{
+	display: inline-block;
+    float: right;
+    margin-right: 0%!important;
+	line-height: 20px;
+	font-size: 12px;
+}
+.main .main_left ul li .xia img{
+	display: inline-block;
+    float: right;
+    margin-right: 8%;
+}
+.main .main_left ul li .xia .xia_txt{
+	text-decoration: none;
+	color:#000;
+	display: inline-block;
+	width: 70%;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+.signDiv{
+	font-size: 12px;
+	border: #ccc 1px solid;
+	border-radius: 5px;
+	min-width:160px;
+	background-color: #fff;
+	position: absolute;
+	right: 4px;
+	top: 45px;
+	z-index: 999;
+}
+.signDiv ul li{
+	padding: 5px 50px;
+	display:block;
+	border-bottom: none;
+}
+.signDiv ul li:hover{
+	background-color: #c5e9fb;
+	color:#fff;
+	cursor: pointer;
+}
+
+.main .main_right{
+	float: left;
+	width: 100%;
+	position: relative;
+	/*border-left: #cee7ff 8px solid;*/
+}
+
+.main_right #TAB{
+	width: 97%;
+	/*height:100%;*/
+	margin-left: 3%;
+	margin-top: 20px;
+}
+.main_right #TAB tr td{
+	font-size: 11pt;
+	padding: 3px;
+}
+.main_right #TAB tr td>span{
+	/*display: block;*/
+	line-height: 22px;
+	float: left;
+	margin-right: 10px;
+}
+.main_right #TAB tr td a{color:#207BD6;}
+/*.main_right #TAB tr td>span img{*/
+/*	display: block;*/
+/*	line-height: 22px;*/
+/*	float: left;*/
+/*	margin-right: 3px;*/
+/*	margin-top: 3px;*/
+/*}*/
+.main_right #TAB tr td p span{
+	color: #2f80d1;
+}
+.main_right #TAB tr td p img{
+	vertical-align: middle;
+	margin: 0 10px;
+}
+
+.div_btn{
+	width: 280px;
+	margin: 5px auto;
+	overflow: hidden;
+}
+
+.div_btn .sureBtn{
+	float: left;
+	margin-right: 20px;
+	width: 103px;
+	height: 37px;
+	background: url("../../img/icon_sendNow.png") no-repeat;
+	background-size:100% 100%;
+	line-height: 37px;
+	cursor: pointer;
+}
+.div_btn .saveBtn{
+	float: left;
+	width: 130px;
+	height: 37px;
+	background: url("../../img/icon_saved.png") no-repeat;
+	background-size:100% 100%;
+	line-height: 37px;
+	cursor: pointer;
+}
+
+.main_right .span_hr{
+	display: inline-block;
+	position: absolute;
+	top: 20px;
+	right: 40px;
+	text-align: center;
+}
+.main_right .span_hr>div{
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	overflow: hidden;
+	margin: 0 auto;
+}
+.main_right .span_hr>div img{
+	width: 100%;
+	height: 100%;
+}
+.main_right .span_hr p{
+	margin-top: 5px;
+	font-size: 10pt;
+}
+.main_right .article,.main_right .article2,.main_right .article3{
+	/*height:470px;*/
+	/*margin-top: 20px;*/
+	/*width: 100%;*/
+	/*padding-left: 3%;*/
+	/*border-top: #ebebeb 1px solid;*/
+	/*overflow-y:auto;*/
+}
+ .main_right .article1{
+ 	height:500px;
+	margin-top: 20px;
+	width: 100%;
+	padding-left: 2%;
+	border-top: #ebebeb 1px solid;
+	overflow-y:auto;
+}
+.main_right .article p,.main_right .article1 p,.main_right .article2 p{
+	margin-right: 25px;
+	font-size: 11pt;
+	line-height:21px;
+	padding-left: 3px;
+	box-sizing: border-box;
+}
+.main_right .article3 p{
+	margin-right: 25px;
+	font-size: 14px;
+	line-height:21px;
+	margin-top: 15px;
+}
+.main_right .article p:first-of-type{
+	margin-top: 13px;
+}
+
+.QUERY{
+	width: 600px;
+	margin: 0 auto;
+}
+.QUERY .title{
+	width: 100%;
+	text-align: center;
+	line-height: 40px;
+}
+.QUERY table tr td{
+	padding: 5px 5px;
+	border-color: #ddd;
+}
+.QUERY #btn{
+	display: block;
+	margin: 0 auto;
+	outline: none;
+	border: none;
+	border-radius: 3px;
+	padding: 3px 8px;
+	cursor: pointer;
+}
+.QUERY #btn:hover{
+	background-color: #9fbdee;
+	color: #fff;
+}
+.drafts table tr td:first-of-type{
+	padding-left:10px;
+}
+
+.sort img{
+	display: inline-block;
+	cursor: pointer;
+}
+.bgSort{
+	background-color: #6ea1d5 !important;
+	color:#fff !important;
+}
+
+/*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+.main_left::-webkit-scrollbar{
+	width: 4px;
+	height: 16px;
+	background-color: #f5f5f5;
+}
+/*定义滚动条的轨道，内阴影及圆角*/
+.main_left::-webkit-scrollbar-track{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	border-radius: 10px;
+	background-color: #f5f5f5;
+}
+/*定义滑块，内阴影及圆角*/
+.main_left::-webkit-scrollbar-thumb{
+	/*width: 10px;*/
+	height: 20px;
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #ccc;
+}
+
+/*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+.page_left::-webkit-scrollbar{
+	width: 4px;
+	height: 16px;
+	background-color: #f5f5f5;
+}
+/*定义滚动条的轨道，内阴影及圆角*/
+.page_left::-webkit-scrollbar-track{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	border-radius: 10px;
+	background-color: #f5f5f5;
+}
+/*定义滑块，内阴影及圆角*/
+.page_left::-webkit-scrollbar-thumb{
+	/*width: 10px;*/
+	height: 20px;
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #ccc;
+}

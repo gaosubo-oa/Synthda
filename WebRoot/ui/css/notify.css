@@ -1,0 +1,109 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+body{
+	background: url(../img/bg.jpg) no-repeat -200px -83px;
+	background-attachment:fixed;
+	font-size:14px;
+	width: 100%;
+	height: 100%;
+}
+a{
+	text-decoration: none;
+}
+/*头部表格*/
+.small{
+	margin: 20px auto 5px; 
+}
+.small .Big .big3{
+	font-size: 16px;
+	color: #124164;
+	font-weight: bold;
+}
+.small .Big .BigSelect{
+	border: 0;
+	font-size: 14px;
+	padding: 1px;
+	text-align: center;
+	border-radius: 3px;
+}
+
+/*主要内容表格区域*/
+table.TableList{
+	margin: 0 auto;
+	background-color: #fff;
+}
+table.TableList tr td,table.TableList tr th{
+	border: #ddd 1px solid;
+}
+table.TableList tr{
+	line-height: 40px;
+}
+table.TableList tr td{
+	border-top: 0;
+	border-right: 0;
+}
+table.TableList tr:last-of-type td{
+	padding-left: 4px;
+}
+table.TableList tr:nth-child(even){
+	background-color: #eee;
+}
+table.TableList tr th{
+	background-color: #4487d2;
+	color: #fff;
+}
+table.TableList tr td:nth-child(5){
+	padding-left: 5px;
+}
+table.TableList tr td a{text-decoration: none;}
+
+
+.div_table{
+	width: 100%;
+	height: 100%;
+	background-color: #eee;
+}
+.div_table .TableBlock{
+	width: 90%;
+	margin: 0 auto;
+}
+.div_table .TableBlock tr>td{
+	border: #ccc 1px solid;
+}
+.TableTop tr td{
+	border: 0;
+}
+.muJump{
+	width: 100%;
+	background-color: #ccc;
+	overflow: hidden;
+}
+.muJump ul{
+	list-style: none;
+}
+.muJump ul li{
+	float: left;
+	padding: 5px 10px;
+	margin-left: 5px;	
+}
+.muJump ul li:first-of-type{
+	margin-left: 10%;
+}
+.muJump ul li a{
+	display: block;
+	color: #555;
+}
+.jumpOn{
+	background-color: #5fabf8;
+}
+.jumpOn a{
+	color: #fff !important;
+}
+.muJump ul li:hover{
+	background-color: #5fabf8;
+}
+.muJump ul li:hover a{
+	color: #fff;
+}

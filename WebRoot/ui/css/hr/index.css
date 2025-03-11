@@ -1,0 +1,232 @@
+
+table.table tr {
+    /*border: none !important;*/
+}
+table.table tr td{
+    /*border: none !important;*/
+    height:40px;
+    text-align: right;
+}
+table.TableBlock tr td:nth-child(1){
+    text-align: right;
+}
+table.TableBlock tr td:nth-child(3),table.TableBlock tr td:nth-child(5){
+    text-align: right;
+}
+table.TableBlock tr td:nth-child(2){
+    width: 150px !important;
+}
+.nongli{
+    font-size: 12px;
+    line-height: 40px;
+    margin-left: 4px;
+    color:#999;
+}
+.content .right{
+    background: #fff;
+    height:100%;
+
+}
+.queryUser{
+    height:100%;
+}
+table h1,table input,table select{
+    float:left;
+}
+table input[type=text]{
+    margin-top: 10px;
+    border-radius:3px;
+    height: 30px;
+    outline:none;
+    border:1px solid #bfbfbf;
+    width:180px!important;
+    text-indent: 8px;
+    box-sizing: border-box;
+}
+
+
+.hr_photo{
+    border: 1px solid #666;
+    width: 160px;
+    height: 200px;
+    line-height: 160px;
+    text-align: center;
+}
+table tr{
+    height: 40px;
+}
+table h1{
+    font-weight:normal;
+    font-size: 14px;
+    text-align: right;
+}
+.td_one{
+    width: 140px;
+}
+.td_two {
+    width: 309px;
+}
+.td_three {
+    width: 62px;
+}
+.td_three h1{
+    width: 100%;
+    text-align: right;
+}
+table select{
+    width:180px!important;
+    height:28px;
+    border-radius:3px;
+}
+.allCondition{
+    width:98%;
+    margin:auto;
+    text-align: center;
+    margin-top:20px;
+}
+.per_title h1,.per_title h2{
+    font-style: 16px;
+    font-weight: normal;
+}
+/*底部的保存样式*/
+.hr_edit,.hr_add{
+    cursor: pointer;
+}
+.foot_mg {
+    width: 6%;
+    height: 50px;
+    margin: 20px auto;
+}
+.btn_ {
+    display: inline-block;
+    margin: 0 auto;
+}
+#add_send {
+    display: inline-block;
+    float: left;
+    width: 66px;
+    height: 30px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    background: url(../../img/publish.png) no-repeat;
+    padding-left: 47px;
+    padding-top: 7px;
+    cursor: pointer;
+    font-size: 14px;
+}
+#add_baocun {
+    display: inline-block;
+    float: left;
+    width: 66px;
+    height: 30px;
+    margin-right: 40px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    background: url(../../img/save.png) no-repeat;
+    padding-left: 40px;
+    padding-top: 7px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.allCondition tr{
+    border: 1px solid #c0c0c0;
+    height: 60px;
+}
+
+th {
+    background-color: #fff;
+    font-size: 13pt;
+    color: #2F5C8F;
+    font-weight: bold;
+    border: 0px;
+}
+.table_personDetail{
+    background: #fff;
+}
+.title{
+    height:33px !important;
+}
+.title span{
+    line-height: 33px !important;
+}
+.hr_name,.title_right,.have,.have_no{
+    float:left;
+}
+.title_right{
+    margin-left: 56%;
+    margin-top: 5px;
+}
+.have,.have_no{
+    font-weight: normal;
+    font-size: 14px;
+    margin-left:8px;
+}
+.TableHeader{
+
+    height:30px;
+    background: #e8f4fc;
+}
+.TableHeader b{
+    font-size: 15px;
+}
+.inform h1{
+    font-size: 14px;
+    height: 30px;
+    font-weight: normal;
+    line-height: 30px;
+    margin-left: 27px;
+}
+table.table {
+    width: 100% !important;
+    font-size: 14px;
+    margin-top: 30px !important;
+}
+/*.td_two_long{
+    width: 500px;
+}*/
+.main_title li{
+    height: 28px;
+    line-height: 28px;
+    display: inline-block;
+    float: left;
+    font-family: Microsoft yahei,Helvetica Neue,Helvetica,PingFang SC,Tahoma,Arial,sans-serif;
+    font-size: 14px;
+    margin-left: 20px;
+    margin-top: 6px;
+    cursor: pointer;
+}
+.hr_add{
+    width: 160px;
+    height: 30px;
+    color: #fff;
+    border: none;
+    outline: none;
+    background: url(../../img/hr_add.png) no-repeat;
+}
+.title_on{
+    background:#138eee;
+    color: #fff;
+    border-radius: 20px;
+    padding: 0px 9px;
+}
+.left,.rig{
+    float:left;
+}
+.left{
+    width: 18%;
+    height: 100%;
+}
+.rig{
+    width: 82%;
+    height: 99%;
+    overflow-y: auto;
+    background:#fff;
+}
+.cont{
+    height:100%;
+}
+.table_all{
+    width: 100%;
+    height: 95%;
+    overflow-y: auto;
+}

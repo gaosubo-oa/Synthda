@@ -1,0 +1,106 @@
+*{padding:0px;margin:0px;}
+body{
+   margin:0px;
+}
+
+#left{
+   width:188px;
+   padding-left:10px;
+   vertical-align:top;
+   font-size:12px;
+}
+
+#left_top{
+   width:188px;
+   font-size:1px;
+}
+
+.diary_icon{
+}
+
+.BlockTop{
+   width:178px;
+}
+.BlockTop .center{
+   text-align:left;
+   color:#003366;
+}
+
+.BlockBottom{
+   width:178px;
+}
+.BlockBottom .center{
+   text-align:left;
+   color:#003366;
+}
+
+.head{
+   width:171px !important;
+   width:178px;
+   padding-left:5px;
+   border-top:1px #b8d1e2 solid;
+   border-left:1px #b8d1e2 solid;
+   border-right:1px #b8d1e2 solid;
+   background:url('list_hd_bg.png') left top repeat-x;
+}
+
+.container{
+   width:176px !important;
+   width:178px;
+   border-left:1px #b8d1e2 solid;
+   border-right:1px #b8d1e2 solid;
+   background:#fff;
+   overflow-x:auto;
+}
+.container div.a{
+   display:block;
+   height:20px;
+   line-height:20px;
+   padding-left:10px;
+   color:#393939;
+}
+
+.container .TableList{
+   border:0px;
+}
+
+.container .TableList a{
+   background:none;
+}
+
+.container .trHover{
+   border:0px;
+}
+.container .trHover td.TableData,
+.container .trHover .TableData td{
+   border:0px;
+   border-bottom:1px #cccccc solid;
+   text-align:left;
+   padding-left:10px;
+}
+
+.treeList{
+   width:166px !important;
+   width:178px;
+   padding:5px;
+}
+
+a.header{
+   display:block;
+   height:21px;
+   line-height:21px;
+   color:#000 !important;
+   font-size:12px !important;
+   font-weight:bold;
+   padding-left:21px;
+   background: url("ar.gif") no-repeat 5px center;
+   text-decoration:none !important;
+}
+a.header-active{
+   background: url("arrow_d.gif") no-repeat 5px center;
+}
+
+#right{
+   vertical-align:top;
+   height:100%;
+}

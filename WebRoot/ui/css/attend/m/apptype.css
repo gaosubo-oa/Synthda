@@ -1,0 +1,113 @@
+.mui-bar{
+	background-color: #ffffff !important;
+}
+.mui-bar .mui-btn-link{
+	color:#000000 !important;
+}
+.mui-title{
+	color:#000000 !important;
+	font-size:17px;
+}
+#title{
+	margin: 5px 10px 5px 0;
+	padding: 0  0 0 4px ;
+	height: 32px;
+	width: calc(100% - 70px);
+	border: 1px solid #d8d8d8;
+	border-radius: 4px;
+}
+#attendform{
+	font-size: 13px;
+}
+#attendform .mui-input-row{
+	height: auto;
+}
+.attend_state{
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	background: #e6e6e6;
+	border: 0;
+	padding: 5px;
+}
+.switch_on,.work_type{
+	width:50%;
+}
+.mui-input-row label{
+	padding: 4px;
+	font-family: "microsoft yahei";
+	font-size: 13px;
+	white-space: nowrap;
+}
+/*.mui-switch{
+	width: 50px;
+	height: 24px;
+	font-size: 12px;
+}*/
+.choose_time{
+	float: left;
+	margin: 6px 0;
+}
+.choose_time input#atime1,.choose_time input#atime2,.choose_time input#atime3,.choose_time input#atime4,.choose_time input#atime5,.choose_time input#atime6{
+	width: 65%;
+	border: 1px solid #d6d6d6;
+	padding: 0 15px;
+}
+.mui-segmented-control{
+	width: calc(65% - 10px);
+}
+.mui-segmented-control .mui-control-item.mui-active,
+.mui-segmented-control .mui-control-item{
+	font-size: 13px;
+	line-height: 24px;
+}
+.mui-input-row .mui-switch{
+	float: left;
+	margin-top: 0px;
+	margin-left: 20px;
+}
+.mui-switch{
+	height: 24px;
+}
+.mui-switch-mini{
+	width:42px;
+}
+.mui-switch .mui-switch-handle{
+	height: 22px;
+	width: 24px;
+}
+.choose_time .mui-input-row .mui-btn{
+	width: calc(65% - 40px);
+	border: 1px solid #929292;
+}
+label.workset{
+	width: auto;
+}
+#worktime_f,#workafter_f,#workafter_b,#worktime_b{
+	width: calc(100% - 149px);
+	float: left;
+	padding: 0;
+	border: 1px solid #d6d6d6;
+}
+#location,#range{
+	padding: 0;
+	height: 24px;
+	margin: 0 10px 4px;
+	width: calc(100% - 120px);
+	border: 1px solid #d6d6d6;
+}
+#addr_scope{
+	padding: 4px;
+	width: calc(100% - 60px);
+	float: left;
+	font-size: 12px;
+}
+label.mui-scalable{
+	width: auto;
+	float: left;
+}
+#wifi_name,#datetime{
+	padding: 2px;
+	height: 24px;
+	border: 1px solid #d5d5d5;
+}

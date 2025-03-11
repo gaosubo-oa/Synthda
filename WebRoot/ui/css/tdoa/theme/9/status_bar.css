@@ -1,0 +1,12 @@
+body{font-size:9pt;}
+table.small{font-size:9pt;}
+*{padding:0px;margin:0px;}
+body{color:#FFFFFF; background:url("status_bar_bg.png");}
+
+A:link { COLOR: #FFFFFF; TEXT-DECORATION: none;}
+A:visited { COLOR: #FFFFFF; TEXT-DECORATION: none}
+A:active  { COLOR: #FFFFFF; TEXT-DECORATION: none}
+A:hover   { COLOR: #FFFFFF; TEXT-DECORATION: none}
+
+.statusbar{}
+#user_count1{padding:0px 5px;text-align:center;color:#FFFFFF;FONT-WEIGHT: bold;border:0;cursor:pointer}

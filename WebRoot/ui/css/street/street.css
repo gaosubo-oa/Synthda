@@ -1,0 +1,705 @@
+body, button, select, textarea, input, label, option, fieldset, legend{font-family: 微软雅黑E\8F6F\96C5\9ED1,Tahoma,Verdana;font-size: 12px;line-height: 18px;color: #444;}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, legend, textarea, button, p, blockquote{margin: 0;padding: 0;}
+textarea{resize: none}
+a,img{border:0;}
+a{color: #666;text-decoration: none;}
+li{list-style-type:none;}
+.fl{float:left;}
+.fr{float:right;}
+.ds{display:block;}
+.hid{overflow:hidden;}
+.clearfix{*zoom:1}
+.clearfix:after{display:block;visibility:hidden;clear:both;height:0;content:'';font-size:0}
+.header {
+    height: 45px;
+    border-bottom: #999 1px solid;
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    padding-left: 20px;
+    width: 100%;
+    background-color: #fff;
+    z-index:99999;
+}
+.headertitle {
+    margin-top: 12px;
+    font-size: 22px;
+    color: #494d59;
+    height:20px;
+    margin-left: 8px;
+    float: left;
+}
+.mainBg{
+    width:100%;
+    padding-top:80px;
+}
+.mainBg .mainTitle{
+    width: 65%;
+    margin:0 auto;
+    background: #fff;
+    padding:20px 10px 1px 10px;
+    /*border:1px solid #ddd;*/
+}
+.spanSize{
+    font-size: 26px;
+    color: #6798d2;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.mainTitleUl .bordercolor span{
+    height:57px;
+    line-height: 57px;
+    width:20%;
+    font-size: 18px;
+    font-weight: bold;
+    background: #f1f5f8;
+    color:#5d707c;
+    text-align: center;
+    float: left;
+    border-bottom: 1px solid #ddd;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.bordercolor{
+    border-right: 1px solid #ddd;
+}
+.mainTitleUl .bordercolor label{
+    float: left;
+    width: 30%;
+    /*text-align: center;*/
+    height:57px;
+    line-height: 57px;
+    border-bottom: 1px solid #ddd;
+}
+.mainTitleUl .bordercolor label input[type=text]{
+    height:40px;
+    line-height: 40px;
+    border:1px solid #ddd;
+    background: #fcfcfc;
+    border-radius: 6px;
+    width: 80%;
+    padding-left: 10px;
+    outline:none;
+    color: #9a9a9a;
+    font-size: 16px;
+    margin-top:8px;
+}
+.mainTitleUl .bordercolor label select{
+    height:40px;
+    line-height: 40px;
+    border:1px solid #ddd;
+
+    border-radius: 6px;
+    width: 85%;
+    padding-left: 10px;
+    outline:none;
+    color: #9a9a9a;
+    font-size: 16px;
+    margin-top:8px;
+
+    background:linear-gradient(to bottom,#fffbf6,#fdf1e0);
+
+    FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0, startColorStr=#fffbf6, endColorStr=#fdf1e0);
+    background: -ms-linear-gradient(top, #fffbf6, #fdf1e0);        /* IE 10 */
+    background:-moz-linear-gradient(top, #fffbf6, #fdf1e0);/*火狐*/
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fffbf6), to(#fdf1e0));  /* Safari 4-5, Chrome 1-9*/
+    background: -webkit-linear-gradient(top, #fffbf6, #fdf1e0);   /*Safari5.1 Chrome 10+*/
+    background: -o-linear-gradient(top, #fffbf6, #fdf1e0);  /*Opera 11.10+*/
+linear-gradient(to bottom, hsl(0, 80%, 70%), #fffbf6); /* Standard syntax; must be last */
+}
+.mainTitleUl .bordercolor label textarea{
+    height:90px;
+    line-height: 20px;
+    border:1px solid #ddd;
+    border-radius: 6px;
+    width: 80%;
+    padding-left: 10px;
+    outline:none;
+    color: #9a9a9a;
+    font-size: 16px;
+    margin-top:24px;
+    padding:5px 10px;
+    overflow-y: auto;
+}
+
+.mainTitleUl .bordercolor label .picture{
+    height:70px;
+    border:1px solid #ddd;
+    border-radius: 6px;
+    width: 92%;
+    /*margin:0 auto;*/
+    padding-left: 10px;
+    outline:none;
+    color: #9a9a9a;
+    font-size: 16px;
+    margin-top:8px;
+    padding:5px 10px;
+    background: #fcfcfc;
+    position: relative;
+}
+
+.mainTitleUl .bordercolor label .picture a{
+    position: absolute;
+    right:10px;
+    top:29px;
+    border-radius: 6px;
+    font-size: 12px;
+    padding:5px 10px;
+    line-height: 20px;
+    background: #2F8AE3;
+    color: #fff;
+}
+
+.mainTitleUl .bordercolor label .picture ul{
+    width: 84%;
+    height: 75px;
+    overflow-y: auto;
+}
+.mainTitleUl .bordercolor label .picture ul li{
+    float: left;
+    width:60px;
+    height:60px;
+    position: relative;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-top:5px;
+}
+.mainTitleUl .bordercolor label .picture ul li img{
+    width: 100%;
+    height: 100%;
+}
+.mainTitleUl .bordercolor label .picture ul li b{
+    position: absolute;
+    top:-9px;
+    right: -5px;
+    line-height: 1;
+    color: red;
+    cursor: pointer;
+}
+
+
+textarea,input{resize:none;
+    outline:none}
+
+
+
+
+
+.queryStatistics{
+
+    width:549px;
+    height: 340px;
+    margin:0 auto;
+    margin-top:70px;
+    background: #fff;
+    border-radius: 12px;
+}
+.queryStatistics p{
+    width:100%;
+    height:32px;
+    line-height:32px;
+    color: #fff;
+    font-size: 12px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    text-align: center;
+    font-weight: bold;
+    letter-spacing: 2px;
+    background:linear-gradient(to bottom,#6cbcfa,#3a94ec)!important;
+    FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0, startColorStr=#6cbcfa, endColorStr=#3a94ec)!important;
+    background: -ms-linear-gradient(top, #6cbcfa, #3a94ec)!important;        /* IE 10 */
+    background:-moz-linear-gradient(top, #6cbcfa, #3a94ec)!important;/*火狐*/
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#6cbcfa), to(#3a94ec))!important;  /* Safari 4-5, Chrome 1-9*/
+    background: -webkit-linear-gradient(top, #6cbcfa, #3a94ec)!important;   /*Safari5.1 Chrome 10+*/
+    background: -o-linear-gradient(top, #6cbcfa, #3a94ec)!important;  /*Opera 11.10+*/
+linear-gradient(to bottom, hsl(0, 80%, 70%), #6cbcfa)!important; /* Standard syntax; must be last */
+
+}
+.inputWidth{
+    width: 100%;
+}
+.inputWidth li{
+
+    padding-top:10px;
+}
+.inputWidth li>span{
+    width:160px;
+    float: left;
+    text-align: right;
+    margin-right:10px;
+    font-size: 14px;
+    height:36px;
+    line-height: 36px;
+    color: #2b588c;
+    font-weight: bold;
+}
+.inputWidth li label{
+    width:378px;
+    float: left;
+    height: 36px;
+    line-height: 36px;
+}
+.inputWidth li label input[type=text]{
+    width:72%;
+    height:26px;
+    line-height: 26px;
+    border-radius: 4px;
+    padding-left: 5px;
+    border:1px solid #ddd;
+}
+.inputWidth li label select{
+    width:74%;
+    height:30px;
+    line-height: 30px;
+    border-radius: 4px;
+    padding-left: 5px;
+    border:1px solid #ddd;
+}
+.inputWidth li label input[type=text]:focus{
+    border-color: #00a0e9;
+}
+
+.theQuery{
+    float: left;
+    width: 40px;
+    height: 28px;
+    line-height: 28px;
+    background: url(/img/news/new_query.png) no-repeat;
+    padding-left: 30px;
+    cursor: pointer;
+}
+
+.exportTwo{
+    float: left;
+    width: 40px;
+    height: 28px;
+    line-height: 28px;
+    background: url(/img/export.png) no-repeat;
+    padding-left: 30px;
+    cursor: pointer;
+}
+.filling{
+    float: left;
+    width: 40px;
+    height: 28px;
+    line-height: 28px;
+    background:url(/img/news/new_filling.png) no-repeat;
+    padding-left: 30px;
+    cursor: pointer;
+}
+
+
+
+.contmain{
+    width:100%;
+    margin-top:47px;
+}
+
+.cont_left{
+    width: 19%;
+    height: 100%;
+    border-right: 1px solid #000;
+    overflow-y: auto;
+}
+
+.cont_left .dept_li {
+    /*width: 100%;*/
+    padding-left: 14px;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: #ddd 1px solid;
+    cursor: pointer;
+    color: #000;
+}
+.contRight{
+    width: 79%;
+    padding-left: 1%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 100%;
+    float: left;
+    height: 100%;
+}
+
+.nav_box div {
+    heihgt: 70px;
+    line-height: 70px;
+    display: inline-block;
+    float: left;
+}
+.nav_box .nav_t1 img {
+    width: 20px;
+    height: 21px;
+    vertical-align: middle;
+}
+.nav_box .nav_t2 {
+    font-size: 20px;
+    color: #494d59;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+.head_rig {
+    width: 500px;
+    margin-top: 8px;
+    float: right !important;
+}
+
+.nav_box .head_rig .new_dept {
+    width: 100px;
+    height: 30px;
+    font-size: 13px !important;
+    background-image: url(../../img/sys/dept_personnel.png);
+    cursor: pointer;
+    background-repeat: no-repeat;
+    color: #fff;
+    padding-left: 40px;
+    margin-right: 16px;
+    line-height: 30px;
+    float: left;
+}
+
+
+
+
+
+.mainLeft{
+    width:18%;
+    border-right: 1px solid #ddd;
+    background: #f5f5f5;
+}
+.mainLeft li{
+    height:40px;
+    line-height: 40px;
+    color: #ddd;
+    text-align: center;
+    font-size: 16px;
+    border-bottom: 1px solid #ddd;
+}
+.mainRight{
+    float: left;
+    margin-left:10px;
+    width:79%;
+    margin-top:10px;
+}
+
+
+
+.zhanshiBtn{
+    position: fixed;
+    top:7%;
+    right: 3%;
+    /*background: red;*/
+    width: 135px;
+    height: 220px;
+    display: none;
+}
+.zhanshiBtn .one{
+    background: url("/img/grid/btnxuanzhong.png") no-repeat;
+    background-size: 100% 100%;
+    -ms-behavior: url(/css/main/backgroundsize.min.htc);
+    behavior: url(/css/main/backgroundsize.min.htc);
+    width: 100%;
+    height: 34px;
+    line-height: 34px;
+    margin-top:10px;
+    cursor: pointer;
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+}
+.zhanshiBtn .one.active{
+    background: url("/img/grid/activexuanzhong.png") no-repeat;
+}
+
+.btnFixed{
+    position: fixed;
+    top:1%;
+    right: 4%;
+    z-index: 9999;
+    display: none;
+    background: url("/img/grid/jinruquanping.png") no-repeat;
+    width: 40px;
+    height: 36px;
+    cursor: pointer;
+}
+.btnFixed:hover{
+    background: url("/img/grid/quanpingfudong.png") no-repeat;
+}
+.btnFixed.active{
+    background: url("/img/grid/tuichuquanping.png") no-repeat;
+}
+.btnFixed.active:hover{
+    background: url("/img/grid/tuichufudong.png") no-repeat;
+}
+.gridMember{
+    width: 170px;
+    height: 48px;
+    position: relative;
+    cursor: pointer;
+}
+.gridMember .top{
+    width: 53px;
+    height: 53px;
+    top: 0px;
+    left: 0px;
+    /*background: url("/img/grid/yuanxing.png") no-repeat;*/
+    position: absolute;
+    z-index: 2;
+    box-sizing: border-box;
+}
+.gridMember .top img{
+    width: 100%;
+    height:100%;
+    border-radius: 50%;
+}
+.gridMember .bottom{
+    width: 122px;
+    height: 45px;
+    position: absolute;
+    top: 5px;
+    left: 9px;
+    z-index: 1;
+    box-sizing: border-box;
+    padding-left: 44px;
+    background: url("/img/grid/youcerenyuan.png") no-repeat;
+    background-size: 100% 100%;
+}
+.gridMember .bottom span,.gridMember .bottom label{
+    width: 100%;
+    display: block;
+}
+.gridMember .bottom span{
+    /*background: red;*/
+    line-height: 17px;
+    height: 17px;
+    margin-top: 3px;
+    color: #65efff;
+    width: 38px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    line-height: 24px\9;
+}
+.gridMember .bottom label{
+    height: 18px;
+    line-height: 18px;
+    /* background: beige; */
+    margin-top: 2px;
+    color: #65efff;
+    width: 61px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-sizing: border-box;
+    padding-left:4px;
+    height: 26px\9;
+    line-height: 26px\9;
+}
+#renyuanss{
+    background:url("/img/grid/renyuanbeijing.png") no-repeat;
+    background-size: 100% 100%;
+
+}
+.layerboxren{
+    /*background: red;*/
+    width: 100%;
+    height: 89%;
+    position: relative;
+}
+.layerboxren a{
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    width: 230px;
+    height: 100px;
+    z-index:9999999;
+    color: transparent;
+}
+.layerboxren ul li{
+    float: left;
+}
+.layerboxren .lefts{
+    width: 40%;
+    box-sizing: border-box;
+    text-align: center;
+    border-right:1px solid #65efff;
+    height: 100%;
+}
+.layerboxren .lefts img{
+    width: 80px;
+    margin: 5px 0px;
+}
+.layerboxren .rights{
+    width: 60%;
+    box-sizing: border-box;
+    height: 100%;
+}
+.layerboxren .lefts span,.layerboxren .lefts label{
+    display: block;
+    color: #65efff;
+}
+.layerboxren .lefts span{
+    font-size: 32px;
+    margin-bottom:10px;
+    margin-top: 8px;
+}
+.layerboxren .lefts label{
+    font-size: 16px;
+}
+.layerboxren .rights ul{
+    width: 98%;
+    margin-left: 15px;
+    /*background: red;*/
+    height: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+}
+.layerboxren .rights ul li{
+    width: 100%;
+    font-size: 16px;
+    color: #65efff;
+}
+.layerboxren .rights ul li label{
+    display: inline-block;
+    width: 50%;
+    font-size: 16px;
+    text-align: left;
+    color: #65efff;
+}
+.layerboxren .rights ul li label img{
+    vertical-align: bottom;
+    margin-right: 10px;
+}
+.layerboxren .rights ul li span{
+    display: inline-block;
+    width: 50%;
+    font-size: 14px;
+    color: #65efff;
+}
+
+#sqboxs{
+    background: url("/img/grid/sheqvwangge.png") no-repeat;
+    background-size: 100% 100%;
+    -ms-behavior: url(/css/main/backgroundsize.min.htc);
+    behavior: url(/css/main/backgroundsize.min.htc);
+
+}
+.sqboxs{
+    width: 100%;
+    position: relative;
+}
+.sqboxs .spantextbox li{
+    color:#65efff ;
+}
+.sqboxs a{
+    position: fixed;
+    right: 25px;
+    top: 17px;
+    font-size: 20px;
+    color: #65efff;
+
+}
+.sqboxs a span{
+    font-size: 30px;
+}
+#sqboxtwo{
+    background: url("/img/grid/sheqvwangge.png") no-repeat;
+    background-size: 100% 100%;
+    -ms-behavior: url(/css/main/backgroundsize.min.htc);
+    behavior: url(/css/main/backgroundsize.min.htc);
+}
+.sqboxtwo{
+    width: 100%;
+    position: relative;
+}
+#sqboxtwo .spantextbox li {
+    line-height: 21px;
+    color: #65efff;
+    margin: 12px 0;
+}
+.sqboxtwo a{
+    position: absolute;
+    right: -4px;
+    top: -23px;
+    font-size: 15px;
+    color: #65efff;
+}
+.sqboxtwo a span{
+    font-size: 22px;
+}
+
+#spantextboxTwo{
+    background: url("/img/grid/sheqvwangge.png") no-repeat;
+    background-size: 100% 100%;
+    -ms-behavior: url(/css/main/backgroundsize.min.htc);
+    behavior: url(/css/main/backgroundsize.min.htc);
+}
+.spantextboxTwo{
+    width: 100%;
+    position: relative;
+}
+#spantextboxTwo .spantextbox li {
+    line-height: 21px;
+    color: #65efff;
+    margin: 19px 0;
+}
+.spantextboxTwo a{
+    position: absolute;
+    right: -4px;
+    top: -23px;
+    font-size: 15px;
+    color: #65efff;
+}
+.spantextboxTwo a span{
+    font-size: 22px;
+}
+.gridMemberThree{
+    background: url("/img/grid/shipinjiankong.png") no-repeat;
+    width: 130px;
+    height: 40px;
+    line-height:40px;
+    display: inline-block;
+    box-sizing: border-box;
+    padding-left: 42px;
+    color: #fff;
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+.qydiv{
+    width: 218px;
+    height: 96px;
+}
+.qydiv img{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    z-index:10;
+}
+.qydiv span.tops{
+    width: 174px;
+    color: #fff;
+    position: absolute;
+    z-index: 14;
+    left: 41.5px!important;
+    top: 20px;
+    font-size: 16px;
+}
+.qydiv span.buttoms{
+    width: 158px;
+    color: #fff;
+    position: absolute;
+    z-index: 14;
+    height: 45px;
+    line-height: 20px;
+    overflow-y: auto;
+    left: 40.5px!important;
+    top: 43px;
+}
+
+
+

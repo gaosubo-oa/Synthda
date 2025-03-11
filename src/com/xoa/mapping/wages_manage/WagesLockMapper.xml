@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.wages_manage.WagesLockMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.wages_manage.WagesLock">
+        <id column="LOCK_ID" jdbcType="INTEGER" property="lockId"/>
+        <result column="LOCK_NAME" jdbcType="VARCHAR" property="lockName"/>
+        <result column="LOCK_STATUS" jdbcType="VARCHAR" property="lockStatus"/>
+        <result column="LOCK_CONTENT" jdbcType="VARCHAR" property="lockContent"/>
+        <result column="THE_YEAR" jdbcType="VARCHAR" property="theYear"/>
+        <result column="THE_MONTH" jdbcType="VARCHAR" property="theMonth"/>
+    </resultMap>
+    <insert id="insert" parameterType="com.xoa.model.wages_manage.WagesLock">
+        insert into wages_lock(LOCK_NAME, LOCK_STATUS,LOCK_CONTENT,THE_YEAR,THE_MONTH)
+        values ( #{lockName}, '1',#{lockContent},#{theYear},#{theMonth})
+    </insert>
+
+    <update id="update" parameterType="com.xoa.model.wages_manage.WagesLock">
+        update wages_lock
+        <set>
+            <if test="lockStatus != null and lockStatus !=''">
+                LOCK_STATUS = #{lockStatus}
+            </if>
+        </set>
+        where LOCK_NAME = #{lockName} and  THE_YEAR = #{theYear}  and THE_MONTH = #{theMonth}
+    </update>
+    <select id="selectByName" resultMap="BaseResultMap" parameterType="com.xoa.model.wages_manage.WagesLock">
+        select * from wages_lock
+            <where>
+                 LOCK_NAME = #{lockName}
+                <if test="theYear != null and theYear !=''">
+                and     THE_YEAR = #{theYear}
+                </if>
+                <if test="theMonth != null and theMonth !=''">
+                and     THE_MONTH = #{theMonth}
+                </if>
+         </where>
+
+    </select>
+</mapper>

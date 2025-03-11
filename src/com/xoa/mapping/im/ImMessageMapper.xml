@@ -1,0 +1,721 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.im.ImMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.im.ImMessage" >
+    <id column="IMID" property="imid" javaType="int"/>
+    <result column="FROM_UID" property="fromUid" javaType="string" />
+    <result column="TO_UID" property="toUid" javaType="string" />
+    <result column="OF_FROM" property="ofFrom" javaType="string" />
+    <result column="OF_TO" property="ofTo" javaType="string" />
+    <result column="THUMBNAIL_URL" property="thumbnailUrl" javaType="string" />
+    <result column="STIME" property="stime" javaType="string" />
+    <result column="ATIME" property="atime" javaType="string" />
+    <result column="TYPE" property="type" javaType="string" />
+    <result column="DFLAG" property="dflag" javaType="string" />
+    <result column="MSG_TYPE" property="msgType" javaType="string" />
+    <result column="UUID" property="uuid" javaType="string" />
+    <result column="CONTENT" property="content" javaType="string" />
+    <result column="FILE_ID" property="fileId" javaType="string" />
+    <result column="FILE_NAME" property="fileName" javaType="string" />
+    <result column="REAL_URL" property="realUrl" javaType="string" />
+    <result column="FromUserName" property="FromUserName" />
+    <result column="toUserName" property="toUserName" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    IMID, FROM_UID, TO_UID, OF_FROM, OF_TO, THUMBNAIL_URL, STIME, ATIME, TYPE, DFLAG, 
+    MSG_TYPE, UUID
+  </sql>
+  <sql id="Blob_Column_List" >
+    CONTENT, FILE_ID, FILE_NAME
+  </sql>
+
+  <select id="getLastMessage"  parameterType="map" resultMap="BaseResultMap">
+  SELECT
+	i.*,u.USER_NAME as FromUserName, u1.USER_NAME as toUserName FROM im_message i
+    INNER JOIN user u ON i.FROM_UID = u.UID
+    INNER JOIN user u1 ON i.TO_UID =u1.UID
+ where UUID=#{uuid}
+  </select>
+
+
+    <select id="getLastMessage1"  parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        i.*,u.USER_NAME as FromUserName, u1.USER_NAME as toUserName FROM im_message i
+        INNER JOIN user u ON i.FROM_UID = u.UID
+        INNER JOIN user u1 ON i.TO_UID =u1.UID
+        where UUID=#{uuid}
+    </select>
+
+    <select id="getLastMessage"  parameterType="map" resultMap="BaseResultMap" databaseId="oracle">
+        SELECT
+        i.*,u.USER_NAME FromUserName, u1.USER_NAME toUserName FROM im_message i
+        INNER JOIN "USER" u ON i.FROM_UID = u."UID"
+        INNER JOIN "USER" u1 ON i.TO_UID ="TO_CHAR"(u1."UID")
+        where UUID=#{uuid}
+    </select>
+
+    <select id="getLastMessage"  parameterType="map" resultMap="BaseResultMap" databaseId="dm">
+        SELECT
+        i.*,u.USER_NAME FromUserName, u1.USER_NAME toUserName FROM im_message i
+        INNER JOIN "USER" u ON i.FROM_UID = u."UID"
+        INNER JOIN "USER" u1 ON i.TO_UID ="TO_CHAR"(u1."UID")
+        where UUID=#{uuid}
+    </select>
+
+  <select id="getAttchments" parameterType="map" resultMap="BaseResultMap">
+   SELECT * FROM im_message
+   WHERE ((( FROM_UID = #{my_uid} and OF_TO = #{other_id} ) or (TO_UID = #{my_uid} and OF_FROM = #{other_id})) AND MSG_TYPE = 0 )
+   AND  (TYPE='img' or TYPE='file')
+  </select>
+
+  <select id="selectMessageByPage" parameterType="Map" resultMap="BaseResultMap" >
+      SELECT * FROM im_message WHERE DFLAG!=1 and
+      ((OF_FROM=#{fromId} AND OF_TO =#{toId}) OR (OF_FROM=#{toId} AND OF_TO =#{fromId})) AND STIME &lt; #{lastTime}
+      <if test="type !=null">
+        AND `TYPE` = #{type}
+      </if>
+      <if test="fileName !=null" >
+        AND `THUMBNAIL_URL` LIKE CONCAT('%ATTACHMENT_NAME=%',#{fileName},'%')
+      </if>
+      <if test="searchMsg != null">
+        AND (`THUMBNAIL_URL` LIKE CONCAT('%ATTACHMENT_NAME=%',#{searchMsg},'%') or content like CONCAT('%',#{searchMsg},'%'))
+      </if>
+      ORDER BY IMID DESC
+   </select>
+
+    <select id="selectMessageByPageAll" parameterType="Map" resultMap="BaseResultMap" >
+        SELECT * FROM im_message WHERE DFLAG!=1 and
+        ((OF_FROM=#{fromId} AND OF_TO =#{toId}) OR (OF_FROM=#{toId} AND OF_TO =#{fromId}))
+        <if test="type !=null">
+            AND `TYPE` = #{type}
+        </if>
+        <if test="fileName !=null" >
+            AND `THUMBNAIL_URL` LIKE CONCAT('%ATTACHMENT_NAME=%',#{fileName},'%')
+        </if>
+        <if test="searchMsg != null">
+            AND (`THUMBNAIL_URL` LIKE CONCAT('%ATTACHMENT_NAME=%',#{searchMsg},'%') or content like CONCAT('%',#{searchMsg},'%'))
+        </if>
+        ORDER BY IMID DESC
+    </select>
+
+
+    <select id="selectMessageByPage" parameterType="Map" resultMap="BaseResultMap" databaseId="oracle">
+        SELECT * FROM im_message WHERE DFLAG!=1 and
+        ((OF_FROM=#{fromId} AND OF_TO =#{toId}) OR (OF_FROM=#{toId} AND OF_TO =#{fromId})) AND  #{lastTime}>STIME
+        <if test="type !=null">
+            AND "TYPE" = #{type}
+        </if>
+        <if test="fileName !=null" >
+            AND `THUMBNAIL_URL` LIKE CONCAT('%ATTACHMENT_NAME=%',#{fileName},'%')
+        </if>
+        <if test="searchMsg != null">
+            AND (`THUMBNAIL_URL` LIKE CONCAT('%ATTACHMENT_NAME=%',#{searchMsg},'%') or content like CONCAT('%',#{searchMsg},'%'))
+        </if>
+        ORDER BY STIME DESC
+    </select>
+
+    <select id="selectMessageByPage" parameterType="Map" resultMap="BaseResultMap" databaseId="dm">
+        SELECT * FROM im_message WHERE DFLAG!=1 and
+        ((OF_FROM=#{fromId} AND OF_TO =#{toId}) OR (OF_FROM=#{toId} AND OF_TO =#{fromId})) AND #{lastTime}>STIME
+        <if test="type !=null">
+            AND "TYPE" = #{type}
+        </if>
+        <if test="fileName !=null" >
+            AND `THUMBNAIL_URL` LIKE CONCAT('%ATTACHMENT_NAME=%',#{fileName},'%')
+        </if>
+        <if test="searchMsg != null">
+            AND (`THUMBNAIL_URL` LIKE CONCAT('%ATTACHMENT_NAME=%',#{searchMsg},'%') or content like CONCAT('%',#{searchMsg},'%'))
+        </if>
+        ORDER BY STIME DESC
+    </select>
+
+
+    <select id="selectMessage" parameterType="map" resultMap="BaseResultMap">
+    SELECT * FROM im_message WHERE ((FROM_UID=#{my_uid1} AND TO_UID =#{other_id1}) OR (FROM_UID=#{other_id1} AND TO_UID =#{my_uid1}))  AND  MSG_TYPE=#{msg_type1} and CONTENT like concat('%',#{keyword1},'%')
+  </select>
+
+
+  <select id="getMessageList" parameterType="Map" resultMap="BaseResultMap" >
+    SELECT * FROM im_message WHERE ((OF_FROM=#{fromId} AND OF_TO =#{toId}) OR (OF_FROM=#{toId} AND OF_TO =#{fromId})) AND #{lastTime} > STIME
+    <if test="type !=null">
+      AND `TYPE` = #{type}
+    </if>
+    <if test="fileName !=null" >
+      AND `THUMBNAIL_URL` LIKE CONCAT('%ATTACHMENT_NAME=%',#{fileName},'%')
+    </if>
+    <if test="searchMsg != null">
+      AND (`THUMBNAIL_URL` LIKE CONCAT('%ATTACHMENT_NAME=%',#{searchMsg},'%') or content like CONCAT('%',#{searchMsg},'%'))
+    </if>
+    ORDER BY STIME desc
+  </select>
+  <insert id="save" parameterType="com.xoa.model.im.ImMessage">
+  insert into im_message
+        (FROM_UID,TO_UID,OF_FROM,OF_TO,THUMBNAIL_URL,STIME,ATIME,TYPE,DFLAG,MSG_TYPE,UUID,CONTENT,FILE_ID,FILE_NAME,REAL_URL)
+
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fromUid == null" >
+        '',
+      </if>
+      <if test="fromUid != null" >
+        #{fromUid},
+      </if>
+
+      <if test="toUid == null" >
+       '',
+      </if>
+      <if test="toUid != null" >
+        #{toUid},
+      </if>
+
+      <if test="ofFrom == null" >
+        '',
+      </if>
+      <if test="ofFrom != null" >
+        #{ofFrom},
+      </if>
+
+      <if test="ofTo == null" >
+        '',
+      </if>
+      <if test="ofTo != null" >
+        #{ofTo},
+      </if>
+
+      <if test="thumbnailUrl == null" >
+        '',
+      </if>
+      <if test="thumbnailUrl != null" >
+        #{thumbnailUrl},
+      </if>
+
+      <if test="stime == null" >
+       '',
+      </if>
+      <if test="stime != null" >
+        #{stime},
+      </if>
+
+       <if test="atime == null" >
+        '',
+      </if>
+      <if test="atime != null" >
+        #{atime},
+      </if>
+
+       <if test="type == null" >
+       '',
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+
+      <if test="dflag == null" >
+        '',
+      </if>
+      <if test="dflag != null" >
+        #{dflag},
+      </if>
+
+      <if test="msgType == null" >
+        '',
+      </if>
+      <if test="msgType != null" >
+        #{msgType},
+      </if>
+
+       <if test="uuid == null" >
+        '',
+      </if>
+      <if test="uuid != null" >
+        #{uuid},
+      </if>
+
+      <if test="content == null" >
+       '',
+      </if>
+      <if test="content != null" >
+        #{content},
+      </if>
+
+      <if test="fileId == null" >
+       '',
+      </if>
+      <if test="fileId != null" >
+        #{fileId},
+      </if>
+
+      <if test="fileName == null" >
+       '',
+      </if>
+      <if test="fileName != null" >
+        #{fileName},
+      </if>
+      <if test="realUrl==null">
+        '',
+      </if>
+      <if test="realUrl!=null">
+        #{realUrl},
+      </if>
+    </trim>
+  </insert>
+  <delete id="deleteByUuid" parameterType="map">
+		delete from
+		im_message
+		where UUID = #{uuid}
+	</delete>
+<!--   <select id="selectBy" resultMap="ResultMap" parameterType="com.xoa.model.im.ImMessage" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from im_message
+    <if test="_parameter != null" >
+      <include refid="_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectBy" resultMap="BaseResultMap" parameterType="com.xoa.model.im.ImMessage" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from im_message
+    <if test="_parameter != null" >
+      <include refid="_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from im_message
+    where IMID = #{imid}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from im_message
+    where IMID = #{imid}
+  </delete>
+  <delete id="deleteBy" parameterType="map" >
+    delete from im_message
+    <if test="_parameter != null" >
+      <include refid="_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="map" >
+    insert into im_message (IMID, FROM_UID, TO_UID,
+      OF_FROM, OF_TO, THUMBNAIL_URL,
+      STIME, ATIME, TYPE,
+      DFLAG, MSG_TYPE, UUID,
+      CONTENT, FILE_ID, FILE_NAME
+      )
+    values (#{imid}, #{fromUid}, #{toUid},
+      #{ofFrom}, #{ofTo}, #{thumbnailUrl},
+      #{stime}, #{atime}, #{type},
+      #{dflag}, #{msgType}, #{uuid},
+      #{content}, #{fileId}, #{fileName}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xoa.model.im.ImMessage" >
+    insert into im_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="imid != null" >
+        IMID,
+      </if>
+      <if test="fromUid != null" >
+        FROM_UID,
+      </if>
+      <if test="toUid != null" >
+        TO_UID,
+      </if>
+      <if test="ofFrom != null" >
+        OF_FROM,
+      </if>
+      <if test="ofTo != null" >
+        OF_TO,
+      </if>
+      <if test="thumbnailUrl != null" >
+        THUMBNAIL_URL,
+      </if>
+      <if test="stime != null" >
+        STIME,
+      </if>
+      <if test="atime != null" >
+        ATIME,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="dflag != null" >
+        DFLAG,
+      </if>
+      <if test="msgType != null" >
+        MSG_TYPE,
+      </if>
+      <if test="uuid != null" >
+        UUID,
+      </if>
+      <if test="content != null" >
+        CONTENT,
+      </if>
+      <if test="fileId != null" >
+        FILE_ID,
+      </if>
+      <if test="fileName != null" >
+        FILE_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="imid != null" >
+        #{imid},
+      </if>
+      <if test="fromUid != null" >
+        #{fromUid},
+      </if>
+      <if test="toUid != null" >
+        #{toUid},
+      </if>
+      <if test="ofFrom != null" >
+        #{ofFrom},
+      </if>
+      <if test="ofTo != null" >
+        #{ofTo},
+      </if>
+      <if test="thumbnailUrl != null" >
+        #{thumbnailUrl},
+      </if>
+      <if test="stime != null" >
+        #{stime},
+      </if>
+      <if test="atime != null" >
+        #{atime},
+      </if>
+      <if test="type != null" >
+        #{type},
+      </if>
+      <if test="dflag != null" >
+        #{dflag},
+      </if>
+      <if test="msgType != null" >
+        #{msgType},
+      </if>
+      <if test="uuid != null" >
+        #{uuid},
+      </if>
+      <if test="content != null" >
+        #{content},
+      </if>
+      <if test="fileId != null" >
+        #{fileId},
+      </if>
+      <if test="fileName != null" >
+        #{fileName},
+      </if>
+    </trim>
+  </insert>
+  <select id="countBy" parameterType="com.xoa.model.im.ImMessage" resultType="java.lang.Integer" >
+    select count(*) from im_message
+    <if test="_parameter != null" >
+      <include refid="_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateBySelective" parameterType="map" >
+    update im_message
+    <set >
+      <if test="record.imid != null" >
+        IMID = #{record.imid},
+      </if>
+      <if test="record.fromUid != null" >
+        FROM_UID = #{record.fromUid},
+      </if>
+      <if test="record.toUid != null" >
+        TO_UID = #{record.toUid},
+      </if>
+      <if test="record.ofFrom != null" >
+        OF_FROM = #{record.ofFrom},
+      </if>
+      <if test="record.ofTo != null" >
+        OF_TO = #{record.ofTo},
+      </if>
+      <if test="record.thumbnailUrl != null" >
+        THUMBNAIL_URL = #{record.thumbnailUrl},
+      </if>
+      <if test="record.stime != null" >
+        STIME = #{record.stime},
+      </if>
+      <if test="record.atime != null" >
+        ATIME = #{record.atime},
+      </if>
+      <if test="record.type != null" >
+        TYPE = #{record.type},
+      </if>
+      <if test="record.dflag != null" >
+        DFLAG = #{record.dflag},
+      </if>
+      <if test="record.msgType != null" >
+        MSG_TYPE = #{record.msgType},
+      </if>
+      <if test="record.uuid != null" >
+        UUID = #{record.uuid},
+      </if>
+      <if test="record.content != null" >
+        CONTENT = #{record.content},
+      </if>
+      <if test="record.fileId != null" >
+        FILE_ID = #{record.fileId},
+      </if>
+      <if test="record.fileName != null" >
+        FILE_NAME = #{record.fileName},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By__Where_Clause" />
+    </if>
+  </update>
+  <update id="updateBy" parameterType="map" >
+    update im_message
+    set IMID = #{record.imid},
+      FROM_UID = #{record.fromUid},
+      TO_UID = #{record.toUid},
+      OF_FROM = #{record.ofFrom},
+      OF_TO = #{record.ofTo},
+      THUMBNAIL_URL = #{record.thumbnailUrl},
+      STIME = #{record.stime},
+      ATIME = #{record.atime},
+      TYPE = #{record.type},
+      DFLAG = #{record.dflag},
+      MSG_TYPE = #{record.msgType},
+      UUID = #{record.uuid},
+      CONTENT = #{record.content},
+      FILE_ID = #{record.fileId},
+      FILE_NAME = #{record.fileName}
+    <if test="_parameter != null" >
+      <include refid="Update_By__Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByClause" parameterType="map" >
+    update im_message
+    set IMID = #{record.imid},
+      FROM_UID = #{record.fromUid},
+      TO_UID = #{record.toUid},
+      OF_FROM = #{record.ofFrom},
+      OF_TO = #{record.ofTo},
+      THUMBNAIL_URL = #{record.thumbnailUrl},
+      STIME = #{record.stime},
+      ATIME = #{record.atime},
+      TYPE = #{record.type},
+      DFLAG = #{record.dflag},
+      MSG_TYPE = #{record.msgType},
+      UUID = #{record.uuid}
+    <if test="_parameter != null" >
+      <include refid="Update_By__Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.im.ImMessage" >
+    update im_message
+    <set >
+      <if test="fromUid != null" >
+        FROM_UID = #{fromUid},
+      </if>
+      <if test="toUid != null" >
+        TO_UID = #{toUid},
+      </if>
+      <if test="ofFrom != null" >
+        OF_FROM = #{ofFrom},
+      </if>
+      <if test="ofTo != null" >
+        OF_TO = #{ofTo},
+      </if>
+      <if test="thumbnailUrl != null" >
+        THUMBNAIL_URL = #{thumbnailUrl},
+      </if>
+      <if test="stime != null" >
+        STIME = #{stime},
+      </if>
+      <if test="atime != null" >
+        ATIME = #{atime},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type},
+      </if>
+      <if test="dflag != null" >
+        DFLAG = #{dflag},
+      </if>
+      <if test="msgType != null" >
+        MSG_TYPE = #{msgType},
+      </if>
+      <if test="uuid != null" >
+        UUID = #{uuid},
+      </if>
+      <if test="content != null" >
+        CONTENT = #{content},
+      </if>
+      <if test="fileId != null" >
+        FILE_ID = #{fileId},
+      </if>
+      <if test="fileName != null" >
+        FILE_NAME = #{fileName},
+      </if>
+    </set>
+    where IMID = #{imid}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xoa.model.im.ImMessage" >
+    update im_message
+    set FROM_UID = #{fromUid},
+      TO_UID = #{toUid},
+      OF_FROM = #{ofFrom},
+      OF_TO = #{ofTo},
+      THUMBNAIL_URL = #{thumbnailUrl},
+      STIME = #{stime},
+      ATIME = #{atime},
+      TYPE = #{type},
+      DFLAG = #{dflag},
+      MSG_TYPE = #{msgType},
+      UUID = #{uuid},
+      CONTENT = #{content},
+      FILE_ID = #{fileId},
+      FILE_NAME = #{fileName}
+    where IMID = #{imid}
+  </update>
+  <update id="updateByPrimaryKeyClause" parameterType="com.xoa.model.im.ImMessage" >
+    update im_message
+    set FROM_UID = #{fromUid},
+      TO_UID = #{toUid},
+      OF_FROM = #{ofFrom},
+      OF_TO = #{ofTo},
+      THUMBNAIL_URL = #{thumbnailUrl},
+      STIME = #{stime},
+      ATIME = #{atime},
+      TYPE = #{type},
+      DFLAG = #{dflag},
+      MSG_TYPE = #{msgType},
+      UUID = #{uuid}
+    where IMID = #{imid}
+  </update>
+
+  <delete id="deleteByUUID" parameterType="Map">
+		delete from
+		im_message
+		where UUID = #{uuid} and FROM_UID = #{fromId} and ATIME > #{now}
+	</delete>
+	<select id="selectByFromAndTo" parameterType="Map" resultMap="ResultMap">
+       SELECT * FROM im_message WHERE FROM_UID=#{fromId} AND TO_UID=#{toId}  ORDER BY ATIME DESC LIMIT 0,2
+   </select>
+   <select id="selectByUUID" parameterType="Map" resultMap="ResultMap">
+       SELECT * FROM im_message WHERE FROM_UID=#{fromId} AND UUID=#{uuid}  ORDER BY ATIME DESC LIMIT 0,1
+   </select> -->
+
+    <select id="getMessageByLast"  parameterType="map" resultMap="BaseResultMap">
+        SELECT distinct i.UUID,
+	i.IMID,
+	i.FROM_UID,
+	i.TO_UID,
+	i.OF_FROM,
+	i.OF_TO,
+	i.THUMBNAIL_URL,
+	i.STIME,
+	i.ATIME,
+	i.TYPE,
+	i.DFLAG,
+	i.MSG_TYPE, i.FILE_ID, u.USER_NAME as FromUserName FROM im_message i
+        INNER JOIN user u ON i.FROM_UID = u.UID
+        where UUID=#{uuid}
+        GROUP BY UUID
+    </select>
+
+    <select id="getGroupMessage" parameterType="Map" resultMap="BaseResultMap" >
+    SELECT * FROM im_message WHERE  DFLAG!=1 and
+    OF_TO =#{toId}  AND #{lastTime} > STIME
+    <if test="type !=null">
+        AND `TYPE` = #{type}
+    </if>
+    <if test="fileName !=null" >
+        AND `THUMBNAIL_URL` LIKE CONCAT('%ATTACHMENT_NAME=%',#{fileName},'%')
+    </if>
+    <if test="searchMsg != null">
+        AND (`THUMBNAIL_URL` LIKE CONCAT('%ATTACHMENT_NAME=%',#{searchMsg},'%') or content like CONCAT('%',#{searchMsg},'%'))
+    </if>
+    ORDER BY IMID desc
+</select>
+
+    <select id="getGroupMessageAll" parameterType="Map" resultMap="BaseResultMap" >
+        SELECT * FROM im_message WHERE  DFLAG!=1 and  OF_TO =#{toId}
+        <if test="type !=null">
+            AND `TYPE` = #{type}
+        </if>
+        <if test="fileName !=null" >
+            AND `THUMBNAIL_URL` LIKE CONCAT('%ATTACHMENT_NAME=%',#{fileName},'%')
+        </if>
+        <if test="searchMsg != null">
+            AND (`THUMBNAIL_URL` LIKE CONCAT('%ATTACHMENT_NAME=%',#{searchMsg},'%') or content like CONCAT('%',#{searchMsg},'%'))
+        </if>
+        ORDER BY IMID desc
+    </select>
+
+    <select id="getAllGroupMessage" parameterType="String" resultMap="BaseResultMap" >
+        SELECT i.*,user.user_name as FromUserName FROM im_message i
+        join user on user.uid=i.from_uid
+        WHERE i.OF_TO =#{toId}
+        ORDER BY i.STIME desc
+    </select>
+
+    <update id="upMessageByType" parameterType="map">
+        UPDATE im_message SET TYPE = #{type} where UUID=#{uuid}
+    </update>
+
+    <delete id="updateDeleteFlagByUUID">
+      update im_message
+    set
+      DFLAG = 1
+    where UUID=#{uuid}
+    </delete>
+
+    <select id="querySubject" parameterType="map" resultMap="BaseResultMap">
+        SELECT * FROM im_message im
+        left join  im_room ir on im.TO_UID= ir.ROOM_OF
+        <where>
+            <if test="userId != null">
+                and (
+                im.FROM_UID=#{userId} or im.TO_UID =#{userId}
+                )
+            </if>
+            <if test="subject != null and subject != ''">
+                AND (
+                im.CONTENT like concat('%',#{subject},'%')
+                or ir.RNAMR like concat('%',#{subject},'%')
+                <if test="strs != null">
+                    <foreach collection="strs" item="str">
+                       or im.CONTENT like concat('%',#{str},'%')
+                       or ir.RNAMR like concat('%',#{str},'%')
+                    </foreach>
+                </if>
+                <if test="attachIds != null">
+                    <foreach collection="attachIds" item="attachId">
+                        or im.FILE_ID like concat ('%',#{attachId},'%')
+                    </foreach>
+                </if>
+                )
+            </if>
+        </where>
+    </select>
+
+    <select id="queryFile" parameterType="map" resultType="string">
+        SELECT im.FILE_ID FROM im_message im
+        left join  im_room ir on im.TO_UID= ir.ROOM_OF
+        <where>
+            <if test="userId != null">
+                im.FROM_UID=#{userId} or im.TO_UID =#{userId}
+            </if>
+        </where>
+    </select>
+</mapper>

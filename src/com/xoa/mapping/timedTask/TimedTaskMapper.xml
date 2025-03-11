@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.timedTask.TimedTaskMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.timedTask.TimedTask">
+        <id column="TASK_ID" property="taskId" jdbcType="INTEGER"/>
+        <result column="TASK_NAME" property="taskName" jdbcType="VARCHAR"/>
+        <result column="TASK_DESCRIPTION" property="taskDescription" jdbcType="VARCHAR"/>
+        <result column="TASK_TYPE" property="taskType" jdbcType="CHAR"/>
+        <result column="SYNC_YN" property="syncYn" jdbcType="CHAR"/>
+        <result column="STATUS" property="status" jdbcType="CHAR"/>
+        <result column="ERR_CONTINUE_YN" property="errContinueYn" jdbcType="CHAR"/>
+        <result column="INTERVAL_TIME" property="intervalTime" jdbcType="INTEGER"/>
+        <result column="INTERVAL_TYPE" property="intervalType" jdbcType="CHAR"/>
+        <result column="EXECUTION_DATE" property="executionDate" jdbcType="INTEGER"/>
+        <result column="EXECUTION_TIME" property="executionTime" jdbcType="TIME"/>
+        <result column="CRON" property="cron" jdbcType="VARCHAR"/>
+        <result column="CLASS_PATH" property="classPath" jdbcType="VARCHAR"/>
+        <result column="METHOD_NAME" property="methodName" jdbcType="VARCHAR"/>
+        <result column="LAST_TIME" property="lastTime" jdbcType="TIMESTAMP"/>
+        <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="IS_SYSTEM_TASK" property="isSystemTask" javaType="integer" />
+        <!--查询 任务的执行记录 -->
+        <collection property="timedTaskRecords" ofType="com.xoa.model.timedTask.TimedTaskRecord"
+                    column="TASK_ID">
+            <id column="TRE_ID" property="treId" jdbcType="INTEGER"/>
+            <result column="TASK_ID" property="taskId" jdbcType="INTEGER"/>
+            <result column="USER_ID" property="userId" jdbcType="VARCHAR"/>
+            <result column="EXECUTION_BEGIN_TIME" property="executionBeginTime" jdbcType="TIMESTAMP"/>
+            <result column="EXECUTION_BEGIN_TIME" property="executionEndTime" jdbcType="TIMESTAMP"/>
+            <result column="RESULT" property="result" jdbcType="CHAR"/>
+            <result column="RESULT_LOG" property="resultLog" jdbcType="LONGVARCHAR"/>
+        </collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    TASK_ID, TASK_NAME, TASK_DESCRIPTION, TASK_TYPE, SYNC_YN, STATUS, ERR_CONTINUE_YN,
+    INTERVAL_TIME,INTERVAL_TYPE, EXECUTION_DATE,EXECUTION_TIME, CRON, CLASS_PATH, METHOD_NAME, LAST_TIME, UPDATE_TIME, IS_SYSTEM_TASK
+  </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from timed_task
+        where TASK_ID = #{taskId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from timed_task
+    where TASK_ID = #{taskId,jdbcType=INTEGER}
+  </delete>
+
+    <insert id="insert" parameterType="com.xoa.model.timedTask.TimedTask">
+    insert into timed_task (TASK_ID, TASK_NAME, TASK_DESCRIPTION, 
+      TASK_TYPE, SYNC_YN, STATUS, ERR_CONTINUE_YN,
+      INTERVAL_TIME,INTERVAL_TYPE, EXECUTION_DATE,EXECUTION_TIME, CRON,
+      CLASS_PATH, METHOD_NAME, LAST_TIME, 
+      UPDATE_TIME,IS_SYSTEM_TASK)
+    values (#{taskId,jdbcType=INTEGER}, #{taskName,jdbcType=VARCHAR}, #{taskDescription,jdbcType=VARCHAR}, 
+      #{taskType,jdbcType=CHAR}, #{syncYn,jdbcType=CHAR}, #{status,jdbcType=CHAR}, #{errContinueYn,jdbcType=CHAR},
+      #{intervalTime,jdbcType=INTEGER},#{intervalType,jdbcType=CHAR}, #{executionDate,jdbcType=INTEGER},#{executionTime,jdbcType=TIME}, #{cron,jdbcType=VARCHAR},
+      #{classPath,jdbcType=VARCHAR}, #{methodName,jdbcType=VARCHAR}, #{lastTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP},#{isSystemTask})
+  </insert>
+
+    <insert id="insertSelective" parameterType="com.xoa.model.timedTask.TimedTask">
+        insert into timed_task
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">
+                TASK_ID,
+            </if>
+            <if test="taskName != null">
+                TASK_NAME,
+            </if>
+            <if test="taskDescription != null">
+                TASK_DESCRIPTION,
+            </if>
+            <if test="taskType != null">
+                TASK_TYPE,
+            </if>
+            <if test="syncYn != null">
+                SYNC_YN,
+            </if>
+            <if test="status != null">
+                STATUS,
+            </if>
+            <if test="errContinueYn != null">
+                ERR_CONTINUE_YN,
+            </if>
+            <if test="intervalTime != null">
+                INTERVAL_TIME,
+            </if>
+            <if test="intervalType != null">
+                INTERVAL_TYPE,
+            </if>
+            <if test="executionDate != null">
+                EXECUTION_DATE,
+            </if>
+            <if test="executionTime != null">
+                EXECUTION_TIME,
+            </if>
+            <if test="cron != null">
+                CRON,
+            </if>
+            <if test="classPath != null">
+                CLASS_PATH,
+            </if>
+            <if test="methodName != null">
+                METHOD_NAME,
+            </if>
+            <if test="lastTime != null">
+                LAST_TIME,
+            </if>
+            <if test="updateTime != null">
+                UPDATE_TIME,
+            </if>
+            <if test="isSystemTask!=null">
+                IS_SYSTEM_TASK,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="taskId != null">
+                #{taskId,jdbcType=INTEGER},
+            </if>
+            <if test="taskName != null">
+                #{taskName,jdbcType=VARCHAR},
+            </if>
+            <if test="taskDescription != null">
+                #{taskDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="taskType != null">
+                #{taskType,jdbcType=CHAR},
+            </if>
+            <if test="syncYn != null">
+                #{syncYn,jdbcType=CHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=CHAR},
+            </if>
+            <if test="errContinueYn != null">
+                #{errContinueYn,jdbcType=CHAR},
+            </if>
+            <if test="intervalTime != null">
+                #{intervalTime,jdbcType=INTEGER},
+            </if>
+            <if test="intervalType != null">
+                #{intervalType,jdbcType=CHAR},
+            </if>
+            <if test="executionDate != null">
+                #{executionDate,jdbcType=INTEGER},
+            </if>
+            <if test="executionTime != null">
+                #{executionTime,jdbcType=TIME},
+            </if>
+            <if test="cron != null">
+                #{cron,jdbcType=VARCHAR},
+            </if>
+            <if test="classPath != null">
+                #{classPath,jdbcType=VARCHAR},
+            </if>
+            <if test="methodName != null">
+                #{methodName,jdbcType=VARCHAR},
+            </if>
+            <if test="lastTime != null">
+                #{lastTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="isSystemTask!=null">
+                #{isSystemTask},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.timedTask.TimedTask">
+        update timed_task
+        <set>
+            UPDATE_TIME = now(),
+            <if test="taskName != null">
+                TASK_NAME = #{taskName,jdbcType=VARCHAR},
+            </if>
+            <if test="taskDescription != null">
+                TASK_DESCRIPTION = #{taskDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="taskType != null">
+                TASK_TYPE = #{taskType,jdbcType=CHAR},
+            </if>
+            <if test="syncYn != null">
+                SYNC_YN = #{syncYn,jdbcType=CHAR},
+            </if>
+            <if test="errContinueYn != null">
+                ERR_CONTINUE_YN = #{errContinueYn,jdbcType=CHAR},
+            </if>
+            <if test="intervalTime != null">
+                INTERVAL_TIME = #{intervalTime,jdbcType=INTEGER},
+            </if>
+            <if test="intervalType != null">
+                INTERVAL_TYPE = #{intervalType,jdbcType=CHAR},
+            </if>
+            <if test="executionDate != null">
+                EXECUTION_DATE = #{executionDate,jdbcType=INTEGER},
+            </if>
+            <if test="executionTime != null">
+                EXECUTION_TIME = #{executionTime,jdbcType=TIME},
+            </if>
+            <if test="cron != null">
+                CRON = #{cron,jdbcType=VARCHAR},
+            </if>
+            <if test="classPath != null">
+                CLASS_PATH = #{classPath,jdbcType=VARCHAR},
+            </if>
+            <if test="methodName != null">
+                METHOD_NAME = #{methodName,jdbcType=VARCHAR},
+            </if>
+            <if test="isSystemTask!=null">
+                IS_SYSTEM_TASK = #{isSystemTask},
+            </if>
+        </set>
+        where
+        STATUS = '0' AND
+        TASK_ID = #{taskId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.xoa.model.timedTask.TimedTask">
+    update timed_task
+    set TASK_NAME = #{taskName,jdbcType=VARCHAR},
+      TASK_DESCRIPTION = #{taskDescription,jdbcType=VARCHAR},
+      TASK_TYPE = #{taskType,jdbcType=CHAR},
+      SYNC_YN = #{syncYn,jdbcType=CHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      ERR_CONTINUE_YN = #{errContinueYn,jdbcType=CHAR},
+      INTERVAL_TIME = #{intervalTime,jdbcType=INTEGER},
+      INTERVAL_TYPE = #{intervalType,jdbcType=CHAR},
+      EXECUTION_DATE = #{executionDate,jdbcType=INTEGER},
+      EXECUTION_TIME = #{executionTime,jdbcType=TIME},
+      CRON = #{cron,jdbcType=VARCHAR},
+      CLASS_PATH = #{classPath,jdbcType=VARCHAR},
+      METHOD_NAME = #{methodName,jdbcType=VARCHAR},
+      LAST_TIME = #{lastTime,jdbcType=TIMESTAMP},
+      IS_SYSTEM_TASK = #{isSystemTask},
+      UPDATE_TIME = now()
+    where TASK_ID = #{taskId,jdbcType=INTEGER}
+  </update>
+
+    <update id="updateRunCronById" parameterType="com.xoa.model.timedTask.TimedTask">
+        update timed_task
+        <set>
+            UPDATE_TIME = now(),
+            <if test="taskDescription != null">
+                TASK_DESCRIPTION = #{taskDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="taskType != null">
+                TASK_TYPE = #{taskType,jdbcType=CHAR},
+            </if>
+            <if test="errContinueYn != null">
+                ERR_CONTINUE_YN = #{errContinueYn,jdbcType=CHAR},
+            </if>
+            <if test="intervalTime != null">
+                INTERVAL_TIME = #{intervalTime,jdbcType=INTEGER},
+            </if>
+            <if test="intervalType != null">
+                INTERVAL_TYPE = #{intervalType,jdbcType=CHAR},
+            </if>
+            <if test="executionDate != null">
+                EXECUTION_DATE = #{executionDate,jdbcType=INTEGER},
+            </if>
+            <if test="executionTime != null">
+                EXECUTION_TIME = #{executionTime,jdbcType=TIME},
+            </if>
+            <if test="cron != null">
+                CRON = #{cron,jdbcType=VARCHAR},
+            </if>
+            <if test="isSystemTask!=null">
+                IS_SYSTEM_TASK = #{isSystemTask},
+            </if>
+        </set>
+        where TASK_ID = #{taskId,jdbcType=INTEGER}
+  </update>
+
+
+    <select id="selectTaskRecord" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    tt.TASK_ID, TASK_NAME, TASK_DESCRIPTION, TASK_TYPE, SYNC_YN, STATUS, ERR_CONTINUE_YN,
+    INTERVAL_TIME,INTERVAL_TYPE,EXECUTION_DATE, EXECUTION_TIME, CRON, CLASS_PATH, METHOD_NAME, LAST_TIME, UPDATE_TIME
+    ,TRE_ID, USER_ID, EXECUTION_BEGIN_TIME ,EXECUTION_END_TIME, RESULT,RESULT_LOG
+    from timed_task tt
+    left join timed_task_record ttr on tt.TASK_ID = ttr.TASK_ID
+    where tt.TASK_ID = #{taskId,jdbcType=INTEGER}
+   </select>
+
+    <select id="selectAll" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from timed_task
+   </select>
+
+    <select id="selectOpenAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from timed_task
+        where STATUS = 1
+    </select>
+
+    <select id="selectOpenAll" resultMap="BaseResultMap" databaseId="kingbase">
+        select
+        TASK_ID, TASK_NAME, TASK_DESCRIPTION, TASK_TYPE, SYNC_YN, "STATUS", ERR_CONTINUE_YN,
+    INTERVAL_TIME,INTERVAL_TYPE, EXECUTION_DATE,EXECUTION_TIME, "CRON", "CLASS_PATH",
+    METHOD_NAME, "LAST_TIME", "UPDATE_TIME"
+        from "timed_task"
+        where "STATUS" = 1
+    </select>
+
+    <update id="openTimedTask">
+        update timed_task
+        set STATUS = 1
+        where
+        TASK_ID = #{taskId}
+    </update>
+
+    <update id="shutDownTimedTask">
+        update timed_task
+        set STATUS = 0
+        where TASK_ID = #{taskId}
+    </update>
+
+    <update id="updateLstTime">
+        update timed_task
+        set LAST_TIME = now()
+        where TASK_ID = #{taskId}
+    </update>
+
+    <delete id="deleteUserTimeTask" >
+        delete from timed_task
+        where is_system_task = 2
+        and task_id in
+        <foreach collection="taskIds" item="taskId" separator="," open="(" close=")">
+            #{taskId}
+        </foreach>
+    </delete>
+
+</mapper>

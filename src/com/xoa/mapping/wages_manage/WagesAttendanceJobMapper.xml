@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.wages_manage.WagesAttendanceJobMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.wages_manage.WagesAttendanceJob">
+        <id column="ATTEND_JOB_ID" jdbcType="INTEGER" property="attendJobId"/>
+        <result column="ATTEND_TYPE_ID" jdbcType="INTEGER" property="attendTypeId"/>
+        <result column="SALARY_POST1" jdbcType="INTEGER" property="salaryPost1"/>
+        <result column="SALARY_POST2" jdbcType="INTEGER" property="salaryPost2"/>
+        <result column="SALARY_POST3" jdbcType="INTEGER" property="salaryPost3"/>
+        <result column="SALARY_POST4" jdbcType="INTEGER" property="salaryPost4"/>
+        <result column="SALARY_POST5" jdbcType="INTEGER" property="salaryPost5"/>
+        <result column="SALARY_POST6" jdbcType="INTEGER" property="salaryPost6"/>
+        <result column="SALARY_POST7" jdbcType="INTEGER" property="salaryPost7"/>
+        <result column="SALARY_POST8" jdbcType="INTEGER" property="salaryPost8"/>
+        <result column="SALARY_POST9" jdbcType="INTEGER" property="salaryPost9"/>
+        <result column="SALARY_POST10" jdbcType="INTEGER" property="salaryPost10"/>
+        <result column="SALARY_POST11" jdbcType="INTEGER" property="salaryPost11"/>
+        <result column="SALARY_POST12" jdbcType="INTEGER" property="salaryPost12"/>
+        <result column="SALARY_POST13" jdbcType="INTEGER" property="salaryPost13"/>
+        <result column="SALARY_POST14" jdbcType="INTEGER" property="salaryPost14"/>
+        <result column="SALARY_POST15" jdbcType="INTEGER" property="salaryPost15"/>
+        <result column="SALARY_POST16" jdbcType="INTEGER" property="salaryPost16"/>
+        <result column="SALARY_POST17" jdbcType="INTEGER" property="salaryPost17"/>
+        <result column="SALARY_POST18" jdbcType="INTEGER" property="salaryPost18"/>
+        <result column="SALARY_POST19" jdbcType="INTEGER" property="salaryPost19"/>
+        <result column="SALARY_POST20" jdbcType="INTEGER" property="salaryPost20"/>
+        <result column="SALARY_POST21" jdbcType="INTEGER" property="salaryPost21"/>
+        <result column="SALARY_POST22" jdbcType="INTEGER" property="salaryPost22"/>
+        <result column="SALARY_POST23" jdbcType="INTEGER" property="salaryPost23"/>
+        <result column="SALARY_POST24" jdbcType="INTEGER" property="salaryPost24"/>
+        <result column="SALARY_POST25" jdbcType="INTEGER" property="salaryPost25"/>
+        <result column="SALARY_POST26" jdbcType="INTEGER" property="salaryPost26"/>
+        <result column="SALARY_POST27" jdbcType="INTEGER" property="salaryPost27"/>
+        <result column="SALARY_POST28" jdbcType="INTEGER" property="salaryPost28"/>
+        <result column="SALARY_POST29" jdbcType="INTEGER" property="salaryPost29"/>
+        <result column="SALARY_POST30" jdbcType="INTEGER" property="salaryPost30"/>
+        <result column="SALARY_POST31" jdbcType="INTEGER" property="salaryPost31"/>
+    </resultMap>
+
+    <insert id="addAttendanceJob" parameterType="com.xoa.model.wages_manage.WagesAttendanceJob">
+        insert into wages_attendance_job(ATTEND_TYPE_ID, SALARY_POST1, SALARY_POST2, SALARY_POST3, SALARY_POST4,
+                                         SALARY_POST5,
+                                         SALARY_POST6, SALARY_POST7, SALARY_POST8, SALARY_POST9, SALARY_POST10,
+                                         SALARY_POST11,
+                                         SALARY_POST12, SALARY_POST13, SALARY_POST14, SALARY_POST15, SALARY_POST16,
+                                         SALARY_POST17,
+                                         SALARY_POST18, SALARY_POST19, SALARY_POST20, SALARY_POST21, SALARY_POST22,
+                                         SALARY_POST23,
+                                         SALARY_POST24, SALARY_POST25, SALARY_POST26, SALARY_POST27, SALARY_POST28,
+                                         SALARY_POST29,
+                                         SALARY_POST30, SALARY_POST31)
+        values (#{attendTypeId}, #{salaryPost1}, #{salaryPost2}, #{salaryPost3}, #{salaryPost4}, #{salaryPost5},
+                #{salaryPost6}, #{salaryPost7}, #{salaryPost8},
+                #{salaryPost9}, #{salaryPost10}, #{salaryPost11}, #{salaryPost12}, #{salaryPost13}, #{salaryPost14},
+                #{salaryPost15}, #{salaryPost16}, #{salaryPost17}, #{salaryPost18}, #{salaryPost19}, #{salaryPost20},
+                #{salaryPost21}, #{salaryPost22}, #{salaryPost23},
+                #{salaryPost24}, #{salaryPost25}, #{salaryPost26}, #{salaryPost27}, #{salaryPost28}, #{salaryPost29},
+                #{salaryPost30}, #{salaryPost31})
+    </insert>
+
+    <delete id="deleteAttendanceJob" parameterType="java.lang.Integer">
+        delete
+        from wages_attendance_job
+        where ATTEND_JOB_ID = #{attendJobId}
+    </delete>
+
+    <update id="updateAttendanceJob" parameterType="com.xoa.model.wages_manage.WagesAttendanceJob">
+        update wages_attendance_job
+        <set>
+            <if test="attendTypeId != null and attendTypeId != ''">
+                ATTEND_TYPE_ID = #{attendTypeId},
+            </if>
+            SALARY_POST1 = #{salaryPost1},
+            SALARY_POST2 = #{salaryPost2},
+            SALARY_POST3 = #{salaryPost3},
+            SALARY_POST4 = #{salaryPost4},
+            SALARY_POST5 = #{salaryPost5},
+            SALARY_POST6 = #{salaryPost6},
+            SALARY_POST7 = #{salaryPost7},
+            SALARY_POST8 = #{salaryPost8},
+            SALARY_POST9 = #{salaryPost9},
+            SALARY_POST10 = #{salaryPost10},
+            SALARY_POST11 = #{salaryPost11},
+            SALARY_POST12 = #{salaryPost12},
+            SALARY_POST13 = #{salaryPost13},
+            SALARY_POST14 = #{salaryPost14},
+            SALARY_POST15 = #{salaryPost15},
+            SALARY_POST16 = #{salaryPost16},
+            SALARY_POST17 = #{salaryPost17},
+            SALARY_POST18 = #{salaryPost18},
+            SALARY_POST19 = #{salaryPost19},
+            SALARY_POST20 = #{salaryPost20},
+            SALARY_POST21 = #{salaryPost21},
+            SALARY_POST22 = #{salaryPost22},
+            SALARY_POST23 = #{salaryPost23},
+            SALARY_POST24 = #{salaryPost24},
+            SALARY_POST25 = #{salaryPost25},
+            SALARY_POST26 = #{salaryPost26},
+            SALARY_POST27 = #{salaryPost27},
+            SALARY_POST28 = #{salaryPost28},
+            SALARY_POST29 = #{salaryPost29},
+            SALARY_POST30 = #{salaryPost30},
+            SALARY_POST31 = #{salaryPost31}
+        </set>
+        where ATTEND_JOB_ID = #{attendJobId}
+    </update>
+
+    <select id="selectAllAttendanceJob" resultMap="BaseResultMap" parameterType="java.util.Map">
+        select *
+        from wages_attendance_job
+    </select>
+
+    <select id="selectOneByAttendTypeId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select *
+        from wages_attendance_job
+        <where>
+            <if test="attendTypeId != null and attendTypeId != ''">
+                and ATTEND_TYPE_ID = #{attendTypeId}
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteAttendanceJobByAttendanceTypeId" parameterType="java.lang.Integer">
+        delete from wages_attendance_job
+        where ATTEND_TYPE_ID = #{attendTypeId}
+    </delete>
+</mapper>

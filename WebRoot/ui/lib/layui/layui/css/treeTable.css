@@ -1,0 +1,99 @@
+.tbeit,.tbadd,.tbdel{
+    cursor: pointer;
+}
+.control{
+    cursor: pointer;
+}
+.ov{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: default;
+    overflow: hidden;
+}
+.ov1,.ov2,.ov3{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.xx {border-right:1px dotted grey; height:42px; width:1px;position: absolute;left: 14px;top: -3px}
+.ope{
+    min-width: 64px;
+    background-color: #000;
+    filter: alpha(opacity=60);
+    background-color: rgba(0,0,0,.3);
+    color: #fff;
+    border: none;
+    position: absolute;
+    justify-content: space-around;
+    display: flex;
+    right: 6px;
+    align-items: center;
+    top: 5px;
+    height: 75%;
+}
+.layui-tab{
+    margin: 0;
+}
+.xxdetail td{
+    border: none;
+}
+.layui-tab-item{
+    overflow-y: auto;
+}
+.boxs{
+    display: flex;
+}
+.boxs div{
+    cursor: default;
+}
+.layui-table #view td, .layui-table th{
+    padding: 9px 4px;
+    font-size: 13px;
+}
+.layui-table, .layui-table-view{
+    margin-top: 0;
+}
+.tabox{
+    height: 100%;
+    overflow-y: auto;
+}
+.soulj{
+    float: left;
+    /*height: 28px;*/
+    /*line-height: 28px;*/
+    padding-left: 2px;
+}
+
+/*滚动条样式*/
+.layui-tab-item::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4px;
+}
+.layui-tab-item::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.2);
+}
+.layui-tab-item::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    border-radius: 0;
+    background: rgba(0,0,0,0.1);}
+
+.tabox::-webkit-scrollbar {/*滚动条整体样式*/
+    width: 4px;     /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4px;
+}
+.tabox::-webkit-scrollbar-thumb {/*滚动条里面小方块*/
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.2);
+}
+.tabox::-webkit-scrollbar-track {/*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    border-radius: 0;
+    background: rgba(0,0,0,0.1);}
+
+#view{
+    display: none;
+}

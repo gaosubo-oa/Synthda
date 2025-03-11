@@ -1,0 +1,21 @@
+{
+    "name"       : "确认完成签章",
+    "guid"       : "asc.{0616AE85-5DBE-4B6B-A0A9-XOA2018896B1}",
+    "baseUrl"    : "",
+		"version"    : "30.0",
+    "variations" : [
+        {
+            "description"         : "选择印章",
+            "url"                 : "index.html?20220621.1",
+            "icons"               : ["resources/img/icon.png", "resources/img/icon@2x.png"],
+            "isViewer"            : false,
+            "EditorsSupport"      : ["word", "cell"],
+            "isVisual"            : false,
+            "isModal"             : true,
+            "isInsideMode"        : false,
+            "initDataType"        : "none",
+            "initData"            : "",
+            "isUpdateOleOnResize" : true
+        }
+    ]
+}

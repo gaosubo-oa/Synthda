@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.im.ImRoomMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.im.ImRoom">
+        <id column="RID" property="rid" javaType="int"/>
+        <result column="RNAMR" property="rnamr" javaType="string"/>
+        <result column="RSET_UID" property="rsetUid" javaType="string"/>
+        <result column="RSET_OFID" property="rsetOfid" javaType="string"/>
+        <result column="RTIME" property="rtime" javaType="string"/>
+        <result column="RMEMBER_UID" property="rmemberUid" javaType="string"/>
+        <result column="RMEMBER_OFID" property="rmemberOfid" javaType="string"/>
+        <result column="ROUT_UID" property="routUid" javaType="string"/>
+        <result column="ROUT_OFID" property="routOfid" javaType="string"/>
+        <result column="RINVITE" property="rinvite" javaType="string"/>
+        <result column="RCHANGE" property="rchange" javaType="string"/>
+        <result column="ROOM_OF" property="roomOf" javaType="string"/>
+        <result column="ROOM_STATUS" property="roomStatus" javaType="Integer"/>
+        <result column="ROOM_NO" property="roomNo" javaType="Integer"/>
+        <result column="ROOM_REMARK" property="roomRemark" javaType="string"/>
+        <result column="ROOM_INTRODUCE" property="roomIntroduce" javaType="string"/>
+    </resultMap>
+    <!--  (n.USER_ID LIKE concat('%,',#{userId},',%')
+      OR n.USER_ID LIKE concat(#{userId},',%')
+      )-->
+    <select id="getAllRoom" parameterType="map" resultMap="BaseResultMap">
+  select * from im_room where (RMEMBER_UID like concat('%,',#{roomOf},',%') OR RMEMBER_UID like concat(#{roomOf},',%') OR RMEMBER_UID like concat('%,',#{roomOf}) OR RMEMBER_UID=#{roomOf}) OR (ROUT_UID like concat('%,',#{roomOf},',%') OR ROUT_UID like concat(#{roomOf},',%') OR ROUT_UID like concat('%,',#{roomOf}) OR ROUT_UID =#{roomOf})
+  </select>
+    <select id="getRoomByRoomOf" parameterType="map" resultMap="BaseResultMap">
+  select * from im_room where ROOM_OF=#{roomOf}
+  </select>
+    <update id="roomUpdateInvite" parameterType="map">
+    update im_room set RINVITE=#{check}  where  ROOM_OF=#{roomOf}
+   </update>
+    <update id="roomUpdateByroomOf" parameterType="com.xoa.model.im.ImRoom">
+        update im_room
+        set
+        <trim suffixOverrides=",">
+            <if test="rmemberUid!=null">
+                RMEMBER_UID = #{rmemberUid},
+            </if>
+            <if test="routUid!=null">
+                ROUT_UID = #{routUid},
+            </if>
+            <if test="roomStatus!=null">
+                ROOM_STATUS = #{roomStatus},
+            </if>
+        </trim>
+        where ROOM_OF = #{roomOf}
+    </update>
+    <update id="updateRoomName" parameterType="com.xoa.model.im.ImRoom">
+        update im_room
+        set
+        <trim suffixOverrides=",">
+            <if test="rnamr!=null">
+                RNAMR=#{rnamr},
+            </if>
+            <if test="roomNo!=null">
+                ROOM_NO = #{roomNo},
+            </if>
+            <if test="roomIntroduce!=null">
+                ROOM_INTRODUCE = #{roomIntroduce},
+            </if>
+            <if test="roomRemark!=null">
+                ROOM_REMARK = #{roomRemark},
+            </if>
+        </trim>
+
+        where ROOM_OF = #{roomOf}
+    </update>
+    <update id="updatePersonToRoom" parameterType="com.xoa.model.im.ImRoom">
+  update im_room
+     set 
+      RMEMBER_UID=#{rmemberUid} , ROUT_UID=#{routUid} 
+    where ROOM_OF = #{roomOf}
+  </update>
+    <insert id="saveRoom" parameterType="com.xoa.model.im.ImRoom">
+        insert into im_room
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="rid != null">
+                RID,
+            </if>
+            <if test="rnamr != null">
+                RNAMR,
+            </if>
+            <if test="rsetUid != null">
+                RSET_UID,
+            </if>
+            <if test="rsetOfid != null">
+                RSET_OFID,
+            </if>
+            <if test="rtime != null">
+                RTIME,
+            </if>
+            <if test="rmemberUid != null">
+                RMEMBER_UID,
+            </if>
+            <if test="rmemberOfid != null">
+                RMEMBER_OFID,
+            </if>
+            <if test="routUid != null">
+                ROUT_UID,
+            </if>
+            <if test="routOfid != null">
+                ROUT_OFID,
+            </if>
+            <if test="rinvite != null">
+                RINVITE,
+            </if>
+            <if test="rchange != null">
+                RCHANGE,
+            </if>
+            <if test="roomOf != null">
+                ROOM_OF,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="rid != null">
+                #{rid},
+            </if>
+            <if test="rnamr != null">
+                #{rnamr},
+            </if>
+            <if test="rsetUid != null">
+                #{rsetUid},
+            </if>
+            <if test="rsetOfid != null">
+                #{rsetOfid},
+            </if>
+            <if test="rtime != null">
+                #{rtime},
+            </if>
+            <if test="rmemberUid != null">
+                #{rmemberUid},
+            </if>
+            <if test="rmemberOfid != null">
+                #{rmemberOfid},
+            </if>
+            <if test="routUid != null">
+                #{routUid},
+            </if>
+            <if test="routOfid != null">
+                #{routOfid},
+            </if>
+            <if test="rinvite != null">
+                #{rinvite},
+            </if>
+            <if test="rchange != null">
+                #{rchange},
+            </if>
+            <if test="roomOf != null">
+                #{roomOf},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+      select
+      <include refid="Base_Column_List" />
+      from im_room
+      where RID = #{rid}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+      delete from im_room
+      where RID = #{rid}
+    </delete>
+    <delete id="deleteBy" parameterType="com.xoa.model.im.ImRoom" >
+      delete from im_room
+      <if test="_parameter != null" >
+        <include refid="_Where_Clause" />
+      </if>
+    </delete>
+    <insert id="insertIm_room" parameterType="com.xoa.model.im.ImRoom" >
+      insert into im_room (RID, RNAMR, RSET_UID,
+        RSET_OFID, RTIME, RMEMBER_UID,
+        RMEMBER_OFID, ROUT_UID, ROUT_OFID,
+        RINVITE, RCHANGE)
+      values (#{rid}, #{rnamr}, #{rsetUid},
+        #{rsetOfid}, #{rtime}, #{rmemberUid},
+        #{rmemberOfid}, #{routUid}, #{routOfid},
+        #{rinvite}, #{rchange})
+    </insert>
+
+    <select id="countBy" parameterType="com.xoa.model.im.ImRoom" resultType="java.lang.Integer" >
+      select count(*) from im_room
+      <if test="_parameter != null" >
+        <include refid="_Where_Clause" />
+      </if>
+    </select>
+    <update id="updateBySelective" parameterType="map" >
+      update im_room
+      <set >
+        <if test="record.rid != null" >
+          RID = #{record.rid},
+        </if>
+        <if test="record.rnamr != null" >
+          RNAMR = #{record.rnamr},
+        </if>
+        <if test="record.rsetUid != null" >
+          RSET_UID = #{record.rsetUid},
+        </if>
+        <if test="record.rsetOfid != null" >
+          RSET_OFID = #{record.rsetOfid},
+        </if>
+        <if test="record.rtime != null" >
+          RTIME = #{record.rtime},
+        </if>
+        <if test="record.rmemberUid != null" >
+          RMEMBER_UID = #{record.rmemberUid},
+        </if>
+        <if test="record.rmemberOfid != null" >
+          RMEMBER_OFID = #{record.rmemberOfid},
+        </if>
+        <if test="record.routUid != null" >
+          ROUT_UID = #{record.routUid},
+        </if>
+        <if test="record.routOfid != null" >
+          ROUT_OFID = #{record.routOfid},
+        </if>
+        <if test="record.rinvite != null" >
+          RINVITE = #{record.rinvite},
+        </if>
+        <if test="record.rchange != null" >
+          RCHANGE = #{record.rchange},
+        </if>
+      </set>
+      <if test="_parameter != null" >
+        <include refid="Update_By__Where_Clause" />
+      </if>
+    </update>
+    <update id="updateBy" parameterType="map" >
+      update im_room
+      set RID = #{record.rid},
+        RNAMR = #{record.rnamr},
+        RSET_UID = #{record.rsetUid},
+        RSET_OFID = #{record.rsetOfid},
+        RTIME = #{record.rtime},
+        RMEMBER_UID = #{record.rmemberUid},
+        RMEMBER_OFID = #{record.rmemberOfid},
+        ROUT_UID = #{record.routUid},
+        ROUT_OFID = #{record.routOfid},
+        RINVITE = #{record.rinvite},
+        RCHANGE = #{record.rchange}
+      <if test="_parameter != null" >
+        <include refid="Update_By__Where_Clause" />
+      </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xoa.model.im.ImRoom" >
+      update im_room
+      <set >
+        <if test="rnamr != null" >
+          RNAMR = #{rnamr},
+        </if>
+        <if test="rsetUid != null" >
+          RSET_UID = #{rsetUid},
+        </if>
+        <if test="rsetOfid != null" >
+          RSET_OFID = #{rsetOfid},
+        </if>
+        <if test="rtime != null" >
+          RTIME = #{rtime},
+        </if>
+        <if test="rmemberUid != null" >
+          RMEMBER_UID = #{rmemberUid},
+        </if>
+        <if test="rmemberOfid != null" >
+          RMEMBER_OFID = #{rmemberOfid},
+        </if>
+        <if test="routUid != null" >
+          ROUT_UID = #{routUid},
+        </if>
+        <if test="routOfid != null" >
+          ROUT_OFID = #{routOfid},
+        </if>
+        <if test="rinvite != null" >
+          RINVITE = #{rinvite},
+        </if>
+        <if test="rchange != null" >
+          RCHANGE = #{rchange},
+        </if>
+      </set>
+      where RID = #{rid}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xoa.model.im.ImRoom" >
+      update im_room
+      set RNAMR = #{rnamr},
+        RSET_UID = #{rsetUid},
+        RSET_OFID = #{rsetOfid},
+        RTIME = #{rtime},
+        RMEMBER_UID = #{rmemberUid},
+        RMEMBER_OFID = #{rmemberOfid},
+        ROUT_UID = #{routUid},
+        ROUT_OFID = #{routOfid},
+        RINVITE = #{rinvite},
+        RCHANGE = #{rchange}
+      where RID = #{rid}
+    </update> -->
+
+    <select id="selRoomByRoomOfUid" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        DISTINCT
+            im_room.*
+        FROM
+            im_room
+          JOIN im_chatlist ON im_room.ROOM_OF=im_chatlist.TO_UID
+        WHERE
+            im_room.ROOM_OF = #{roomOf}
+            AND
+            (
+     im_room.RMEMBER_UID LIKE concat("%,",#{uid},",%")
+     OR im_room.RMEMBER_UID LIKE concat(#{uid},",%")
+     OR im_room.RMEMBER_UID = #{uid}
+     )
+            AND
+             (
+              (
+     im_chatlist.UID_IGNORE  not LIKE concat("%,",#{uid},",%")
+     AND im_chatlist.UID_IGNORE not LIKE concat(#{uid},",%")
+     )        or
+               im_chatlist.UID_IGNORE IS  null
+            )
+  </select>
+
+    <select id="getAllRoomByAdmin" resultMap="BaseResultMap">
+     SELECT im_room.*  FROM im_room
+  </select>
+
+    <update id="updateRoomMember" parameterType="com.xoa.model.im.ImRoom">
+        update im_room
+        set
+        <trim suffixOverrides=",">
+            <if test="rmemberUid!=null">
+                RMEMBER_UID=#{rmemberUid},
+            </if>
+            <if test="rnamr!=null">
+                RNAMR=#{rnamr},
+            </if>
+            <if test="roomNo!=null">
+                ROOM_NO = #{roomNo},
+            </if>
+            <if test="rsetUid!=null">
+                RSET_UID = #{rsetUid},
+            </if>
+            <!--<if test="roomIntroduce!=null">
+                ROOM_INTRODUCE = #{roomIntroduce},
+            </if>-->
+            <!--<if test="roomRemark!=null">
+                ROOM_REMARK = #{roomRemark},
+            </if>-->
+        </trim>
+        where ROOM_OF = #{roomOf}
+    </update>
+
+    <select id="getAllRoomWithCreater" resultMap="BaseResultMap" parameterType="Map">
+ SELECT ir.*  FROM im_room ir WHERE RSET_UID =#{userId}
+    </select>
+
+</mapper>

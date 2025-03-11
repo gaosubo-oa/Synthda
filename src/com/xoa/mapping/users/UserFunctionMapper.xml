@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.users.UserFunctionMapper">
+    <resultMap id="userResultMap" type="com.xoa.model.users.UserFunction">
+        <id column="uid" property="uid" jdbcType="INTEGER" javaType="int"/>
+        <result column="user_func_str" property="userFunCidStr" javaType="string"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR" javaType="string"/>
+
+        <result column="user_func_id_str" property="userFunCidStr" jdbcType="VARCHAR" javaType="string"/>
+        <result column="UPDATE_TIME" property="updateTime" javaType="date" />
+    </resultMap>
+
+
+    <select id="getMenuByUserId" resultMap="userResultMap" parameterType="int">
+		SELECT user_func_id_str from user_function WHERE uid=#{uid}
+	</select>
+    <select id="getMenuByUserId" resultMap="userResultMap" parameterType="int" databaseId="oracle">
+       SELECT * from USER_FUNCTION WHERE "UID"=#{uid}
+    </select>
+    <select id="getMenuByUserId" resultMap="userResultMap" parameterType="int" databaseId="dm">
+       SELECT * from "USER_FUNCTION" WHERE "UID"=#{uid}
+    </select>
+    <select id="getMenuByUserId" resultMap="userResultMap" parameterType="int" databaseId="kingbase">
+       SELECT * from "USER_FUNCTION" WHERE "UID"=#{uid}
+    </select>
+
+    <select id="getUserFuncIdStr" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT user_func_id_str from user_function WHERE user_id=#{uid}
+    </select>
+    <select id="getUserFuncIdStr" parameterType="java.lang.String" resultType="java.lang.String" databaseId="oracle">
+        SELECT user_func_id_str from user_function WHERE user_id=#{uid}
+    </select>
+    <select id="getUserFuncIdStr" parameterType="java.lang.String" resultType="java.lang.String" databaseId="dm">
+        SELECT uf.user_func_id_str from "user_function" uf WHERE uf.user_id=#{uid}
+    </select>
+
+    <select id="getUid" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT uid from user_function WHERE user_id=#{userId}
+    </select>
+    <select id="getIsUserFunction" resultType="java.lang.Integer">
+         SELECT
+            count(uid)
+        from user_function
+        WHERE
+        user_id = #{userId}
+        and (
+         user_func_id_str like concat('%,',#{userFuncIdStr},',%')
+         or user_func_id_str like concat(#{userFuncIdStr},',%')
+         )
+    </select>
+
+    <update id="updateUserFuncIdStr" parameterType="hashMap">
+        UPDATE user_function SET UPDATE_TIME = now(), user_func_id_str = #{userFuncIdStr} where user_id=#{userId}
+    </update>
+
+    <update id="updateUserFuncIdStr" parameterType="hashMap" databaseId="oracle">
+        UPDATE user_function SET UPDATE_TIME = now(), user_func_id_str = #{userFuncIdStr} where user_id=#{userId}
+    </update>
+
+    <update id="updateUserFuncIdStr" parameterType="hashMap" databaseId="dm">
+        UPDATE user_function SET UPDATE_TIME = now(), user_func_id_str = #{userFuncIdStr} where user_id=#{userId}
+    </update>
+    <insert id="insertUserFun" parameterType="com.xoa.model.users.UserFunction">
+        INSERT  into user_function (uid,user_id,user_func_id_str,UPDATE_TIME) VALUES (#{uid},#{userId},#{userFunCidStr},now());
+    </insert>
+    <insert id="insertUserFun" parameterType="com.xoa.model.users.UserFunction" databaseId="oracle">
+        INSERT  into user_function ("UID",user_id,user_func_id_str,UPDATE_TIME) VALUES (#{uid},#{userId},#{userFunCidStr},now())
+    </insert>
+
+    <delete id="deleteUserFun" parameterType="string"  >
+        DELETE  from user_function WHERE  uid in
+        <foreach collection="array" item="uid" open="(" separator="," close=")" >
+                #{uid}
+        </foreach>
+    </delete>
+
+    <update id="updateUserFun" parameterType="com.xoa.model.users.UserFunction">
+        UPDATE user_function
+        SET user_id=#{userId},
+        <if test="userFunCidStr != null">
+            user_func_id_str = #{userFunCidStr},
+        </if>
+        UPDATE_TIME = now()
+        WHERE uid=#{uid}
+    </update>
+
+    <update id="updateUserFunByUids" >
+
+        UPDATE user_function SET
+        <if test="userFunction.userFunCidStr!=null and userFunction.userFunCidStr!='' ">
+          user_func_id_str = #{userFunction.userFunCidStr},
+        </if>
+        UPDATE_TIME = now()
+            WHERE uid in
+        <foreach item="uid" collection="uids" open="(" separator="," close=")">
+            <if test="uid!=null and uid != '' ">
+                #{uid}
+            </if>
+        </foreach>
+
+    </update>
+<insert id="addByUserId" parameterType="Map">
+  INSERT  into user_function (uid,user_id,user_func_id_str,UPDATE_TIME) VALUES (#{uid},#{userId},#{userFunCidStr}, now());
+</insert>
+<update id="updateByUserId"  parameterType="Map">
+  UPDATE user_function SET UPDATE_TIME = now(), user_func_id_str = #{userFunCidStr} WHERE user_id = #{userId}
+</update>
+
+    <select id="selectByUid" resultMap="userResultMap" parameterType="java.lang.Integer">
+        SELECT * from user_function WHERE uid = #{uid}
+    </select>
+
+    <update id="updateByUid"  parameterType="Map">
+        UPDATE user_function SET UPDATE_TIME = now(), user_func_id_str = #{userFunCidStr} WHERE uid = #{uid}
+    </update>
+
+</mapper>

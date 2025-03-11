@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.widget.WidgetModuleMapper" >
+
+    <resultMap id="BaseResultMap" type="com.xoa.model.widget.WidgetModel" >
+        <id column="ID" property="id" javaType="Integer" />
+        <result column="NAME" property="name" javaType="String" />
+        <result column="AID" property="aid" javaType="Integer" />
+        <result column="TID" property="tid" javaType="Integer" />
+        <result column="DATA" property="data" javaType="String" />
+        <result column="IS_SET" property="isSet" javaType="String" />
+        <result column="IS_ON" property="isOn" javaType="String" />
+        <result column="NO" property="no" javaType="Integer" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        ID, NAME, AID, TID, DATA,IS_SET,IS_ON,NO
+    </sql>
+
+    <select id="getAllModel" resultMap="BaseResultMap" >
+        SELECT <include refid="Base_Column_List" /> from widget;
+    </select>
+
+    <select id="getModelByIds" resultMap="BaseResultMap" >
+        SELECT <include refid="Base_Column_List" /> from widget where  id  in
+        <foreach collection="ids" item="id" open="( " close=" ) " separator=" , ">
+            #{id}
+        </foreach>
+        ORDER BY
+        <foreach collection="ids" item="id" open=" field ( id,  " close=" ) " separator=" , ">
+            #{id}
+        </foreach>
+    </select>
+    
+    <select id="getAllCount" resultType="Integer" >
+        SELECT count(id) from widget;
+    </select>
+
+    <update id="updateWidgetIsOnByIds" >
+        update widget set IS_ON = #{isOn}
+        <if test="ids != null">
+            where id in
+            <foreach collection="ids" item="id" open="( " close=" ) " separator=" , ">
+                #{id}
+            </foreach>
+        </if>
+    </update>
+
+    <select id="selectWidgetByIsOn" resultMap="BaseResultMap" >
+        SELECT <include refid="Base_Column_List" /> from widget where IS_ON = #{isOn}
+    </select>
+</mapper>

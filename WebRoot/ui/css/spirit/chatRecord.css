@@ -1,0 +1,67 @@
+body, button, select, textarea, input, label, option, fieldset, legend{font-family: 微软雅黑E\8F6F\96C5\9ED1,Tahoma,Verdana;font-size: 12px;line-height: 18px;color: #444;}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, legend, textarea, button, p, blockquote{margin: 0;padding: 0;}
+textarea{resize: none}
+a,img{border:0;}
+a{color: #666;text-decoration: none;}
+li{list-style-type:none;}
+.fl{float:left;}
+.fr{float:right;}
+.ds{display:block;}
+.hid{overflow:hidden;}
+.clearfix{*zoom:1}
+.clearfix:after{display:block;visibility:hidden;clear:both;height:0;content:'.';font-size:0}
+.main{
+    padding:10px 30px 30px 20px;
+}
+.main-time{
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    height: 26px;
+    line-height:26px;
+}
+.main-time span{
+    display: inline-block;
+    line-height:26px;
+}
+.main-time .time-border{
+    padding:0 5px;
+}
+.main-content{
+    margin-top:10px;
+}
+.main-title{
+    line-height:24px;
+    font-size: 14px;
+    color: #999;
+    margin-bottom: 5px;
+}
+.main-title.colorBule{
+    color: blue;
+}
+.main-title .name-color{
+    margin-right: 10px;
+}
+.main-text{
+    line-height: 24px;
+    font-size: 14px;
+}
+.page-data{
+    width:100px;
+    height:26px;
+    line-height:26px;
+    border:1px solid #e7e9ec;
+    border-radius: 10px;
+    background: #f3f6f9;
+    position: fixed;
+    right: 10px;
+    bottom: 11px;
+    font-size: 14px;
+}
+.pageimgBg{
+    width:35px;
+    text-align: center;
+}
+/*.pageimgBg:hover{*/
+    /*background: #feffff ;*/
+/*}*/

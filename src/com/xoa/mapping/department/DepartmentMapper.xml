@@ -1,0 +1,1512 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.department.DepartmentMapper">
+    <resultMap id="DepResultMap" type="com.xoa.model.department.Department">
+        <id column="DEPT_ID" property="deptId" javaType="int"/>
+        <result column="DEPT_NAME" property="deptName" javaType="string"/>
+        <result column="DEPT_TYPE" property="deptType" javaType="string"/>
+        <result column="DEPT_ABBR_NAME" property="deptAbbrName" javaType="string"/>
+        <result column="TEL_NO" property="telNo" javaType="string"/>
+        <result column="FAX_NO" property="faxNo" javaType="string"/>
+        <result column="DEPT_ADDRESS" property="deptAddress" javaType="string"/>
+        <result column="DEPT_NO" property="deptNo" javaType="string"/>
+        <result column="DEPT_CODE" property="deptCode" javaType="string"/>
+        <result column="DEPT_PARENT" property="deptParent" javaType="int"/>
+        <result column="IS_ORG" property="isOrg" javaType="string"/>
+        <result column="ORG_ADMIN" property="orgAdmin" javaType="string"/>
+        <result column="DEPT_EMAIL_AUDITS_IDS" property="deptEmailAuditsIds"
+                javaType="string"/>
+        <result column="WEIXIN_DEPT_ID" property="weixinDeptId"
+                javaType="string"/>
+        <result column="DINGDING_DEPT_ID" property="dingdingDeptId"
+                javaType="string"/>
+        <result column="G_DEPT" property="gDept" javaType="java.lang.Integer"/>
+        <result column="MANAGER" property="manager" javaType="string"/>
+        <result column="ASSISTANT_ID" property="assistantId" javaType="string"/>
+        <result column="LEADER1" property="leader1" javaType="string"/>
+        <result column="LEADER2" property="leader2" javaType="string"/>
+        <result column="DEPT_FUNC" property="deptFunc" javaType="string"/>
+        <result column="ClASSIFY_ORG" property="classifyOrg" javaType="int"/>
+        <result column="ClASSIFY_ORG_ADMIN" property="classifyOrgAdmin" javaType="string"/>
+        <result column="IS_SUB_ORG" property="isSubOrg" javaType="string"/>
+        <result column="SMS_GATE_ACCOUNT" property="smsGateAccount" javaType="string"/>
+        <result column="SMS_GATE_PASSWORD" property="smsGatePassword" javaType="string"/>
+        <result column="SCHOOL_TYPE" jdbcType="VARCHAR" property="schoolType"/>
+        <result column="SCHOOL_MANAGE_TYPE" jdbcType="VARCHAR" property="schoolManageType"/>
+        <result column="STATE_PRIVATE_ID" jdbcType="VARCHAR" property="statePrivateId"/>
+        <result column="STATE_PRIVATE_ID2" jdbcType="VARCHAR" property="statePrivateId2"/>
+        <result column="PRIV_TYPES" jdbcType="VARCHAR" property="privTypes"/>
+        <result column="DEPT_DISPLAY" property="deptDisplay" javaType="int"/>
+        <result column="DEPT_APPROVER" property="deptApprover" javaType="string"/>
+    </resultMap>
+
+    <resultMap id="DeptIdAndNameResultMap" type="com.xoa.model.department.Department">
+        <id column="DEPT_ID" property="deptId" javaType="int"/>
+        <result column="DEPT_NAME" property="deptName" javaType="string"/>
+    </resultMap>
+
+    <select id="getDatagrid" resultMap="DepResultMap">
+		SELECT "dep" as type, u.* from department u where u.DEPT_DISPLAY = 1 ORDER BY DEPT_NO
+	</select>
+
+    <select id="getDatagridByDisplay" resultMap="DepResultMap">
+        SELECT "dep" as type, u.* from department u
+        <where>
+            <if test="deptId != null">
+                and u.DEPT_ID = #{deptId}
+            </if>
+            <if test="deptParent999 == null">
+                and u.DEPT_PARENT not like "9999999%"
+            </if>
+            <if test="deptDisplay != null">
+                and u.DEPT_DISPLAY = #{deptDisplay}
+            </if>
+            <if test="moduleDeptNo != null">
+                and u.DEPT_NO LIKE CONCAT(#{moduleDeptNo},'%')
+            </if>
+            <if test="moduleDeptIds != null">
+                and u.DEPT_ID in
+                <foreach collection="moduleDeptIds" item="moduleDeptId" open="(" close=")" separator=",">
+                    #{moduleDeptId}
+                </foreach>
+            </if>
+        </where>
+        ORDER BY DEPT_NO
+    </select>
+
+    <select id="getDatagridByDisplay" resultMap="DepResultMap" databaseId="kingbase">
+        SELECT 'dep' as type, u.* from department u
+        <where>
+            DEPT_PARENT not like '9999999%'
+            <if test="deptDisplay != null">
+                and u.DEPT_DISPLAY = #{deptDisplay}
+            </if>
+            <if test="moduleDeptNo != null">
+                and u.DEPT_NO LIKE CONCAT(#{moduleDeptNo},'%')
+            </if>
+            <if test="moduleDeptIds != null">
+                and u.DEPT_ID in
+                <foreach collection="moduleDeptIds" item="moduleDeptId" open="(" close=")" separator=",">
+                    #{moduleDeptId}
+                </foreach>
+            </if>
+        </where>
+        ORDER BY DEPT_NO
+    </select>
+
+    <select id="getDatagrid" resultMap="DepResultMap" databaseId="dm">
+		SELECT 'dep' as TYPE,u.* from department u ORDER BY DEPT_NO
+	</select>
+    <select id="getDatagrid" resultMap="DepResultMap" databaseId="kingbase">
+		SELECT 'dep' as TYPE,u.* from department u ORDER BY DEPT_NO
+	</select>
+    <select id="selectAll" resultMap="DepResultMap">
+		SELECT * from department
+	</select>
+    <select id="getChDept"
+            resultMap="DepResultMap">
+		SELECT "dep" as type, DEPT_ID,DEPT_NAME,DEPT_NO,DEPT_CODE,DEPT_PARENT,ClASSIFY_ORG,ClASSIFY_ORG_ADMIN from department where DEPT_PARENT=#{deptId} ORDER BY RIGHT(DEPT_NO,3)
+	</select>
+
+    <select id="getChDept"
+            resultMap="DepResultMap" databaseId="oracle">
+        SELECT  DEPT_ID,DEPT_NAME,DEPT_NO,DEPT_CODE,DEPT_PARENT,ClASSIFY_ORG,ClASSIFY_ORG_ADMIN from "DEPARTMENT" where DEPT_PARENT=#{deptId} ORDER BY DEPT_NO
+    </select>
+
+    <select id="getChDept"
+            resultMap="DepResultMap" databaseId="dm">
+        SELECT 'dep' as type, DEPT_ID,DEPT_NAME,DEPT_NO,DEPT_CODE,DEPT_PARENT,ClASSIFY_ORG,ClASSIFY_ORG_ADMIN from department where DEPT_PARENT=#{deptId} ORDER BY RIGHT(DEPT_NO,3)
+    </select>
+
+    <select id="getChDept"
+            resultMap="DepResultMap" databaseId="kingbase">
+        SELECT 'dep' as type, DEPT_ID,DEPT_NAME,DEPT_NO,DEPT_CODE,DEPT_PARENT,ClASSIFY_ORG,ClASSIFY_ORG_ADMIN from department where DEPT_PARENT=#{deptId} ORDER BY RIGHT(DEPT_NO,3)
+    </select>
+
+    <select id="getChDeptByDisplay"
+            resultMap="DepResultMap">
+        SELECT "dep" as type, DEPT_ID,DEPT_NAME,DEPT_NO,DEPT_CODE,DEPT_PARENT,ClASSIFY_ORG,ClASSIFY_ORG_ADMIN,DEPT_DISPLAY from department
+        where DEPT_PARENT=#{deptId}
+            <if test="deptDisplay != null">
+                and DEPT_DISPLAY = #{deptDisplay}
+            </if>
+            <if test="moduleDeptNo != null">
+                and DEPT_NO LIKE CONCAT(#{moduleDeptNo},'%')
+            </if>
+            <if test="moduleDeptIds != null">
+                and DEPT_ID in
+                <foreach collection="moduleDeptIds" item="moduleDeptId" open="(" close=")" separator=",">
+                    #{moduleDeptId}
+                </foreach>
+            </if>
+        ORDER BY RIGHT(DEPT_NO,3)
+    </select>
+
+    <select id="getChDeptByDisplay"  resultMap="DepResultMap" databaseId="kingbase">
+        SELECT 'dep' as type, DEPT_ID,DEPT_NAME,DEPT_NO,DEPT_CODE,DEPT_PARENT,ClASSIFY_ORG,ClASSIFY_ORG_ADMIN,DEPT_DISPLAY from department
+        where DEPT_PARENT=#{deptId}
+        <if test="deptDisplay != null">
+            and DEPT_DISPLAY = #{deptDisplay}
+        </if>
+        ORDER BY RIGHT(DEPT_NO,3)
+    </select>
+
+    <select id="checkDep"
+            resultMap="DepResultMap">
+        SELECT * from department where DEPT_NAME=#{deptName}
+    </select>
+
+    <select id="getFatherDept"
+            resultMap="DepResultMap">
+		SELECT * from department where DEPT_ID=#{deptParent}
+	</select>
+
+    <select id="getChDeptUser"
+            resultType="com.xoa.model.department.Department">
+		SELECT d.SMS_GATE_ACCOUNT, "people" as type, u.AVATAR as avatar,u.USER_NAME as userName, u.USER_ID as userId,
+		u.UID as uid,u.USER_PRIV_NAME as userPrivName,u.SEX as sex,u.BIRTHDAY as birthday,u.MOBIL_NO as mobilNo,u.MY_STATUS as mystatus from department d,user u
+		 where d.DEPT_ID=u.DEPT_ID and u.dept_id !=0  AND u.not_login!=1 and (d.DEPT_ID=#{deptId}
+		 OR (u.DEPT_ID_OTHER LIKE CONCAT('%,',#{deptId},',%') OR u.DEPT_ID_OTHER LIKE CONCAT(#{deptId},',%')) ) ORDER BY  u.USER_PRIV_NO, u.USER_NO,u.USER_NAME
+	</select>
+
+    <select id="getChDeptUser"
+            resultType="com.xoa.model.department.Department" databaseId="dm">
+        SELECT 'people' as type, u.AVATAR as avatar,u.USER_NAME as userName, u.USER_ID as userId,
+        u.UID as uid,u.USER_PRIV_NAME as userPrivName,u.SEX as sex,u.BIRTHDAY as birthday,u.MOBIL_NO as mobilNo,u.MY_STATUS as mystatus from department d,"USER" u
+        where d.DEPT_ID=u.DEPT_ID and dept_id !=0  and (d.DEPT_ID=#{deptId}
+        OR (u.DEPT_ID_OTHER LIKE CONCAT('%,',#{deptId},',%') OR u.DEPT_ID_OTHER LIKE CONCAT(#{deptId},',%')) ) ORDER BY  u.USER_PRIV_NO, u.USER_NO,u.USER_NAME
+    </select>
+
+    <select id="getChDeptUser"
+            resultType="com.xoa.model.department.Department" databaseId="oracle">
+        SELECT 'people' as type, u.AVATAR as avatar,u.USER_NAME as userName, u.USER_ID as userId,d.dept_name as deptName,d.dept_id as deptId,
+        u."UID" as "uid",u.USER_PRIV_NAME as userPrivName,u.SEX as sex,u.BIRTHDAY as birthday,u.MOBIL_NO as mobilNo,u.MY_STATUS as mystatus from department d,"USER" u
+        where d.DEPT_ID=u.DEPT_ID and dept_id !=0 and (d.DEPT_ID=#{deptId}
+        OR (u.DEPT_ID_OTHER LIKE CONCAT(CONCAT('%,',#{deptId}),',%') OR u.DEPT_ID_OTHER LIKE CONCAT(#{deptId},',%')) ) ORDER BY u.USER_PRIV_NO, u.USER_NO,u.USER_NAME
+    </select>
+
+    <select id="getCountChDeptUser"
+            resultType="Integer">
+		select count(*) from user where DEPT_ID in
+	(select DEPT_ID from department where DEPT_NO LIKE CONCAT(#{deptNo},'%')) AND not_login != 1 AND not_mobile_login !=1
+	</select>
+
+    <select id="getCountChDeptUser"
+            resultType="Integer" databaseId="oracle">
+        select count(*) from "USER" where DEPT_ID in
+        (select DEPT_ID from department where DEPT_NO LIKE CONCAT(#{deptNo},'%')) AND not_login != 1 AND not_mobile_login !=1
+    </select>
+
+    <select id="getCountChDeptUser"
+            resultType="Integer" databaseId="dm">
+        select count(*) from "USER" where DEPT_ID in
+        (select DEPT_ID from department where DEPT_NO LIKE CONCAT(#{deptNo},'%')) AND not_login != 1 AND not_mobile_login !=1
+    </select>
+
+    <select id="getCountChDeptUser"
+            resultType="Integer" databaseId="kingbase">
+        select count(*) from "USER" where DEPT_ID in
+        (select DEPT_ID from department where DEPT_NO LIKE CONCAT(#{deptNo},'%')) AND not_login != 1 AND not_mobile_login !=1
+    </select>
+
+    <select id="getDeptNameById" resultType="java.lang.String">
+        SELECT DEPT_NAME from department where DEPT_ID=#{deptId}
+    </select>
+
+    <select id="getDeptById" resultMap="DepResultMap">
+        SELECT * from department where DEPT_ID=#{deptId}
+    </select>
+    <select id="selectByName" resultMap="DepResultMap" parameterType="com.xoa.model.department.Department">
+        select * from department
+        <where>
+            <if test="deptName != null and deptName !=''">
+                and DEPT_NAME = #{deptName}
+            </if>
+            <if test="deptParent != null and deptParent !=''">
+                and DEPT_PARENT = #{deptParent}
+            </if>
+        </where>
+    </select>
+    <select id="getDeptByMany" parameterType="com.xoa.model.department.Department" resultType="map">
+        select * from department
+        where 1=1
+        <if test="deptName != null">
+            and DEPT_NAME = #{deptName},
+        </if>
+        <if test="telNo != null">
+            and TEL_NO = #{telNo},
+        </if>
+        <if test="faxNo != null">
+            and FAX_NO = #{faxNo},
+        </if>
+        <if test="deptAddress != null">
+            and DEPT_ADDRESS = #{deptAddress},
+        </if>
+        <if test="deptNo != null">
+            and DEPT_NO = #{deptNo},
+        </if>
+        <if test="Department.deptParent != null">
+            and DEPT_PARENT = #{Department.deptParent},
+        </if>
+        <if test="isOrg != null">
+            and IS_ORG = #{isOrg},
+        </if>
+        <if test="orgAdmin != null">
+            and ORG_ADMIN = #{orgAdmin},
+        </if>
+        <if test="deptEmailAuditsIds != null">
+            and DEPT_EMAIL_AUDITS_IDS = #{deptEmailAuditsIds},
+        </if>
+        <if test="weixinDeptId != null">
+            and WEIXIN_DEPT_ID = #{weixinDeptId},
+        </if>
+        <if test="dingdingDeptId != null">
+            and DINGDING_DEPT_ID = #{dingdingDeptId},
+        </if>
+        <if test="gDept != null">
+            and G_DEPT = #{gDept},
+        </if>
+        <if test="manager != null">
+            and MANAGER = #{manager},
+        </if>
+        <if test="assistantId != null">
+            and ASSISTANT_ID = #{assistantId},
+        </if>
+        <if test="leader1 != null">
+            and LEADER1 = #{leader1},
+        </if>
+        <if test="leader2 != null">
+            and LEADER2 = #{leader2},
+        </if>
+        <if test="deptFunc != null">
+            and DEPT_FUNC = #{deptFunc},
+        </if>
+    </select>
+    <delete id="deleteDept">
+        DELETE FROM department where DEPT_ID=#{deptId}
+    </delete>
+    <update id="editDept" parameterType="com.xoa.model.department.Department">
+        update department
+        <set>
+            <if test="deptName != null">
+                DEPT_NAME = #{deptName},
+            </if>
+            <if test="telNo != null">
+                TEL_NO = #{telNo},
+            </if>
+            <if test="faxNo != null">
+                FAX_NO = #{faxNo},
+            </if>
+            <if test="deptAddress != null">
+                DEPT_ADDRESS = #{deptAddress},
+            </if>
+            <if test="deptNo != null">
+                DEPT_NO = #{deptNo},
+            </if>
+            <if test="deptCode != null">
+                DEPT_CODE = #{deptCode},
+            </if>
+            <if test="deptParent != null">
+                DEPT_PARENT = #{deptParent},
+            </if>
+            <if test="isOrg != null">
+                IS_ORG = #{isOrg},
+            </if>
+            <if test="orgAdmin != null">
+                ORG_ADMIN = #{orgAdmin},
+            </if>
+            <if test="deptEmailAuditsIds != null">
+                DEPT_EMAIL_AUDITS_IDS = #{deptEmailAuditsIds},
+            </if>
+            <if test="dingdingDeptId != null and dingdingDeptId != '' ">
+                DINGDING_DEPT_ID = #{dingdingDeptId},
+            </if>
+            <if test="gDept != null">
+                G_DEPT = #{gDept},
+            </if>
+            <if test="manager != null">
+                MANAGER = #{manager},
+            </if>
+            <if test="assistantId != null">
+                ASSISTANT_ID = #{assistantId},
+            </if>
+            <if test="leader1 != null">
+                LEADER1 = #{leader1},
+            </if>
+            <if test="leader2 != null">
+                LEADER2 = #{leader2},
+            </if>
+            <if test="deptFunc != null">
+                DEPT_FUNC = #{deptFunc},
+            </if>
+            <if test="classifyOrgAdmin != null">
+                ClASSIFY_ORG_ADMIN = #{classifyOrgAdmin},
+            </if>
+            <if test="weLinkDept!=null">
+                weLink_Dept = #{weLinkDept},
+            </if>
+            <if test="deptAbbrName!=null">
+                DEPT_ABBR_NAME = #{deptAbbrName},
+            </if>
+            <if test="deptType!=null and deptType!=''">
+                DEPT_TYPE = #{deptType},
+            </if>
+            <if test="privTypes!=null">
+                PRIV_TYPES = #{privTypes},
+            </if>
+            <if test="deptDisplay!=null">
+                DEPT_DISPLAY = #{deptDisplay},
+            </if>
+            <if test="isSubOrg != null">
+                IS_SUB_ORG = #{isSubOrg},
+            </if>
+            <if test="deptApprover != null">
+                DEPT_APPROVER = #{deptApprover},
+            </if>
+        </set>
+        where DEPT_ID = #{deptId}
+    </update>
+    <insert useGeneratedKeys="true" keyProperty="deptId" id="insertDept"
+            parameterType="com.xoa.model.department.Department">
+        <selectKey order="AFTER" keyProperty="deptId" resultType="int">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into department
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="deptId != null">
+                DEPT_ID,
+            </if>
+            <if test="deptName != null">
+                DEPT_NAME,
+            </if>
+            <if test="telNo != null">
+                TEL_NO,
+            </if>
+            <if test="faxNo != null">
+                FAX_NO,
+            </if>
+            <if test="deptAddress != null">
+                DEPT_ADDRESS,
+            </if>
+            <if test="deptNo != null">
+                DEPT_NO,
+            </if>
+            <if test="deptCode != null">
+                DEPT_CODE,
+            </if>
+            <if test="deptParent != null">
+                DEPT_PARENT,
+            </if>
+            <if test="isOrg != null">
+                IS_ORG,
+            </if>
+            <if test="orgAdmin != null">
+                ORG_ADMIN,
+            </if>
+            <if test="deptEmailAuditsIds != null">
+                DEPT_EMAIL_AUDITS_IDS,
+            </if>
+            <if test="weixinDeptId != null">
+                WEIXIN_DEPT_ID,
+            </if>
+            <if test="dingdingDeptId != null">
+                DINGDING_DEPT_ID,
+            </if>
+            <if test="gDept != null">
+                G_DEPT,
+            </if>
+            <if test="manager != null">
+                MANAGER,
+            </if>
+            <if test="assistantId != null">
+                ASSISTANT_ID,
+            </if>
+            <if test="leader1 != null">
+                LEADER1,
+            </if>
+            <if test="leader2 != null">
+                LEADER2,
+            </if>
+            <if test="deptFunc != null">
+                DEPT_FUNC,
+            </if>
+            <if test="weLinkDept!=null">
+                welink_dept,
+            </if>
+            <if test="deptAbbrName!=null">
+                DEPT_ABBR_NAME,
+            </if>
+            <if test="deptType!=null and deptType!=''">
+                DEPT_TYPE,
+            </if>
+            <if test="privTypes!=null and privTypes!=''">
+                PRIV_TYPES,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="deptId != null">
+                #{deptId},
+            </if>
+            <if test="deptName != null">
+                #{deptName},
+            </if>
+            <if test="telNo != null">
+                #{telNo},
+            </if>
+            <if test="faxNo != null">
+                #{faxNo},
+            </if>
+            <if test="deptAddress != null">
+                #{deptAddress},
+            </if>
+            <if test="deptNo != null">
+                #{deptNo},
+            </if>
+            <if test="deptCode != null">
+                #{deptCode},
+            </if>
+            <if test="deptParent != null">
+                #{deptParent},
+            </if>
+            <if test="isOrg != null">
+                #{isOrg},
+            </if>
+            <if test="orgAdmin != null">
+                #{orgAdmin},
+            </if>
+            <if test="deptEmailAuditsIds != null">
+                #{deptEmailAuditsIds},
+            </if>
+            <if test="weixinDeptId != null">
+                #{weixinDeptId},
+            </if>
+            <if test="dingdingDeptId != null">
+                #{dingdingDeptId},
+            </if>
+            <if test="gDept != null">
+                #{gDept},
+            </if>
+            <if test="manager != null">
+                #{manager},
+            </if>
+            <if test="assistantId != null">
+                #{assistantId},
+            </if>
+            <if test="leader1 != null">
+                #{leader1},
+            </if>
+            <if test="leader2 != null">
+                #{leader2},
+            </if>
+            <if test="deptFunc != null">
+                #{deptFunc},
+            </if>
+            <if test="weLinkDept!=null">
+                #{weLinkDept},
+            </if>
+            <if test="deptAbbrName!=null">
+                #{deptAbbrName},
+            </if>
+            <if test="deptType!=null and deptType!=''">
+                #{deptType},
+            </if>
+            <if test="privTypes!=null and privTypes!=''">
+                #{privTypes},
+            </if>
+        </trim>
+    </insert>
+
+    <insert useGeneratedKeys="true" keyProperty="deptId" id="insertDept"
+            parameterType="com.xoa.model.department.Department" databaseId="kingbase">
+        insert into department
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="deptId != null">
+                DEPT_ID,
+            </if>
+            <if test="deptName != null">
+                DEPT_NAME,
+            </if>
+            <if test="telNo != null">
+                TEL_NO,
+            </if>
+            <if test="faxNo != null">
+                FAX_NO,
+            </if>
+            <if test="deptAddress != null">
+                DEPT_ADDRESS,
+            </if>
+            <if test="deptNo != null">
+                DEPT_NO,
+            </if>
+            <if test="deptCode != null">
+                DEPT_CODE,
+            </if>
+            <if test="deptParent != null">
+                DEPT_PARENT,
+            </if>
+            <if test="isOrg != null">
+                IS_ORG,
+            </if>
+            <if test="orgAdmin != null">
+                ORG_ADMIN,
+            </if>
+            <if test="deptEmailAuditsIds != null">
+                DEPT_EMAIL_AUDITS_IDS,
+            </if>
+            <if test="weixinDeptId != null">
+                WEIXIN_DEPT_ID,
+            </if>
+            <if test="dingdingDeptId != null">
+                DINGDING_DEPT_ID,
+            </if>
+            <if test="gDept != null">
+                G_DEPT,
+            </if>
+            <if test="manager != null">
+                MANAGER,
+            </if>
+            <if test="assistantId != null">
+                ASSISTANT_ID,
+            </if>
+            <if test="leader1 != null">
+                LEADER1,
+            </if>
+            <if test="leader2 != null">
+                LEADER2,
+            </if>
+            <if test="deptFunc != null">
+                DEPT_FUNC,
+            </if>
+            <if test="weLinkDept!=null">
+                welink_dept,
+            </if>
+            <if test="deptAbbrName!=null">
+                DEPT_ABBR_NAME,
+            </if>
+            <if test="deptType!=null and deptType!=''">
+                DEPT_TYPE,
+            </if>
+            <if test="privTypes!=null and privTypes!=''">
+                PRIV_TYPES,
+            </if>
+            <if test="deptApprover!=null and deptApprover!=''">
+                DEPT_APPROVER,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="deptId != null">
+                #{deptId},
+            </if>
+            <if test="deptName != null">
+                #{deptName},
+            </if>
+            <if test="telNo != null">
+                #{telNo},
+            </if>
+            <if test="faxNo != null">
+                #{faxNo},
+            </if>
+            <if test="deptAddress != null">
+                #{deptAddress},
+            </if>
+            <if test="deptNo != null">
+                #{deptNo},
+            </if>
+            <if test="deptCode != null">
+                #{deptCode},
+            </if>
+            <if test="deptParent != null">
+                #{deptParent},
+            </if>
+            <if test="isOrg != null">
+                #{isOrg},
+            </if>
+            <if test="orgAdmin != null">
+                #{orgAdmin},
+            </if>
+            <if test="deptEmailAuditsIds != null">
+                #{deptEmailAuditsIds},
+            </if>
+            <if test="weixinDeptId != null">
+                #{weixinDeptId},
+            </if>
+            <if test="dingdingDeptId != null">
+                #{dingdingDeptId},
+            </if>
+            <if test="gDept != null">
+                #{gDept},
+            </if>
+            <if test="manager != null">
+                #{manager},
+            </if>
+            <if test="assistantId != null">
+                #{assistantId},
+            </if>
+            <if test="leader1 != null">
+                #{leader1},
+            </if>
+            <if test="leader2 != null">
+                #{leader2},
+            </if>
+            <if test="deptFunc != null">
+                #{deptFunc},
+            </if>
+            <if test="weLinkDept!=null">
+                #{weLinkDept},
+            </if>
+            <if test="deptAbbrName!=null">
+                #{deptAbbrName},
+            </if>
+            <if test="deptType!=null and deptType!=''">
+                #{deptType},
+            </if>
+            <if test="privTypes!=null and privTypes!=''">
+                #{privTypes},
+            </if>
+            <if test="deptApprover!=null and deptApprover!=''">
+                #{deptApprover},
+            </if>
+        </trim>
+        returning DEPT_ID
+    </insert>
+
+    <insert useGeneratedKeys="true" keyProperty="deptId" id="insertDept"
+            parameterType="com.xoa.model.department.Department" databaseId="oracle">
+        <selectKey order="BEFORE" keyProperty="deptId" resultType="int">
+            SELECT DEPARTMENT_DEPT_ID_SEQ.nextval AS deptId FROM dual
+        </selectKey>
+        insert into department
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+            DEPT_ID,
+
+            <if test="deptName != null">
+                DEPT_NAME,
+            </if>
+            <if test="telNo != null">
+                TEL_NO,
+            </if>
+            <if test="faxNo != null">
+                FAX_NO,
+            </if>
+            <if test="deptAddress != null">
+                DEPT_ADDRESS,
+            </if>
+            <if test="deptNo != null">
+                DEPT_NO,
+            </if>
+            <if test="deptCode != null">
+                DEPT_CODE,
+            </if>
+            <if test="deptParent != null">
+                DEPT_PARENT,
+            </if>
+            <if test="isOrg != null">
+                IS_ORG,
+            </if>
+            <if test="orgAdmin != null">
+                ORG_ADMIN,
+            </if>
+            <if test="deptEmailAuditsIds != null">
+                DEPT_EMAIL_AUDITS_IDS,
+            </if>
+            <if test="weixinDeptId != null">
+                WEIXIN_DEPT_ID,
+            </if>
+            <if test="dingdingDeptId != null">
+                DINGDING_DEPT_ID,
+            </if>
+            <if test="gDept != null">
+                G_DEPT,
+            </if>
+            <if test="manager != null">
+                MANAGER,
+            </if>
+            <if test="assistantId != null">
+                ASSISTANT_ID,
+            </if>
+            <if test="leader1 != null">
+                LEADER1,
+            </if>
+            <if test="leader2 != null">
+                LEADER2,
+            </if>
+            <if test="deptFunc != null">
+                DEPT_FUNC,
+            </if>
+            <if test="deptAbbrName!=null">
+                DEPT_ABBR_NAME,
+            </if>
+            <if test="deptType!=null">
+                DEPT_TYPE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{deptId},
+            <if test="deptName != null">
+                #{deptName},
+            </if>
+            <if test="telNo != null">
+                #{telNo},
+            </if>
+            <if test="faxNo != null">
+                #{faxNo},
+            </if>
+            <if test="deptAddress != null">
+                #{deptAddress},
+            </if>
+            <if test="deptNo != null">
+                #{deptNo},
+            </if>
+            <if test="deptCode != null">
+                #{deptCode},
+            </if>
+            <if test="deptParent != null">
+                #{deptParent},
+            </if>
+            <if test="isOrg != null">
+                #{isOrg},
+            </if>
+            <if test="orgAdmin != null">
+                #{orgAdmin},
+            </if>
+            <if test="deptEmailAuditsIds != null">
+                #{deptEmailAuditsIds},
+            </if>
+            <if test="weixinDeptId != null">
+                #{weixinDeptId},
+            </if>
+            <if test="dingdingDeptId != null">
+                #{dingdingDeptId},
+            </if>
+            <if test="gDept != null">
+                #{gDept},
+            </if>
+            <if test="manager != null">
+                #{manager},
+            </if>
+            <if test="assistantId != null">
+                #{assistantId},
+            </if>
+            <if test="leader1 != null">
+                #{leader1},
+            </if>
+            <if test="leader2 != null">
+                #{leader2},
+            </if>
+            <if test="deptFunc != null">
+                #{deptFunc},
+            </if>
+            <if test="deptAbbrName!=null">
+                #{deptAbbrName},
+            </if>
+            <if test="deptType!=null and deptType!=''">
+                #{deptType},
+            </if>
+        </trim>
+    </insert>
+    <!-- 根据部门ID获取部门名字 -->
+    <select id="getDeptNameByDeptId" resultType="String">
+        SELECT DEPT_NAME FROM department WHERE
+        DEPT_ID = #{deptId}
+    </select>
+
+
+    <select id="getDeptIdByDeptName" resultType="String">
+        SELECT DEPT_ID FROM department WHERE
+        DEPT_NAME = #{deptName} ORDER BY DEPT_PARENT
+    </select>
+
+    <select id="getDepartmentByUid" resultMap="DepResultMap">
+        select d.DEPT_ID, d.DEPT_NAME  FROM department d, user u WHERE u.DEPT_ID= d.DEPT_ID AND u.UID = #{uid}
+    </select>
+    <select id="getDepartmentByUid" resultMap="DepResultMap" databaseId="oracle">
+        select d.DEPT_ID, d.DEPT_NAME  FROM department d, "USER" u WHERE u.DEPT_ID= d.DEPT_ID AND u."UID" = #{uid}
+    </select>
+    <select id="getDepartmentByUid" resultMap="DepResultMap" databaseId="dm">
+        select d.DEPT_ID, d.DEPT_NAME  FROM department d, "USER" u WHERE u.DEPT_ID= d.DEPT_ID AND u."UID" = #{uid}
+    </select>
+
+    <select id="getDepartmentByParet" resultMap="DepResultMap">
+        SELECT *,"dep" as type FROM department d where d.DEPT_PARENT=0 ORDER BY DEPT_NO
+    </select>
+
+    <select id="getDepartmentByParet" resultMap="DepResultMap" databaseId="dm">
+        SELECT *,'dep' as type FROM department d where d.DEPT_PARENT=0 ORDER BY DEPT_NO
+    </select>
+
+    <select id="getDepartmentByParet" resultMap="DepResultMap" databaseId="oracle">
+        SELECT 'dep' as TYPE, d.* FROM department d where d.DEPT_PARENT=0 ORDER BY DEPT_NO
+    </select>
+    <select id="getDepartmentByParet" resultMap="DepResultMap" databaseId="kingbase">
+        SELECT 'dep' as TYPE, d.* FROM department d where d.DEPT_PARENT=0 ORDER BY DEPT_NO
+    </select>
+
+    <select id="getFirstDept" resultMap="DepResultMap">
+        SELECT * FROM department d where d.DEPT_NO =(select left(#{deptNo}, 6));
+    </select>
+
+    <!--根据部门id进行批量修改部门主管、部门助理-->
+    <update id="batchUpdateDeptById" parameterType="com.xoa.model.department.Department">
+        update department
+        <set>
+            <if test="manager!=null">
+                MANAGER = #{manager},
+            </if>
+            <if test="assistantId!=null">
+                ASSISTANT_ID = #{assistantId}
+            </if>
+        </set>
+        where DEPT_ID = #{deptId}
+    </update>
+
+    <update id="updateDeptNoByDeptId" parameterType="com.xoa.model.department.Department">
+        update department SET DEPT_NO=#{deptNo} where DEPT_ID = #{deptId}
+    </update>
+
+    <select id="getDeptIdByParent" resultType="Integer">
+        select DEPT_ID from department where DEPT_PARENT=#{deptParent} order by DEPT_NO,DEPT_NAME
+    </select>
+
+    <select id="getAllDepartment" resultMap="DepResultMap">
+        SELECT  * from department ORDER BY DEPT_NO
+    </select>
+
+    <select id="getAllDepartmentByDisplay" resultMap="DepResultMap">
+        SELECT  * from department where DEPT_DISPLAY=#{deptDisplay} ORDER BY DEPT_NO
+    </select>
+
+    <select id="getFatherDeptName" resultType="String">
+        SELECT DEPT_NAME from department where DEPT_ID=#{deptParent}
+    </select>
+
+    <select id="getDeptNames" parameterType="map" resultType="String">
+        SELECT DEPT_NAME FROM department WHERE DEPT_ID IN (${checkDept})
+    </select>
+
+    <update id="setClassifyOrgByDeptId" parameterType="com.xoa.model.department.Department">
+        update department SET ClASSIFY_ORG=#{classifyOrg},ClASSIFY_ORG_ADMIN=#{classifyOrgAdmin} where DEPT_ID=#{deptId}
+    </update>
+
+    <select id="getAllClassifyOrg" resultMap="DepResultMap">
+        SELECT * FROM department WHERE ClASSIFY_ORG = 1 AND DEPT_DISPLAY = 1 ORDER BY DEPT_NO
+    </select>
+
+    <select id="getClassifyOrgByAdmin" resultMap="DepResultMap" parameterType="map">
+        SELECT *
+        FROM department
+        WHERE ClASSIFY_ORG = 1
+          AND DEPT_DISPLAY = 1
+          AND (
+                ClASSIFY_ORG_ADMIN LIKE CONCAT('%,', #{uid}, ',%')
+                OR
+                ClASSIFY_ORG_ADMIN LIKE CONCAT(#{uid}, ',%')
+            )
+    </select>
+    <select id="selClaNumByParentId" parameterType="Integer" resultType="Integer">
+        select count(*) from department where DEPT_PARENT=#{deptId} and ClASSIFY_ORG=1
+    </select>
+
+    <select id="getBydeptNo" parameterType="string" resultMap="DepResultMap">
+        select * from department WHERE DEPT_NO LIKE CONCAT(#{deptNo},'%')
+    </select>
+
+
+    <select id="getDepByNo"
+            resultMap="DepResultMap">
+        SELECT * from department where DEPT_NO=#{deptNo}
+    </select>
+
+    <select id="getBydeptCode"
+            resultMap="DepResultMap">
+        SELECT * from department where DEPT_CODE=#{deptCode}
+    </select>
+
+    <!--根据ID查询部门名称-->
+    <select id="departmentOneSelect" parameterType="java.lang.Integer" resultType="java.lang.String">
+        select DEPT_NAME from department where DEPT_ID=#{deptId}
+    </select>
+
+    <select id="selDeptNoByDeptParent" parameterType="map" resultType="java.lang.String">
+        select RIGHT(Dept_NO,3) as deptNo from department where DEPT_PARENT = #{deptParent}
+        <if test="deptNo!=null">
+            and Dept_NO!=#{deptNo}
+        </if>
+    </select>
+    <select id="selDeptNoByDeptParent" parameterType="map" resultType="java.lang.String" databaseId="oracle">
+        select SUBSTR(Dept_NO,LENGTH(Dept_NO)-2) as deptNo from department where DEPT_PARENT =
+        #{deptParent,jdbcType=INTEGER}
+        <if test="deptNo!=null">
+            and Dept_NO!=#{deptNo}
+        </if>
+    </select>
+    <select id="selDeptNoByDeptParent" parameterType="map" resultType="java.lang.String" databaseId="dm">
+        select SUBSTR(Dept_NO,LENGTH(Dept_NO)-2) as deptNo from department where DEPT_PARENT =
+        #{deptParent,jdbcType=INTEGER}
+        <if test="deptNo!=null">
+            and Dept_NO!=#{deptNo}
+        </if>
+    </select>
+    <select id="selByLikeDeptName" resultMap="DepResultMap" parameterType="java.lang.String">
+        SELECT * from department where DEPT_NAME like concat('%',#{deptName},'%')
+    </select>
+
+    <select id="selByLikeDeptNameAndDeptNo" parameterType="map" resultMap="DepResultMap">
+        SELECT * from department
+        <where>
+            1=1
+            <if test="deptName!=null and deptName!='' ">
+                and DEPT_NAME like concat('%',#{deptName},'%')
+            </if>
+            and
+            <foreach collection="deptNo" item="deptNo" index="index" open="(" close=")" separator="OR">
+                DEPT_NO like CONCAT(#{deptNo},'%')
+            </foreach>
+        </where>
+
+
+    </select>
+
+
+    <select id="selectByDeptName" resultMap="DepResultMap" parameterType="java.lang.String">
+        SELECT * from department where DEPT_NAME like concat('%',#{deptName},'%') order by DEPT_ID desc
+    </select>
+
+    <select id="selByLikeDeptName" resultMap="DepResultMap" parameterType="java.lang.String" databaseId="oracle">
+        SELECT * from department where DEPT_NAME like concat('%',concat(#{deptName},'%'))
+    </select>
+
+    <select id="selByLikeDeptName" resultMap="DepResultMap" parameterType="java.lang.String" databaseId="dm">
+        SELECT * from department where DEPT_NAME like concat('%',concat(#{deptName},'%'))
+    </select>
+
+    <select id="getDeptManagerIdByDeptId" parameterType="int" resultType="string">
+        select MANAGER from department where DEPT_ID = #{deptId}
+    </select>
+
+    <select id="getDeptByName" resultMap="DepResultMap">
+        select * from department where DEPT_NAME = #{deptName}
+    </select>
+
+    <select id="getDingdingIdByDeptId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select DINGDING_DEPT_ID from department where DEPT_ID = #{deptId}
+    </select>
+
+    <select id="getParentDingdingId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT
+        d.DINGDING_DEPT_ID
+        FROM
+        department d
+        WHERE
+        DEPT_ID IN (
+        SELECT
+        d.DEPT_PARENT
+        FROM
+        department d
+        WHERE
+        d.DEPT_ID = #{deptId}
+        )
+    </select>
+
+    <select id="selDeptByIds" resultMap="DepResultMap">
+        select * from department where dept_id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        and dept_id !=0
+    </select>
+
+    <select id="selByNameAndParent" parameterType="map" resultMap="DepResultMap">
+        select * from department where DEPT_NAME=#{deptName} and DEPT_PARENT=#{deptParent};
+    </select>
+
+    <select id="selDeptByCode" parameterType="String" resultMap="DepResultMap">
+        select * from department where DEPT_CODE=#{deptCode}
+    </select>
+
+    <select id="getEnterpriseWeChatIdByDeptId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        select WEIXIN_DEPT_ID from department where DEPT_ID = #{deptId}
+    </select>
+    <select id="getParentEnterpriseWeChatId" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT
+        w.WEIXIN_DEPT_ID
+        FROM
+        department w
+        WHERE
+        DEPT_ID IN (
+        SELECT
+        w.DEPT_PARENT
+        FROM
+        department w
+        WHERE
+        w.DEPT_ID = #{deptId}
+        )
+    </select>
+
+    <select id="getDeptNameByIds" parameterType="map" resultMap="DepResultMap">
+        SELECT
+            d.DEPT_NAME
+        FROM department d
+        WHERE
+            DEPT_ID in (${deptIds})
+        ORDER BY FIELD(DEPT_ID,${deptIds})
+    </select>
+
+    <select id="getDeptNameByIds" parameterType="map" resultMap="DepResultMap" databaseId="dm">
+        SELECT
+            d.DEPT_NAME
+        FROM department d
+        WHERE
+            DEPT_ID in (${deptIds})
+        ORDER BY instr(${deptIds},DEPT_ID)
+    </select>
+
+    <select id="getDeptNameByIds" parameterType="map" resultMap="DepResultMap" databaseId="kingbase">
+        SELECT
+            d.DEPT_NAME
+        FROM department d
+        WHERE
+            DEPT_ID in (${deptIds})
+    </select>
+
+    <select id="getAllByDeptId" parameterType="Map" resultType="string">
+        select dept_no from department where
+        1=1
+        <if test="deptId!=null and deptId!=0 ">
+            and DEPT_ID=#{deptId}
+        </if>
+
+    </select>
+
+    <select id="getDNameByIds" resultType="String">
+        SELECT DEPT_NAME FROM department WHERE
+        DEPT_ID in
+        <foreach collection="deptIds" item="deptId" open="(" close=")" separator=",">
+            #{deptId}
+        </foreach>
+    </select>
+
+    <select id="getDNoByIds" resultType="String">
+        SELECT DEPT_NO FROM department WHERE
+        DEPT_ID in
+        <foreach collection="deptIds" item="deptId" open="(" close=")" separator=",">
+            #{deptId}
+        </foreach>
+    </select>
+
+    <select id="selectObjectByParent" resultMap="DepResultMap" parameterType="java.lang.Integer">
+        select * from department where DEPT_PARENT = #{deptParent} and DEPT_DISPLAY = 1 ORDER BY DEPT_NO
+    </select>
+
+    <select id="selectObjectByParentAndDisplay" resultMap="DepResultMap">
+        select *,"dep" as type  from department where DEPT_PARENT=#{deptParent}
+            <if test="classifyOrg != null">
+                and ClASSIFY_ORG = #{classifyOrg}
+            </if>
+            <if test="deptDisplay != null">
+                and DEPT_DISPLAY = #{deptDisplay}
+            </if>
+            <if test="moduleDeptNo != null">
+                and DEPT_NO LIKE CONCAT(#{moduleDeptNo},'%')
+            </if>
+            <if test="moduleDeptIds != null">
+                and DEPT_ID in
+                <foreach collection="moduleDeptIds" item="moduleDeptId" open="(" close=")" separator=",">
+                    #{moduleDeptId}
+                </foreach>
+            </if>
+        ORDER BY DEPT_NO
+    </select>
+
+    <select id="selectByDeptId" resultMap="DepResultMap" parameterType="java.lang.Integer">
+        select * from department where DEPT_ID=#{deptId}
+    </select>
+
+    <select id="getDepartmentYj" resultMap="DepResultMap">
+        select DEPT_ID,DEPT_NAME,DEPT_PARENT from department where DEPT_PARENT=0 AND DEPT_DISPLAY=1 ORDER BY DEPT_NO
+    </select>
+
+    <select id="settingInfoList" resultMap="DepResultMap">
+        select DEPT_ID,DEPT_NAME,SMS_GATE_ACCOUNT from department where SMS_GATE_ACCOUNT  is not null
+    </select>
+    <update id="settingAdd">
+        update department SET SMS_GATE_ACCOUNT=#{smsGateAccount} where DEPT_ID in
+        <foreach collection="deptId" item="array" open="(" close=")" separator=",">
+            #{array}
+        </foreach>
+    </update>
+    <update id="settingDel" parameterType="string">
+        update department SET SMS_GATE_ACCOUNT=NULL where DEPT_ID in
+        <foreach collection="deptId" item="array" open="(" close=")" separator=",">
+            #{array}
+        </foreach>
+    </update>
+
+
+    <update id="editDeptMap" parameterType="map">
+        UPDATE `department`
+        SET
+        <foreach collection="map" item="value" index="key" separator=",">
+            ${key}=#{value}
+        </foreach>
+        WHERE DEPT_ID=#{map[DEPT_ID]}
+    </update>
+
+    <select id="getDepartment" parameterType="map" resultMap="DepResultMap">
+        SELECT * FROM department WHERE 1 = 1
+        <if test="eduFixAssets.deptId != null and eduFixAssets.deptId != ''">
+            DEPT_ID = #{eduFixAssets.deptId,jdbcType = INTEGER}
+        </if>
+        <if test="department.deptName != null and department.deptName != ''">
+            DEPT_NAME = #{department.deptName,jdbcType = VARCHAR}
+        </if>
+    </select>
+
+    <select id="getDeptNameId" resultType="string">
+        select DEPT_ID from department where 1=1
+        <if test="deptName != null and deptName !=''">
+            and DEPT_NAME = #{deptName}
+        </if>
+        <if test="telNo != null and telNo != ''">
+            and TEL_NO = #{telNo}
+        </if>
+    </select>
+
+    <select id="getDeptNameByUserIds" parameterType="string" resultType="java.lang.String">
+        select DEPT_PARENT
+        FROM department
+        WHERE DEPT_ID in
+        <foreach collection="array" index="index" item="userIds" open="(" separator="," close=")">
+            #{userIds}
+        </foreach>
+    </select>
+
+    <select id="getDParentNameByIds" parameterType="string" resultMap="DepResultMap">
+        select DEPT_NAME
+        FROM department
+        WHERE DEPT_ID in
+        <foreach collection="array" index="index" item="userIds" open="(" separator="," close=")">
+            #{userIds}
+        </foreach>
+    </select>
+    <!-- //根据部门id查找上级部门Id
+     public Integer getParenDeptIdBydeptId(Integer deptId);-->
+    <select id="getParenDeptIdBydeptId" resultType="Integer" parameterType="Integer">
+        select DEPT_PARENT from department where dept_id=#{deptId}
+    </select>
+
+    <select id="getDeptByDeptNoStr" resultType="Integer" parameterType="java.util.ArrayList">
+        select d.dept_id from department d where
+        <foreach collection="array" item="deptNo" index="index" open="(" close=")" separator="OR">
+            d.DEPT_NO like CONCAT(#{deptNo},'%')
+        </foreach>
+    </select>
+
+    <select id="selectById" parameterType="integer" resultType="string">
+        SELECT DEPT_NAME  FROM department  WHERE DEPT_ID = #{deptId}
+    </select>
+
+    <select id="getClassifyOrgbyDeptId" parameterType="int" resultMap="DepResultMap">
+        select "dep" as type,DEPT_ID,ClASSIFY_ORG,DEPT_PARENT,DEPT_NAME,DEPT_NO ,DEPT_ABBR_NAME,DEPT_TYPE,PRIV_TYPES,IS_SUB_ORG  from department where DEPT_ID = #{deptId}
+    </select>
+
+    <select id="getClassifyOrgbyDeptId" parameterType="int" resultMap="DepResultMap" databaseId="dm">
+        select 'dep' as type,DEPT_ID,ClASSIFY_ORG,DEPT_PARENT,DEPT_NAME,DEPT_NO ,DEPT_ABBR_NAME,DEPT_TYPE,PRIV_TYPES,IS_SUB_ORG  from department where DEPT_ID = #{deptId}
+    </select>
+
+    <select id="getClassifyOrgbyDeptId" parameterType="int" resultMap="DepResultMap" databaseId="kingbase">
+        select 'dep' as type,DEPT_ID,ClASSIFY_ORG,DEPT_PARENT,DEPT_NAME,DEPT_NO ,DEPT_ABBR_NAME,DEPT_TYPE,PRIV_TYPES,IS_SUB_ORG  from department where DEPT_ID = #{deptId}
+    </select>
+
+
+    <select id="getAllDeptName" resultType="string">
+        SELECT DEPT_NAME FROM department where DEPT_ID != 0
+    </select>
+
+    <select id="getChildDepart" parameterType="int" resultMap="DepResultMap">
+        select * from department where DEPT_PARENT = #{deptId}
+    </select>
+    <select id="getChDeptByDeptNo"
+            resultMap="DepResultMap">
+		SELECT "dep" as type, DEPT_ID,DEPT_NAME,DEPT_NO,DEPT_CODE,DEPT_PARENT,ClASSIFY_ORG,ClASSIFY_ORG_ADMIN
+		from department
+		where
+		DEPT_ID != 0 and
+		DEPT_PARENT=#{deptId}
+		or
+		DEPT_NO LIKE CONCAT(#{deptNo},'%')
+		ORDER BY RIGHT(DEPT_NO,3)
+	</select>
+
+    <select id="getChDeptByDeptNo"
+            resultMap="DepResultMap" databaseId="dm">
+		SELECT 'dep' as type, DEPT_ID,DEPT_NAME,DEPT_NO,DEPT_CODE,DEPT_PARENT,ClASSIFY_ORG,ClASSIFY_ORG_ADMIN
+		from department
+		where
+		DEPT_ID != 0 and
+		DEPT_PARENT=#{deptId}
+		or
+		DEPT_NO LIKE CONCAT(#{deptNo},'%')
+		ORDER BY RIGHT(DEPT_NO,3)
+	</select>
+
+    <select id="getChDeptByDeptNo"
+            resultMap="DepResultMap" databaseId="kingbase">
+		SELECT 'dep' as type, DEPT_ID,DEPT_NAME,DEPT_NO,DEPT_CODE,DEPT_PARENT,ClASSIFY_ORG,ClASSIFY_ORG_ADMIN
+		from department
+		where
+		DEPT_ID != 0 and
+		DEPT_PARENT=#{deptId}
+		or
+		DEPT_NO LIKE CONCAT(#{deptNo},'%')
+		ORDER BY RIGHT(DEPT_NO,3)
+	</select>
+
+
+    <select id="getDeptMapById" resultType="java.util.Map" parameterType="int">
+                SELECT * from department where DEPT_ID=#{deptId}
+    </select>
+
+    <select id="getDeptByWxDeptId" resultMap="DepResultMap">
+        SELECT * from department where WEIXIN_DEPT_ID=#{weixinDeptId}
+    </select>
+
+    <select id="getDeptByWlDeptId" resultMap="DepResultMap">
+        SELECT * from department where welink_dept = #{deptCode}
+    </select>
+
+    <select id="getPowerUser" resultType="com.xoa.model.department.Department">
+		SELECT d.SMS_GATE_ACCOUNT, "people" as type, u.AVATAR as avatar,u.USER_NAME as userName, u.USER_ID as userId,
+		u.UID as uid,u.USER_PRIV_NAME as userPrivName,u.SEX as sex,u.BIRTHDAY as birthday,u.MOBIL_NO as mobilNo,u.MY_STATUS as mystatus from department d,user u
+		 where d.DEPT_ID=u.DEPT_ID and u.dept_id !=0  AND u.not_login!=1 and (d.DEPT_ID=#{deptId}
+		 OR (u.DEPT_ID_OTHER LIKE CONCAT('%,',#{deptId},',%') OR u.DEPT_ID_OTHER LIKE CONCAT(#{deptId},',%')) ) ORDER BY u.USER_NO,u.USER_NAME
+	</select>
+    <select id="getDeptIdGridByParent" resultMap="DepResultMap">
+        select * from department where DEPT_PARENT=#{deptParent}
+    </select>
+    <select id="userDeptOrder" parameterType="string" resultMap="DepResultMap">
+        select * from department WHERE DEPT_ID in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            <if test="id!=null and id != '' ">
+                #{id}
+            </if>
+        </foreach>
+    </select>
+    <select id="selectUnallocated" resultMap="DepResultMap">
+        SELECT * from department where DEPT_PARENT =99999998 and DEPT_FUNC='NOT_ASSIGN_DEPT'
+    </select>
+    <select id="selectChildDept" resultType="int">
+        SELECT DEPT_ID from department where DEPT_ID not in (SELECT DISTINCT DEPT_PARENT from department) AND DEPT_PARENT!=99999998
+    </select>
+    <select id="getFatherDeptIdAndSonDeptName" resultType="String">
+        SELECT DEPT_ID FROM department WHERE DEPT_NAME = #{deptName} AND DEPT_PARENT =#{deptParentId}
+    </select>
+    <select id="getOrg" resultType="String" parameterType="string">
+        SELECT DEPT_ID FROM department WHERE ClASSIFY_ORG = 1 AND DEPT_DISPLAY = 1 AND ClASSIFY_ORG_ADMIN like CONCAT('%,',#{uId},',%') or ClASSIFY_ORG_ADMIN like CONCAT(#{uId},',%')
+    </select>
+    <select id="getDeptByIdPlus" resultMap="DepResultMap" parameterType="integer">
+        SELECT DEPT_ID,DEPT_NAME,DEPT_PARENT,DEPT_TYPE,DEPT_ABBR_NAME from department where DEPT_ID=#{deptId}
+    </select>
+    <select id="getChDeptPlus" resultMap="DepResultMap" parameterType="integer">
+        SELECT DEPT_ID,DEPT_NAME,DEPT_PARENT,DEPT_NO from department where DEPT_PARENT=#{deptId} ORDER BY RIGHT(DEPT_NO,3)
+    </select>
+    <update id="updateDept" parameterType="com.xoa.model.department.Department">
+        update department
+        <set>
+            <if test="deptName != null and deptName !=''">
+                DEPT_NAME = #{deptName},
+            </if>
+            <if test="deptParent != null and deptParent !=''">
+                DEPT_PARENT = #{deptParent},
+            </if>
+            <if test="deptFunc != null and deptFunc !=''">
+                DEPT_FUNC = #{deptFunc},
+            </if>
+            <if test="schoolManageType != null and schoolManageType != ''">
+                SCHOOL_MANAGE_TYPE=#{schoolManageType},
+            </if>
+            <if test="statePrivateId != null and statePrivateId != ''">
+                STATE_PRIVATE_ID=#{statePrivateId},
+            </if>
+            <if test="statePrivateId2 != null and statePrivateId2 != ''">
+                STATE_PRIVATE_ID2=#{statePrivateId2},
+            </if>
+            <if test="schoolType != null and schoolType != ''">
+                SCHOOL_TYPE=#{schoolType}
+            </if>
+        </set>
+        where DEPT_ID = #{deptId}
+    </update>
+    <select id="getDeptByType" resultMap="DepResultMap" parameterType="String">
+        SELECT DEPT_ID,DEPT_NAME,DEPT_PARENT from department where DEPT_TYPE=#{deptType}
+    </select>
+
+    <select id="getDeptByDingDingDeptId" resultMap="DepResultMap">
+        SELECT * from department where DINGDING_DEPT_ID=#{dingdingDeptId}
+    </select>
+    <select id="getDeptByManyMap" resultType="java.util.Map">
+        SELECT * from department
+        <where>
+            and DEPT_ID != '0'
+            <if test="ORGAN_FULLNAME != null and ORGAN_FULLNAME != ''">
+                and ORGAN_FULLNAME LIKE CONCAT('%',#{ORGAN_FULLNAME},'%')
+            </if>
+            <if test="ORGAN_NUM != null and ORGAN_NUM != '' ">
+                and ORGAN_NUM LIKE CONCAT('%',#{ORGAN_NUM},'%')
+            </if>
+            <if test="UNIFIED_CREDIT_CODE != null and UNIFIED_CREDIT_CODE != ''">
+                and UNIFIED_CREDIT_CODE LIKE CONCAT('%',#{UNIFIED_CREDIT_CODE},'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="selectDeptNameByDeptNos" resultMap="DepResultMap">
+        select DEPT_ID,DEPT_NAME,DEPT_PARENT,DEPT_NO from department where DEPT_NO in
+        <foreach collection="deptNos" item="deptNo" open="(" close=")" separator="," >
+            #{deptNo}
+        </foreach>
+    </select>
+    <select id="selectChildDeptIdByDeptParent" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+         SELECT
+        dept_id
+FROM
+        department
+WHERE
+        dept_id  IN (
+SELECT
+        dept_id  AS did
+FROM
+        (
+SELECT
+        t1.dept_id ,
+IF
+        (
+        find_in_set( DEPT_PARENT, @pids ) > 0
+        OR find_in_set( dept_id , @pids ),
+        @pids := concat( @pids, ',', dept_id  ),
+        0
+        ) AS ischild
+FROM
+        ( SELECT dept_id , DEPT_PARENT FROM department t ORDER BY DEPT_PARENT ) t1,
+        ( SELECT @pids := #{dept_id} ) t2
+        ) t3
+WHERE
+        ischild != 0
+        )
+    </select>
+
+    <update id="editDeptWithWx" parameterType="com.xoa.model.department.Department">
+        update department
+        <set>
+            <if test="deptName != null">
+                DEPT_NAME = #{deptName},
+            </if>
+            <if test="telNo != null">
+                TEL_NO = #{telNo},
+            </if>
+            <if test="faxNo != null">
+                FAX_NO = #{faxNo},
+            </if>
+            <if test="deptAddress != null">
+                DEPT_ADDRESS = #{deptAddress},
+            </if>
+            <if test="deptNo != null">
+                DEPT_NO = #{deptNo},
+            </if>
+            <if test="deptCode != null">
+                DEPT_CODE = #{deptCode},
+            </if>
+            <if test="deptParent != null">
+                DEPT_PARENT = #{deptParent},
+            </if>
+            <if test="isOrg != null">
+                IS_ORG = #{isOrg},
+            </if>
+            <if test="orgAdmin != null">
+                ORG_ADMIN = #{orgAdmin},
+            </if>
+            <if test="deptEmailAuditsIds != null">
+                DEPT_EMAIL_AUDITS_IDS = #{deptEmailAuditsIds},
+            </if>
+            <if test="dingdingDeptId != null and dingdingDeptId != '' ">
+                DINGDING_DEPT_ID = #{dingdingDeptId},
+            </if>
+            <if test="gDept != null">
+                G_DEPT = #{gDept},
+            </if>
+            <if test="manager != null">
+                MANAGER = #{manager},
+            </if>
+            <if test="assistantId != null">
+                ASSISTANT_ID = #{assistantId},
+            </if>
+            <if test="leader1 != null">
+                LEADER1 = #{leader1},
+            </if>
+            <if test="leader2 != null">
+                LEADER2 = #{leader2},
+            </if>
+            <if test="deptFunc != null">
+                DEPT_FUNC = #{deptFunc},
+            </if>
+            <if test="classifyOrgAdmin != null">
+                ClASSIFY_ORG_ADMIN = #{classifyOrgAdmin},
+            </if>
+            <if test="weLinkDept!=null">
+                weLink_Dept = #{weLinkDept},
+            </if>
+            <if test="deptAbbrName!=null">
+                DEPT_ABBR_NAME = #{deptAbbrName},
+            </if>
+            <if test="deptType!=null and deptType!=''">
+                DEPT_TYPE = #{deptType},
+            </if>
+            <if test="privTypes!=null">
+                PRIV_TYPES = #{privTypes},
+            </if>
+            <if test="deptDisplay!=null">
+                DEPT_DISPLAY = #{deptDisplay},
+            </if>
+            <if test="weixinDeptId != null">
+                WEIXIN_DEPT_ID = #{weixinDeptId},
+            </if>
+        </set>
+        where DEPT_ID = #{deptId}
+    </update>
+
+    <select id="getDepartmentStructure" resultMap="DeptIdAndNameResultMap" parameterType="java.lang.Integer">
+        SELECT
+            DEPT_ID,
+            DEPT_NAME
+        FROM
+            department
+        WHERE
+            DEPT_DISPLAY = 1
+          AND DEPT_PARENT = #{deptId}
+        ORDER BY
+            DEPT_NO
+    </select>
+
+    <update id="editDeptSecrecy" parameterType="com.xoa.model.department.Department">
+        update department
+        <set>
+            <if test="manager != null">
+                MANAGER = #{manager},
+            </if>
+            <if test="deptApprover != null">
+                DEPT_APPROVER = #{deptApprover},
+            </if>
+        </set>
+        where DEPT_ID = #{deptId}
+    </update>
+
+    <select id="selectDepartmentByDeptNo" resultMap="DepResultMap" parameterType="string">
+        SELECT
+            *
+        FROM
+            department
+        WHERE
+            DEPT_NO = #{deptNo}
+    </select>
+
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xoa.dao.fulltext.AttachmentIndexPrivMapper">
+    <resultMap id="BaseResultMap" type="com.xoa.model.fulltext.AttachmentIndexPriv">
+        <id column="MODULE_ID" javaType="java.lang.Integer" property="moduleId"/>
+        <result column="MODULE_NAME" jdbcType="VARCHAR" property="moduleName"/>
+        <result column="PRIV_IDS" jdbcType="LONGVARCHAR" property="privIds"/>
+        <result column="DEPT_IDS" jdbcType="LONGVARCHAR" property="deptIds"/>
+        <result column="USER_IDS" jdbcType="LONGVARCHAR" property="userIds"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+         select * from attachment_index_priv
+    </select>
+    <select id="selectByModuleId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select * from attachment_index_priv
+        where MODULE_ID = #{moduleId}
+    </select>
+    <update id="update" parameterType="com.xoa.model.fulltext.AttachmentIndexPriv">
+        update attachment_index_priv
+        set PRIV_IDS = #{privIds},
+            DEPT_IDS = #{deptIds},
+            USER_IDS = #{userIds}
+        where MODULE_ID = #{moduleId}
+    </update>
+    <insert id="insert" parameterType="com.xoa.model.fulltext.AttachmentIndexPriv">
+        insert into attachment_index_priv(MODULE_ID,MODULE_NAME, PRIV_IDS, DEPT_IDS, USER_IDS)
+        values (#{moduleId},#{moduleName}, #{privIds}, #{deptIds}, #{userIds})
+    </insert>
+
+    <select id="selectManagerName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select MODULE_ID, MODULE_NAME from attachment_index_priv
+        <where>
+            MODULE_NAME in ('电子邮件','流程中心','文件柜','工作日志')
+            or
+            (
+            (
+            USER_IDS like CONCAT('%', #{userId}, ',%')
+            )
+            OR
+            (
+            DEPT_IDS like concat(CONCAT('%',(SELECT DEPT_ID FROM USER where USER_ID =  #{userId})),',%')
+            )
+            OR
+            (
+            DEPT_IDS like concat(CONCAT('%',(SELECT DEPT_ID_OTHER FROM USER where USER_ID =  #{userId})),',%')
+            )
+            OR
+            (
+            PRIV_IDS LIKE concat(CONCAT('%',(SELECT USER_PRIV FROM USER where USER_ID =  #{userId})),',%')
+            )
+            )
+        </where>
+    </select>
+</mapper>

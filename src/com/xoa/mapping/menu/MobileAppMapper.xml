@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.menu.MobileAppMapper" >
+  <resultMap id="BaseResultMap" type="com.xoa.model.menu.MobileApp" >
+    <id column="APP_ID" property="appId"  javaType="int"/>
+    <result column="APP_NAME" property="appName" javaType="string" />
+    <result column="APP_TYPE" property="appType"  javaType="string" />
+    <result column="APP_MODULE" property="appModule"  javaType="string" />
+    <result column="APP_ICON" property="appIcon"  javaType="string" />
+    <result column="APP_URL" property="appUrl"  javaType="string" />
+    <result column="APP_DESC" property="appDesc"  javaType="string" />
+  </resultMap>
+  <select id="getMobileAppList" resultMap="BaseResultMap">
+SELECT APP_ID,APP_NAME,APP_TYPE,APP_MODULE,APP_ICON,APP_URL,APP_DESC,APP_PRIV from mobile_app 
+  </select>
+</mapper>

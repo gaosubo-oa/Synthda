@@ -1,0 +1,25 @@
+.titleleft{
+    background: url(/img/main_img/titleft3.png) no-repeat;
+}
+.pbg{
+    border-top: 3px solid #2b7fe0;
+}
+.mores{
+    color: #2b7fe0;
+}
+.btnSelect{
+    background: #2b7fe0!important;
+}
+.r-top{
+    color: #2b7fe0;
+}
+.flowBtn, .reveiveBtn, .sendBtn, .emailBtn, .newBtn, .ReadFileBtn{
+    color: #2b7fe0!important;
+    border: #2b7fe0 1px solid!important;
+}
+.calendar .calendar-views .now{
+    background: #2b7fe0 !important;
+}
+.pbg a.fr{
+    color: #2b7fe0!important;
+}

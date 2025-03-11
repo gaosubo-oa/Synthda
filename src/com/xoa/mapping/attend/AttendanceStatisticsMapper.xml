@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.attend.AttendanceStatisticsMapper" >
+
+
+    <!--查询部门名字-->
+    <select id="selectDeptName"  resultType="String">
+    select DISTINCT  DEPT_NAME FROM  department
+    </select>
+
+  <!--查询用户名字-->
+    <select id="selectUser"   resultType="String">
+
+   select  DISTINCT  USER_NAME FROM USER
+
+
+    </select>
+    <select id="selectTitle" resultType="String">
+        select  TITLE  FROM   attend_set
+
+    </select>
+
+</mapper>

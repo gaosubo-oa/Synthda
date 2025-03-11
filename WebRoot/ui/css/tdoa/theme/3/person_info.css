@@ -1,0 +1,46 @@
+*{padding:0px;margin:0px;}
+body{
+   margin:0px;
+}
+
+#left_top{
+   font-size:1px;
+}
+
+.BlockTop{
+   width:178px;
+}
+.BlockTop td.center{
+   text-align:center;
+}
+
+#menu{
+   width:176px !important;
+   width:178px;
+   border:1px #b8d1e2 solid;
+   border-top:0px;
+   background:#fff;
+}
+#menu .title{
+   line-height:21px;
+   text-align:center;
+   border-top:1px #b8d1e2 solid;
+   border-bottom:1px #b8d1e2 solid;
+   font-weight:bold;
+   background:url('list_hd_bg.png') left top repeat-x;
+}
+#menu .menu_container{
+   padding:5px;
+}
+#menu .menu_container a{
+   display:block;
+   height:20px;
+   line-height:20px;
+   padding-left:10px;
+}
+#menu .menu_container hr{
+   height:0px;
+   border:0px;
+   border-top:1px #b8d1e2 solid;
+   margin:3px;
+}

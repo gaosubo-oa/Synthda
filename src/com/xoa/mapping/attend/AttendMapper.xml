@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xoa.dao.attend.AttendMapper" >
+    <resultMap id="BaseResultMap" type="com.xoa.model.attend.Attend">
+        <id column="AID" property="aid" jdbcType="INTEGER" />
+        <result column="UID" property="uid" jdbcType="INTEGER" />
+        <result column="DATE" property="date" jdbcType="DATE" />
+        <result column="TYPE" property="type" jdbcType="VARCHAR" />
+        <result column="ATIME" property="atime" jdbcType="INTEGER" />
+        <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+        <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+        <result column="PHONE_ID" property="phoneId" jdbcType="VARCHAR" />
+        <result column="DEVICE" property="device" jdbcType="VARCHAR" />
+        <result column="FILE_ID" property="fileId" jdbcType="LONGVARCHAR" />
+        <result column="FILE_NAME" property="fileName" jdbcType="LONGVARCHAR" />
+        <result column="userName" property="userName" javaType="string" />
+        <result column="depName" property="depName" javaType="string"  />
+        <result column="TYPESIGN" property="typeSign" jdbcType="CHAR"/>
+    </resultMap>
+
+
+    <resultMap id="queryMap" type="com.xoa.model.attend.Attend" extends="BaseResultMap">
+        <result column="USER_PRIV" property="userPriv"></result>
+        <result column="USER_PRIV_NO" property="userPrivNo"></result>
+        <result column="USER_PRIV_NAME" property="userPrivName"></result>
+        <result column="USER_NAME" property="userName" javaType="string" />
+        <result column="DEPT_NAME" property="depName" javaType="string"  />
+    </resultMap>
+
+    <insert id="addAttend" parameterType="com.xoa.model.attend.Attend">
+insert into attend (AID, UID, DATE,
+      TYPE, ATIME, ADDRESS,
+      REMARK, PHONE_ID, DEVICE,
+      FILE_ID, FILE_NAME)
+    values (#{aid}, #{uid}, #{date},
+      #{type}, #{atime}, #{address},
+      #{remark}, #{phoneId}, #{device},
+      #{fileId}, #{fileName})
+
+  </insert>
+
+  <insert id="addAttend" parameterType="com.xoa.model.attend.Attend" databaseId="kingbase">
+    insert into attend (UID, DATE,
+      TYPE, ATIME, ADDRESS,
+      REMARK, PHONE_ID, DEVICE,
+      FILE_ID, FILE_NAME)
+    values (#{uid}, #{date},
+      #{type}, #{atime}, #{address},
+      #{remark}, #{phoneId}, #{device},
+      #{fileId}, #{fileName})
+  </insert>
+
+    <select id="selectAttend" resultMap="BaseResultMap" parameterType="Map">
+   SELECT AID,UID,DATE,ATIME,ADDRESS FROM  attend  WHERE UID= #{uid} AND  DATE = #{date} AND  TYPE = #{type}
+</select>
+    <select id="selectAttendList" resultMap="BaseResultMap" parameterType="Map" >
+        SELECT  * FROM  attend a WHERE  a.UID= #{uid}
+        <if test="date!=null ">
+            AND  a.DATE = #{date}
+        </if>
+        <if test="type!=null ">
+            AND  a.TYPE =#{type}
+        </if>
+    </select>
+
+    <select id="selectAttendList" resultMap="BaseResultMap" parameterType="Map" databaseId="oracle" >
+        SELECT  * FROM  attend a WHERE  a."UID"= #{uid}
+        <if test="date!=null ">
+            AND  a."DATE" =to_date(#{date},'yyyy-MM-dd')
+        </if>
+        <if test="type!=null ">
+            AND  a."TYPE" =#{type}
+        </if>
+    </select>
+
+    <select id="quertAttendList" resultMap="BaseResultMap" parameterType="Map">
+        SELECT  * FROM  attend a
+        <where>
+            <if test="date!=null ">
+                AND  a.DATE = #{date}
+            </if>
+            <if test="type!=null ">
+                AND  a.TYPE =#{type}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="AttendList" resultMap="BaseResultMap" parameterType="Map">
+        SELECT  * FROM  attend a WHERE   (TYPE=1 or TYPE = 20)
+        <if test="date!=null ">
+            AND  a.DATE = #{date}
+        </if>
+        GROUP BY uid
+        order by  a.ATIME asc
+    </select>
+
+    <select id="selectAttendType" resultMap="BaseResultMap" >
+        SELECT a.* FROM  attend a
+        <where>
+            <if test="type!=null ">
+                AND  a.TYPE =#{type}
+            </if>
+        </where>
+    </select>
+    <select id="selectAttendAll" resultMap="BaseResultMap">
+        SELECT * FROM attend a WHERE a.UID= #{uid} AND a.TYPE =#{type}
+        <if test="date!=null ">
+            AND a.DATE = #{date}
+        </if>
+    </select>
+    <select id="selectAttendCompilations" resultMap="BaseResultMap">
+        SELECT * FROM attend a WHERE a.UID= #{uid} AND a.TYPE =#{type}
+        <if test="date!=null ">
+            AND a.DATE = #{date}
+        </if>
+    </select>
+    <select id="selectAttendAll" resultMap="BaseResultMap" databaseId="oracle">
+        SELECT * FROM attend A1 WHERE A1."UID"= #{uid}  AND A1."TYPE" =#{type}
+        <if test="date!=null ">
+            AND   A1."DATE" = to_date(#{date},'yyyy-mm-dd')
+        </if>
+    </select>
+
+    <select id="selectAttend0" resultMap="BaseResultMap">
+        SELECT * FROM attend a WHERE a.UID= #{uid} AND a.TYPE ='0'
+        <if test="date!=null ">
+            AND a.DATE = #{date}
+        </if>
+    </select>
+    <select id="selectAttend0" resultMap="BaseResultMap" databaseId="oracle">
+        SELECT * FROM attend A1 WHERE A1."UID"= #{uid}  AND A1."TYPE" ='0'
+        <if test="date!=null ">
+            AND   A1."DATE" = to_date(#{date},'yyyy-mm-dd')
+        </if>
+    </select>
+    <select id="queryCountPhone" resultMap="BaseResultMap">
+        SELECT COUNT(*) as count,PHONE_ID FROM `ATTEND` WHERE UID=#{uid} and `DATE` &lt;= #{end} AND `DATE`&gt;= #{strat} GROUP BY(PHONE_ID)
+    </select>
+
+    <select id="queryCountPhone" resultMap="BaseResultMap" databaseId="oracle">
+        SELECT COUNT(*) as count,PHONE_ID FROM ATTEND a WHERE a."UID"=#{uid} and a."DATE" &lt;=to_date(#{end},'yyyy-MM-dd') AND a."DATE" &gt;=to_date(#{strat},'yyyy-MM-dd')  GROUP BY(PHONE_ID)
+    </select>
+
+    <select id="queryCountPhone" resultMap="BaseResultMap" databaseId="dm">
+        SELECT COUNT(*) as count,PHONE_ID FROM ATTEND a WHERE a."UID"=#{uid} and a."DATE" &lt;=to_date(#{end},'yyyy-MM-dd') AND a."DATE" &lt;=to_date(#{strat},'yyyy-MM-dd')  GROUP BY(PHONE_ID)
+    </select>
+    <select id="queryAttendPhone" resultMap="BaseResultMap" >
+        SELECT * from attend  where  PHONE_ID=#{phone}
+        <if test="uid!=null ">
+            and  UID=#{uid}
+        </if>
+        <if test="end != null and end != '' and strat != null and strat != ''">
+            and `DATE` &lt;= #{end} AND `DATE`&gt;= #{strat}
+        </if>
+    </select>
+
+
+    <select id="queryAttendPhone" resultMap="BaseResultMap" databaseId="oracle" >
+        SELECT * from attend  where  PHONE_ID=#{phone}
+        <if test="uid!=null ">
+            and  "UID"=#{uid}
+        </if>
+
+        <if
+                test="end != null and end != '' and strat != null and strat != ''">
+            and "DATE" &lt;=to_date(#{end},'yyyy-MM-dd') AND "DATE" &lt;=to_date(#{strat},'yyyy-MM-dd')
+        </if>
+    </select>
+
+    <select id="queryAttendPhone" resultMap="BaseResultMap" databaseId="dm" >
+        SELECT * from attend  where  PHONE_ID=#{phone}
+        <if test="uid!=null ">
+            and  "UID"=#{uid}
+        </if>
+
+        <if
+                test="end != null and end != '' and strat != null and strat != ''">
+            and "DATE" &lt;=to_date(#{end},'yyyy-MM-dd') AND "DATE" &lt;=to_date(#{strat},'yyyy-MM-dd')
+        </if>
+    </select>
+
+    <select id="queryAttendPhoneId" resultMap="BaseResultMap" >
+        SELECT * from attend  where  PHONE_ID=#{phone}
+        <if test="uid!=null ">
+            and  UID=#{uid}
+        </if>
+        <if test="date!=null ">
+            AND  `DATE` = #{date}
+        </if>
+        <if test="type!=null ">
+            AND  TYPE =#{type}
+        </if>
+    </select>
+
+    <select id="queryAttendPhoneId" resultMap="BaseResultMap" databaseId="oracle" >
+        SELECT * from attend  where  PHONE_ID=#{phone}
+        <if test="uid!=null ">
+            and  "UID"=#{uid}
+        </if>
+        <if test="date!=null ">
+            AND  `DATE` =to_date(#{date},'yyyy-MM-dd')
+        </if>
+        <if test="type!=null ">
+            AND  TYPE =#{type}
+        </if>
+    </select>
+
+    <select id="queryAttendPhoneId" resultMap="BaseResultMap" databaseId="dm" >
+        SELECT * from attend  where  PHONE_ID=#{phone}
+        <if test="uid!=null ">
+            and  "UID"=#{uid}
+        </if>
+        <if test="date!=null ">
+            AND  `DATE` =to_date(#{date},'yyyy-MM-dd')
+        </if>
+        <if test="type!=null ">
+            AND  TYPE =#{type}
+        </if>
+    </select>
+    <select id="findByAttendCount" resultMap="BaseResultMap">
+SELECT
+	ad.*, u.USER_NAME userName ,dep.DEPT_NAME depName
+FROM
+	attend ad
+INNER JOIN `user` u ON ad.UID = u.UID
+
+AND u.DEPT_ID = #{depId}
+LEFT JOIN department dep ON  dep.DEPT_ID=u.DEPT_ID
+
+WHERE
+ ad.TYPE !=0
+    </select>
+
+    <select id="findByAttendCount" resultMap="BaseResultMap" databaseId="oracle">
+        SELECT
+        ad.*, u.USER_NAME userName ,dep.DEPT_NAME depName
+        FROM
+        attend ad
+        INNER JOIN "USER" u ON ad."UID" = u."UID"
+
+        AND u.DEPT_ID = #{depId}
+        LEFT JOIN department dep ON  dep.DEPT_ID=u.DEPT_ID
+
+        WHERE
+        ad.TYPE !=0
+    </select>
+
+    <select id="findByAttendCount" resultMap="BaseResultMap" databaseId="dm">
+        SELECT
+        ad.*, u.USER_NAME userName ,dep.DEPT_NAME depName
+        FROM
+        attend ad
+        INNER JOIN "USER" u ON ad."UID" = u."UID"
+
+        AND u.DEPT_ID = #{depId}
+        LEFT JOIN department dep ON  dep.DEPT_ID=u.DEPT_ID
+
+        WHERE
+        ad.TYPE !=0
+    </select>
+
+    <!--查询单个在位时长-->
+    <select id="selectAttendDateExamine" parameterType="map" resultMap="BaseResultMap">
+  SELECT
+	u.UID,
+	u.USER_NAME,
+	a.DATE,
+	a.ATIME,
+	a.TYPE
+FROM
+	`USER` u
+	LEFT JOIN attend a ON u.uid = a.UID
+WHERE
+	a.uid = #{uid}	and a.DATE = #{date}
+ORDER BY
+	a.date,
+    a.ATIME
+    </select>
+
+    <select id="selectAttendDate" parameterType="Integer" resultType="java.util.Date">
+    select DATE from attend where UID=#{uid}
+
+    </select>
+    <select id="selectAttendDate" parameterType="Integer" resultType="java.util.Date" databaseId="oracle">
+        select DATE from attend where "UID"=#{uid}
+
+    </select>
+
+    <select id="selectAttendDate" parameterType="Integer" resultType="java.util.Date" databaseId="dm">
+        select DATE from attend where "UID"=#{uid}
+
+    </select>
+    <!--导出-->
+    <select id="queryExportAttend" resultMap="queryMap" parameterType="map">
+SELECT
+	u.UID,
+	u.USER_NAME,
+	u.USER_PRIV,
+	u.USER_PRIV_NO,
+	u.USER_PRIV_NAME,
+	d.DEPT_NAME,
+	a.DATE,
+	a.ATIME
+FROM
+	`USER` u
+	LEFT JOIN department d ON u.DEPT_ID = d.DEPT_ID
+	LEFT JOIN attend a ON u.uid = a.UID
+ORDER BY  u.user_priv
+  </select>
+    <!--查询全体在位时长-->
+    <select id="AllselectAttendDateExamine"  parameterType="map" resultMap="BaseResultMap">
+   	 SELECT
+	 u.UID,
+	 u.USER_NAME,
+	a.DATE,
+	a.TYPE,
+	a.ATIME
+    FROM
+	 attend a
+	LEFT JOIN `USER` u ON u.uid = a.UID
+	WHERE u.uid is not  NULL  and  a.TYPE!=0
+    ORDER BY a.date, a.atime
+</select>
+
+    <select id="selectAttendParticulars" resultMap="BaseResultMap" >
+
+        SELECT
+        a.DATE,
+        a.ATIME,
+        a.TYPE
+        FROM
+        `USER` u
+        LEFT JOIN department d ON u.DEPT_ID = d.DEPT_ID
+        LEFT JOIN attend a ON u.uid = a.UID
+        WHERE
+        a.date  &gt;=#{date1} And a.date &lt;=#{date2} And u.uid=#{uid}
+        ORDER BY
+        a.date,
+        a.type
+
+    </select>
+
+    <select id="getAttendByType" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        u.UID,
+        u.USER_NAME,
+        a.DATE,
+        a.ATIME,
+        a.TYPE
+        FROM
+        `USER` u
+        LEFT JOIN attend a ON u.uid = a.UID
+        WHERE 1=1
+        <if test="uid!=null">
+            and  a.uid = #{uid}
+        </if>
+        and a.DATE = #{date} and a.TYPE=#{type}
+        ORDER BY
+        a.date,
+        a.ATIME
+    </select>
+
+    <select id="getAttendDetailByType" resultMap="BaseResultMap" parameterType="string">
+        SELECT * FROM attend a WHERE a.UID= #{uid} AND a.TYPE =#{type}
+        <if test="date!=null ">
+            AND a.DATE = #{date}
+        </if>
+    </select>
+
+    <!--  List<Attend> getAttendListByUidAndDates(@Param("uid") Integer uid,
+    @Param("beginDate")String beginDate,@Param("endDate")String endDate);-->
+    <select id="getAttendListByUidAndDates" resultMap="BaseResultMap">
+        select * from attend where uid=#{uid}
+        and ((type &gt;=0 and type&lt; 7) or type = 107 or type = 108 )
+        and
+        date between
+        #{beginDate} and #{endDate}
+    </select>
+
+    <select id="getAttendByUidDatesType" resultMap="BaseResultMap">
+        select * from attend where uid=#{uid}
+        and date between #{beginDate} and #{endDate}
+        ORDER BY date ,ATIME
+    </select>
+
+    <!--Map<String,Object> getUserNameAndDeptNameByUid(Integer uid);-->
+    <select id="getUserNameAndDeptNameByUid" parameterType="Integer" resultType="java.util.HashMap">
+        select
+               u.user_id as userid,
+               u.USER_NAME as username,
+               d.DEPT_NAME as deptname,
+               d.DEPT_ID as deptid,
+               d.DEPT_NO as deptNo,
+               CAST(u.USER_PRIV_NO as CHAR) as userPrivNo,
+               CAST(u.USER_NO as CHAR) as userNo
+        from
+             user u,department d
+        where uid=#{uid} and u.DEPT_ID=d.DEPT_ID
+    </select>
+
+    <select id="getUserNameAndDeptNameByUid" parameterType="Integer" resultType="java.util.HashMap" databaseId="kingbase">
+        select
+               u.user_id as userid,
+               u.USER_NAME as username,
+               d.DEPT_NAME as deptname,
+               d.DEPT_ID as deptid,
+               d.DEPT_NO as deptNo,
+               CAST(u.USER_PRIV_NO as CHAR) as userPrivNo,
+               CAST(u.USER_NO as CHAR) as userNo
+        from
+             "user" u,department d
+        where uid=#{uid} and u.DEPT_ID=d.DEPT_  ID
+    </select>
+
+    <insert id="insertSelective" parameterType="com.xoa.model.attend.Attend" >
+        insert into attend
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="aid != null" >
+                AID,
+            </if>
+            <if test="uid != null" >
+                UID,
+            </if>
+            <if test="date != null" >
+                DATE,
+            </if>
+            <if test="type != null" >
+                TYPE,
+            </if>
+            <if test="atime != null" >
+                ATIME,
+            </if>
+            <if test="address != null" >
+                ADDRESS,
+            </if>
+            <if test="remark != null" >
+                REMARK,
+            </if>
+            <if test="phoneId != null" >
+                PHONE_ID,
+            </if>
+            <if test="device != null" >
+                DEVICE,
+            </if>
+            <if test="fileId != null" >
+                FILE_ID,
+            </if>
+            <if test="fileName != null" >
+                FILE_NAME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="aid != null" >
+                #{aid},
+            </if>
+            <if test="uid != null" >
+                #{uid},
+            </if>
+            <if test="date != null" >
+                #{date},
+            </if>
+            <if test="type != null" >
+                #{type},
+            </if>
+            <if test="atime != null" >
+                #{atime},
+            </if>
+            <if test="address != null" >
+                #{address},
+            </if>
+            <if test="remark != null" >
+                #{remark},
+            </if>
+            <if test="phoneId != null" >
+                #{phoneId},
+            </if>
+            <if test="device != null" >
+                #{device},
+            </if>
+            <if test="fileId != null" >
+                #{fileId},
+            </if>
+            <if test="fileName != null" >
+                #{fileName},
+            </if>
+        </trim>
+    </insert>
+
+    <!--//获取所有有效uid
+    List<Integer> getUidAll();-->
+    <select id="getUidAll" resultType="Integer">
+    SELECT
+	uid
+    FROM
+    USER
+    WHERE
+	NOT_LOGIN = 0
+	AND DEPT_ID != 0
+	AND uid is not NULL
+    <if test="noDutyUser != null and noDutyUser != '' " >
+        and !find_in_set(USER_ID,#{noDutyUser})
+    </if>
+    </select>
+
+    <select id="getUidAll" resultType="Integer" databaseId="kingbase">
+        SELECT
+        uid
+        FROM
+        "USER"
+        WHERE
+        NOT_LOGIN = 0
+        AND DEPT_ID != 0
+        AND uid is not NULL
+        <if test="noDutyUser != null and noDutyUser != '' " >
+            and !find_in_set(USER_ID,#{noDutyUser})
+        </if>
+    </select>
+
+    <!--//获取当前所属uids 的加班和排班信息
+    List<Attend> getJiaBanZhiBanListByUidsAndDate(@Param("uids") List uids,@Param("date") String date);-->
+    <select id="getJiaBanZhiBanListByUidsAndDate" resultMap="BaseResultMap">
+    SELECT
+        a.*,
+        u.USER_NAME as userName,
+        d.DEPT_NAME as depName
+    FROM
+        attend a
+        LEFT JOIN USER u ON u.uid = a.uid
+        left join department d on d.DEPT_ID = u.DEPT_ID
+        where a.UID in
+         <foreach collection="uids" item="uid" separator="," open="(" close=")" index="index">
+             #{uid}
+         </foreach>
+         and a.DATE=#{date}
+         and a.TYPE in( 7 , 8 , 9 , 10)
+    </select>
+
+    <select id="getJiaBanZhiBanListByUidsAndDate" resultMap="BaseResultMap" databaseId="kingbase">
+        SELECT
+        a.*,
+        u.USER_NAME as userName,
+        d.DEPT_NAME as depName
+        FROM
+        attend a
+        LEFT JOIN "USER" u ON u.uid = a.uid
+        left join department d on d.DEPT_ID = u.DEPT_ID
+        where a.UID in
+        <foreach collection="uids" item="uid" separator="," open="(" close=")" index="index">
+            #{uid}
+        </foreach>
+        and a.DATE=#{date}
+        and a.TYPE in( 7 , 8 , 9 , 10)
+    </select>
+
+    <!--/**
+    * 根据条件查找记录
+    * @param map
+    * @return
+    */
+    List<Attend> getAttendListByMap(Map map);-->
+    <select id="getAttendListByMap" resultMap="BaseResultMap" parameterType="map">
+        select * from attend where uid=#{uid}
+        and type =#{type}
+        and
+        date between
+        #{beginDate} and #{endDate}
+    </select>
+    <!--//查看用户当天是否有签到记录
+    Integer getUidDateAttend(@Param("date") String date,@Param("uid") Integer uid);-->
+    <select id="getUidDateAttend" resultType="Integer">
+        select uid from attend where date=#{date} and uid=#{uid} limit 1
+    </select>
+
+    <!--//批量插入
+    int insertAttends(List<Attend> attends);-->
+    <insert id="insertAttends" parameterType="com.xoa.model.attend.Attend" >
+      insert into attend (UID, DATE,
+      TYPE, ATIME, ADDRESS,
+      REMARK, PHONE_ID, DEVICE,
+      FILE_ID, FILE_NAME)
+      value
+       <foreach collection="list"  separator="," item="attend">
+           (#{attend.uid}, #{attend.date},
+           #{attend.type}, #{attend.atime}, #{attend.address},
+           #{attend.remark}, #{attend.phoneId}, #{attend.device},
+           #{attend.fileId}, #{attend.fileName})
+       </foreach>
+
+    </insert>
+    <select id="selectMaxId" resultType="integer">
+        select MAX(AID) from attend
+    </select>
+
+    <select id="getAttendByUidDate" resultMap="BaseResultMap">
+        select * from attend where date=#{date} and uid=#{uid} ORDER BY date ,ATIME
+    </select>
+
+    <select id="selectIsAttend" resultType="java.lang.Integer" parameterType="java.util.Map">
+        SELECT
+            COUNT( * )
+        FROM
+            attend
+        WHERE
+            DATE = #{date}
+            AND UID = #{uid}
+            AND TYPE = #{type}
+    </select>
+    <select id="selectUserAndDeptName" parameterType="java.lang.String" resultType="java.util.HashMap">
+        select
+               u.user_id as userid,
+               u.USER_NAME as username,
+               d.DEPT_NAME as deptname,
+               d.DEPT_ID as deptid,
+               d.DEPT_NO as deptNo,
+               CAST(u.USER_PRIV_NO as CHAR) as userPrivNo,
+               CAST(u.USER_NO as CHAR) as userNo
+        from
+             user u,department d
+        where u.uid=#{uid} and u.DEPT_ID=d.DEPT_ID  and find_in_set(#{uid},#{paraValue}) = 0
+    </select>
+</mapper>
